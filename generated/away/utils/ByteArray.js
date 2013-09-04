@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Mon Sep 02 23:32:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,6 +18,15 @@ away.utils.ByteArray = function() {
 
 away.utils.ByteArray.prototype.ensureWriteableSpace = function(n) {
 	this.ensureSpace(n + this.position);
+};
+
+away.utils.ByteArray.prototype.setArrayBuffer = function(aBuffer) {
+	this.maxlength = this.length = aBuffer.byteLength;
+	this.arraybytes = aBuffer;
+};
+
+away.utils.ByteArray.prototype.getBytesAvailable = function() {
+	return this.arraybytes.byteLength - this.position;
 };
 
 away.utils.ByteArray.prototype.ensureSpace = function(n) {
@@ -47,6 +56,19 @@ away.utils.ByteArray.prototype.readByte = function() {
 	}
 	var view = new Int8Array(this.arraybytes);
 	return view[this.position++];
+};
+
+away.utils.ByteArray.prototype.readBytes = function(bytes, start, end) {
+	var uintArr = new Uint8Array(this.arraybytes);
+	if (end == start || end <= start) {
+		end = uintArr.length;
+	}
+	var result = new ArrayBuffer();
+	var resultArray = new Uint8Array(result);
+	for (var i = 0; i < resultArray.length; i++) {
+		resultArray[i] = uintArr[i + start];
+	}
+	bytes.setArrayBuffer(result);
 };
 
 away.utils.ByteArray.prototype.writeUnsignedByte = function(b) {
@@ -121,9 +143,21 @@ away.utils.ByteArray.prototype.writeUnsignedInt = function(b) {
 	}
 };
 
+away.utils.ByteArray.prototype.readUnsignedInteger = function() {
+	if (this.position > this.length + 4) {
+		throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
+	}
+	var view = new Uint32Array(this.unalignedarraybytestemp, 0, 1);
+	var view2 = new Uint8Array(this.arraybytes, this.position, 4);
+	var view3 = new Uint8Array(this.unalignedarraybytestemp, 0, 4);
+	view3.set(view2);
+	this.position += 4;
+	return view[0];
+};
+
 away.utils.ByteArray.prototype.readUnsignedInt = function() {
 	if (this.position > this.length + 4) {
-		throw "ByteArray out of bounds read. Positon=" + this.position + ", Length=" + this.length;
+		throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
 	}
 	if ((this.position & 3) == 0) {
 		var view = new Uint32Array(this.arraybytes);

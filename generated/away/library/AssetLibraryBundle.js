@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Mon Sep 02 23:32:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -305,9 +305,7 @@ away.library.AssetLibraryBundle.prototype.onResourceRetrieved = function(event) 
 	var index = this._loadingSessions.indexOf(loader, 0);
 	this._loadingSessions.splice(index, 1);
 	this._loadingSessionsGarbage.push(loader);
-	this._gcTimeoutIID = setTimeout(function() {
-		this.loadingSessionGC();
-	}, 100);
+	this._gcTimeoutIID = setTimeout($createStaticDelegate(this, this.loadingSessionGC), 100);
 };
 
 away.library.AssetLibraryBundle.prototype.loadingSessionGC = function() {

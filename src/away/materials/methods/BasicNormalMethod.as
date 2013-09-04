@@ -5,6 +5,9 @@ package away.materials.methods
 	import away.textures.Texture2DBase;
 	import away.materials.compilation.ShaderRegisterElement;
 	import away.managers.Stage3DProxy;
+	import away.display3D.Context3DWrapMode;
+	import away.display3D.Context3DTextureFilter;
+	import away.display3D.Context3DMipFilter;
 	import away.materials.compilation.ShaderRegisterCache;
 
 	/**	 * BasicNormalMethod is the default method for standard tangent-space normal mapping.	 */
@@ -108,11 +111,13 @@ package away.materials.methods
 			if (vo.texturesIndex >= 0)
             {
 
-                //away.Debug.throwPIR( 'BasicNormalMethod' , 'iActivate' , 'Context3D.setGLSLTextureAt - params not matching');
+                stage3DProxy._iContext3D.setSamplerStateAt( vo.texturesIndex ,
+                        vo.repeatTextures ?  Context3DWrapMode.REPEAT :  Context3DWrapMode.CLAMP,
+                        vo.useSmoothTextures ? Context3DTextureFilter.LINEAR : Context3DTextureFilter.NEAREST ,
+                        vo.useMipmapping ? Context3DMipFilter.MIPLINEAR : Context3DMipFilter.MIPNONE );
                 stage3DProxy._iContext3D.setTextureAt( vo.texturesIndex, _texture.getTextureForStage3D(stage3DProxy));
 
             }
-
 
 		}
 

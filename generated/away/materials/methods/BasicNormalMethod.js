@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Mon Sep 02 23:32:26 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -62,6 +62,7 @@ away.materials.methods.BasicNormalMethod.prototype.dispose = function() {
 
 away.materials.methods.BasicNormalMethod.prototype.iActivate = function(vo, stage3DProxy) {
 	if (vo.texturesIndex >= 0) {
+		stage3DProxy._iContext3D.setSamplerStateAt(vo.texturesIndex, vo.repeatTextures ? away.display3D.Context3DWrapMode.REPEAT : away.display3D.Context3DWrapMode.CLAMP, vo.useSmoothTextures ? away.display3D.Context3DTextureFilter.LINEAR : away.display3D.Context3DTextureFilter.NEAREST, vo.useMipmapping ? away.display3D.Context3DMipFilter.MIPLINEAR : away.display3D.Context3DMipFilter.MIPNONE);
 		stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, this._texture.getTextureForStage3D(stage3DProxy));
 	}
 };
@@ -79,6 +80,9 @@ away.materials.methods.BasicNormalMethod.className = "away.materials.methods.Bas
 away.materials.methods.BasicNormalMethod.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.display3D.Context3DMipFilter');
+	p.push('away.display3D.Context3DWrapMode');
+	p.push('away.display3D.Context3DTextureFilter');
 	p.push('away.materials.methods.MethodVO');
 	return p;
 };

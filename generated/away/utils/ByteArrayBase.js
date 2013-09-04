@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Mon Sep 02 23:32:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -58,6 +58,10 @@ away.utils.ByteArrayBase.prototype.readFloat = function(b) {
 
 away.utils.ByteArrayBase.prototype.fromFloatBits = function(x) {
 	throw "Virtual method";
+};
+
+away.utils.ByteArrayBase.prototype.getBytesAvailable = function() {
+	throw new away.errors.AbstractMethodError("ByteArrayBase, getBytesAvailable() not implemented ", 0);
 };
 
 away.utils.ByteArrayBase.prototype.toString = function() {
@@ -150,7 +154,9 @@ away.utils.ByteArrayBase.className = "away.utils.ByteArrayBase";
 
 away.utils.ByteArrayBase.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.errors.AbstractMethodError');
+	return p;
 };
 
 away.utils.ByteArrayBase.getStaticDependencies = function(t) {

@@ -1,9 +1,13 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
 {
+	import away.errors.AbstractMethodError;
 	import randori.webkit.page.Window;
 	public class ByteArrayBase
 	{
@@ -29,7 +33,12 @@ package away.utils
 		public function toFloatBits(x:Number):Number{ throw 		"Virtual method"; }
 		public function readFloat(b:Number):Number{ throw 		"Virtual method"; }
 		public function fromFloatBits(x:Number):Number{ throw 		"Virtual method"; }
-		
+
+        public function getBytesAvailable():Number
+        {
+            throw new AbstractMethodError( 'ByteArrayBase, getBytesAvailable() not implemented ');
+        }
+
 		public function toString():String
 		{
 			return "[ByteArray] ( " + _mode + " ) position=" + position + " length=" + length; 
@@ -92,8 +101,8 @@ package away.utils
 			position = oldpos;
 		}
 		
-		public function internalGetBase64String(count, getUnsignedByteFunc, self):String
-		{ // return base64 string of the next count bytes
+		public function internalGetBase64String(count, getUnsignedByteFunc, self):String  // return base64 string of the next count bytes
+		{
 			var r = "";
 			var b0, b1, b2, enc1, enc2, enc3, enc4;
 			var base64Key = Base64Key;

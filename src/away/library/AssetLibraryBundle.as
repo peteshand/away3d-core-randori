@@ -579,7 +579,7 @@ package away.library
 
             // Add loader to a garbage array - for a collection sweep and kill
             _loadingSessionsGarbage.push( loader );
-            _gcTimeoutIID = Window.setTimeout( function() { loadingSessionGC() }  , 100 );
+            _gcTimeoutIID = Window.setTimeout( loadingSessionGC  , 100 );
 
 		}
 

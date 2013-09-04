@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 03 00:11:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,10 +6,14 @@ if (typeof away.display3D == "undefined")
 	away.display3D = {};
 
 away.display3D.Context3D = function(canvas) {
+	this._currentWrap = 0;
 	this._blendDestinationFactor = 0;
 	this._blendSourceFactor = 0;
 	this._vertexBufferList = [];
+	this._currentFilter = 0;
+	this._samplerStates = [];
 	this._blendEnabled = null;
+	this._currentMipFilter = 0;
 	this._drawing = null;
 	this._indexBufferList = [];
 	this._textureList = [];
@@ -27,7 +31,15 @@ away.display3D.Context3D = function(canvas) {
 	} else {
 		console.log("WebGL is not available.");
 	}
+	for (var i = 0; i < away.display3D.Context3D.MAX_SAMPLERS; ++i) {
+		this._samplerStates[i] = new away.display3D.SamplerState();
+		this._samplerStates[i].wrap = 10497;
+		this._samplerStates[i].filter = 9729;
+		this._samplerStates[i].mipfilter = 0;
+	}
 };
+
+away.display3D.Context3D.MAX_SAMPLERS = 8;
 
 away.display3D.Context3D.prototype.gl = function() {
 	return this._gl;
@@ -100,6 +112,9 @@ away.display3D.Context3D.prototype.dispose = function() {
 	this._textureList = null;
 	for (i = 0; i < this._programList.length; ++i) {
 		this._programList[i].dispose();
+	}
+	for (i = 0; i < this._samplerStates.length; ++i) {
+		this._samplerStates[i] = null;
 	}
 	this._programList = null;
 };
@@ -359,10 +374,62 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 	}
 	this._gl.bindTexture(3553, texture.get_glTexture());
 	this._gl.uniform1i(location, textureIndex);
-	this._gl.texParameteri(3553, 10242, 33071);
-	this._gl.texParameteri(3553, 10243, 33071);
-	this._gl.texParameteri(3553, 10241, 9729);
-	this._gl.texParameteri(3553, 10240, 9729);
+	var samplerState = this._samplerStates[textureIndex];
+	if (samplerState.wrap != this._currentWrap) {
+		this._currentWrap = samplerState.wrap;
+		this._gl.texParameteri(3553, 10242, samplerState.wrap);
+		this._gl.texParameteri(3553, 10243, samplerState.wrap);
+	}
+	if (samplerState.filter != this._currentFilter) {
+		this._gl.texParameteri(3553, 10241, samplerState.filter);
+		this._gl.texParameteri(3553, 10240, samplerState.filter);
+	}
+};
+
+away.display3D.Context3D.prototype.setSamplerStateAt = function(sampler, wrap, filter, mipfilter) {
+	var glWrap = 0;
+	var glFilter = 0;
+	var glMipFilter = 0;
+	switch (wrap) {
+		case away.display3D.Context3DWrapMode.REPEAT:
+			glWrap = 10497;
+			break;
+		case away.display3D.Context3DWrapMode.CLAMP:
+			glWrap = 33071;
+			break;
+		default:
+			throw "Wrap is not supported: " + wrap;
+	}
+	switch (filter) {
+		case away.display3D.Context3DTextureFilter.LINEAR:
+			glFilter = 9729;
+			break;
+		case away.display3D.Context3DTextureFilter.NEAREST:
+			glFilter = 9728;
+			break;
+		default:
+			throw "Filter is not supported " + filter;
+	}
+	switch (mipfilter) {
+		case away.display3D.Context3DMipFilter.MIPNEAREST:
+			glMipFilter = 9984;
+			break;
+		case away.display3D.Context3DMipFilter.MIPLINEAR:
+			glMipFilter = 9987;
+			break;
+		case away.display3D.Context3DMipFilter.MIPNONE:
+			glMipFilter = 0;
+			break;
+		default:
+			throw "MipFilter is not supported " + mipfilter;
+	}
+	if (0 <= sampler && sampler < away.display3D.Context3D.MAX_SAMPLERS) {
+		this._samplerStates[sampler].wrap = glWrap;
+		this._samplerStates[sampler].filter = glFilter;
+		this._samplerStates[sampler].mipfilter = glMipFilter;
+	} else {
+		throw "Sampler is out of bounds.";
+	}
 };
 
 away.display3D.Context3D.prototype.setVertexBufferAt = function(index, buffer, bufferOffset, format) {
@@ -422,14 +489,18 @@ away.display3D.Context3D.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.display3D.TextureBase');
 	p.push('away.display3D.Program3D');
+	p.push('away.display3D.SamplerState');
 	p.push('away.display3D.IndexBuffer3D');
 	p.push('away.display3D.Context3DTriangleFace');
+	p.push('away.display3D.Context3DWrapMode');
 	p.push('away.display3D.Context3DProgramType');
 	p.push('away.display3D.Texture');
 	p.push('away.errors.PartialImplementationError');
+	p.push('away.display3D.Context3DTextureFilter');
 	p.push('away.display3D.Context3DCompareMode');
 	p.push('away.display3D.CubeTexture');
 	p.push('away.display3D.Context3DVertexBufferFormat');
+	p.push('away.display3D.Context3DMipFilter');
 	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.geom.Matrix3D');
 	p.push('Float32Array');

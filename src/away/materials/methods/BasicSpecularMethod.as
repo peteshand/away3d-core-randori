@@ -6,6 +6,9 @@ package away.materials.methods
 	import away.textures.Texture2DBase;
 	import away.materials.compilation.ShaderRegisterCache;
 	import away.managers.Stage3DProxy;
+	import away.display3D.Context3DWrapMode;
+	import away.display3D.Context3DTextureFilter;
+	import away.display3D.Context3DMipFilter;
 	//import away3d.*;
 	//import away3d.managers.*;
 	//import away3d.materials.compilation.*;
@@ -377,6 +380,10 @@ package away.materials.methods
 			if (_useTexture)
             {
 
+               stage3DProxy._iContext3D.setSamplerStateAt( vo.texturesIndex ,
+                    vo.repeatTextures ?  Context3DWrapMode.REPEAT :  Context3DWrapMode.CLAMP,
+                    vo.useSmoothTextures ? Context3DTextureFilter.LINEAR : Context3DTextureFilter.NEAREST ,
+                    vo.useMipmapping ? Context3DMipFilter.MIPLINEAR : Context3DMipFilter.MIPNONE );
                stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, _texture.getTextureForStage3D(stage3DProxy));
 
             }

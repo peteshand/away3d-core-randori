@@ -4,9 +4,8 @@
 
 package away.utils
 {
-import randori.webkit.page.Window;
 
-public class RequestAnimationFrame
+    public class RequestAnimationFrame
     {
 
         private var _callback:Function;
@@ -41,11 +40,7 @@ public class RequestAnimationFrame
 
         // Public
 
-        /**
-         *
-         * @param callback
-         * @param callbackContext
-         */
+        /**         *         * @param callback         * @param callbackContext         */
         public function setCallback(callback:Function, callbackContext:Object):void
         {
 
@@ -54,9 +49,7 @@ public class RequestAnimationFrame
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function start():void
         {
 
@@ -92,9 +85,7 @@ public class RequestAnimationFrame
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function stop():void
         {
 
@@ -104,10 +95,7 @@ public class RequestAnimationFrame
 
         // Get / Set
 
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
         public function get active():Boolean
         {
 
@@ -117,12 +105,10 @@ public class RequestAnimationFrame
 
         // Private
 
-        /**
-         *
-         * @private
-         */
+        /**         *         * @private         */
         private function _tick():void
         {
+
             _currentTime   = new Date().getTime();
             _dt            = _currentTime - _prevTime;
             _argsArray[0]  = _dt;

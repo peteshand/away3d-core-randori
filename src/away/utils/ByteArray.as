@@ -1,4 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 
 ///<reference path="../_definitions.ts"/>
 
@@ -9,7 +12,9 @@ package away.utils
 	{
 		
 		public var maxlength:Number = 0;
-		public var arraybytes; //ArrayBuffer  		public var unalignedarraybytestemp; //ArrayBuffer		
+		public var arraybytes; //ArrayBuffer  
+		public var unalignedarraybytestemp; //ArrayBuffer
+		
 		public function ByteArray():void
 		{
 			super();
@@ -23,7 +28,57 @@ package away.utils
 		{
 			ensureSpace( n + position );
 		}
-		
+
+        public function setArrayBuffer(aBuffer:ArrayBuffer):void
+        {
+
+            /*
+            var v2 : Int8Array = new Int8Array( aBuffer );
+
+            for (var i = 0; i < v2.length - 1 ; i++)
+            {
+                this.writeByte( v2[ i ] );
+            }
+            //*/
+            /*
+            this.maxlength = aBuffer.byteLength + 4;
+            this.arraybytes = new ArrayBuffer( this.maxlength );
+
+            this.length = aBuffer.byteLength;
+
+            for (var i = 0; i < aBuffer.byteLength; i++)
+            {
+                this.arraybytes [ i ] = aBuffer[ i  ];
+            }
+            //*/
+            //bytes.setArrayBuffer( result );
+
+            /*
+            this.maxlength += 4;
+
+            this.maxlength = this.length = aBuffer.byteLength;
+            this.maxlength += 4;
+
+            this.maxlength = this.length = aBuffer.byteLength;
+            this.maxlength += 4;
+
+            this.arraybytes = aBuffer;
+            */
+
+            //*
+            maxlength = length = aBuffer.byteLength;
+            //this.maxlength += 4;
+
+            arraybytes = aBuffer;
+            //*/
+
+        }
+
+        override public function getBytesAvailable():Number
+        {
+            return ( arraybytes.byteLength ) - ( position ) ;
+        }
+
 		public function ensureSpace(n:Number):void
 		{
 			if ( n > maxlength )
@@ -55,9 +110,31 @@ package away.utils
 			{
 				throw "ByteArray out of bounds read. Positon="+position+", Length="+length; 
 			}
-			var view = new Int8Array(arraybytes); 
-			return view[ position++ ];                
+			var view = new Int8Array(arraybytes);
+			return view[ position++ ];
 		}
+
+        public function readBytes(bytes:ByteArray, start:Number = 0, end:Number = 0):void
+        {
+
+            var uintArr : Uint8Array = new Uint8Array( arraybytes );
+
+            if ( end == start || end <= start )
+            {
+                end = uintArr.length;
+            }
+
+            var result      : ArrayBuffer   = new ArrayBuffer();
+            var resultArray : Uint8Array    = new Uint8Array(result);
+
+            for (var i = 0; i < resultArray.length; i++)
+            {
+                resultArray[ i ] = uintArr[ i + start ];
+            }
+
+            bytes.setArrayBuffer( result );
+
+        }
 		
 		override public function writeUnsignedByte(b:Number):void
 		{                    
@@ -149,12 +226,33 @@ package away.utils
 				length = position;
 			}
 		}
-		
+
+
+        public function readUnsignedInteger():Number
+        {
+
+            if ( position > length + 4 )
+            {
+                throw "ByteArray out of bounds read. Position=" + position + ", Length=" + length;
+            }
+
+            var view = new Uint32Array( unalignedarraybytestemp, 0, 1 );
+            var view2 = new Uint8Array( arraybytes,position, 4 );
+            var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 );
+            view3.set( view2 );
+            position += 4;
+            return view[0];
+
+        }
+
+
+
 		override public function readUnsignedInt():Number
-		{     
+		{
+
 			if ( position > length + 4 )
 			{
-				throw "ByteArray out of bounds read. Positon=" + position + ", Length=" + length;
+				throw "ByteArray out of bounds read. Position=" + position + ", Length=" + length;
 			}
 			if ( ( position & 3 ) == 0 )
 			{

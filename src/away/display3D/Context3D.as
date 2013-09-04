@@ -24,10 +24,18 @@ package away.display3D
 		private var _blendSourceFactor:Number;
 		private var _blendDestinationFactor:Number;
 		
+		private var _currentWrap:Number = 0;
+		private var _currentFilter:Number = 0;
+		private var _currentMipFilter:Number = 0;
+		
 		private var _indexBufferList:Vector.<IndexBuffer3D> = new Vector.<IndexBuffer3D>();
 		private var _vertexBufferList:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>();
 		private var _textureList:Vector.<TextureBase> = new Vector.<TextureBase>();
 		private var _programList:Vector.<Program3D> = new Vector.<Program3D>();
+		
+		private var _samplerStates:Vector.<SamplerState> = new Vector.<SamplerState>();
+		
+		public static var MAX_SAMPLERS:Number = 8;
 		
 		//@protected
 		public var _gl:WebGLRenderingContext;
@@ -60,6 +68,13 @@ package away.display3D
 				Window.console.log("WebGL is not available.");
 			}
 			
+			for( var i:Number = 0; i < Context3D.MAX_SAMPLERS; ++i )
+			{
+				this._samplerStates[ i ] = new SamplerState();
+				this._samplerStates[ i ].wrap = Number(WebGLRenderingContext.REPEAT)
+				this._samplerStates[ i ].filter = Number(WebGLRenderingContext.LINEAR)
+				this._samplerStates[ i ].mipfilter = 0;
+			}
 		}
 		
 		public function gl():WebGLRenderingContext
@@ -87,12 +102,11 @@ package away.display3D
 				_gl.enable( Number(WebGLRenderingContext.STENCIL_TEST) );
 				_gl.enable( Number(WebGLRenderingContext.DEPTH_TEST) );
 			}
-			// TODO add antialias (seems to be a webgl bug)
+			
 			_gl.viewport.width = width;
 			_gl.viewport.height = height;
-
+			
             _gl.viewport(0, 0, width, height);
-
 		}
 		
 		public function createCubeTexture(size:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):CubeTexture 
@@ -118,7 +132,7 @@ package away.display3D
 		
 		public function createTexture(width:Number, height:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):Texture
 		{
-			//TODO 
+			//TODO streaming
 			var texture: Texture = new Texture( _gl, width, height );
 			_textureList.push( texture );
 			return texture;
@@ -156,9 +170,14 @@ package away.display3D
 			{
 				_programList[i].dispose();
 			}
+			
+			for( i = 0; i < _samplerStates.length; ++i )
+			{
+				_samplerStates[i] = null;
+			}
+			
 			_programList = null;
 		}
-		
 		
 		public function drawToBitmapData(destination:BitmapData):void 
 		{
@@ -430,13 +449,23 @@ package away.display3D
 		*/
 		
 		public function setGLSLProgramConstantsFromMatrix(locationName:String, matrix:Matrix3D, transposedMatrix:Boolean = false):void 
-		{
+		{/*
+			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )
+			console.log( "locationName : " + locationName );
+			console.log( "matrix : " + matrix.rawData );
+			console.log( "transposedMatrix : " + transposedMatrix );
+			console.log( "================================================= \n" )*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
 			_gl.uniformMatrix4fv( location, !transposedMatrix, new Float32Array( matrix.rawData ) );
 		}
 		
 		public function setGLSLProgramConstantsFromArray(locationName:String, data:Vector.<Number>, startIndex:Number = 0):void 
-		{
+		{/*
+			console.log( "======= setGLSLProgramConstantsFromArray ======= " )
+			console.log( "locationName : " + locationName );
+			console.log( "data : " + data );
+			console.log( "startIndex : " + startIndex );
+			console.log( "================================================ \n" )*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
 			_gl.uniform4f( location, data[startIndex], data[startIndex+1], data[startIndex+2], data[startIndex+3] );
 		}
@@ -502,12 +531,78 @@ package away.display3D
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), texture.glTexture );
 			_gl.uniform1i( location, textureIndex );
 			
-			// TODO create something like setSamplerStateAt(.... 
-			_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_S), Number(WebGLRenderingContext.CLAMP_TO_EDGE) );
-			_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_T), Number(WebGLRenderingContext.CLAMP_TO_EDGE) );
-			_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MIN_FILTER), Number(WebGLRenderingContext.LINEAR) );
-			_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), Number(WebGLRenderingContext.LINEAR) );
+			var samplerState:SamplerState = _samplerStates[ textureIndex ];
+			
+			if( samplerState.wrap != _currentWrap )
+			{
+				_currentWrap = samplerState.wrap;
+				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_S), samplerState.wrap );
+				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_T), samplerState.wrap );
+			}
+			
+			if( samplerState.filter != _currentFilter )
+			{
+				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MIN_FILTER), samplerState.filter );
+				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
+			}
         }
+		
+		public function setSamplerStateAt(sampler:Number, wrap:String, filter:String, mipfilter:String):void
+		{			
+			var glWrap:Number = 0;
+			var glFilter:Number = 0;
+			var glMipFilter:Number = 0;
+			
+			switch( wrap )
+			{
+				case Context3DWrapMode.REPEAT:
+						glWrap = Number(WebGLRenderingContext.REPEAT);
+					break;
+				case Context3DWrapMode.CLAMP:
+						glWrap = Number(WebGLRenderingContext.CLAMP_TO_EDGE);
+					break;
+				default:
+					throw "Wrap is not supported: " + wrap;
+			}
+			
+			switch( filter )
+			{
+				case Context3DTextureFilter.LINEAR:
+						glFilter = Number(WebGLRenderingContext.LINEAR);
+					break;
+				case Context3DTextureFilter.NEAREST:
+						glFilter = Number(WebGLRenderingContext.NEAREST);
+					break;
+				default:
+					throw "Filter is not supported " + filter;
+			}
+			
+			switch( mipfilter )
+			{
+				case Context3DMipFilter.MIPNEAREST:
+						glMipFilter = Number(WebGLRenderingContext.NEAREST_MIPMAP_NEAREST);
+					break;
+				case Context3DMipFilter.MIPLINEAR:
+						glMipFilter = Number(WebGLRenderingContext.LINEAR_MIPMAP_LINEAR);
+					break;
+				case Context3DMipFilter.MIPNONE:
+						glMipFilter = Number(WebGLRenderingContext.NONE);
+					break;
+				default:
+					throw "MipFilter is not supported " + mipfilter;
+			}
+			
+			if( 0 <= sampler && sampler < Context3D.MAX_SAMPLERS )
+			{
+				_samplerStates[ sampler ].wrap = glWrap;
+				_samplerStates[ sampler ].filter = glFilter;
+				_samplerStates[ sampler ].mipfilter = glMipFilter;
+			}
+			else
+			{
+				throw "Sampler is out of bounds.";
+			}
+		}
 		
 		public function setVertexBufferAt(index:Number, buffer:VertexBuffer3D, bufferOffset:Number = 0, format:String = null):void
 		{
