@@ -1,5 +1,4 @@
 
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.loaders.parsers
@@ -11,7 +10,11 @@ package away.loaders.parsers
 	import away.events.AssetEvent;
 	import randori.webkit.html.HTMLImageElement;
 
-	/**	 * ImageParser provides a "parser" for natively supported image types (jpg, png). While it simply loads bytes into	 * a loader object, it wraps it in a BitmapDataResource so resource management can happen consistently without	 * exception cases.	 */
+	/**
+	 * ImageParser provides a "parser" for natively supported image types (jpg, png). While it simply loads bytes into
+	 * a loader object, it wraps it in a BitmapDataResource so resource management can happen consistently without
+	 * exception cases.
+	 */
 	public class ImageParser extends ParserBase
 	{
 		//private var _byteData         : ByteArray;
@@ -19,7 +22,11 @@ package away.loaders.parsers
 		private var _doneParsing:Boolean;
 		//private var _loader           : Loader;
 
-		/**		 * Creates a new ImageParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
+		/**
+		 * Creates a new ImageParser object.
+		 * @param uri The url or id of the data or file to be parsed.
+		 * @param extra The holder for extra contextual data that the parser might need.
+		 */
 		public function ImageParser():void
 		{
 
@@ -27,7 +34,11 @@ package away.loaders.parsers
 
 		}
 
-		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
+		/**
+		 * Indicates whether or not a given file extension is supported by the parser.
+		 * @param extension The file extension of a potential file to be parsed.
+		 * @return Whether or not the given file type is supported.
+		 */
 
 		public static function supportsType(extension:String):Boolean
 		{
@@ -37,7 +48,11 @@ package away.loaders.parsers
 
 		}
 
-		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
+		/**
+		 * Tests whether a data block can be parsed by the parser.
+		 * @param data The data block to potentially be parsed.
+		 * @return Whether or not the given data is supported.
+		 */
 		public static function supportsData(data:*):Boolean
 		{
 
@@ -51,7 +66,9 @@ package away.loaders.parsers
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function _pProceedParsing():Boolean
 		{
 

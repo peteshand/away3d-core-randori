@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 
@@ -36,7 +38,8 @@ package away.entities
 		private var _animator:IAnimator;
 		private var _hasData:Boolean;
 		
-		public var _pSegments:Object; //Dictionary		private var _indexSegments:Number;
+		public var _pSegments:Object; //Dictionary
+		private var _indexSegments:Number;
 		
 		public function SegmentSet():void
 		{

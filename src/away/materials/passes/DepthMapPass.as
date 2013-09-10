@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.passes
 {
 	import away.textures.Texture2DBase;
@@ -14,14 +13,19 @@ package away.materials.passes
 
 	//use namespace arcane;
 
-	/**	 * DepthMapPass is a pass that writes depth values to a depth map as a 32-bit value exploded over the 4 texture channels.	 * This is used to render shadow maps, depth maps, etc.	 */
+	/**
+	 * DepthMapPass is a pass that writes depth values to a depth map as a 32-bit value exploded over the 4 texture channels.
+	 * This is used to render shadow maps, depth maps, etc.
+	 */
 	public class DepthMapPass extends MaterialPassBase
 	{
 		private var _data:Vector.<Number>;
 		private var _alphaThreshold:Number = 0;
 		private var _alphaMask:Texture2DBase;
 
-		/**		 * Creates a new DepthMapPass object.		 */
+		/**
+		 * Creates a new DepthMapPass object.
+		 */
 		public function DepthMapPass():void
 		{
 			super();
@@ -33,7 +37,11 @@ package away.materials.passes
 
 		}
 		
-		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
+		/**
+		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
+		 * invisible or entirely opaque, often used with textures for foliage, etc.
+		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
+		 */
 		public function get alphaThreshold():Number
 		{
 			return _alphaThreshold;
@@ -75,7 +83,10 @@ package away.materials.passes
 
 		}
 
-		/**		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.		 * Usually the diffuse texture when alphaThreshold is used.		 */
+		/**
+		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.
+		 * Usually the diffuse texture when alphaThreshold is used.
+		 */
 		public function get alphaMask():Texture2DBase
 		{
 			return _alphaMask;
@@ -86,7 +97,9 @@ package away.materials.passes
 			_alphaMask = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetVertexCode():String
 		{
 			var code:String = "";
@@ -117,7 +130,9 @@ package away.materials.passes
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCode(code:String):String
 		{
 			
@@ -175,7 +190,9 @@ package away.materials.passes
 			return codeF;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			if (_alphaThreshold > 0)
@@ -197,7 +214,9 @@ package away.materials.passes
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 

@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 package away.render
@@ -183,7 +185,10 @@ package away.render
 			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
 			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
 			
-			/*if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.stage3DProxy = value;			}*/
+			/*if( this._pBackgroundImageRenderer )
+			{
+				this._pBackgroundImageRenderer.stage3DProxy = value;
+			}*/
 			
 			if( value.context3D )
 			{
@@ -207,7 +212,12 @@ package away.render
 		public function iDispose():void
 		{
 			_pStage3DProxy = null;
-			/*			if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.dispose();				this._pBackgroundImageRenderer = null;			}*/
+			/*
+			if( this._pBackgroundImageRenderer )
+			{
+				this._pBackgroundImageRenderer.dispose();
+				this._pBackgroundImageRenderer = null;
+			}*/
 		}
 		
 		//@arcane
@@ -253,7 +263,11 @@ package away.render
 			}
 			_pContext.setDepthTest(false, Context3DCompareMode.ALWAYS );
 			_pStage3DProxy.scissorRect = scissorRect;
-			/*			if( this._backgroundImageRenderer )			{				this._backgroundImageRenderer.render();			}*/
+			/*
+			if( this._backgroundImageRenderer )
+			{
+				this._backgroundImageRenderer.render();
+			}*/
 			pDraw(entityCollector, target);
 			
 			//line required for correct rendering when using away3d with starling. DO NOT REMOVE UNLESS STARLING INTEGRATION IS RETESTED!
@@ -309,9 +323,32 @@ package away.render
 		}
 		
 		//@arcane
-		/*		public set iBackground( value:away.textures.Texture2DBase )		{			if( this._backgroundImageRenderer && !value )			{				this._backgroundImageRenderer.dispose();				this._backgroundImageRenderer = null;			}						if( !this._backgroundImageRenderer && value )			{				this._backgroundImageRenderer = new away.render.BackgroundImageRenderer( this._stage3DProxy );			}			this._background = value;						if( this._backgroundImageRenderer )			{				this._backgroundImageRenderer.texture = value;			}		}*/
+		/*
+		public set iBackground( value:away.textures.Texture2DBase )
+		{
+			if( this._backgroundImageRenderer && !value )
+			{
+				this._backgroundImageRenderer.dispose();
+				this._backgroundImageRenderer = null;
+			}
+			
+			if( !this._backgroundImageRenderer && value )
+			{
+				this._backgroundImageRenderer = new away.render.BackgroundImageRenderer( this._stage3DProxy );
+			}
+			this._background = value;
+			
+			if( this._backgroundImageRenderer )
+			{
+				this._backgroundImageRenderer.texture = value;
+			}
+		}*/
 		
-		/*		public get backgroundImageRenderer():away.render.BackgroundImageRenderer		{			return this._backgroundImageRenderer;		}*/
+		/*
+		public get backgroundImageRenderer():away.render.BackgroundImageRenderer
+		{
+			return this._backgroundImageRenderer;
+		}*/
 		
 		public function get antiAlias():Number
 		{

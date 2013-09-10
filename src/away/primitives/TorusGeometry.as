@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
@@ -8,7 +7,9 @@ package away.primitives
 	
 	//use namespace arcane;
 	
-	/**	 * A UV Cylinder primitive mesh.	 */
+	/**
+	 * A UV Cylinder primitive mesh.
+	 */
 	public class TorusGeometry extends PrimitiveBase
 	{
 		private var _radius:Number;
@@ -49,7 +50,9 @@ package away.primitives
             _currentTriangleIndex++;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number;
@@ -175,7 +178,9 @@ package away.primitives
 			target.updateIndexData(_rawIndices);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 
@@ -220,7 +225,9 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**		 * The radius of the torus.		 */
+		/**
+		 * The radius of the torus.
+		 */
 		public function get radius():Number
 		{
 			return _radius;
@@ -232,7 +239,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The radius of the inner tube of the torus.		 */
+		/**
+		 * The radius of the inner tube of the torus.
+		 */
 		public function get tubeRadius():Number
 		{
 			return _tubeRadius;
@@ -244,7 +253,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.		 */
+		/**
+		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.
+		 */
 		public function get segmentsR():Number
 		{
 			return _segmentsR;
@@ -257,7 +268,9 @@ package away.primitives
             pInvalidateUVs();
 		}
 		
-		/**		 * Defines the number of vertical segments that make up the torus. Defaults to 8.		 */
+		/**
+		 * Defines the number of vertical segments that make up the torus. Defaults to 8.
+		 */
 		public function get segmentsT():Number
 		{
 			return _segmentsT;
@@ -270,7 +283,9 @@ package away.primitives
 			pInvalidateUVs();
 		}
 		
-		/**		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function get yUp():Boolean
 		{
 			return _yUp;
@@ -282,7 +297,14 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Creates a new <code>Torus</code> object.		 * @param radius The radius of the torus.		 * @param tuebRadius The radius of the inner tube of the torus.		 * @param segmentsR Defines the number of horizontal segments that make up the torus.		 * @param segmentsT Defines the number of vertical segments that make up the torus.		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Creates a new <code>Torus</code> object.
+		 * @param radius The radius of the torus.
+		 * @param tuebRadius The radius of the inner tube of the torus.
+		 * @param segmentsR Defines the number of horizontal segments that make up the torus.
+		 * @param segmentsT Defines the number of vertical segments that make up the torus.
+		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function TorusGeometry(radius:Number = 50, tubeRadius:Number = 50, segmentsR:Number = 16, segmentsT:Number = 8, yUp:Boolean = true):void
 		{
 			super();

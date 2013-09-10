@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.methods
 {
 	import away.geom.ColorTransform;
@@ -14,18 +15,25 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**	 * ColorTransformMethod provides a shading method that changes the colour of a material analogous to a	 * ColorTransform object.	 */
+	/**
+	 * ColorTransformMethod provides a shading method that changes the colour of a material analogous to a
+	 * ColorTransform object.
+	 */
 	public class ColorTransformMethod extends EffectMethodBase
 	{
 		private var _colorTransform:ColorTransform;
 		
-		/**		 * Creates a new ColorTransformMethod.		 */
+		/**
+		 * Creates a new ColorTransformMethod.
+		 */
 		public function ColorTransformMethod():void
 		{
 			super();
 		}
 		
-		/**		 * The ColorTransform object to transform the colour of the material with.		 */
+		/**
+		 * The ColorTransform object to transform the colour of the material with.
+		 */
 		public function get colorTransform():ColorTransform
 		{
 			return _colorTransform;
@@ -36,7 +44,9 @@ package away.materials.methods
             _colorTransform = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -53,7 +63,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			var inv:Number = 1/0xff;

@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.entities
@@ -22,7 +21,11 @@ package away.entities
 	import away.geom.Matrix3D;
 	
 
-	/**	 * A SkyBox class is used to render a sky in the scene. It's always considered static and 'at infinity', and as	 * such it's always centered at the camera's position and sized to exactly fit within the camera's frustum, ensuring	 * the sky box is always as large as possible without being clipped.	 */
+	/**
+	 * A SkyBox class is used to render a sky in the scene. It's always considered static and 'at infinity', and as
+	 * such it's always centered at the camera's position and sized to exactly fit within the camera's frustum, ensuring
+	 * the sky box is always as large as possible without being clipped.
+	 */
 	public class SkyBox extends Entity implements IRenderable
 	{
 		// todo: remove SubGeometry, use a simple single buffer with offsets
@@ -41,7 +44,10 @@ package away.entities
 			return new NullBounds();
 		}
 		
-		/**		 * Create a new SkyBox object.		 * @param cubeMap The CubeMap to use for the sky box's texture.		 */
+		/**
+		 * Create a new SkyBox object.
+		 * @param cubeMap The CubeMap to use for the sky box's texture.
+		 */
 		public function SkyBox(cubeMap:CubeTextureBase):void
 		{
 			super();
@@ -52,23 +58,31 @@ package away.entities
 			buildGeometry( _geometry);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			_geometry.activateVertexBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexTangentBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
@@ -77,25 +91,33 @@ package away.entities
 		{
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function getIndexBuffer(stage3DProxy:Stage3DProxy):IndexBuffer3D
 		{
 			return _geometry.getIndexBuffer(stage3DProxy);
 		}
 		
-		/**		 * The amount of triangles that comprise the SkyBox geometry.		 */
+		/**
+		 * The amount of triangles that comprise the SkyBox geometry.
+		 */
 		public function get numTriangles():Number
 		{
 			return _geometry.numTriangles;
 		}
 		
-		/**		 * The entity that that initially provided the IRenderable to the render pipeline.		 */
+		/**
+		 * The entity that that initially provided the IRenderable to the render pipeline.
+		 */
 		public function get sourceEntity():Entity
 		{
 			return null;
 		}
 		
-		/**		 * The material with which to render the object.		 */
+		/**
+		 * The material with which to render the object.
+		 */
 		public function get material():MaterialBase
 		{
 			return _material;
@@ -111,25 +133,33 @@ package away.entities
 			return AssetType.SKYBOX;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pInvalidateBounds():void
 		{
 			// dead end
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateEntityPartitionNode():EntityNode
 		{
 			return new SkyBoxNode(this);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateBounds():void
 		{
 			_pBoundsInvalid = false;
 		}
 		
-		/**		 * Builds the geometry that forms the SkyBox		 */
+		/**
+		 * Builds the geometry that forms the SkyBox
+		 */
 		private function buildGeometry(target:SubGeometry):void
 		{
 			var vertices:Vector.<Number> = new Vector.<Number>(

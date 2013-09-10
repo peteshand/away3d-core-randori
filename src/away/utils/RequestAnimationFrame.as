@@ -1,7 +1,6 @@
 ///<reference path="../_definitions.ts"/>
 
 
-
 package away.utils
 {
 
@@ -40,7 +39,11 @@ package away.utils
 
         // Public
 
-        /**         *         * @param callback         * @param callbackContext         */
+        /**
+         *
+         * @param callback
+         * @param callbackContext
+         */
         public function setCallback(callback:Function, callbackContext:Object):void
         {
 
@@ -49,7 +52,9 @@ package away.utils
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function start():void
         {
 
@@ -85,7 +90,9 @@ package away.utils
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function stop():void
         {
 
@@ -95,7 +102,10 @@ package away.utils
 
         // Get / Set
 
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
         public function get active():Boolean
         {
 
@@ -105,7 +115,10 @@ package away.utils
 
         // Private
 
-        /**         *         * @private         */
+        /**
+         *
+         * @private
+         */
         private function _tick():void
         {
 

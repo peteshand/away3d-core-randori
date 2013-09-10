@@ -4,6 +4,7 @@
  *
  * @author Karim Beyrouti
  */
+
 package away.events
 {
 	public class Event {

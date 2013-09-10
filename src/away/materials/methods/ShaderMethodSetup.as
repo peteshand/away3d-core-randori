@@ -1,10 +1,13 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.methods
 {
 	import away.events.EventDispatcher;
 	import away.events.ShadingMethodEvent;
 
-	/**	 * ShaderMethodSetup contains the method configuration for an entire material.	 */
+	/**
+	 * ShaderMethodSetup contains the method configuration for an entire material.
+	 */
 	public class ShaderMethodSetup extends EventDispatcher
 	{
 		public var _iColorTransformMethod:ColorTransformMethod;
@@ -19,8 +22,11 @@ package away.materials.methods
         public var _iDiffuseMethodVO:MethodVO;
         public var _iSpecularMethod:BasicSpecularMethod;
         public var _iSpecularMethodVO:MethodVO;
-        public var _iMethods:Vector.<MethodVOSet>;//Vector.<MethodVOSet>;
-		/**		 * Creates a new ShaderMethodSetup object.		 */
+        public var _iMethods:Vector.<MethodVOSet>;//Vector.<MethodVOSet>;
+
+		/**
+		 * Creates a new ShaderMethodSetup object.
+		 */
 		public function ShaderMethodSetup():void
 		{
 
@@ -41,13 +47,17 @@ package away.materials.methods
             _iSpecularMethodVO = _iSpecularMethod.iCreateMethodVO();
 		}
 
-		/**		 * Called when any method's code is invalidated.		 */
+		/**
+		 * Called when any method's code is invalidated.
+		 */
 		private function onShaderInvalidated(event:ShadingMethodEvent):void
 		{
 			invalidateShaderProgram();
 		}
 
-		/**		 * Invalidates the material's shader code.		 */
+		/**
+		 * Invalidates the material's shader code.
+		 */
 		private function invalidateShaderProgram():void
 		{
 
@@ -55,7 +65,9 @@ package away.materials.methods
 
 		}
 
-		/**		 *  The method used to generate the per-pixel normals.		 */
+		/**
+		 *  The method used to generate the per-pixel normals.
+		 */
 		public function get normalMethod():BasicNormalMethod
 		{
 			return _iNormalMethod;
@@ -92,7 +104,9 @@ package away.materials.methods
 				invalidateShaderProgram();
 		}
 
-		/**		 * The method that provides the ambient lighting contribution.		 */
+		/**
+		 * The method that provides the ambient lighting contribution.
+		 */
 		public function get ambientMethod():BasicAmbientMethod
 		{
 			return _iAmbientMethod;
@@ -119,7 +133,9 @@ package away.materials.methods
 				invalidateShaderProgram();
 		}
 
-		/**		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered.		 */
+		/**
+		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered.
+		 */
 		public function get shadowMethod():ShadowMapMethodBase
 		{
 			return _iShadowMethod;
@@ -154,7 +170,9 @@ package away.materials.methods
 
 		}
 
-		/**		 * The method that provides the diffuse lighting contribution.		 */
+		/**
+		 * The method that provides the diffuse lighting contribution.
+		 */
 		 public function get diffuseMethod():BasicDiffuseMethod
 		{
 			return _iDiffuseMethod;
@@ -183,7 +201,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * The method to perform specular shading.		 */
+		/**
+		 * The method to perform specular shading.
+		 */
 		public function get specularMethod():BasicSpecularMethod
 		{
 			return _iSpecularMethod;
@@ -219,7 +239,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * @private		 */
+		/**
+		 * @private
+		 */
 		public function get iColorTransformMethod():ColorTransformMethod
 		{
 			return _iColorTransformMethod;
@@ -258,7 +280,9 @@ package away.materials.methods
 
 		}
 
-		/**		 * Disposes the object.		 */
+		/**
+		 * Disposes the object.
+		 */
 		public function dispose():void
 		{
 			clearListeners(_iNormalMethod);
@@ -279,14 +303,19 @@ package away.materials.methods
 
 		}
 
-		/**		 * Removes all listeners from a method.		 */
+		/**
+		 * Removes all listeners from a method.
+		 */
 		private function clearListeners(method:ShadingMethodBase):void
 		{
 			if (method)
 				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 		}
 		
-		/**		 * Adds a method to change the material after all lighting is performed.		 * @param method The method to be added.		 */
+		/**
+		 * Adds a method to change the material after all lighting is performed.
+		 * @param method The method to be added.
+		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
 			_iMethods.push(new MethodVOSet(method));
@@ -297,7 +326,12 @@ package away.materials.methods
 
 		}
 
-		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
+		/**
+		 * Queries whether a given effect method was added to the material.
+		 *
+		 * @param method The method to be queried.
+		 * @return true if the method was added to the material, false otherwise.
+		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
 
@@ -305,7 +339,11 @@ package away.materials.methods
 
 		}
 		
-		/**		 * Inserts a method to change the material after all lighting is performed at the given index.		 * @param method The method to be added.		 * @param index The index of the method's occurrence		 */
+		/**
+		 * Inserts a method to change the material after all lighting is performed at the given index.
+		 * @param method The method to be added.
+		 * @param index The index of the method's occurrence
+		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
 			_iMethods.splice(index, 0, new MethodVOSet(method));
@@ -316,7 +354,11 @@ package away.materials.methods
 
 		}
 
-		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
+		/**
+		 * Returns the method added at the given index.
+		 * @param index The index of the method to retrieve.
+		 * @return The method at the given index.
+		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
 			if (index > _iMethods.length - 1)
@@ -326,7 +368,9 @@ package away.materials.methods
 
 		}
 
-		/**		 * The number of "effect" methods added to the material.		 */
+		/**
+		 * The number of "effect" methods added to the material.
+		 */
 		public function get numMethods():Number
 		{
 
@@ -334,7 +378,10 @@ package away.materials.methods
 
 		}
 		
-		/**		 * Removes a method from the pass.		 * @param method The method to be removed.		 */
+		/**
+		 * Removes a method from the pass.
+		 * @param method The method to be removed.
+		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
 			var methodSet:MethodVOSet = getMethodSetForMethod(method);

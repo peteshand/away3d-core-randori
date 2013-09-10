@@ -1,5 +1,4 @@
 ///<reference path="../../../_definitions.ts"/>
-
 package away.loaders.parsers.utils
 {
 	import away.utils.ByteArray;
@@ -8,7 +7,14 @@ package away.loaders.parsers.utils
 	public class ParserUtil
 	{
 		
-		/**		 * Returns a object as ByteArray, if possible.		 * 		 * @param data The object to return as ByteArray		 * 		 * @return The ByteArray or null		 *		 */
+		/**
+		 * Returns a object as ByteArray, if possible.
+		 * 
+		 * @param data The object to return as ByteArray
+		 * 
+		 * @return The ByteArray or null
+		 *
+		 */
 		public static function toByteArray(data:*):ByteArray
 		{
 
@@ -18,7 +24,15 @@ package away.loaders.parsers.utils
 
 		}
 		
-		/**		 * Returns a object as String, if possible.		 * 		 * @param data The object to return as String		 * @param length The length of the returned String		 * 		 * @return The String or null		 *		 */
+		/**
+		 * Returns a object as String, if possible.
+		 * 
+		 * @param data The object to return as String
+		 * @param length The length of the returned String
+		 * 
+		 * @return The String or null
+		 *
+		 */
 		public static function toString(data:*/*, length:Number = 0 */):String
 		{
 
@@ -31,7 +45,23 @@ package away.loaders.parsers.utils
 
             return null;
 
-            /*			var ba:ByteArray;						length ||= uint.MAX_VALUE;						if (data is String)				return String(data).substr(0, length);						ba = toByteArray(data);			if (ba) {				ba.position = 0;				return ba.readUTFBytes(Math.min(ba.bytesAvailable, length));			}						return null;			*/
+            /*
+			var ba:ByteArray;
+			
+			length ||= uint.MAX_VALUE;
+			
+			if (data is String)
+				return String(data).substr(0, length);
+			
+			ba = toByteArray(data);
+			if (ba) {
+				ba.position = 0;
+				return ba.readUTFBytes(Math.min(ba.bytesAvailable, length));
+			}
+			
+			return null;
+
+			*/
 		}
 	}
 }

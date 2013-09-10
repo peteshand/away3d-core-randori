@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts" />
 
 package away.partition
@@ -45,13 +47,17 @@ package away.partition
 			return _entity.worldBounds.isInFrustum( planes, numPlanes );
 		}
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function acceptTraverser(traverser:PartitionTraverser):void
         {
             traverser.applyEntity(_entity);
         }
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function isIntersectingRay(rayPosition:Vector3D, rayDirection:Vector3D):Boolean
         {
             if (!_entity._iIsVisible )

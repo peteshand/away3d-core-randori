@@ -1,5 +1,4 @@
 
-
 ///<reference path="../_definitions.ts"/>
 
 package away.pick
@@ -51,7 +50,15 @@ package away.pick
 	
 	//use namespace arcane;
 	
-	/**	 * Picks a 3d object from a view or scene by performing a separate render pass on the scene around the area being picked using key color values,	 * then reading back the color value of the pixel in the render representing the picking ray. Requires multiple passes and readbacks for retriving details	 * on an entity that has its shaderPickingDetails property set to true.	 *	 * A read-back operation from any GPU is not a very efficient process, and the amount of processing used can vary significantly between different hardware.	 *	 * @see away3d.entities.Entity#shaderPickingDetails	 */
+	/**
+	 * Picks a 3d object from a view or scene by performing a separate render pass on the scene around the area being picked using key color values,
+	 * then reading back the color value of the pixel in the render representing the picking ray. Requires multiple passes and readbacks for retriving details
+	 * on an entity that has its shaderPickingDetails property set to true.
+	 *
+	 * A read-back operation from any GPU is not a very efficient process, and the amount of processing used can vary significantly between different hardware.
+	 *
+	 * @see away3d.entities.Entity#shaderPickingDetails
+	 */
 
     // TODO: Dependencies needed to before implementing IPicker - EntityCollector
 	public class ShaderPicker implements IPicker
@@ -67,7 +74,8 @@ package away.pick
 		private var _boundOffsetScale:Vector.<Number>;
 		private var _id:Vector.<Number>;
 		
-		private var _interactives:Vector.<IRenderable> = new Vector.<IRenderable>();//Vector.<IRenderable> = new Vector.<IRenderable>();		private var _interactiveId:Number;
+		private var _interactives:Vector.<IRenderable> = new Vector.<IRenderable>();//Vector.<IRenderable> = new Vector.<IRenderable>();
+		private var _interactiveId:Number;
 		private var _hitColor:Number;
 		private var _projX:Number;
 		private var _projY:Number;
@@ -86,7 +94,9 @@ package away.pick
 		private var _potentialFound:Boolean;
 		private static var MOUSE_SCISSOR_RECT:Rectangle = new Rectangle(0, 0, 1, 1);
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function get onlyMouseEnabled():Boolean
 		{
 			return _onlyMouseEnabled;
@@ -97,7 +107,9 @@ package away.pick
             _onlyMouseEnabled = value;
 		}
 		
-		/**		 * Creates a new <code>ShaderPicker</code> object.		 */
+		/**
+		 * Creates a new <code>ShaderPicker</code> object.
+		 */
 		public function ShaderPicker():void
 		{
 			_id = new Vector.<Number>( 4 );//new Vector.<Number>(4, true);
@@ -107,7 +119,9 @@ package away.pick
 			_boundOffsetScale[7] = 1;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
         // TODO implement dependency : EntityCollector
         // TODO: GLSL implementation / conversion
 		public function getViewCollision(x:Number, y:Number, view:View3D):PickingCollisionVO
@@ -184,13 +198,17 @@ package away.pick
 			//*/
 		}
 		//*/
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function getSceneCollision(position:Vector3D, direction:Vector3D, scene:Scene3D):PickingCollisionVO
 		{
 			return null;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
         // TODO: GLSL implementation / conversion
 		public function pDraw(entityCollector:EntityCollector, target:TextureBase):void
 		{
@@ -218,7 +236,11 @@ package away.pick
 
 		}
 
-		/**		 * Draw a list of renderables.		 * @param renderables The renderables to draw.		 * @param camera The camera for which to render.		 */
+		/**
+		 * Draw a list of renderables.
+		 * @param renderables The renderables to draw.
+		 * @param camera The camera for which to render.
+		 */
 		private function drawRenderables(item:RenderableListItem, camera:Camera3D):void
 		{
 
@@ -270,7 +292,9 @@ package away.pick
 
 		}
 
-		/**		 * Creates the Program3D that color-codes objects.		 */
+		/**
+		 * Creates the Program3D that color-codes objects.
+		 */
 		private function initObjectProgram3D():void
 		{
 			var vertexCode:String;
@@ -288,7 +312,9 @@ package away.pick
             Debug.throwPIR( 'ShaderPicker' , 'initTriangleProgram3D' , 'Dependency: initObjectProgram3D')
 			//_objectProgram3D.upload(new AGALMiniAssembler().assemble(Context3DProgramType.VERTEX, vertexCode),new AGALMiniAssembler().assemble(Context3DProgramType.FRAGMENT, fragmentCode));
 		}
-		/**		 * Creates the Program3D that renders positions.		 */
+		/**
+		 * Creates the Program3D that renders positions.
+		 */
 
 		private function initTriangleProgram3D():void
 		{
@@ -322,13 +348,19 @@ package away.pick
 			//this._triangleProgram3D.upload(new AGALMiniAssembler().assemble(Context3DProgramType.VERTEX, vertexCode), new AGALMiniAssembler().assemble(Context3DProgramType.FRAGMENT, fragmentCode));
 		}
 
-		/**		 * Gets more detailed information about the hir position, if required.		 * @param camera The camera used to view the hit object.		 */
+		/**
+		 * Gets more detailed information about the hir position, if required.
+		 * @param camera The camera used to view the hit object.
+		 */
 		private function getHitDetails(camera:Camera3D):void
 		{
 			getApproximatePosition(camera);
 			getPreciseDetails(camera);
 		}
-		/**		 * Finds a first-guess approximate position about the hit position.		 * @param camera The camera used to view the hit object.		 */
+		/**
+		 * Finds a first-guess approximate position about the hit position.
+		 * @param camera The camera used to view the hit object.
+		 */
 
 		private function getApproximatePosition(camera:Camera3D):void
 		{
@@ -367,7 +399,11 @@ package away.pick
             _localHitPosition.y = ((col >> 8) & 0xff)*scY/255 - offsY;
             _localHitPosition.z = (col & 0xff)*scZ/255 - offsZ;
 		}
-		/**		 * Use the approximate position info to find the face under the mouse position from which we can derive the precise		 * ray-face intersection point, then use barycentric coordinates to figure out the uv coordinates, etc.		 * @param camera The camera used to view the hit object.		 */
+		/**
+		 * Use the approximate position info to find the face under the mouse position from which we can derive the precise
+		 * ray-face intersection point, then use barycentric coordinates to figure out the uv coordinates, etc.
+		 * @param camera The camera used to view the hit object.
+		 */
 		private function getPreciseDetails(camera:Camera3D):void
 		{
 
@@ -495,7 +531,18 @@ package away.pick
 				k += 3;
 			}
 		}
-		/**		 * Finds the precise hit position by unprojecting the screen coordinate back unto the hit face's plane and		 * calculating the intersection point.		 * @param camera The camera used to render the object.		 * @param invSceneTransform The inverse scene transformation of the hit object.		 * @param nx The x-coordinate of the face's plane normal.		 * @param ny The y-coordinate of the face plane normal.		 * @param nz The z-coordinate of the face plane normal.		 * @param px The x-coordinate of a point on the face's plane (ie a face vertex)		 * @param py The y-coordinate of a point on the face's plane (ie a face vertex)		 * @param pz The z-coordinate of a point on the face's plane (ie a face vertex)		 */
+		/**
+		 * Finds the precise hit position by unprojecting the screen coordinate back unto the hit face's plane and
+		 * calculating the intersection point.
+		 * @param camera The camera used to render the object.
+		 * @param invSceneTransform The inverse scene transformation of the hit object.
+		 * @param nx The x-coordinate of the face's plane normal.
+		 * @param ny The y-coordinate of the face plane normal.
+		 * @param nz The z-coordinate of the face plane normal.
+		 * @param px The x-coordinate of a point on the face's plane (ie a face vertex)
+		 * @param py The y-coordinate of a point on the face's plane (ie a face vertex)
+		 * @param pz The z-coordinate of a point on the face's plane (ie a face vertex)
+		 */
 
 		private function getPrecisePosition(invSceneTransform:Matrix3D, nx:Number, ny:Number, nz:Number, px:Number, py:Number, pz:Number):void
 		{

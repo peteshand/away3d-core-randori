@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.base
 {
 	import away.library.assets.NamedAssetBase;
@@ -7,10 +8,21 @@ package away.base
 	import away.geom.Matrix3D;
 	import away.events.GeometryEvent;
 
-	/**	 * Geometry is a collection of SubGeometries, each of which contain the actual geometrical data such as vertices,	 * normals, uvs, etc. It also contains a reference to an animation class, which defines how the geometry moves.	 * A Geometry object is assigned to a Mesh, a scene graph occurence of the geometry, which in turn assigns	 * the SubGeometries to its respective SubMesh objects.	 *	 *	 *	 * @see away3d.core.base.SubGeometry	 * @see away3d.scenegraph.Mesh	 */
+	/**
+	 * Geometry is a collection of SubGeometries, each of which contain the actual geometrical data such as vertices,
+	 * normals, uvs, etc. It also contains a reference to an animation class, which defines how the geometry moves.
+	 * A Geometry object is assigned to a Mesh, a scene graph occurence of the geometry, which in turn assigns
+	 * the SubGeometries to its respective SubMesh objects.
+	 *
+	 *
+	 *
+	 * @see away3d.core.base.SubGeometry
+	 * @see away3d.scenegraph.Mesh
+	 */
 	public class Geometry extends NamedAssetBase implements IAsset
 	{
-        private var _subGeometries:Vector.<ISubGeometry>;//Vector.<ISubGeometry>;//private var _subGeometries:Vector.<ISubGeometry>;		
+        private var _subGeometries:Vector.<ISubGeometry>;//Vector.<ISubGeometry>;//private var _subGeometries:Vector.<ISubGeometry>;
+		
 		override public function get assetType():String
 		{
 
@@ -18,19 +30,25 @@ package away.base
 
 		}
 		
-		/**		 * A collection of SubGeometry objects, each of which contain geometrical data such as vertices, normals, etc.		 */
-        public function get subGeometries():Vector.<ISubGeometry>//Vector.<ISubGeometry>        {
+		/**
+		 * A collection of SubGeometry objects, each of which contain geometrical data such as vertices, normals, etc.
+		 */
+        public function get subGeometries():Vector.<ISubGeometry>//Vector.<ISubGeometry>
+        {
 
             return _subGeometries;
 
         }
-        public function getSubGeometries():Vector.<ISubGeometry>//Vector.<ISubGeometry>        {
+        public function getSubGeometries():Vector.<ISubGeometry>//Vector.<ISubGeometry>
+        {
 
             return _subGeometries;
 
         }
 
-        /**		 * Creates a new Geometry object.		 */
+        /**
+		 * Creates a new Geometry object.
+		 */
 		public function Geometry():void
 		{
             super();
@@ -51,7 +69,10 @@ package away.base
 
 		}
 		
-		/**		 * Adds a new SubGeometry object to the list.		 * @param subGeometry The SubGeometry object to be added.		 */
+		/**
+		 * Adds a new SubGeometry object to the list.
+		 * @param subGeometry The SubGeometry object to be added.
+		 */
 		public function addSubGeometry(subGeometry:ISubGeometry):void
 		{
 			_subGeometries.push(subGeometry);
@@ -66,7 +87,10 @@ package away.base
 
 		}
 		
-		/**		 * Removes a new SubGeometry object from the list.		 * @param subGeometry The SubGeometry object to be removed.		 */
+		/**
+		 * Removes a new SubGeometry object from the list.
+		 * @param subGeometry The SubGeometry object to be removed.
+		 */
 		public function removeSubGeometry(subGeometry:ISubGeometry):void
 		{
 			_subGeometries.splice(_subGeometries.indexOf(subGeometry), 1);
@@ -80,7 +104,10 @@ package away.base
             iInvalidateBounds( subGeometry );
 		}
 		
-		/**		 * Clones the geometry.		 * @return An exact duplicate of the current Geometry object.		 */
+		/**
+		 * Clones the geometry.
+		 * @return An exact duplicate of the current Geometry object.
+		 */
 		public function clone():Geometry
 		{
 			var clone:Geometry = new Geometry();
@@ -96,7 +123,10 @@ package away.base
 			return clone;
 		}
 		
-		/**		 * Scales the geometry.		 * @param scale The amount by which to scale.		 */
+		/**
+		 * Scales the geometry.
+		 * @param scale The amount by which to scale.
+		 */
 		public function scale(scale:Number):void
 		{
 			var numSubGeoms:Number = _subGeometries.length;
@@ -109,7 +139,9 @@ package away.base
 
 		}
 		
-		/**		 * Clears all resources used by the Geometry object, including SubGeometries.		 */
+		/**
+		 * Clears all resources used by the Geometry object, including SubGeometries.
+		 */
 		override public function dispose():void
 		{
 
@@ -124,7 +156,11 @@ package away.base
 
 		}
 		
-		/**		 * Scales the uv coordinates (tiling)		 * @param scaleU The amount by which to scale on the u axis. Default is 1;		 * @param scaleV The amount by which to scale on the v axis. Default is 1;		 */
+		/**
+		 * Scales the uv coordinates (tiling)
+		 * @param scaleU The amount by which to scale on the u axis. Default is 1;
+		 * @param scaleV The amount by which to scale on the v axis. Default is 1;
+		 */
 		public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
 			var numSubGeoms:Number = _subGeometries.length;
@@ -138,7 +174,10 @@ package away.base
 
 		}
 		
-		/**		 * Updates the SubGeometries so all vertex data is represented in different buffers.		 * Use this for compatibility with Pixel Bender and PBPickingCollider		 */
+		/**
+		 * Updates the SubGeometries so all vertex data is represented in different buffers.
+		 * Use this for compatibility with Pixel Bender and PBPickingCollider
+		 */
 		public function convertToSeparateBuffers():void
 		{
 			var subGeom:ISubGeometry;

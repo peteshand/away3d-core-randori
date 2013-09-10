@@ -1,27 +1,26 @@
 package examples
 {
-import away.containers.ObjectContainer3D;
-import away.containers.View3D;
-import away.entities.Mesh;
-import away.events.AssetEvent;
-import away.events.LoaderEvent;
-import away.geom.Vector3D;
-import away.library.AssetLibrary;
-import away.library.assets.AssetType;
-import away.library.assets.IAsset;
-import away.lights.DirectionalLight;
-import away.loaders.AssetLoader;
-import away.loaders.misc.AssetLoaderToken;
-import away.loaders.parsers.OBJParser;
-import away.materials.TextureMaterial;
-import away.materials.TextureMultiPassMaterial;
-import away.materials.lightpickers.StaticLightPicker;
-import away.net.URLRequest;
-import away.textures.HTMLImageElementTexture;
-import away.utils.Debug;
-import away.utils.RequestAnimationFrame;
-
-import randori.webkit.page.Window;
+    import away.containers.ObjectContainer3D;
+    import away.containers.View3D;
+    import away.entities.Mesh;
+    import away.events.AssetEvent;
+    import away.events.LoaderEvent;
+    import away.geom.Vector3D;
+    import away.library.AssetLibrary;
+    import away.library.assets.AssetType;
+    import away.library.assets.IAsset;
+    import away.lights.DirectionalLight;
+    import away.loaders.AssetLoader;
+    import away.loaders.misc.AssetLoaderToken;
+    import away.loaders.parsers.OBJParser;
+    import away.materials.TextureMaterial;
+    import away.materials.TextureMultiPassMaterial;
+    import away.materials.lightpickers.StaticLightPicker;
+    import away.net.URLRequest;
+    import away.textures.HTMLImageElementTexture;
+    import away.utils.Debug;
+    import away.utils.RequestAnimationFrame;
+    import randori.webkit.page.Window;
 
 /**
      * Created with IntelliJ IDEA.
@@ -91,15 +90,15 @@ import randori.webkit.page.Window;
 
 
             //*
-            token = AssetLibrary.load(new URLRequest('masterchief_base.png') );
-            token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
-            token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
+            //token = AssetLibrary.load(new URLRequest('masterchief_base.png') );
+            //token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
+            //token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
-            token = AssetLibrary.load(new URLRequest('stone_tx.jpg' ) );
-            token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
-            token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
+            //token = AssetLibrary.load(new URLRequest('stone_tx.jpg' ) );
+            //token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
+            //token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
-            window.onresize = resize();
+            //window.onresize = resize();
         }
 
 
@@ -136,9 +135,9 @@ import randori.webkit.page.Window;
 
             //*
             var loader  : AssetLoader   = e.target as AssetLoader;
-                var l       : Number                     = loader.baseDependency.assets.length//dependencies.length;
+                var l:Number = loader.baseDependency.assets.length//dependencies.length;
 
-                for ( var c : int = 0 ; c < l; c ++ )
+                for ( var c:int = 0; c < l; ++c )
                 {
 
                     var d : IAsset = loader.baseDependency.assets[c];
@@ -192,9 +191,9 @@ import randori.webkit.page.Window;
                 }
                 if ( mat && spartanFlag )
                 {
-                    for ( var c : Number = 0 ; c < meshes.length ; c++ )
+                    for ( var b:int = 0 ; b < meshes.length ; b++ )
                     {
-                    meshes[c].material = mat;
+                        meshes[b].material = mat;
                     }
                 }
 

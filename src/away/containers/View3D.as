@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts" />
 
 package away.containers
@@ -28,10 +30,23 @@ package away.containers
 	public class View3D
 	{
 
-        /*         *************************************************************************************************************************         * Development Notes         *************************************************************************************************************************         *         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment         *         * Background         *                  - this is currently not being included in our tests and is currently disabled         *         **************************************************************************************************************************         */
+        /*
+         *************************************************************************************************************************
+         * Development Notes
+         *************************************************************************************************************************
+         *
+         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested
+         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment
+         *
+         * Background
+         *                  - this is currently not being included in our tests and is currently disabled
+         *
+         **************************************************************************************************************************
+         */
 
         // Static
-        private static var sStage:Stage; // View3D's share the same stage
+        private static var sStage:Stage; // View3D's share the same stage
+
         // Public
         public var stage:Stage;
 
@@ -74,7 +89,17 @@ package away.containers
         private var _profile:String;
         private var _layeredView:Boolean = false;
 
-        /*         ***********************************************************************         * Disabled / Not yet implemented         ***********************************************************************         *         * private _background:away.textures.Texture2DBase;         *		 * public _pMouse3DManager:away.managers.Mouse3DManager;		 * public _pTouch3DManager:away.managers.Touch3DManager;		 *         */
+        /*
+         ***********************************************************************
+         * Disabled / Not yet implemented
+         ***********************************************************************
+         *
+         * private _background:away.textures.Texture2DBase;
+         *
+		 * public _pMouse3DManager:away.managers.Mouse3DManager;
+		 * public _pTouch3DManager:away.managers.Touch3DManager;
+		 *
+         */
 		public function View3D(scene:Scene3D = null, camera:Camera3D = null, renderer:RendererBase = null, forceSoftware:Boolean = false, profile:String = "baseline"):void
 		{
 
@@ -102,7 +127,10 @@ package away.containers
 
 		}
 
-        /**         *         * @param e         */
+        /**
+         *
+         * @param e
+         */
 		private function onScenePartitionChanged(e:Scene3DEvent):void
 		{
 			if( _pCamera )
@@ -110,12 +138,18 @@ package away.containers
 				_pCamera.partition = scene.partition;
 			}
 		}
-        /**         *         * @returns {away.managers.Stage3DProxy}         */
+        /**
+         *
+         * @returns {away.managers.Stage3DProxy}
+         */
 		public function get stage3DProxy():Stage3DProxy
 		{
 			return _pStage3DProxy;
 		}
-        /**         *         * @param stage3DProxy         */
+        /**
+         *
+         * @param stage3DProxy
+         */
 		public function set stage3DProxy(stage3DProxy:Stage3DProxy):void
 		{
 
@@ -131,22 +165,34 @@ package away.containers
 			_pBackBufferInvalid = true;
 
 		}
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
 		public function get layeredView():Boolean
 		{
 			return _layeredView;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
 		public function set layeredView(value:Boolean):void
 		{
 			_layeredView = value;
 		}
-        /**         *         * @returns {*}         */
+        /**
+         *
+         * @returns {*}
+         */
 		public function get filters3d():Vector.<Filter3DBase>
 		{
 			return _pFilter3DRenderer ? _pFilter3DRenderer.filters : null;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set filters3d(value:Vector.<Filter3DBase>):void
         {
             if (value && value.length == 0)
@@ -179,12 +225,18 @@ package away.containers
                 }
             }
         }
-        /**         *         * @returns {away.render.RendererBase}         */
+        /**
+         *
+         * @returns {away.render.RendererBase}
+         */
 		public function get renderer():RendererBase
 		{
 			return _pRenderer;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set renderer(value:RendererBase):void
         {
             _pRenderer.iDispose();
@@ -204,12 +256,18 @@ package away.containers
             _pBackBufferInvalid = true;
 
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get backgroundColor():Number
 		{
 			return _backgroundColor;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set backgroundColor(value:Number):void
         {
             _backgroundColor      = value;
@@ -217,12 +275,18 @@ package away.containers
             _pRenderer.iBackgroundG = ((value >> 8) & 0xff)/0xff;
             _pRenderer.iBackgroundB = (value & 0xff)/0xff;
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get backgroundAlpha():Number
 		{
 			return _backgroundAlpha;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
 		public function set backgroundAlpha(value:Number):void
 		{
 			if (value > 1)
@@ -237,12 +301,17 @@ package away.containers
 			_pRenderer.iBackgroundAlpha = value;
 			_backgroundAlpha = value;
 		}
-        /**         *         * @returns {away.cameras.Camera3D}         */
+        /**
+         *
+         * @returns {away.cameras.Camera3D}
+         */
 		public function get camera():Camera3D
 		{
 			return _pCamera;
 		}
-        /**         * Set camera that's used to render the scene for this viewport         */
+        /**
+         * Set camera that's used to render the scene for this viewport
+         */
         public function set camera(camera:Camera3D):void
         {
             _pCamera.removeEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this );
@@ -260,12 +329,17 @@ package away.containers
             _viewportDirty = true;
 
         }
-        /**         *         * @returns {away.containers.Scene3D}         */
+        /**
+         *
+         * @returns {away.containers.Scene3D}
+         */
 		public function get scene():Scene3D
 		{
 			return _pScene;
 		}
-        /**         * Set the scene that's used to render for this viewport         */
+        /**
+         * Set the scene that's used to render for this viewport
+         */
         public function set scene(scene:Scene3D):void
         {
             _pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
@@ -278,17 +352,26 @@ package away.containers
             }
 
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get deltaTime():Number
 		{
 			return _deltaTime;
 		}
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get width():Number
 		{
 			return _width;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set width(value:Number):void
         {
 
@@ -311,12 +394,18 @@ package away.containers
             _pBackBufferInvalid = true;
             _scissorRectDirty = true;
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get height():Number
 		{
 			return _height;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set height(value:Number):void
         {
 
@@ -340,7 +429,10 @@ package away.containers
             _scissorRectDirty = true;
 
         }
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set x(value:Number):void
         {
             if (x == value)
@@ -349,7 +441,10 @@ package away.containers
             _globalPos.x = _localPos.x = value;
             _globalPosDirty = true;
         }
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
         public function set y(value:Number):void
         {
             if (y == value)
@@ -358,22 +453,34 @@ package away.containers
             _globalPos.y = _localPos.y = value;
             _globalPosDirty = true;
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get x():Number
         {
             return _localPos.x;
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get y():Number
         {
             return _localPos.y;
         }
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
         public function get visible():Boolean
         {
             return true;
         }
-        /**         *         * @param v         */
+        /**
+         *
+         * @param v
+         */
         public function set visible(v:Boolean):void
         {
 
@@ -384,29 +491,44 @@ package away.containers
             return _pStage3DProxy.canvas;
 
         }
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get antiAlias():Number
 		{
 			return _antiAlias;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
 		public function set antiAlias(value:Number):void
 		{
 			_antiAlias = value;
 			_pRenderer.antiAlias = value;
 			_pBackBufferInvalid = true;
 		}
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get renderedFacesCount():Number
 		{
 			return _pEntityCollector._pNumTriangles;//numTriangles;
 		}
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
 		public function get shareContext():Boolean
 		{
 			return _pShareContext;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
 		public function set shareContext(value:Boolean):void
 		{
 			if ( _pShareContext == value)
@@ -416,7 +538,9 @@ package away.containers
 			_pShareContext = value;
 			_globalPosDirty = true;
 		}
-        /**         * Updates the backbuffer dimensions.         */
+        /**
+         * Updates the backbuffer dimensions.
+         */
         public function pUpdateBackBuffer():void
         {
             // No reason trying to configure back buffer if there is no context available.
@@ -435,7 +559,9 @@ package away.containers
 
             }
         }
-		/**         * Renders the view.         */
+		/**
+         * Renders the view.
+         */
         public function render():void
         {
 
@@ -522,7 +648,9 @@ package away.containers
             _pStage3DProxy.bufferClear = false;
 
         }
-        /**         *         */
+        /**
+         *
+         */
         public function pUpdateGlobalPos():void
         {
 
@@ -552,7 +680,9 @@ package away.containers
 
             _scissorRectDirty = true;
         }
-        /**         *         */
+        /**
+         *
+         */
 		public function pUpdateTime():void
 		{
 			var time:Number = new Date().getTime();
@@ -566,7 +696,9 @@ package away.containers
 			_time = time;
 
 		}
-        /**         *         */
+        /**
+         *
+         */
         public function pUpdateViewSizeData():void
         {
             _pCamera.lens.iAspectRatio = _aspectRatio;
@@ -594,7 +726,10 @@ package away.containers
                 _pRenderer.iTextureRatioY = 1;
             }
         }
-        /**         *         * @param entityCollector         */
+        /**
+         *
+         * @param entityCollector
+         */
         public function pRenderDepthPrepass(entityCollector:EntityCollector):void
         {
             _depthRenderer.disableColor = true;
@@ -615,7 +750,10 @@ package away.containers
             _depthRenderer.disableColor = false;
 
         }
-        /**         *         * @param entityCollector         */
+        /**
+         *
+         * @param entityCollector
+         */
         public function pRenderSceneDepthToTexture(entityCollector:EntityCollector):void
         {
             if (_depthTextureInvalid || !_pDepthRender)
@@ -626,7 +764,10 @@ package away.containers
             _depthRenderer.iTextureRatioY = _pRttBufferManager.textureRatioY;
             _depthRenderer.iRender(entityCollector, _pDepthRender);
         }
-        /**         *         * @param context         */
+        /**
+         *
+         * @param context
+         */
 		private function initDepthTexture(context:Context3D):void
 		{
 			_depthTextureInvalid = false;
@@ -637,7 +778,9 @@ package away.containers
 			}
 			_pDepthRender = context.createTexture( _pRttBufferManager.textureWidth, _pRttBufferManager.textureHeight, Context3DTextureFormat.BGRA, true );
 		}
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
             _pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated , this );
@@ -674,18 +817,27 @@ package away.containers
             _pRenderer = null;
             _pEntityCollector = null;
         }
-        /**         *         * @returns {away.traverse.EntityCollector}         */
+        /**
+         *
+         * @returns {away.traverse.EntityCollector}
+         */
 		public function get iEntityCollector():EntityCollector
 		{
 			return _pEntityCollector;
 		}
-        /**         *         * @param event         */
+        /**
+         *
+         * @param event
+         */
 		private function onLensChanged(event:CameraEvent):void
 		{
 			_scissorRectDirty = true;
 			_viewportDirty = true;
 		}
-        /**         *         * @param event         */
+        /**
+         *
+         * @param event
+         */
 		private function onViewportUpdated(event:Stage3DEvent):void
 		{
 			if( _pShareContext)
@@ -696,17 +848,25 @@ package away.containers
 			}
 			_viewportDirty = true;
 		}
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
 		public function get depthPrepass():Boolean
 		{
 			return _depthPrepass;
 		}
-        /**         *         * @param value         */
+        /**
+         *
+         * @param value
+         */
 		public function set depthPrepass(value:Boolean):void
 		{
 			_depthPrepass = value;
 		}
-        /**         *         */
+        /**
+         *
+         */
         private function onAddedToStage():void
         {
 
@@ -764,14 +924,56 @@ package away.containers
         {
             return _pCamera.getRay( (sX*2 - _width)/_width, (sY*2 - _height)/_height, sZ );
         }
-        /* TODO: implement Mouse3DManager        public get mousePicker():away.pick.IPicker        {            return this._mouse3DManager.mousePicker;        }        */
-        /* TODO: implement Mouse3DManager        public set mousePicker( value:away.pick.IPicker )        {            this._mouse3DManager.mousePicker = value;        }        */
-        /* TODO: implement Touch3DManager        public get touchPicker():away.pick.IPicker        {            return this._touch3DManager.touchPicker;        }        */
-        /* TODO: implement Touch3DManager        public set touchPicker( value:away.pick.IPicker)        {            this._touch3DManager.touchPicker = value;        }        */
-        /*TODO: implement Mouse3DManager        public get forceMouseMove():boolean        {            return this._mouse3DManager.forceMouseMove;        }        */
-        /* TODO: implement Mouse3DManager        public set forceMouseMove( value:boolean )        {            this._mouse3DManager.forceMouseMove = value;            this._touch3DManager.forceTouchMove = value;        }        */
-        /*TODO: implement Background        public get background():away.textures.Texture2DBase        {            return this._background;        }        */
-        /*TODO: implement Background        public set background( value:away.textures.Texture2DBase )        {            this._background = value;            this._renderer.background = _background;        }        */
+        /* TODO: implement Mouse3DManager
+        public get mousePicker():away.pick.IPicker
+        {
+            return this._mouse3DManager.mousePicker;
+        }
+        */
+        /* TODO: implement Mouse3DManager
+        public set mousePicker( value:away.pick.IPicker )
+        {
+            this._mouse3DManager.mousePicker = value;
+        }
+        */
+        /* TODO: implement Touch3DManager
+        public get touchPicker():away.pick.IPicker
+        {
+            return this._touch3DManager.touchPicker;
+        }
+        */
+        /* TODO: implement Touch3DManager
+        public set touchPicker( value:away.pick.IPicker)
+        {
+            this._touch3DManager.touchPicker = value;
+        }
+        */
+        /*TODO: implement Mouse3DManager
+        public get forceMouseMove():boolean
+        {
+            return this._mouse3DManager.forceMouseMove;
+        }
+        */
+        /* TODO: implement Mouse3DManager
+        public set forceMouseMove( value:boolean )
+        {
+            this._mouse3DManager.forceMouseMove = value;
+            this._touch3DManager.forceTouchMove = value;
+        }
+        */
+        /*TODO: implement Background
+        public get background():away.textures.Texture2DBase
+        {
+            return this._background;
+        }
+        */
+        /*TODO: implement Background
+        public set background( value:away.textures.Texture2DBase )
+        {
+            this._background = value;
+            this._renderer.background = _background;
+        }
+        */
 
 	}
 }

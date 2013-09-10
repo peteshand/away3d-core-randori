@@ -1,12 +1,33 @@
+
 package away.library.utils
 {
 	
 	public class IDUtil
 	{
-		/**		 *  @private		 *  Char codes for 0123456789ABCDEF		 */
+		/**
+		 *  @private
+		 *  Char codes for 0123456789ABCDEF
+		 */
 		private static var ALPHA_CHAR_CODES = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70];
 		
-		/**		 *  Generates a UID (unique identifier) based on ActionScript's		 *  pseudo-random number generator and the current time.		 *		 *  <p>The UID has the form		 *  <code>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</code>		 *  where X is a hexadecimal digit (0-9, A-F).</p>		 *		 *  <p>This UID will not be truly globally unique; but it is the best		 *  we can do without player support for UID generation.</p>		 *		 *  @return The newly-generated UID.		 *		 *  @langversion 3.0		 *  @playerversion Flash 9		 *  @playerversion AIR 1.1		 *  @productversion Flex 3		 */
+		/**
+		 *  Generates a UID (unique identifier) based on ActionScript's
+		 *  pseudo-random number generator and the current time.
+		 *
+		 *  <p>The UID has the form
+		 *  <code>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</code>
+		 *  where X is a hexadecimal digit (0-9, A-F).</p>
+		 *
+		 *  <p>This UID will not be truly globally unique; but it is the best
+		 *  we can do without player support for UID generation.</p>
+		 *
+		 *  @return The newly-generated UID.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
+		 */
 		public static function createUID():String
 		{
 			var uid = new Array(36);
@@ -46,7 +67,36 @@ package away.library.utils
 			return String.fromCharCode.apply(null, uid);
 		}
 
-		/**		 * Returns the decimal representation of a hex digit.		 * @private		private static getDigit(hex:string):number		{			switch (hex) {				case "A":				case "a":					return 10;				case "B":				case "b":					return 11;				case "C":				case "c":					return 12;				case "D":				case "d":					return 13;				case "E":				case "e":					return 14;				case "F":				case "f":					return 15;				default:					return new uint(hex);			}		}        */
+		/**
+		 * Returns the decimal representation of a hex digit.
+		 * @private
+
+		private static getDigit(hex:string):number
+		{
+			switch (hex) {
+				case "A":
+				case "a":
+					return 10;
+				case "B":
+				case "b":
+					return 11;
+				case "C":
+				case "c":
+					return 12;
+				case "D":
+				case "d":
+					return 13;
+				case "E":
+				case "e":
+					return 14;
+				case "F":
+				case "f":
+					return 15;
+				default:
+					return new uint(hex);
+			}
+		}
+        */
 
 	}
 }

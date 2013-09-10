@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../../_definitions.ts"/>
 
 package away.lights.shadowmaps
@@ -61,7 +63,9 @@ package away.lights.shadowmaps
 		override public function pCreateDepthTexture():TextureProxyBase
 		{
 			throw new PartialImplementationError();
-			/*			return new away.textures.RenderCubeTexture( this._depthMapSize );			*/
+			/*
+			return new away.textures.RenderCubeTexture( this._depthMapSize );
+			*/
 		}
 		
 		//@override

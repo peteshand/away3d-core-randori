@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.compilation
 {
 	import away.materials.methods.ShaderMethodSetup;
@@ -9,36 +8,61 @@ package away.materials.compilation
 	import away.materials.LightSources;
 	import away.materials.methods.EffectMethodBase;
 
-	/**	 * ShaderCompiler is an abstract base class for shader compilers that use modular shader methods to assemble a	 * material. Concrete subclasses are used by the default materials.	 *	 * @see away3d.materials.methods.ShadingMethodBase	 */
+	/**
+	 * ShaderCompiler is an abstract base class for shader compilers that use modular shader methods to assemble a
+	 * material. Concrete subclasses are used by the default materials.
+	 *
+	 * @see away3d.materials.methods.ShadingMethodBase
+	 */
 	public class ShaderCompiler
 	{
-        public var _pSharedRegisters:ShaderRegisterData;// PROTECTED        public var _pRegisterCache:ShaderRegisterCache;// PROTECTED		public var _pDependencyCounter:MethodDependencyCounter; // PROTECTED        public var _pMethodSetup:ShaderMethodSetup;// PROTECTED
+        public var _pSharedRegisters:ShaderRegisterData;// PROTECTED
+        public var _pRegisterCache:ShaderRegisterCache;// PROTECTED
+		public var _pDependencyCounter:MethodDependencyCounter; // PROTECTED
+        public var _pMethodSetup:ShaderMethodSetup;// PROTECTED
+
 		private var _smooth:Boolean;
 		private var _repeat:Boolean;
 		private var _mipmap:Boolean;
 		public var _pEnableLightFallOff:Boolean;
 		private var _preserveAlpha:Boolean = true;
 		private var _animateUVs:Boolean;
-		public var _pAlphaPremultiplied:Boolean; // PROTECTED		private var _vertexConstantData:Vector.<Number>;
+		public var _pAlphaPremultiplied:Boolean; // PROTECTED
+		private var _vertexConstantData:Vector.<Number>;
 		private var _fragmentConstantData:Vector.<Number>;
 
-		public var _pVertexCode:String = ''; // Changed to emtpy string- AwayTS        public var _pFragmentCode:String = '';// Changed to emtpy string - AwayTS		private var _fragmentLightCode:String;
+		public var _pVertexCode:String = ''; // Changed to emtpy string- AwayTS
+        public var _pFragmentCode:String = '';// Changed to emtpy string - AwayTS
+		private var _fragmentLightCode:String;
 		private var _fragmentPostLightCode:String;
 		private var _commonsDataIndex:Number = -1;
 
-		public var _pAnimatableAttributes:Vector.<String>; // PROTECTED		public var _pAnimationTargetRegisters:Vector.<String>; // PROTECTED
+		public var _pAnimatableAttributes:Vector.<String>; // PROTECTED
+		public var _pAnimationTargetRegisters:Vector.<String>; // PROTECTED
+
 		public var _pLightProbeDiffuseIndices:Vector.<Number>/*uint*/;
         public var _pLightProbeSpecularIndices:Vector.<Number>/*uint*/;
 		private var _uvBufferIndex:Number = -1;
 		private var _uvTransformIndex:Number = -1;
 		private var _secondaryUVBufferIndex:Number = -1;
-		public var _pNormalBufferIndex:Number = -1; // PROTECTED		public var _pTangentBufferIndex:Number = -1; // PROTECTED		public var _pLightFragmentConstantIndex:Number = -1; //PROTECTED		private var _sceneMatrixIndex:Number = -1;
-		public var _pSceneNormalMatrixIndex:Number = -1; //PROTECTED		public var _pCameraPositionIndex:Number = -1; // PROTECTED		public var _pProbeWeightsIndex:Number = -1; // PROTECTED
+		public var _pNormalBufferIndex:Number = -1; // PROTECTED
+		public var _pTangentBufferIndex:Number = -1; // PROTECTED
+		public var _pLightFragmentConstantIndex:Number = -1; //PROTECTED
+		private var _sceneMatrixIndex:Number = -1;
+		public var _pSceneNormalMatrixIndex:Number = -1; //PROTECTED
+		public var _pCameraPositionIndex:Number = -1; // PROTECTED
+		public var _pProbeWeightsIndex:Number = -1; // PROTECTED
+
 		private var _specularLightSources:Number;
 		private var _diffuseLightSources:Number;
 
-		public var _pNumLights:Number;  // PROTECTED		public var _pNumLightProbes:Number; // PROTECTED		public var _pNumPointLights:Number; // PROTECTED		public var _pNumDirectionalLights:Number; // PROTECTED
-		public var _pNumProbeRegisters:Number; // PROTECTED		private var _combinedLightSources:Number;
+		public var _pNumLights:Number;  // PROTECTED
+		public var _pNumLightProbes:Number; // PROTECTED
+		public var _pNumPointLights:Number; // PROTECTED
+		public var _pNumDirectionalLights:Number; // PROTECTED
+
+		public var _pNumProbeRegisters:Number; // PROTECTED
+		private var _combinedLightSources:Number;
 
 		public var _usingSpecularMethod:Boolean;
 
@@ -50,7 +74,10 @@ package away.materials.compilation
 
 		private var _forceSeperateMVP:Boolean;
 
-		/**		 * Creates a new ShaderCompiler object.		 * @param profile The compatibility profile of the renderer.		 */
+		/**
+		 * Creates a new ShaderCompiler object.
+		 * @param profile The compatibility profile of the renderer.
+		 */
 		public function ShaderCompiler(profile:String):void
 		{
 			_pSharedRegisters = new ShaderRegisterData();
@@ -59,7 +86,10 @@ package away.materials.compilation
             initRegisterCache(profile);
 		}
 
-		/**		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and		 * compatibility for constrained mode.		 */
+		/**
+		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and
+		 * compatibility for constrained mode.
+		 */
 		public function get enableLightFallOff():Boolean
 		{
 			return _pEnableLightFallOff;
@@ -70,25 +100,35 @@ package away.materials.compilation
             _pEnableLightFallOff = value;
 		}
 
-		/**		 * Indicates whether the compiled code needs UV animation.		 */
+		/**
+		 * Indicates whether the compiled code needs UV animation.
+		 */
 		public function get needUVAnimation():Boolean
 		{
 			return _needUVAnimation;
 		}
 
-		/**		 * The target register to place the animated UV coordinate.		 */
+		/**
+		 * The target register to place the animated UV coordinate.
+		 */
 		public function get UVTarget():String
 		{
 			return _UVTarget;
 		}
 
-		/**		 * The souce register providing the UV coordinate to animate.		 */
+		/**
+		 * The souce register providing the UV coordinate to animate.
+		 */
 		public function get UVSource():String
 		{
 			return _UVSource;
 		}
 
-		/**		 * Indicates whether the screen projection should be calculated by forcing a separate scene matrix and		 * view-projection matrix. This is used to prevent rounding errors when using multiple passes with different		 * projection code.		 */
+		/**
+		 * Indicates whether the screen projection should be calculated by forcing a separate scene matrix and
+		 * view-projection matrix. This is used to prevent rounding errors when using multiple passes with different
+		 * projection code.
+		 */
 		public function get forceSeperateMVP():Boolean
 		{
 			return _forceSeperateMVP;
@@ -99,7 +139,10 @@ package away.materials.compilation
             _forceSeperateMVP = value;
 		}
 
-		/**		 * Initialized the register cache.		 * @param profile The compatibility profile of the renderer.		 */
+		/**
+		 * Initialized the register cache.
+		 * @param profile The compatibility profile of the renderer.
+		 */
 		private function initRegisterCache(profile:String):void
 		{
             _pRegisterCache = new ShaderRegisterCache(profile);
@@ -107,7 +150,9 @@ package away.materials.compilation
             _pRegisterCache.reset();
 		}
 
-		/**		 * Indicate whether UV coordinates need to be animated using the renderable's transformUV matrix.		 */
+		/**
+		 * Indicate whether UV coordinates need to be animated using the renderable's transformUV matrix.
+		 */
 		public function get animateUVs():Boolean
 		{
 			return _animateUVs;
@@ -118,7 +163,10 @@ package away.materials.compilation
             _animateUVs = value;
 		}
 
-		/**		 * Indicates whether visible textures (or other pixels) used by this material have		 * already been premultiplied.		 */
+		/**
+		 * Indicates whether visible textures (or other pixels) used by this material have
+		 * already been premultiplied.
+		 */
 		public function get alphaPremultiplied():Boolean
 		{
 			return _pAlphaPremultiplied;
@@ -129,7 +177,9 @@ package away.materials.compilation
             _pAlphaPremultiplied = value;
 		}
 
-		/**		 * Indicates whether the output alpha value should remain unchanged compared to the material's original alpha.		 */
+		/**
+		 * Indicates whether the output alpha value should remain unchanged compared to the material's original alpha.
+		 */
 		public function get preserveAlpha():Boolean
 		{
 			return _preserveAlpha;
@@ -140,7 +190,12 @@ package away.materials.compilation
             _preserveAlpha = value;
 		}
 
-		/**		 * Sets the default texture sampling properties.		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.		 */
+		/**
+		 * Sets the default texture sampling properties.
+		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.
+		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.
+		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.
+		 */
 		public function setTextureSampling(smooth:Boolean, repeat:Boolean, mipmap:Boolean):void
 		{
             _smooth = smooth;
@@ -148,14 +203,20 @@ package away.materials.compilation
             _mipmap = mipmap;
 		}
 
-		/**		 * Sets the constant buffers allocated by the material. This allows setting constant data during compilation.		 * @param vertexConstantData The vertex constant data buffer.		 * @param fragmentConstantData The fragment constant data buffer.		 */
+		/**
+		 * Sets the constant buffers allocated by the material. This allows setting constant data during compilation.
+		 * @param vertexConstantData The vertex constant data buffer.
+		 * @param fragmentConstantData The fragment constant data buffer.
+		 */
 		public function setConstantDataBuffers(vertexConstantData:Vector.<Number>, fragmentConstantData:Vector.<Number>):void
 		{
             _vertexConstantData = vertexConstantData;
             _fragmentConstantData = fragmentConstantData;
 		}
 
-		/**		 * The shader method setup object containing the method configuration and their value objects for the material being compiled.		 */
+		/**
+		 * The shader method setup object containing the method configuration and their value objects for the material being compiled.
+		 */
 		public function get methodSetup():ShaderMethodSetup
 		{
 			return _pMethodSetup;
@@ -166,7 +227,9 @@ package away.materials.compilation
             _pMethodSetup = value;
 		}
 
-		/**		 * Compiles the code after all setup on the compiler has finished.		 */
+		/**
+		 * Compiles the code after all setup on the compiler has finished.
+		 */
 		public function compile():void
 		{
 			pInitRegisterIndices();
@@ -198,13 +261,17 @@ package away.materials.compilation
             _fragmentPostLightCode = fragmentCode;
 		}
 
-		/**		 * Creates the registers to contain the normal data.		 */
+		/**
+		 * Creates the registers to contain the normal data.
+		 */
 		public function pCreateNormalRegisters():void
 		{
 
 		}
 
-		/**		 * Compile the code for the methods.		 */
+		/**
+		 * Compile the code for the methods.
+		 */
 		public function pCompileMethodsCode():void
 		{
 			if (_pDependencyCounter.uvDependencies > 0)
@@ -225,25 +292,33 @@ package away.materials.compilation
             pCompileMethods();
 		}
 
-		/**		 * Compile the lighting code.		 */
+		/**
+		 * Compile the lighting code.
+		 */
 		public function pCompileLightingCode():void
 		{
 
 		}
 
-		/**		 * Calculate the view direction.		 */
+		/**
+		 * Calculate the view direction.
+		 */
 		public function pCompileViewDirCode():void
 		{
 
 		}
 
-		/**		 * Calculate the normal.		 */
+		/**
+		 * Calculate the normal.
+		 */
 		public function pCompileNormalCode():void
 		{
 
 		}
 
-		/**		 * Calculate the (possibly animated) UV coordinates.		 */
+		/**
+		 * Calculate the (possibly animated) UV coordinates.
+		 */
 		private function compileUVCode():void
 		{
 			var uvAttributeReg:ShaderRegisterElement = _pRegisterCache.getFreeVertexAttribute();
@@ -280,7 +355,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Provide the secondary UV coordinates.		 */
+		/**
+		 * Provide the secondary UV coordinates.
+		 */
 		private function compileSecondaryUVCode():void
 		{
             // TODO: AGAL <> GLSL
@@ -291,7 +368,9 @@ package away.materials.compilation
             _pVertexCode += "mov " + _pSharedRegisters.secondaryUVVarying.toString() + ", " + uvAttributeReg.toString() + "\n";
 		}
 
-		/**		 * Compile the world-space position.		 */
+		/**
+		 * Compile the world-space position.
+		 */
 		public function pCompileGlobalPositionCode():void
 		{
 
@@ -316,7 +395,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Get the projection coordinates.		 */
+		/**
+		 * Get the projection coordinates.
+		 */
 		private function compileProjectionCode():void
 		{
 			var pos:String = _pDependencyCounter.globalPosDependencies > 0 || _forceSeperateMVP? _pSharedRegisters.globalPositionVertex.toString() : _pAnimationTargetRegisters[0];
@@ -345,7 +426,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Assign the final output colour the the output register.		 */
+		/**
+		 * Assign the final output colour the the output register.
+		 */
 		private function compileFragmentOutput():void
 		{
             // TODO: AGAL <> GLSL
@@ -354,7 +437,9 @@ package away.materials.compilation
             _pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.shadedTarget);
 		}
 
-		/**		 * Reset all the indices to "unused".		 */
+		/**
+		 * Reset all the indices to "unused".
+		 */
 		public function pInitRegisterIndices():void
 		{
 			_commonsDataIndex = -1;
@@ -371,7 +456,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Prepares the setup for the light code.		 */
+		/**
+		 * Prepares the setup for the light code.
+		 */
 		public function pInitLightData():void
 		{
             _pNumLights = _pNumPointLights + _pNumDirectionalLights;
@@ -397,14 +484,18 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Create the commonly shared constant register.		 */
+		/**
+		 * Create the commonly shared constant register.
+		 */
 		private function createCommons():void
 		{
 			_pSharedRegisters.commons = _pRegisterCache.getFreeFragmentConstant();
             _commonsDataIndex = _pSharedRegisters.commons.index*4;
 		}
 
-		/**		 * Figure out which named registers are required, and how often.		 */
+		/**
+		 * Figure out which named registers are required, and how often.
+		 */
 		public function pCalculateDependencies():void
 		{
             _pDependencyCounter.reset();
@@ -442,14 +533,20 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Counts the dependencies for a given method.		 * @param method The method to count the dependencies for.		 * @param methodVO The method's data for this material.		 */
+		/**
+		 * Counts the dependencies for a given method.
+		 * @param method The method to count the dependencies for.
+		 * @param methodVO The method's data for this material.
+		 */
 		private function setupAndCountMethodDependencies(method:ShadingMethodBase, methodVO:MethodVO):void
 		{
 			setupMethod(method, methodVO);
 			_pDependencyCounter.includeMethodVO(methodVO);
 		}
 
-		/**		 * Assigns all prerequisite data for the methods, so we can calculate dependencies for them.		 */
+		/**
+		 * Assigns all prerequisite data for the methods, so we can calculate dependencies for them.
+		 */
 		private function setupMethod(method:ShadingMethodBase, methodVO:MethodVO):void
 		{
 			method.iReset();
@@ -466,13 +563,17 @@ package away.materials.compilation
 			method.iInitVO(methodVO);
 		}
 
-		/**		 * The index for the common data register.		 */
+		/**
+		 * The index for the common data register.
+		 */
 		public function get commonsDataIndex():Number
 		{
 			return _commonsDataIndex;
 		}
 
-		/**		 * Assigns the shared register data to all methods.		 */
+		/**
+		 * Assigns the shared register data to all methods.
+		 */
 		private function updateMethodRegisters():void
 		{
 			_pMethodSetup._iNormalMethod.iSharedRegisters= _pSharedRegisters;
@@ -504,49 +605,68 @@ package away.materials.compilation
 
 		}
 
-		/**		 * The amount of vertex constants used by the material. Any animation code to be added can append its vertex		 * constant data after this.		 */
+		/**
+		 * The amount of vertex constants used by the material. Any animation code to be added can append its vertex
+		 * constant data after this.
+		 */
 		public function get numUsedVertexConstants():Number
 		{
 			return _pRegisterCache.numUsedVertexConstants;
 		}
 
-		/**		 * The amount of fragment constants used by the material. Any animation code to be added can append its vertex		 * constant data after this.		 */
+		/**
+		 * The amount of fragment constants used by the material. Any animation code to be added can append its vertex
+		 * constant data after this.
+		 */
 		public function get numUsedFragmentConstants():Number
 		{
 			return _pRegisterCache.numUsedFragmentConstants;
 		}
 
-		/**		 * The amount of vertex attribute streams used by the material. Any animation code to be added can add its		 * streams after this. Also used to automatically disable attribute slots on pass deactivation.		 */
+		/**
+		 * The amount of vertex attribute streams used by the material. Any animation code to be added can add its
+		 * streams after this. Also used to automatically disable attribute slots on pass deactivation.
+		 */
 		public function get numUsedStreams():Number
 		{
 			return _pRegisterCache.numUsedStreams;
 		}
 
-		/**		 * The amount of textures used by the material. Used to automatically disable texture slots on pass deactivation.		 */
+		/**
+		 * The amount of textures used by the material. Used to automatically disable texture slots on pass deactivation.
+		 */
 		public function get numUsedTextures():Number
 		{
 			return _pRegisterCache.numUsedTextures;
 		}
 
-		/**		 * Number of used varyings. Any animation code to be added can add its used varyings after this.		 */
+		/**
+		 * Number of used varyings. Any animation code to be added can add its used varyings after this.
+		 */
 		public function get numUsedVaryings():Number
 		{
 			return _pRegisterCache.numUsedVaryings;
 		}
 
-		/**		 * Indicates whether lights are used for specular reflections.		 */
+		/**
+		 * Indicates whether lights are used for specular reflections.
+		 */
 		public function pUsesLightsForSpecular():Boolean
 		{
 			return _pNumLights > 0 && ( _specularLightSources & LightSources.LIGHTS) != 0;
 		}
 
-		/**		 * Indicates whether lights are used for diffuse reflections.		 */
+		/**
+		 * Indicates whether lights are used for diffuse reflections.
+		 */
 		public function pUsesLightsForDiffuse():Boolean
 		{
 			return _pNumLights > 0 && ( _diffuseLightSources & LightSources.LIGHTS) != 0;
 		}
 
-		/**		 * Disposes all resources used by the compiler.		 */
+		/**
+		 * Disposes all resources used by the compiler.
+		 */
 		public function dispose():void
 		{
 			cleanUpMethods();
@@ -555,7 +675,9 @@ package away.materials.compilation
 			_pSharedRegisters = null;
 		}
 
-		/**		 * Clean up method's compilation data after compilation finished.		 */
+		/**
+		 * Clean up method's compilation data after compilation finished.
+		 */
 		private function cleanUpMethods():void
 		{
 			if (_pMethodSetup._iNormalMethod)
@@ -589,7 +711,12 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Define which light source types to use for specular reflections. This allows choosing between regular lights		 * and/or light probes for specular reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for specular reflections. This allows choosing between regular lights
+		 * and/or light probes for specular reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get specularLightSources():Number
 		{
 			return _specularLightSources;
@@ -600,7 +727,12 @@ package away.materials.compilation
             _specularLightSources = value;
 		}
 
-		/**		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights		 * and/or light probes for diffuse reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights
+		 * and/or light probes for diffuse reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get diffuseLightSources():Number
 		{
 			return _diffuseLightSources;
@@ -611,115 +743,153 @@ package away.materials.compilation
 			_diffuseLightSources = value;
 		}
 
-		/**		 * Indicates whether light probes are being used for specular reflections.		 */
+		/**
+		 * Indicates whether light probes are being used for specular reflections.
+		 */
 		public function pUsesProbesForSpecular():Boolean
 		{
 			return _pNumLightProbes > 0 && (_specularLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**		 * Indicates whether light probes are being used for diffuse reflections.		 */
+		/**
+		 * Indicates whether light probes are being used for diffuse reflections.
+		 */
 		public function pUsesProbesForDiffuse():Boolean
 		{
 			return _pNumLightProbes > 0 && (_diffuseLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**		 * Indicates whether any light probes are used.		 */
+		/**
+		 * Indicates whether any light probes are used.
+		 */
 		public function pUsesProbes():Boolean
 		{
 			return _pNumLightProbes > 0 && ((_diffuseLightSources | _specularLightSources) & LightSources.PROBES) != 0;
 		}
 
-		/**		 * The index for the UV vertex attribute stream.		 */
+		/**
+		 * The index for the UV vertex attribute stream.
+		 */
 		public function get uvBufferIndex():Number
 		{
 			return _uvBufferIndex;
 		}
 
-		/**		 * The index for the UV transformation matrix vertex constant.		 */
+		/**
+		 * The index for the UV transformation matrix vertex constant.
+		 */
 		public function get uvTransformIndex():Number
 		{
 			return _uvTransformIndex;
 		}
 
-		/**		 * The index for the secondary UV vertex attribute stream.		 */
+		/**
+		 * The index for the secondary UV vertex attribute stream.
+		 */
 		public function get secondaryUVBufferIndex():Number
 		{
 			return _secondaryUVBufferIndex;
 		}
 
-		/**		 * The index for the vertex normal attribute stream.		 */
+		/**
+		 * The index for the vertex normal attribute stream.
+		 */
 		public function get normalBufferIndex():Number
 		{
 			return _pNormalBufferIndex;
 		}
 
-		/**		 * The index for the vertex tangent attribute stream.		 */
+		/**
+		 * The index for the vertex tangent attribute stream.
+		 */
 		public function get tangentBufferIndex():Number
 		{
 			return _pTangentBufferIndex;
 		}
 
-		/**		 * The first index for the fragment constants containing the light data.		 */
+		/**
+		 * The first index for the fragment constants containing the light data.
+		 */
 		public function get lightFragmentConstantIndex():Number
 		{
 			return _pLightFragmentConstantIndex;
 		}
 
-		/**		 * The index of the vertex constant containing the camera position.		 */
+		/**
+		 * The index of the vertex constant containing the camera position.
+		 */
 		public function get cameraPositionIndex():Number
 		{
 			return _pCameraPositionIndex;
 		}
 
-		/**		 * The index of the vertex constant containing the scene matrix.		 */
+		/**
+		 * The index of the vertex constant containing the scene matrix.
+		 */
 		public function get sceneMatrixIndex():Number
 		{
 			return _sceneMatrixIndex;
 		}
 
-		/**		 * The index of the vertex constant containing the uniform scene matrix (the inverse transpose).		 */
+		/**
+		 * The index of the vertex constant containing the uniform scene matrix (the inverse transpose).
+		 */
 		public function get sceneNormalMatrixIndex():Number
 		{
 			return _pSceneNormalMatrixIndex;
 		}
 
-		/**		 * The index of the fragment constant containing the weights for the light probes.		 */
+		/**
+		 * The index of the fragment constant containing the weights for the light probes.
+		 */
 		public function get probeWeightsIndex():Number
 		{
 			return _pProbeWeightsIndex;
 		}
 
-		/**		 * The generated vertex code.		 */
+		/**
+		 * The generated vertex code.
+		 */
 		public function get vertexCode():String
 		{
 			return _pVertexCode;
 		}
 
-		/**		 * The generated fragment code.		 */
+		/**
+		 * The generated fragment code.
+		 */
 		public function get fragmentCode():String
 		{
 			return _pFragmentCode;
 		}
 
-		/**		 * The code containing the lighting calculations.		 */
+		/**
+		 * The code containing the lighting calculations.
+		 */
 		public function get fragmentLightCode():String
 		{
 			return _fragmentLightCode;
 		}
 
-		/**		 * The code containing the post-lighting calculations.		 */
+		/**
+		 * The code containing the post-lighting calculations.
+		 */
 		public function get fragmentPostLightCode():String
 		{
 			return _fragmentPostLightCode;
 		}
 
-		/**		 * The register name containing the final shaded colour.		 */
+		/**
+		 * The register name containing the final shaded colour.
+		 */
 		public function get shadedTarget():String
 		{
 			return _pSharedRegisters.shadedTarget.toString();
 		}
 
-		/**		 * The amount of point lights that need to be supported.		 */
+		/**
+		 * The amount of point lights that need to be supported.
+		 */
 		public function get numPointLights():Number
 		{
 			return _pNumPointLights;
@@ -730,7 +900,9 @@ package away.materials.compilation
             _pNumPointLights = numPointLights;
 		}
 
-		/**		 * The amount of directional lights that need to be supported.		 */
+		/**
+		 * The amount of directional lights that need to be supported.
+		 */
 		public function get numDirectionalLights():Number
 		{
 			return _pNumDirectionalLights;
@@ -741,7 +913,9 @@ package away.materials.compilation
             _pNumDirectionalLights = value;
 		}
 
-		/**		 * The amount of light probes that need to be supported.		 */
+		/**
+		 * The amount of light probes that need to be supported.
+		 */
 		public function get numLightProbes():Number
 		{
 			return _pNumLightProbes;
@@ -752,37 +926,49 @@ package away.materials.compilation
             _pNumLightProbes = value;
 		}
 
-		/**		 * Indicates whether the specular method is used.		 */
+		/**
+		 * Indicates whether the specular method is used.
+		 */
 		public function get usingSpecularMethod():Boolean
 		{
 			return _usingSpecularMethod;
 		}
 
-		/**		 * The attributes that need to be animated by animators.		 */
+		/**
+		 * The attributes that need to be animated by animators.
+		 */
 		public function get animatableAttributes():Vector.<String>
 		{
 			return _pAnimatableAttributes;
 		}
 
-		/**		 * The target registers for animated properties, written to by the animators.		 */
+		/**
+		 * The target registers for animated properties, written to by the animators.
+		 */
 		public function get animationTargetRegisters():Vector.<String>
 		{
 			return _pAnimationTargetRegisters;
 		}
 
-		/**		 * Indicates whether the compiled shader uses normals.		 */
+		/**
+		 * Indicates whether the compiled shader uses normals.
+		 */
 		public function get usesNormals():Boolean
 		{
 			return _pDependencyCounter.normalDependencies > 0 && _pMethodSetup._iNormalMethod.iHasOutput;
 		}
 
-		/**		 * Indicates whether the compiled shader uses lights.		 */
+		/**
+		 * Indicates whether the compiled shader uses lights.
+		 */
 		public function pUsesLights():Boolean
 		{
 			return _pNumLights > 0 && (_combinedLightSources & LightSources.LIGHTS) != 0;
 		}
 
-		/**		 * Compiles the code for the methods.		 */
+		/**
+		 * Compiles the code for the methods.
+		 */
 		public function pCompileMethods():void
 		{
             var methods:Vector.<MethodVOSet> = _pMethodSetup._iMethods;//var methods:Vector.<MethodVOSet> = this._pMethodSetup._iMethods;
@@ -839,12 +1025,16 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Indices for the light probe diffuse textures.		 */
+		/**
+		 * Indices for the light probe diffuse textures.
+		 */
 		public function get lightProbeDiffuseIndices():Vector.<Number> /*uint*/		{
 			return _pLightProbeDiffuseIndices;
 		}
 
-		/**		 * Indices for the light probe specular textures.		 */
+		/**
+		 * Indices for the light probe specular textures.
+		 */
 		public function get lightProbeSpecularIndices():Vector.<Number> /*uint*/		{
 			return _pLightProbeSpecularIndices;
 		}

@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
- 
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts" />
 
 package away.containers
@@ -65,14 +67,25 @@ package away.containers
 			}
 		}
 
-        /*        public get iImplicitPartition():away.partition.Partition3D        {            return this._pImplicitPartition;        }        */
+        /*
+        public get iImplicitPartition():away.partition.Partition3D
+        {
+            return this._pImplicitPartition;
+        }
+        */
         public function iGetImplicitPartition():Partition3D
         {
 
             return _pImplicitPartition;
         }
 
-        /*		public set iImplicitPartition( value:away.partition.Partition3D )		{            this.iSetImplicitPartition( value );		}        */
+        /*
+		public set iImplicitPartition( value:away.partition.Partition3D )
+		{
+
+            this.iSetImplicitPartition( value );
+		}
+        */
         public function iSetImplicitPartition(value:Partition3D):void
         {
 
@@ -94,7 +107,29 @@ package away.containers
                     child._pImplicitPartition = value;
             }
 
-            /*            if ( value == this._pImplicitPartition )            {                return;            }            console.log( 'ObjectContainer3D','iSetImplicitPartition' , value );            var i:number = 0;            var len:number = this._children.length;            var child:away.containers.ObjectContainer3D;            this._pImplicitPartition = value;            while (i < len)            {                child = this._children[i++];                if( !child._pExplicitPartition )                {                    child._pImplicitPartition = value;                }            }            */
+            /*
+            if ( value == this._pImplicitPartition )
+            {
+                return;
+            }
+
+            console.log( 'ObjectContainer3D','iSetImplicitPartition' , value );
+
+            var i:number = 0;
+            var len:number = this._children.length;
+            var child:away.containers.ObjectContainer3D;
+
+            this._pImplicitPartition = value;
+
+            while (i < len)
+            {
+                child = this._children[i++];
+                if( !child._pExplicitPartition )
+                {
+                    child._pImplicitPartition = value;
+                }
+            }
+            */
 
         }
 		
@@ -197,7 +232,9 @@ package away.containers
 			pUpdateMouseChildren();
 		}
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function iInvalidateTransform():void
         {
             super.iInvalidateTransform();

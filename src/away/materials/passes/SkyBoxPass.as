@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.materials.passes
@@ -14,13 +13,17 @@ package away.materials.passes
 	import away.display3D.Context3DProgramType;
 	import away.display3D.Context3DCompareMode;
 
-	/**	 * SkyBoxPass provides a material pass exclusively used to render sky boxes from a cube texture.	 */
+	/**
+	 * SkyBoxPass provides a material pass exclusively used to render sky boxes from a cube texture.
+	 */
 	public class SkyBoxPass extends MaterialPassBase
 	{
 		private var _cubeTexture:CubeTextureBase;
 		private var _vertexData:Vector.<Number>;
 		
-		/**		 * Creates a new SkyBoxPass object.		 */
+		/**
+		 * Creates a new SkyBoxPass object.
+		 */
 		public function SkyBoxPass():void
 		{
 			super();
@@ -29,7 +32,9 @@ package away.materials.passes
             _vertexData = new Vector.<Number>( 0, 0, 0, 0, 1, 1, 1, 1 );
 		}
 		
-		/**		 * The cube texture to use as the skybox.		 */
+		/**
+		 * The cube texture to use as the skybox.
+		 */
 		public function get cubeTexture():CubeTextureBase
 		{
 			return _cubeTexture;
@@ -40,7 +45,9 @@ package away.materials.passes
 			_cubeTexture = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetVertexCode():String
 		{
 			return "mul vt0, va0, vc5		\n" +
@@ -49,7 +56,9 @@ package away.materials.passes
 				"mov v0, va0\n";
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCode(animationCode:String):String
 		{
 			var format:String;
@@ -74,7 +83,9 @@ package away.materials.passes
 				"mov oc, ft0							\n";
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
@@ -89,7 +100,9 @@ package away.materials.passes
 			context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.numTriangles);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);

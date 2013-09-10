@@ -1,6 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
 
-
 package away.library.naming
 {
 	import away.library.assets.IAsset;

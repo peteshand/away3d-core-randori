@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.base
 {
 	import away.materials.MaterialBase;
@@ -12,7 +13,12 @@ package away.base
 	import away.bounds.BoundingVolumeBase;
 	import away.cameras.Camera3D;
 
-	/**	 * SubMesh wraps a SubGeometry as a scene graph instantiation. A SubMesh is owned by a Mesh object.	 *	 * @see away3d.core.base.SubGeometry	 * @see away3d.scenegraph.Mesh	 */
+	/**
+	 * SubMesh wraps a SubGeometry as a scene graph instantiation. A SubMesh is owned by a Mesh object.
+	 *
+	 * @see away3d.core.base.SubGeometry
+	 * @see away3d.scenegraph.Mesh
+	 */
 	public class SubMesh implements IRenderable
 	{
 		public var _iMaterial:MaterialBase;
@@ -30,7 +36,12 @@ package away.base
 		//public animationSubGeometry:AnimationSubGeometry;// TODO: implement dependencies AnimationSubGeometry
 		//public animatorSubGeometry:AnimationSubGeometry;// TODO: implement dependencies AnimationSubGeometry
 		
-		/**		 * Creates a new SubMesh object		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.		 * @param parentMesh The Mesh object to which this SubMesh belongs.		 * @param material An optional material used to render this SubMesh.		 */
+		/**
+		 * Creates a new SubMesh object
+		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.
+		 * @param parentMesh The Mesh object to which this SubMesh belongs.
+		 * @param material An optional material used to render this SubMesh.
+		 */
 		public function SubMesh(subGeometry:ISubGeometry, parentMesh:Mesh, material:MaterialBase = null):void
 		{
 			_parentMesh = parentMesh;
@@ -135,13 +146,17 @@ package away.base
             _uvTransformDirty = true;
 		}
 		
-		/**		 * The entity that that initially provided the IRenderable to the render pipeline (ie: the owning Mesh object).		 */
+		/**
+		 * The entity that that initially provided the IRenderable to the render pipeline (ie: the owning Mesh object).
+		 */
 		public function get sourceEntity():Entity
 		{
 			return _parentMesh;
 		}
 		
-		/**		 * The SubGeometry object which provides the geometry data for this SubMesh.		 */
+		/**
+		 * The SubGeometry object which provides the geometry data for this SubMesh.
+		 */
 		public function get subGeometry():ISubGeometry
 		{
 			return _subGeometry;
@@ -152,7 +167,9 @@ package away.base
             _subGeometry = value;
 		}
 		
-		/**		 * The material used to render the current SubMesh. If set to null, its parent Mesh's material will be used instead.		 */
+		/**
+		 * The material used to render the current SubMesh. If set to null, its parent Mesh's material will be used instead.
+		 */
 		public function get material():MaterialBase
 		{
 			return _iMaterial || _parentMesh.material;
@@ -181,68 +198,90 @@ package away.base
             //*/
 		}
 		
-		/**		 * The scene transform object that transforms from model to world space.		 */
+		/**
+		 * The scene transform object that transforms from model to world space.
+		 */
 		public function get sceneTransform():Matrix3D
 		{
 			return _parentMesh.sceneTransform;
 		}
 		
-		/**		 * The inverse scene transform object that transforms from world to model space.		 */
+		/**
+		 * The inverse scene transform object that transforms from world to model space.
+		 */
 		public function get inverseSceneTransform():Matrix3D
 		{
 			return _parentMesh.inverseSceneTransform;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			_subGeometry.activateVertexBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			_subGeometry.activateVertexNormalBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateVertexTangentBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			_subGeometry.activateVertexTangentBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			_subGeometry.activateUVBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function activateSecondaryUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
             _subGeometry.activateSecondaryUVBuffer(index, stage3DProxy);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function getIndexBuffer(stage3DProxy:Stage3DProxy):IndexBuffer3D
 		{
 			return _subGeometry.getIndexBuffer(stage3DProxy);
 		}
 		
-		/**		 * The amount of triangles that make up this SubMesh.		 */
+		/**
+		 * The amount of triangles that make up this SubMesh.
+		 */
 		public function get numTriangles():Number
 		{
 			return _subGeometry.numTriangles;
 		}
 		
-		/**		 * The animator object that provides the state for the SubMesh's animation.		 */
+		/**
+		 * The animator object that provides the state for the SubMesh's animation.
+		 */
 		public function get animator():IAnimator
 		{
 
 			return _parentMesh.animator;
 
 		}
-		/**		 * Indicates whether the SubMesh should trigger mouse events, and hence should be rendered for hit testing.		 */
+		/**
+		 * Indicates whether the SubMesh should trigger mouse events, and hence should be rendered for hit testing.
+		 */
 		public function get mouseEnabled():Boolean
 		{
 
@@ -255,7 +294,11 @@ package away.base
 			return _parentMesh.castsShadows;
 		}
 		
-		/**		 * A reference to the owning Mesh object		 *		 * @private		 */
+		/**
+		 * A reference to the owning Mesh object
+		 *
+		 * @private
+		 */
 		public function get iParentMesh():Mesh
 		{
 			return _parentMesh;

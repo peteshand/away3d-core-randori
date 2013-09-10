@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.net {
@@ -10,7 +9,10 @@ package away.net {
 
         private var _variables:Object = new Object();
 
-        /**         *         * @param source         */
+        /**
+         *
+         * @param source
+         */
         public function URLVariables(source:String = null):void
         {
 
@@ -23,7 +25,10 @@ package away.net {
 
 
         }
-        /**         *         * @param source         */
+        /**
+         *
+         * @param source
+         */
         public function decode(source:String):void
         {
 
@@ -38,20 +43,29 @@ package away.net {
             }
 
         }
-        /**         *         * @returns {string}         */
+        /**
+         *
+         * @returns {string}
+         */
         public function toString():String
         {
 
             return '';
         }
-        /**         *         * @returns {Object}         */
+        /**
+         *
+         * @returns {Object}
+         */
         public function get variables():Object
         {
 
             return _variables;
 
         }
-        /**         *         * @returns {Object}         */
+        /**
+         *
+         * @returns {Object}
+         */
         public function get formData():FormData
         {
 
@@ -68,7 +82,10 @@ package away.net {
 
 
         }
-        /**         *         * @returns {Object}         */
+        /**
+         *
+         * @returns {Object}
+         */
         public function set variables(obj:Object):void
         {
 

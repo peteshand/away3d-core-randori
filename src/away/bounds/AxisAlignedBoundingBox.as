@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts" />
-
 package away.bounds
 {
 	import away.math.Plane3D;
@@ -18,7 +17,10 @@ package away.bounds
 	
 	//use namespace arcane;
 	
-	/**	 * AxisAlignedBoundingBox represents a bounding box volume that has its planes aligned to the local coordinate axes of the bounded object.	 * This is useful for most meshes.	 */
+	/**
+	 * AxisAlignedBoundingBox represents a bounding box volume that has its planes aligned to the local coordinate axes of the bounded object.
+	 * This is useful for most meshes.
+	 */
 	public class AxisAlignedBoundingBox extends BoundingVolumeBase
 	{
 		private var _centerX:Number = 0;
@@ -28,7 +30,9 @@ package away.bounds
 		private var _halfExtentsY:Number = 0;
 		private var _halfExtentsZ:Number = 0;
 		
-		/**		 * Creates a new <code>AxisAlignedBoundingBox</code> object.		 */
+		/**
+		 * Creates a new <code>AxisAlignedBoundingBox</code> object.
+		 */
 		public function AxisAlignedBoundingBox():void
 		{
 
@@ -36,7 +40,9 @@ package away.bounds
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function nullify():void
 		{
 			super.nullify();
@@ -45,7 +51,9 @@ package away.bounds
             _halfExtentsX = _halfExtentsY = _halfExtentsZ = 0;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function isInFrustum(planes:Vector.<Plane3D>, numPlanes:Number):Boolean
 		{
 			for (var i:Number = 0; i < numPlanes; ++i)
@@ -171,7 +179,9 @@ package away.bounds
 			return intersects? rayEntryDistance : -1;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function containsPoint(position:Vector3D):Boolean
 		{
 			var px:Number = position.x - _centerX, py:Number = position.y - _centerY, pz:Number = position.z - _centerZ;
@@ -180,7 +190,9 @@ package away.bounds
 				pz <= _halfExtentsZ && pz >= -_halfExtentsZ;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function fromExtremes(minX:Number, minY:Number, minZ:Number, maxX:Number, maxY:Number, maxZ:Number):void
 		{
 
@@ -195,7 +207,9 @@ package away.bounds
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function clone():BoundingVolumeBase
 		{
 			var clone:AxisAlignedBoundingBox = new AxisAlignedBoundingBox();
@@ -218,7 +232,12 @@ package away.bounds
 			return _halfExtentsZ;
 		}
 		
-		/**		 * Finds the closest point on the bounding volume to another given point. This can be used for maximum error calculations for content within a given bound.		 * @param point The point for which to find the closest point on the bounding volume		 * @param target An optional Vector3D to store the result to prevent creating a new object.		 * @return		 */
+		/**
+		 * Finds the closest point on the bounding volume to another given point. This can be used for maximum error calculations for content within a given bound.
+		 * @param point The point for which to find the closest point on the bounding volume
+		 * @param target An optional Vector3D to store the result to prevent creating a new object.
+		 * @return
+		 */
 		public function closestPointToPoint(point:Vector3D, target:Vector3D = null):Vector3D
 		{
 			var p:Number;

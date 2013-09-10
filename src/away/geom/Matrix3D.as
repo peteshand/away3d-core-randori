@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 package away.geom
@@ -9,10 +11,17 @@ package away.geom
 	public class Matrix3D
 	{
 		
-		/**		 * A Vector of 16 Numbers, where every four elements is a column of a 4x4 matrix.		 *		 * <p>An exception is thrown if the rawData property is set to a matrix that is not invertible. The Matrix3D 		 * object must be invertible. If a non-invertible matrix is needed, create a subclass of the Matrix3D object.</p>		 */
+		/**
+		 * A Vector of 16 Numbers, where every four elements is a column of a 4x4 matrix.
+		 *
+		 * <p>An exception is thrown if the rawData property is set to a matrix that is not invertible. The Matrix3D 
+		 * object must be invertible. If a non-invertible matrix is needed, create a subclass of the Matrix3D object.</p>
+		 */
 		public var rawData:Vector.<Number>;
 		
-		/**		 * Creates a Matrix3D object.		 */
+		/**
+		 * Creates a Matrix3D object.
+		 */
 		public function Matrix3D(v:Vector.<Number> = null):void
 		{
 			if( v != null && v.length == 16 )
@@ -29,7 +38,9 @@ package away.geom
 			}
 		}
 		
-		/**		 * Appends the matrix by multiplying another Matrix3D object by the current Matrix3D object.		 */
+		/**
+		 * Appends the matrix by multiplying another Matrix3D object by the current Matrix3D object.
+		 */
 		public function append(lhs:Matrix3D):void
 		{
 
@@ -65,18 +76,29 @@ package away.geom
 			rawData[15] = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244;
 		}
 		
-		/**		 * Appends an incremental rotation to a Matrix3D object.		 */
-		public function appendRotation(degrees:Number, axis:Vector3D):void //, pivotPoint:Vector3D = null )		{
+		/**
+		 * Appends an incremental rotation to a Matrix3D object.
+		 */
+		public function appendRotation(degrees:Number, axis:Vector3D):void //, pivotPoint:Vector3D = null )
+		{
 
             // Initial Tests - OK
 
 			var m:Matrix3D = Matrix3D.getAxisRotation( axis.x, axis.y, axis.z, degrees );
 
-            /*			if (pivotPoint != null) 			{				var p:Vector3D = pivotPoint;				m.appendTranslation( p.x, p.y, p.z );			}            */
+            /*
+			if (pivotPoint != null) 
+			{
+				var p:Vector3D = pivotPoint;
+				m.appendTranslation( p.x, p.y, p.z );
+			}
+            */
 			append(m);
 		}
 		
-		/**		 * Appends an incremental scale change along the x, y, and z axes to a Matrix3D object.		 */
+		/**
+		 * Appends an incremental scale change along the x, y, and z axes to a Matrix3D object.
+		 */
 		public function appendScale(xScale:Number, yScale:Number, zScale:Number):void
 		{
 
@@ -85,7 +107,9 @@ package away.geom
 			append(new Matrix3D( new <Number>[ xScale, 0.0, 0.0, 0.0, 0.0, yScale, 0.0, 0.0, 0.0, 0.0, zScale, 0.0, 0.0, 0.0, 0.0, 1.0 ] ));
 		}
 		
-		/**		 * Appends an incremental translation, a repositioning along the x, y, and z axes, to a Matrix3D object.		 */
+		/**
+		 * Appends an incremental translation, a repositioning along the x, y, and z axes, to a Matrix3D object.
+		 */
 		public function appendTranslation(x:Number, y:Number, z:Number):void 
 		{
 
@@ -96,7 +120,9 @@ package away.geom
 			rawData[14] += z;
 		}
 		
-		/**		 * Returns a new Matrix3D object that is an exact copy of the current Matrix3D object.		 */
+		/**
+		 * Returns a new Matrix3D object that is an exact copy of the current Matrix3D object.
+		 */
 		public function clone():Matrix3D
 		{
 
@@ -105,7 +131,9 @@ package away.geom
 			return new Matrix3D( rawData.slice( 0 ) );
 		}
 		
-		/**		 * Copies a Vector3D object into specific column of the calling Matrix3D object.		 */
+		/**
+		 * Copies a Vector3D object into specific column of the calling Matrix3D object.
+		 */
 		public function copyColumnFrom(column:Number, vector3D:Vector3D):void
 		{
 
@@ -143,7 +171,9 @@ package away.geom
 
 		}
 		
-		/**		 * Copies specific column of the calling Matrix3D object into the Vector3D object.		 */
+		/**
+		 * Copies specific column of the calling Matrix3D object into the Vector3D object.
+		 */
 		public function copyColumnTo(column:Number, vector3D:Vector3D):void
 		{
 
@@ -180,7 +210,9 @@ package away.geom
             }
 		}
 		
-		/**		 * Copies all of the matrix data from the source Matrix3D object into the calling Matrix3D object.		 */
+		/**
+		 * Copies all of the matrix data from the source Matrix3D object into the calling Matrix3D object.
+		 */
 		public function copyFrom(sourceMatrix3D:Matrix3D):void
 		{
 
@@ -242,7 +274,9 @@ package away.geom
 
 		}
 		
-		/**		 * Copies a Vector3D object into specific row of the calling Matrix3D object.		 */
+		/**
+		 * Copies a Vector3D object into specific row of the calling Matrix3D object.
+		 */
 		public function copyRowFrom(row:Number, vector3D:Vector3D):void
 		{
 
@@ -279,7 +313,9 @@ package away.geom
             }
 		}
 		
-		/**		 * Copies specific row of the calling Matrix3D object into the Vector3D object.		 */
+		/**
+		 * Copies specific row of the calling Matrix3D object into the Vector3D object.
+		 */
 		public function copyRowTo(row:Number, vector3D:Vector3D):void
 		{
 
@@ -316,7 +352,9 @@ package away.geom
             }
 		}
 		
-		/**		 * Copies this Matrix3D object into a destination Matrix3D object.		 */
+		/**
+		 * Copies this Matrix3D object into a destination Matrix3D object.
+		 */
 		public function copyToMatrix3D(dest:Matrix3D):void
 		{
 
@@ -326,7 +364,9 @@ package away.geom
 		}
 		
 		// TODO orientationStyle:string = "eulerAngles"
-		/**		 * Returns the transformation matrix's translation, rotation, and scale settings as a Vector of three Vector3D objects.		 */
+		/**
+		 * Returns the transformation matrix's translation, rotation, and scale settings as a Vector of three Vector3D objects.
+		 */
 		public function decompose():Vector.<Vector3D>
 		{
 
@@ -385,7 +425,10 @@ package away.geom
 			return vec;
 		}
 		
-		/**		 * Uses the transformation matrix without its translation elements to transform a Vector3D object from one space		 * coordinate to another.		 */
+		/**
+		 * Uses the transformation matrix without its translation elements to transform a Vector3D object from one space
+		 * coordinate to another.
+		 */
 		public function deltaTransformVector(v:Vector3D):Vector3D
 		{
 			var x:Number = v.x, y:Number = v.y, z:Number = v.z;
@@ -396,13 +439,17 @@ package away.geom
 					0);
 		}
 		
-		/**		 * Converts the current matrix to an identity or unit matrix.		 */
+		/**
+		 * Converts the current matrix to an identity or unit matrix.
+		 */
 		public function identity():void
 		{
 			rawData = new <Number>[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ];
 		}
 		
-		/**		 * [static] Interpolates the translation, rotation, and scale transformation of one matrix toward those of the target matrix.		 */
+		/**
+		 * [static] Interpolates the translation, rotation, and scale transformation of one matrix toward those of the target matrix.
+		 */
 		public static function interpolate(thisMat:Matrix3D, toMat:Matrix3D, percent:Number):Matrix3D
 		{
 			var m:Matrix3D = new Matrix3D();
@@ -413,7 +460,9 @@ package away.geom
 			return m;
 		}
 		
-		/**		 * Interpolates this matrix towards the translation, rotation, and scale transformations of the target matrix.		 */
+		/**
+		 * Interpolates this matrix towards the translation, rotation, and scale transformations of the target matrix.
+		 */
 		public function interpolateTo(toMat:Matrix3D, percent:Number):void
 		{
             for( var i: Number = 0; i < 16; ++i )
@@ -422,7 +471,9 @@ package away.geom
             }
 		}
 		
-		/**		 * Inverts the current matrix.		 */
+		/**
+		 * Inverts the current matrix.
+		 */
 		public function invert():Boolean
 		{
 
@@ -459,9 +510,15 @@ package away.geom
 			return invertable;
 		}
 		
-		/* TODO implement pointAt		public pointAt( pos:Vector3D, at:Vector3D = null, up:Vector3D = null )		{		}		*/
+		/* TODO implement pointAt
+		public pointAt( pos:Vector3D, at:Vector3D = null, up:Vector3D = null )
+		{
+		}
+		*/
 		
-		/**		 * Prepends a matrix by multiplying the current Matrix3D object by another Matrix3D object.		 */
+		/**
+		 * Prepends a matrix by multiplying the current Matrix3D object by another Matrix3D object.
+		 */
 		public function prepend(rhs:Matrix3D):void
 		{
 
@@ -497,18 +554,29 @@ package away.geom
 			rawData[15] = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244;
 		}
 		
-		/**		 * Prepends an incremental rotation to a Matrix3D object.		 */
-		public function prependRotation(degrees:Number, axis:Vector3D):void //, pivotPoint:Vector3D = null )		{
+		/**
+		 * Prepends an incremental rotation to a Matrix3D object.
+		 */
+		public function prependRotation(degrees:Number, axis:Vector3D):void //, pivotPoint:Vector3D = null )
+		{
 
             // Initial Tests - OK
 
 			var m: Matrix3D = Matrix3D.getAxisRotation( axis.x, axis.y, axis.z, degrees );
 
-            /*			if ( pivotPoint != null )			{				var p:Vector3D = pivotPoint;				m.appendTranslation( p.x, p.y, p.z );			}			*/
+            /*
+			if ( pivotPoint != null )
+			{
+				var p:Vector3D = pivotPoint;
+				m.appendTranslation( p.x, p.y, p.z );
+			}
+			*/
 			prepend( m );
 		}
 		
-		/**		 * Prepends an incremental scale change along the x, y, and z axes to a Matrix3D object.		 */
+		/**
+		 * Prepends an incremental scale change along the x, y, and z axes to a Matrix3D object.
+		 */
 		public function prependScale(xScale:Number, yScale:Number, zScale:Number):void
 		{
 
@@ -517,7 +585,9 @@ package away.geom
 			prepend(new Matrix3D( new <Number>[ xScale, 0, 0, 0, 0, yScale, 0, 0, 0, 0, zScale, 0, 0, 0, 0, 1 ] ));
 		}
 		
-		/**		 * Prepends an incremental translation, a repositioning along the x, y, and z axes, to a Matrix3D object.		 */
+		/**
+		 * Prepends an incremental translation, a repositioning along the x, y, and z axes, to a Matrix3D object.
+		 */
 		public function prependTranslation(x:Number, y:Number, z:Number):void
 		{
 
@@ -529,7 +599,9 @@ package away.geom
 		}
 		
 		// TODO orientationStyle
-		/**		 * Sets the transformation matrix's translation, rotation, and scale settings.		 */
+		/**
+		 * Sets the transformation matrix's translation, rotation, and scale settings.
+		 */
 		public function recompose(components:Vector.<Vector3D>):Boolean
 		{
 
@@ -572,7 +644,9 @@ package away.geom
 			
 		}
 
-		/**		 * Uses the transformation matrix to transform a Vector of Numbers from one coordinate space to another.		 */
+		/**
+		 * Uses the transformation matrix to transform a Vector of Numbers from one coordinate space to another.
+		 */
 		public function transformVectors(vin:Vector.<Number>, vout:Vector.<Number>):void
 		{
 
@@ -593,7 +667,9 @@ package away.geom
 			}
 		}
 
-		/**		 * Converts the current Matrix3D object to a matrix where the rows and columns are swapped.		 */
+		/**
+		 * Converts the current Matrix3D object to a matrix where the rows and columns are swapped.
+		 */
 		public function transpose():void
 		{
 
@@ -648,7 +724,9 @@ package away.geom
 			return m;
 		}
 		
-		/**		 * [read-only] A Number that determines whether a matrix is invertible.		 */
+		/**
+		 * [read-only] A Number that determines whether a matrix is invertible.
+		 */
 		public function get determinant():Number
 		{
 
@@ -662,7 +740,10 @@ package away.geom
 				+ (rawData[8] * rawData[13] - rawData[12] * rawData[9]) * (rawData[2] * rawData[7] - rawData[6] * rawData[3]));
 		}
 		
-		/**		 * A Vector3D object that holds the position, the 3D coordinate (x,y,z) of a display object within the		 * transformation's frame of reference.		 */
+		/**
+		 * A Vector3D object that holds the position, the 3D coordinate (x,y,z) of a display object within the
+		 * transformation's frame of reference.
+		 */
 		public function get position():Vector3D
 		{
 

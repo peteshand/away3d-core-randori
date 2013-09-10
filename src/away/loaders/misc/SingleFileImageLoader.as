@@ -1,6 +1,5 @@
 
 
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.loaders.misc
@@ -16,7 +15,8 @@ package away.loaders.misc
 
         private var _loader:IMGLoader;
         private var _data:*;
-        private var _dataFormat:String; // Not used in this implementation
+        private var _dataFormat:String; // Not used in this implementation
+
         public function SingleFileImageLoader():void
         {
             super();
@@ -25,13 +25,18 @@ package away.loaders.misc
 
         // Public
 
-        /**         *         * @param req         */
+        /**
+         *
+         * @param req
+         */
         public function load(req:URLRequest):void
         {
             _loader.load( req );
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
             disposeLoader();
@@ -40,12 +45,18 @@ package away.loaders.misc
 
         // Get / Set
 
-        /**         *         * @returns {*}         */
+        /**
+         *
+         * @returns {*}
+         */
         public function get data():*
         {
             return _loader.image;
         }
-        /**         *         * @returns {*}         */
+        /**
+         *
+         * @returns {*}
+         */
         public function get dataFormat():String
         {
             return _dataFormat;
@@ -57,7 +68,9 @@ package away.loaders.misc
 
         // Private
 
-        /**         *         */
+        /**
+         *
+         */
         private function initLoader():void
         {
             if ( ! _loader )
@@ -68,7 +81,9 @@ package away.loaders.misc
             }
         }
 
-        /**         *         */
+        /**
+         *
+         */
         private function disposeLoader():void
         {
             if ( _loader )
@@ -82,13 +97,19 @@ package away.loaders.misc
 
         // Events
 
-        /**         *         * @param event         */
+        /**
+         *
+         * @param event
+         */
         private function onLoadComplete(event:Event):void
         {
             dispatchEvent( event );
         }
 
-        /**         *         * @param event         */
+        /**
+         *
+         * @param event
+         */
         private function onLoadError(event:IOErrorEvent):void
         {
             dispatchEvent( event );

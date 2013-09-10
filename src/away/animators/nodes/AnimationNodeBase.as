@@ -1,11 +1,14 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.animators.nodes
 {
 	import away.library.assets.NamedAssetBase;
 	import away.library.assets.IAsset;
 	import away.library.assets.AssetType;
 
-	/**	 * Provides an abstract base class for nodes in an animation blend tree.	 */
+	/**
+	 * Provides an abstract base class for nodes in an animation blend tree.
+	 */
 	public class AnimationNodeBase extends NamedAssetBase implements IAsset
 	{
 		private var _stateClass:*;
@@ -15,7 +18,9 @@ package away.animators.nodes
 			return _stateClass;
 		}
 		
-		/**		 * Creates a new <code>AnimationNodeBase</code> object.		 */
+		/**
+		 * Creates a new <code>AnimationNodeBase</code> object.
+		 */
 		public function AnimationNodeBase():void
 		{
 
@@ -23,12 +28,16 @@ package away.animators.nodes
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function dispose():void
 		{
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function get assetType():String
 		{
 			return AssetType.ANIMATION_NODE;

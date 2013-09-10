@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.math
@@ -7,16 +6,24 @@ package away.math
 
 	public class Plane3D
 	{
-		/**		 * The A coefficient of this plane. (Also the x dimension of the plane normal)		 */
+		/**
+		 * The A coefficient of this plane. (Also the x dimension of the plane normal)
+		 */
 		public var a:Number;
 		
-		/**		 * The B coefficient of this plane. (Also the y dimension of the plane normal)		 */
+		/**
+		 * The B coefficient of this plane. (Also the y dimension of the plane normal)
+		 */
 		public var b:Number;
 		
-		/**		 * The C coefficient of this plane. (Also the z dimension of the plane normal)		 */
+		/**
+		 * The C coefficient of this plane. (Also the z dimension of the plane normal)
+		 */
 		public var c:Number;
 		
-		/**		 * The D coefficient of this plane. (Also the inverse dot product between normal and point)		 */
+		/**
+		 * The D coefficient of this plane. (Also the inverse dot product between normal and point)
+		 */
 		public var d:Number;
 		
 		public var _iAlignment:Number;
@@ -27,7 +34,9 @@ package away.math
 		public static var ALIGN_YZ_AXIS:Number = 2;
 		public static var ALIGN_XZ_AXIS:Number = 3;
 		
-		/**		 * Create a Plane3D with ABCD coefficients		 */
+		/**
+		 * Create a Plane3D with ABCD coefficients
+		 */
 		public function Plane3D(a:Number = 0, b:Number = 0, c:Number = 0, d:Number = 0):void
 		{
 			a = a;
@@ -62,7 +71,12 @@ package away.math
 
 		}
 		
-		/**		 * Fills this Plane3D with the coefficients from 3 points in 3d space.		 * @param p0 Vector3D		 * @param p1 Vector3D		 * @param p2 Vector3D		 */
+		/**
+		 * Fills this Plane3D with the coefficients from 3 points in 3d space.
+		 * @param p0 Vector3D
+		 * @param p1 Vector3D
+		 * @param p2 Vector3D
+		 */
 		public function fromPoints(p0:Vector3D, p1:Vector3D, p2:Vector3D):void
 		{
 			var d1x:Number = p1.x - p0.x;
@@ -106,7 +120,11 @@ package away.math
 
 		}
 		
-		/**		 * Fills this Plane3D with the coefficients from the plane's normal and a point in 3d space.		 * @param normal Vector3D		 * @param point  Vector3D		 */
+		/**
+		 * Fills this Plane3D with the coefficients from the plane's normal and a point in 3d space.
+		 * @param normal Vector3D
+		 * @param point  Vector3D
+		 */
 		public function fromNormalAndPoint(normal:Vector3D, point:Vector3D):void
 		{
 			a = normal.x;
@@ -140,7 +158,10 @@ package away.math
 
 		}
 		
-		/**		 * Normalize this Plane3D		 * @return Plane3D This Plane3D.		 */
+		/**
+		 * Normalize this Plane3D
+		 * @return Plane3D This Plane3D.
+		 */
 		public function normalize():Plane3D
 		{
 			var len:Number = 1/Math.sqrt(a*a + b*b + c*c);
@@ -151,7 +172,11 @@ package away.math
 			return this;
 		}
 		
-		/**		 * Returns the signed distance between this Plane3D and the point p.		 * @param p Vector3D		 * @returns Number		 */
+		/**
+		 * Returns the signed distance between this Plane3D and the point p.
+		 * @param p Vector3D
+		 * @returns Number
+		 */
 		public function distance(p:Vector3D):Number
 		{
 
@@ -181,7 +206,11 @@ package away.math
 
 		}
 		
-		/**		 * Classify a point against this Plane3D. (in front, back or intersecting)		 * @param p Vector3D		 * @return int Plane3.FRONT or Plane3D.BACK or Plane3D.INTERSECT		 */
+		/**
+		 * Classify a point against this Plane3D. (in front, back or intersecting)
+		 * @param p Vector3D
+		 * @return int Plane3.FRONT or Plane3D.BACK or Plane3D.INTERSECT
+		 */
 		public function classifyPoint(p:Vector3D, epsilon:Number = 0.01):Number
 		{
 			// check NaN

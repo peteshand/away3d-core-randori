@@ -1,10 +1,13 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.primitives
 {
 	import away.geom.Vector3D;
 	//import flash.geom.Vector3D;
 	
-	/**	 * A WireframePlane primitive mesh.	 */
+	/**
+	 * A WireframePlane primitive mesh.
+	 */
 	public class WireframePlane extends WireframePrimitiveBase
 	{
 		public static var ORIENTATION_YZ:String = "yz";
@@ -17,7 +20,16 @@ package away.primitives
 		private var _segmentsH:Number;
 		private var _orientation:String;
 		
-		/**		 * Creates a new WireframePlane object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
+		/**
+		 * Creates a new WireframePlane object.
+		 * @param width The size of the cube along its X-axis.
+		 * @param height The size of the cube along its Y-axis.
+		 * @param segmentsW The number of segments that make up the cube along the X-axis.
+		 * @param segmentsH The number of segments that make up the cube along the Y-axis.
+		 * @param color The colour of the wireframe lines
+		 * @param thickness The thickness of the wireframe lines
+		 * @param orientation The orientaion in which the plane lies.
+		 */
 		public function WireframePlane(width:Number, height:Number, segmentsW:Number = 10, segmentsH:Number = 10, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void
 		{
 			super(color, thickness);
@@ -29,7 +41,9 @@ package away.primitives
             _orientation = orientation;
 		}
 		
-		/**		 * The orientaion in which the plane lies.		 */
+		/**
+		 * The orientaion in which the plane lies.
+		 */
 		public function get orientation():String
 		{
 			return _orientation;
@@ -41,7 +55,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its X-axis.		 */
+		/**
+		 * The size of the cube along its X-axis.
+		 */
 		public function get width():Number
 		{
 			return _width;
@@ -53,7 +69,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its Y-axis.		 */
+		/**
+		 * The size of the cube along its Y-axis.
+		 */
 		public function get height():Number
 		{
 			return _height;
@@ -67,7 +85,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The number of segments that make up the plane along the X-axis.		 */
+		/**
+		 * The number of segments that make up the plane along the X-axis.
+		 */
 		public function get segmentsW():Number
 		{
 			return _segmentsW;
@@ -80,7 +100,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The number of segments that make up the plane along the Y-axis.		 */
+		/**
+		 * The number of segments that make up the plane along the Y-axis.
+		 */
 		public function get segmentsH():Number
 		{
 			return _segmentsH;
@@ -93,7 +115,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry():void
 		{
 			var v0:Vector3D = new Vector3D();

@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
 	import away.textures.Texture2DBase;
@@ -13,7 +12,9 @@ package away.materials.methods
 	import away.base.IRenderable;
 	import away.cameras.Camera3D;
 
-	/**	 * BasicAmbientMethod provides the default shading method for uniform ambient lighting.	 */
+	/**
+	 * BasicAmbientMethod provides the default shading method for uniform ambient lighting.
+	 */
 	public class BasicAmbientMethod extends ShadingMethodBase
 	{
 		private var _useTexture:Boolean = false;
@@ -33,25 +34,33 @@ package away.materials.methods
 		public var _iLightAmbientG:Number = 0;
 		public var _iLightAmbientB:Number = 0;
 		
-		/**		 * Creates a new BasicAmbientMethod object.		 */
+		/**
+		 * Creates a new BasicAmbientMethod object.
+		 */
 		public function BasicAmbientMethod():void
 		{
 			super();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iInitVO(vo:MethodVO):void
 		{
 			vo.needsUV = _useTexture;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iInitConstants(vo:MethodVO):void
 		{
 			vo.fragmentData[vo.fragmentConstantsIndex + 3] = 1;
 		}
 		
-		/**		 * The strength of the ambient reflection of the surface.		 */
+		/**
+		 * The strength of the ambient reflection of the surface.
+		 */
 		public function get ambient():Number
 		{
 			return _ambient;
@@ -62,7 +71,9 @@ package away.materials.methods
             _ambient = value;
 		}
 		
-		/**		 * The colour of the ambient reflection of the surface.		 */
+		/**
+		 * The colour of the ambient reflection of the surface.
+		 */
 		public function get ambientColor():Number
 		{
 			return _ambientColor;
@@ -73,7 +84,9 @@ package away.materials.methods
             _ambientColor = value;
 		}
 		
-		/**		 * The bitmapData to use to define the diffuse reflection color per texel.		 */
+		/**
+		 * The bitmapData to use to define the diffuse reflection color per texel.
+		 */
 		public function get texture():Texture2DBase
 		{
 			return _texture;
@@ -87,7 +100,14 @@ package away.materials.methods
 
             var b : Boolean =  ( value != null );
 
-            /* // ORIGINAL conditional             if (Boolean(value) != _useTexture ||             (value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {             invalidateShaderProgram();             }             */
+            /* // ORIGINAL conditional
+             if (Boolean(value) != _useTexture ||
+             (value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
+             invalidateShaderProgram();
+             }
+
+
+             */
 			if ( b != _useTexture ||
 				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
 				iInvalidateShaderProgram();//invalidateShaderProgram();
@@ -96,7 +116,9 @@ package away.materials.methods
 			_texture = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function copyFrom(method:ShadingMethodBase):void
 		{
 
@@ -113,14 +135,18 @@ package away.materials.methods
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iCleanCompilationData():void
 		{
 			super.iCleanCompilationData();
 			_ambientInputRegister = null;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function iGetFragmentCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 
@@ -150,7 +176,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			if ( _useTexture)
@@ -167,7 +195,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * Updates the ambient color data used by the render state.		 */
+		/**
+		 * Updates the ambient color data used by the render state.
+		 */
 		private function updateAmbient():void
 		{
 			_ambientR = ((_ambientColor >> 16) & 0xff)/0xff*_ambient*_iLightAmbientR;
@@ -175,7 +205,9 @@ package away.materials.methods
             _ambientB = (ambientColor & 0xff)/0xff*_ambient*_iLightAmbientB;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iSetRenderState(vo:MethodVO, renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			updateAmbient();

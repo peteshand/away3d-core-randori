@@ -1,4 +1,5 @@
-package away.events 
+
+package away.events
 {
 	public interface IEventDispatcher
 	{

@@ -1,18 +1,26 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.geom.Vector3D;
 	//import flash.geom.Vector3D;
 	
-	/**	 * A WirefameCube primitive mesh.	 */
+	/**
+	 * A WirefameCube primitive mesh.
+	 */
 	public class WireframeCube extends WireframePrimitiveBase
 	{
 		private var _width:Number;
 		private var _height:Number;
 		private var _depth:Number;
 		
-		/**		 * Creates a new WireframeCube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
+		/**
+		 * Creates a new WireframeCube object.
+		 * @param width The size of the cube along its X-axis.
+		 * @param height The size of the cube along its Y-axis.
+		 * @param depth The size of the cube along its Z-axis.
+		 * @param color The colour of the wireframe lines
+		 * @param thickness The thickness of the wireframe lines
+		 */
 		public function WireframeCube(width:Number = 100, height:Number = 100, depth:Number = 100, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
 			super(color, thickness);
@@ -22,7 +30,9 @@ package away.primitives
             _depth = depth;
 		}
 		
-		/**		 * The size of the cube along its X-axis.		 */
+		/**
+		 * The size of the cube along its X-axis.
+		 */
 		public function get width():Number
 		{
 			return _width;
@@ -34,7 +44,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its Y-axis.		 */
+		/**
+		 * The size of the cube along its Y-axis.
+		 */
 		public function get height():Number
 		{
 			return _height;
@@ -48,7 +60,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its Z-axis.		 */
+		/**
+		 * The size of the cube along its Z-axis.
+		 */
 		public function get depth():Number
 		{
 			return _depth;
@@ -60,7 +74,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry():void
 		{
 			var v0:Vector3D = new Vector3D();

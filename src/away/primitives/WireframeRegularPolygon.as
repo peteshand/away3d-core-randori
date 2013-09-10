@@ -1,11 +1,12 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.geom.Vector3D;
 	//import flash.geom.Vector3D;
 	
-	/**	 * A WireframeRegularPolygon primitive mesh.	 */
+	/**
+	 * A WireframeRegularPolygon primitive mesh.
+	 */
 	public class WireframeRegularPolygon extends WireframePrimitiveBase
 	{
 		public static var ORIENTATION_YZ:String = "yz";
@@ -16,7 +17,14 @@ package away.primitives
 		private var _sides:Number;
 		private var _orientation:String;
 		
-		/**		 * Creates a new WireframeRegularPolygon object.		 * @param radius The radius of the polygon.		 * @param sides The number of sides on the polygon.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
+		/**
+		 * Creates a new WireframeRegularPolygon object.
+		 * @param radius The radius of the polygon.
+		 * @param sides The number of sides on the polygon.
+		 * @param color The colour of the wireframe lines
+		 * @param thickness The thickness of the wireframe lines
+		 * @param orientation The orientaion in which the plane lies.
+		 */
 		public function WireframeRegularPolygon(radius:Number, sides:Number, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void
 		{
 			super(color, thickness);
@@ -26,7 +34,9 @@ package away.primitives
             _orientation = orientation;
 		}
 		
-		/**		 * The orientaion in which the polygon lies.		 */
+		/**
+		 * The orientaion in which the polygon lies.
+		 */
 		public function get orientation():String
 		{
 			return _orientation;
@@ -38,7 +48,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The radius of the regular polygon.		 */
+		/**
+		 * The radius of the regular polygon.
+		 */
 		public function get radius():Number
 		{
 			return _radius;
@@ -50,7 +62,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The number of sides to the regular polygon.		 */
+		/**
+		 * The number of sides to the regular polygon.
+		 */
 		public function get sides():Number
 		{
 			return _sides;
@@ -63,7 +77,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry():void
 		{
 			var v0:Vector3D = new Vector3D();

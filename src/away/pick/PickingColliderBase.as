@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 package away.pick
 {
@@ -8,7 +7,9 @@ package away.pick
 	import away.utils.Debug;
 	import away.base.SubMesh;
 
-	/**	 * An abstract base class for all picking collider classes. It should not be instantiated directly.	 */
+	/**
+	 * An abstract base class for all picking collider classes. It should not be instantiated directly.
+	 */
 	public class PickingColliderBase
 	{
 		public var rayPosition:Vector3D;
@@ -19,7 +20,8 @@ package away.pick
 		
 		}
 		
-		public function _pPetCollisionNormal(indexData:Vector.<Number>/*uint*/, vertexData:Vector.<Number>, triangleIndex:Number):Vector3D // PROTECTED		{
+		public function _pPetCollisionNormal(indexData:Vector.<Number>/*uint*/, vertexData:Vector.<Number>, triangleIndex:Number):Vector3D // PROTECTED
+		{
 			var normal:Vector3D = new Vector3D();
 			var i0:Number = indexData[ triangleIndex ]*3;
 			var i1:Number = indexData[ triangleIndex + 1 ]*3;
@@ -34,7 +36,8 @@ package away.pick
 			return normal;
 		}
 		
-		public function _pGetCollisionUV(indexData:Vector.<Number>/*uint*/, uvData:Vector.<Number>, triangleIndex:Number, v:Number, w:Number, u:Number, uvOffset:Number, uvStride:Number):Point // PROTECTED		{
+		public function _pGetCollisionUV(indexData:Vector.<Number>/*uint*/, uvData:Vector.<Number>, triangleIndex:Number, v:Number, w:Number, u:Number, uvOffset:Number, uvStride:Number):Point // PROTECTED
+		{
 			var uv:Point = new Point();
 			var uIndex:Number = indexData[ triangleIndex ]*uvStride + uvOffset;
 			var uv0:Vector3D = new Vector3D(uvData[ uIndex ], uvData[ uIndex + 1 ]);
@@ -68,7 +71,9 @@ package away.pick
 		}
 		//*/
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function setLocalRay(localPosition:Vector3D, localDirection:Vector3D):void
 		{
 			rayPosition = localPosition;

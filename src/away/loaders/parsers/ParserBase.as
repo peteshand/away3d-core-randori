@@ -1,5 +1,4 @@
 
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.loaders.parsers {
@@ -19,10 +18,30 @@ package away.loaders.parsers {
 	import away.loaders.parsers.utils.ParserUtil;
 	import randori.webkit.page.Window;
 
-	/**	 * <code>ParserBase</code> provides an abstract base class for objects that convert blocks of data to data structures	 * supported by Away3D.	 *	 * If used by <code>AssetLoader</code> to automatically determine the parser type, two public static methods should	 * be implemented, with the following signatures:	 *	 * <code>public static supportsType(extension : string) : boolean</code>	 * Indicates whether or not a given file extension is supported by the parser.	 *	 * <code>public static supportsData(data : *) : boolean</code>	 * Tests whether a data block can be parsed by the parser.	 *	 * Furthermore, for any concrete subtype, the method <code>initHandle</code> should be overridden to immediately	 * create the object that will contain the parsed data. This allows <code>ResourceManager</code> to return an object	 * handle regardless of whether the object was loaded or not.	 *	 * @see away3d.loading.parsers.AssetLoader	 * @see away3d.loading.ResourceManager	 */
+	/**
+	 * <code>ParserBase</code> provides an abstract base class for objects that convert blocks of data to data structures
+	 * supported by Away3D.
+	 *
+	 * If used by <code>AssetLoader</code> to automatically determine the parser type, two public static methods should
+	 * be implemented, with the following signatures:
+	 *
+	 * <code>public static supportsType(extension : string) : boolean</code>
+	 * Indicates whether or not a given file extension is supported by the parser.
+	 *
+	 * <code>public static supportsData(data : *) : boolean</code>
+	 * Tests whether a data block can be parsed by the parser.
+	 *
+	 * Furthermore, for any concrete subtype, the method <code>initHandle</code> should be overridden to immediately
+	 * create the object that will contain the parsed data. This allows <code>ResourceManager</code> to return an object
+	 * handle regardless of whether the object was loaded or not.
+	 *
+	 * @see away3d.loading.parsers.AssetLoader
+	 * @see away3d.loading.ResourceManager
+	 */
 	public class ParserBase extends EventDispatcher
 	{
-		public var _iFileName:String; // ARCANE		private var _dataFormat:String;
+		public var _iFileName:String; // ARCANE
+		private var _dataFormat:String;
 		private var _data:*;
 		private var _frameLimit:Number;
 		private var _lastFrameTime:Number;
@@ -43,19 +62,41 @@ package away.loaders.parsers {
 
         }
 
-        /* TODO: Implement ParserUtil;		public _pGetTextData():string		{			return ParserUtil.toString(_data);		}				public _pGetByteData():ByteArray		{			return ParserUtil.toByteArray(_data);		}		*/
-		private var _dependencies:Vector.<ResourceDependency>;//Vector.<ResourceDependency>;        private var _loaderType:String = ParserLoaderType.URL_LOADER; // Default loader is URLLoader		private var _parsingPaused:Boolean;
+        /* TODO: Implement ParserUtil;
+		public _pGetTextData():string
+		{
+			return ParserUtil.toString(_data);
+		}
+		
+		public _pGetByteData():ByteArray
+		{
+			return ParserUtil.toByteArray(_data);
+		}
+		*/
+		private var _dependencies:Vector.<ResourceDependency>;//Vector.<ResourceDependency>;
+        private var _loaderType:String = ParserLoaderType.URL_LOADER; // Default loader is URLLoader
+		private var _parsingPaused:Boolean;
 		private var _parsingComplete:Boolean;
 		private var _parsingFailure:Boolean;
 		private var _timer:Timer;
 		private var _materialMode:Number;
 		
-		/**		 * Returned by <code>proceedParsing</code> to indicate no more parsing is needed.		 */
+		/**
+		 * Returned by <code>proceedParsing</code> to indicate no more parsing is needed.
+		 */
 		public static var PARSING_DONE:Boolean = true; /* Protected */		
-		/**		 * Returned by <code>proceedParsing</code> to indicate more parsing is needed, allowing asynchronous parsing.		 */
+		/**
+		 * Returned by <code>proceedParsing</code> to indicate more parsing is needed, allowing asynchronous parsing.
+		 */
         public static var MORE_TO_PARSE:Boolean = false; /* Protected */		
 		
-		/**		 * Creates a new ParserBase object		 * @param format The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>, and should be provided by the concrete subtype.         * @param loaderType The type of loader required by the parser		 *		 * @see away3d.loading.parsers.ParserDataFormat		 */
+		/**
+		 * Creates a new ParserBase object
+		 * @param format The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>, and should be provided by the concrete subtype.
+         * @param loaderType The type of loader required by the parser
+		 *
+		 * @see away3d.loading.parsers.ParserDataFormat
+		 */
 		public function ParserBase(format:String, loaderType:String = null):void
 		{
 
@@ -73,7 +114,9 @@ package away.loaders.parsers {
 			_dependencies  = new Vector.<ResourceDependency>();
 		}
 		
-		/**		 * Validates a bitmapData loaded before assigning to a default BitmapMaterial 		 */
+		/**
+		 * Validates a bitmapData loaded before assigning to a default BitmapMaterial 
+		 */
 
 		public function isBitmapDataValid(bitmapData:BitmapData):Boolean
 		{
@@ -139,26 +182,45 @@ package away.loaders.parsers {
 
         }
 
-		/**		 * The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>.		 */
+		/**
+		 * The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>.
+		 */
 		public function get dataFormat():String
 		{
 			return _dataFormat;
 		}
 		
-		/**		 * Parse data (possibly containing bytearry, plain text or BitmapAsset) asynchronously, meaning that		 * the parser will periodically stop parsing so that the AVM may proceed to the		 * next frame.		 *		 * @param data The untyped data object in which the loaded data resides.		 * @param frameLimit number of milliseconds of parsing allowed per frame. The		 * actual time spent on a frame can exceed this number since time-checks can		 * only be performed between logical sections of the parsing procedure.		 */
+		/**
+		 * Parse data (possibly containing bytearry, plain text or BitmapAsset) asynchronously, meaning that
+		 * the parser will periodically stop parsing so that the AVM may proceed to the
+		 * next frame.
+		 *
+		 * @param data The untyped data object in which the loaded data resides.
+		 * @param frameLimit number of milliseconds of parsing allowed per frame. The
+		 * actual time spent on a frame can exceed this number since time-checks can
+		 * only be performed between logical sections of the parsing procedure.
+		 */
 		public function parseAsync(data:*, frameLimit:Number = 30):void
 		{
             _data = data;
             startParsing(frameLimit);
 		}
 		
-		/**		 * A list of dependencies that need to be loaded and resolved for the object being parsed.		 */
+		/**
+		 * A list of dependencies that need to be loaded and resolved for the object being parsed.
+		 */
 		public function get dependencies():Vector.<ResourceDependency>
 		{
 			return _dependencies;
 		}
 		
-		/**		 * Resolve a dependency when it's loaded. For example, a dependency containing an ImageResource would be assigned		 * to a Mesh instance as a BitmapMaterial, a scene graph object would be added to its intended parent. The		 * dependency should be a member of the dependencies property.		 *		 * @param resourceDependency The dependency to be resolved.		 */
+		/**
+		 * Resolve a dependency when it's loaded. For example, a dependency containing an ImageResource would be assigned
+		 * to a Mesh instance as a BitmapMaterial, a scene graph object would be added to its intended parent. The
+		 * dependency should be a member of the dependencies property.
+		 *
+		 * @param resourceDependency The dependency to be resolved.
+		 */
 		public function _iResolveDependency(resourceDependency:ResourceDependency):void
 		{
 
@@ -166,13 +228,21 @@ package away.loaders.parsers {
 
 		}
 		
-		/**		 * Resolve a dependency loading failure. Used by parser to eventually provide a default map		 *		 * @param resourceDependency The dependency to be resolved.		 */
+		/**
+		 * Resolve a dependency loading failure. Used by parser to eventually provide a default map
+		 *
+		 * @param resourceDependency The dependency to be resolved.
+		 */
 		public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
 		{
             throw new AbstractMethodError();
 		}
 
-		/**		 * Resolve a dependency name		 *		 * @param resourceDependency The dependency to be resolved.		 */
+		/**
+		 * Resolve a dependency name
+		 *
+		 * @param resourceDependency The dependency to be resolved.
+		 */
 		public function _iResolveDependencyName(resourceDependency:ResourceDependency, asset:IAsset):String
 		{
 			return asset.name;
@@ -301,7 +371,11 @@ package away.loaders.parsers {
             dispatchEvent(new AssetEvent(type_event, asset));
 		}
 		
-		/**		 * Parse the next block of data.		 * @return Whether or not more data needs to be parsed. Can be <code>ParserBase.ParserBase.PARSING_DONE</code> or		 * <code>ParserBase.ParserBase.MORE_TO_PARSE</code>.		 */
+		/**
+		 * Parse the next block of data.
+		 * @return Whether or not more data needs to be parsed. Can be <code>ParserBase.ParserBase.PARSING_DONE</code> or
+		 * <code>ParserBase.ParserBase.MORE_TO_PARSE</code>.
+		 */
 		public function _pProceedParsing():Boolean
 		{
 
@@ -338,7 +412,10 @@ package away.loaders.parsers {
 			dispatchEvent(new ParserEvent(ParserEvent.READY_FOR_DEPENDENCIES));
 		}
 		
-		/**		 * Tests whether or not there is still time left for parsing within the maximum allowed time frame per session.		 * @return True if there is still time left, false if the maximum allotted time was exceeded and parsing should be interrupted.		 */
+		/**
+		 * Tests whether or not there is still time left for parsing within the maximum allowed time frame per session.
+		 * @return True if there is still time left, false if the maximum allotted time was exceeded and parsing should be interrupted.
+		 */
 		public function _pHasTime():Boolean
 		{
 
@@ -346,7 +423,9 @@ package away.loaders.parsers {
 
 		}
 		
-		/**		 * Called when the parsing pause interval has passed and parsing can proceed.		 */
+		/**
+		 * Called when the parsing pause interval has passed and parsing can proceed.
+		 */
 		public function _pOnInterval(event:TimerEvent = null):void
 		{
 			_lastFrameTime = new Date().getTime();
@@ -358,7 +437,10 @@ package away.loaders.parsers {
             }
 		}
 		
-		/**		 * Initializes the parsing of data.		 * @param frameLimit The maximum duration of a parsing session.		 */
+		/**
+		 * Initializes the parsing of data.
+		 * @param frameLimit The maximum duration of a parsing session.
+		 */
 		private function startParsing(frameLimit:Number):void
 		{
 
@@ -369,7 +451,9 @@ package away.loaders.parsers {
 
 		}
 
-		/**		 * Finish parsing the data.		 */
+		/**
+		 * Finish parsing the data.
+		 */
 		public function _pFinishParsing():void
 		{
 
@@ -388,7 +472,11 @@ package away.loaders.parsers {
 
 		}
 
-        /**         *         * @returns {string}         * @private         */
+        /**
+         *
+         * @returns {string}
+         * @private
+         */
         public function _pGetTextData():String
         {
             return ParserUtil.toString( _data);

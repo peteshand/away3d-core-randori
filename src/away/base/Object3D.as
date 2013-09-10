@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts" />
-
 package away.base
 {
 	import away.library.assets.NamedAssetBase;
@@ -20,20 +19,74 @@ package away.base
 	
 	//use namespace arcane;
 	
-	/**	 * Dispatched when the position of the 3d object changes.	 *	 * @eventType away3d.events.Object3DEvent	 */
+	/**
+	 * Dispatched when the position of the 3d object changes.
+	 *
+	 * @eventType away3d.events.Object3DEvent
+	 */
 	//[Event(name="positionChanged", type="away3d.events.Object3DEvent")]
 	
-	/**	 * Dispatched when the scale of the 3d object changes.	 *	 * @eventType away3d.events.Object3DEvent	 */
+	/**
+	 * Dispatched when the scale of the 3d object changes.
+	 *
+	 * @eventType away3d.events.Object3DEvent
+	 */
 	//[Event(name="scaleChanged", type="away3d.events.Object3DEvent")]
 	
-	/**	 * Dispatched when the rotation of the 3d object changes.	 *	 * @eventType away3d.events.Object3DEvent	 */
+	/**
+	 * Dispatched when the rotation of the 3d object changes.
+	 *
+	 * @eventType away3d.events.Object3DEvent
+	 */
 	//[Event(name="rotationChanged", type="away3d.events.Object3DEvent")]
 	
-	/**	 * Object3D provides a base class for any 3D object that has a (local) transformation.<br/><br/>	 *	 * Standard Transform:	 * <ul>	 *     <li> The standard order for transformation is [parent transform] * (Translate+Pivot) * (Rotate) * (-Pivot) * (Scale) * [child transform] </li>	 *     <li> This is the order of matrix multiplications, left-to-right. </li>	 *     <li> The order of transformation is right-to-left, however!	 *          (Scale) happens before (-Pivot) happens before (Rotate) happens before (Translate+Pivot)	 *          with no pivot, the above transform works out to [parent transform] * Translate * Rotate * Scale * [child transform]	 *          (Scale) happens before (Rotate) happens before (Translate) </li>	 *     <li> This is based on code in updateTransform and ObjectContainer3D.updateSceneTransform(). </li>	 *     <li> Matrix3D prepend = operator on rhs - e.g. transform' = transform * rhs; </li>	 *     <li> Matrix3D append =  operator on lhr - e.g. transform' = lhs * transform; </li>	 * </ul>	 *	 * To affect Scale:	 * <ul>	 *     <li> set scaleX/Y/Z directly, or call scale(delta) </li>	 * </ul>	 *	 * To affect Pivot:	 * <ul>	 *     <li> set pivotPoint directly, or call movePivot() </li>	 * </ul>	 *	 * To affect Rotate:	 * <ul>	 *    <li> set rotationX/Y/Z individually (using degrees), set eulers [all 3 angles] (using radians), or call rotateTo()</li>	 *    <li> call pitch()/yaw()/roll()/rotate() to add an additional rotation *before* the current transform.	 *         rotationX/Y/Z will be reset based on these operations. </li>	 * </ul>	 *	 * To affect Translate (post-rotate translate):	 *	 * <ul>	 *    <li> set x/y/z/position or call moveTo(). </li>	 *    <li> call translate(), which modifies x/y/z based on a delta vector. </li>	 *    <li> call moveForward()/moveBackward()/moveLeft()/moveRight()/moveUp()/moveDown()/translateLocal() to add an	 *         additional translate *before* the current transform. x/y/z will be reset based on these operations. </li>	 * </ul>	 */
+	/**
+	 * Object3D provides a base class for any 3D object that has a (local) transformation.<br/><br/>
+	 *
+	 * Standard Transform:
+	 * <ul>
+	 *     <li> The standard order for transformation is [parent transform] * (Translate+Pivot) * (Rotate) * (-Pivot) * (Scale) * [child transform] </li>
+	 *     <li> This is the order of matrix multiplications, left-to-right. </li>
+	 *     <li> The order of transformation is right-to-left, however!
+	 *          (Scale) happens before (-Pivot) happens before (Rotate) happens before (Translate+Pivot)
+	 *          with no pivot, the above transform works out to [parent transform] * Translate * Rotate * Scale * [child transform]
+	 *          (Scale) happens before (Rotate) happens before (Translate) </li>
+	 *     <li> This is based on code in updateTransform and ObjectContainer3D.updateSceneTransform(). </li>
+	 *     <li> Matrix3D prepend = operator on rhs - e.g. transform' = transform * rhs; </li>
+	 *     <li> Matrix3D append =  operator on lhr - e.g. transform' = lhs * transform; </li>
+	 * </ul>
+	 *
+	 * To affect Scale:
+	 * <ul>
+	 *     <li> set scaleX/Y/Z directly, or call scale(delta) </li>
+	 * </ul>
+	 *
+	 * To affect Pivot:
+	 * <ul>
+	 *     <li> set pivotPoint directly, or call movePivot() </li>
+	 * </ul>
+	 *
+	 * To affect Rotate:
+	 * <ul>
+	 *    <li> set rotationX/Y/Z individually (using degrees), set eulers [all 3 angles] (using radians), or call rotateTo()</li>
+	 *    <li> call pitch()/yaw()/roll()/rotate() to add an additional rotation *before* the current transform.
+	 *         rotationX/Y/Z will be reset based on these operations. </li>
+	 * </ul>
+	 *
+	 * To affect Translate (post-rotate translate):
+	 *
+	 * <ul>
+	 *    <li> set x/y/z/position or call moveTo(). </li>
+	 *    <li> call translate(), which modifies x/y/z based on a delta vector. </li>
+	 *    <li> call moveForward()/moveBackward()/moveLeft()/moveRight()/moveUp()/moveDown()/translateLocal() to add an
+	 *         additional translate *before* the current transform. x/y/z will be reset based on these operations. </li>
+	 * </ul>
+	 */
 	public class Object3D extends NamedAssetBase
 	{
 		/** @private */
-		public var _iController:ControllerBase; // Arcane		
+		public var _iController:ControllerBase; // Arcane
+		
 		private var _smallestNumber:Number = 0.0000000000000000000001;
 		private var _transformDirty:Boolean = true;
 		
@@ -203,10 +256,14 @@ package away.base
 		private var _sca:Vector3D = new Vector3D();
         private var _transformComponents:Vector.<Vector3D>;
 		
-		/**		 * An object that can contain any extra data.		 */
+		/**
+		 * An object that can contain any extra data.
+		 */
 		public var extra:Object;
 		
-		/**		 * Defines the x coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the x coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get x():Number
 		{
 			return _x;
@@ -227,7 +284,9 @@ package away.base
 
 		}
 		
-		/**		 * Defines the y coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the y coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get y():Number
 		{
 			return _y;
@@ -247,7 +306,9 @@ package away.base
 
 		}
 		
-		/**		 * Defines the z coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the z coordinate of the 3d object relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get z():Number
 		{
 			return _z;
@@ -267,7 +328,9 @@ package away.base
 
 		}
 		
-		/**		 * Defines the euler angle of rotation of the 3d object around the x-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the euler angle of rotation of the 3d object around the x-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get rotationX():Number
 		{
 			return _rotationX*MathConsts.RADIANS_TO_DEGREES;
@@ -287,7 +350,9 @@ package away.base
 			invalidateRotation();
 		}
 		
-		/**		 * Defines the euler angle of rotation of the 3d object around the y-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the euler angle of rotation of the 3d object around the y-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get rotationY():Number
 		{
 			return _rotationY*MathConsts.RADIANS_TO_DEGREES;
@@ -307,7 +372,9 @@ package away.base
 			invalidateRotation();
 		}
 		
-		/**		 * Defines the euler angle of rotation of the 3d object around the z-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the euler angle of rotation of the 3d object around the z-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get rotationZ():Number
 		{
 			return _rotationZ*MathConsts.RADIANS_TO_DEGREES;
@@ -328,7 +395,9 @@ package away.base
 			invalidateRotation();
 		}
 		
-		/**		 * Defines the scale of the 3d object along the x-axis, relative to local coordinates.		 */
+		/**
+		 * Defines the scale of the 3d object along the x-axis, relative to local coordinates.
+		 */
 		public function get scaleX():Number
 		{
 			return _pScaleX;
@@ -348,7 +417,9 @@ package away.base
 			invalidateScale();
 		}
 		
-		/**		 * Defines the scale of the 3d object along the y-axis, relative to local coordinates.		 */
+		/**
+		 * Defines the scale of the 3d object along the y-axis, relative to local coordinates.
+		 */
 		public function get scaleY():Number
 		{
 			return _pScaleY;
@@ -369,7 +440,9 @@ package away.base
 
 		}
 		
-		/**		 * Defines the scale of the 3d object along the z-axis, relative to local coordinates.		 */
+		/**
+		 * Defines the scale of the 3d object along the z-axis, relative to local coordinates.
+		 */
 		public function get scaleZ():Number
 		{
 			return _pScaleZ;
@@ -389,7 +462,9 @@ package away.base
 
 		}
 		
-		/**		 * Defines the rotation of the 3d object as a <code>Vector3D</code> object containing euler angles for rotation around x, y and z axis.		 */
+		/**
+		 * Defines the rotation of the 3d object as a <code>Vector3D</code> object containing euler angles for rotation around x, y and z axis.
+		 */
 		public function get eulers():Vector3D
 		{
 			_eulers.x = _rotationX*MathConsts.RADIANS_TO_DEGREES;
@@ -408,7 +483,9 @@ package away.base
             invalidateRotation();
 		}
 		
-		/**		 * The transformation of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * The transformation of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 
 		public function get transform():Matrix3D
 		{
@@ -475,7 +552,9 @@ package away.base
 		}
 
 
-		/**		 * Defines the local point around which the object rotates.		 */
+		/**
+		 * Defines the local point around which the object rotates.
+		 */
 
 		public function get pivotPoint():Vector3D
 		{
@@ -490,7 +569,9 @@ package away.base
             invalidatePivot();
 		}
 
-		/**		 * Defines the position of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
+		/**
+		 * Defines the position of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 */
 		public function get position():Vector3D
 		{
 			_pTransform.copyColumnTo(3, _pPos);
@@ -507,22 +588,30 @@ package away.base
             invalidatePosition();
 		}
 		
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get forwardVector():Vector3D
 		{
 			return Matrix3DUtils.getForward( transform );
 		}
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get rightVector():Vector3D
 		{
 			return Matrix3DUtils.getRight( transform );
 		}
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get upVector():Vector3D
 		{
 			return Matrix3DUtils.getUp( transform );
 		}
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get backVector():Vector3D
 		{
 			var director:Vector3D = Matrix3DUtils.getForward( transform);
@@ -530,7 +619,9 @@ package away.base
 			
 			return director;
 		}
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get leftVector():Vector3D
 		{
 			var director:Vector3D = Matrix3DUtils.getRight( transform );
@@ -538,7 +629,9 @@ package away.base
 			
 			return director;
 		}
-		/**		 *		 */
+		/**
+		 *
+		 */
 		public function get downVector():Vector3D
 		{
 			var director:Vector3D = Matrix3DUtils.getUp( transform );
@@ -546,7 +639,9 @@ package away.base
 			
 			return director;
 		}
-		/**		 * Creates an Object3D object.		 */
+		/**
+		 * Creates an Object3D object.
+		 */
 		public function Object3D():void
 		{
 
@@ -566,7 +661,10 @@ package away.base
 			_flipY.appendScale(1, -1, 1);
 		}
 		
-		/**		 * Appends a uniform scale to the current transformation.		 * @param value The amount by which to scale.		 */
+		/**
+		 * Appends a uniform scale to the current transformation.
+		 * @param value The amount by which to scale.
+		 */
 		public function scale(value:Number):void
 		{
 			_pScaleX *= value;
@@ -575,40 +673,70 @@ package away.base
 
             invalidateScale();
 		}
-		/**		 * Moves the 3d object forwards along it's local z axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object forwards along it's local z axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 		public function moveForward(distance:Number):void
 		{
 			translateLocal(Vector3D.Z_AXIS, distance);
 		}
-		/**		 * Moves the 3d object backwards along it's local z axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object backwards along it's local z axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 		public function moveBackward(distance:Number):void
 		{
 			translateLocal(Vector3D.Z_AXIS, -distance);
 		}
-		/**		 * Moves the 3d object backwards along it's local x axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object backwards along it's local x axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 
 		public function moveLeft(distance:Number):void
 		{
 			translateLocal(Vector3D.X_AXIS, -distance);
 		}
 
-		/**		 * Moves the 3d object forwards along it's local x axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object forwards along it's local x axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 		public function moveRight(distance:Number):void
 		{
 			translateLocal(Vector3D.X_AXIS, distance);
 		}
-		/**		 * Moves the 3d object forwards along it's local y axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object forwards along it's local y axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 		public function moveUp(distance:Number):void
 		{
 			translateLocal(Vector3D.Y_AXIS, distance);
 		}
-		/**		 * Moves the 3d object backwards along it's local y axis		 *		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object backwards along it's local y axis
+		 *
+		 * @param    distance    The length of the movement
+		 */
 		public function moveDown(distance:Number):void
 		{
 			translateLocal(Vector3D.Y_AXIS, -distance);
 		}
 
-		/**		 * Moves the 3d object directly to a point in space		 *		 * @param    dx        The amount of movement along the local x axis.		 * @param    dy        The amount of movement along the local y axis.		 * @param    dz        The amount of movement along the local z axis.		 */
+		/**
+		 * Moves the 3d object directly to a point in space
+		 *
+		 * @param    dx        The amount of movement along the local x axis.
+		 * @param    dy        The amount of movement along the local y axis.
+		 * @param    dz        The amount of movement along the local z axis.
+		 */
 
 		public function moveTo(dx:Number, dy:Number, dz:Number):void
 		{
@@ -626,7 +754,13 @@ package away.base
             invalidatePosition();
 		}
 
-		/**		 * Moves the local point around which the object rotates.		 *		 * @param    dx        The amount of movement along the local x axis.		 * @param    dy        The amount of movement along the local y axis.		 * @param    dz        The amount of movement along the local z axis.		 */
+		/**
+		 * Moves the local point around which the object rotates.
+		 *
+		 * @param    dx        The amount of movement along the local x axis.
+		 * @param    dy        The amount of movement along the local y axis.
+		 * @param    dz        The amount of movement along the local z axis.
+		 */
 		public function movePivot(dx:Number, dy:Number, dz:Number):void
 		{
 
@@ -643,7 +777,12 @@ package away.base
 
             invalidatePivot();
 		}
-		/**		 * Moves the 3d object along a vector by a defined length		 *		 * @param    axis        The vector defining the axis of movement		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object along a vector by a defined length
+		 *
+		 * @param    axis        The vector defining the axis of movement
+		 * @param    distance    The length of the movement
+		 */
 		public function translate(axis:Vector3D, distance:Number):void
 		{
 			var x:Number = axis.x, y:Number = axis.y, z:Number = axis.z;
@@ -655,7 +794,12 @@ package away.base
 			
 			invalidatePosition();
 		}
-		/**		 * Moves the 3d object along a vector by a defined length		 *		 * @param    axis        The vector defining the axis of movement		 * @param    distance    The length of the movement		 */
+		/**
+		 * Moves the 3d object along a vector by a defined length
+		 *
+		 * @param    axis        The vector defining the axis of movement
+		 * @param    distance    The length of the movement
+		 */
 		public function translateLocal(axis:Vector3D, distance:Number):void
 		{
 			var x:Number = axis.x, y:Number = axis.y, z:Number = axis.z;
@@ -671,17 +815,29 @@ package away.base
 
             invalidatePosition();
 		}
-		/**		 * Rotates the 3d object around it's local x-axis		 *		 * @param    angle        The amount of rotation in degrees		 */
+		/**
+		 * Rotates the 3d object around it's local x-axis
+		 *
+		 * @param    angle        The amount of rotation in degrees
+		 */
 		public function pitch(angle:Number):void
 		{
             rotate(Vector3D.X_AXIS, angle);
 		}
-		/**		 * Rotates the 3d object around it's local y-axis		 *		 * @param    angle        The amount of rotation in degrees		 */
+		/**
+		 * Rotates the 3d object around it's local y-axis
+		 *
+		 * @param    angle        The amount of rotation in degrees
+		 */
 		public function yaw(angle:Number):void
 		{
 			rotate(Vector3D.Y_AXIS, angle);
 		}
-		/**		 * Rotates the 3d object around it's local z-axis		 *		 * @param    angle        The amount of rotation in degrees		 */
+		/**
+		 * Rotates the 3d object around it's local z-axis
+		 *
+		 * @param    angle        The amount of rotation in degrees
+		 */
 		public function roll(angle:Number):void
 		{
 			rotate(Vector3D.Z_AXIS, angle);
@@ -695,7 +851,13 @@ package away.base
 			// todo: implement for all subtypes
 			return clone;
 		}
-		/**		 * Rotates the 3d object directly to a euler angle		 *		 * @param    ax        The angle in degrees of the rotation around the x axis.		 * @param    ay        The angle in degrees of the rotation around the y axis.		 * @param    az        The angle in degrees of the rotation around the z axis.		 */
+		/**
+		 * Rotates the 3d object directly to a euler angle
+		 *
+		 * @param    ax        The angle in degrees of the rotation around the x axis.
+		 * @param    ay        The angle in degrees of the rotation around the y axis.
+		 * @param    az        The angle in degrees of the rotation around the z axis.
+		 */
 		public function rotateTo(ax:Number, ay:Number, az:Number):void
 		{
 			_rotationX = ax*MathConsts.DEGREES_TO_RADIANS;
@@ -704,14 +866,24 @@ package away.base
 			
 			invalidateRotation();
 		}
-		/**		 * Rotates the 3d object around an axis by a defined angle		 *		 * @param    axis        The vector defining the axis of rotation		 * @param    angle        The amount of rotation in degrees		 */
+		/**
+		 * Rotates the 3d object around an axis by a defined angle
+		 *
+		 * @param    axis        The vector defining the axis of rotation
+		 * @param    angle        The amount of rotation in degrees
+		 */
 		public function rotate(axis:Vector3D, angle:Number):void
 		{
 			transform.prependRotation(angle, axis);
 			transform = _pTransform;
 
 		}
-		/**		 * Rotates the 3d object around to face a point defined relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 *		 * @param    target        The vector defining the point to be looked at		 * @param    upAxis        An optional vector used to define the desired up orientation of the 3d object after rotation has occurred		 */
+		/**
+		 * Rotates the 3d object around to face a point defined relative to the local coordinates of the parent <code>ObjectContainer3D</code>.
+		 *
+		 * @param    target        The vector defining the point to be looked at
+		 * @param    upAxis        An optional vector used to define the desired up orientation of the 3d object after rotation has occurred
+		 */
 		public function lookAt(target:Vector3D, upAxis:Vector3D = null):void
 		{
 
@@ -770,16 +942,22 @@ package away.base
 			}
 
 		}
-		/**		 * Cleans up any resources used by the current object.		 */
+		/**
+		 * Cleans up any resources used by the current object.
+		 */
 		override public function dispose():void
 		{
 		}
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function disposeAsset():void
 		{
 			dispose();
 		}
-		/**		 * Invalidates the transformation matrix, causing it to be updated upon the next request		 */
+		/**
+		 * Invalidates the transformation matrix, causing it to be updated upon the next request
+		 */
 
 		public function iInvalidateTransform():void
 		{

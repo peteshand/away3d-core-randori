@@ -1,10 +1,11 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
 
-	/**	 * A Cylinder primitive mesh.	 */
+	/**
+	 * A Cylinder primitive mesh.
+	 */
 	public class CylinderGeometry extends PrimitiveBase
 	{
 		public var _pBottomRadius:Number;
@@ -50,7 +51,9 @@ package away.primitives
             _currentTriangleIndex++;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var i:Number;
@@ -306,7 +309,9 @@ package away.primitives
 			target.updateIndexData(_rawIndices);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number;
@@ -395,7 +400,9 @@ package away.primitives
 			target.updateData(UVData);
 		}
 		
-		/**		 * The radius of the top end of the cylinder.		 */
+		/**
+		 * The radius of the top end of the cylinder.
+		 */
 		public function get topRadius():Number
 		{
 			return _topRadius;
@@ -407,7 +414,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The radius of the bottom end of the cylinder.		 */
+		/**
+		 * The radius of the bottom end of the cylinder.
+		 */
 		public function get bottomRadius():Number
 		{
 			return _pBottomRadius;
@@ -419,7 +428,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The radius of the top end of the cylinder.		 */
+		/**
+		 * The radius of the top end of the cylinder.
+		 */
 		public function get height():Number
 		{
 			return _height;
@@ -431,7 +442,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Defines the number of horizontal segments that make up the cylinder. Defaults to 16.		 */
+		/**
+		 * Defines the number of horizontal segments that make up the cylinder. Defaults to 16.
+		 */
 		public function get segmentsW():Number
 		{
 			return _pSegmentsW;
@@ -449,7 +462,9 @@ package away.primitives
             pInvalidateUVs();
         }
 		
-		/**		 * Defines the number of vertical segments that make up the cylinder. Defaults to 1.		 */
+		/**
+		 * Defines the number of vertical segments that make up the cylinder. Defaults to 1.
+		 */
 		public function get segmentsH():Number
 		{
 			return _pSegmentsH;
@@ -470,7 +485,9 @@ package away.primitives
 
         }
 		
-		/**		 * Defines whether the top end of the cylinder is closed (true) or open.		 */
+		/**
+		 * Defines whether the top end of the cylinder is closed (true) or open.
+		 */
 		public function get topClosed():Boolean
 		{
 			return _topClosed;
@@ -482,7 +499,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Defines whether the bottom end of the cylinder is closed (true) or open.		 */
+		/**
+		 * Defines whether the bottom end of the cylinder is closed (true) or open.
+		 */
 		public function get bottomClosed():Boolean
 		{
 			return _bottomClosed;
@@ -494,7 +513,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Defines whether the cylinder poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Defines whether the cylinder poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function get yUp():Boolean
 		{
 			return _yUp;
@@ -506,7 +527,17 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Creates a new Cylinder object.		 * @param topRadius The radius of the top end of the cylinder.		 * @param bottomRadius The radius of the bottom end of the cylinder		 * @param height The radius of the bottom end of the cylinder		 * @param segmentsW Defines the number of horizontal segments that make up the cylinder. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the cylinder. Defaults to 1.		 * @param topClosed Defines whether the top end of the cylinder is closed (true) or open.		 * @param bottomClosed Defines whether the bottom end of the cylinder is closed (true) or open.		 * @param yUp Defines whether the cone poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Creates a new Cylinder object.
+		 * @param topRadius The radius of the top end of the cylinder.
+		 * @param bottomRadius The radius of the bottom end of the cylinder
+		 * @param height The radius of the bottom end of the cylinder
+		 * @param segmentsW Defines the number of horizontal segments that make up the cylinder. Defaults to 16.
+		 * @param segmentsH Defines the number of vertical segments that make up the cylinder. Defaults to 1.
+		 * @param topClosed Defines whether the top end of the cylinder is closed (true) or open.
+		 * @param bottomClosed Defines whether the bottom end of the cylinder is closed (true) or open.
+		 * @param yUp Defines whether the cone poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function CylinderGeometry(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, topClosed:Boolean = true, bottomClosed:Boolean = true, surfaceClosed:Boolean = true, yUp:Boolean = true):void
 		{
 			super();

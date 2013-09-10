@@ -1,5 +1,4 @@
 
-
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -34,31 +33,46 @@ package away.textures
 
 		}
 
-        /**         *         * @returns {boolean}         */
+        /**
+         *
+         * @returns {boolean}
+         */
 		public function get hasMipMaps():Boolean
 		{
 			return _hasMipmaps;
 		}
 
-        /**         *         * @returns {string}         */
+        /**
+         *
+         * @returns {string}
+         */
 		public function get format():String
 		{
 			return _format;
 		}
 
-        /**         *         * @returns {string}         */
+        /**
+         *
+         * @returns {string}
+         */
 		override public function get assetType():String
 		{
 			return AssetType.TEXTURE;
 		}
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get width():Number
 		{
 			return _pWidth;
 		}
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
 		public function get height():Number
 		{
 			return _pHeight;
@@ -84,7 +98,11 @@ package away.textures
 			return tex;
 		}
 
-        /**         *         * @param texture         * @private         */
+        /**
+         *
+         * @param texture
+         * @private
+         */
 		public function pUploadContent(texture:TextureBase):void
 		{
 
@@ -92,7 +110,12 @@ package away.textures
 
 		}
 
-        /**         *         * @param width         * @param height         * @private         */
+        /**
+         *
+         * @param width
+         * @param height
+         * @private
+         */
 		public function pSetSize(width:Number, height:Number):void
 		{
 
@@ -108,7 +131,9 @@ package away.textures
 
 		}
 
-        /**         *         */
+        /**
+         *
+         */
 		public function invalidateContent():void
 		{
 
@@ -121,7 +146,10 @@ package away.textures
 
 		}
 
-        /**         *         * @private         */
+        /**
+         *
+         * @private
+         */
 		public function pInvalidateSize():void
 		{
 			var tex : TextureBase;
@@ -143,13 +171,19 @@ package away.textures
 
 		}
 
-        /**         *         * @param context         * @private         */
+        /**
+         *
+         * @param context
+         * @private
+         */
 		public function pCreateTexture(context:Context3D):TextureBase
 		{
             throw new AbstractMethodError();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function dispose():void
 		{
 			for (var i : Number = 0; i < 8; ++i)

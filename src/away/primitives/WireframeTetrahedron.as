@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts" />
+
 package away.primitives
 {
 	import away.geom.Vector3D;
@@ -6,7 +7,9 @@ package away.primitives
 	
 	//import away3d.primitives.WireframePrimitiveBase;
 	
-	/**	 * A WireframeTetrahedron primitive mesh	 */
+	/**
+	 * A WireframeTetrahedron primitive mesh
+	 */
 	public class WireframeTetrahedron extends WireframePrimitiveBase
 	{
 		
@@ -18,7 +21,13 @@ package away.primitives
 		private var _height:Number;
 		private var _orientation:String;
 		
-		/**		 * Creates a new WireframeTetrahedron object.		 * @param width The size of the tetrahedron buttom size.		 * @param height The size of the tetranhedron height.		 * @param color The color of the wireframe lines.		 * @param thickness The thickness of the wireframe lines.		 */
+		/**
+		 * Creates a new WireframeTetrahedron object.
+		 * @param width The size of the tetrahedron buttom size.
+		 * @param height The size of the tetranhedron height.
+		 * @param color The color of the wireframe lines.
+		 * @param thickness The thickness of the wireframe lines.
+		 */
 		public function WireframeTetrahedron(width:Number, height:Number, color:Number = 0xffffff, thickness:Number = 1, orientation:String = "yz"):void
 		{
 			super(color, thickness);
@@ -29,7 +38,9 @@ package away.primitives
             _orientation = orientation;
 		}
 		
-		/**		 * The orientation in which the plane lies		 */
+		/**
+		 * The orientation in which the plane lies
+		 */
 		public function get orientation():String
 		{
 			return _orientation;
@@ -41,7 +52,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the tetrahedron bottom.		 */
+		/**
+		 * The size of the tetrahedron bottom.
+		 */
 		public function get width():Number
 		{
 			return _width;
@@ -55,7 +68,9 @@ package away.primitives
 			pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the tetrahedron height.		 */
+		/**
+		 * The size of the tetrahedron height.
+		 */
 		public function get height():Number
 		{
 			return _height;
@@ -69,7 +84,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry():void
 		{
 			

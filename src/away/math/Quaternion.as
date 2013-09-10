@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.math
@@ -9,22 +8,38 @@ package away.math
 	//import flash.geom.Orientation3D;
 	//import flash.geom.Vector3D;
 	
-	/**	 * A Quaternion object which can be used to represent rotations.	 */
+	/**
+	 * A Quaternion object which can be used to represent rotations.
+	 */
 	public class Quaternion
 	{
-		/**		 * The x value of the quaternion.		 */
+		/**
+		 * The x value of the quaternion.
+		 */
 		public var x:Number = 0;
 		
-		/**		 * The y value of the quaternion.		 */
+		/**
+		 * The y value of the quaternion.
+		 */
 		public var y:Number = 0;
 		
-		/**		 * The z value of the quaternion.		 */
+		/**
+		 * The z value of the quaternion.
+		 */
 		public var z:Number = 0;
 		
-		/**		 * The w value of the quaternion.		 */
+		/**
+		 * The w value of the quaternion.
+		 */
 		public var w:Number = 1;
 		
-		/**		 * Creates a new Quaternion object.		 * @param x The x value of the quaternion.		 * @param y The y value of the quaternion.		 * @param z The z value of the quaternion.		 * @param w The w value of the quaternion.		 */
+		/**
+		 * Creates a new Quaternion object.
+		 * @param x The x value of the quaternion.
+		 * @param y The y value of the quaternion.
+		 * @param z The z value of the quaternion.
+		 * @param w The w value of the quaternion.
+		 */
 		public function Quaternion(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 1):void
 		{
 			x = x;
@@ -33,13 +48,20 @@ package away.math
 			w = w;
 		}
 		
-		/**		 * Returns the magnitude of the quaternion object.		 */
+		/**
+		 * Returns the magnitude of the quaternion object.
+		 */
 		public function get magnitude():Number
 		{
 			return Math.sqrt(w*w + x*x + y*y + z*z);
 		}
 		
-		/**		 * Fills the quaternion object with the result from a multiplication of two quaternion objects.		 *		 * @param    qa    The first quaternion in the multiplication.		 * @param    qb    The second quaternion in the multiplication.		 */
+		/**
+		 * Fills the quaternion object with the result from a multiplication of two quaternion objects.
+		 *
+		 * @param    qa    The first quaternion in the multiplication.
+		 * @param    qb    The second quaternion in the multiplication.
+		 */
 		public function multiply(qa:Quaternion, qb:Quaternion):void
 		{
 			var w1:Number = qa.w, x1:Number = qa.x, y1:Number = qa.y, z1:Number = qa.z;
@@ -73,7 +95,12 @@ package away.math
 			return target;
 		}
 		
-		/**		 * Fills the quaternion object with values representing the given rotation around a vector.		 *		 * @param    axis    The axis around which to rotate		 * @param    angle    The angle in radians of the rotation.		 */
+		/**
+		 * Fills the quaternion object with values representing the given rotation around a vector.
+		 *
+		 * @param    axis    The axis around which to rotate
+		 * @param    angle    The angle in radians of the rotation.
+		 */
 		public function fromAxisAngle(axis:Vector3D, angle:Number):void
 		{
 			var sin_a:Number = Math.sin(angle/2);
@@ -87,7 +114,12 @@ package away.math
 			normalize();
 		}
 		
-		/**		 * Spherically interpolates between two quaternions, providing an interpolation between rotations with constant angle change rate.		 * @param qa The first quaternion to interpolate.		 * @param qb The second quaternion to interpolate.		 * @param t The interpolation weight, a value between 0 and 1.		 */
+		/**
+		 * Spherically interpolates between two quaternions, providing an interpolation between rotations with constant angle change rate.
+		 * @param qa The first quaternion to interpolate.
+		 * @param qb The second quaternion to interpolate.
+		 * @param t The interpolation weight, a value between 0 and 1.
+		 */
 		public function slerp(qa:Quaternion, qb:Quaternion, t:Number):void
 		{
 			var w1:Number = qa.w, x1:Number = qa.x, y1:Number = qa.y, z1:Number = qa.z;
@@ -127,7 +159,12 @@ package away.math
 			}
 		}
 		
-		/**		 * Linearly interpolates between two quaternions.		 * @param qa The first quaternion to interpolate.		 * @param qb The second quaternion to interpolate.		 * @param t The interpolation weight, a value between 0 and 1.		 */
+		/**
+		 * Linearly interpolates between two quaternions.
+		 * @param qa The first quaternion to interpolate.
+		 * @param qb The second quaternion to interpolate.
+		 * @param t The interpolation weight, a value between 0 and 1.
+		 */
 		public function lerp(qa:Quaternion, qb:Quaternion, t:Number):void
 		{
 			var w1:Number = qa.w, x1:Number = qa.x, y1:Number = qa.y, z1:Number = qa.z;
@@ -154,7 +191,13 @@ package away.math
             z *= len;
 		}
 		
-		/**		 * Fills the quaternion object with values representing the given euler rotation.		 *		 * @param    ax        The angle in radians of the rotation around the ax axis.		 * @param    ay        The angle in radians of the rotation around the ay axis.		 * @param    az        The angle in radians of the rotation around the az axis.		 */
+		/**
+		 * Fills the quaternion object with values representing the given euler rotation.
+		 *
+		 * @param    ax        The angle in radians of the rotation around the ax axis.
+		 * @param    ay        The angle in radians of the rotation around the ay axis.
+		 * @param    az        The angle in radians of the rotation around the az axis.
+		 */
 		public function fromEulerAngles(ax:Number, ay:Number, az:Number):void
 		{
 			var halfX:Number = ax*.5, halfY:Number = ay*.5, halfZ:Number = az*.5;
@@ -168,7 +211,11 @@ package away.math
             z = cosX*cosY*sinZ - sinX*sinY*cosZ;
 		}
 		
-		/**		 * Fills a target Vector3D object with the Euler angles that form the rotation represented by this quaternion.		 * @param target An optional Vector3D object to contain the Euler angles. If not provided, a new object is created.		 * @return The Vector3D containing the Euler angles.		 */
+		/**
+		 * Fills a target Vector3D object with the Euler angles that form the rotation represented by this quaternion.
+		 * @param target An optional Vector3D object to contain the Euler angles. If not provided, a new object is created.
+		 * @return The Vector3D containing the Euler angles.
+		 */
 		public function toEulerAngles(target:Vector3D = null):Vector3D
 		{
 
@@ -187,7 +234,9 @@ package away.math
 			return target;
 		}
 		
-		/**		 * Normalises the quaternion object.		 */
+		/**
+		 * Normalises the quaternion object.
+		 */
 		public function normalize(val:Number = 1):void
 		{
 			var mag:Number = val/Math.sqrt(x*x + y*y + z*z + w*w);
@@ -198,13 +247,21 @@ package away.math
             w *= mag;
 		}
 		
-		/**		 * Used to trace the values of a quaternion.		 *		 * @return A string representation of the quaternion object.		 */
+		/**
+		 * Used to trace the values of a quaternion.
+		 *
+		 * @return A string representation of the quaternion object.
+		 */
 		public function toString():String
 		{
 			return "{x:" + x + " y:" + y + " z:" + z + " w:" + w + "}";
 		}
 		
-		/**		 * Converts the quaternion to a Matrix3D object representing an equivalent rotation.		 * @param target An optional Matrix3D container to store the transformation in. If not provided, a new object is created.		 * @return A Matrix3D object representing an equivalent rotation.		 */
+		/**
+		 * Converts the quaternion to a Matrix3D object representing an equivalent rotation.
+		 * @param target An optional Matrix3D container to store the transformation in. If not provided, a new object is created.
+		 * @return A Matrix3D object representing an equivalent rotation.
+		 */
 		public function toMatrix3D(target:Matrix3D = null):Matrix3D
 		{
 			var rawData:Vector.<Number> = Matrix3DUtils.RAW_DATA_CONTAINER;
@@ -237,7 +294,10 @@ package away.math
 			return target;
 		}
 		
-		/**		 * Extracts a quaternion rotation matrix out of a given Matrix3D object.		 * @param matrix The Matrix3D out of which the rotation will be extracted.		 */
+		/**
+		 * Extracts a quaternion rotation matrix out of a given Matrix3D object.
+		 * @param matrix The Matrix3D out of which the rotation will be extracted.
+		 */
 		public function fromMatrix(matrix:Matrix3D):void
 		{
             // todo: this isn't right, doesn't take into account transforms
@@ -250,7 +310,11 @@ package away.math
             w = v.w;
 		}
 		
-		/**		 * Converts the quaternion to a Vector.&lt;Number&gt; matrix representation of a rotation equivalent to this quaternion.		 * @param target The Vector.&lt;Number&gt; to contain the raw matrix data.		 * @param exclude4thRow If true, the last row will be omitted, and a 4x3 matrix will be generated instead of a 4x4.		 */
+		/**
+		 * Converts the quaternion to a Vector.&lt;Number&gt; matrix representation of a rotation equivalent to this quaternion.
+		 * @param target The Vector.&lt;Number&gt; to contain the raw matrix data.
+		 * @param exclude4thRow If true, the last row will be omitted, and a 4x3 matrix will be generated instead of a 4x4.
+		 */
 		public function toRawData(target:Vector.<Number>, exclude4thRow:Boolean = false):void
 		{
 			var xy2:Number = 2.0*x*y, xz2:Number = 2.0*x*z, xw2:Number = 2.0*x*w;
@@ -274,13 +338,21 @@ package away.math
 			}
 		}
 		
-		/**		 * Clones the quaternion.		 * @return An exact duplicate of the current Quaternion.		 */
+		/**
+		 * Clones the quaternion.
+		 * @return An exact duplicate of the current Quaternion.
+		 */
 		public function clone():Quaternion
 		{
 			return new Quaternion(x, y, z, w);
 		}
 		
-		/**		 * Rotates a point.		 * @param vector The Vector3D object to be rotated.		 * @param target An optional Vector3D object that will contain the rotated coordinates. If not provided, a new object will be created.		 * @return A Vector3D object containing the rotated point.		 */
+		/**
+		 * Rotates a point.
+		 * @param vector The Vector3D object to be rotated.
+		 * @param target An optional Vector3D object that will contain the rotated coordinates. If not provided, a new object will be created.
+		 * @return A Vector3D object containing the rotated point.
+		 */
 		public function rotatePoint(vector:Vector3D, target:Vector3D = null):Vector3D
 		{
 			var x1:Number, y1:Number, z1:Number, w1:Number;
@@ -307,7 +379,10 @@ package away.math
 			return target;
 		}
 		
-		/**		 * Copies the data from a quaternion into this instance.		 * @param q The quaternion to copy from.		 */
+		/**
+		 * Copies the data from a quaternion into this instance.
+		 * @param q The quaternion to copy from.
+		 */
 		public function copyFrom(q:Quaternion):void
 		{
             x = q.x;

@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts" />
 
 package away.cameras
@@ -227,19 +229,38 @@ package away.cameras
 			return _viewProjection;
 		}
 
-        /**         * Calculates the ray in scene space from the camera to the given normalized coordinates in screen space.         *         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.         * @param sZ The z coordinate in screen space, representing the distance into the screen.         * @return The ray from the camera to the scene space position of the given screen coordinates.         */
+        /**
+         * Calculates the ray in scene space from the camera to the given normalized coordinates in screen space.
+         *
+         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.
+         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.
+         * @param sZ The z coordinate in screen space, representing the distance into the screen.
+         * @return The ray from the camera to the scene space position of the given screen coordinates.
+         */
         public function getRay(nX:Number, nY:Number, sZ:Number):Vector3D
         {
             return sceneTransform.deltaTransformVector(_lens.unproject(nX, nY, sZ));
         }
 
-        /**         * Calculates the normalised position in screen space of the given scene position.         *         * @param point3d the position vector of the scene coordinates to be projected.         * @return The normalised screen position of the given scene coordinates.         */
+        /**
+         * Calculates the normalised position in screen space of the given scene position.
+         *
+         * @param point3d the position vector of the scene coordinates to be projected.
+         * @return The normalised screen position of the given scene coordinates.
+         */
         public function project(point3d:Vector3D):Vector3D
         {
             return _lens.project( inverseSceneTransform.transformVector(point3d));
         }
 
-        /**         * Calculates the scene position of the given normalized coordinates in screen space.         *         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.         * @param sZ The z coordinate in screen space, representing the distance into the screen.         * @return The scene position of the given screen coordinates.         */
+        /**
+         * Calculates the scene position of the given normalized coordinates in screen space.
+         *
+         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.
+         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.
+         * @param sZ The z coordinate in screen space, representing the distance into the screen.
+         * @return The scene position of the given screen coordinates.
+         */
         public function unproject(nX:Number, nY:Number, sZ:Number):Vector3D
         {
             return sceneTransform.transformVector(_lens.unproject(nX, nY, sZ));

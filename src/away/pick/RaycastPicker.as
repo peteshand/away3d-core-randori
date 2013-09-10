@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.pick
 {
 	import away.traverse.RaycastCollector;
@@ -10,7 +9,11 @@ package away.pick
 	import away.data.EntityListItem;
 	import away.containers.Scene3D;
 
-	/**	 * Picks a 3d object from a view or scene by 3D raycast calculations.	 * Performs an initial coarse boundary calculation to return a subset of entities whose bounding volumes intersect with the specified ray,	 * then triggers an optional picking collider on individual entity objects to further determine the precise values of the picking ray collision.	 */
+	/**
+	 * Picks a 3d object from a view or scene by 3D raycast calculations.
+	 * Performs an initial coarse boundary calculation to return a subset of entities whose bounding volumes intersect with the specified ray,
+	 * then triggers an optional picking collider on individual entity objects to further determine the precise values of the picking ray collision.
+	 */
 
 	public class RaycastPicker implements IPicker
 	{
@@ -19,10 +22,13 @@ package away.pick
 		private var _ignoredEntities:Array = new Array();
 		private var _onlyMouseEnabled:Boolean = true;
 		
-		private var _entities:Vector.<Entity>;//Vector.<Entity>;		private var _numEntities:Number = 0;
+		private var _entities:Vector.<Entity>;//Vector.<Entity>;
+		private var _numEntities:Number = 0;
 		private var _hasCollisions:Boolean;
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function get onlyMouseEnabled():Boolean
 		{
 			return _onlyMouseEnabled;
@@ -33,7 +39,12 @@ package away.pick
 			_onlyMouseEnabled = value;
 		}
 		
-		/**		 * Creates a new <code>RaycastPicker</code> object.		 *		 * @param findClosestCollision Determines whether the picker searches for the closest bounds collision along the ray,		 * or simply returns the first collision encountered Defaults to false.		 */
+		/**
+		 * Creates a new <code>RaycastPicker</code> object.
+		 *
+		 * @param findClosestCollision Determines whether the picker searches for the closest bounds collision along the ray,
+		 * or simply returns the first collision encountered Defaults to false.
+		 */
 		public function RaycastPicker(findClosestCollision:Boolean):void
 		{
 			
@@ -41,7 +52,9 @@ package away.pick
             _entities = new Vector.<Entity>();//Vector.<Entity>();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 
 		public function getViewCollision(x:Number, y:Number, view:View3D):PickingCollisionVO
 		{
@@ -86,7 +99,9 @@ package away.pick
 
 		}
 		//*/
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 
         //* TODO Implement Dependency: EntityListItem, EntityCollector, RaycastCollector
 		public function getSceneCollision(position:Vector3D, direction:Vector3D, scene:Scene3D):PickingCollisionVO

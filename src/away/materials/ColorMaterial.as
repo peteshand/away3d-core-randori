@@ -1,15 +1,20 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.materials
 {
 	import away.display.BlendMode;
 
-	/**	 * ColorMaterial is a single-pass material that uses a flat color as the surface's diffuse reflection value.	 */
+	/**
+	 * ColorMaterial is a single-pass material that uses a flat color as the surface's diffuse reflection value.
+	 */
 	public class ColorMaterial extends SinglePassMaterialBase
 	{
 		private var _diffuseAlpha:Number = 1;
 		
-		/**		 * Creates a new ColorMaterial object.		 * @param color The material's diffuse surface color.		 * @param alpha The material's surface alpha.		 */
+		/**
+		 * Creates a new ColorMaterial object.
+		 * @param color The material's diffuse surface color.
+		 * @param alpha The material's surface alpha.
+		 */
 		public function ColorMaterial(color:Number = 0xcccccc, alpha:Number = 1):void
 		{
 
@@ -20,7 +25,9 @@ package away.materials
 
 		}
 		
-		/**		 * The alpha of the surface.		 */
+		/**
+		 * The alpha of the surface.
+		 */
 		public function get alpha():Number
 		{
 			return _pScreenPass.diffuseMethod.diffuseAlpha;
@@ -45,7 +52,9 @@ package away.materials
             _pScreenPass.setBlendMode( getBlendMode() == BlendMode.NORMAL && requiresBlending? BlendMode.LAYER : getBlendMode());
 		}
 		
-		/**		 * The diffuse reflectivity color of the surface.		 */
+		/**
+		 * The diffuse reflectivity color of the surface.
+		 */
 		public function get color():Number
 		{
 			return _pScreenPass.diffuseMethod.diffuseColor;
@@ -56,7 +65,9 @@ package away.materials
             _pScreenPass.diffuseMethod.diffuseColor = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function get requiresBlending():Boolean
 		{
 			return getRequiresBlending() || _diffuseAlpha < 1;

@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.render
 {
 	import away.materials.MaterialBase;
@@ -14,7 +13,9 @@ package away.render
 	import away.base.IRenderable;
 	import away.entities.Entity;
 
-	/**	 * The DepthRenderer class renders 32-bit depth information encoded as RGBA	 */
+	/**
+	 * The DepthRenderer class renders 32-bit depth information encoded as RGBA
+	 */
 	public class DepthRenderer extends RendererBase
 	{
 		private var _activeMaterial:MaterialBase;
@@ -22,7 +23,11 @@ package away.render
 		private var _distanceBased:Boolean;
 		private var _disableColor:Boolean;
 		
-		/**		 * Creates a new DepthRenderer object.		 * @param renderBlended Indicates whether semi-transparent objects should be rendered.		 * @param distanceBased Indicates whether the written depth value is distance-based or projected depth-based		 */
+		/**
+		 * Creates a new DepthRenderer object.
+		 * @param renderBlended Indicates whether semi-transparent objects should be rendered.
+		 * @param distanceBased Indicates whether the written depth value is distance-based or projected depth-based
+		 */
 		public function DepthRenderer(renderBlended:Boolean = false, distanceBased:Boolean = false):void
 		{
 			super(false);
@@ -155,7 +160,9 @@ package away.render
 			}
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pDraw(entityCollector:EntityCollector, target:TextureBase):void
 		{
 
@@ -181,7 +188,11 @@ package away.render
 
 		}
 		
-		/**		 * Draw a list of renderables.		 * @param renderables The renderables to draw.		 * @param entityCollector The EntityCollector containing all potentially visible information.		 */
+		/**
+		 * Draw a list of renderables.
+		 * @param renderables The renderables to draw.
+		 * @param entityCollector The EntityCollector containing all potentially visible information.
+		 */
 		private function drawRenderables(item:RenderableListItem, entityCollector:EntityCollector):void
 		{
 			var camera:Camera3D = entityCollector.camera;

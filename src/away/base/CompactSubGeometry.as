@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.base
 {
 	import away.display3D.VertexBuffer3D;
@@ -9,7 +10,10 @@ package away.base
 
 	public class CompactSubGeometry extends SubGeometryBase implements ISubGeometry
 	{
-		public var _pVertexDataInvalid:Vector.<Boolean> = Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		public var _pNumVertices:Number;
+		public var _pVertexDataInvalid:Vector.<Boolean> = Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);
+		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
+		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);
+		public var _pNumVertices:Number;
 		private var _contextIndex:Number;
 		public var _pActiveBuffer:VertexBuffer3D;
 		private var _activeContext:Context3D;
@@ -30,7 +34,14 @@ package away.base
 			return _pNumVertices;
 		}
 		
-		/**		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:		 * 0 - 2: vertex position X, Y, Z		 * 3 - 5: normal X, Y, Z		 * 6 - 8: tangent X, Y, Z		 * 9 - 10: U V		 * 11 - 12: Secondary U V		 */
+		/**
+		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:
+		 * 0 - 2: vertex position X, Y, Z
+		 * 3 - 5: normal X, Y, Z
+		 * 6 - 8: tangent X, Y, Z
+		 * 9 - 10: U V
+		 * 11 - 12: Secondary U V
+		 */
 		public function updateData(data:Vector.<Number>):void
 		{
 			if (_autoDeriveVertexNormals)
@@ -435,7 +446,15 @@ package away.base
             return stripBuffer(9, 2);
         }
 		
-		/**		 * Isolate and returns a Vector.Number of a specific buffer type		 *		 * - stripBuffer(0, 3), return only the vertices		 * - stripBuffer(3, 3): return only the normals		 * - stripBuffer(6, 3): return only the tangents		 * - stripBuffer(9, 2): return only the uv's		 * - stripBuffer(11, 2): return only the secondary uv's		 */
+		/**
+		 * Isolate and returns a Vector.Number of a specific buffer type
+		 *
+		 * - stripBuffer(0, 3), return only the vertices
+		 * - stripBuffer(3, 3): return only the normals
+		 * - stripBuffer(6, 3): return only the tangents
+		 * - stripBuffer(9, 2): return only the uv's
+		 * - stripBuffer(11, 2): return only the secondary uv's
+		 */
 		public function stripBuffer(offset:Number, numEntries:Number):Vector.<Number>
 		{
 			var data:Vector.<Number> = new Vector.<Number>( _pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);

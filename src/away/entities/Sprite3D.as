@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.entities
 {
 	import away.base.IRenderable;
@@ -20,7 +19,12 @@ package away.entities
 	import away.math.Matrix3DUtils;
 	import away.geom.Vector3D;
 
-	/**	 * Sprite3D is a 3D billboard, a renderable rectangular area that is always aligned with the projection plane.	 * As a result, no perspective transformation occurs on a Sprite3D object.	 *	 * todo: mvp generation or vertex shader code can be optimized	 */
+	/**
+	 * Sprite3D is a 3D billboard, a renderable rectangular area that is always aligned with the projection plane.
+	 * As a result, no perspective transformation occurs on a Sprite3D object.
+	 *
+	 * todo: mvp generation or vertex shader code can be optimized
+	 */
 	public class Sprite3D extends Entity implements IRenderable
 	{
 		// TODO: Replace with CompactSubGeometry
@@ -149,7 +153,9 @@ package away.entities
                 _material.iAddOwner(this);
 		}
 		
-		/**		 * Defines the animator of the mesh. Act on the mesh's geometry. Defaults to null		 */
+		/**
+		 * Defines the animator of the mesh. Act on the mesh's geometry. Defaults to null
+		 */
 		public function get animator():IAnimator
 		{
 			return _animator;

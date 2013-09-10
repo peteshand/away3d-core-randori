@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.render
@@ -18,7 +17,9 @@ package away.render
 
 	public class Filter3DRenderer
 	{
-		private var _filters:Vector.<Filter3DBase>; // TODO: check / changed to strongly typed array		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>;		private var _filterTasksInvalid:Boolean;
+		private var _filters:Vector.<Filter3DBase>; // TODO: check / changed to strongly typed array
+		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>;
+		private var _filterTasksInvalid:Boolean;
 		private var _mainInputTexture:Texture;
 		private var _requireDepthRender:Boolean;
 		private var _rttManager:RTTBufferManager;

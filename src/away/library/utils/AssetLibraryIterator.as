@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.library.utils
@@ -9,7 +8,9 @@ package away.library.utils
 	public class AssetLibraryIterator
 	{
 
-        private var _assets:Vector.<IAsset>;//private  _assets:Vector.<IAsset>;        private var _filtered:Vector.<IAsset>;//Vector.<IAsset>;		
+        private var _assets:Vector.<IAsset>;//private  _assets:Vector.<IAsset>;
+        private var _filtered:Vector.<IAsset>;//Vector.<IAsset>;
+		
 		private var _idx:Number;
 		
 		public function AssetLibraryIterator(assets:Vector.<IAsset>, assetTypeFilter:String, namespaceFilter:String, filterFunc):void
@@ -85,7 +86,23 @@ package away.library.utils
 
                 }
 
-                /*				for each (asset in _assets) {					// Skip this assets if filtering on type and this is wrong type					if (assetTypeFilter && asset.assetType != assetTypeFilter)						continue;					// Skip this asset if filtering on namespace and this is wrong namespace					if (namespaceFilter && asset.assetNamespace != namespaceFilter)						continue;					// Skip this asset if a filter func has been provided and it returns false					if (filterFunc != null && !filterFunc(asset))						continue;					_filtered[idx++] = asset;				}				*/
+                /*
+				for each (asset in _assets) {
+					// Skip this assets if filtering on type and this is wrong type
+					if (assetTypeFilter && asset.assetType != assetTypeFilter)
+						continue;
+
+					// Skip this asset if filtering on namespace and this is wrong namespace
+					if (namespaceFilter && asset.assetNamespace != namespaceFilter)
+						continue;
+
+					// Skip this asset if a filter func has been provided and it returns false
+					if (filterFunc != null && !filterFunc(asset))
+						continue;
+
+					_filtered[idx++] = asset;
+				}
+				*/
 
 			} else {
 

@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.library.assets
@@ -32,7 +31,11 @@ package away.library.assets
 
 		}
 		
-		/**		 * The original name used for this asset in the resource (e.g. file) in which		 * it was found. This may not be the same as <code>name</code>, which may		 * have changed due to of a name conflict.		 */
+		/**
+		 * The original name used for this asset in the resource (e.g. file) in which
+		 * it was found. This may not be the same as <code>name</code>, which may
+		 * have changed due to of a name conflict.
+		 */
 		public function get originalName():String
 		{
 			return _originalName;

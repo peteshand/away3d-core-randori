@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.render
 {
 	import away.materials.MaterialBase;
@@ -19,7 +18,10 @@ package away.render
 	import away.geom.Vector3D;
 	import away.data.RenderableListItem;
 
-	/**	 * The DefaultRenderer class provides the default rendering method. It renders the scene graph objects using the	 * materials assigned to them.	 */
+	/**
+	 * The DefaultRenderer class provides the default rendering method. It renders the scene graph objects using the
+	 * materials assigned to them.
+	 */
 	public class DefaultRenderer extends RendererBase
 	{
 		private static var RTT_PASSES:Number = 1;
@@ -31,7 +33,11 @@ package away.render
 		private var _pDepthRenderer:DepthRenderer;
 		private var _skyboxProjection:Matrix3D = new Matrix3D();
 		
-		/**		 * Creates a new DefaultRenderer object.		 * @param antiAlias The amount of anti-aliasing to use.		 * @param renderMode The render mode to use.		 */
+		/**
+		 * Creates a new DefaultRenderer object.
+		 * @param antiAlias The amount of anti-aliasing to use.
+		 * @param renderMode The render mode to use.
+		 */
 		public function DefaultRenderer():void
 		{
 			super(false);
@@ -112,7 +118,9 @@ package away.render
 			}
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pDraw(entityCollector:EntityCollector, target:TextureBase):void
 		{
 
@@ -155,7 +163,10 @@ package away.render
 
 		}
 		
-		/**		 * Draw the skybox if present.		 * @param entityCollector The EntityCollector containing all potentially visible information.		 */
+		/**
+		 * Draw the skybox if present.
+		 * @param entityCollector The EntityCollector containing all potentially visible information.
+		 */
 		private function drawSkyBox(entityCollector:EntityCollector):void
 		{
 			var skyBox:IRenderable = entityCollector.skyBox;
@@ -205,7 +216,11 @@ package away.render
 		
 		}
 		
-		/**		 * Draw a list of renderables.		 * @param renderables The renderables to draw.		 * @param entityCollector The EntityCollector containing all potentially visible information.		 */
+		/**
+		 * Draw a list of renderables.
+		 * @param renderables The renderables to draw.
+		 * @param entityCollector The EntityCollector containing all potentially visible information.
+		 */
 		private function drawRenderables(item:RenderableListItem, entityCollector:EntityCollector, which:Number):void
 		{
 			var numPasses:Number;

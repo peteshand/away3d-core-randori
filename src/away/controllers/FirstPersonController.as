@@ -1,11 +1,14 @@
 ///<reference path="../_definitions.ts" />
-
 package away.controllers
 {
 	import away.entities.Entity;
 	import away.math.MathConsts;
 
-	/**	 * Extended camera used to hover round a specified target object.	 *	 * @see    away3d.containers.View3D	 */
+	/**
+	 * Extended camera used to hover round a specified target object.
+	 *
+	 * @see    away3d.containers.View3D
+	 */
 	public class FirstPersonController extends ControllerBase
 	{
 		public var _iCurrentPanAngle:Number = 0;
@@ -22,7 +25,14 @@ package away.controllers
 		
 		public var fly:Boolean = false;
 		
-		/**		 * Fractional step taken each time the <code>hover()</code> method is called. Defaults to 8.		 *		 * Affects the speed at which the <code>tiltAngle</code> and <code>panAngle</code> resolve to their targets.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 */
+		/**
+		 * Fractional step taken each time the <code>hover()</code> method is called. Defaults to 8.
+		 *
+		 * Affects the speed at which the <code>tiltAngle</code> and <code>panAngle</code> resolve to their targets.
+		 *
+		 * @see    #tiltAngle
+		 * @see    #panAngle
+		 */
 		public function get steps():Number
 		{
 			return _steps;
@@ -40,7 +50,9 @@ package away.controllers
             pNotifyUpdate();
 		}
 		
-		/**		 * Rotation of the camera in degrees around the y axis. Defaults to 0.		 */
+		/**
+		 * Rotation of the camera in degrees around the y axis. Defaults to 0.
+		 */
 		public function get panAngle():Number
 		{
 			return _panAngle;
@@ -56,7 +68,9 @@ package away.controllers
 			pNotifyUpdate();
 		}
 		
-		/**		 * Elevation angle of the camera in degrees. Defaults to 90.		 */
+		/**
+		 * Elevation angle of the camera in degrees. Defaults to 90.
+		 */
 		public function get tiltAngle():Number
 		{
 			return _tiltAngle;
@@ -74,7 +88,11 @@ package away.controllers
             pNotifyUpdate();
 		}
 		
-		/**		 * Minimum bounds for the <code>tiltAngle</code>. Defaults to -90.		 *		 * @see    #tiltAngle		 */
+		/**
+		 * Minimum bounds for the <code>tiltAngle</code>. Defaults to -90.
+		 *
+		 * @see    #tiltAngle
+		 */
 		public function get minTiltAngle():Number
 		{
 			return _minTiltAngle;
@@ -90,7 +108,11 @@ package away.controllers
             tiltAngle = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, _tiltAngle));
 		}
 		
-		/**		 * Maximum bounds for the <code>tiltAngle</code>. Defaults to 90.		 *		 * @see    #tiltAngle		 */
+		/**
+		 * Maximum bounds for the <code>tiltAngle</code>. Defaults to 90.
+		 *
+		 * @see    #tiltAngle
+		 */
 		public function get maxTiltAngle():Number
 		{
 			return _maxTiltAngle;
@@ -107,7 +129,9 @@ package away.controllers
 		}
 		
 		
-		/**		 * Defines whether the value of the pan angle wraps when over 360 degrees or under 0 degrees. Defaults to false.		 */
+		/**
+		 * Defines whether the value of the pan angle wraps when over 360 degrees or under 0 degrees. Defaults to false.
+		 */
 		public function get wrapPanAngle():Boolean
 		{
 			return _wrapPanAngle;
@@ -123,7 +147,9 @@ package away.controllers
             pNotifyUpdate();
 		}
 		
-		/**		 * Creates a new <code>HoverController</code> object.		 */
+		/**
+		 * Creates a new <code>HoverController</code> object.
+		 */
 		public function FirstPersonController(targetObject:Entity = null, panAngle:Number = 0, tiltAngle:Number = 90, minTiltAngle:Number = -90, maxTiltAngle:Number = 90, steps:Number = 8, wrapPanAngle:Boolean = false):void
 		{
 			super(targetObject);
@@ -140,7 +166,17 @@ package away.controllers
             _iCurrentTiltAngle = _tiltAngle;
 		}
 		
-		/**		 * Updates the current tilt angle and pan angle values.		 *		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.		 *		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 * @see    #steps		 */
+		/**
+		 * Updates the current tilt angle and pan angle values.
+		 *
+		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.
+		 *
+		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.
+		 *
+		 * @see    #tiltAngle
+		 * @see    #panAngle
+		 * @see    #steps
+		 */
 		override public function update(interpolate:Boolean = true):void
 		{
 			if (_tiltAngle != _iCurrentTiltAngle || _panAngle != _iCurrentPanAngle) {

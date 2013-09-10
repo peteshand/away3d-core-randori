@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 package away.utils
 {

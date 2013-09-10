@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.geom
@@ -26,7 +25,10 @@ package away.geom
 
         }
 
-        /**         *         * @returns {away.geom.Matrix}         */
+        /**
+         *
+         * @returns {away.geom.Matrix}
+         */
         public function clone():Matrix
         {
 
@@ -34,7 +36,10 @@ package away.geom
 
         }
 
-        /**         *         * @param m         */
+        /**
+         *
+         * @param m
+         */
         public function concat(m:Matrix):void
         {
 
@@ -53,7 +58,11 @@ package away.geom
 
         }
 
-        /**         *         * @param column         * @param vector3D         */
+        /**
+         *
+         * @param column
+         * @param vector3D
+         */
         public function copyColumnFrom(column:Number, vector3D:Vector3D):void
         {
 
@@ -87,7 +96,11 @@ package away.geom
 
         }
 
-        /**         *         * @param column         * @param vector3D         */
+        /**
+         *
+         * @param column
+         * @param vector3D
+         */
         public function copyColumnTo(column:Number, vector3D:Vector3D):void
         {
 
@@ -124,7 +137,10 @@ package away.geom
 
         }
 
-        /**         *         * @param other         */
+        /**
+         *
+         * @param other
+         */
         public function copyFrom(other:Matrix):void
         {
 
@@ -137,7 +153,11 @@ package away.geom
 
         }
 
-        /**         *         * @param row         * @param vector3D         */
+        /**
+         *
+         * @param row
+         * @param vector3D
+         */
         public function copyRowFrom(row:Number, vector3D:Vector3D):void {
         
             if (row > 2)
@@ -170,7 +190,11 @@ package away.geom
 
         }
 
-        /**         *         * @param row         * @param vector3D         */
+        /**
+         *
+         * @param row
+         * @param vector3D
+         */
         public function copyRowTo(row:Number, vector3D:Vector3D):void
         {
 
@@ -205,7 +229,14 @@ package away.geom
 
         }
 
-        /**         *         * @param scaleX         * @param scaleY         * @param rotation         * @param tx         * @param ty         */
+        /**
+         *
+         * @param scaleX
+         * @param scaleY
+         * @param rotation
+         * @param tx
+         * @param ty
+         */
         public function createBox(scaleX:Number, scaleY:Number, rotation:Number = 0, tx:Number = 0, ty:Number = 0):void
         {
 
@@ -217,7 +248,14 @@ package away.geom
 
         }
 
-        /**         *         * @param width         * @param height         * @param rotation         * @param tx         * @param ty         */
+        /**
+         *
+         * @param width
+         * @param height
+         * @param rotation
+         * @param tx
+         * @param ty
+         */
         public function createGradientBox(width:Number, height:Number, rotation:Number = 0, tx:Number = 0, ty:Number = 0):void
         {
 
@@ -248,7 +286,11 @@ package away.geom
 
         }
 
-        /**         *         * @param point         * @returns {away.geom.Point}         */
+        /**
+         *
+         * @param point
+         * @returns {away.geom.Point}
+         */
         public function deltaTransformPoint(point:Point):Point
         {
 
@@ -256,7 +298,9 @@ package away.geom
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function identity():void
         {
 
@@ -269,7 +313,10 @@ package away.geom
 
         }
 
-        /**         *         * @returns {away.geom.Matrix}         */
+        /**
+         *
+         * @returns {away.geom.Matrix}
+         */
         public function invert():Matrix {
         
             var norm = a * d - b * c;
@@ -302,7 +349,11 @@ package away.geom
 
         }
 
-        /**         *         * @param m         * @returns {away.geom.Matrix}         */
+        /**
+         *
+         * @param m
+         * @returns {away.geom.Matrix}
+         */
         public function mult(m:Matrix):Matrix
         {
 
@@ -320,7 +371,10 @@ package away.geom
 
         }
 
-        /**         *         * @param angle         */
+        /**
+         *
+         * @param angle
+         */
         public function rotate(angle:Number):void
         {
 
@@ -341,7 +395,11 @@ package away.geom
 
         }
 
-        /**         *         * @param x         * @param y         */
+        /**
+         *
+         * @param x
+         * @param y
+         */
         public function scale(x:Number, y:Number):void
         {
 
@@ -356,7 +414,11 @@ package away.geom
 
         }
 
-        /**         *         * @param angle         * @param scale         */
+        /**
+         *
+         * @param angle
+         * @param scale
+         */
         public function setRotation(angle:Number, scale:Number = 1):void
         {
 
@@ -367,7 +429,15 @@ package away.geom
 
         }
 
-        /**         *         * @param a         * @param b         * @param c         * @param d         * @param tx         * @param ty         */
+        /**
+         *
+         * @param a
+         * @param b
+         * @param c
+         * @param d
+         * @param tx
+         * @param ty
+         */
         public function setTo(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number):void
         {
 
@@ -380,7 +450,10 @@ package away.geom
 
         }
 
-        /**         *         * @returns {string}         */
+        /**
+         *
+         * @returns {string}
+         */
         public function toString():String
         {
 
@@ -388,7 +461,11 @@ package away.geom
 
         }
 
-        /**         *         * @param point         * @returns {away.geom.Point}         */
+        /**
+         *
+         * @param point
+         * @returns {away.geom.Point}
+         */
         public function transformPoint(point:Point):Point
         {
 
@@ -396,7 +473,11 @@ package away.geom
 
         }
 
-        /**         *         * @param x         * @param y         */
+        /**
+         *
+         * @param x
+         * @param y
+         */
         public function translate(x:Number, y:Number):void
         {
 

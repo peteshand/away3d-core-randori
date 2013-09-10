@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
@@ -7,7 +9,11 @@ package away.utils
 	public class ByteArrayBuffer extends ByteArrayBase
 	{
 		
-		/*		public maxlength:number = 0;		public arraybytes; //ArrayBuffer  		public unalignedarraybytestemp; //ArrayBuffer		*/
+		/*
+		public maxlength:number = 0;
+		public arraybytes; //ArrayBuffer  
+		public unalignedarraybytestemp; //ArrayBuffer
+		*/
 		
 		public var _bytes:Vector.<Number>;
 		
@@ -158,7 +164,25 @@ package away.utils
 			return y;
 		}
 		
-		/*		public ensureWriteableSpace( n:number )		{			this.ensureSpace( n + this.position ); 		}				private ensureSpace( n:number )		{			if ( n > this.maxlength ) {				var newmaxlength:number = (n+255)&(~255); 				var newarraybuffer = new ArrayBuffer(newmaxlength);                              				var view = new Uint8Array(this.arraybytes, 0, this.length); 				var newview = new Uint8Array(newarraybuffer, 0, this.length); 				newview.set(view);      // memcpy                        				this.arraybytes = newarraybuffer;				this.maxlength = newmaxlength;                         			}		}		*/
+		/*
+		public ensureWriteableSpace( n:number )
+		{
+			this.ensureSpace( n + this.position ); 
+		}
+		
+		private ensureSpace( n:number )
+		{
+			if ( n > this.maxlength ) {
+				var newmaxlength:number = (n+255)&(~255); 
+				var newarraybuffer = new ArrayBuffer(newmaxlength);                              
+				var view = new Uint8Array(this.arraybytes, 0, this.length); 
+				var newview = new Uint8Array(newarraybuffer, 0, this.length); 
+				newview.set(view);      // memcpy                        
+				this.arraybytes = newarraybuffer;
+				this.maxlength = newmaxlength;                         
+			}
+		}
+		*/
 		
 	}
 }

@@ -1,9 +1,10 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
-	/**	 * A Plane primitive mesh.	 */
+	/**
+	 * A Plane primitive mesh.
+	 */
 	public class PlaneGeometry extends PrimitiveBase
 	{
 		private var _segmentsW:Number;
@@ -13,7 +14,15 @@ package away.primitives
 		private var _height:Number;
 		private var _doubleSided:Boolean;
 		
-		/**		 * Creates a new Plane object.		 * @param width The width of the plane.		 * @param height The height of the plane.		 * @param segmentsW The number of segments that make up the plane along the X-axis.		 * @param segmentsH The number of segments that make up the plane along the Y or Z-axis.		 * @param yUp Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false).		 * @param doubleSided Defines whether the plane will be visible from both sides, with correct vertex normals.		 */
+		/**
+		 * Creates a new Plane object.
+		 * @param width The width of the plane.
+		 * @param height The height of the plane.
+		 * @param segmentsW The number of segments that make up the plane along the X-axis.
+		 * @param segmentsH The number of segments that make up the plane along the Y or Z-axis.
+		 * @param yUp Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false).
+		 * @param doubleSided Defines whether the plane will be visible from both sides, with correct vertex normals.
+		 */
 		public function PlaneGeometry(width:Number = 100, height:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, yUp:Boolean = true, doubleSided:Boolean = false):void
 		{
 
@@ -28,7 +37,9 @@ package away.primitives
 
 		}
 		
-		/**		 * The number of segments that make up the plane along the X-axis. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the plane along the X-axis. Defaults to 1.
+		 */
 		public function get segmentsW():Number
 		{
 			return _segmentsW;
@@ -44,7 +55,10 @@ package away.primitives
 
 		}
 		
-		/**		 * The number of segments that make up the plane along the Y or Z-axis, depending on whether yUp is true or		 * false, respectively. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the plane along the Y or Z-axis, depending on whether yUp is true or
+		 * false, respectively. Defaults to 1.
+		 */
 		public function get segmentsH():Number
 		{
 			return _segmentsH;
@@ -60,7 +74,9 @@ package away.primitives
 
 		}
 		
-		/**		 *  Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false). Defaults to true.		 */
+		/**
+		 *  Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false). Defaults to true.
+		 */
 		public function get yUp():Boolean
 		{
 			return _yUp;
@@ -72,7 +88,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * Defines whether the plane will be visible from both sides, with correct vertex normals (as opposed to bothSides on Material). Defaults to false.		 */
+		/**
+		 * Defines whether the plane will be visible from both sides, with correct vertex normals (as opposed to bothSides on Material). Defaults to false.
+		 */
 		public function get doubleSided():Boolean
 		{
 			return _doubleSided;
@@ -84,7 +102,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The width of the plane.		 */
+		/**
+		 * The width of the plane.
+		 */
 		public function get width():Number
 		{
 			return _width;
@@ -96,7 +116,9 @@ package away.primitives
             pInvalidateGeometry();
 		}
 		
-		/**		 * The height of the plane.		 */
+		/**
+		 * The height of the plane.
+		 */
 		public function get height():Number
 		{
 			return _height;
@@ -108,7 +130,9 @@ package away.primitives
             pInvalidateGeometry();//invalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -253,7 +277,9 @@ package away.primitives
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;

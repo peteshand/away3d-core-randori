@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
 	import away.materials.compilation.ShaderRegisterElement;
@@ -18,7 +17,9 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**	 * BasicDiffuseMethod provides the default shading method for Lambert (dot3) diffuse lighting.	 */
+	/**
+	 * BasicDiffuseMethod provides the default shading method for Lambert (dot3) diffuse lighting.
+	 */
 	public class BasicDiffuseMethod extends LightingMethodBase
 	{
 		private var _useAmbientTexture:Boolean;
@@ -41,13 +42,17 @@ package away.materials.methods
 		private var _alphaThreshold:Number = 0;
 		private var _isFirstLight:Boolean;
 		
-		/**		 * Creates a new BasicDiffuseMethod object.		 */
+		/**
+		 * Creates a new BasicDiffuseMethod object.
+		 */
 		public function BasicDiffuseMethod():void
 		{
 			super();
 		}
 
-		/**		 * Set internally if the ambient method uses a texture.		 */
+		/**
+		 * Set internally if the ambient method uses a texture.
+		 */
 		public function get iUseAmbientTexture():Boolean
 		{
 			return _useAmbientTexture;
@@ -72,14 +77,19 @@ package away.materials.methods
 
 		}
 
-		/**		 * Forces the creation of the texture.		 * @param stage3DProxy The Stage3DProxy used by the renderer		 */
+		/**
+		 * Forces the creation of the texture.
+		 * @param stage3DProxy The Stage3DProxy used by the renderer
+		 */
 		public function generateMip(stage3DProxy:Stage3DProxy):void
 		{
 			if (_useTexture)
 				_texture.getTextureForStage3D(stage3DProxy);
 		}
 
-		/**		 * The alpha component of the diffuse reflection.		 */
+		/**
+		 * The alpha component of the diffuse reflection.
+		 */
 		public function get diffuseAlpha():Number
 		{
 			return _diffuseA;
@@ -90,7 +100,9 @@ package away.materials.methods
 			_diffuseA = value;
 		}
 		
-		/**		 * The color of the diffuse reflection when not using a texture.		 */
+		/**
+		 * The color of the diffuse reflection when not using a texture.
+		 */
 		public function get diffuseColor():Number
 		{
 			return _diffuseColor;
@@ -103,7 +115,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * The bitmapData to use to define the diffuse reflection color per texel.		 */
+		/**
+		 * The bitmapData to use to define the diffuse reflection color per texel.
+		 */
 		public function get texture():Texture2DBase
 		{
 			return _texture;
@@ -131,7 +145,11 @@ package away.materials.methods
 
 		}
 		
-		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
+		/**
+		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
+		 * invisible or entirely opaque, often used with textures for foliage, etc.
+		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
+		 */
 		public function get alphaThreshold():Number
 		{
 			return _alphaThreshold;
@@ -152,13 +170,17 @@ package away.materials.methods
 			_alphaThreshold = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function dispose():void
 		{
 			_texture = null;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function copyFrom(method:ShadingMethodBase):void
 		{
 
@@ -173,7 +195,9 @@ package away.materials.methods
             diffuseColor = diff.diffuseColor;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iCleanCompilationData():void
 		{
 			super.iCleanCompilationData();
@@ -183,7 +207,9 @@ package away.materials.methods
             _diffuseInputRegister = null;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentPreLightingCode(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -199,7 +225,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCodePerLight(vo:MethodVO, lightDirReg:ShaderRegisterElement, lightColReg:ShaderRegisterElement, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -252,7 +280,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCodePerProbe(vo:MethodVO, cubeMapReg:ShaderRegisterElement, weightRegister:String, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -300,7 +330,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentPostLightingCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -413,7 +445,11 @@ package away.materials.methods
 			return code;
 		}
 
-		/**		 * Generate the code that applies the calculated shadow to the diffuse light		 * @param vo The MethodVO object for which the compilation is currently happening.		 * @param regCache The register cache the compiler is currently using for the register management.		 */
+		/**
+		 * Generate the code that applies the calculated shadow to the diffuse light
+		 * @param vo The MethodVO object for which the compilation is currently happening.
+		 * @param regCache The register cache the compiler is currently using for the register management.
+		 */
 		public function pApplyShadow(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 
@@ -422,7 +458,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			if (_useTexture)
@@ -451,7 +489,9 @@ package away.materials.methods
 			}
 		}
 		
-		/**		 * Updates the diffuse color data used by the render state.		 */
+		/**
+		 * Updates the diffuse color data used by the render state.
+		 */
 		private function updateDiffuse():void
 		{
 			_diffuseR = ((_diffuseColor >> 16) & 0xff)/0xff;
@@ -459,7 +499,9 @@ package away.materials.methods
             _diffuseB = (_diffuseColor & 0xff)/0xff;
 		}
 
-		/**		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.		 */
+		/**
+		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.
+		 */
 		public function set iShadowRegister(value:ShaderRegisterElement):void
 		{
 			_shadowRegister = value;

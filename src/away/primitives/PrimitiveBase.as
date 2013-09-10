@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.base.Geometry;
@@ -17,7 +16,9 @@ package away.primitives
 	
 	//use namespace arcane;
 	
-	/**	 * PrimitiveBase is an abstract base class for mesh primitives, which are prebuilt simple meshes.	 */
+	/**
+	 * PrimitiveBase is an abstract base class for mesh primitives, which are prebuilt simple meshes.
+	 */
 	public class PrimitiveBase extends Geometry
 	{
 		private var _geomDirty:Boolean = true;
@@ -25,7 +26,10 @@ package away.primitives
 		
 		private var _subGeometry:CompactSubGeometry;
 		
-		/**		 * Creates a new PrimitiveBase object.		 * @param material The material with which to render the object		 */
+		/**
+		 * Creates a new PrimitiveBase object.
+		 * @param material The material with which to render the object
+		 */
 		public function PrimitiveBase():void
 		{
             super();
@@ -35,7 +39,9 @@ package away.primitives
 			addSubGeometry( _subGeometry );
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function get subGeometries():Vector.<ISubGeometry>
 		{
 			if (_geomDirty)
@@ -55,7 +61,9 @@ package away.primitives
 			return super.getSubGeometries();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function clone():Geometry
 		{
 			if (_geomDirty)
@@ -74,7 +82,9 @@ package away.primitives
 			return super.clone();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function scale(scale:Number):void
 		{
 			if ( _geomDirty)
@@ -86,7 +96,9 @@ package away.primitives
 			super.scale(scale);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
 			if (_uvDirty)
@@ -100,7 +112,9 @@ package away.primitives
 			super.scaleUV(scaleU, scaleV);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function applyTransformation(transform:Matrix3D):void
 		{
 			if (_geomDirty)
@@ -114,38 +128,52 @@ package away.primitives
 
 		}
 		
-		/**		 * Builds the primitive's geometry when invalid. This method should not be called directly. The calling should		 * be triggered by the invalidateGeometry method (and in turn by updateGeometry).		 */
+		/**
+		 * Builds the primitive's geometry when invalid. This method should not be called directly. The calling should
+		 * be triggered by the invalidateGeometry method (and in turn by updateGeometry).
+		 */
 		public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			throw new AbstractMethodError();
 		}
 		
-		/**		 * Builds the primitive's uv coordinates when invalid. This method should not be called directly. The calling		 * should be triggered by the invalidateUVs method (and in turn by updateUVs).		 */
+		/**
+		 * Builds the primitive's uv coordinates when invalid. This method should not be called directly. The calling
+		 * should be triggered by the invalidateUVs method (and in turn by updateUVs).
+		 */
 		public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			throw new AbstractMethodError();
 		}
 		
-		/**		 * Invalidates the primitive's geometry, causing it to be updated when requested.		 */
+		/**
+		 * Invalidates the primitive's geometry, causing it to be updated when requested.
+		 */
 		public function pInvalidateGeometry():void
 		{
 			_geomDirty = true;
 		}
 		
-		/**		 * Invalidates the primitive's uv coordinates, causing them to be updated when requested.		 */
+		/**
+		 * Invalidates the primitive's uv coordinates, causing them to be updated when requested.
+		 */
 		public function pInvalidateUVs():void
 		{
 			_uvDirty = true;
 		}
 		
-		/**		 * Updates the geometry when invalid.		 */
+		/**
+		 * Updates the geometry when invalid.
+		 */
 		private function updateGeometry():void
 		{
 			pBuildGeometry(_subGeometry);
 			_geomDirty = false;
 		}
 		
-		/**		 * Updates the uv coordinates when invalid.		 */
+		/**
+		 * Updates the uv coordinates when invalid.
+		 */
 		private function updateUVs():void
 		{
 			pBuildUVs(_subGeometry);

@@ -1,8 +1,10 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
-	/**	 * MethodVO contains data for a given method for the use within a single material.	 * This allows methods to be shared across materials while their non-public state differs.	 */
+	/**
+	 * MethodVO contains data for a given method for the use within a single material.
+	 * This allows methods to be shared across materials while their non-public state differs.
+	 */
 	public class MethodVO
 	{
 		public var vertexData:Vector.<Number>;
@@ -10,9 +12,12 @@ package away.materials.methods
 		
 		// public register indices
 		public var texturesIndex:Number;
-		public var secondaryTexturesIndex:Number; // sometimes needed for composites		public var vertexConstantsIndex:Number;
-		public var secondaryVertexConstantsIndex:Number; // sometimes needed for composites		public var fragmentConstantsIndex:Number;
-		public var secondaryFragmentConstantsIndex:Number; // sometimes needed for composites		
+		public var secondaryTexturesIndex:Number; // sometimes needed for composites
+		public var vertexConstantsIndex:Number;
+		public var secondaryVertexConstantsIndex:Number; // sometimes needed for composites
+		public var fragmentConstantsIndex:Number;
+		public var secondaryFragmentConstantsIndex:Number; // sometimes needed for composites
+		
 		public var useMipmapping:Boolean;
 		public var useSmoothTextures:Boolean;
 		public var repeatTextures:Boolean;
@@ -30,13 +35,17 @@ package away.materials.methods
 		public var numLights:Number;
 		public var useLightFallOff:Boolean = true;
 
-		/**		 * Creates a new MethodVO object.		 */
+		/**
+		 * Creates a new MethodVO object.
+		 */
 		public function MethodVO():void
 		{
 		
 		}
 
-		/**		 * Resets the values of the value object to their "unused" state.		 */
+		/**
+		 * Resets the values of the value object to their "unused" state.
+		 */
 		public function reset():void
 		{
 			texturesIndex = -1;

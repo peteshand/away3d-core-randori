@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
 	import away.materials.compilation.ShaderRegisterElement;
@@ -16,7 +15,10 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**	 * BasicSpecularMethod provides the default shading method for Blinn-Phong specular highlights (an optimized but approximated	 * version of Phong specularity).	 */
+	/**
+	 * BasicSpecularMethod provides the default shading method for Blinn-Phong specular highlights (an optimized but approximated
+	 * version of Phong specularity).
+	 */
 	public class BasicSpecularMethod extends LightingMethodBase
 	{
 		private var _useTexture:Boolean;
@@ -36,13 +38,17 @@ package away.materials.methods
 		private var _shadowRegister:ShaderRegisterElement;
 		private var _isFirstLight:Boolean;
 		
-		/**		 * Creates a new BasicSpecularMethod object.		 */
+		/**
+		 * Creates a new BasicSpecularMethod object.
+		 */
 		public function BasicSpecularMethod():void
 		{
 			super();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iInitVO(vo:MethodVO):void
 		{
 			vo.needsUV = _useTexture;
@@ -50,7 +56,9 @@ package away.materials.methods
 			vo.needsView = vo.numLights > 0;
 		}
 		
-		/**		 * The sharpness of the specular highlight.		 */
+		/**
+		 * The sharpness of the specular highlight.
+		 */
 		public function get gloss():Number
 		{
 			return _gloss;
@@ -61,7 +69,9 @@ package away.materials.methods
             _gloss = value;
 		}
 		
-		/**		 * The overall strength of the specular highlights.		 */
+		/**
+		 * The overall strength of the specular highlights.
+		 */
 		public function get specular():Number
 		{
 			return _specular;
@@ -76,7 +86,9 @@ package away.materials.methods
             updateSpecular();
 		}
 		
-		/**		 * The colour of the specular reflection of the surface.		 */
+		/**
+		 * The colour of the specular reflection of the surface.
+		 */
 		public function get specularColor():Number
 		{
 			return _specularColor;
@@ -95,7 +107,11 @@ package away.materials.methods
 			updateSpecular();
 		}
 		
-		/**		 * The bitmapData that encodes the specular highlight strength per texel in the red channel, and the sharpness		 * in the green channel. You can use SpecularBitmapTexture if you want to easily set specular and gloss maps		 * from grayscale images, but prepared images are preferred.		 */
+		/**
+		 * The bitmapData that encodes the specular highlight strength per texel in the red channel, and the sharpness
+		 * in the green channel. You can use SpecularBitmapTexture if you want to easily set specular and gloss maps
+		 * from grayscale images, but prepared images are preferred.
+		 */
 		public function get texture():Texture2DBase
 		{
 			return _texture;
@@ -115,7 +131,9 @@ package away.materials.methods
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function copyFrom(method:ShadingMethodBase):void
 		{
 
@@ -129,7 +147,9 @@ package away.materials.methods
             gloss = spec.gloss;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iCleanCompilationData():void
 		{
 			super.iCleanCompilationData();
@@ -140,7 +160,9 @@ package away.materials.methods
             _specularDataRegister = null;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentPreLightingCode(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -177,7 +199,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCodePerLight(vo:MethodVO, lightDirReg:ShaderRegisterElement, lightColReg:ShaderRegisterElement, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -269,7 +293,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCodePerProbe(vo:MethodVO, cubeMapReg:ShaderRegisterElement, weightRegister:String, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
@@ -327,7 +353,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentPostLightingCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -369,7 +397,9 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			//var context : Context3D = stage3DProxy._context3D;
@@ -396,7 +426,9 @@ package away.materials.methods
 			data[index + 3] = _gloss;
 		}
 		
-		/**		 * Updates the specular color data used by the render state.		 */
+		/**
+		 * Updates the specular color data used by the render state.
+		 */
 		private function updateSpecular():void
 		{
 			_iSpecularR = (( _specularColor >> 16) & 0xff)/0xff*_specular;
@@ -404,7 +436,9 @@ package away.materials.methods
 			_iSpecularB = ( _specularColor & 0xff)/0xff*_specular;
 		}
 
-		/**		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.		 */
+		/**
+		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.
+		 */
 		public function set iShadowRegister(shadowReg:ShaderRegisterElement):void
 		{
 

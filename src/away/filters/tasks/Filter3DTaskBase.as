@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.filters.tasks
@@ -34,7 +33,9 @@ package away.filters.tasks
 
 		}
 		
-		/**		 * The texture scale for the input of this texture. This will define the output of the previous entry in the chain		 */
+		/**
+		 * The texture scale for the input of this texture. This will define the output of the previous entry in the chain
+		 */
 		public function get textureScale():Number
 		{
 

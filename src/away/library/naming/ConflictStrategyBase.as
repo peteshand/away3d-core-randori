@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.library.naming
@@ -7,7 +6,23 @@ package away.library.naming
 	import away.errors.AbstractMethodError;
 	import away.events.AssetEvent;
 
-	/**	 * Abstract base class for naming conflict resolution classes. Extend this to create a	 * strategy class which the asset library can use to resolve asset naming conflicts, or	 * use one of the bundled concrete strategy classes:	 *	 * <ul>	 *   <li>IgnoreConflictStrategy (ConflictStrategy.IGNORE)</li>	 *   <li>ErrorConflictStrategy (ConflictStrategy.THROW_ERROR)</li>	 *   <li>NumSuffixConflictStrategy (ConflictStrategy.APPEND_NUM_SUFFIX)</li>	 * </ul>	 *	 * @see away3d.library.AssetLibrary.conflictStrategy	 * @see away3d.library.naming.ConflictStrategy	 * @see away3d.library.naming.IgnoreConflictStrategy	 * @see away3d.library.naming.ErrorConflictStrategy	 * @see away3d.library.naming.NumSuffixConflictStrategy	 */
+	/**
+	 * Abstract base class for naming conflict resolution classes. Extend this to create a
+	 * strategy class which the asset library can use to resolve asset naming conflicts, or
+	 * use one of the bundled concrete strategy classes:
+	 *
+	 * <ul>
+	 *   <li>IgnoreConflictStrategy (ConflictStrategy.IGNORE)</li>
+	 *   <li>ErrorConflictStrategy (ConflictStrategy.THROW_ERROR)</li>
+	 *   <li>NumSuffixConflictStrategy (ConflictStrategy.APPEND_NUM_SUFFIX)</li>
+	 * </ul>
+	 *
+	 * @see away3d.library.AssetLibrary.conflictStrategy
+	 * @see away3d.library.naming.ConflictStrategy
+	 * @see away3d.library.naming.IgnoreConflictStrategy
+	 * @see away3d.library.naming.ErrorConflictStrategy
+	 * @see away3d.library.naming.NumSuffixConflictStrategy
+	 */
 	public class ConflictStrategyBase
 	{
 		
@@ -15,7 +30,10 @@ package away.library.naming
 		{
 		}
 		
-		/**		 * Resolve a naming conflict between two assets. Must be implemented by concrete strategy		 * classes.		 */
+		/**
+		 * Resolve a naming conflict between two assets. Must be implemented by concrete strategy
+		 * classes.
+		 */
 		public function resolveConflict(changedAsset:IAsset, oldAsset:IAsset, assetsDictionary:Object, precedence:String):void
 		{
 
@@ -23,7 +41,11 @@ package away.library.naming
 
 		}
 		
-		/**		 * Create instance of this conflict strategy. Used internally by the AssetLibrary to		 * make sure the same strategy instance is not used in all AssetLibrary instances, which		 * would break any state caching that happens inside the strategy class.		 */
+		/**
+		 * Create instance of this conflict strategy. Used internally by the AssetLibrary to
+		 * make sure the same strategy instance is not used in all AssetLibrary instances, which
+		 * would break any state caching that happens inside the strategy class.
+		 */
 		public function create():ConflictStrategyBase
 		{
 
@@ -31,7 +53,10 @@ package away.library.naming
 
 		}
 		
-		/**		 * Provided as a convenience method for all conflict strategy classes, as a way to finalize		 * the conflict resolution by applying the new names and dispatching the correct events.		 */
+		/**
+		 * Provided as a convenience method for all conflict strategy classes, as a way to finalize
+		 * the conflict resolution by applying the new names and dispatching the correct events.
+		 */
 		public function _pUpdateNames(ns:String, nonConflictingName:String, oldAsset:IAsset, newAsset:IAsset, assetsDictionary:Object, precedence:String):void
 		{
 			var loser_prev_name : String;

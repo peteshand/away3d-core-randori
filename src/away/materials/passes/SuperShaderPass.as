@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.passes
 {
 	import away.materials.MaterialBase;
@@ -18,26 +17,39 @@ package away.materials.passes
 	import away.lights.LightProbe;
 	import away.display3D.Context3D;
 
-	/**	 * SuperShaderPass is a shader pass that uses shader methods to compile a complete program. It includes all methods	 * associated with a material.	 *	 * @see away3d.materials.methods.ShadingMethodBase	 */
+	/**
+	 * SuperShaderPass is a shader pass that uses shader methods to compile a complete program. It includes all methods
+	 * associated with a material.
+	 *
+	 * @see away3d.materials.methods.ShadingMethodBase
+	 */
 	public class SuperShaderPass extends CompiledPass
 	{
 		private var _includeCasters:Boolean = true;
 		private var _ignoreLights:Boolean;
 		
-		/**		 * Creates a new SuperShaderPass objects.		 *		 * @param material The material to which this material belongs.		 */
+		/**
+		 * Creates a new SuperShaderPass objects.
+		 *
+		 * @param material The material to which this material belongs.
+		 */
 		public function SuperShaderPass(material:MaterialBase):void
 		{
 			super(material);
 			_pNeedFragmentAnimation = true;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateCompiler(profile:String):ShaderCompiler
 		{
 			return new SuperShaderCompiler(profile);
 		}
 
-		/**		 * Indicates whether lights that cast shadows should be included in the pass.		 */
+		/**
+		 * Indicates whether lights that cast shadows should be included in the pass.
+		 */
 		public function get includeCasters():Boolean
 		{
 			return _includeCasters;
@@ -51,7 +63,9 @@ package away.materials.passes
             iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 
-		/**		 * The ColorTransform object to transform the colour of the material with. Defaults to null.		 */
+		/**
+		 * The ColorTransform object to transform the colour of the material with. Defaults to null.
+		 */
 		public function get colorTransform():ColorTransform
 		{
 
@@ -90,7 +104,9 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * The ColorTransformMethod object to transform the colour of the material with. Defaults to null.		 */
+		/**
+		 * The ColorTransformMethod object to transform the colour of the material with. Defaults to null.
+		 */
 		public function get colorTransformMethod():ColorTransformMethod
 		{
 
@@ -102,43 +118,67 @@ package away.materials.passes
 			_pMethodSetup.iColorTransformMethod = value;
 		}
 
-		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
+		/**
+		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting
+		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the
+		 * methods added prior.
+		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
 			_pMethodSetup.addMethod(method);
 		}
 
-		/**		 * The number of "effect" methods added to the material.		 */
+		/**
+		 * The number of "effect" methods added to the material.
+		 */
 		public function get numMethods():Number
 		{
 			return _pMethodSetup.numMethods;
 		}
 
-		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
+		/**
+		 * Queries whether a given effect method was added to the material.
+		 *
+		 * @param method The method to be queried.
+		 * @return true if the method was added to the material, false otherwise.
+		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
 			return _pMethodSetup.hasMethod(method);
 		}
 
-		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
+		/**
+		 * Returns the method added at the given index.
+		 * @param index The index of the method to retrieve.
+		 * @return The method at the given index.
+		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
 			return _pMethodSetup.getMethodAt(index);
 		}
 
-		/**		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,		 * etc. The method will be applied to the result of the methods with a lower index.		 */
+		/**
+		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect
+		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,
+		 * etc. The method will be applied to the result of the methods with a lower index.
+		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
 			_pMethodSetup.addMethodAt(method, index);
 		}
 
-		/**		 * Removes an effect method from the material.		 * @param method The method to be removed.		 */
+		/**
+		 * Removes an effect method from the material.
+		 * @param method The method to be removed.
+		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
             _pMethodSetup.removeMethod(method);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLights():void
 		{
 
@@ -166,7 +206,9 @@ package away.materials.passes
             iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);
@@ -198,7 +240,9 @@ package away.materials.passes
 			}
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 			super.iDeactivate(stage3DProxy);
@@ -222,7 +266,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pAddPassesFromMethods():void
 		{
 			super.pAddPassesFromMethods();
@@ -245,14 +291,18 @@ package away.materials.passes
 
 		}
 
-		/**		 * Indicates whether any light probes are used to contribute to the specular shading.		 */
+		/**
+		 * Indicates whether any light probes are used to contribute to the specular shading.
+		 */
 		private function usesProbesForSpecular():Boolean
 		{
 
 			return _pNumLightProbes > 0 && (_pSpecularLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**		 * Indicates whether any light probes are used to contribute to the diffuse shading.		 */
+		/**
+		 * Indicates whether any light probes are used to contribute to the diffuse shading.
+		 */
 		private function usesProbesForDiffuse():Boolean
 		{
 
@@ -260,7 +310,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateMethodConstants():void
 		{
 
@@ -287,7 +339,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLightConstants():void
 		{
 
@@ -407,7 +461,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
 		{
 
@@ -456,7 +512,10 @@ package away.materials.passes
 
 		}
 
-		/**		 * Indicates whether lights should be ignored in this pass. This is used when only effect methods are rendered in		 * a multipass material.		 */
+		/**
+		 * Indicates whether lights should be ignored in this pass. This is used when only effect methods are rendered in
+		 * a multipass material.
+		 */
 		public function set iIgnoreLights(ignoreLights:Boolean):void
 		{
 			_ignoreLights = ignoreLights;

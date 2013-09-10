@@ -1,24 +1,30 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.partition
 {
 	import away.entities.SkyBox;
 	import away.traverse.PartitionTraverser;
 	import away.math.Plane3D;
 
-	/**	 * SkyBoxNode is a space partitioning leaf node that contains a SkyBox object.	 */
+	/**
+	 * SkyBoxNode is a space partitioning leaf node that contains a SkyBox object.
+	 */
 	public class SkyBoxNode extends EntityNode
 	{
 		private var _skyBox:SkyBox;
 		
-		/**		 * Creates a new SkyBoxNode object.		 * @param skyBox The SkyBox to be contained in the node.		 */
+		/**
+		 * Creates a new SkyBoxNode object.
+		 * @param skyBox The SkyBox to be contained in the node.
+		 */
 		public function SkyBoxNode(skyBox:SkyBox):void
 		{
 			super(skyBox);
 			_skyBox = skyBox;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function acceptTraverser(traverser:PartitionTraverser):void
 		{
 

@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 package away.traverse
@@ -269,7 +271,9 @@ package away.traverse
 			_lightProbes[ _numLightProbes++ ] = light;
 		}
 
-        /**         * Cleans up any data at the end of a frame.         */
+        /**
+         * Cleans up any data at the end of a frame.
+         */
         public function cleanUp():void
         {
         }

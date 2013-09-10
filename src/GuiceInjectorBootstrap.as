@@ -1,4 +1,5 @@
-package {
+package
+{
 import guice.GuiceJs;
 import guice.InjectionClassBuilder;
 import guice.Injector;

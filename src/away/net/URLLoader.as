@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.net {
@@ -32,7 +31,10 @@ package away.net {
 
         // Public
 
-        /**         *         * @param request {away.net.URLRequest}         */
+        /**
+         *
+         * @param request {away.net.URLRequest}
+         */
         public function load(request:URLRequest):void
         {
 
@@ -52,7 +54,9 @@ package away.net {
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function close():void
         {
 
@@ -61,7 +65,9 @@ package away.net {
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
 
@@ -79,7 +85,14 @@ package away.net {
             _bytesLoaded   = null;
             _bytesTotal    = null;
 
-            /*            if( this._request )            {                this._request.dispose();            }            */
+            /*
+            if( this._request )
+            {
+
+                this._request.dispose();
+
+            }
+            */
 
             _request   = null;
 
@@ -87,7 +100,14 @@ package away.net {
 
         // Get / Set
 
-        /**         *         * away.net.URLLoaderDataFormat.BINARY         * away.net.URLLoaderDataFormat.TEXT         * away.net.URLLoaderDataFormat.VARIABLES         *         * @param format         */
+        /**
+         *
+         * away.net.URLLoaderDataFormat.BINARY
+         * away.net.URLLoaderDataFormat.TEXT
+         * away.net.URLLoaderDataFormat.VARIABLES
+         *
+         * @param format
+         */
         public function set dataFormat(format:String):void
         {
 
@@ -107,7 +127,11 @@ package away.net {
 
         }
 
-        /**         *         * @returns {string}         *      away.net.URLLoaderDataFormat         */
+        /**
+         *
+         * @returns {string}
+         *      away.net.URLLoaderDataFormat
+         */
         public function get dataFormat():String
         {
 
@@ -115,7 +139,10 @@ package away.net {
 
         }
 
-        /**         *         * @returns {*}         */
+        /**
+         *
+         * @returns {*}
+         */
         public function get data():*
         {
 
@@ -123,7 +150,10 @@ package away.net {
 
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get bytesLoaded():Number
         {
 
@@ -131,7 +161,10 @@ package away.net {
 
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get bytesTotal():Number
         {
 
@@ -139,7 +172,10 @@ package away.net {
 
         }
 
-        /**         *         * @returns {away.net.URLRequest}         */
+        /**
+         *
+         * @returns {away.net.URLRequest}
+         */
         public function get request():URLRequest
         {
 
@@ -149,7 +185,11 @@ package away.net {
 
         // Private
 
-        /**         *         * @param xhr         * @param responseType         */
+        /**
+         *
+         * @param xhr
+         * @param responseType
+         */
         private function setResponseType(xhr:XMLHttpRequest, responseType:String):void
         {
 
@@ -183,7 +223,10 @@ package away.net {
 
         }
 
-        /**         *         * @param request {away.net.URLRequest}         */
+        /**
+         *
+         * @param request {away.net.URLRequest}
+         */
         private function getRequest(request:URLRequest):void
         {
 
@@ -201,7 +244,10 @@ package away.net {
 
         }
 
-        /**         *         * @param request {away.net.URLRequest}         */
+        /**
+         *
+         * @param request {away.net.URLRequest}
+         */
         private function postRequest(request:URLRequest):void
         {
 
@@ -258,14 +304,22 @@ package away.net {
 
         }
 
-        /**         *         * @param error {XMLHttpRequestException}         */
+        /**
+         *
+         * @param error {XMLHttpRequestException}
+         */
         private function handleXmlHttpRequestException(error /* <XMLHttpRequestException> */):void
         {
 
             switch ( error.code )
             {
 
-                /******************************************************************************************************************************************************************************************************                 *                 *  XMLHttpRequestException { message: "NETWORK_ERR: XMLHttpRequest Exception 101", name: "NETWORK_ERR", code: 101, stack: "Error: A network error occurred in synchronous req…",NETWORK_ERR: 101… }                 *  code: 101 , message: "NETWORK_ERR: XMLHttpRequest Exception 101" ,  name: "NETWORK_ERR"                 *                 ******************************************************************************************************************************************************************************************************/
+                /******************************************************************************************************************************************************************************************************
+                 *
+                 *  XMLHttpRequestException { message: "NETWORK_ERR: XMLHttpRequest Exception 101", name: "NETWORK_ERR", code: 101, stack: "Error: A network error occurred in synchronous req…",NETWORK_ERR: 101… }
+                 *  code: 101 , message: "NETWORK_ERR: XMLHttpRequest Exception 101" ,  name: "NETWORK_ERR"
+                 *
+                 ******************************************************************************************************************************************************************************************************/
 
                 //case 101:
 
@@ -280,7 +334,9 @@ package away.net {
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         private function initXHR():void
         {
 
@@ -302,7 +358,9 @@ package away.net {
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         private function disposeXHR():void
         {
 
@@ -322,7 +380,10 @@ package away.net {
 
         }
 
-        /**         *         * @param source         */
+        /**
+         *
+         * @param source
+         */
         public function decodeURLVariables(source:String):Object
         {
 
@@ -345,7 +406,10 @@ package away.net {
 
         // XMLHttpRequest - Event Handlers
 
-        /**         * When XHR state changes         * @param event         */
+        /**
+         * When XHR state changes
+         * @param event
+         */
         private function onReadyStateChange(event):void
         {
             if (_XHR.readyState==4)
@@ -365,7 +429,10 @@ package away.net {
 
         }
 
-        /**         * When the request has completed, regardless of whether or not it was successful.         * @param event         */
+        /**
+         * When the request has completed, regardless of whether or not it was successful.
+         * @param event
+         */
         private function onLoadEnd(event):void
         {
 
@@ -373,7 +440,10 @@ package away.net {
 
         }
 
-        /**         * When the author specified timeout has passed before the request could complete.         * @param event         */
+        /**
+         * When the author specified timeout has passed before the request could complete.
+         * @param event
+         */
         private function onTimeOut(event):void
         {
 
@@ -381,7 +451,10 @@ package away.net {
 
         }
 
-        /**         * When the request has been aborted, either by invoking the abort() method or navigating away from the page.         * @param event         */
+        /**
+         * When the request has been aborted, either by invoking the abort() method or navigating away from the page.
+         * @param event
+         */
         private function onAbort(event):void
         {
 
@@ -389,7 +462,10 @@ package away.net {
 
         }
 
-        /**         * While loading and sending data.         * @param event         */
+        /**
+         * While loading and sending data.
+         * @param event
+         */
         private function onProgress(event):void
         {
 
@@ -403,7 +479,10 @@ package away.net {
 
         }
 
-        /**         * When the request starts.         * @param event         */
+        /**
+         * When the request starts.
+         * @param event
+         */
         private function onLoadStart(event):void
         {
 
@@ -411,7 +490,10 @@ package away.net {
 
         }
 
-        /**         * When the request has successfully completed.         * @param event         */
+        /**
+         * When the request has successfully completed.
+         * @param event
+         */
         private function onLoadComplete(event):void
         {
 
@@ -453,7 +535,10 @@ package away.net {
 
         }
 
-        /**         * When the request has failed. ( due to network issues ).         * @param event         */
+        /**
+         * When the request has failed. ( due to network issues ).
+         * @param event
+         */
         private function onLoadError(event):void
         {
 

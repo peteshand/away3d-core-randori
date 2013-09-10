@@ -1,11 +1,12 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.geom.Vector3D;
 	//import flash.geom.Vector3D;
 	
-	/**	 * Generates a wireframd cylinder primitive.	 */
+	/**
+	 * Generates a wireframd cylinder primitive.
+	 */
 	public class WireframeCylinder extends WireframePrimitiveBase
 	{
 		private static var TWO_PI:Number = 2*Math.PI;
@@ -16,7 +17,16 @@ package away.primitives
 		private var _segmentsW:Number;
 		private var _segmentsH:Number;
 		
-		/**		 * Creates a new WireframeCylinder instance		 * @param topRadius Top radius of the cylinder		 * @param bottomRadius Bottom radius of the cylinder		 * @param height The height of the cylinder		 * @param segmentsW Number of radial segments		 * @param segmentsH Number of vertical segments		 * @param color The color of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
+		/**
+		 * Creates a new WireframeCylinder instance
+		 * @param topRadius Top radius of the cylinder
+		 * @param bottomRadius Bottom radius of the cylinder
+		 * @param height The height of the cylinder
+		 * @param segmentsW Number of radial segments
+		 * @param segmentsH Number of vertical segments
+		 * @param color The color of the wireframe lines
+		 * @param thickness The thickness of the wireframe lines
+		 */
 		public function WireframeCylinder(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
 			super(color, thickness);
@@ -71,7 +81,9 @@ package away.primitives
 			}
 		}
 		
-		/**		 * Top radius of the cylinder		 */
+		/**
+		 * Top radius of the cylinder
+		 */
 		public function get topRadius():Number
 		{
 			return _topRadius;
@@ -83,7 +95,9 @@ package away.primitives
 			pInvalidateGeometry();
 		}
 		
-		/**		 * Bottom radius of the cylinder		 */
+		/**
+		 * Bottom radius of the cylinder
+		 */
 		public function get bottomRadius():Number
 		{
 			return _bottomRadius;
@@ -95,7 +109,9 @@ package away.primitives
 			pInvalidateGeometry();
 		}
 		
-		/**		 * The height of the cylinder		 */
+		/**
+		 * The height of the cylinder
+		 */
 		public function get height():Number
 		{
 			return _height;

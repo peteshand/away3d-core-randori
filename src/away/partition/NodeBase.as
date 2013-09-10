@@ -1,7 +1,9 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 
 ///<reference path="../_definitions.ts" />
-
 
 package away.partition
 {
@@ -20,7 +22,8 @@ package away.partition
 		public var _pDebugPrimitive:WireframePrimitiveBase;
 		
 		public var _iNumEntities:Number = 0;
-		public var _iCollectionMark:Number;// = 0;		
+		public var _iCollectionMark:Number;// = 0;
+		
 		public function NodeBase():void
 		{
 			_pChildNodes = new <NodeBase>[];

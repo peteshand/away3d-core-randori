@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.events
@@ -12,7 +11,8 @@ package away.events
 		public static var CONTEXT3D_RECREATED:String = "Context3DRecreated";
 		public static var VIEWPORT_UPDATED:String = "ViewportUpdated";
 		
-		public function Stage3DEvent(type:String):void//, bubbles:boolean = false, cancelable:boolean = false)		{
+		public function Stage3DEvent(type:String):void//, bubbles:boolean = false, cancelable:boolean = false)
+		{
 			super( type );//, bubbles, cancelable);
 		}
 	}

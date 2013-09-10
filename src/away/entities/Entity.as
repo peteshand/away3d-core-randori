@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 
@@ -211,8 +213,27 @@ package away.entities
 		}
 
         //@override
-        /*        public set iImplicitPartition( value:away.partition.Partition3D )        {          */  /*            if( value == this._pImplicitPartition )            {                return;            }            if( this._pImplicitPartition )            {                this.notifyPartitionUnassigned();            }            super.iSetImplicitPartition( value );            this.notifyPartitionAssigned();            */
-/*            this.iSetImplicitPartition( value );        }*/
+        /*
+        public set iImplicitPartition( value:away.partition.Partition3D )
+        {
+          */  /*
+            if( value == this._pImplicitPartition )
+            {
+                return;
+            }
+
+            if( this._pImplicitPartition )
+            {
+                this.notifyPartitionUnassigned();
+            }
+
+            super.iSetImplicitPartition( value );
+            this.notifyPartitionAssigned();
+            */
+/*
+            this.iSetImplicitPartition( value );
+        }
+*/
         //@override
         override public function iSetImplicitPartition(value:Partition3D):void
         {

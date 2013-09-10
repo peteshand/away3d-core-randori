@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.materials
 {
 	import away.materials.passes.SuperShaderPass;
@@ -18,13 +17,18 @@ package away.materials
 	import away.display3D.Context3D;
 	import away.materials.lightpickers.LightPickerBase;
 
-	/**	 * SinglePassMaterialBase forms an abstract base class for the default single-pass materials provided by Away3D,	 * using material methods to define their appearance.	 */
+	/**
+	 * SinglePassMaterialBase forms an abstract base class for the default single-pass materials provided by Away3D,
+	 * using material methods to define their appearance.
+	 */
 	public class SinglePassMaterialBase extends MaterialBase
 	{
 		public var _pScreenPass:SuperShaderPass;
 		private var _alphaBlending:Boolean = false;
 		
-		/**		 * Creates a new SinglePassMaterialBase object.		 */
+		/**
+		 * Creates a new SinglePassMaterialBase object.
+		 */
 		public function SinglePassMaterialBase():void
 		{
 			super();
@@ -32,7 +36,10 @@ package away.materials
             pAddPass( _pScreenPass = new SuperShaderPass(this) );
 		}
 		
-		/**		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and		 * compatibility for constrained mode.		 */
+		/**
+		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and
+		 * compatibility for constrained mode.
+		 */
 		public function get enableLightFallOff():Boolean
 		{
 			return _pScreenPass.enableLightFallOff;
@@ -43,7 +50,11 @@ package away.materials
             _pScreenPass.enableLightFallOff = value;
 		}
 		
-		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
+		/**
+		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
+		 * invisible or entirely opaque, often used with textures for foliage, etc.
+		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
+		 */
 		public function get alphaThreshold():Number
 		{
 
@@ -64,7 +75,9 @@ package away.materials
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set blendMode(value:String):void
 		{
 
@@ -73,7 +86,9 @@ package away.materials
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set depthCompareMode(value:String):void
 		{
 
@@ -81,7 +96,9 @@ package away.materials
 			_pScreenPass.depthCompareMode = value;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivateForDepth(stage3DProxy:Stage3DProxy, camera:Camera3D, distanceBased:Boolean = false):void
 		{
 
@@ -101,7 +118,12 @@ package away.materials
 
 		}
 
-		/**		 * Define which light source types to use for specular reflections. This allows choosing between regular lights		 * and/or light probes for specular reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for specular reflections. This allows choosing between regular lights
+		 * and/or light probes for specular reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get specularLightSources():Number
 		{
 			return _pScreenPass.specularLightSources;
@@ -112,7 +134,12 @@ package away.materials
 			_pScreenPass.specularLightSources = value;
 		}
 
-		/**		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights		 * and/or light probes for diffuse reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights
+		 * and/or light probes for diffuse reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get diffuseLightSources():Number
 		{
 			return _pScreenPass.diffuseLightSources;
@@ -123,7 +150,9 @@ package away.materials
             _pScreenPass.diffuseLightSources = value;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function get requiresBlending():Boolean
 		{
 			return getRequiresBlending();
@@ -144,7 +173,9 @@ package away.materials
 
         }
 
-		/**		 * The ColorTransform object to transform the colour of the material with. Defaults to null.		 */
+		/**
+		 * The ColorTransform object to transform the colour of the material with. Defaults to null.
+		 */
 		public function get colorTransform():ColorTransform
 		{
 			return _pScreenPass.colorTransform;
@@ -160,7 +191,9 @@ package away.materials
             _pScreenPass.colorTransform = value;
         }
 
-		/**		 * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.		 */
+		/**
+		 * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.
+		 */
 
 		public function get ambientMethod():BasicAmbientMethod
 		{
@@ -172,7 +205,9 @@ package away.materials
 			_pScreenPass.ambientMethod = value;
 		}
 
-		/**		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.		 */
+		/**
+		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.
+		 */
 		public function get shadowMethod():ShadowMapMethodBase
 		{
 			return _pScreenPass.shadowMethod;
@@ -183,7 +218,9 @@ package away.materials
 			_pScreenPass.shadowMethod = value;
 		}
 
-		/**		 * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.		 */
+		/**
+		 * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.
+		 */
 
 		public function get diffuseMethod():BasicDiffuseMethod
 		{
@@ -195,7 +232,9 @@ package away.materials
 			_pScreenPass.diffuseMethod = value;
 		}
 
-		/**		 * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.		 */
+		/**
+		 * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.
+		 */
 
 		public function get normalMethod():BasicNormalMethod
 		{
@@ -207,7 +246,9 @@ package away.materials
 			_pScreenPass.normalMethod = value;
 		}
 
-		/**		 * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.		 */
+		/**
+		 * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.
+		 */
 
 		public function get specularMethod():BasicSpecularMethod
 		{
@@ -219,44 +260,68 @@ package away.materials
 			_pScreenPass.specularMethod = value;
 		}
 
-		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
+		/**
+		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting
+		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the
+		 * methods added prior.
+		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
 			_pScreenPass.addMethod(method);
 		}
 
-		/**		 * The number of "effect" methods added to the material.		 */
+		/**
+		 * The number of "effect" methods added to the material.
+		 */
 
 		public function get numMethods():Number
 		{
 			return _pScreenPass.numMethods;
 		}
 
-		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
+		/**
+		 * Queries whether a given effect method was added to the material.
+		 *
+		 * @param method The method to be queried.
+		 * @return true if the method was added to the material, false otherwise.
+		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
 			return _pScreenPass.hasMethod(method);
 		}
 
-		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
+		/**
+		 * Returns the method added at the given index.
+		 * @param index The index of the method to retrieve.
+		 * @return The method at the given index.
+		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
 			return _pScreenPass.getMethodAt(index);
 		}
 
-		/**		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,		 * etc. The method will be applied to the result of the methods with a lower index.		 */
+		/**
+		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect
+		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,
+		 * etc. The method will be applied to the result of the methods with a lower index.
+		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
 			_pScreenPass.addMethodAt(method, index);
 		}
 
-		/**		 * Removes an effect method from the material.		 * @param method The method to be removed.		 */
+		/**
+		 * Removes an effect method from the material.
+		 * @param method The method to be removed.
+		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
 			_pScreenPass.removeMethod(method);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set mipmap(value:Boolean):void
 		{
 			if (_pMipmap == value)
@@ -265,7 +330,10 @@ package away.materials
 			setMipMap( value );
 		}
 
-		/**		 * The normal map to modulate the direction of the surface for each texel. The default normal method expects		 * tangent-space normal maps, but others could expect object-space maps.		 */
+		/**
+		 * The normal map to modulate the direction of the surface for each texel. The default normal method expects
+		 * tangent-space normal maps, but others could expect object-space maps.
+		 */
 		public function get normalMap():Texture2DBase
 		{
 			return _pScreenPass.normalMap;
@@ -276,7 +344,11 @@ package away.materials
 			_pScreenPass.normalMap = value;
 		}
 		
-		/**		 * A specular map that defines the strength of specular reflections for each texel in the red channel,		 * and the gloss factor in the green channel. You can use SpecularBitmapTexture if you want to easily set		 * specular and gloss maps from grayscale images, but correctly authored images are preferred.		 */
+		/**
+		 * A specular map that defines the strength of specular reflections for each texel in the red channel,
+		 * and the gloss factor in the green channel. You can use SpecularBitmapTexture if you want to easily set
+		 * specular and gloss maps from grayscale images, but correctly authored images are preferred.
+		 */
 
 		public function get specularMap():Texture2DBase
 		{
@@ -299,7 +371,9 @@ package away.materials
 
 		}
 
-		/**		 * The glossiness of the material (sharpness of the specular highlight).		 */
+		/**
+		 * The glossiness of the material (sharpness of the specular highlight).
+		 */
 
 		public function get gloss():Number
 		{
@@ -312,7 +386,9 @@ package away.materials
                 _pScreenPass.specularMethod.gloss = value;
 		}
 
-		/**		 * The strength of the ambient reflection.		 */
+		/**
+		 * The strength of the ambient reflection.
+		 */
 
 		public function get ambient():Number
 		{
@@ -324,7 +400,9 @@ package away.materials
             _pScreenPass.ambientMethod.ambient = value;
 		}
 
-		/**		 * The overall strength of the specular reflection.		 */
+		/**
+		 * The overall strength of the specular reflection.
+		 */
 
 		public function get specular():Number
 		{
@@ -337,7 +415,9 @@ package away.materials
                 _pScreenPass.specularMethod.specular = value;
 		}
 
-		/**		 * The colour of the ambient reflection.		 */
+		/**
+		 * The colour of the ambient reflection.
+		 */
 
 		public function get ambientColor():Number
 		{
@@ -349,7 +429,9 @@ package away.materials
             _pScreenPass.ambientMethod.ambientColor = value;
 		}
 
-		/**		 * The colour of the specular reflection.		 */
+		/**
+		 * The colour of the specular reflection.
+		 */
 
 		public function get specularColor():Number
 		{
@@ -361,7 +443,10 @@ package away.materials
 			_pScreenPass.specularMethod.specularColor = value;
 		}
 
-		/**		 * Indicates whether or not the material has transparency. If binary transparency is sufficient, for		 * example when using textures of foliage, consider using alphaThreshold instead.		 */
+		/**
+		 * Indicates whether or not the material has transparency. If binary transparency is sufficient, for
+		 * example when using textures of foliage, consider using alphaThreshold instead.
+		 */
 
         public function get alphaBlending():Boolean
 		{
@@ -379,7 +464,9 @@ package away.materials
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iUpdateMaterial(context:Context3D):void
 		{
 			if (_pScreenPass._iPassesDirty)
@@ -406,7 +493,9 @@ package away.materials
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set lightPicker(value:LightPickerBase):void
 		{
 

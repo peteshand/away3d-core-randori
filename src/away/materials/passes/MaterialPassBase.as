@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.passes
 {
 	import away.events.EventDispatcher;
@@ -48,14 +47,19 @@ package away.materials.passes
 	
 	//use namespace arcane;
 	
-	/**	 * MaterialPassBase provides an abstract base class for material shader passes. A material pass constitutes at least	 * a render call per required renderable.	 */
+	/**
+	 * MaterialPassBase provides an abstract base class for material shader passes. A material pass constitutes at least
+	 * a render call per required renderable.
+	 */
 	public class MaterialPassBase extends EventDispatcher
 	{
         public var _pMaterial:MaterialBase;
 		private var _animationSet:IAnimationSet;
 
         public var _iProgram3Ds:Vector.<Program3D> = new Vector.<Program3D>( 8 );
-        public var _iProgram3Dids:Vector.<Number> = new Vector.<Number>(-1, -1, -1, -1, -1, -1, -1, -1);//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]);		private var _context3Ds:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		
+        public var _iProgram3Dids:Vector.<Number> = new Vector.<Number>(-1, -1, -1, -1, -1, -1, -1, -1);//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]);
+		private var _context3Ds:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);
+		
 		// agal props. these NEED to be set by subclasses!
 		// todo: can we perhaps figure these out manually by checking read operations in the bytecode, so other sources can be safely updated?
         public var _pNumUsedStreams:Number;
@@ -88,7 +92,9 @@ package away.materials.passes
         public var _pShadedTarget:String = "ft0";
 		
 		// keep track of previously rendered usage for faster cleanup of old vertex buffer streams and textures
-		private static var _previousUsedStreams:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private static var _previousUsedTexs:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private var _defaultCulling:String = Context3DTriangleFace.BACK;
+		private static var _previousUsedStreams:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);
+		private static var _previousUsedTexs:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);
+		private var _defaultCulling:String = Context3DTriangleFace.BACK;
 		
 		private var _renderToTexture:Boolean;
 		
@@ -108,7 +114,11 @@ package away.materials.passes
 		
 		//public animationRegisterCache:AnimationRegisterCache; TODO: implement dependency AnimationRegisterCache
 		
-		/**		 * Creates a new MaterialPassBase object.		 *		 * @param renderToTexture Indicates whether this pass is a render-to-texture pass.		 */
+		/**
+		 * Creates a new MaterialPassBase object.
+		 *
+		 * @param renderToTexture Indicates whether this pass is a render-to-texture pass.
+		 */
 		public function MaterialPassBase(renderToTexture:Boolean = false):void
 		{
 
@@ -123,7 +133,9 @@ package away.materials.passes
 
 		}
 		
-		/**		 * The material to which this pass belongs.		 */
+		/**
+		 * The material to which this pass belongs.
+		 */
 		public function get material():MaterialBase
 		{
 			return _pMaterial;
@@ -134,7 +146,9 @@ package away.materials.passes
 			_pMaterial = value;
 		}
 		
-		/**		 * Indicate whether this pass should write to the depth buffer or not. Ignored when blending is enabled.		 */
+		/**
+		 * Indicate whether this pass should write to the depth buffer or not. Ignored when blending is enabled.
+		 */
 		public function get writeDepth():Boolean
 		{
 			return _writeDepth;
@@ -145,7 +159,9 @@ package away.materials.passes
 			_writeDepth = value;
 		}
 		
-		/**		 * Defines whether any used textures should use mipmapping.		 */
+		/**
+		 * Defines whether any used textures should use mipmapping.
+		 */
 		public function get mipmap():Boolean
 		{
 			return _pMipmap;
@@ -172,7 +188,9 @@ package away.materials.passes
             iInvalidateShaderProgram( );
 
         }
-		/**		 * Defines whether smoothing should be applied to any used textures.		 */
+		/**
+		 * Defines whether smoothing should be applied to any used textures.
+		 */
 		public function get smooth():Boolean
 		{
 			return _pSmooth;
@@ -191,7 +209,9 @@ package away.materials.passes
             iInvalidateShaderProgram( );
 		}
 		
-		/**		 * Defines whether textures should be tiled.		 */
+		/**
+		 * Defines whether textures should be tiled.
+		 */
 		public function get repeat():Boolean
 		{
 			return _pRepeat;
@@ -210,7 +230,9 @@ package away.materials.passes
             iInvalidateShaderProgram( );
 		}
 		
-		/**		 * Defines whether or not the material should perform backface culling.		 */
+		/**
+		 * Defines whether or not the material should perform backface culling.
+		 */
 		public function get bothSides():Boolean
 		{
 			return _pBothSides;
@@ -221,7 +243,11 @@ package away.materials.passes
             _pBothSides = value;
 		}
 
-		/**		 * The depth compare mode used to render the renderables using this material.		 *		 * @see flash.display3D.Context3DCompareMode		 */
+		/**
+		 * The depth compare mode used to render the renderables using this material.
+		 *
+		 * @see flash.display3D.Context3DCompareMode
+		 */
 		public function get depthCompareMode():String
 		{
 			return _depthCompareMode;
@@ -232,7 +258,9 @@ package away.materials.passes
             _depthCompareMode = value;
 		}
 
-		/**		 * Returns the animation data set adding animations to the material.		 */
+		/**
+		 * Returns the animation data set adding animations to the material.
+		 */
 		public function get animationSet():IAnimationSet
 		{
 			return _animationSet;
@@ -253,13 +281,18 @@ package away.materials.passes
             iInvalidateShaderProgram( );
 		}
 		
-		/**		 * Specifies whether this pass renders to texture		 */
+		/**
+		 * Specifies whether this pass renders to texture
+		 */
 		public function get renderToTexture():Boolean
 		{
 			return _renderToTexture;
 		}
 		
-		/**		 * Cleans up any resources used by the current object.		 * @param deep Indicates whether other resources should be cleaned up, that could potentially be shared across different instances.		 */
+		/**
+		 * Cleans up any resources used by the current object.
+		 * @param deep Indicates whether other resources should be cleaned up, that could potentially be shared across different instances.
+		 */
 		public function dispose():void
 		{
 			if (_pLightPicker)
@@ -284,13 +317,17 @@ package away.materials.passes
 			}
 		}
 		
-		/**		 * The amount of used vertex streams in the vertex code. Used by the animation code generation to know from which index on streams are available.		 */
+		/**
+		 * The amount of used vertex streams in the vertex code. Used by the animation code generation to know from which index on streams are available.
+		 */
 		public function get numUsedStreams():Number
 		{
 			return _pNumUsedStreams;
 		}
 		
-		/**		 * The amount of used vertex constants in the vertex code. Used by the animation code generation to know from which index on registers are available.		 */
+		/**
+		 * The amount of used vertex constants in the vertex code. Used by the animation code generation to know from which index on registers are available.
+		 */
 		public function get numUsedVertexConstants():Number
 		{
 			return _pNumUsedVertexConstants;
@@ -301,7 +338,9 @@ package away.materials.passes
 			return _pNumUsedVaryings;
 		}
 
-		/**		 * The amount of used fragment constants in the fragment code. Used by the animation code generation to know from which index on registers are available.		 */
+		/**
+		 * The amount of used fragment constants in the fragment code. Used by the animation code generation to know from which index on registers are available.
+		 */
 		public function get numUsedFragmentConstants():Number
 		{
 			return _pNumUsedFragmentConstants;
@@ -312,37 +351,60 @@ package away.materials.passes
 			return _pNeedFragmentAnimation;
 		}
 
-		/**		 * Indicates whether the pass requires any UV animatin code.		 */
+		/**
+		 * Indicates whether the pass requires any UV animatin code.
+		 */
 		public function get needUVAnimation():Boolean
 		{
 			return _pNeedUVAnimation;
 		}
 		
-		/**		 * Sets up the animation state. This needs to be called before render()		 *		 * @private		 */
+		/**
+		 * Sets up the animation state. This needs to be called before render()
+		 *
+		 * @private
+		 */
 		public function iUpdateAnimationState(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			renderable.animator.setRenderState(stage3DProxy, renderable, _pNumUsedVertexConstants, _pNumUsedStreams, camera);
 		}
 		
-		/**		 * Renders an object to the current render target.		 *		 * @private		 */
+		/**
+		 * Renders an object to the current render target.
+		 *
+		 * @private
+		 */
 		public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			throw new AbstractMethodError();
 		}
 
-		/**		 * Returns the vertex AGAL code for the material.		 */
+		/**
+		 * Returns the vertex AGAL code for the material.
+		 */
 		public function iGetVertexCode():String
 		{
             throw new AbstractMethodError();
 		}
 
-		/**		 * Returns the fragment AGAL code for the material.		 */
+		/**
+		 * Returns the fragment AGAL code for the material.
+		 */
 		public function iGetFragmentCode(fragmentAnimatorCode:String):String
 		{
             throw new AbstractMethodError();
 		}
 
-		/**		 * The blend mode to use when drawing this renderable. The following blend modes are supported:		 * <ul>		 * <li>BlendMode.NORMAL: No blending, unless the material inherently needs it</li>		 * <li>BlendMode.LAYER: Force blending. This will draw the object the same as NORMAL, but without writing depth writes.</li>		 * <li>BlendMode.MULTIPLY</li>		 * <li>BlendMode.ADD</li>		 * <li>BlendMode.ALPHA</li>		 * </ul>		 */
+		/**
+		 * The blend mode to use when drawing this renderable. The following blend modes are supported:
+		 * <ul>
+		 * <li>BlendMode.NORMAL: No blending, unless the material inherently needs it</li>
+		 * <li>BlendMode.LAYER: Force blending. This will draw the object the same as NORMAL, but without writing depth writes.</li>
+		 * <li>BlendMode.MULTIPLY</li>
+		 * <li>BlendMode.ADD</li>
+		 * <li>BlendMode.ALPHA</li>
+		 * </ul>
+		 */
 		public function setBlendMode(value:String):void
 		{
 			switch (value)
@@ -395,7 +457,13 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * Sets the render state for the pass that is independent of the rendered object. This needs to be called before		 * calling renderPass. Before activating a pass, the previously used pass needs to be deactivated.		 * @param stage3DProxy The Stage3DProxy object which is currently used for rendering.		 * @param camera The camera from which the scene is viewed.		 * @private		 */
+		/**
+		 * Sets the render state for the pass that is independent of the rendered object. This needs to be called before
+		 * calling renderPass. Before activating a pass, the previously used pass needs to be deactivated.
+		 * @param stage3DProxy The Stage3DProxy object which is currently used for rendering.
+		 * @param camera The camera from which the scene is viewed.
+		 * @private
+		 */
 		public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;//_stage3DIndex;
@@ -462,7 +530,12 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * Clears the render state for the pass. This needs to be called before activating another pass.		 * @param stage3DProxy The Stage3DProxy used for rendering		 *		 * @private		 */
+		/**
+		 * Clears the render state for the pass. This needs to be called before activating another pass.
+		 * @param stage3DProxy The Stage3DProxy used for rendering
+		 *
+		 * @private
+		 */
 		public function iDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 
@@ -490,7 +563,11 @@ package away.materials.passes
 			stage3DProxy._iContext3D.setDepthTest(true, Context3DCompareMode.LESS_EQUAL); // TODO : imeplement
 		}
 		
-		/**		 * Marks the shader program as invalid, so it will be recompiled before the next render.		 *		 * @param updateMaterial Indicates whether the invalidation should be performed on the entire material. Should always pass "true" unless it's called from the material itself.		 */
+		/**
+		 * Marks the shader program as invalid, so it will be recompiled before the next render.
+		 *
+		 * @param updateMaterial Indicates whether the invalidation should be performed on the entire material. Should always pass "true" unless it's called from the material itself.
+		 */
 		public function iInvalidateShaderProgram(updateMaterial:Boolean = true):void
 		{
 			for (var i:Number = 0; i < 8; ++i)
@@ -510,7 +587,10 @@ package away.materials.passes
 
 		}
 		
-		/**		 * Compiles the shader program.		 * @param polyOffsetReg An optional register that contains an amount by which to inflate the model (used in single object depth map rendering).		 */
+		/**
+		 * Compiles the shader program.
+		 * @param polyOffsetReg An optional register that contains an amount by which to inflate the model (used in single object depth map rendering).
+		 */
 		public function iUpdateProgram(stage3DProxy:Stage3DProxy):void
 		{
 			var animatorCode:String = "";
@@ -569,13 +649,26 @@ package away.materials.passes
 			
 			var fragmentCode:String = iGetFragmentCode( fragmentAnimatorCode );
 
-            /*			if (this.Debug.active) {				trace("Compiling AGAL Code:");				trace("--------------------");				trace(vertexCode);				trace("--------------------");				trace(fragmentCode);			}			*/
+            /*
+			if (this.Debug.active) {
+				trace("Compiling AGAL Code:");
+				trace("--------------------");
+				trace(vertexCode);
+				trace("--------------------");
+				trace(fragmentCode);
+			}
+			*/
 
 			AGALProgram3DCache.getInstance(stage3DProxy).setProgram3D(this, vertexCode, fragmentCode);
 
 		}
 
-		/**		 * The light picker used by the material to provide lights to the material if it supports lighting.		 *		 * @see away3d.materials.lightpickers.LightPickerBase		 * @see away3d.materials.lightpickers.StaticLightPicker		 */
+		/**
+		 * The light picker used by the material to provide lights to the material if it supports lighting.
+		 *
+		 * @see away3d.materials.lightpickers.LightPickerBase
+		 * @see away3d.materials.lightpickers.StaticLightPicker
+		 */
 		public function get lightPicker():LightPickerBase
 		{
 			return _pLightPicker;
@@ -603,20 +696,28 @@ package away.materials.passes
 
 		}
 
-		/**		 * Called when the light picker's configuration changes.		 */
+		/**
+		 * Called when the light picker's configuration changes.
+		 */
 		private function onLightsChange(event:Event):void
 		{
             pUpdateLights();
 
 		}
 
-		/**		 * Implemented by subclasses if the pass uses lights to update the shader.		 */
+		/**
+		 * Implemented by subclasses if the pass uses lights to update the shader.
+		 */
 		public function pUpdateLights():void
 		{
 		
 		}
 
-		/**		 * Indicates whether visible textures (or other pixels) used by this material have		 * already been premultiplied. Toggle this if you are seeing black halos around your		 * blended alpha edges.		 */
+		/**
+		 * Indicates whether visible textures (or other pixels) used by this material have
+		 * already been premultiplied. Toggle this if you are seeing black halos around your
+		 * blended alpha edges.
+		 */
 		public function get alphaPremultiplied():Boolean
 		{
 			return _pAlphaPremultiplied;

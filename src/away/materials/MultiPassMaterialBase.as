@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.materials
 {
 	import away.materials.passes.ShadowCasterPass;
@@ -23,7 +22,10 @@ package away.materials
 	import away.display3D.Context3DCompareMode;
 	import away.materials.lightpickers.StaticLightPicker;
 
-	/**	 * MultiPassMaterialBase forms an abstract base class for the default multi-pass materials provided by Away3D,	 * using material methods to define their appearance.	 */
+	/**
+	 * MultiPassMaterialBase forms an abstract base class for the default multi-pass materials provided by Away3D,
+	 * using material methods to define their appearance.
+	 */
 	public class MultiPassMaterialBase extends MaterialBase
 	{
 		private var _casterLightPass:ShadowCasterPass;
@@ -43,13 +45,18 @@ package away.materials
 		private var _screenPassesInvalid:Boolean = true;
 		private var _enableLightFallOff:Boolean = true;
 		
-		/**		 * Creates a new MultiPassMaterialBase object.		 */
+		/**
+		 * Creates a new MultiPassMaterialBase object.
+		 */
 		public function MultiPassMaterialBase():void
 		{
 			super();
 		}
 		
-		/**		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and		 * compatibility for constrained mode.		 */
+		/**
+		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and
+		 * compatibility for constrained mode.
+		 */
 		public function get enableLightFallOff():Boolean
 		{
 			return _enableLightFallOff;
@@ -64,7 +71,11 @@ package away.materials
 
 		}
 		
-		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
+		/**
+		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
+		 * invisible or entirely opaque, often used with textures for foliage, etc.
+		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
+		 */
 		public function get alphaThreshold():Number
 		{
 			return _alphaThreshold;
@@ -78,21 +89,27 @@ package away.materials
             _pDistancePass.alphaThreshold = value;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set depthCompareMode(value:String):void
 		{
 			super.setDepthCompareMode( value );
 			pInvalidateScreenPasses();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set blendMode(value:String):void
 		{
 			super.setBlendMode( value );
 			pInvalidateScreenPasses();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivateForDepth(stage3DProxy:Stage3DProxy, camera:Camera3D, distanceBased:Boolean = false):void
 		{
 			if (distanceBased)
@@ -108,7 +125,12 @@ package away.materials
 			super.iActivateForDepth(stage3DProxy, camera, distanceBased);
 		}
 
-		/**		 * Define which light source types to use for specular reflections. This allows choosing between regular lights		 * and/or light probes for specular reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for specular reflections. This allows choosing between regular lights
+		 * and/or light probes for specular reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get specularLightSources():Number
 		{
 			return _specularLightSources;
@@ -119,7 +141,12 @@ package away.materials
             _specularLightSources = value;
 		}
 
-		/**		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights		 * and/or light probes for diffuse reflections.		 *		 * @see away3d.materials.LightSources		 */
+		/**
+		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights
+		 * and/or light probes for diffuse reflections.
+		 *
+		 * @see away3d.materials.LightSources
+		 */
 		public function get diffuseLightSources():Number
 		{
 			return _diffuseLightSources;
@@ -130,7 +157,9 @@ package away.materials
             _diffuseLightSources = value;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set lightPicker(value:LightPickerBase):void
 		{
 			if (_pLightPicker)
@@ -143,13 +172,17 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function get requiresBlending():Boolean
 		{
 			return false;
 		}
 		
-		/**		 * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.		 */
+		/**
+		 * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.
+		 */
 		public function get ambientMethod():BasicAmbientMethod
 		{
 			return _ambientMethod;
@@ -162,7 +195,9 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 		
-		/**		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.		 */
+		/**
+		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.
+		 */
 		public function get shadowMethod():ShadowMapMethodBase
 		{
 			return _shadowMethod;
@@ -176,7 +211,9 @@ package away.materials
             pInvalidateScreenPasses();
 		}
 		
-		/**		 * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.		 */
+		/**
+		 * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.
+		 */
 		public function get diffuseMethod():BasicDiffuseMethod
 		{
 			return _diffuseMethod;
@@ -189,7 +226,9 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 
-		/**		 * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.		 */
+		/**
+		 * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.
+		 */
 		public function get specularMethod():BasicSpecularMethod
 		{
 			return _specularMethod;
@@ -203,7 +242,9 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 		
-		/**		 * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.		 */
+		/**
+		 * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.
+		 */
 		public function get normalMethod():BasicNormalMethod
 		{
 			return _normalMethod;
@@ -216,7 +257,11 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 		
-		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
+		/**
+		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting
+		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the
+		 * methods added prior.
+		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
 
@@ -230,25 +275,40 @@ package away.materials
 			pInvalidateScreenPasses();
 		}
 
-		/**		 * The number of "effect" methods added to the material.		 */
+		/**
+		 * The number of "effect" methods added to the material.
+		 */
 		public function get numMethods():Number
 		{
 			return _pEffectsPass? _pEffectsPass.numMethods : 0;
 		}
 
-		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
+		/**
+		 * Queries whether a given effect method was added to the material.
+		 *
+		 * @param method The method to be queried.
+		 * @return true if the method was added to the material, false otherwise.
+		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
 			return _pEffectsPass? _pEffectsPass.hasMethod(method) : false;
 		}
 
-		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
+		/**
+		 * Returns the method added at the given index.
+		 * @param index The index of the method to retrieve.
+		 * @return The method at the given index.
+		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
 			return _pEffectsPass.getMethodAt(index);
 		}
 		
-		/**		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,		 * etc. The method will be applied to the result of the methods with a lower index.		 */
+		/**
+		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect
+		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,
+		 * etc. The method will be applied to the result of the methods with a lower index.
+		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
 
@@ -263,7 +323,10 @@ package away.materials
 
 		}
 
-		/**		 * Removes an effect method from the material.		 * @param method The method to be removed.		 */
+		/**
+		 * Removes an effect method from the material.
+		 * @param method The method to be removed.
+		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
 			if (_pEffectsPass)
@@ -275,7 +338,9 @@ package away.materials
 				pInvalidateScreenPasses();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function set mipmap(value:Boolean):void
 		{
 			if (_pMipmap == value)
@@ -285,7 +350,10 @@ package away.materials
 
 		}
 		
-		/**		 * The normal map to modulate the direction of the surface for each texel. The default normal method expects		 * tangent-space normal maps, but others could expect object-space maps.		 */
+		/**
+		 * The normal map to modulate the direction of the surface for each texel. The default normal method expects
+		 * tangent-space normal maps, but others could expect object-space maps.
+		 */
 		public function get normalMap():Texture2DBase
 		{
 			return _normalMethod.normalMap;
@@ -296,7 +364,11 @@ package away.materials
 			_normalMethod.normalMap = value;
 		}
 		
-		/**		 * A specular map that defines the strength of specular reflections for each texel in the red channel,		 * and the gloss factor in the green channel. You can use SpecularBitmapTexture if you want to easily set		 * specular and gloss maps from grayscale images, but correctly authored images are preferred.		 */
+		/**
+		 * A specular map that defines the strength of specular reflections for each texel in the red channel,
+		 * and the gloss factor in the green channel. You can use SpecularBitmapTexture if you want to easily set
+		 * specular and gloss maps from grayscale images, but correctly authored images are preferred.
+		 */
 		public function get specularMap():Texture2DBase
 		{
 			return _specularMethod.texture;
@@ -310,7 +382,9 @@ package away.materials
 				throw new Error("No specular method was set to assign the specularGlossMap to");
 		}
 		
-		/**		 * The glossiness of the material (sharpness of the specular highlight).		 */
+		/**
+		 * The glossiness of the material (sharpness of the specular highlight).
+		 */
 		public function get gloss():Number
 		{
 			return _specularMethod? _specularMethod.gloss : 0;
@@ -322,7 +396,9 @@ package away.materials
 				_specularMethod.gloss = value;
 		}
 		
-		/**		 * The strength of the ambient reflection.		 */
+		/**
+		 * The strength of the ambient reflection.
+		 */
 		public function get ambient():Number
 		{
 			return _ambientMethod.ambient;
@@ -333,7 +409,9 @@ package away.materials
             _ambientMethod.ambient = value;
 		}
 		
-		/**		 * The overall strength of the specular reflection.		 */
+		/**
+		 * The overall strength of the specular reflection.
+		 */
 		public function get specular():Number
 		{
 			return _specularMethod? _specularMethod.specular : 0;
@@ -345,7 +423,9 @@ package away.materials
                 _specularMethod.specular = value;
 		}
 		
-		/**		 * The colour of the ambient reflection.		 */
+		/**
+		 * The colour of the ambient reflection.
+		 */
 		public function get ambientColor():Number
 		{
 			return _ambientMethod.ambientColor;
@@ -356,7 +436,9 @@ package away.materials
             _ambientMethod.ambientColor = value;
 		}
 		
-		/**		 * The colour of the specular reflection.		 */
+		/**
+		 * The colour of the specular reflection.
+		 */
 		public function get specularColor():Number
 		{
 			return _specularMethod.specularColor;
@@ -367,7 +449,9 @@ package away.materials
             _specularMethod.specularColor = value;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iUpdateMaterial(context:Context3D):void
 		{
 			var passesInvalid:Boolean;
@@ -405,7 +489,10 @@ package away.materials
 			}
 		}
 
-		/**		 * Adds a compiled pass that renders to the screen.		 * @param pass The pass to be added.		 */
+		/**
+		 * Adds a compiled pass that renders to the screen.
+		 * @param pass The pass to be added.
+		 */
 		private function addScreenPass(pass:CompiledPass):void
 		{
 			if (pass)
@@ -417,7 +504,10 @@ package away.materials
 			}
 		}
 
-		/**		 * Tests if any pass that renders to the screen is invalid. This would trigger a new setup of the multiple passes.		 * @return		 */
+		/**
+		 * Tests if any pass that renders to the screen is invalid. This would trigger a new setup of the multiple passes.
+		 * @return
+		 */
 		private function isAnyScreenPassInvalid():Boolean
 		{
 			if ((_casterLightPass && _casterLightPass._iPassesDirty) ||
@@ -439,7 +529,10 @@ package away.materials
 			return false;
 		}
 
-		/**		 * Adds any additional passes on which the given pass is dependent.		 * @param pass The pass that my need additional passes.		 */
+		/**
+		 * Adds any additional passes on which the given pass is dependent.
+		 * @param pass The pass that my need additional passes.
+		 */
 		private function addChildPassesFor(pass:CompiledPass):void
 		{
 			if (!pass)
@@ -456,7 +549,9 @@ package away.materials
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivatePass(index:Number, stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			if (index == 0)
@@ -466,14 +561,18 @@ package away.materials
 			super.iActivatePass(index, stage3DProxy, camera);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 			super.iDeactivate(stage3DProxy);
 			stage3DProxy._iContext3D.setBlendFactors(Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO);
 		}
 
-		/**		 * Updates screen passes when they were found to be invalid.		 */
+		/**
+		 * Updates screen passes when they were found to be invalid.
+		 */
 		public function pUpdateScreenPasses():void
 		{
 			initPasses();
@@ -482,7 +581,9 @@ package away.materials
 			_screenPassesInvalid = false;
 		}
 
-		/**		 * Initializes all the passes and their dependent passes.		 */
+		/**
+		 * Initializes all the passes and their dependent passes.
+		 */
 		private function initPasses():void
 		{
 			// let the effects pass handle everything if there are no lights,
@@ -513,7 +614,9 @@ package away.materials
                 removeNonCasterLightPasses();
 		}
 
-		/**		 * Sets up the various blending modes for all screen passes, based on whether or not there are previous passes.		 */
+		/**
+		 * Sets up the various blending modes for all screen passes, based on whether or not there are previous passes.
+		 */
 		private function setBlendAndCompareModes():void
 		{
 			var forceSeparateMVP:Boolean = (( _casterLightPass || _pEffectsPass) as Boolean);
@@ -708,26 +811,34 @@ package away.materials
 			return _pEffectsPass;
 		}
 
-		/**		 * The maximum total number of lights provided by the light picker.		 */
+		/**
+		 * The maximum total number of lights provided by the light picker.
+		 */
 		private function get numLights():Number
 		{
 			return _pLightPicker? _pLightPicker.numLightProbes + _pLightPicker.numDirectionalLights + _pLightPicker.numPointLights +
 				_pLightPicker.numCastingDirectionalLights + _pLightPicker.numCastingPointLights : 0;
 		}
 
-		/**		 * The amount of lights that don't cast shadows.		 */
+		/**
+		 * The amount of lights that don't cast shadows.
+		 */
 		private function get numNonCasters():Number
 		{
 			return _pLightPicker? _pLightPicker.numLightProbes + _pLightPicker.numDirectionalLights + _pLightPicker.numPointLights : 0;
 		}
 
-		/**		 * Flags that the screen passes have become invalid.		 */
+		/**
+		 * Flags that the screen passes have become invalid.
+		 */
 		public function pInvalidateScreenPasses():void
 		{
 			_screenPassesInvalid = true;
 		}
 
-		/**		 * Called when the light picker's configuration changed.		 */
+		/**
+		 * Called when the light picker's configuration changed.
+		 */
 		private function onLightsChange(event:Event):void
 		{
 			pInvalidateScreenPasses();

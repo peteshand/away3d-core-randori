@@ -1,4 +1,3 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.pick
@@ -6,19 +5,30 @@ package away.pick
 	import away.base.SubMesh;
 	import away.geom.Vector3D;
 
-	/**	 * Pure AS3 picking collider for entity objects. Used with the <code>RaycastPicker</code> picking object.	 *	 * @see away3d.entities.Entity#pickingCollider	 * @see away3d.core.pick.RaycastPicker	 */
+	/**
+	 * Pure AS3 picking collider for entity objects. Used with the <code>RaycastPicker</code> picking object.
+	 *
+	 * @see away3d.entities.Entity#pickingCollider
+	 * @see away3d.core.pick.RaycastPicker
+	 */
 	public class AS3PickingCollider extends PickingColliderBase implements IPickingCollider
 	{
 		private var _findClosestCollision:Boolean;
 		
-		/**		 * Creates a new <code>AS3PickingCollider</code> object.		 *		 * @param findClosestCollision Determines whether the picking collider searches for the closest collision along the ray. Defaults to false.		 */
+		/**
+		 * Creates a new <code>AS3PickingCollider</code> object.
+		 *
+		 * @param findClosestCollision Determines whether the picking collider searches for the closest collision along the ray. Defaults to false.
+		 */
 		public function AS3PickingCollider(findClosestCollision:Boolean = false):void
 		{
             super();
 			_findClosestCollision = findClosestCollision;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
         //* TODO: Implement & Integrate Dependencies: SubMesh
 		public function testSubMeshCollision(subMesh:SubMesh, pickingCollisionVO:PickingCollisionVO, shortestCollisionDistance:Number):Boolean
 		{

@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 
 package away.materials.passes
@@ -15,7 +14,12 @@ package away.materials.passes
 	import away.lights.PointLight;
 
 	
-	/**	 * ShadowCasterPass is a shader pass that uses shader methods to compile a complete program. It only draws the lighting	 * contribution for a single shadow-casting light.	 *	 * @see away3d.materials.methods.ShadingMethodBase	 */
+	/**
+	 * ShadowCasterPass is a shader pass that uses shader methods to compile a complete program. It only draws the lighting
+	 * contribution for a single shadow-casting light.
+	 *
+	 * @see away3d.materials.methods.ShadingMethodBase
+	 */
 	
 	public class ShadowCasterPass extends CompiledPass
 	{
@@ -23,19 +27,27 @@ package away.materials.passes
 		private var _lightVertexConstantIndex:Number;
 		private var _inverseSceneMatrix:Vector.<Number> = new Vector.<Number>();
 		
-		/**		 * Creates a new ShadowCasterPass objects.		 *		 * @param material The material to which this pass belongs.		 */
+		/**
+		 * Creates a new ShadowCasterPass objects.
+		 *
+		 * @param material The material to which this pass belongs.
+		 */
 		public function ShadowCasterPass(material:MaterialBase):void
 		{
 			super(material);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateCompiler(profile:String):ShaderCompiler
 		{
 			return new LightingShaderCompiler(profile);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLights():void
 		{
 			super.pUpdateLights();
@@ -71,7 +83,9 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateShaderProperties():void
 		{
 			super.pUpdateShaderProperties();
@@ -81,7 +95,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateRegisterIndices():void
 		{
 			super.pUpdateRegisterIndices();
@@ -92,7 +108,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			renderable.inverseSceneTransform.copyRawDataTo(_inverseSceneMatrix);
@@ -112,7 +130,9 @@ package away.materials.passes
 			super.iRender(renderable, stage3DProxy, camera, viewProjection);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);
@@ -126,7 +146,9 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLightConstants():void
 		{
 			// first dirs, then points
@@ -217,19 +239,25 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUsesProbes():Boolean
 		{
 			return false;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUsesLights():Boolean
 		{
 			return true;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
 		{
 		}

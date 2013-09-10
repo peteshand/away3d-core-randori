@@ -1,5 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 ///<reference path="../_definitions.ts"/>
 
 package away.display3D
@@ -20,7 +22,13 @@ package away.display3D
 		//@override
 		override public function setProgramConstantsFromMatrix(programType:String, firstRegister:Number, matrix:Matrix3D, transposedMatrix:Boolean = false):void
 		{
-            /*			console.log( "======== setProgramConstantsFromMatrix ========" );			console.log( "programType       >>> " + programType );			console.log( "firstRegister     >>> " + firstRegister );			console.log( "matrix            >>> " + matrix.rawData );			console.log( "transposedMatrix  >>> " + transposedMatrix );			*/
+            /*
+			console.log( "======== setProgramConstantsFromMatrix ========" );
+			console.log( "programType       >>> " + programType );
+			console.log( "firstRegister     >>> " + firstRegister );
+			console.log( "matrix            >>> " + matrix.rawData );
+			console.log( "transposedMatrix  >>> " + transposedMatrix );
+			*/
 
 			var d:Vector.<Number> = matrix.rawData;
 			if( transposedMatrix )
@@ -42,7 +50,12 @@ package away.display3D
 		//@override
 		override public function drawTriangles(indexBuffer:IndexBuffer3D, firstIndex:Number = 0, numTriangles:Number = -1):void
 		{
-            /*			console.log( "======= drawTriangles ========" );			console.log( indexBuffer );			console.log( "firstIndex: " +  firstIndex );			console.log( "numTriangles:" + numTriangles );			*/
+            /*
+			console.log( "======= drawTriangles ========" );
+			console.log( indexBuffer );
+			console.log( "firstIndex: " +  firstIndex );
+			console.log( "numTriangles:" + numTriangles );
+			*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, "yflip" );
 			_gl.uniform1f( location, _yFlip );
 			super.drawTriangles( indexBuffer, firstIndex, numTriangles );

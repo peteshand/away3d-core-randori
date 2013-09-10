@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.geom
 {
 	import away.utils.ColorUtils;

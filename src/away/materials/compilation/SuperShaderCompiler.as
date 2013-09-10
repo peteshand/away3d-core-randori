@@ -1,20 +1,29 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.compilation
 {
 	//import away3d.arcane;
 
-	/**	 * SuperShaderCompiler is a compiler that generates shaders that perform both lighting and "effects" through methods.	 * This is used by the single-pass materials.	 */
+	/**
+	 * SuperShaderCompiler is a compiler that generates shaders that perform both lighting and "effects" through methods.
+	 * This is used by the single-pass materials.
+	 */
 	public class SuperShaderCompiler extends ShaderCompiler
 	{
-		public var _pointLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;		public var _dirLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;
-		/**		 * Creates a new SuperShaderCompiler object.		 * @param profile The compatibility profile used by the renderer.		 */
+		public var _pointLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;
+		public var _dirLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;
+
+		/**
+		 * Creates a new SuperShaderCompiler object.
+		 * @param profile The compatibility profile used by the renderer.
+		 */
 		public function SuperShaderCompiler(profile:String):void
 		{
 			super(profile);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pInitLightData():void
 		{
 			super.pInitLightData();
@@ -25,7 +34,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCalculateDependencies():void
 		{
 
@@ -34,7 +45,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileNormalCode():void
 		{
 			var normalMatrix:Vector.<ShaderRegisterElement> = new Vector.<ShaderRegisterElement>(3);//Vector.<ShaderRegisterElement> = new Vector.<ShaderRegisterElement>(3, true);
@@ -96,7 +109,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateNormalRegisters():void
 		{
 			if (_pDependencyCounter.normalDependencies > 0)
@@ -126,8 +141,12 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Compiles the vertex shader code for tangent-space normal maps.		 * @param matrix The register containing the scene transformation matrix for normals.		 */
-		private function compileTangentVertexCode(matrix:Vector.<ShaderRegisterElement>):void//Vector.<ShaderRegisterElement>)		{
+		/**
+		 * Compiles the vertex shader code for tangent-space normal maps.
+		 * @param matrix The register containing the scene transformation matrix for normals.
+		 */
+		private function compileTangentVertexCode(matrix:Vector.<ShaderRegisterElement>):void//Vector.<ShaderRegisterElement>)
+		{
 			_pSharedRegisters.tangentVarying = _pRegisterCache.getFreeVarying();
             _pSharedRegisters.bitangentVarying = _pRegisterCache.getFreeVarying();
 
@@ -158,7 +177,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * Compiles the fragment shader code for tangent-space normal maps.		 */
+		/**
+		 * Compiles the fragment shader code for tangent-space normal maps.
+		 */
 		private function compileTangentNormalMapFragmentCode():void
 		{
 			var t:ShaderRegisterElement;
@@ -215,7 +236,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileViewDirCode():void
 		{
 			var cameraPositionReg:ShaderRegisterElement = _pRegisterCache.getFreeVertexConstant();
@@ -235,7 +258,9 @@ package away.materials.compilation
             _pRegisterCache.removeVertexTempUsage(_pSharedRegisters.globalPositionVertex);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileLightingCode():void
 		{
 			var shadowReg:ShaderRegisterElement;
@@ -373,7 +398,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Initializes the registers containing the lighting data.		 */
+		/**
+		 * Initializes the registers containing the lighting data.
+		 */
 		private function initLightRegisters():void
 		{
 			// init these first so we're sure they're in sequence

@@ -1,5 +1,4 @@
 
-
 ///<reference path="../_definitions.ts"/>
 
 package away.net
@@ -30,7 +29,10 @@ package away.net
         }
 
         // Public
-        /**         * load an image         * @param request {away.net.URLRequest}         */
+        /**
+         * load an image
+         * @param request {away.net.URLRequest}
+         */
         public function load(request:URLRequest):void
         {
 
@@ -54,7 +56,9 @@ package away.net
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
 
@@ -79,7 +83,10 @@ package away.net
 
         // Get / Set
 
-        /**         * Get reference to image if it is loaded         * @returns {HTMLImageElement}         */
+        /**
+         * Get reference to image if it is loaded
+         * @returns {HTMLImageElement}
+         */
         public function get image():HTMLImageElement
         {
 
@@ -87,7 +94,10 @@ package away.net
 
         }
 
-        /**         * Get image width. Returns null is image is not loaded         * @returns {number}         */
+        /**
+         * Get image width. Returns null is image is not loaded
+         * @returns {number}
+         */
         public function get loaded():Boolean
         {
 
@@ -108,7 +118,10 @@ package away.net
 
         }
 
-        /**         * Get image width. Returns null is image is not loaded         * @returns {number}         */
+        /**
+         * Get image width. Returns null is image is not loaded
+         * @returns {number}
+         */
         public function get width():Number
         {
 
@@ -122,7 +135,10 @@ package away.net
 
         }
 
-        /**         * Get image height. Returns null is image is not loaded         * @returns {number}         */
+        /**
+         * Get image height. Returns null is image is not loaded
+         * @returns {number}
+         */
         public function get height():Number
         {
 
@@ -136,7 +152,10 @@ package away.net
 
         }
 
-        /**         * return URL request used to load image         * @returns {away.net.URLRequest}         */
+        /**
+         * return URL request used to load image
+         * @returns {away.net.URLRequest}
+         */
         public function get request():URLRequest
         {
 
@@ -144,7 +163,10 @@ package away.net
 
         }
 
-        /**         * get name of HTMLImageElement         * @returns {string}         */
+        /**
+         * get name of HTMLImageElement
+         * @returns {string}
+         */
         public function get name():String
         {
 
@@ -159,7 +181,10 @@ package away.net
 
         }
 
-        /**         * set name of HTMLImageElement         * @returns {string}         */
+        /**
+         * set name of HTMLImageElement
+         * @returns {string}
+         */
         public function set name(value:String):void
         {
 
@@ -176,7 +201,9 @@ package away.net
 
         // Private
 
-        /**         * intialise the image object         */
+        /**
+         * intialise the image object
+         */
         private function initImage():void
         {
 
@@ -196,7 +223,10 @@ package away.net
 
         // Image - event handlers
 
-        /**         * Loading of an image is interrupted         * @param event         */
+        /**
+         * Loading of an image is interrupted
+         * @param event
+         */
         private function onAbort(event):void
         {
 
@@ -204,7 +234,10 @@ package away.net
 
         }
 
-        /**         * An error occured when loading the image         * @param event         */
+        /**
+         * An error occured when loading the image
+         * @param event
+         */
         private function onError(event):void
         {
 
@@ -212,7 +245,10 @@ package away.net
 
         }
 
-        /**         * image is finished loading         * @param event         */
+        /**
+         * image is finished loading
+         * @param event
+         */
         private function onLoadComplete(event):void
         {
             _loaded = true;

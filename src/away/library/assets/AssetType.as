@@ -1,3 +1,4 @@
+
 package away.library.assets
 {
 	public class AssetType
