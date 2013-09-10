@@ -19,12 +19,12 @@ package away.primitives
 
 			super();
 			
-			this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
-            this._yUp = yUp;
-            this._width = width;
-            this._height = height;
-            this._doubleSided = doubleSided;
+			_segmentsW = segmentsW;
+            _segmentsH = segmentsH;
+            _yUp = yUp;
+            _width = width;
+            _height = height;
+            _doubleSided = doubleSided;
 
 		}
 		
@@ -37,10 +37,10 @@ package away.primitives
 		public function set segmentsW(value:Number):void
 		{
 
-            this._segmentsW = value;
+            _segmentsW = value;
 
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            pInvalidateGeometry();
+            pInvalidateUVs();
 
 		}
 		
@@ -53,10 +53,10 @@ package away.primitives
 		public function set segmentsH(value:Number):void
 		{
 
-            this._segmentsH = value;
+            _segmentsH = value;
 
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            pInvalidateGeometry();
+            pInvalidateUVs();
 
 		}
 		
@@ -68,8 +68,8 @@ package away.primitives
 		
 		public function set yUp(value:Boolean):void
 		{
-            this._yUp = value;
-            this.pInvalidateGeometry();
+            _yUp = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines whether the plane will be visible from both sides, with correct vertex normals (as opposed to bothSides on Material). Defaults to false.		 */
@@ -80,8 +80,8 @@ package away.primitives
 		
 		public function set doubleSided(value:Boolean):void
 		{
-            this._doubleSided = value;
-            this.pInvalidateGeometry();
+            _doubleSided = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The width of the plane.		 */
@@ -92,8 +92,8 @@ package away.primitives
 		
 		public function set width(value:Number):void
 		{
-			this._width = value;
-            this.pInvalidateGeometry();
+			_width = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The height of the plane.		 */
@@ -104,8 +104,8 @@ package away.primitives
 		
 		public function set height(value:Number):void
 		{
-			this._height = value;
-            this.pInvalidateGeometry();//invalidateGeometry();
+			_height = value;
+            pInvalidateGeometry();//invalidateGeometry();
 		}
 		
 		/**		 * @inheritDoc		 */

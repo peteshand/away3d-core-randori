@@ -15,8 +15,8 @@ package away.events
 		public function ResizeEvent(type:String, oldHeight:Number = NaN, oldWidth:Number = NaN):void
 		{
 			super( type );
-			this._oldHeight = oldHeight;
-			this._oldWidth = oldWidth;
+			_oldHeight = oldHeight;
+			_oldWidth = oldWidth;
 		}
 		
 		public function get oldHeight():Number

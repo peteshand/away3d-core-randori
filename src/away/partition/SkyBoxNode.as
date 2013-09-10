@@ -15,7 +15,7 @@ package away.partition
 		public function SkyBoxNode(skyBox:SkyBox):void
 		{
 			super(skyBox);
-			this._skyBox = skyBox;
+			_skyBox = skyBox;
 		}
 		
 		/**		 * @inheritDoc		 */

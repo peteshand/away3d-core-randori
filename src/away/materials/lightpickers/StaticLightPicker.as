@@ -24,7 +24,7 @@ package away.materials.lightpickers
 		public function StaticLightPicker(lights):void
 		{
             super();
-			this.lights = lights;
+			lights = lights;
 		}
 
 		/**		 * The lights used for shading.		 */
@@ -42,63 +42,63 @@ package away.materials.lightpickers
 			var numLightProbes:Number = 0;
 			var light:LightBase;
 			
-			if (this._lights)
-				this.clearListeners();
+			if (_lights)
+				clearListeners();
 			
-			this._lights = value;
-			this._pAllPickedLights = value;
-            this._pPointLights = new Vector.<PointLight>();
-            this._pCastingPointLights = new Vector.<PointLight>();
-            this._pDirectionalLights = new Vector.<DirectionalLight>();
-            this._pCastingDirectionalLights = new Vector.<DirectionalLight>();
-            this._pLightProbes = new Vector.<LightProbe>();
+			_lights = value;
+			_pAllPickedLights = value;
+            _pPointLights = new Vector.<PointLight>();
+            _pCastingPointLights = new Vector.<PointLight>();
+            _pDirectionalLights = new Vector.<DirectionalLight>();
+            _pCastingDirectionalLights = new Vector.<DirectionalLight>();
+            _pLightProbes = new Vector.<LightProbe>();
 			
 			var len:Number = value.length;
 
 			for (var i:Number = 0; i < len; ++i)
             {
 				light = value[i];
-				light.addEventListener(LightEvent.CASTS_SHADOW_CHANGE, this.onCastShadowChange , this );
+				light.addEventListener(LightEvent.CASTS_SHADOW_CHANGE, onCastShadowChange , this );
 
 				if (light instanceof PointLight)
                 {
 					if (light.castsShadows)
-						this._pCastingPointLights[numCastingPointLights++] = PointLight(light);
+						_pCastingPointLights[numCastingPointLights++] = (light as PointLight);
 					else
-						this._pPointLights[numPointLights++] = PointLight(light);
+						_pPointLights[numPointLights++] = (light as PointLight);
 					
 				}
                 else if (light instanceof DirectionalLight)
                 {
 					if (light.castsShadows)
-						this._pCastingDirectionalLights[numCastingDirectionalLights++] = DirectionalLight(light);
+						_pCastingDirectionalLights[numCastingDirectionalLights++] = (light as DirectionalLight);
 					else
-						this._pDirectionalLights[numDirectionalLights++] = DirectionalLight(light);
+						_pDirectionalLights[numDirectionalLights++] = (light as DirectionalLight);
 
 				}
                 else if (light instanceof LightProbe)
                 {
-					this._pLightProbes[numLightProbes++] = LightProbe(light);
+					_pLightProbes[numLightProbes++] = (light as LightProbe);
 
                 }
 			}
 			
-			if (this._pNumDirectionalLights == numDirectionalLights && this._pNumPointLights == numPointLights && this._pNumLightProbes == numLightProbes &&
-				this._pNumCastingPointLights == numCastingPointLights && this._pNumCastingDirectionalLights == numCastingDirectionalLights) {
+			if (_pNumDirectionalLights == numDirectionalLights && _pNumPointLights == numPointLights && _pNumLightProbes == numLightProbes &&
+				_pNumCastingPointLights == numCastingPointLights && _pNumCastingDirectionalLights == numCastingDirectionalLights) {
 				return;
 			}
 			
-			this._pNumDirectionalLights = numDirectionalLights;
-			this._pNumCastingDirectionalLights = numCastingDirectionalLights;
-			this._pNumPointLights = numPointLights;
-			this._pNumCastingPointLights = numCastingPointLights;
-			this._pNumLightProbes = numLightProbes;
+			_pNumDirectionalLights = numDirectionalLights;
+			_pNumCastingDirectionalLights = numCastingDirectionalLights;
+			_pNumPointLights = numPointLights;
+			_pNumCastingPointLights = numCastingPointLights;
+			_pNumLightProbes = numLightProbes;
 			
 			// MUST HAVE MULTIPLE OF 4 ELEMENTS!
-			this._pLightProbeWeights = new Vector.<Number>(Math.ceil(numLightProbes/4)*4 );
+			_pLightProbeWeights = new Vector.<Number>(Math.ceil(numLightProbes/4)*4 );
 			
 			// notify material lights have changed
-			this.dispatchEvent(new Event(Event.CHANGE));
+			dispatchEvent(new Event(Event.CHANGE));
 
 		}
 
@@ -116,19 +116,19 @@ package away.materials.lightpickers
 			// TODO: Assign to special caster collections, just append it to the lights in SinglePass
 			// But keep seperated in multipass
 			
-			var light:LightBase = LightBase(event.target);
+			var light:LightBase = (event.target as LightBase);
 			
 			if (light instanceof PointLight)
             {
 
-                var pl : PointLight = PointLight(light);
+                var pl : PointLight = (light as PointLight);
                 updatePointCasting( pl );
 
             }
 			else if (light instanceof DirectionalLight)
             {
 
-                var dl : DirectionalLight = DirectionalLight(light);
+                var dl : DirectionalLight = (light as DirectionalLight);
 				updateDirectionalCasting( dl );
 
             }
@@ -140,7 +140,7 @@ package away.materials.lightpickers
 		private function updateDirectionalCasting(light:DirectionalLight):void
 		{
 
-            var dl : DirectionalLight = DirectionalLight(light);
+            var dl : DirectionalLight = (light as DirectionalLight);
 
 			if (light.castsShadows)
             {
@@ -167,7 +167,7 @@ package away.materials.lightpickers
 		private function updatePointCasting(light:PointLight):void
 		{
 
-            var pl : PointLight = PointLight(light);
+            var pl : PointLight = (light as PointLight);
 
 			if (light.castsShadows)
             {

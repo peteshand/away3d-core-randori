@@ -117,9 +117,9 @@ package away.materials.passes
 			_pAnimatableAttributes.push( "va0");
 			_pAnimationTargetRegisters.push( "vt0" );
 		
-			this._renderToTexture = renderToTexture;
-            this._pNumUsedStreams = 1;
-            this._pNumUsedVertexConstants = 5;
+			_renderToTexture = renderToTexture;
+            _pNumUsedStreams = 1;
+            _pNumUsedVertexConstants = 5;
 
 		}
 		
@@ -131,7 +131,7 @@ package away.materials.passes
 		
 		public function set material(value:MaterialBase):void
 		{
-			this._pMaterial = value;
+			_pMaterial = value;
 		}
 		
 		/**		 * Indicate whether this pass should write to the depth buffer or not. Ignored when blending is enabled.		 */
@@ -142,7 +142,7 @@ package away.materials.passes
 		
 		public function set writeDepth(value:Boolean):void
 		{
-			this._writeDepth = value;
+			_writeDepth = value;
 		}
 		
 		/**		 * Defines whether any used textures should use mipmapping.		 */
@@ -154,7 +154,7 @@ package away.materials.passes
 		public function set mipmap(value:Boolean):void
 		{
 
-            this.setMipMap( value );
+            setMipMap( value );
 
 		}
 
@@ -180,15 +180,15 @@ package away.materials.passes
 		
 		public function set smooth(value:Boolean):void
 		{
-			if (this._pSmooth == value)
+			if (_pSmooth == value)
             {
 
                 return;
 
             }
 
-			this._pSmooth = value;
-            this.iInvalidateShaderProgram( );
+			_pSmooth = value;
+            iInvalidateShaderProgram( );
 		}
 		
 		/**		 * Defines whether textures should be tiled.		 */
@@ -199,15 +199,15 @@ package away.materials.passes
 		
 		public function set repeat(value:Boolean):void
 		{
-			if (this._pRepeat == value)
+			if (_pRepeat == value)
             {
 
                 return;
 
             }
 
-			this._pRepeat = value;
-            this.iInvalidateShaderProgram( );
+			_pRepeat = value;
+            iInvalidateShaderProgram( );
 		}
 		
 		/**		 * Defines whether or not the material should perform backface culling.		 */
@@ -218,7 +218,7 @@ package away.materials.passes
 		
 		public function set bothSides(value:Boolean):void
 		{
-            this._pBothSides = value;
+            _pBothSides = value;
 		}
 
 		/**		 * The depth compare mode used to render the renderables using this material.		 *		 * @see flash.display3D.Context3DCompareMode		 */
@@ -229,7 +229,7 @@ package away.materials.passes
 		
 		public function set depthCompareMode(value:String):void
 		{
-            this._depthCompareMode = value;
+            _depthCompareMode = value;
 		}
 
 		/**		 * Returns the animation data set adding animations to the material.		 */
@@ -240,7 +240,7 @@ package away.materials.passes
 		
 		public function set animationSet(value:IAnimationSet):void
 		{
-			if (this._animationSet == value)
+			if (_animationSet == value)
             {
 
                 return;
@@ -248,9 +248,9 @@ package away.materials.passes
             }
 
 			
-			this._animationSet = value;
+			_animationSet = value;
 
-            this.iInvalidateShaderProgram( );
+            iInvalidateShaderProgram( );
 		}
 		
 		/**		 * Specifies whether this pass renders to texture		 */
@@ -583,23 +583,23 @@ package away.materials.passes
 		
 		public function set lightPicker(value:LightPickerBase):void
 		{
-			if ( this._pLightPicker)
+			if ( _pLightPicker)
             {
 
-                this._pLightPicker.removeEventListener(Event.CHANGE, this.onLightsChange , this );
+                _pLightPicker.removeEventListener(Event.CHANGE, onLightsChange , this );
 
             }
 
-			this._pLightPicker = value;
+			_pLightPicker = value;
 
-			if (this._pLightPicker)
+			if (_pLightPicker)
             {
 
-                this._pLightPicker.addEventListener(Event.CHANGE, this.onLightsChange , this );
+                _pLightPicker.addEventListener(Event.CHANGE, onLightsChange , this );
 
             }
 
-            this.pUpdateLights();
+            pUpdateLights();
 
 		}
 
@@ -624,8 +624,8 @@ package away.materials.passes
 		
 		public function set alphaPremultiplied(value:Boolean):void
 		{
-            this._pAlphaPremultiplied = value;
-            this.iInvalidateShaderProgram( false );
+            _pAlphaPremultiplied = value;
+            iInvalidateShaderProgram( false );
 		}
 	}
 }

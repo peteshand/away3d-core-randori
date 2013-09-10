@@ -228,8 +228,8 @@ package away.primitives
 		
 		public function set radius(value:Number):void
 		{
-            this._radius = value;
-            this.pInvalidateGeometry();
+            _radius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The radius of the inner tube of the torus.		 */
@@ -240,8 +240,8 @@ package away.primitives
 		
 		public function set tubeRadius(value:Number):void
 		{
-            this._tubeRadius = value;
-            this.pInvalidateGeometry();
+            _tubeRadius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.		 */
@@ -252,9 +252,9 @@ package away.primitives
 		
 		public function set segmentsR(value:Number):void
 		{
-            this._segmentsR = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsR = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * Defines the number of vertical segments that make up the torus. Defaults to 8.		 */
@@ -265,9 +265,9 @@ package away.primitives
 		
 		public function set segmentsT(value:Number):void
 		{
-            this._segmentsT = value;
-            this.pInvalidateGeometry();
-			this.pInvalidateUVs();
+            _segmentsT = value;
+            pInvalidateGeometry();
+			pInvalidateUVs();
 		}
 		
 		/**		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -278,8 +278,8 @@ package away.primitives
 		
 		public function set yUp(value:Boolean):void
 		{
-            this._yUp = value;
-            this.pInvalidateGeometry();
+            _yUp = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Creates a new <code>Torus</code> object.		 * @param radius The radius of the torus.		 * @param tuebRadius The radius of the inner tube of the torus.		 * @param segmentsR Defines the number of horizontal segments that make up the torus.		 * @param segmentsT Defines the number of vertical segments that make up the torus.		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -287,11 +287,11 @@ package away.primitives
 		{
 			super();
 
-            this._radius = radius;
-            this._tubeRadius = tubeRadius;
-            this._segmentsR = segmentsR;
-            this._segmentsT = segmentsT;
-			this._yUp = yUp;
+            _radius = radius;
+            _tubeRadius = tubeRadius;
+            _segmentsR = segmentsR;
+            _segmentsT = segmentsT;
+			_yUp = yUp;
 		}
 	}
 }

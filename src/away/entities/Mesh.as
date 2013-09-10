@@ -41,25 +41,25 @@ package away.entities
 		{
 			super();
 
-			this._subMeshes = new Vector.<SubMesh>();//Vector.<SubMesh>();
+			_subMeshes = new Vector.<SubMesh>();//Vector.<SubMesh>();
 
             //this.geometry = geometry || new Geometry(); //this should never happen, but if people insist on trying to create their meshes before they have geometry to fill it, it becomes necessary
             if ( geometry == null )
             {
-                this.geometry = new Geometry();
+                geometry = new Geometry();
             }
             else
             {
-                this.geometry = geometry;
+                geometry = geometry;
             }
 
 			if ( material == null)
             {
-                this.material = DefaultMaterialManager.getDefaultMaterial(this);
+                material = DefaultMaterialManager.getDefaultMaterial(this);
             }
             else
             {
-                this.material = material;
+                material = material;
             }
 
 		}
@@ -89,7 +89,7 @@ package away.entities
 		
 		public function set castsShadows(value:Boolean):void
 		{
-            this._castsShadows = value;
+            _castsShadows = value;
 		}
 		
 		/**		 * Defines the animator of the mesh. Act on the mesh's geometry.  Default value is <code>null</code>.		 */
@@ -118,49 +118,49 @@ package away.entities
 		{
 			var i:Number;
 
-			if (this._geometry)
+			if (_geometry)
             {
 
-                this._geometry.removeEventListener(GeometryEvent.BOUNDS_INVALID, this.onGeometryBoundsInvalid , this);
-                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, this.onSubGeometryAdded, this);
-                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, this.onSubGeometryRemoved, this);
+                _geometry.removeEventListener(GeometryEvent.BOUNDS_INVALID, onGeometryBoundsInvalid , this);
+                _geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, onSubGeometryAdded, this);
+                _geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, onSubGeometryRemoved, this);
 				
-				for (i = 0; i < this._subMeshes.length; ++i)
+				for (i = 0; i < _subMeshes.length; ++i)
                 {
 
-                    this._subMeshes[i].dispose();
+                    _subMeshes[i].dispose();
                 }
 
-				this._subMeshes.length = 0;
+				_subMeshes.length = 0;
 
 			}
 			
-			this._geometry = value;
+			_geometry = value;
 
-			if (this._geometry)
+			if (_geometry)
             {
 
-				this._geometry.addEventListener(GeometryEvent.BOUNDS_INVALID, this.onGeometryBoundsInvalid , this );
-                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, this.onSubGeometryAdded , this );
-                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, this.onSubGeometryRemoved , this );
+				_geometry.addEventListener(GeometryEvent.BOUNDS_INVALID, onGeometryBoundsInvalid , this );
+                _geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, onSubGeometryAdded , this );
+                _geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, onSubGeometryRemoved , this );
 
                 //var subGeoms:Vector.<ISubGeometry> = _geometry.subGeometries;
-                var subGeoms:Vector.<ISubGeometry> = this._geometry.subGeometries;//
+                var subGeoms:Vector.<ISubGeometry> = _geometry.subGeometries;//
 				
 				for (i = 0; i < subGeoms.length; ++i)
                 {
 
-                    this.addSubMesh(subGeoms[i]);
+                    addSubMesh(subGeoms[i]);
 
                 }
 
 			}
 			
-			if (this._material)
+			if (_material)
             {
 
-                this._material.iRemoveOwner(this);
-                this._material.iAddOwner(this);
+                _material.iRemoveOwner(this);
+                _material.iAddOwner(this);
 
 			}
 		}
@@ -174,26 +174,26 @@ package away.entities
 		public function set material(value:MaterialBase):void
 		{
 
-			if (value == this._material)
+			if (value == _material)
             {
 
                 return;
 
             }
 
-			if (this._material)
+			if (_material)
             {
 
-                this._material.iRemoveOwner(this);
+                _material.iRemoveOwner(this);
 
             }
 
-            this._material = value;
+            _material = value;
 
-			if (this._material)
+			if (_material)
             {
 
-                this._material.iAddOwner(this);
+                _material.iAddOwner(this);
 
             }
 
@@ -218,7 +218,7 @@ package away.entities
 		
 		public function set shareAnimationGeometry(value:Boolean):void
 		{
-            this._shareAnimationGeometry = value;
+            _shareAnimationGeometry = value;
 		}
 		
 		/**		 * Clears the animation geometry of this mesh. It will cause animation to generate a new animation geometry. Work only when shareAnimationGeometry is false.		 */
@@ -282,7 +282,7 @@ package away.entities
             {
 
                 obj = getChildAt(i).clone();
-                clone.addChild( ObjectContainer3D(obj)) ;
+                clone.addChild( (obj as ObjectContainer3D)) ;
 
             }
 

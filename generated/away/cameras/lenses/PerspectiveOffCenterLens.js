@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:20 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -21,10 +21,10 @@ away.cameras.lenses.PerspectiveOffCenterLens = function(minAngleX, maxAngleX, mi
 	this._maxAngleY = 0;
 	this._maxAngleX = 0;
 	away.cameras.lenses.LensBase.call(this);
-	this.set_minAngleX(minAngleX);
-	this.set_maxAngleX(maxAngleX);
-	this.set_minAngleY(minAngleY);
-	this.set_maxAngleY(maxAngleY);
+	minAngleX = minAngleX;
+	maxAngleX = maxAngleX;
+	minAngleY = minAngleY;
+	maxAngleY = maxAngleY;
 };
 
 away.cameras.lenses.PerspectiveOffCenterLens.prototype.get_minAngleX = function() {

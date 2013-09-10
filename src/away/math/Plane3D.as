@@ -30,33 +30,33 @@ package away.math
 		/**		 * Create a Plane3D with ABCD coefficients		 */
 		public function Plane3D(a:Number = 0, b:Number = 0, c:Number = 0, d:Number = 0):void
 		{
-			this.a = a;
-			this.b = b;
-			this.c = c;
-			this.d = d;
+			a = a;
+			b = b;
+			c = c;
+			d = d;
 
 			if (a == 0 && b == 0)
             {
 
-                this._iAlignment = Plane3D.ALIGN_XY_AXIS;
+                _iAlignment = Plane3D.ALIGN_XY_AXIS;
 
             }
 			else if (b == 0 && c == 0)
             {
 
-                this._iAlignment = Plane3D.ALIGN_YZ_AXIS;
+                _iAlignment = Plane3D.ALIGN_YZ_AXIS;
 
             }
 			else if (a == 0 && c == 0)
             {
 
-                this._iAlignment = Plane3D.ALIGN_XZ_AXIS;
+                _iAlignment = Plane3D.ALIGN_XZ_AXIS;
 
             }
 			else
             {
 
-                this._iAlignment = Plane3D.ALIGN_ANY;
+                _iAlignment = Plane3D.ALIGN_ANY;
 
             }
 

@@ -13,7 +13,7 @@ package away.display3D
 		
 		public function TextureBase(gl:WebGLRenderingContext):void
 		{
-			this._gl = gl;
+			_gl = gl;
 			_glTexture = _gl.createTexture();
 		}
 		

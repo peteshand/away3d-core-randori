@@ -11,7 +11,7 @@ package away.data
 		
 		public function RenderableListItemPool():void
 		{
-			this._pool = new <RenderableListItem>[];
+			_pool = new <RenderableListItem>[];
 		}
 		
 		public function getItem():RenderableListItem

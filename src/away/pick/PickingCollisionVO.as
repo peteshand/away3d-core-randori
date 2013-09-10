@@ -53,7 +53,7 @@ package away.pick
 		/**		 * Creates a new <code>PickingCollisionVO</code> object.		 *		 * @param entity The entity to which this collision object belongs.		 */
 		public function PickingCollisionVO(entity:Entity):void
 		{
-			this.entity = entity;
+			entity = entity;
 		}
 	
 	}

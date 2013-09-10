@@ -403,8 +403,8 @@ package away.primitives
 		
 		public function set topRadius(value:Number):void
 		{
-            this._topRadius = value;
-            this.pInvalidateGeometry();
+            _topRadius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The radius of the bottom end of the cylinder.		 */
@@ -415,8 +415,8 @@ package away.primitives
 		
 		public function set bottomRadius(value:Number):void
 		{
-            this._pBottomRadius = value;
-            this.pInvalidateGeometry();
+            _pBottomRadius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The radius of the top end of the cylinder.		 */
@@ -427,8 +427,8 @@ package away.primitives
 		
 		public function set height(value:Number):void
 		{
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines the number of horizontal segments that make up the cylinder. Defaults to 16.		 */
@@ -439,7 +439,7 @@ package away.primitives
 
         public function set segmentsW(value:Number):void
         {
-            this.setSegmentsW( value );
+            setSegmentsW( value );
         }
 
         public function setSegmentsW(value:Number):void
@@ -458,7 +458,7 @@ package away.primitives
         public function set segmentsH(value:Number):void
         {
 
-            this.setSegmentsH( value )
+            setSegmentsH( value )
 
         }
 
@@ -478,8 +478,8 @@ package away.primitives
 		
 		public function set topClosed(value:Boolean):void
 		{
-            this._topClosed = value;
-            this.pInvalidateGeometry();
+            _topClosed = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines whether the bottom end of the cylinder is closed (true) or open.		 */
@@ -490,8 +490,8 @@ package away.primitives
 		
 		public function set bottomClosed(value:Boolean):void
 		{
-            this._bottomClosed = value;
-            this.pInvalidateGeometry();
+            _bottomClosed = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines whether the cylinder poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -502,8 +502,8 @@ package away.primitives
 		
 		public function set yUp(value:Boolean):void
 		{
-            this._yUp = value;
-            this.pInvalidateGeometry();
+            _yUp = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Creates a new Cylinder object.		 * @param topRadius The radius of the top end of the cylinder.		 * @param bottomRadius The radius of the bottom end of the cylinder		 * @param height The radius of the bottom end of the cylinder		 * @param segmentsW Defines the number of horizontal segments that make up the cylinder. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the cylinder. Defaults to 1.		 * @param topClosed Defines whether the top end of the cylinder is closed (true) or open.		 * @param bottomClosed Defines whether the bottom end of the cylinder is closed (true) or open.		 * @param yUp Defines whether the cone poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -511,15 +511,15 @@ package away.primitives
 		{
 			super();
 
-            this._topRadius = topRadius;
-            this._pBottomRadius = bottomRadius;
-            this._height = height;
-            this._pSegmentsW = segmentsW;
-            this._pSegmentsH = segmentsH;
-            this._topClosed = topClosed;
-            this._bottomClosed = bottomClosed;
-            this._surfaceClosed = surfaceClosed;
-            this._yUp = yUp;
+            _topRadius = topRadius;
+            _pBottomRadius = bottomRadius;
+            _height = height;
+            _pSegmentsW = segmentsW;
+            _pSegmentsH = segmentsH;
+            _topClosed = topClosed;
+            _bottomClosed = bottomClosed;
+            _surfaceClosed = surfaceClosed;
+            _yUp = yUp;
 		}
 	}
 }

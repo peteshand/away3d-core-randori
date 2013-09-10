@@ -15,7 +15,7 @@ package away.cameras.lenses
 		public function OrthographicLens(projectionHeight:Number = 500):void
 		{
 			super();
-			this._projectionHeight = projectionHeight;
+			_projectionHeight = projectionHeight;
 		}
 		
 		public function get projectionHeight():Number
@@ -25,12 +25,12 @@ package away.cameras.lenses
 		
 		public function set projectionHeight(value:Number):void
 		{
-			if( value == this._projectionHeight )
+			if( value == _projectionHeight )
 			{
 				return;
 			}
-			this._projectionHeight = value;
-			this.pInvalidateMatrix();
+			_projectionHeight = value;
+			pInvalidateMatrix();
 		}
 		
 		//@override

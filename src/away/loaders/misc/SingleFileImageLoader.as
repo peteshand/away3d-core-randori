@@ -20,7 +20,7 @@ package away.loaders.misc
         public function SingleFileImageLoader():void
         {
             super();
-            this.initLoader();
+            initLoader();
         }
 
         // Public
@@ -52,7 +52,7 @@ package away.loaders.misc
         }
         public function set dataFormat(value:String):void
         {
-            this._dataFormat = value;
+            _dataFormat = value;
         }
 
         // Private

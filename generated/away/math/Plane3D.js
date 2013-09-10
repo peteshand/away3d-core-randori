@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:15 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,10 +7,10 @@ if (typeof away.math == "undefined")
 
 away.math.Plane3D = function(a, b, c, d) {
 	this._iAlignment = 0;
-	this.a = a;
-	this.b = b;
-	this.c = c;
-	this.d = d;
+	a = a;
+	b = b;
+	c = c;
+	d = d;
 	if (a == 0 && b == 0) {
 		this._iAlignment = away.math.Plane3D.ALIGN_XY_AXIS;
 	} else if (b == 0 && c == 0) {

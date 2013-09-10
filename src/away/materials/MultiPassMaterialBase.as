@@ -58,9 +58,9 @@ package away.materials
 		public function set enableLightFallOff(value:Boolean):void
 		{
 
-			if (this._enableLightFallOff != value)
-				this.pInvalidateScreenPasses();
-            this._enableLightFallOff = value;
+			if (_enableLightFallOff != value)
+				pInvalidateScreenPasses();
+            _enableLightFallOff = value;
 
 		}
 		
@@ -72,24 +72,24 @@ package away.materials
 		
 		public function set alphaThreshold(value:Number):void
 		{
-            this._alphaThreshold = value;
-            this._diffuseMethod.alphaThreshold = value;
-            this._pDepthPass.alphaThreshold = value;
-            this._pDistancePass.alphaThreshold = value;
+            _alphaThreshold = value;
+            _diffuseMethod.alphaThreshold = value;
+            _pDepthPass.alphaThreshold = value;
+            _pDistancePass.alphaThreshold = value;
 		}
 
 		/**		 * @inheritDoc		 */
 		override public function set depthCompareMode(value:String):void
 		{
 			super.setDepthCompareMode( value );
-			this.pInvalidateScreenPasses();
+			pInvalidateScreenPasses();
 		}
 
 		/**		 * @inheritDoc		 */
 		override public function set blendMode(value:String):void
 		{
 			super.setBlendMode( value );
-			this.pInvalidateScreenPasses();
+			pInvalidateScreenPasses();
 		}
 
 		/**		 * @inheritDoc		 */
@@ -116,7 +116,7 @@ package away.materials
 		
 		public function set specularLightSources(value:Number):void
 		{
-            this._specularLightSources = value;
+            _specularLightSources = value;
 		}
 
 		/**		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights		 * and/or light probes for diffuse reflections.		 *		 * @see away3d.materials.LightSources		 */
@@ -127,20 +127,20 @@ package away.materials
 		
 		public function set diffuseLightSources(value:Number):void
 		{
-            this._diffuseLightSources = value;
+            _diffuseLightSources = value;
 		}
 
 		/**		 * @inheritDoc		 */
 		override public function set lightPicker(value:LightPickerBase):void
 		{
-			if (this._pLightPicker)
-				this._pLightPicker.removeEventListener(Event.CHANGE, this.onLightsChange , this );
+			if (_pLightPicker)
+				_pLightPicker.removeEventListener(Event.CHANGE, onLightsChange , this );
 
             super.setLightPicker( value );
 
-			if (this._pLightPicker)
-				this._pLightPicker.addEventListener(Event.CHANGE, this.onLightsChange , this );
-			this.pInvalidateScreenPasses();
+			if (_pLightPicker)
+				_pLightPicker.addEventListener(Event.CHANGE, onLightsChange , this );
+			pInvalidateScreenPasses();
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -157,9 +157,9 @@ package away.materials
 		
 		public function set ambientMethod(value:BasicAmbientMethod):void
 		{
-			value.copyFrom(this._ambientMethod);
-			this._ambientMethod = value;
-			this.pInvalidateScreenPasses();
+			value.copyFrom(_ambientMethod);
+			_ambientMethod = value;
+			pInvalidateScreenPasses();
 		}
 		
 		/**		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.		 */
@@ -170,10 +170,10 @@ package away.materials
 		
 		public function set shadowMethod(value:ShadowMapMethodBase):void
 		{
-			if (value && this._shadowMethod)
-				value.copyFrom(this._shadowMethod);
-            this._shadowMethod = value;
-            this.pInvalidateScreenPasses();
+			if (value && _shadowMethod)
+				value.copyFrom(_shadowMethod);
+            _shadowMethod = value;
+            pInvalidateScreenPasses();
 		}
 		
 		/**		 * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.		 */
@@ -184,9 +184,9 @@ package away.materials
 		
 		public function set diffuseMethod(value:BasicDiffuseMethod):void
 		{
-			value.copyFrom(this._diffuseMethod);
-            this._diffuseMethod = value;
-			this.pInvalidateScreenPasses();
+			value.copyFrom(_diffuseMethod);
+            _diffuseMethod = value;
+			pInvalidateScreenPasses();
 		}
 
 		/**		 * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.		 */
@@ -197,10 +197,10 @@ package away.materials
 
 		public function set specularMethod(value:BasicSpecularMethod):void
 		{
-			if (value && this._specularMethod)
-				value.copyFrom(this._specularMethod);
-			this._specularMethod = value;
-			this.pInvalidateScreenPasses();
+			if (value && _specularMethod)
+				value.copyFrom(_specularMethod);
+			_specularMethod = value;
+			pInvalidateScreenPasses();
 		}
 		
 		/**		 * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.		 */
@@ -211,9 +211,9 @@ package away.materials
 		
 		public function set normalMethod(value:BasicNormalMethod):void
 		{
-			value.copyFrom(this._normalMethod);
-			this._normalMethod = value;
-			this.pInvalidateScreenPasses();
+			value.copyFrom(_normalMethod);
+			_normalMethod = value;
+			pInvalidateScreenPasses();
 		}
 		
 		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
@@ -278,7 +278,7 @@ package away.materials
 		/**		 * @inheritDoc		 */
 		override public function set mipmap(value:Boolean):void
 		{
-			if (this._pMipmap == value)
+			if (_pMipmap == value)
 				return;
 
 			super.setMipMap( value );
@@ -293,7 +293,7 @@ package away.materials
 		
 		public function set normalMap(value:Texture2DBase):void
 		{
-			this._normalMethod.normalMap = value;
+			_normalMethod.normalMap = value;
 		}
 		
 		/**		 * A specular map that defines the strength of specular reflections for each texel in the red channel,		 * and the gloss factor in the green channel. You can use SpecularBitmapTexture if you want to easily set		 * specular and gloss maps from grayscale images, but correctly authored images are preferred.		 */
@@ -304,8 +304,8 @@ package away.materials
 		
 		public function set specularMap(value:Texture2DBase):void
 		{
-			if (this._specularMethod)
-				this._specularMethod.texture = value;
+			if (_specularMethod)
+				_specularMethod.texture = value;
 			else
 				throw new Error("No specular method was set to assign the specularGlossMap to");
 		}
@@ -318,8 +318,8 @@ package away.materials
 		
 		public function set gloss(value:Number):void
 		{
-			if (this._specularMethod)
-				this._specularMethod.gloss = value;
+			if (_specularMethod)
+				_specularMethod.gloss = value;
 		}
 		
 		/**		 * The strength of the ambient reflection.		 */
@@ -330,7 +330,7 @@ package away.materials
 		
 		public function set ambient(value:Number):void
 		{
-            this._ambientMethod.ambient = value;
+            _ambientMethod.ambient = value;
 		}
 		
 		/**		 * The overall strength of the specular reflection.		 */
@@ -341,8 +341,8 @@ package away.materials
 		
 		public function set specular(value:Number):void
 		{
-			if (this._specularMethod)
-                this._specularMethod.specular = value;
+			if (_specularMethod)
+                _specularMethod.specular = value;
 		}
 		
 		/**		 * The colour of the ambient reflection.		 */
@@ -353,7 +353,7 @@ package away.materials
 		
 		public function set ambientColor(value:Number):void
 		{
-            this._ambientMethod.ambientColor = value;
+            _ambientMethod.ambientColor = value;
 		}
 		
 		/**		 * The colour of the specular reflection.		 */
@@ -364,7 +364,7 @@ package away.materials
 		
 		public function set specularColor(value:Number):void
 		{
-            this._specularMethod.specularColor = value;
+            _specularMethod.specularColor = value;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -516,7 +516,7 @@ package away.materials
 		/**		 * Sets up the various blending modes for all screen passes, based on whether or not there are previous passes.		 */
 		private function setBlendAndCompareModes():void
 		{
-			var forceSeparateMVP:Boolean = Boolean(( _casterLightPass || _pEffectsPass));
+			var forceSeparateMVP:Boolean = (( _casterLightPass || _pEffectsPass) as Boolean);
 
 			// caster light pass is always first if it exists, hence it uses normal blending
 			if ( _casterLightPass)

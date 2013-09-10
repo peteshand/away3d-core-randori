@@ -24,9 +24,9 @@ package away.lights.shadowmaps
 		{
 			super();
 			
-			this._pDepthMapSize = 512;
-			this._needsRender = new Vector.<Boolean>;
-			this.initCameras();
+			_pDepthMapSize = 512;
+			_needsRender = new Vector.<Boolean>;
+			initCameras();
 		}
 		
 		private function initCameras():void
@@ -50,7 +50,7 @@ package away.lights.shadowmaps
 			cam.rotationZ = rotationZ;
 			cam.lens.near = .01;
 			
-			var lens: PerspectiveLens = PerspectiveLens(cam.lens);
+			var lens: PerspectiveLens = (cam.lens as PerspectiveLens);
 			lens.fieldOfView = 90;
 			_lenses.push(lens);
 			cam.lens.iAspectRatio = 1;
@@ -67,7 +67,7 @@ package away.lights.shadowmaps
 		//@override
 		override public function pUpdateDepthProjection(viewCamera:Camera3D):void
 		{
-			var light:PointLight =  PointLight((_pLight));
+			var light:PointLight =  ((_pLight) as PointLight);
 			var maxDistance:Number = light._pFallOff;
 			var pos:Vector3D = _pLight.scenePosition;
 			

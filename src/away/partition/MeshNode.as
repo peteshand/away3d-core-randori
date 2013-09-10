@@ -17,7 +17,7 @@ package away.partition
 		public function MeshNode(mesh:Mesh):void
 		{
 			super(mesh);
-			this._mesh = mesh; // also keep a stronger typed reference
+			_mesh = mesh; // also keep a stronger typed reference
 		}
 		
 		/**		 * The mesh object contained in the partition node.		 */

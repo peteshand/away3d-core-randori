@@ -20,14 +20,14 @@ package away.geom
         public function ColorTransform(inRedMultiplier:Number = 1.0, inGreenMultiplier:Number = 1.0, inBlueMultiplier:Number = 1.0, inAlphaMultiplier:Number = 1.0, inRedOffset:Number = 0.0, inGreenOffset:Number = 0.0, inBlueOffset:Number = 0.0, inAlphaOffset:Number = 0.0):void
         {
 
-            this.redMultiplier      = inRedMultiplier;
-            this.greenMultiplier    = inGreenMultiplier;
-            this.blueMultiplier     = inBlueMultiplier;
-            this.alphaMultiplier    = inAlphaMultiplier;
-            this.redOffset          = inRedOffset;
-            this.greenOffset        = inGreenOffset;
-            this.blueOffset         = inBlueOffset;
-            this.alphaOffset        = inAlphaOffset;
+            redMultiplier      = inRedMultiplier;
+            greenMultiplier    = inGreenMultiplier;
+            blueMultiplier     = inBlueMultiplier;
+            alphaMultiplier    = inAlphaMultiplier;
+            redOffset          = inRedOffset;
+            greenOffset        = inGreenOffset;
+            blueOffset         = inBlueOffset;
+            alphaOffset        = inAlphaOffset;
 
         }
 
@@ -51,13 +51,13 @@ package away.geom
 
             var argb : Vector.<Number> = ColorUtils.float32ColorToARGB( value );
 
-            this.redOffset          = argb[1];  //(value >> 16) & 0xFF;
-            this.greenOffset        = argb[2];  //(value >> 8) & 0xFF;
-            this.blueOffset         = argb[3];  //value & 0xFF;
+            redOffset          = argb[1];  //(value >> 16) & 0xFF;
+            greenOffset        = argb[2];  //(value >> 8) & 0xFF;
+            blueOffset         = argb[3];  //value & 0xFF;
 
-            this.redMultiplier      = 0;
-            this.greenMultiplier    = 0;
-            this.blueMultiplier     = 0;
+            redMultiplier      = 0;
+            greenMultiplier    = 0;
+            blueMultiplier     = 0;
 
         }
 

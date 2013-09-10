@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:28 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -7,8 +7,8 @@ if (typeof aglsl.assembler == "undefined")
 
 aglsl.assembler.Part = function(name, version) {
 	this.data = null;
-	this.name = name;
-	this.version = version;
+	name = name;
+	version = version;
 	this.data = new away.utils.ByteArray();
 };
 

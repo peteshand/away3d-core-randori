@@ -29,12 +29,12 @@ package away.managers
 				throw new Error("This class is a multiton and cannot be instantiated manually. Use Stage3DManager.getInstance instead.");
             }
 
-			this._stage3DProxy = stage3DProxy;
+			_stage3DProxy = stage3DProxy;
 
-            this._program3Ds = new Object();
-            this._ids = new Object();
-            this._usages = new Object();
-            this._keys = new Object();
+            _program3Ds = new Object();
+            _ids = new Object();
+            _usages = new Object();
+            _keys = new Object();
 
 		}
 		
@@ -75,7 +75,7 @@ package away.managers
 		
 		private static function onContext3DDisposed(event:Stage3DEvent):void
 		{
-			var stage3DProxy:Stage3DProxy = Stage3DProxy(event.target);
+			var stage3DProxy:Stage3DProxy = (event.target as Stage3DProxy);
 
 			var index:Number = stage3DProxy._iStage3DIndex;
 

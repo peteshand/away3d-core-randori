@@ -1,9 +1,9 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:21:02 EST 2013 */
 
-if (typeof myTests == "undefined")
-	var myTests = {};
+if (typeof examples == "undefined")
+	var examples = {};
 
-myTests.PlaneTest = function() {
+examples.PlaneTest = function() {
 	this.urlRequest = null;
 	this.texture = null;
 	this.vertices = null;
@@ -26,13 +26,13 @@ myTests.PlaneTest = function() {
 	this.imgLoader.load(this.urlRequest);
 };
 
-myTests.PlaneTest.prototype.imageCompleteHandler = function(event) {
+examples.PlaneTest.prototype.imageCompleteHandler = function(event) {
 	this.image = this.imgLoader.get_image();
 	this.stage.stage3Ds[0].addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	this.stage.stage3Ds[0].requestContext();
 };
 
-myTests.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
+examples.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 	this.stage.stage3Ds[0].removeEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	var stage3D = event.target;
 	this.context3D = stage3D.get_context3D();
@@ -66,7 +66,7 @@ myTests.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 	console.log("start");
 };
 
-myTests.PlaneTest.prototype.tick = function(dt) {
+examples.PlaneTest.prototype.tick = function(dt) {
 	console.log("_tick");
 	this.mvMatrix.appendRotation(dt * 0.1, new away.geom.Vector3D(0, 1, 0, 0));
 	this.context3D.setProgram(this.program);
@@ -78,9 +78,9 @@ myTests.PlaneTest.prototype.tick = function(dt) {
 	this.context3D.present();
 };
 
-myTests.PlaneTest.className = "myTests.PlaneTest";
+examples.PlaneTest.className = "examples.PlaneTest";
 
-myTests.PlaneTest.getRuntimeDependencies = function(t) {
+examples.PlaneTest.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.utils.RequestAnimationFrame');
@@ -96,13 +96,13 @@ myTests.PlaneTest.getRuntimeDependencies = function(t) {
 	return p;
 };
 
-myTests.PlaneTest.getStaticDependencies = function(t) {
+examples.PlaneTest.getStaticDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.display.Stage');
 	return p;
 };
 
-myTests.PlaneTest.injectionPoints = function(t) {
+examples.PlaneTest.injectionPoints = function(t) {
 	return [];
 };

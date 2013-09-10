@@ -81,7 +81,7 @@ package away.materials.utils
 
                 if ( target instanceof Texture)
                 {
-                    tx = Texture(target);
+                    tx = (target as Texture);
                     tx.uploadFromBitmapData(mipmap, i++);
                 }
                 else

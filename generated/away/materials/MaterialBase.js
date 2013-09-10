@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:21:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,8 +32,8 @@ away.materials.MaterialBase = function() {
 	this._passes = [];
 	this._pDepthPass = new away.materials.passes.DepthMapPass();
 	this._pDistancePass = new away.materials.passes.DistanceMapPass();
-	this._pDepthPass.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(, this.onDepthPassChange), this);
-	this._pDistancePass.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(, this.onDistancePassChange), this);
+	this._pDepthPass.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(this, this.onDepthPassChange), this);
+	this._pDistancePass.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(this, this.onDistancePassChange), this);
 	this.set_alphaPremultiplied(true);
 	this._iUniqueId = away.materials.MaterialBase.MATERIAL_ID_COUNT++;
 };

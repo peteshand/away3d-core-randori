@@ -24,8 +24,8 @@ package away.lights
 		public function DirectionalLight(xDir:Number = 0, yDir:Number = -1, zDir:Number = 1):void
 		{
 			super();
-			this.direction = new Vector3D( xDir, yDir, zDir );
-			this._sceneDirection = new Vector3D();
+			direction = new Vector3D( xDir, yDir, zDir );
+			_sceneDirection = new Vector3D();
 		}
 		
 		//@override
@@ -50,17 +50,17 @@ package away.lights
 		
 		public function set direction(value:Vector3D):void
 		{
-			this._direction = value;
+			_direction = value;
 
-			if (!this._tmpLookAt)
+			if (!_tmpLookAt)
 			{
-				this._tmpLookAt = new Vector3D();
+				_tmpLookAt = new Vector3D();
 			}
-			this._tmpLookAt.x = this.x + this._direction.x;
-			this._tmpLookAt.y = this.y + this._direction.y;
-			this._tmpLookAt.z = this.z + this._direction.z;
+			_tmpLookAt.x = x + _direction.x;
+			_tmpLookAt.y = y + _direction.y;
+			_tmpLookAt.z = z + _direction.z;
 			
-			this.lookAt( this._tmpLookAt );
+			lookAt( _tmpLookAt );
 		}
 		
 		//@override

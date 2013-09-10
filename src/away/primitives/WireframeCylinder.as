@@ -20,11 +20,11 @@ package away.primitives
 		public function WireframeCylinder(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
 			super(color, thickness);
-			this._topRadius = topRadius;
-            this._bottomRadius = bottomRadius;
-            this._height = height;
-            this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
+			_topRadius = topRadius;
+            _bottomRadius = bottomRadius;
+            _height = height;
+            _segmentsW = segmentsW;
+            _segmentsH = segmentsH;
 		}
 		
 		override public function pBuildGeometry():void
@@ -79,8 +79,8 @@ package away.primitives
 		
 		public function set topRadius(value:Number):void
 		{
-			this._topRadius = value;
-			this.pInvalidateGeometry();
+			_topRadius = value;
+			pInvalidateGeometry();
 		}
 		
 		/**		 * Bottom radius of the cylinder		 */
@@ -91,8 +91,8 @@ package away.primitives
 		
 		public function set bottomRadius(value:Number):void
 		{
-			this._bottomRadius = value;
-			this.pInvalidateGeometry();
+			_bottomRadius = value;
+			pInvalidateGeometry();
 		}
 		
 		/**		 * The height of the cylinder		 */
@@ -103,11 +103,11 @@ package away.primitives
 		
 		public function set height(value:Number):void
 		{
-			if (this.height <= 0)
+			if (height <= 0)
 				throw new Error('Height must be a value greater than zero.');
 
-			this._height = value;
-			this.pInvalidateGeometry();
+			_height = value;
+			pInvalidateGeometry();
 		}
 	}
 }

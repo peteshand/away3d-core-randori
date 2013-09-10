@@ -42,10 +42,10 @@ package away.entities
 		public function Sprite3D(material:MaterialBase, width:Number, height:Number):void
 		{
 			super();
-			this.material = material;
-			this._width = width;
-            this._height = height;
-            this._spriteMatrix = new Matrix3D();
+			material = material;
+			_width = width;
+            _height = height;
+            _spriteMatrix = new Matrix3D();
 			if (!Sprite3D._geometry) {
                 Sprite3D._geometry = new SubGeometry();
                 Sprite3D._geometry.updateVertexData(Vector.<Number>(-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0));
@@ -62,8 +62,8 @@ package away.entities
 
 			if (value)
             { // bounds collider is the only null value
-				this._pickingSubMesh = new SubMesh(Sprite3D._geometry, null);
-                this._pickingTransform = new Matrix3D();
+				_pickingSubMesh = new SubMesh(Sprite3D._geometry, null);
+                _pickingTransform = new Matrix3D();
 			}
 		}
 		
@@ -74,10 +74,10 @@ package away.entities
 		
 		public function set width(value:Number):void
 		{
-			if (this._width == value)
+			if (_width == value)
 				return;
-            this._width = value;
-            this.iInvalidateTransform();
+            _width = value;
+            iInvalidateTransform();
 		}
 		
 		public function get height():Number
@@ -87,10 +87,10 @@ package away.entities
 		
 		public function set height(value:Number):void
 		{
-			if (this._height == value)
+			if (_height == value)
 				return;
-            this._height = value;
-            this.iInvalidateTransform();
+            _height = value;
+            iInvalidateTransform();
 		}
 		
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
@@ -140,13 +140,13 @@ package away.entities
 		
 		public function set material(value:MaterialBase):void
 		{
-			if (value == this._material)
+			if (value == _material)
 				return;
-			if (this._material)
-                this._material.iRemoveOwner(this);
-            this._material = value;
-			if (this._material)
-                this._material.iAddOwner(this);
+			if (_material)
+                _material.iRemoveOwner(this);
+            _material = value;
+			if (_material)
+                _material.iAddOwner(this);
 		}
 		
 		/**		 * Defines the animator of the mesh. Act on the mesh's geometry. Defaults to null		 */

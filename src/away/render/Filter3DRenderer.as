@@ -28,9 +28,9 @@ package away.render
 		public function Filter3DRenderer(stage3DProxy:Stage3DProxy):void
 		{
 
-			this._stage3DProxy = stage3DProxy;
-            this._rttManager = RTTBufferManager.getInstance(stage3DProxy);
-            this._rttManager.addEventListener(Event.RESIZE, this.onRTTResize , this );
+			_stage3DProxy = stage3DProxy;
+            _rttManager = RTTBufferManager.getInstance(stage3DProxy);
+            _rttManager.addEventListener(Event.RESIZE, onRTTResize , this );
 
 		}
 		
@@ -63,33 +63,33 @@ package away.render
 		
 		public function set filters(value:Vector.<Filter3DBase>):void
 		{
-            this._filters = value;
+            _filters = value;
 
-            this._filterTasksInvalid = true;
+            _filterTasksInvalid = true;
 
-            this._requireDepthRender = false;
+            _requireDepthRender = false;
 
-			if (!this._filters)
+			if (!_filters)
             {
 
                 return;
 
             }
 
-			for (var i:Number = 0; i < this._filters.length; ++i)
+			for (var i:Number = 0; i < _filters.length; ++i)
             {
 
                 // TODO: check logic:
                 // this._requireDepthRender ||=  Boolean ( this._filters[i].requireDepthRender )
 
-                var s : * = this._filters[i];
-                var b : Boolean = Boolean(( s.requireDepthRender == null ))? false : s.requireDepthRender;
+                var s : * = _filters[i];
+                var b : Boolean = (( s.requireDepthRender == null ) as Boolean)? false : s.requireDepthRender;
 
-				this._requireDepthRender = this._requireDepthRender || b;
+				_requireDepthRender = _requireDepthRender || b;
 
             }
 
-			this._filterSizesInvalid = true;
+			_filterSizesInvalid = true;
 
 		}
 		

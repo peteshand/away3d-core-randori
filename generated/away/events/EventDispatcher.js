@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,6 +32,7 @@ away.events.EventDispatcher.prototype.removeEventListener = function(type, liste
 };
 
 away.events.EventDispatcher.prototype.dispatchEvent = function(event) {
+	console.log(event);
 	var listenerArray = this.listeners[event.type];
 	if (listenerArray != null) {
 		this.lFncLength = listenerArray.length;

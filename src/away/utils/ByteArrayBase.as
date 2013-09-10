@@ -1,7 +1,4 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../_definitions.ts"/>
 
@@ -101,8 +98,7 @@ package away.utils
 			position = oldpos;
 		}
 		
-		public function internalGetBase64String(count, getUnsignedByteFunc, self):String  // return base64 string of the next count bytes
-		{
+		public function internalGetBase64String(count, getUnsignedByteFunc, self):String  // return base64 string of the next count bytes		{
 			var r = "";
 			var b0, b1, b2, enc1, enc2, enc3, enc4;
 			var base64Key = Base64Key;

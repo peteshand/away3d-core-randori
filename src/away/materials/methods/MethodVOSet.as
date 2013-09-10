@@ -18,8 +18,8 @@ package away.materials.methods
 		/**		 * Creates a new MethodVOSet object.		 * @param method The method for which we need to store a MethodVO object.		 */
 		public function MethodVOSet(method:EffectMethodBase):void
 		{
-			this.method = method;
-			this.data = method.iCreateMethodVO();
+			method = method;
+			data = method.iCreateMethodVO();
 		}
 	}
 }

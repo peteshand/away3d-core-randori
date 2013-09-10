@@ -14,7 +14,7 @@ package away.controllers
 		
 		public function ControllerBase(targetObject:Entity = null):void
 		{
-			this.targetObject = targetObject;
+			targetObject = targetObject;
 		}
 		
 		public function pNotifyUpdate():void
@@ -32,22 +32,22 @@ package away.controllers
 		
 		public function set targetObject(val:Entity):void
 		{
-			if( this._pTargetObject == val )
+			if( _pTargetObject == val )
 			{
 				return;
 			}
 			
-			if( this._pTargetObject && this._pAutoUpdate )
+			if( _pTargetObject && _pAutoUpdate )
 			{
-				this._pTargetObject._iController = null;
+				_pTargetObject._iController = null;
 			}
-			this._pTargetObject = val;
+			_pTargetObject = val;
 			
-			if( this._pTargetObject && this._pAutoUpdate )
+			if( _pTargetObject && _pAutoUpdate )
 			{
-				this._pTargetObject._iController = this;
+				_pTargetObject._iController = this;
 			}
-			this.pNotifyUpdate();
+			pNotifyUpdate();
 		}
 		
 		public function get autoUpdate():Boolean
@@ -57,21 +57,21 @@ package away.controllers
 		
 		public function set autoUpdate(val:Boolean):void
 		{
-			if( this._pAutoUpdate == val )
+			if( _pAutoUpdate == val )
 			{
 				return;
 			}
-			this._pAutoUpdate = val;
+			_pAutoUpdate = val;
 			
-			if( this._pTargetObject ) 
+			if( _pTargetObject ) 
 			{
-				if ( this._pTargetObject )
+				if ( _pTargetObject )
 				{
-					this._pTargetObject._iController = this;
+					_pTargetObject._iController = this;
 				}
 				else
 				{
-					this._pTargetObject._iController = null;
+					_pTargetObject._iController = null;
 				}
 			}
 		}

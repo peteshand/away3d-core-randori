@@ -22,11 +22,11 @@ package away.primitives
 		{
 			super(color, thickness);
 			
-			this._width = width;
-            this._height = height;
-            this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
-            this._orientation = orientation;
+			_width = width;
+            _height = height;
+            _segmentsW = segmentsW;
+            _segmentsH = segmentsH;
+            _orientation = orientation;
 		}
 		
 		/**		 * The orientaion in which the plane lies.		 */
@@ -37,8 +37,8 @@ package away.primitives
 		
 		public function set orientation(value:String):void
 		{
-            this._orientation = value;
-            this.pInvalidateGeometry();
+            _orientation = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its X-axis.		 */
@@ -49,8 +49,8 @@ package away.primitives
 		
 		public function set width(value:Number):void
 		{
-            this._width = value;
-            this.pInvalidateGeometry();
+            _width = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its Y-axis.		 */
@@ -63,8 +63,8 @@ package away.primitives
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The number of segments that make up the plane along the X-axis.		 */
@@ -75,9 +75,9 @@ package away.primitives
 		
 		public function set segmentsW(value:Number):void
 		{
-            this._segmentsW = value;
-            this.removeAllSegments();
-            this.pInvalidateGeometry();
+            _segmentsW = value;
+            removeAllSegments();
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The number of segments that make up the plane along the Y-axis.		 */
@@ -88,9 +88,9 @@ package away.primitives
 		
 		public function set segmentsH(value:Number):void
 		{
-            this._segmentsH = value;
-            this.removeAllSegments();
-            this.pInvalidateGeometry();
+            _segmentsH = value;
+            removeAllSegments();
+            pInvalidateGeometry();
 		}
 		
 		/**		 * @inheritDoc		 */

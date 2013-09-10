@@ -22,9 +22,9 @@ package away.primitives
 			{
 				thickness = 1;
 			}
-			this._color = color;
-			this._thickness = thickness;
-			this.mouseEnabled = this.mouseChildren = false;
+			_color = color;
+			_thickness = thickness;
+			mouseEnabled = mouseChildren = false;
 		}
 		
 		public function get color():Number
@@ -34,9 +34,9 @@ package away.primitives
 		
 		public function set color(value:Number):void
 		{
-			this._color = value;
+			_color = value;
 			
-			for( var segRef in this._pSegments )
+			for( var segRef in _pSegments )
 			{
 				segRef.segment.startColor = segRef.segment.endColor = value;
 			}
@@ -49,9 +49,9 @@ package away.primitives
 		
 		public function set thickness(value:Number):void
 		{
-			this._thickness = value;
+			_thickness = value;
 			
-			for( var segRef in this._pSegments)
+			for( var segRef in _pSegments)
 			{
 				segRef.segment.thickness = segRef.segment.thickness = value;
 			}

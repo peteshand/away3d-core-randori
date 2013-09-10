@@ -14,8 +14,8 @@ package away.utils
 		public function ByteArrayBuffer():void
 		{
 			super();
-			this._bytes = new Vector.<Number>();
-			this._mode = "Array";
+			_bytes = new Vector.<Number>();
+			_mode = "Array";
 		}
 		
 		override public function writeByte(b:Number):void

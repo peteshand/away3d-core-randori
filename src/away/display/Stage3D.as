@@ -23,7 +23,7 @@ package away.display
 		public function Stage3D(canvas:HTMLCanvasElement):void
 		{
 			super();
-			this._canvas = canvas;
+			_canvas = canvas;
 		}
 		
 		public function requestContext(aglslContext:Boolean = false):void
@@ -53,8 +53,8 @@ package away.display
 
         public function set width(v:Number):void
         {
-            this._width = v;
-            CSS.setCanvasWidth( this._canvas, v );
+            _width = v;
+            CSS.setCanvasWidth( _canvas, v );
         }
 
         public function get width():Number
@@ -64,8 +64,8 @@ package away.display
 
         public function set height(v:Number):void
         {
-            this._height = v;
-            CSS.setCanvasHeight( this._canvas, v );
+            _height = v;
+            CSS.setCanvasHeight( _canvas, v );
         }
 
         public function get height():Number
@@ -75,8 +75,8 @@ package away.display
 
         public function set x(v:Number):void
         {
-            this._x = v;
-            CSS.setCanvasX( this._canvas, v );
+            _x = v;
+            CSS.setCanvasX( _canvas, v );
         }
 
         public function get x():Number
@@ -86,8 +86,8 @@ package away.display
 
         public function set y(v:Number):void
         {
-            this._y = v;
-            CSS.setCanvasY( this._canvas, v );
+            _y = v;
+            CSS.setCanvasY( _canvas, v );
         }
 
         public function get y():Number
@@ -97,7 +97,7 @@ package away.display
 
         public function set visible(v:Boolean):void
         {
-            CSS.setCanvasVisibility( this._canvas, v );
+            CSS.setCanvasVisibility( _canvas, v );
         }
 
         public function get visible():Boolean

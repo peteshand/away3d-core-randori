@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -39,8 +39,8 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._stage3DManager = stage3DManager;
 	this._viewPort = new away.geom.Rectangle(0, 0, 0, 0);
 	this._enableDepthAndStencil = true;
-	this._stage3D.addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(, this.onContext3DUpdate), this);
-	this.requestContext(forceSoftware, this.get_profile());
+	this._stage3D.addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DUpdate), this);
+	this.requestContext(forceSoftware, profile);
 };
 
 away.managers.Stage3DProxy.prototype.notifyViewportUpdated = function() {

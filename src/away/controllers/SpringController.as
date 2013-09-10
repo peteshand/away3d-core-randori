@@ -32,16 +32,16 @@ package away.controllers
 		{
 			super(targetObject, lookAtObject);
 			
-			this.stiffness = stiffness;
-			this.damping = damping;
-			this.mass = mass;
+			stiffness = stiffness;
+			damping = damping;
+			mass = mass;
 			
-			this._velocity = new Vector3D();
-            this._dv = new Vector3D();
-            this._stretch = new Vector3D();
-            this._force = new Vector3D();
-            this._acceleration = new Vector3D();
-            this._desiredPosition = new Vector3D();
+			_velocity = new Vector3D();
+            _dv = new Vector3D();
+            _stretch = new Vector3D();
+            _force = new Vector3D();
+            _acceleration = new Vector3D();
+            _desiredPosition = new Vector3D();
 		
 		}
 		

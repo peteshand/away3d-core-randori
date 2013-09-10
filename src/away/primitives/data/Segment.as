@@ -29,13 +29,13 @@ package away.primitives.data
 			// TODO: not yet used: for CurveSegment support
 			anchor = null;
 			
-			this._pThickness = thickness * 0.5;
+			_pThickness = thickness * 0.5;
 			// TODO: add support for curve using anchor v1
 			// Prefer removing v1 from this, and make Curve a separate class extending Segment? (- David)
-			this._pStart = start;
-			this._pEnd = end;
-			this.startColor = colorStart;
-			this.endColor = colorEnd;
+			_pStart = start;
+			_pEnd = end;
+			startColor = colorStart;
+			endColor = colorEnd;
 		}
 		
 		public function updateSegment(start:Vector3D, end:Vector3D, anchor:Vector3D, colorStart:Number = 0x333333, colorEnd:Number = 0x333333, thickness:Number = 1):void
@@ -65,8 +65,8 @@ package away.primitives.data
 		
 		public function set start(value:Vector3D):void
 		{
-			this._pStart = value;
-			this.update();
+			_pStart = value;
+			update();
 		}
 		
 		public function get end():Vector3D
@@ -76,8 +76,8 @@ package away.primitives.data
 		
 		public function set end(value:Vector3D):void
 		{
-			this._pEnd = value;
-			this.update();
+			_pEnd = value;
+			update();
 		}
 		
 		public function get thickness():Number
@@ -87,8 +87,8 @@ package away.primitives.data
 		
 		public function set thickness(value:Number):void
 		{
-			this._pThickness = value * 0.5;
-			this.update();
+			_pThickness = value * 0.5;
+			update();
 		}
 		
 		public function get startColor():Number
@@ -98,13 +98,13 @@ package away.primitives.data
 		
 		public function set startColor(color:Number):void
 		{
-			this._pStartR = ( ( color >> 16 ) & 0xff )/255;
-			this._pStartG = ( ( color >> 8 ) & 0xff )/255;
-			this._pStartB = ( color & 0xff )/255;
+			_pStartR = ( ( color >> 16 ) & 0xff )/255;
+			_pStartG = ( ( color >> 8 ) & 0xff )/255;
+			_pStartB = ( color & 0xff )/255;
 			
-			this._startColor = color;
+			_startColor = color;
 			
-			this.update();
+			update();
 		}
 		
 		public function get endColor():Number
@@ -114,13 +114,13 @@ package away.primitives.data
 		
 		public function set endColor(color:Number):void
 		{
-			this._pEndR = ( ( color >> 16 ) & 0xff )/255;
-			this._pEndG = ( ( color >> 8 ) & 0xff )/255;
-			this._pEndB = ( color & 0xff )/255;
+			_pEndR = ( ( color >> 16 ) & 0xff )/255;
+			_pEndG = ( ( color >> 8 ) & 0xff )/255;
+			_pEndB = ( color & 0xff )/255;
 			
-			this._endColor = color;
+			_endColor = color;
 			
-			this.update();
+			update();
 		}
 		
 		public function dispose():void
@@ -136,7 +136,7 @@ package away.primitives.data
 		
 		public function set iIndex(ind:Number):void
 		{
-			this._index = ind;
+			_index = ind;
 		}
 		
 		public function get iSubSetIndex():Number
@@ -146,12 +146,12 @@ package away.primitives.data
 		
 		public function set iSubSetIndex(ind:Number):void
 		{
-			this._subSetIndex = ind;
+			_subSetIndex = ind;
 		}
 		
 		public function set iSegmentsBase(segBase:SegmentSet):void
 		{
-			this._pSegmentsBase = segBase;
+			_pSegmentsBase = segBase;
 		}
 		
 		private function update():void

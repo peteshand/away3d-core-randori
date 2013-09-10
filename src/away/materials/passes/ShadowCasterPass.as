@@ -76,7 +76,7 @@ package away.materials.passes
 		{
 			super.pUpdateShaderProperties();
 
-            var c : LightingShaderCompiler = LightingShaderCompiler(_pCompiler);
+            var c : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
             _tangentSpace = c.tangentSpace;
 
 		}
@@ -86,7 +86,7 @@ package away.materials.passes
 		{
 			super.pUpdateRegisterIndices();
 
-            var c : LightingShaderCompiler = LightingShaderCompiler(_pCompiler);
+            var c : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
 
 			_lightVertexConstantIndex = c.lightVertexConstantIndex;
 

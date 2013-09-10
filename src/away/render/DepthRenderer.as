@@ -25,13 +25,13 @@ package away.render
 		/**		 * Creates a new DepthRenderer object.		 * @param renderBlended Indicates whether semi-transparent objects should be rendered.		 * @param distanceBased Indicates whether the written depth value is distance-based or projected depth-based		 */
 		public function DepthRenderer(renderBlended:Boolean = false, distanceBased:Boolean = false):void
 		{
-			super();
-
-			this._renderBlended = renderBlended;
-            this._distanceBased = distanceBased;
-            this.iBackgroundR = 1;
-            this.iBackgroundG = 1;
-            this.iBackgroundB = 1;
+			super(false);
+			
+			_renderBlended = renderBlended;
+            _distanceBased = distanceBased;
+            iBackgroundR = 1;
+            iBackgroundG = 1;
+            iBackgroundB = 1;
 
 		}
 		
@@ -42,7 +42,7 @@ package away.render
 		
 		public function set disableColor(value:Boolean):void
 		{
-            this._disableColor = value;
+            _disableColor = value;
 		}
 		
 		override public function set iBackgroundR(value:Number):void

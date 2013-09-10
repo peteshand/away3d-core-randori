@@ -22,8 +22,8 @@ package away.textures
 		{
 			super();
 			
-			this.bitmapData         = bitmapData;
-			this._generateMipmaps   = generateMipmaps;
+			bitmapData         = bitmapData;
+			_generateMipmaps   = generateMipmaps;
 		}
 		
 		public function get bitmapData():BitmapData
@@ -36,7 +36,7 @@ package away.textures
 		public function set bitmapData(value:BitmapData):void
 		{
 
-			if (value == this._bitmapData)
+			if (value == _bitmapData)
             {
 
                 return;
@@ -51,16 +51,16 @@ package away.textures
             }
 
 
-            this.invalidateContent();
+            invalidateContent();
 
-			this.pSetSize( value.width, value.height);
+			pSetSize( value.width, value.height);
 
-            this._bitmapData = value;
+            _bitmapData = value;
 			
-			if (this._generateMipmaps)
+			if (_generateMipmaps)
             {
 
-                this.getMipMapHolder();
+                getMipMapHolder();
 
             }
 
@@ -78,7 +78,7 @@ package away.textures
 			else
             {
 
-                var tx : Texture = Texture(texture);
+                var tx : Texture = (texture as Texture);
                     tx.uploadFromBitmapData( _bitmapData , 0 );
 
             }

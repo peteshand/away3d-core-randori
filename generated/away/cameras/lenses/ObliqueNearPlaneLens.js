@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,8 +11,8 @@ away.cameras.lenses.ObliqueNearPlaneLens = function(baseLens, plane) {
 	this._plane = null;
 	this._baseLens = null;
 	away.cameras.lenses.LensBase.call(this);
-	this.set_baseLens(baseLens);
-	this.set_plane(plane);
+	baseLens = baseLens;
+	plane = plane;
 };
 
 away.cameras.lenses.ObliqueNearPlaneLens.prototype.get_frustumCorners = function() {
@@ -54,11 +54,11 @@ away.cameras.lenses.ObliqueNearPlaneLens.prototype.set_plane = function(value) {
 
 away.cameras.lenses.ObliqueNearPlaneLens.prototype.set_baseLens = function(value) {
 	if (this._baseLens) {
-		this._baseLens.removeEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(, this.onLensMatrixChanged), this);
+		this._baseLens.removeEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	}
 	this._baseLens = value;
 	if (this._baseLens) {
-		this._baseLens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(, this.onLensMatrixChanged), this);
+		this._baseLens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	}
 	this.pInvalidateMatrix();
 };

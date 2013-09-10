@@ -13,8 +13,8 @@ package aglsl.assembler
 		
 		public function Reg(code:Number, desc:String):void
 		{
-			this.code = code;
-			this.desc = desc;
+			code = code;
+			desc = desc;
 		}
 	}
 }

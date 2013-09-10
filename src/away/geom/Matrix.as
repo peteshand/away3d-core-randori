@@ -17,12 +17,12 @@ package away.geom
         public function Matrix(a:Number = 1, b:Number = 0, c:Number = 0, d:Number = 1, tx:Number = 0, ty:Number = 0):void
         {
 
-            this.a      = a;
-            this.b      = b;
-            this.c      = c;
-            this.d      = d;
-            this.tx     = tx;
-            this.ty     = ty;
+            a      = a;
+            b      = b;
+            c      = c;
+            d      = d;
+            tx     = tx;
+            ty     = ty;
 
         }
 

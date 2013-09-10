@@ -53,10 +53,10 @@ package away.materials.compilation
 		/**		 * Creates a new ShaderCompiler object.		 * @param profile The compatibility profile of the renderer.		 */
 		public function ShaderCompiler(profile:String):void
 		{
-			this._pSharedRegisters = new ShaderRegisterData();
-            this._pDependencyCounter = new MethodDependencyCounter();
-            this._pProfile = profile;
-            this.initRegisterCache(profile);
+			_pSharedRegisters = new ShaderRegisterData();
+            _pDependencyCounter = new MethodDependencyCounter();
+            _pProfile = profile;
+            initRegisterCache(profile);
 		}
 
 		/**		 * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and		 * compatibility for constrained mode.		 */
@@ -67,7 +67,7 @@ package away.materials.compilation
 
 		public function set enableLightFallOff(value:Boolean):void
 		{
-            this._pEnableLightFallOff = value;
+            _pEnableLightFallOff = value;
 		}
 
 		/**		 * Indicates whether the compiled code needs UV animation.		 */
@@ -96,7 +96,7 @@ package away.materials.compilation
 
 		public function set forceSeperateMVP(value:Boolean):void
 		{
-            this._forceSeperateMVP = value;
+            _forceSeperateMVP = value;
 		}
 
 		/**		 * Initialized the register cache.		 * @param profile The compatibility profile of the renderer.		 */
@@ -115,7 +115,7 @@ package away.materials.compilation
 
 		public function set animateUVs(value:Boolean):void
 		{
-            this._animateUVs = value;
+            _animateUVs = value;
 		}
 
 		/**		 * Indicates whether visible textures (or other pixels) used by this material have		 * already been premultiplied.		 */
@@ -126,7 +126,7 @@ package away.materials.compilation
 
 		public function set alphaPremultiplied(value:Boolean):void
 		{
-            this._pAlphaPremultiplied = value;
+            _pAlphaPremultiplied = value;
 		}
 
 		/**		 * Indicates whether the output alpha value should remain unchanged compared to the material's original alpha.		 */
@@ -137,7 +137,7 @@ package away.materials.compilation
 
 		public function set preserveAlpha(value:Boolean):void
 		{
-            this._preserveAlpha = value;
+            _preserveAlpha = value;
 		}
 
 		/**		 * Sets the default texture sampling properties.		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.		 */
@@ -163,7 +163,7 @@ package away.materials.compilation
 
 		public function set methodSetup(value:ShaderMethodSetup):void
 		{
-            this._pMethodSetup = value;
+            _pMethodSetup = value;
 		}
 
 		/**		 * Compiles the code after all setup on the compiler has finished.		 */
@@ -597,7 +597,7 @@ package away.materials.compilation
 
 		public function set specularLightSources(value:Number):void
 		{
-            this._specularLightSources = value;
+            _specularLightSources = value;
 		}
 
 		/**		 * Define which light source types to use for diffuse reflections. This allows choosing between regular lights		 * and/or light probes for diffuse reflections.		 *		 * @see away3d.materials.LightSources		 */
@@ -608,7 +608,7 @@ package away.materials.compilation
 
 		public function set diffuseLightSources(value:Number):void
 		{
-			this._diffuseLightSources = value;
+			_diffuseLightSources = value;
 		}
 
 		/**		 * Indicates whether light probes are being used for specular reflections.		 */
@@ -727,7 +727,7 @@ package away.materials.compilation
 
 		public function set numPointLights(numPointLights:Number):void
 		{
-            this._pNumPointLights = numPointLights;
+            _pNumPointLights = numPointLights;
 		}
 
 		/**		 * The amount of directional lights that need to be supported.		 */
@@ -738,7 +738,7 @@ package away.materials.compilation
 
 		public function set numDirectionalLights(value:Number):void
 		{
-            this._pNumDirectionalLights = value;
+            _pNumDirectionalLights = value;
 		}
 
 		/**		 * The amount of light probes that need to be supported.		 */
@@ -749,7 +749,7 @@ package away.materials.compilation
 
 		public function set numLightProbes(value:Number):void
 		{
-            this._pNumLightProbes = value;
+            _pNumLightProbes = value;
 		}
 
 		/**		 * Indicates whether the specular method is used.		 */

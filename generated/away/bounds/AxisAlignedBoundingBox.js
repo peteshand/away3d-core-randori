@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:21 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -201,7 +201,7 @@ away.bounds.AxisAlignedBoundingBox.prototype.pUpdateBoundingRenderable = functio
 };
 
 away.bounds.AxisAlignedBoundingBox.prototype.pCreateBoundingRenderable = function() {
-	return new away.primitives.WireframeCube(1, 1, 1, 0xffffff, 0.5), 1;
+	return new away.primitives.WireframeCube(1, 1, 1, 0xffffff, 0.5);
 };
 
 away.bounds.AxisAlignedBoundingBox.prototype.classifyToPlane = function(plane) {

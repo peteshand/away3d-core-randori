@@ -29,8 +29,8 @@ package away.textures
 
             super();
 
-            this._textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
-            this._dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
+            _textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
+            _dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
 
 		}
 

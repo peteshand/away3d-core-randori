@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:29:08 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -105,16 +105,16 @@ away.render.RenderBase.prototype.set_iStage3DProxy = function(value) {
 	}
 	if (!value) {
 		if (this._pStage3DProxy) {
-			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(, this.onContextUpdate), this);
-			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(, this.onContextUpdate), this);
+			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, this.onContextUpdate), this);
 		}
 		this._pStage3DProxy = null;
 		this._pContext = null;
 		return;
 	}
 	this._pStage3DProxy = value;
-	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(, this.onContextUpdate), this);
-	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(, this.onContextUpdate), this);
+	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, this.onContextUpdate), this);
 	if (value.get_context3D()) {
 		this._pContext = value.get_context3D();
 	}

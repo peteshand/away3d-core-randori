@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Randori Away</title>
+    <script src="js/monolithic/randori-guice-framework-min.js"></script>
+    <script src="../generated/GuiceInjectorBootstrap.js"></script>
+
+</head>
+<body>
+<script>
+    onload = function() {
+        var bootstrap = new GuiceInjectorBootstrap("Main", "../generated/" );
+        bootstrap.launch();
+    }
+</script>
+</body>
+</html>

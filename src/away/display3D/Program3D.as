@@ -18,8 +18,8 @@ package away.display3D
 		
 		public function Program3D(gl:WebGLRenderingContext):void
 		{
-			this._gl = gl;
-			this._program = _gl.createProgram();
+			_gl = gl;
+			_program = _gl.createProgram();
 		}
 		
 		public function upload(vertexProgram:String, fragmentProgram:String):void

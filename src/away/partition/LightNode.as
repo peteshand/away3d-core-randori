@@ -12,7 +12,7 @@ package away.partition
 		public function LightNode(light:LightBase):void
 		{
 			super( light );
-			this._light = light;
+			_light = light;
 		}
 		
 		public function get light():LightBase

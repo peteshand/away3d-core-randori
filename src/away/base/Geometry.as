@@ -35,7 +35,7 @@ package away.base
 		{
             super();
 
-            this._subGeometries = new Vector.<ISubGeometry>();//Vector.<ISubGeometry>();
+            _subGeometries = new Vector.<ISubGeometry>();//Vector.<ISubGeometry>();
 
 		}
 		
@@ -157,7 +157,7 @@ package away.base
                 }
 
 
-				_removableCompactSubGeometries.push( CompactSubGeometry(subGeom));
+				_removableCompactSubGeometries.push( (subGeom) as CompactSubGeometry);
 
 				addSubGeometry(subGeom.cloneWithSeperateBuffers());
 			}

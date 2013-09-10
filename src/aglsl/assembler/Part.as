@@ -13,9 +13,9 @@ package aglsl.assembler
 		
 		public function Part(name:String = null, version:Number = null):void
 		{
-			this.name = name;
-			this.version = version;
-			this.data = new ByteArray();
+			name = name;
+			version = version;
+			data = new ByteArray();
 		}
 	}
 }

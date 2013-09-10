@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 21:30:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -27,7 +27,7 @@ away.library.AssetLibraryBundle.getInstance = function(key) {
 		key = "default";
 	}
 	if (!away.library.AssetLibrary._iInstances.hasOwnProperty(key)) {
-		away.library.AssetLibrary._iInstances[key] = new away.library.AssetLibraryBundle(new away.library.AssetLibraryBundle$AssetLibraryBundleSingletonEnforcer());
+		away.library.AssetLibrary._iInstances[key] = new away.library.AssetLibraryBundle(new away.library.AssetLibraryBundleSingletonEnforcer());
 	}
 	return away.library.AssetLibrary._iInstances[key];
 };
@@ -340,7 +340,7 @@ away.library.AssetLibraryBundle.prototype.killLoadingSession = function(loader) 
 };
 
 away.library.AssetLibraryBundle.prototype.onAssetRename = function(ev) {
-	var asset = IAsset(ev.target);
+	var asset = ev.target;
 	var old = this.getAsset(asset.get_assetNamespace(), asset.get_name());
 	if (old != null) {
 		this._strategy.resolveConflict(asset, old, this._assetDictionary[asset.get_assetNamespace()], this._strategyPreference);
@@ -365,18 +365,19 @@ away.library.AssetLibraryBundle.className = "away.library.AssetLibraryBundle";
 away.library.AssetLibraryBundle.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.library.AssetLibrary');
 	p.push('away.library.naming.ConflictPrecedence');
-	p.push('away.loaders.AssetLoader');
+	p.push('away.library.AssetLibrary');
 	p.push('away.events.ParserEvent');
 	p.push('away.events.LoaderEvent');
-	p.push('*away.library.assets.IAsset');
 	p.push('away.library.utils.AssetLibraryIterator');
 	p.push('away.library.utils.IDUtil');
-	p.push('away.loaders.misc.SingleFileLoader');
-	p.push('away.events.AssetEvent');
 	p.push('away.library.assets.NamedAssetBase');
+	p.push('away.events.AssetEvent');
 	p.push('away.library.naming.ConflictStrategy');
+	p.push('away.loaders.AssetLoader');
+	p.push('*away.library.assets.IAsset');
+	p.push('away.library.AssetLibraryBundleSingletonEnforcer');
+	p.push('away.loaders.misc.SingleFileLoader');
 	return p;
 };
 
@@ -390,7 +391,7 @@ away.library.AssetLibraryBundle.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'me', t:'away.library.AssetLibraryBundle$AssetLibraryBundleSingletonEnforcer'});
+			p.push({n:'me', t:'away.library.AssetLibraryBundleSingletonEnforcer'});
 			break;
 		case 1:
 			p = away.events.EventDispatcher.injectionPoints(t);

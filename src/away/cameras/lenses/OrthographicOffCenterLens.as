@@ -16,10 +16,10 @@ package away.cameras.lenses
 		public function OrthographicOffCenterLens(minX:Number, maxX:Number, minY:Number, maxY:Number):void
 		{
 			super();
-			this._minX = minX;
-			this._maxX = maxX;
-			this._minY = minY;
-			this._maxY = maxY;
+			_minX = minX;
+			_maxX = maxX;
+			_minY = minY;
+			_maxY = maxY;
 		}
 		
 		public function get minX():Number
@@ -29,8 +29,8 @@ package away.cameras.lenses
 		
 		public function set minX(value:Number):void
 		{
-			this._minX = value;
-			this.pInvalidateMatrix();
+			_minX = value;
+			pInvalidateMatrix();
 		}
 		
 		public function get maxX():Number
@@ -40,8 +40,8 @@ package away.cameras.lenses
 		
 		public function set maxX(value:Number):void
 		{
-			this._maxX = value;
-			this.pInvalidateMatrix();
+			_maxX = value;
+			pInvalidateMatrix();
 		}
 		
 		public function get minY():Number
@@ -51,8 +51,8 @@ package away.cameras.lenses
 		
 		public function set minY(value:Number):void
 		{
-			this._minY = value;
-			this.pInvalidateMatrix();
+			_minY = value;
+			pInvalidateMatrix();
 		}
 		
 		public function get maxY():Number
@@ -62,8 +62,8 @@ package away.cameras.lenses
 		
 		public function set maxY(value:Number):void
 		{
-			this._maxY = value;
-			this.pInvalidateMatrix();
+			_maxY = value;
+			pInvalidateMatrix();
 		}
 		
 		//@override

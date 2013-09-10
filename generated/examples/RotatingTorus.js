@@ -1,9 +1,9 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:29:08 EST 2013 */
 
-if (typeof myTests == "undefined")
-	var myTests = {};
+if (typeof examples == "undefined")
+	var examples = {};
 
-myTests.RotatingTorus = function() {
+examples.RotatingTorus = function() {
 	this._pMatrix = null;
 	this._iBuffer = null;
 	this._texture = null;
@@ -20,25 +20,25 @@ myTests.RotatingTorus = function() {
 	this.loadResources();
 };
 
-myTests.RotatingTorus.prototype.get_stage = function() {
+examples.RotatingTorus.prototype.get_stage = function() {
 	return this._stage;
 };
 
-myTests.RotatingTorus.prototype.loadResources = function() {
+examples.RotatingTorus.prototype.loadResources = function() {
 	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
 	var imgLoader = new away.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
 
-myTests.RotatingTorus.prototype.imageCompleteHandler = function(e) {
+examples.RotatingTorus.prototype.imageCompleteHandler = function(e) {
 	var imageLoader = e.target;
 	this._image = imageLoader.get_image();
 	this._stage.stage3Ds[0].addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	this._stage.stage3Ds[0].requestContext();
 };
 
-myTests.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
+examples.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
 	this._stage.stage3Ds[0].removeEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	var stage3D = e.target;
 	this._context3D = stage3D.get_context3D();
@@ -73,7 +73,7 @@ myTests.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
 	this._requestAnimationFrameTimer.start();
 };
 
-myTests.RotatingTorus.prototype.tick = function(dt) {
+examples.RotatingTorus.prototype.tick = function(dt) {
 	console.log("tick");
 	this._mvMatrix.appendRotation(dt * 0.1, new away.geom.Vector3D(0, 1, 0, 0));
 	this._context3D.setProgram(this._program);
@@ -85,9 +85,9 @@ myTests.RotatingTorus.prototype.tick = function(dt) {
 	this._context3D.present();
 };
 
-myTests.RotatingTorus.className = "myTests.RotatingTorus";
+examples.RotatingTorus.className = "examples.RotatingTorus";
 
-myTests.RotatingTorus.getRuntimeDependencies = function(t) {
+examples.RotatingTorus.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.net.IMGLoader');
@@ -106,11 +106,11 @@ myTests.RotatingTorus.getRuntimeDependencies = function(t) {
 	return p;
 };
 
-myTests.RotatingTorus.getStaticDependencies = function(t) {
+examples.RotatingTorus.getStaticDependencies = function(t) {
 	var p;
 	return [];
 };
 
-myTests.RotatingTorus.injectionPoints = function(t) {
+examples.RotatingTorus.injectionPoints = function(t) {
 	return [];
 };

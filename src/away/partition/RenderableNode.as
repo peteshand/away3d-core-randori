@@ -17,9 +17,9 @@ package away.partition
 
             var e : * = renderable;
 
-			super( Entity(e));
+			super( (e as Entity));
 
-			this._renderable = renderable; // also keep a stronger typed reference
+			_renderable = renderable; // also keep a stronger typed reference
 		}
 		
 		/**		 * @inheritDoc		 */

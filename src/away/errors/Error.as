@@ -9,9 +9,9 @@ package away.errors
         public function Error(message:String = '', id:Number = 0, _name:String = ''):void
         {
 
-            this._messsage  = message;
-            this._name      = name;
-            this._errorID   = id;
+            _messsage  = message;
+            _name      = name;
+            _errorID   = id;
 
         }
 
@@ -27,7 +27,7 @@ package away.errors
         public function set message(value:String):void
         {
 
-            this._messsage = value;
+            _messsage = value;
 
         }
 
@@ -43,7 +43,7 @@ package away.errors
         public function set name(value:String):void
         {
 
-            this._name = value;
+            _name = value;
 
         }
 

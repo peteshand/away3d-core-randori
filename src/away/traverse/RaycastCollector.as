@@ -29,7 +29,7 @@ package away.traverse
 		
 		public function set rayPosition(value:Vector3D):void
 		{
-            this._rayPosition = value;
+            _rayPosition = value;
 		}
 		
 		/**		 * Provides the direction vector of the ray.		 */
@@ -40,7 +40,7 @@ package away.traverse
 		
 		public function set rayDirection(value:Vector3D):void
 		{
-            this._rayDirection = value;
+            _rayDirection = value;
 		}
 		
 		/**		 * Returns true if the current node is at least partly in the frustum. If so, the partition node knows to pass on the traverser to its children.		 *		 * @param node The Partition3DNode object to frustum-test.		 */

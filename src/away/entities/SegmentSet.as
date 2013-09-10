@@ -42,13 +42,13 @@ package away.entities
 		{
 			super();
 			
-			this._subSetCount = 0;
-			this._subSets = new <SubSet>[];
-			this.addSubSet();
+			_subSetCount = 0;
+			_subSets = new <SubSet>[];
+			addSubSet();
 			
-			this._pSegments = new Object();
+			_pSegments = new Object();
 
-        this.material = new SegmentMaterial();
+        material = new SegmentMaterial();
 		}
 		
 		public function addSegment(segment:Segment):void
@@ -515,23 +515,23 @@ package away.entities
 		
 		public function set animator(value:IAnimator):void
 		{
-			this._animator = value;
+			_animator = value;
 		}
 		
 		public function set material(value:MaterialBase):void
 		{
-			if( value == this._material)
+			if( value == _material)
 			{
 				return;
 			}
-			if( this._material )
+			if( _material )
 			{
-				this._material.iRemoveOwner( this );
+				_material.iRemoveOwner( this );
 			}
-			this._material = value;
-			if( this._material )
+			_material = value;
+			if( _material )
 			{
-				this._material.iAddOwner( this );
+				_material.iAddOwner( this );
 			}
 		}
 		

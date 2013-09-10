@@ -97,7 +97,7 @@ package away.net {
                 || format === URLLoaderDataFormat.TEXT
                 || format === URLLoaderDataFormat.VARIABLES) {
 
-                this._dataFormat = format;
+                _dataFormat = format;
 
             } else {
 
@@ -215,7 +215,7 @@ package away.net {
                 if ( request.data instanceof URLVariables )
                 {
 
-                    var urlVars : URLVariables = URLVariables(request.data);
+                    var urlVars : URLVariables = (request.data as URLVariables);
 
                     try {
 

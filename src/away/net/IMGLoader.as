@@ -24,8 +24,8 @@ package away.net
         {
 
             super();
-            this._name = imageName;
-            this.initImage();
+            _name = imageName;
+            initImage();
 
         }
 
@@ -104,7 +104,7 @@ package away.net
         public function set crossOrigin(value:String):void
         {
 
-            this._crossOrigin = value;
+            _crossOrigin = value;
 
         }
 
@@ -163,14 +163,14 @@ package away.net
         public function set name(value:String):void
         {
 
-            if ( this._image )
+            if ( _image )
             {
 
-                this._image.name = value;
+                _image.name = value;
 
             }
 
-            this._name = value;
+            _name = value;
 
         }
 

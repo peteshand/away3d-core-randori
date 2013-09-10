@@ -27,7 +27,7 @@ package away.materials.passes
 			super();
 
 
-			this._data = new Vector.<Number>(     1.0, 255.0, 65025.0, 16581375.0,
+			_data = new Vector.<Number>(     1.0, 255.0, 65025.0, 16581375.0,
 			                	                1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0,
 				                                0.0, 0.0, 0.0, 0.0);
 
@@ -54,7 +54,7 @@ package away.materials.passes
 
             }
 
-			if (value == this._alphaThreshold)
+			if (value == _alphaThreshold)
             {
 
                 return;
@@ -62,16 +62,16 @@ package away.materials.passes
             }
 
 			
-			if (value == 0 || this._alphaThreshold == 0)
+			if (value == 0 || _alphaThreshold == 0)
             {
 
-                this.iInvalidateShaderProgram();
+                iInvalidateShaderProgram();
 
             }
 
 			
-			this._alphaThreshold = value;
-            this._data[8] = this._alphaThreshold;
+			_alphaThreshold = value;
+            _data[8] = _alphaThreshold;
 
 		}
 
@@ -83,7 +83,7 @@ package away.materials.passes
 		
 		public function set alphaMask(value:Texture2DBase):void
 		{
-			this._alphaMask = value;
+			_alphaMask = value;
 		}
 		
 		/**		 * @inheritDoc		 */

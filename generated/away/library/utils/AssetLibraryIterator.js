@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -47,7 +47,7 @@ away.library.utils.AssetLibraryIterator.prototype.filter = function(assetTypeFil
 		this._filtered = [];
 		var l = this._assets.length;
 		for (var c = 0; c < l; c++) {
-			asset = IAsset(this._assets[c]);
+			asset = this._assets[c];
 			if (assetTypeFilter && asset.get_assetType() != assetTypeFilter)
 				continue;
 			if (namespaceFilter && asset.get_assetNamespace() != namespaceFilter)

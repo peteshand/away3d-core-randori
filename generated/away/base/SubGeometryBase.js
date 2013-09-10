@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:24 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -447,7 +447,7 @@ away.base.SubGeometryBase.prototype.get_UVOffset = function() {
 away.base.SubGeometryBase.prototype.pInvalidateBounds = function() {
 	if (this._parentGeometry) {
 		var me = this;
-		this._parentGeometry.iInvalidateBounds(ISubGeometry(me));
+		this._parentGeometry.iInvalidateBounds(me);
 	}
 };
 

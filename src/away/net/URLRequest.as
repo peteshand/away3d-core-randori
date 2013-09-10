@@ -32,7 +32,7 @@ package away.net {
         public function URLRequest(url:String = null):void
         {
 
-            this._url = url;
+            _url = url;
 
         }
 
@@ -48,7 +48,7 @@ package away.net {
         public function set url(value:String):void
         {
 
-            this._url = value;
+            _url = value;
 
         }
 

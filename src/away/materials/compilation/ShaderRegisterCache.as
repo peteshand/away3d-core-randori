@@ -27,7 +27,7 @@ package away.materials.compilation
 		public function ShaderRegisterCache(profile:String):void
 		{
 
-			this._profile = profile;
+			_profile = profile;
 
 		}
 		
@@ -180,7 +180,7 @@ package away.materials.compilation
 		
 		public function set vertexConstantOffset(vertexConstantOffset:Number):void
 		{
-			this._vertexConstantOffset = vertexConstantOffset;
+			_vertexConstantOffset = vertexConstantOffset;
 		}
 		
 		/**		 * Indicates the start index from which to retrieve vertex attributes.		 */
@@ -191,7 +191,7 @@ package away.materials.compilation
 		
 		public function set vertexAttributesOffset(value:Number):void
 		{
-			this._vertexAttributesOffset = value;
+			_vertexAttributesOffset = value;
 		}
 
 		/**		 * Indicates the start index from which to retrieve varying registers.		 */
@@ -202,7 +202,7 @@ package away.materials.compilation
 		
 		public function set varyingsOffset(value:Number):void
 		{
-            this._varyingsOffset = value;
+            _varyingsOffset = value;
 		}
 
 		/**		 * Indicates the start index from which to retrieve fragment constants.		 */
@@ -213,7 +213,7 @@ package away.materials.compilation
 		
 		public function set fragmentConstantOffset(value:Number):void
 		{
-            this._fragmentConstantOffset = value;
+            _fragmentConstantOffset = value;
 		}
 		
 		/**		 * The fragment output register.		 */

@@ -14,7 +14,7 @@ package away.partition
 		public function PointLightNode(light:PointLight):void
 		{
 			super( light );
-			this._light = light;
+			_light = light;
 		}
 		
 		public function get light():PointLight
@@ -24,7 +24,7 @@ package away.partition
 		
 		override public function acceptTraverser(traverser:PartitionTraverser):void
 		{
-			if( traverser.enterNode( NodeBase(this)) )
+			if( traverser.enterNode( (this as NodeBase)) )
 			{
 				super.acceptTraverser( traverser );
 				traverser.applyPointLight( _light );

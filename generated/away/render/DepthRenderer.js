@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:25:14 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ away.render.DepthRenderer = function(renderBlended, distanceBased) {
 	this._distanceBased = null;
 	this._renderBlended = null;
 	this._disableColor = null;
-	away.render.RendererBase.call(thisfalse);
+	away.render.RendererBase.call(this, false);
 	this._renderBlended = renderBlended;
 	this._distanceBased = distanceBased;
 	this.set_iBackgroundR(1);

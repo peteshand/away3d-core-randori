@@ -28,7 +28,7 @@ package away.materials.passes
 		public function SuperShaderPass(material:MaterialBase):void
 		{
 			super(material);
-			this._pNeedFragmentAnimation = true;
+			_pNeedFragmentAnimation = true;
 		}
 
 		/**		 * @inheritDoc		 */
@@ -45,10 +45,10 @@ package away.materials.passes
 		
 		public function set includeCasters(value:Boolean):void
 		{
-			if (this._includeCasters == value)
+			if (_includeCasters == value)
 				return;
-            this._includeCasters = value;
-            this.iInvalidateShaderProgram();//invalidateShaderProgram();
+            _includeCasters = value;
+            iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 
 		/**		 * The ColorTransform object to transform the colour of the material with. Defaults to null.		 */
@@ -65,28 +65,28 @@ package away.materials.passes
             {
 
                 //colorTransformMethod ||= new away.geom.ColorTransform();
-                if ( this.colorTransformMethod == null )
+                if ( colorTransformMethod == null )
                 {
 
 
-                    this.colorTransformMethod = new ColorTransformMethod();
+                    colorTransformMethod = new ColorTransformMethod();
 
                 }
 
-				this._pMethodSetup._iColorTransformMethod.colorTransform = value;
+				_pMethodSetup._iColorTransformMethod.colorTransform = value;
 
 			}
             else if (!value)
             {
 
-				if (this._pMethodSetup._iColorTransformMethod)
+				if (_pMethodSetup._iColorTransformMethod)
                 {
 
-                    this.colorTransformMethod = null;
+                    colorTransformMethod = null;
 
                 }
 
-				this.colorTransformMethod = this._pMethodSetup._iColorTransformMethod = null;
+				colorTransformMethod = _pMethodSetup._iColorTransformMethod = null;
 			}
 		}
 
@@ -99,7 +99,7 @@ package away.materials.passes
 		
 		public function set colorTransformMethod(value:ColorTransformMethod):void
 		{
-			this._pMethodSetup.iColorTransformMethod = value;
+			_pMethodSetup.iColorTransformMethod = value;
 		}
 
 		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
@@ -416,7 +416,7 @@ package away.materials.passes
 			var weights:Vector.<Number> = _pLightPicker.lightProbeWeights;
 			var len:Number = lightProbes.length;
 			var addDiff:Boolean = usesProbesForDiffuse();
-			var addSpec:Boolean = Boolean((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()));
+			var addSpec:Boolean = ((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()) as Boolean);
 			var context:Context3D = stage3DProxy._iContext3D;
 			
 			if (!(addDiff || addSpec))
@@ -459,7 +459,7 @@ package away.materials.passes
 		/**		 * Indicates whether lights should be ignored in this pass. This is used when only effect methods are rendered in		 * a multipass material.		 */
 		public function set iIgnoreLights(ignoreLights:Boolean):void
 		{
-			this._ignoreLights = ignoreLights;
+			_ignoreLights = ignoreLights;
 		}
 		
 		public function get iIgnoreLights():Boolean

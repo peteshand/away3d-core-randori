@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:21:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,7 +16,7 @@ away.render.Filter3DRenderer = function(stage3DProxy) {
 	this._filterTasksInvalid = null;
 	this._stage3DProxy = stage3DProxy;
 	this._rttManager = away.managers.RTTBufferManager.getInstance(stage3DProxy);
-	this._rttManager.addEventListener(away.events.Event.RESIZE, $createStaticDelegate(, this.onRTTResize), this);
+	this._rttManager.addEventListener(away.events.Event.RESIZE, $createStaticDelegate(this, this.onRTTResize), this);
 };
 
 away.render.Filter3DRenderer.prototype.onRTTResize = function(event) {

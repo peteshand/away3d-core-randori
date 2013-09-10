@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:25:14 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,7 +13,7 @@ away.render.DefaultRenderer = function() {
 	this.ALL_PASSES = 3;
 	this.RTT_PASSES = 1;
 	this._pDistanceRenderer = null;
-	away.render.RendererBase.call(thisfalse);
+	away.render.RendererBase.call(this, false);
 	this._pDepthRenderer = new away.render.DepthRenderer(false, false);
 	this._pDistanceRenderer = new away.render.DepthRenderer(false, true);
 };

@@ -1,23 +1,23 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:21:02 EST 2013 */
 
-if (typeof myTests == "undefined")
-	var myTests = {};
+if (typeof examples == "undefined")
+	var examples = {};
 
-myTests.ImageLoadTest = function() {
+examples.ImageLoadTest = function() {
 	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
 	var imgLoader = new away.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
 
-myTests.ImageLoadTest.prototype.imageCompleteHandler = function(e) {
+examples.ImageLoadTest.prototype.imageCompleteHandler = function(e) {
 	var imageLoader = e.target;
 	console.log("Load complete");
 };
 
-myTests.ImageLoadTest.className = "myTests.ImageLoadTest";
+examples.ImageLoadTest.className = "examples.ImageLoadTest";
 
-myTests.ImageLoadTest.getRuntimeDependencies = function(t) {
+examples.ImageLoadTest.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.net.URLRequest');
@@ -27,11 +27,11 @@ myTests.ImageLoadTest.getRuntimeDependencies = function(t) {
 	return p;
 };
 
-myTests.ImageLoadTest.getStaticDependencies = function(t) {
+examples.ImageLoadTest.getStaticDependencies = function(t) {
 	var p;
 	return [];
 };
 
-myTests.ImageLoadTest.injectionPoints = function(t) {
+examples.ImageLoadTest.injectionPoints = function(t) {
 	return [];
 };

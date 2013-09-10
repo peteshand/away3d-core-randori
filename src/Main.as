@@ -1,13 +1,8 @@
 package
 {
-import away.base.ISubGeometry;
-import away.base.SubGeometry;
-
-import myTests.PlaneTest;
-import myTests.RotatingTorus;
-
-import randori.webkit.page.Window;
-
+import examples.PlaneTest;
+import examples.RotatingTorus;
+import examples.ObjChiefTestDay;
 
 public class Main
     {
@@ -20,8 +15,8 @@ public class Main
             //Window.console.log(ITestInterface(new TestInterface()));
 
             //var rotatingTorus:RotatingTorus = new RotatingTorus();
-
-            var planeTest:PlaneTest = new PlaneTest();
+            //var planeTest:PlaneTest = new PlaneTest();
+            var objChiefTestDay2:ObjChiefTestDay = new ObjChiefTestDay();
 
             //var imageLoadTest:ImageLoadTest = new ImageLoadTest();
         }

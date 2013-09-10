@@ -1,4 +1,9 @@
-/** * Base event class * @class kurst.events.Event * * @author Karim Beyrouti */
+/**
+ * Base event class
+ * @class kurst.events.Event
+ *
+ * @author Karim Beyrouti
+ */
 package away.events
 {
 	public class Event {
@@ -15,10 +20,18 @@ package away.events
         public static var ERROR:String = "error";
         public static var CHANGE:String = "change";
 		
-        /**         * Type of event         * @property type         * @type String         */
+        /**
+         * Type of event
+         * @property type
+         * @type String
+         */
         public var type:String = undefined;
 		
-        /**         * Reference to target object         * @property target         * @type Object         */
+        /**
+         * Reference to target object
+         * @property target
+         * @type Object
+         */
         public var target:Object = undefined;
 		
         public function Event(type:String):void
@@ -26,7 +39,10 @@ package away.events
             this.type = type;
         }
 
-        /**         * Clones the current event.         * @return An exact duplicate of the current event.         */
+        /**
+         * Clones the current event.
+         * @return An exact duplicate of the current event.
+         */
         public function clone():Event
         {
             return new Event( type );

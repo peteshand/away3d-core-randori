@@ -484,7 +484,7 @@ package away.base
 		public function cloneWithSeperateBuffers():SubGeometry
 		{
             var obj : * = clone();
-			return SubGeometry(obj);
+			return (obj as SubGeometry);
 		}
 	}
 }

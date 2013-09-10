@@ -30,15 +30,15 @@ package away.pick
 		
 		public function set onlyMouseEnabled(value:Boolean):void
 		{
-			this._onlyMouseEnabled = value;
+			_onlyMouseEnabled = value;
 		}
 		
 		/**		 * Creates a new <code>RaycastPicker</code> object.		 *		 * @param findClosestCollision Determines whether the picker searches for the closest bounds collision along the ray,		 * or simply returns the first collision encountered Defaults to false.		 */
 		public function RaycastPicker(findClosestCollision:Boolean):void
 		{
 			
-			this._findClosestCollision = findClosestCollision;
-            this._entities = new Vector.<Entity>();//Vector.<Entity>();
+			_findClosestCollision = findClosestCollision;
+            _entities = new Vector.<Entity>();//Vector.<Entity>();
 		}
 		
 		/**		 * @inheritDoc		 */

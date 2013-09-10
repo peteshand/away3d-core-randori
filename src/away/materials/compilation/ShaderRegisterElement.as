@@ -17,23 +17,23 @@ package away.materials.compilation
 		/**		 * Creates a new ShaderRegisterElement object.		 * @param regName The name of the register.		 * @param index The index of the register.		 * @param component The register's component, if not the entire register is represented.		 */
 		public function ShaderRegisterElement(regName:String, index:Number, component:Number = -1):void
 		{
-			this._component = component;
-			this._regName = regName;
-            this._index = index;
+			_component = component;
+			_regName = regName;
+            _index = index;
 
-            this._toStr = this._regName;
+            _toStr = _regName;
 			
-			if (this._index >= 0)
+			if (_index >= 0)
             {
 
-                this._toStr += this._index;
+                _toStr += _index;
 
             }
 
 			if (component > -1)
             {
 
-                this._toStr += "." + ShaderRegisterElement.COMPONENTS[component];
+                _toStr += "." + ShaderRegisterElement.COMPONENTS[component];
 
             }
 

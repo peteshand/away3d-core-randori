@@ -16,10 +16,10 @@ package away.display3D
 		public function Texture(gl:WebGLRenderingContext, width:Number, height:Number):void
 		{
 			super( gl );
-			this._width = width;
-			this._height = height;
+			_width = width;
+			_height = height;
 			
-			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), this.glTexture );
+			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), glTexture );
 			_gl.texImage2D1( Number(WebGLRenderingContext.TEXTURE_2D), 0, Number(WebGLRenderingContext.RGBA), width, height, 0, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), null );
 		}
 		

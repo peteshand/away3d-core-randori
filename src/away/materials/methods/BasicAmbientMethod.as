@@ -59,7 +59,7 @@ package away.materials.methods
 		
 		public function set ambient(value:Number):void
 		{
-            this._ambient = value;
+            _ambient = value;
 		}
 		
 		/**		 * The colour of the ambient reflection of the surface.		 */
@@ -70,7 +70,7 @@ package away.materials.methods
 		
 		public function set ambientColor(value:Number):void
 		{
-            this._ambientColor = value;
+            _ambientColor = value;
 		}
 		
 		/**		 * The bitmapData to use to define the diffuse reflection color per texel.		 */
@@ -88,12 +88,12 @@ package away.materials.methods
             var b : Boolean =  ( value != null );
 
             /* // ORIGINAL conditional             if (Boolean(value) != _useTexture ||             (value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {             invalidateShaderProgram();             }             */
-			if ( b != this._useTexture ||
-				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
-				this.iInvalidateShaderProgram();//invalidateShaderProgram();
+			if ( b != _useTexture ||
+				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
+				iInvalidateShaderProgram();//invalidateShaderProgram();
 			}
-			this._useTexture = b;//Boolean(value);
-			this._texture = value;
+			_useTexture = b;//Boolean(value);
+			_texture = value;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -104,7 +104,7 @@ package away.materials.methods
             Debug.throwPIR( 'BasicAmbientMethod' , 'copyFrom' , 'TRICKY - Odd case assignment - needs testing' );
 
             var m : * = method;
-            var b : BasicAmbientMethod = BasicAmbientMethod(m);
+            var b : BasicAmbientMethod = (m as BasicAmbientMethod);
 
             var diff:BasicAmbientMethod = b;//BasicAmbientMethod(method);
 

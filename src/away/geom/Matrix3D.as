@@ -18,11 +18,11 @@ package away.geom
 			if( v != null && v.length == 16 )
 			{
 
-				this.rawData = v;
+				rawData = v;
 			}
 			else
 			{
-				this.rawData = new <Number>[ 1, 0, 0, 0,
+				rawData = new <Number>[ 1, 0, 0, 0,
 								 0, 1, 0, 0,
 								 0, 0, 1, 0,
 								 0, 0, 0, 1 ];
@@ -676,9 +676,9 @@ package away.geom
 
             // Initial Tests - OK
 
-			this.rawData[12] = value.x;
-			this.rawData[13] = value.y;
-			this.rawData[14] = value.z;
+			rawData[12] = value.x;
+			rawData[13] = value.y;
+			rawData[14] = value.z;
 		}
 	}
 }

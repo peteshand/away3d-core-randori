@@ -42,9 +42,9 @@ package away.managers
             }
 
 			
-			this._renderToTextureRect = new Rectangle();
+			_renderToTextureRect = new Rectangle();
 			
-			this._stage3DProxy = stage3DProxy;
+			_stage3DProxy = stage3DProxy;
 
 		}
 		
@@ -163,34 +163,34 @@ package away.managers
 		
 		public function set viewWidth(value:Number):void
 		{
-			if (value == this._viewWidth)
+			if (value == _viewWidth)
             {
 
                 return;
 
             }
 
-			this._viewWidth = value;
+			_viewWidth = value;
 
-            this._buffersInvalid = true;
+            _buffersInvalid = true;
 
-            this._textureWidth = TextureUtils.getBestPowerOf2(this._viewWidth);
+            _textureWidth = TextureUtils.getBestPowerOf2(_viewWidth);
 			
-			if (this._textureWidth > this._viewWidth)
+			if (_textureWidth > _viewWidth)
             {
 
-                this._renderToTextureRect.x = Math.floor( (this._textureWidth - this._viewWidth)*.5);
-                this._renderToTextureRect.width = this._viewWidth;
+                _renderToTextureRect.x = Math.floor( (_textureWidth - _viewWidth)*.5);
+                _renderToTextureRect.width = _viewWidth;
 
 			}
             else
             {
-				this._renderToTextureRect.x = 0;
-                this._renderToTextureRect.width = this._textureWidth;
+				_renderToTextureRect.x = 0;
+                _renderToTextureRect.width = _textureWidth;
 
 			}
 			
-			this.dispatchEvent( new Event(Event.RESIZE));
+			dispatchEvent( new Event(Event.RESIZE));
 
 		}
 		
@@ -201,35 +201,35 @@ package away.managers
 
 		public function set viewHeight(value:Number):void
 		{
-			if (value == this._viewHeight)
+			if (value == _viewHeight)
             {
 
                 return;
 
             }
 
-			this._viewHeight = value;
+			_viewHeight = value;
 
-            this._buffersInvalid = true;
+            _buffersInvalid = true;
 
-            this._textureHeight = TextureUtils.getBestPowerOf2(this._viewHeight);
+            _textureHeight = TextureUtils.getBestPowerOf2(_viewHeight);
 			
-			if ( this._textureHeight > this._viewHeight)
+			if ( _textureHeight > _viewHeight)
             {
 
-                this._renderToTextureRect.y = Math.floor((this._textureHeight - this._viewHeight)*.5);
-                this._renderToTextureRect.height = this._viewHeight;
+                _renderToTextureRect.y = Math.floor((_textureHeight - _viewHeight)*.5);
+                _renderToTextureRect.height = _viewHeight;
 
 			}
             else
             {
 
-                this._renderToTextureRect.y = 0;
-                this._renderToTextureRect.height = this._textureHeight;
+                _renderToTextureRect.y = 0;
+                _renderToTextureRect.height = _textureHeight;
 
 			}
 			
-			this.dispatchEvent(new Event(Event.RESIZE));
+			dispatchEvent(new Event(Event.RESIZE));
 
 		}
 		

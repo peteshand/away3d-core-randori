@@ -15,7 +15,7 @@ package away.pick
 		public function AS3PickingCollider(findClosestCollision:Boolean = false):void
 		{
             super();
-			this._findClosestCollision = findClosestCollision;
+			_findClosestCollision = findClosestCollision;
 		}
 		
 		/**		 * @inheritDoc		 */

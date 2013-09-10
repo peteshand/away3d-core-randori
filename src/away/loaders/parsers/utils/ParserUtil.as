@@ -24,7 +24,7 @@ package away.loaders.parsers.utils
 
             if ( typeof data == 'string' );
             {
-                var s : String = String(data);
+                var s : String = (data as String);
                 return s.substr(0 , s.length );
 
             }

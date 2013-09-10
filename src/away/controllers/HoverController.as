@@ -34,12 +34,12 @@ package away.controllers
 		{
 			val = (val < 1)? 1 : val;
 			
-			if (this._steps == val)
+			if (_steps == val)
 				return;
 
-            this._steps = val;
+            _steps = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Rotation of the camera in degrees around the y axis. Defaults to 0.		 */
@@ -50,14 +50,14 @@ package away.controllers
 		
 		public function set panAngle(val:Number):void
 		{
-			val = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, val));
+			val = Math.max(_minPanAngle, Math.min(_maxPanAngle, val));
 			
-			if (this._panAngle == val)
+			if (_panAngle == val)
 				return;
 
-            this._panAngle = val;
+            _panAngle = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Elevation angle of the camera in degrees. Defaults to 90.		 */
@@ -68,14 +68,14 @@ package away.controllers
 		
 		public function set tiltAngle(val:Number):void
 		{
-			val = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, val));
+			val = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, val));
 			
-			if (this._tiltAngle == val)
+			if (_tiltAngle == val)
 				return;
 
-            this._tiltAngle = val;
+            _tiltAngle = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Distance between the camera and the specified target. Defaults to 1000.		 */
@@ -86,12 +86,12 @@ package away.controllers
 		
 		public function set distance(val:Number):void
 		{
-			if (this._distance == val)
+			if (_distance == val)
 				return;
 
-            this._distance = val;
+            _distance = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Minimum bounds for the <code>panAngle</code>. Defaults to -Infinity.		 *		 * @see    #panAngle		 */
@@ -102,12 +102,12 @@ package away.controllers
 		
 		public function set minPanAngle(val:Number):void
 		{
-			if (this._minPanAngle == val)
+			if (_minPanAngle == val)
 				return;
 
-            this._minPanAngle = val;
+            _minPanAngle = val;
 
-            this.panAngle = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, this._panAngle));
+            panAngle = Math.max(_minPanAngle, Math.min(_maxPanAngle, _panAngle));
 		}
 		
 		/**		 * Maximum bounds for the <code>panAngle</code>. Defaults to Infinity.		 *		 * @see    #panAngle		 */
@@ -118,12 +118,12 @@ package away.controllers
 		
 		public function set maxPanAngle(val:Number):void
 		{
-			if (this._maxPanAngle == val)
+			if (_maxPanAngle == val)
 				return;
 
-            this._maxPanAngle = val;
+            _maxPanAngle = val;
 
-            this.panAngle = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, this._panAngle));
+            panAngle = Math.max(_minPanAngle, Math.min(_maxPanAngle, _panAngle));
 		}
 		
 		/**		 * Minimum bounds for the <code>tiltAngle</code>. Defaults to -90.		 *		 * @see    #tiltAngle		 */
@@ -134,12 +134,12 @@ package away.controllers
 		
 		public function set minTiltAngle(val:Number):void
 		{
-			if (this._minTiltAngle == val)
+			if (_minTiltAngle == val)
 				return;
 
-            this._minTiltAngle = val;
+            _minTiltAngle = val;
 
-            this.tiltAngle = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, this._tiltAngle));
+            tiltAngle = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, _tiltAngle));
 		}
 		
 		/**		 * Maximum bounds for the <code>tiltAngle</code>. Defaults to 90.		 *		 * @see    #tiltAngle		 */
@@ -150,12 +150,12 @@ package away.controllers
 		
 		public function set maxTiltAngle(val:Number):void
 		{
-			if (this._maxTiltAngle == val)
+			if (_maxTiltAngle == val)
 				return;
 
-            this._maxTiltAngle = val;
+            _maxTiltAngle = val;
 
-            this.tiltAngle = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, this._tiltAngle));
+            tiltAngle = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, _tiltAngle));
 		}
 		
 		/**		 * Fractional difference in distance between the horizontal camera orientation and vertical camera orientation. Defaults to 2.		 *		 * @see    #distance		 */
@@ -166,12 +166,12 @@ package away.controllers
 		
 		public function set yFactor(val:Number):void
 		{
-			if (this._yFactor == val)
+			if (_yFactor == val)
 				return;
 
-            this._yFactor = val;
+            _yFactor = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Defines whether the value of the pan angle wraps when over 360 degrees or under 0 degrees. Defaults to false.		 */
@@ -182,12 +182,12 @@ package away.controllers
 		
 		public function set wrapPanAngle(val:Boolean):void
 		{
-			if (this._wrapPanAngle == val)
+			if (_wrapPanAngle == val)
 				return;
 
-            this._wrapPanAngle = val;
+            _wrapPanAngle = val;
 
-            this.pNotifyUpdate();
+            pNotifyUpdate();
 		}
 		
 		/**		 * Creates a new <code>HoverController</code> object.		 */
@@ -195,20 +195,20 @@ package away.controllers
 		{
 			super(targetObject, lookAtObject);
 			
-			this.distance = distance;
-			this.panAngle = panAngle;
-			this.tiltAngle = tiltAngle;
-			this.minPanAngle = minPanAngle || -Infinity;
-			this.maxPanAngle = maxPanAngle || Infinity;
-			this.minTiltAngle = minTiltAngle;
-			this.maxTiltAngle = maxTiltAngle;
-			this.steps = steps;
-			this.yFactor = yFactor;
-			this.wrapPanAngle = wrapPanAngle;
+			distance = distance;
+			panAngle = panAngle;
+			tiltAngle = tiltAngle;
+			minPanAngle = minPanAngle || -Infinity;
+			maxPanAngle = maxPanAngle || Infinity;
+			minTiltAngle = minTiltAngle;
+			maxTiltAngle = maxTiltAngle;
+			steps = steps;
+			yFactor = yFactor;
+			wrapPanAngle = wrapPanAngle;
 			
 			//values passed in contrustor are applied immediately
-			this._iCurrentPanAngle = this._panAngle;
-            this._iCurrentTiltAngle = this._tiltAngle;
+			_iCurrentPanAngle = _panAngle;
+            _iCurrentTiltAngle = _tiltAngle;
 		}
 		
 		/**		 * Updates the current tilt angle and pan angle values.		 *		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.		 *		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 * @see    #steps		 */

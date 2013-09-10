@@ -23,7 +23,7 @@ package away.events
 		{
 			super(type);
 			
-			this._message = message;
+			_message = message;
 		}
 		
 		

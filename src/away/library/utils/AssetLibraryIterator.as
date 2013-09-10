@@ -14,8 +14,8 @@ package away.library.utils
 		
 		public function AssetLibraryIterator(assets:Vector.<IAsset>, assetTypeFilter:String, namespaceFilter:String, filterFunc):void
 		{
-			this._assets = assets;
-			this.filter(assetTypeFilter, namespaceFilter, filterFunc);
+			_assets = assets;
+			filter(assetTypeFilter, namespaceFilter, filterFunc);
 		}
 		
 		public function get currentAsset():IAsset
@@ -67,7 +67,7 @@ package away.library.utils
                 for ( var c : Number = 0 ; c < l ; c ++ )
                 {
 
-                    asset = IAsset(_assets[c]);
+                    asset = (_assets[c] as IAsset);
 
                     // Skip this assets if filtering on type and this is wrong type
                     if (assetTypeFilter && asset.assetType != assetTypeFilter)

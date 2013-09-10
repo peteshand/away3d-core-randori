@@ -1,21 +1,21 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:19 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
 
 aglsl.OpLUT = function(s, flags, dest, a, b, matrixwidth, matrixheight, ndwm, scaler, dm, lod) {
 	this.scalar = null;
-	this.s = s;
-	this.flags = flags;
-	this.dest = dest;
-	this.a = a;
-	this.b = b;
-	this.matrixwidth = matrixwidth;
-	this.matrixheight = matrixheight;
-	this.ndwm = ndwm;
+	s = s;
+	flags = flags;
+	dest = dest;
+	a = a;
+	b = b;
+	matrixwidth = matrixwidth;
+	matrixheight = matrixheight;
+	ndwm = ndwm;
 	this.scalar = scaler;
-	this.dm = dm;
-	this.lod = lod;
+	dm = dm;
+	lod = lod;
 };
 
 aglsl.OpLUT.className = "aglsl.OpLUT";

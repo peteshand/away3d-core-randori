@@ -61,7 +61,7 @@ package away.math
 		public static function getForward(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
             //v ||= new away.geom.Vector3D(0.0, 0.0, 0.0);
-            if ( v === null )
+            if ( v === null || v == undefined )
             {
 
                 v = new Vector3D(0.0, 0.0, 0.0);
@@ -79,7 +79,7 @@ package away.math
 		{
 			//v ||= new away.geom.Vector3D(0.0, 0.0, 0.0);
 
-            if ( v === null )
+            if ( v === null || v == undefined )
             {
 
                 v = new Vector3D(0.0, 0.0, 0.0);
@@ -96,7 +96,7 @@ package away.math
 		public static function getRight(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
 			//v ||= new Vector3D(0.0, 0.0, 0.0);
-            if ( v === null )
+            if ( v === null || v == undefined )
             {
 
                 v = new Vector3D(0.0, 0.0, 0.0);
@@ -165,7 +165,7 @@ package away.math
 		public static function reflection(plane:Plane3D, target:Matrix3D = null):Matrix3D
 		{
             //target ||= new Matrix3D();
-            if ( target === null )
+            if ( target === null || target == undefined )
             {
 
                 target = new Matrix3D();

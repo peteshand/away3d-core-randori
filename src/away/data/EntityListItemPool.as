@@ -13,7 +13,7 @@ package away.data
 		
 		public function EntityListItemPool():void
 		{
-			this._pool = new <EntityListItem>[];
+			_pool = new <EntityListItem>[];
 		}
 		
 		public function getItem():EntityListItem

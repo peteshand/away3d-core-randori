@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:14 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,8 +8,8 @@ if (typeof away.materials == "undefined")
 away.materials.ColorMaterial = function(color, alpha) {
 	this._diffuseAlpha = 1;
 	away.materials.SinglePassMaterialBase.call(this);
-	this.set_color(color);
-	this.set_alpha(alpha);
+	color = color;
+	alpha = alpha;
 };
 
 away.materials.ColorMaterial.prototype.get_alpha = function() {
@@ -23,8 +23,8 @@ away.materials.ColorMaterial.prototype.set_alpha = function(value) {
 		value = 0;
 	}
 	this._pScreenPass.get_diffuseMethod().set_diffuseAlpha(this._diffuseAlpha = value);
-	this._pScreenPass.set_preserveAlpha(this.get_requiresBlending());
-	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this.getBlendMode());
+	this._pScreenPass.set_preserveAlpha($createStaticDelegate(this, this.get_requiresBlending));
+	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && $createStaticDelegate(this, this.get_requiresBlending) ? away.display.BlendMode.LAYER : this.getBlendMode());
 };
 
 away.materials.ColorMaterial.prototype.get_color = function() {

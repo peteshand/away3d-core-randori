@@ -265,7 +265,7 @@ package away.bounds
 
         override public function pCreateBoundingRenderable():WireframePrimitiveBase
 		{
-			return WireframePrimitiveBase(new WireframeCube(1, 1, 1, 0xffffff, 0.5));
+			return (new WireframeCube(1, 1, 1, 0xffffff, 0.5) as WireframePrimitiveBase);
 		}
 		
 		override public function classifyToPlane(plane:Plane3D):Number
@@ -293,7 +293,7 @@ package away.bounds
 		
 		override public function transformFrom(bounds:BoundingVolumeBase, matrix:Matrix3D):void
 		{
-			var aabb:AxisAlignedBoundingBox = AxisAlignedBoundingBox(bounds);
+			var aabb:AxisAlignedBoundingBox = (bounds as AxisAlignedBoundingBox);
 			var cx:Number = aabb._centerX;
 			var cy:Number = aabb._centerY;
 			var cz:Number = aabb._centerZ;

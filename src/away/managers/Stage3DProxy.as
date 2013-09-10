@@ -121,19 +121,19 @@ package away.managers
 
             super();
 
-			this._iStage3DIndex = stage3DIndex;
-            this._stage3D = stage3D;
+			_iStage3DIndex = stage3DIndex;
+            _stage3D = stage3D;
 
-            this._stage3D.x = 0;
-            this._stage3D.y = 0;
-            this._stage3D.visible = true;
-            this._stage3DManager = stage3DManager;
-            this._viewPort = new Rectangle();
-            this._enableDepthAndStencil = true;
+            _stage3D.x = 0;
+            _stage3D.y = 0;
+            _stage3D.visible = true;
+            _stage3DManager = stage3DManager;
+            _viewPort = new Rectangle();
+            _enableDepthAndStencil = true;
 			
 			// whatever happens, be sure this has highest priority
-			this._stage3D.addEventListener(Event.CONTEXT3D_CREATE, this.onContext3DUpdate, this ) ;//, false, 1000, false);
-			this.requestContext( forceSoftware , this.profile);
+			_stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContext3DUpdate, this ) ;//, false, 1000, false);
+			requestContext( forceSoftware , profile);
 
 
 		}
@@ -185,8 +185,8 @@ package away.managers
 		
 		public function set enableDepthAndStencil(enableDepthAndStencil:Boolean):void
 		{
-            this._enableDepthAndStencil = enableDepthAndStencil;
-            this._backBufferDirty = true;
+            _enableDepthAndStencil = enableDepthAndStencil;
+            _backBufferDirty = true;
 		}
 		
 		public function get renderTarget():TextureBase
@@ -283,8 +283,8 @@ package away.managers
 		}
 		public function set scissorRect(value:Rectangle):void
 		{
-			this._scissorRect = value;
-			this._iContext3D.setScissorRectangle(this._scissorRect);
+			_scissorRect = value;
+			_iContext3D.setScissorRectangle(_scissorRect);
 		}
 		
 		/**		 * The index of the Stage3D which is managed by this instance of Stage3DProxy.		 */
@@ -318,12 +318,12 @@ package away.managers
 		}
 		public function set x(value:Number):void
 		{
-			if (this._viewPort.x == value)
+			if (_viewPort.x == value)
 				return;
 			
-			this._stage3D.x = this._viewPort.x = value;
+			_stage3D.x = _viewPort.x = value;
 			
-			this.notifyViewportUpdated();
+			notifyViewportUpdated();
 		}
 		
 		/**		 * The y position of the Stage3D.		 */
@@ -333,12 +333,12 @@ package away.managers
 		}
 		public function set y(value:Number):void
 		{
-			if (this._viewPort.y == value)
+			if (_viewPort.y == value)
 				return;
 			
-			this._stage3D.y = this._viewPort.y = value;
+			_stage3D.y = _viewPort.y = value;
 
-            this.notifyViewportUpdated();
+            notifyViewportUpdated();
 		}
 
         /**         *         * @returns {HTMLCanvasElement}         */
@@ -354,13 +354,13 @@ package away.managers
 		}
 		public function set width(width:Number):void
 		{
-			if (this._viewPort.width == width)
+			if (_viewPort.width == width)
 				return;
 
-            this._stage3D.width = this._backBufferWidth = this._viewPort.width = width;
-			this._backBufferDirty = true;
+            _stage3D.width = _backBufferWidth = _viewPort.width = width;
+			_backBufferDirty = true;
 			
-			this.notifyViewportUpdated();
+			notifyViewportUpdated();
 		}
 		
 		/**		 * The height of the Stage3D.		 */
@@ -370,13 +370,13 @@ package away.managers
 		}
 		public function set height(height:Number):void
 		{
-			if (this._viewPort.height == height)
+			if (_viewPort.height == height)
 				return;
 
-            this._stage3D.height = this._backBufferHeight = this._viewPort.height = height;
-			this._backBufferDirty = true;
+            _stage3D.height = _backBufferHeight = _viewPort.height = height;
+			_backBufferDirty = true;
 			
-			this.notifyViewportUpdated();
+			notifyViewportUpdated();
 		}
 		
 		/**		 * The antiAliasing of the Stage3D.		 */
@@ -386,8 +386,8 @@ package away.managers
 		}
 		public function set antiAlias(antiAlias:Number):void
 		{
-			this._antiAlias = antiAlias;
-			this._backBufferDirty = true;
+			_antiAlias = antiAlias;
+			_backBufferDirty = true;
 		}
 		
 		/**		 * A viewPort rectangle equivalent of the Stage3D size and position.		 */
@@ -406,7 +406,7 @@ package away.managers
 		
 		public function set color(color:Number):void
 		{
-			this._color = color;
+			_color = color;
 		}
 		
 		/**		 * The visibility of the Stage3D.		 */
@@ -416,7 +416,7 @@ package away.managers
 		}
 		public function set visible(value:Boolean):void
 		{
-			this._stage3D.visible = value;
+			_stage3D.visible = value;
 		}
 		
 		/**		 * The freshly cleared state of the backbuffer before any rendering		 */
@@ -426,7 +426,7 @@ package away.managers
 		}
 		public function set bufferClear(newBufferClear:Boolean):void
 		{
-			this._bufferClear = newBufferClear;
+			_bufferClear = newBufferClear;
 		}
 		
 		/*		 * Access to fire mouseevents across multiple layered view3D instances		 */
@@ -437,7 +437,7 @@ package away.managers
 		
 		public function set mouse3DManager(value:Mouse3DManager):void
 		{
-			this._mouse3DManager = value;
+			_mouse3DManager = value;
 		}
 
         /* TODO: implement dependency Touch3DManager		public get touch3DManager():Touch3DManager		{			return _touch3DManager;		}				public set touch3DManager(value:Touch3DManager)		{			_touch3DManager = value;		}		*/

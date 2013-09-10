@@ -19,10 +19,10 @@ package away.materials.compilation
 		/**		 * Creates a new RegisterPool object.		 * @param regName The base name of the register type ("ft" for fragment temporaries, "vc" for vertex constants, etc)		 * @param regCount The amount of available registers of this type.		 * @param persistent Whether or not registers, once reserved, can be freed again. For example, temporaries are not persistent, but constants are.		 */
 		public function RegisterPool(regName:String, regCount:Number, persistent:Boolean = true):void
 		{
-			this._regName = regName;
-            this._regCount = regCount;
-            this._persistent = persistent;
-            this.initRegisters(regName, regCount);
+			_regName = regName;
+            _regCount = regCount;
+            _persistent = persistent;
+            initRegisters(regName, regCount);
 		}
 		
 		/**		 * Retrieve an entire vector register that's still available.		 */

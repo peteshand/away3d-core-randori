@@ -19,11 +19,11 @@ package away.loaders.misc
 		/**		 * AssetLoaderContext provides configuration for the AssetLoader load() and parse() operations.		 * Use it to configure how (and if) dependencies are loaded, or to map dependency URLs to		 * embedded data.		 *		 * @see away3d.loading.AssetLoader		 */
 		public function AssetLoaderContext(includeDependencies:Boolean = true, dependencyBaseUrl:String = null):void
 		{
-			this._includeDependencies   = includeDependencies;
-            this._dependencyBaseUrl     = dependencyBaseUrl || '';
-            this._embeddedDataByUrl     = {};
-            this._remappedUrls          = {};
-            this._materialMode          = AssetLoaderContext.UNDEFINED;
+			_includeDependencies   = includeDependencies;
+            _dependencyBaseUrl     = dependencyBaseUrl || '';
+            _embeddedDataByUrl     = {};
+            _remappedUrls          = {};
+            _materialMode          = AssetLoaderContext.UNDEFINED;
 		}
 		
 		/**		 * Defines whether dependencies (all files except the one at the URL given to the load() or		 * parseData() operations) should be automatically loaded. Defaults to true.		 */
@@ -34,7 +34,7 @@ package away.loaders.misc
 		
 		public function set includeDependencies(val:Boolean):void
 		{
-            this._includeDependencies = val;
+            _includeDependencies = val;
 		}
 		
 		/**		 * MaterialMode defines, if the Parser should create SinglePass or MultiPass Materials		 * Options:		 * 0 (Default / undefined) - All Parsers will create SinglePassMaterials, but the AWD2.1parser will create Materials as they are defined in the file		 * 1 (Force SinglePass) - All Parsers create SinglePassMaterials		 * 2 (Force MultiPass) - All Parsers will create MultiPassMaterials		 * 		 */
@@ -45,7 +45,7 @@ package away.loaders.misc
 		
 		public function set materialMode(materialMode:Number):void
 		{
-            this._materialMode = materialMode;
+            _materialMode = materialMode;
 		}
 		
 		/**		 * A base URL that will be prepended to all relative dependency URLs found in a loaded resource.		 * Absolute paths will not be affected by the value of this property.		 */
@@ -56,7 +56,7 @@ package away.loaders.misc
 		
 		public function set dependencyBaseUrl(val:String):void
 		{
-            this._dependencyBaseUrl = val;
+            _dependencyBaseUrl = val;
 		}
 		
 		/**		 * Defines whether absolute paths (defined as paths that begin with a "/") should be overridden		 * with the dependencyBaseUrl defined in this context. If this is true, and the base path is		 * "base", /path/to/asset.jpg will be resolved as base/path/to/asset.jpg.		 */
@@ -67,7 +67,7 @@ package away.loaders.misc
 		
 		public function set overrideAbsolutePaths(val:Boolean):void
 		{
-            this._overrideAbsPath = val;
+            _overrideAbsPath = val;
 		}
 		
 		/**		 * Defines whether "full" URLs (defined as a URL that includes a scheme, e.g. http://) should be		 * overridden with the dependencyBaseUrl defined in this context. If this is true, and the base		 * path is "base", http://example.com/path/to/asset.jpg will be resolved as base/path/to/asset.jpg.		 */
@@ -78,7 +78,7 @@ package away.loaders.misc
 		
 		public function set overrideFullURLs(val:Boolean):void
 		{
-            this._overrideFullUrls = val;
+            _overrideFullUrls = val;
 		}
 		
 		/**		 * Map a URL to another URL, so that files that are referred to by the original URL will instead		 * be loaded from the new URL. Use this when your file structure does not match the one that is		 * expected by the loaded file.		 *		 * @param originalUrl The original URL which is referenced in the loaded resource.		 * @param newUrl The URL from which Away3D should load the resource instead.		 *		 * @see mapUrlToData()		 */

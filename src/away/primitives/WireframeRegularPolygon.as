@@ -21,9 +21,9 @@ package away.primitives
 		{
 			super(color, thickness);
 			
-			this._radius = radius;
-            this._sides = sides;
-            this._orientation = orientation;
+			_radius = radius;
+            _sides = sides;
+            _orientation = orientation;
 		}
 		
 		/**		 * The orientaion in which the polygon lies.		 */
@@ -34,8 +34,8 @@ package away.primitives
 		
 		public function set orientation(value:String):void
 		{
-            this._orientation = value;
-            this.pInvalidateGeometry();
+            _orientation = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The radius of the regular polygon.		 */
@@ -46,8 +46,8 @@ package away.primitives
 		
 		public function set radius(value:Number):void
 		{
-            this._radius = value;
-            this.pInvalidateGeometry();
+            _radius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The number of sides to the regular polygon.		 */
@@ -58,9 +58,9 @@ package away.primitives
 		
 		public function set sides(value:Number):void
 		{
-            this._sides = value;
-            this.removeAllSegments();
-            this.pInvalidateGeometry();
+            _sides = value;
+            removeAllSegments();
+            pInvalidateGeometry();
 		}
 		
 		/**		 * @inheritDoc		 */

@@ -48,7 +48,7 @@ package away.traverse
 		public function EntityCollector():void
 		{
 			super();
-			this.init();
+			init();
 		}
 		
 		private function init():void
@@ -68,10 +68,10 @@ package away.traverse
 		
 		public function set camera(value:Camera3D):void
 		{
-			this._pCamera = value;
-			this._iEntryPoint = this._pCamera.scenePosition;
-			this._pCameraForward = this._pCamera.forwardVector;
-			this._cullPlanes = this._pCamera.frustumPlanes;
+			_pCamera = value;
+			_iEntryPoint = _pCamera.scenePosition;
+			_pCameraForward = _pCamera.forwardVector;
+			_cullPlanes = _pCamera.frustumPlanes;
 		}
 		
 		public function get cullPlanes():Vector.<Plane3D>
@@ -81,7 +81,7 @@ package away.traverse
 		
 		public function set cullPlanes(value:Vector.<Plane3D>):void
 		{
-			this._customCullPlanes = value;
+			_customCullPlanes = value;
 		}
 		
 		public function get numMouseEnableds():Number
@@ -101,7 +101,7 @@ package away.traverse
 		
 		public function set opaqueRenderableHead(value:RenderableListItem):void
 		{
-			this._pOpaqueRenderableHead = value;
+			_pOpaqueRenderableHead = value;
 		}
 		
 		public function get blendedRenderableHead():RenderableListItem
@@ -111,7 +111,7 @@ package away.traverse
 		
 		public function set blendedRenderableHead(value:RenderableListItem):void
 		{
-			this._pBlendedRenderableHead = value;
+			_pBlendedRenderableHead = value;
 		}
 		
 		public function get entityHead():EntityListItem

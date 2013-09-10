@@ -15,7 +15,7 @@ package away.events
 		public function CameraEvent(type:String, camera:Camera3D):void
 		{
 			super( type );
-			this._camera = camera;
+			_camera = camera;
 		}
 		
 		public function get camera():Camera3D

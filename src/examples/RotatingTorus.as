@@ -1,4 +1,4 @@
-package myTests
+package examples
 {
 import away.base.CompactSubGeometry;
 import away.display.BitmapData;

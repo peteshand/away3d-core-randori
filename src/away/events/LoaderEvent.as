@@ -23,9 +23,9 @@ package away.events
 		{
 			super(type);
 
-            this._url           = url;
-            this._message       = errmsg;
-            this._isDependency  = isDependency;
+            _url           = url;
+            _message       = errmsg;
+            _isDependency  = isDependency;
 
 		}
         /**         * The url of the loaded resource.         */
@@ -52,7 +52,7 @@ package away.events
         /**         * Clones the current event.         * @return An exact duplicate of the current event.         */
         override public function clone():Event
         {
-            return Event(new LoaderEvent(type, _url, _isDependency, _message));
+            return (new LoaderEvent(type, _url, _isDependency, _message) as Event);
 
         }
 

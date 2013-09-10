@@ -214,7 +214,7 @@ package away.base
 		
 		public function set x(val:Number):void
 		{
-			if (this._x == val)
+			if (_x == val)
             {
 
                 return;
@@ -222,8 +222,8 @@ package away.base
             }
 
 
-			this._x = val;
-			this.invalidatePosition();
+			_x = val;
+			invalidatePosition();
 
 		}
 		
@@ -235,15 +235,15 @@ package away.base
 		
 		public function set y(val:Number):void
 		{
-			if (this._y == val)
+			if (_y == val)
             {
 
                 return;
 
             }
 
-			this._y = val;
-			this.invalidatePosition();
+			_y = val;
+			invalidatePosition();
 
 		}
 		
@@ -255,15 +255,15 @@ package away.base
 		
 		public function set z(val:Number):void
 		{
-			if (this._z == val)
+			if (_z == val)
             {
 
                 return;
 
             }
 
-			this._z = val;
-			this.invalidatePosition();
+			_z = val;
+			invalidatePosition();
 
 		}
 		
@@ -275,7 +275,7 @@ package away.base
 		
 		public function set rotationX(val:Number):void
 		{
-			if (this.rotationX == val)
+			if (rotationX == val)
             {
 
                 return;
@@ -283,8 +283,8 @@ package away.base
             }
 
 			
-			this._rotationX = val*MathConsts.DEGREES_TO_RADIANS;
-			this.invalidateRotation();
+			_rotationX = val*MathConsts.DEGREES_TO_RADIANS;
+			invalidateRotation();
 		}
 		
 		/**		 * Defines the euler angle of rotation of the 3d object around the y-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
@@ -295,16 +295,16 @@ package away.base
 		
 		public function set rotationY(val:Number):void
 		{
-			if (this.rotationY == val)
+			if (rotationY == val)
             {
 
                 return;
 
             }
 
-			this._rotationY = val*MathConsts.DEGREES_TO_RADIANS;
+			_rotationY = val*MathConsts.DEGREES_TO_RADIANS;
 			
-			this.invalidateRotation();
+			invalidateRotation();
 		}
 		
 		/**		 * Defines the euler angle of rotation of the 3d object around the z-axis, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
@@ -315,7 +315,7 @@ package away.base
 		
 		public function set rotationZ(val:Number):void
 		{
-			if (this.rotationZ == val)
+			if (rotationZ == val)
             {
 
                 return;
@@ -323,9 +323,9 @@ package away.base
             }
 
 			
-			this._rotationZ = val*MathConsts.DEGREES_TO_RADIANS;
+			_rotationZ = val*MathConsts.DEGREES_TO_RADIANS;
 			
-			this.invalidateRotation();
+			invalidateRotation();
 		}
 		
 		/**		 * Defines the scale of the 3d object along the x-axis, relative to local coordinates.		 */
@@ -336,16 +336,16 @@ package away.base
 		
 		public function set scaleX(val:Number):void
 		{
-			if (this._pScaleX == val)
+			if (_pScaleX == val)
             {
 
                 return;
 
             }
 
-			this._pScaleX = val;
+			_pScaleX = val;
 			
-			this.invalidateScale();
+			invalidateScale();
 		}
 		
 		/**		 * Defines the scale of the 3d object along the y-axis, relative to local coordinates.		 */
@@ -356,16 +356,16 @@ package away.base
 		
 		public function set scaleY(val:Number):void
 		{
-			if (this._pScaleY == val)
+			if (_pScaleY == val)
             {
 
                 return;
 
             }
 
-            this._pScaleY = val;
+            _pScaleY = val;
 
-            this.invalidateScale();
+            invalidateScale();
 
 		}
 		
@@ -377,15 +377,15 @@ package away.base
 		
 		public function set scaleZ(val:Number):void
 		{
-			if (this._pScaleZ == val)
+			if (_pScaleZ == val)
             {
 
                 return;
 
             }
 
-			this._pScaleZ = val;
-			this.invalidateScale();
+			_pScaleZ = val;
+			invalidateScale();
 
 		}
 		
@@ -401,11 +401,11 @@ package away.base
 		
 		public function set eulers(value:Vector3D):void
 		{
-			this._rotationX = value.x*MathConsts.DEGREES_TO_RADIANS;
-            this._rotationY = value.y*MathConsts.DEGREES_TO_RADIANS;
-            this._rotationZ = value.z*MathConsts.DEGREES_TO_RADIANS;
+			_rotationX = value.x*MathConsts.DEGREES_TO_RADIANS;
+            _rotationY = value.y*MathConsts.DEGREES_TO_RADIANS;
+            _rotationZ = value.z*MathConsts.DEGREES_TO_RADIANS;
 
-            this.invalidateRotation();
+            invalidateRotation();
 		}
 		
 		/**		 * The transformation of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
@@ -434,7 +434,7 @@ package away.base
 
                 var raw:Vector.<Number> = Matrix3DUtils.RAW_DATA_CONTAINER;
                 val.copyRawDataTo( raw );
-                raw[0] = this._smallestNumber;
+                raw[0] = _smallestNumber;
                 val.copyRawDataFrom(raw);
             }
             //*/
@@ -443,34 +443,34 @@ package away.base
 			
 			vec = elements[0];
 			
-			if (this._x != vec.x || this._y != vec.y || this._z != vec.z)
+			if (_x != vec.x || _y != vec.y || _z != vec.z)
             {
-                this._x = vec.x;
-                this._y = vec.y;
-                this._z = vec.z;
+                _x = vec.x;
+                _y = vec.y;
+                _z = vec.z;
 				
-				this.invalidatePosition();
+				invalidatePosition();
 			}
 			
 			vec = elements[1];
 			
-			if (this._rotationX != vec.x || this._rotationY != vec.y || this._rotationZ != vec.z)
+			if (_rotationX != vec.x || _rotationY != vec.y || _rotationZ != vec.z)
             {
-                this._rotationX = vec.x;
-                this._rotationY = vec.y;
-                this._rotationZ = vec.z;
+                _rotationX = vec.x;
+                _rotationY = vec.y;
+                _rotationZ = vec.z;
 
-                this.invalidateRotation();
+                invalidateRotation();
 			}
 			
 			vec = elements[2];
 			
-			if (this._pScaleX != vec.x || this._pScaleY != vec.y || this._pScaleZ != vec.z) {
-                this._pScaleX = vec.x;
-                this._pScaleY = vec.y;
-                this._pScaleZ = vec.z;
+			if (_pScaleX != vec.x || _pScaleY != vec.y || _pScaleZ != vec.z) {
+                _pScaleX = vec.x;
+                _pScaleY = vec.y;
+                _pScaleZ = vec.z;
 
-                this.invalidateScale();
+                invalidateScale();
 			}
 		}
 
@@ -485,9 +485,9 @@ package away.base
 
 		public function set pivotPoint(pivot:Vector3D):void
 		{
-			this._pivotPoint = pivot.clone();
+			_pivotPoint = pivot.clone();
 
-            this.invalidatePivot();
+            invalidatePivot();
 		}
 
 		/**		 * Defines the position of the 3d object, relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 */
@@ -500,11 +500,11 @@ package away.base
 		
 		public function set position(value:Vector3D):void
 		{
-			this._x = value.x;
-            this._y = value.y;
-            this._z = value.z;
+			_x = value.x;
+            _y = value.y;
+            _z = value.z;
 
-            this.invalidatePosition();
+            invalidatePosition();
 		}
 		
 		/**		 *		 */
@@ -555,15 +555,15 @@ package away.base
 			// Cached vector of transformation components used when
 			// recomposing the transform matrix in updateTransform()
 
-            this._transformComponents = new Vector.<Vector3D>(3);//_transformComponents = new Vector.<Vector3D>(3, true);
+            _transformComponents = new Vector.<Vector3D>(3);//_transformComponents = new Vector.<Vector3D>(3, true);
 
-			this._transformComponents[0] = this._pPos;
-            this._transformComponents[1] = this._rot;
-            this._transformComponents[2] = this._sca;
+			_transformComponents[0] = _pPos;
+            _transformComponents[1] = _rot;
+            _transformComponents[2] = _sca;
 
-            this._pTransform.identity();
+            _pTransform.identity();
 
-			this._flipY.appendScale(1, -1, 1);
+			_flipY.appendScale(1, -1, 1);
 		}
 		
 		/**		 * Appends a uniform scale to the current transformation.		 * @param value The amount by which to scale.		 */
@@ -690,7 +690,7 @@ package away.base
 		{
 			var clone:Object3D = new Object3D();
 		    	clone.pivotPoint = pivotPoint;
-			    clone.transform = transform;
+			    clone.transform = _pTransform;
 			    clone.name = name;
 			// todo: implement for all subtypes
 			return clone;
@@ -708,7 +708,7 @@ package away.base
 		public function rotate(axis:Vector3D, angle:Number):void
 		{
 			transform.prependRotation(angle, axis);
-			transform = transform;
+			transform = _pTransform;
 
 		}
 		/**		 * Rotates the 3d object around to face a point defined relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 *		 * @param    target        The vector defining the point to be looked at		 * @param    upAxis        An optional vector used to define the desired up orientation of the 3d object after rotation has occurred		 */
@@ -760,7 +760,7 @@ package away.base
 
             _pTransform.copyRawDataFrom(raw);
 
-            transform = transform;
+            transform = _pTransform;
 			
 			if (zAxis.z < 0)
             {
@@ -824,7 +824,7 @@ package away.base
 		
 		public function set zOffset(value:Number):void
 		{
-			this._zOffset = value;
+			_zOffset = value;
 		}
 	}
 

@@ -10,7 +10,7 @@ package away.materials
 		public function ColorMultiPassMaterial(color:Number = 0xcccccc):void
 		{
 			super();
-			this.color = color;
+			color = color;
 		}
 		
 		/**		 * The diffuse reflectivity color of the surface.		 */
@@ -21,7 +21,7 @@ package away.materials
 		
 		public function set color(value:Number):void
 		{
-			this.diffuseMethod.diffuseColor = value;
+			diffuseMethod.diffuseColor = value;
 		}
 	}
 }

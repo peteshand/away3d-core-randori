@@ -18,11 +18,11 @@ package away.primitives
 		{
 			super();
 			
-			this._radius = radius;
-            this._height = height;
-            this._segmentsW = segmentsW;
-            this._segmentsH = (segmentsH%2 == 0)? segmentsH + 1 : segmentsH;
-            this._yUp = yUp;
+			_radius = radius;
+            _height = height;
+            _segmentsW = segmentsW;
+            _segmentsH = (segmentsH%2 == 0)? segmentsH + 1 : segmentsH;
+            _yUp = yUp;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -207,8 +207,8 @@ package away.primitives
 		
 		public function set radius(value:Number):void
 		{
-            this._radius = value;
-            this.pInvalidateGeometry();
+            _radius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The height of the capsule.		 */
@@ -219,8 +219,8 @@ package away.primitives
 		
 		public function set height(value:Number):void
 		{
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 */
@@ -231,9 +231,9 @@ package away.primitives
 		
 		public function set segmentsW(value:Number):void
 		{
-            this._segmentsW = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsW = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven.		 */
@@ -244,9 +244,9 @@ package away.primitives
 		
 		public function set segmentsH(value:Number):void
 		{
-            this._segmentsH = (value%2 == 0)? value + 1 : value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsH = (value%2 == 0)? value + 1 : value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -257,8 +257,8 @@ package away.primitives
 		
 		public function set yUp(value:Boolean):void
 		{
-            this._yUp = value;
-            this.pInvalidateGeometry();
+            _yUp = value;
+            pInvalidateGeometry();
 		}
 	}
 }

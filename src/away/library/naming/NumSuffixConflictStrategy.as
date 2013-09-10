@@ -14,8 +14,8 @@ package away.library.naming
 		{
 			super();
 			
-			this._separator = separator;
-            this._next_suffix = {};
+			_separator = separator;
+            _next_suffix = {};
 		}
 		
 		override public function resolveConflict(changedAsset:IAsset, oldAsset:IAsset, assetsDictionary:Object, precedence:String):void

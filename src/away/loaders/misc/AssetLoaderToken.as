@@ -112,7 +112,7 @@ package away.loaders.misc
 		{
 			super();
 			
-			this._iLoader = loader;
+			_iLoader = loader;
 		}
 		
 		override public function addEventListener(type:String, listener:Function, target:Object):void

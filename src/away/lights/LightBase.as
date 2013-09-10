@@ -53,30 +53,30 @@ package away.lights
 		
 		public function set castsShadows(value:Boolean):void
 		{
-			if( this._castsShadows == value )
+			if( _castsShadows == value )
 			{
 				return;
 			}
 			
-			this._castsShadows = value;
+			_castsShadows = value;
 			
 			if( value )
 			{
 
-                if ( this._shadowMapper == null )
+                if ( _shadowMapper == null )
                 {
 
-                    this._shadowMapper = this.pCreateShadowMapper();
+                    _shadowMapper = pCreateShadowMapper();
 
                 }
 
-				this._shadowMapper.light = this;
+				_shadowMapper.light = this;
 			} else {
-                this._shadowMapper.dispose();
-                this._shadowMapper = null;
+                _shadowMapper.dispose();
+                _shadowMapper = null;
 			}
 			//*/
-			this.dispatchEvent(new LightEvent( LightEvent.CASTS_SHADOW_CHANGE) );
+			dispatchEvent(new LightEvent( LightEvent.CASTS_SHADOW_CHANGE) );
 		}
 		
 		public function pCreateShadowMapper():ShadowMapperBase
@@ -95,8 +95,8 @@ package away.lights
 			{
 				value = 0;
 			}
-			this._specular = value;
-			this.updateSpecular();
+			_specular = value;
+			updateSpecular();
 		}
 		
 		public function get diffuse():Number
@@ -110,8 +110,8 @@ package away.lights
 			{
 				value = 0;
 			}
-			this._diffuse = value;
-			this.updateDiffuse();
+			_diffuse = value;
+			updateDiffuse();
 		}
 		
 		public function get color():Number
@@ -121,12 +121,12 @@ package away.lights
 		
 		public function set color(value:Number):void
 		{
-			this._color = value;
-			this._colorR = ((this._color >> 16) & 0xff)/0xff;
-			this._colorG = ((this._color >> 8) & 0xff)/0xff;
-			this._colorB = (this._color & 0xff)/0xff;
-			this.updateDiffuse();
-			this.updateSpecular();
+			_color = value;
+			_colorR = ((_color >> 16) & 0xff)/0xff;
+			_colorG = ((_color >> 8) & 0xff)/0xff;
+			_colorB = (_color & 0xff)/0xff;
+			updateDiffuse();
+			updateSpecular();
 		}
 		
 		public function get ambient():Number
@@ -144,8 +144,8 @@ package away.lights
 			{
 				value = 1;
 			}
-			this._ambient = value;
-			this.updateAmbient();
+			_ambient = value;
+			updateAmbient();
 		}
 		
 		public function get ambientColor():Number
@@ -155,8 +155,8 @@ package away.lights
 		
 		public function set ambientColor(value:Number):void
 		{
-			this._ambientColor = value;
-			this.updateAmbient();
+			_ambientColor = value;
+			updateAmbient();
 		}
 		
 		private function updateAmbient():void
@@ -204,8 +204,8 @@ package away.lights
 
 		public function set shadowMapper(value:ShadowMapperBase):void
 		{
-			this._shadowMapper = value;
-			this._shadowMapper.light = this;
+			_shadowMapper = value;
+			_shadowMapper.light = this;
 		}
 	}
 }

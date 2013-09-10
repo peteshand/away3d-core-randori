@@ -58,7 +58,7 @@ package away.materials.methods
 		
 		public function set gloss(value:Number):void
 		{
-            this._gloss = value;
+            _gloss = value;
 		}
 		
 		/**		 * The overall strength of the specular highlights.		 */
@@ -69,11 +69,11 @@ package away.materials.methods
 		
 		public function set specular(value:Number):void
 		{
-			if (value == this._specular)
+			if (value == _specular)
 				return;
 
-            this._specular = value;
-            this.updateSpecular();
+            _specular = value;
+            updateSpecular();
 		}
 		
 		/**		 * The colour of the specular reflection of the surface.		 */
@@ -84,15 +84,15 @@ package away.materials.methods
 		
 		public function set specularColor(value:Number):void
 		{
-			if (this._specularColor == value)
+			if (_specularColor == value)
 				return;
 			
 			// specular is now either enabled or disabled
-			if (this._specularColor == 0 || value == 0)
-                this.iInvalidateShaderProgram();
+			if (_specularColor == 0 || value == 0)
+                iInvalidateShaderProgram();
 
-			this._specularColor = value;
-			this.updateSpecular();
+			_specularColor = value;
+			updateSpecular();
 		}
 		
 		/**		 * The bitmapData that encodes the specular highlight strength per texel in the red channel, and the sharpness		 * in the green channel. You can use SpecularBitmapTexture if you want to easily set specular and gloss maps		 * from grayscale images, but prepared images are preferred.		 */
@@ -106,12 +106,12 @@ package away.materials.methods
 
             var b : Boolean =  ( value != null );
 
-			if ( b != this._useTexture ||
-				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
-				this.iInvalidateShaderProgram();
+			if ( b != _useTexture ||
+				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
+				iInvalidateShaderProgram();
 			}
-			this._useTexture = b;//Boolean(value);
-			this._texture = value;
+			_useTexture = b;//Boolean(value);
+			_texture = value;
 
 		}
 		
@@ -120,7 +120,7 @@ package away.materials.methods
 		{
 
             var m : * = method;
-            var bsm : BasicSpecularMethod = BasicSpecularMethod(method);
+            var bsm : BasicSpecularMethod = (method as BasicSpecularMethod);
 
 			var spec:BasicSpecularMethod = bsm;//BasicSpecularMethod(method);
 			texture = spec.texture;
@@ -408,7 +408,7 @@ package away.materials.methods
 		public function set iShadowRegister(shadowReg:ShaderRegisterElement):void
 		{
 
-			this._shadowRegister = shadowReg;
+			_shadowRegister = shadowReg;
 
 		}
         

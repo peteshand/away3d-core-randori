@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:01 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.controllers.LookAtController = function(targetObject, lookAtObject) {
 	this._pLookAtPosition = null;
 	away.controllers.ControllerBase.call(this, targetObject);
 	if (lookAtObject) {
-		this.set_lookAtObject(lookAtObject);
+		lookAtObject = lookAtObject;
 	} else {
 		this.set_lookAtPosition(new away.geom.Vector3D(0, 0, 0, 0));
 	}
@@ -23,7 +23,7 @@ away.controllers.LookAtController.prototype.get_lookAtPosition = function() {
 
 away.controllers.LookAtController.prototype.set_lookAtPosition = function(val) {
 	if (this._pLookAtObject) {
-		this._pLookAtObject.removeEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(, this.onLookAtObjectChanged), this);
+		this._pLookAtObject.removeEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(this, this.onLookAtObjectChanged), this);
 		this._pLookAtObject = null;
 	}
 	this._pLookAtPosition = val;
@@ -42,11 +42,11 @@ away.controllers.LookAtController.prototype.set_lookAtObject = function(val) {
 		return;
 	}
 	if (this._pLookAtObject) {
-		this._pLookAtObject.removeEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(, this.onLookAtObjectChanged), this);
+		this._pLookAtObject.removeEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(this, this.onLookAtObjectChanged), this);
 	}
 	this._pLookAtObject = val;
 	if (this._pLookAtObject) {
-		this._pLookAtObject.addEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(, this.onLookAtObjectChanged), this);
+		this._pLookAtObject.addEventListener(away.events.Object3DEvent.SCENETRANSFORM_CHANGED, $createStaticDelegate(this, this.onLookAtObjectChanged), this);
 	}
 	this.pNotifyUpdate();
 };

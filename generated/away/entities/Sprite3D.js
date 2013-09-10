@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:24 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,7 +17,7 @@ away.entities.Sprite3D = function(material, width, height) {
 	this._width = 0;
 	this._material = null;
 	away.entities.Entity.call(this);
-	this.set_material(material);
+	material = material;
 	this._width = width;
 	this._height = height;
 	this._spriteMatrix = new away.geom.Matrix3D();

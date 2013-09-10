@@ -15,7 +15,7 @@ package away.filters
 		
 		public function Filter3DBase():void
 		{
-			this._tasks = new Vector.<Filter3DTaskBase>();
+			_tasks = new Vector.<Filter3DTaskBase>();
 		}
 		
 		public function get requireDepthRender():Boolean
@@ -57,12 +57,12 @@ package away.filters
 		
 		public function set textureWidth(value:Number):void
 		{
-            this._textureWidth = value;
+            _textureWidth = value;
 			
-			for (var i:Number = 0; i < this._tasks.length; ++i)
+			for (var i:Number = 0; i < _tasks.length; ++i)
             {
 
-                this._tasks[i].textureWidth = value;
+                _tasks[i].textureWidth = value;
 
             }
 
@@ -77,12 +77,12 @@ package away.filters
 		
 		public function set textureHeight(value:Number):void
 		{
-			this._textureHeight = value;
+			_textureHeight = value;
 
-			for (var i:Number = 0; i < this._tasks.length; ++i)
+			for (var i:Number = 0; i < _tasks.length; ++i)
             {
 
-                this._tasks[i].textureHeight = value;
+                _tasks[i].textureHeight = value;
 
             }
 

@@ -17,7 +17,7 @@ package away.events
 		
 		public function Scene3DEvent(type:String, objectContainer:ObjectContainer3D):void
 		{
-			this.target = objectContainer;
+			target = objectContainer;
 			super( type );
 		}
 		

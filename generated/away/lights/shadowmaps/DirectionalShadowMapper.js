@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:21 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -66,7 +66,7 @@ away.lights.shadowmaps.DirectionalShadowMapper.prototype.pUpdateCullPlanes = fun
 	this._pCullPlanes[1] = lightFrustumPlanes[1];
 	this._pCullPlanes[2] = lightFrustumPlanes[2];
 	this._pCullPlanes[3] = lightFrustumPlanes[3];
-	var light = this._pLight, -1, 1;
+	var light = this._pLight;
 	var dir = light.get_sceneDirection();
 	var dirX = dir.x;
 	var dirY = dir.y;
@@ -93,7 +93,7 @@ away.lights.shadowmaps.DirectionalShadowMapper.prototype.pUpdateProjectionFromFr
 	var minX, minY;
 	var maxX, maxY;
 	var i;
-	var light = this._pLight, -1, 1;
+	var light = this._pLight;
 	dir = light.get_sceneDirection();
 	this._pOverallDepthCamera.set_transform(this._pLight.get_sceneTransform());
 	x = Math.floor((viewCamera.get_x() - dir.x * this._pLightOffset) / this._pSnap) * this._pSnap;

@@ -17,7 +17,7 @@ package away.net {
             if ( source !== null )
             {
 
-                this.decode( source );
+                decode( source );
 
             }
 
@@ -72,7 +72,7 @@ package away.net {
         public function set variables(obj:Object):void
         {
 
-            this._variables = obj;
+            _variables = obj;
 
         }
 

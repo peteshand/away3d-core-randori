@@ -1,4 +1,4 @@
-package myTests {
+package examples {
 import away.events.Event;
 import away.net.IMGLoader;
 import away.net.URLRequest;

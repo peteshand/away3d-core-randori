@@ -59,7 +59,7 @@ package away.materials.methods
 		{
 
             var s : * = method;
-            var bnm : BasicNormalMethod = BasicNormalMethod(method);
+            var bnm : BasicNormalMethod = (method as BasicNormalMethod);
 
             normalMap = bnm.normalMap;
 
@@ -76,12 +76,12 @@ package away.materials.methods
 
             var b : Boolean =  ( value != null );
 
-			if ( b != this._useTexture ||
-				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
-				this.iInvalidateShaderProgram();//invalidateShaderProgram();
+			if ( b != _useTexture ||
+				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
+				iInvalidateShaderProgram();//invalidateShaderProgram();
 			}
-			this._useTexture = Boolean(value);
-            this._texture = value;
+			_useTexture = Boolean(value);
+            _texture = value;
 
 		}
 

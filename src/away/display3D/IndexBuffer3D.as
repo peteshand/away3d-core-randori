@@ -15,9 +15,9 @@ package away.display3D
 		
 		public function IndexBuffer3D(gl:WebGLRenderingContext, numIndices:Number):void
 		{
-			this._gl = gl;
-			this._buffer = _gl.createBuffer();
-			this._numIndices = numIndices;
+			_gl = gl;
+			_buffer = _gl.createBuffer();
+			_numIndices = numIndices;
 		}
 		
 		public function uploadFromArray(data:Vector.<Number>, startOffset:Number, count:Number):void

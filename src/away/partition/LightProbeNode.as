@@ -13,7 +13,7 @@ package away.partition
 		public function LightProbeNode(light:LightProbe):void
 		{
 			super( light );
-			this._light = light;
+			_light = light;
 		}
 		
 		public function get light():LightProbe

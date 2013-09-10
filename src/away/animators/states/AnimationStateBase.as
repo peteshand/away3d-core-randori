@@ -31,8 +31,8 @@ package away.animators.states
 		
 		public function AnimationStateBase(animator:IAnimator, animationNode:AnimationNodeBase):void
 		{
-			this._animator = animator;
-            this._animationNode = animationNode;
+			_animator = animator;
+            _animationNode = animationNode;
 		}
 		
 		/**		 * Resets the start time of the node to a  new value.		 *		 * @param startTime The absolute start time (in milliseconds) of the node's starting time.		 */

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,10 +7,10 @@ if (typeof away.materials == "undefined")
 
 away.materials.TextureMaterial = function(texture, smooth, repeat, mipmap) {
 	away.materials.SinglePassMaterialBase.call(this);
-	this.set_texture(texture);
-	this.set_smooth(smooth);
-	this.set_repeat(repeat);
-	this.set_mipmap(mipmap);
+	texture = texture;
+	smooth = smooth;
+	repeat = repeat;
+	mipmap = mipmap;
 };
 
 away.materials.TextureMaterial.prototype.get_animateUVs = function() {

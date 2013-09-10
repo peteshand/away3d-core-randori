@@ -253,7 +253,7 @@ package away.managers
 		
 		public function set forceMouseMove(value:Boolean):void
 		{
-            this._forceMouseMove = value;
+            _forceMouseMove = value;
 		}
 		
 		public function get mousePicker():IPicker
@@ -263,7 +263,7 @@ package away.managers
 		
 		public function set mousePicker(value:IPicker):void
 		{
-			this._mousePicker = value;
+			_mousePicker = value;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:01 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -430,7 +430,7 @@ away.base.Object3D.prototype.roll = function(angle) {
 away.base.Object3D.prototype.clone = function() {
 	var clone = new away.base.Object3D();
 	clone.set_pivotPoint($createStaticDelegate(this, this.get_pivotPoint));
-	clone.set_transform($createStaticDelegate(this, this.get_transform));
+	clone.set_transform(this._pTransform);
 	clone.set_name($createStaticDelegate(this, this.get_name));
 	return clone;
 };
@@ -444,7 +444,7 @@ away.base.Object3D.prototype.rotateTo = function(ax, ay, az) {
 
 away.base.Object3D.prototype.rotate = function(axis, angle) {
 	this.get_transform().prependRotation(angle, axis);
-	this.set_transform($createStaticDelegate(this, this.get_transform));
+	this.set_transform(this._pTransform);
 };
 
 away.base.Object3D.prototype.lookAt = function(target, upAxis) {
@@ -480,7 +480,7 @@ away.base.Object3D.prototype.lookAt = function(target, upAxis) {
 	raw[14] = this._z;
 	raw[15] = 1;
 	this._pTransform.copyRawDataFrom(raw, 0, false);
-	this.set_transform($createStaticDelegate(this, this.get_transform));
+	this.set_transform(this._pTransform);
 	if (zAxis.z < 0) {
 		this.set_rotationY((180 - $createStaticDelegate(this, this.get_rotationY)));
 		this.set_rotationX(this.get_rotationX() - 180);

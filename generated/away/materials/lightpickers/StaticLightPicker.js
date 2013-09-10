@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:21:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.materials.lightpickers == "undefined")
 away.materials.lightpickers.StaticLightPicker = function(lights) {
 	this._lights = null;
 	away.materials.lightpickers.LightPickerBase.call(this);
-	this.set_lights(lights);
+	lights = lights;
 };
 
 away.materials.lightpickers.StaticLightPicker.prototype.get_lights = function() {
@@ -36,7 +36,7 @@ away.materials.lightpickers.StaticLightPicker.prototype.set_lights = function(va
 	var len = value.length;
 	for (var i = 0; i < len; ++i) {
 		light = value[i];
-		light.addEventListener(away.events.LightEvent.CASTS_SHADOW_CHANGE, $createStaticDelegate(, this.onCastShadowChange), this);
+		light.addEventListener(away.events.LightEvent.CASTS_SHADOW_CHANGE, $createStaticDelegate(this, this.onCastShadowChange), this);
 		if (light instanceof away.lights.PointLight) {
 			if (light.get_castsShadows())
 				this._pCastingPointLights[numCastingPointLights++] = light;
@@ -44,9 +44,9 @@ away.materials.lightpickers.StaticLightPicker.prototype.set_lights = function(va
 				this._pPointLights[numPointLights++] = light;
 		} else if (light instanceof away.lights.DirectionalLight) {
 			if (light.get_castsShadows())
-				this._pCastingDirectionalLights[numCastingDirectionalLights++] = light, -1, 1;
+				this._pCastingDirectionalLights[numCastingDirectionalLights++] = light;
 			else
-				this._pDirectionalLights[numDirectionalLights++] = light, -1, 1;
+				this._pDirectionalLights[numDirectionalLights++] = light;
 		} else if (light instanceof away.lights.LightProbe) {
 			this._pLightProbes[numLightProbes++] = light;
 		}
@@ -75,14 +75,14 @@ away.materials.lightpickers.StaticLightPicker.prototype.onCastShadowChange = fun
 		var pl = light;
 		this.updatePointCasting(pl);
 	} else if (light instanceof away.lights.DirectionalLight) {
-		var dl = light, -1, 1;
+		var dl = light;
 		this.updateDirectionalCasting(dl);
 	}
 	this.dispatchEvent(new away.events.Event(away.events.Event.CHANGE));
 };
 
 away.materials.lightpickers.StaticLightPicker.prototype.updateDirectionalCasting = function(light) {
-	var dl = light, -1, 1;
+	var dl = light;
 	if (light.get_castsShadows()) {
 		--this._pNumDirectionalLights;
 		++this._pNumCastingDirectionalLights;

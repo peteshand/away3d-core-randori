@@ -27,10 +27,10 @@ package away.math
 		/**		 * Creates a new Quaternion object.		 * @param x The x value of the quaternion.		 * @param y The y value of the quaternion.		 * @param z The z value of the quaternion.		 * @param w The w value of the quaternion.		 */
 		public function Quaternion(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 1):void
 		{
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.w = w;
+			x = x;
+			y = y;
+			z = z;
+			w = w;
 		}
 		
 		/**		 * Returns the magnitude of the quaternion object.		 */

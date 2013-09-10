@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:17 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,7 +14,7 @@ away.cameras.lenses.PerspectiveLens = function(fieldOfView) {
 	this._yMax = 0;
 	this._focalLength = 0;
 	away.cameras.lenses.LensBase.call(this);
-	this.set_fieldOfView(fieldOfView);
+	fieldOfView = fieldOfView;
 };
 
 away.cameras.lenses.PerspectiveLens.prototype.get_fieldOfView = function() {

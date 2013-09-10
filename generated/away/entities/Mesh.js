@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:28 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,14 +15,14 @@ away.entities.Mesh = function(geometry, material) {
 	away.entities.Entity.call(this);
 	this._subMeshes = [];
 	if (geometry == null) {
-		this.set_geometry(new away.base.Geometry());
+		geometry = new away.base.Geometry();
 	} else {
-		this.set_geometry(geometry);
+		geometry = geometry;
 	}
 	if (material == null) {
-		this.set_material(away.materials.utils.DefaultMaterialManager.getDefaultMaterial(this));
+		material = away.materials.utils.DefaultMaterialManager.getDefaultMaterial(this);
 	} else {
-		this.set_material(material);
+		material = material;
 	}
 };
 
@@ -62,9 +62,9 @@ away.entities.Mesh.prototype.get_geometry = function() {
 away.entities.Mesh.prototype.set_geometry = function(value) {
 	var i;
 	if (this._geometry) {
-		this._geometry.removeEventListener(away.events.GeometryEvent.BOUNDS_INVALID, $createStaticDelegate(, this.onGeometryBoundsInvalid), this);
-		this._geometry.removeEventListener(away.events.GeometryEvent.SUB_GEOMETRY_ADDED, $createStaticDelegate(, this.onSubGeometryAdded), this);
-		this._geometry.removeEventListener(away.events.GeometryEvent.SUB_GEOMETRY_REMOVED, $createStaticDelegate(, this.onSubGeometryRemoved), this);
+		this._geometry.removeEventListener(away.events.GeometryEvent.BOUNDS_INVALID, $createStaticDelegate(this, this.onGeometryBoundsInvalid), this);
+		this._geometry.removeEventListener(away.events.GeometryEvent.SUB_GEOMETRY_ADDED, $createStaticDelegate(this, this.onSubGeometryAdded), this);
+		this._geometry.removeEventListener(away.events.GeometryEvent.SUB_GEOMETRY_REMOVED, $createStaticDelegate(this, this.onSubGeometryRemoved), this);
 		for (i = 0; i < this._subMeshes.length; ++i) {
 			this._subMeshes[i].dispose();
 		}
@@ -72,9 +72,9 @@ away.entities.Mesh.prototype.set_geometry = function(value) {
 	}
 	this._geometry = value;
 	if (this._geometry) {
-		this._geometry.addEventListener(away.events.GeometryEvent.BOUNDS_INVALID, $createStaticDelegate(, this.onGeometryBoundsInvalid), this);
-		this._geometry.addEventListener(away.events.GeometryEvent.SUB_GEOMETRY_ADDED, $createStaticDelegate(, this.onSubGeometryAdded), this);
-		this._geometry.addEventListener(away.events.GeometryEvent.SUB_GEOMETRY_REMOVED, $createStaticDelegate(, this.onSubGeometryRemoved), this);
+		this._geometry.addEventListener(away.events.GeometryEvent.BOUNDS_INVALID, $createStaticDelegate(this, this.onGeometryBoundsInvalid), this);
+		this._geometry.addEventListener(away.events.GeometryEvent.SUB_GEOMETRY_ADDED, $createStaticDelegate(this, this.onSubGeometryAdded), this);
+		this._geometry.addEventListener(away.events.GeometryEvent.SUB_GEOMETRY_REMOVED, $createStaticDelegate(this, this.onSubGeometryRemoved), this);
 		var subGeoms = this._geometry.get_subGeometries();
 		for (i = 0; i < subGeoms.length; ++i) {
 			this.addSubMesh(subGeoms[i]);

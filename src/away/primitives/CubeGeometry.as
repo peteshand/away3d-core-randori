@@ -24,13 +24,13 @@ package away.primitives
 		{
 			super();
 			
-			this._width = width;
-            this._height = height;
-            this._depth = depth;
-            this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
-            this._segmentsD = segmentsD;
-            this._tile6 = tile6;
+			_width = width;
+            _height = height;
+            _depth = depth;
+            _segmentsW = segmentsW;
+            _segmentsH = segmentsH;
+            _segmentsD = segmentsD;
+            _tile6 = tile6;
 		}
 		
 		/**		 * The size of the cube along its X-axis.		 */
@@ -41,8 +41,8 @@ package away.primitives
 		
 		public function set width(value:Number):void
 		{
-            this._width = value;
-            this.pInvalidateGeometry();
+            _width = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its Y-axis.		 */
@@ -53,8 +53,8 @@ package away.primitives
 		
 		public function set height(value:Number):void
 		{
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its Z-axis.		 */
@@ -65,8 +65,8 @@ package away.primitives
 		
 		public function set depth(value:Number):void
 		{
-            this._depth = value;
-            this.pInvalidateGeometry();
+            _depth = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The type of uv mapping to use. When false, the entire image is mapped on each face.		 * When true, a texture will be subdivided in a 3x2 grid, each used for a single face.		 * Reading the tiles from left to right, top to bottom they represent the faces of the		 * cube in the following order: bottom, top, back, left, front, right. This creates		 * several shared edges (between the top, front, left and right faces) which simplifies		 * texture painting.		 */
@@ -77,8 +77,8 @@ package away.primitives
 		
 		public function set tile6(value:Boolean):void
 		{
-            this._tile6 = value;
-            this.pInvalidateGeometry();
+            _tile6 = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The number of segments that make up the cube along the X-axis. Defaults to 1.		 */
@@ -89,9 +89,9 @@ package away.primitives
 		
 		public function set segmentsW(value:Number):void
 		{
-            this._segmentsW = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsW = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * The number of segments that make up the cube along the Y-axis. Defaults to 1.		 */
@@ -102,9 +102,9 @@ package away.primitives
 		
 		public function set segmentsH(value:Number):void
 		{
-            this._segmentsH = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsH = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * The number of segments that make up the cube along the Z-axis. Defaults to 1.		 */
@@ -115,9 +115,9 @@ package away.primitives
 		
 		public function set segmentsD(value:Number):void
 		{
-            this._segmentsD = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsD = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * @inheritDoc		 */

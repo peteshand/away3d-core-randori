@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:19 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,16 +19,16 @@ away.controllers.HoverController = function(targetObject, lookAtObject, panAngle
 	this._tiltAngle = 90;
 	this._yFactor = 2;
 	away.controllers.LookAtController.call(this, targetObject, lookAtObject);
-	this.set_distance(distance);
-	this.set_panAngle(panAngle);
-	this.set_tiltAngle(tiltAngle);
-	this.set_minPanAngle(minPanAngle || -Infinity);
-	this.set_maxPanAngle(maxPanAngle || Infinity);
-	this.set_minTiltAngle(minTiltAngle);
-	this.set_maxTiltAngle(maxTiltAngle);
-	this.set_steps(steps);
-	this.set_yFactor(yFactor);
-	this.set_wrapPanAngle(wrapPanAngle);
+	distance = distance;
+	panAngle = panAngle;
+	tiltAngle = tiltAngle;
+	minPanAngle = minPanAngle || -Infinity;
+	maxPanAngle = maxPanAngle || Infinity;
+	minTiltAngle = minTiltAngle;
+	maxTiltAngle = maxTiltAngle;
+	steps = steps;
+	yFactor = yFactor;
+	wrapPanAngle = wrapPanAngle;
 	this._iCurrentPanAngle = this._panAngle;
 	this._iCurrentTiltAngle = this._tiltAngle;
 };

@@ -1,7 +1,4 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../_definitions.ts"/>
 
@@ -12,16 +9,14 @@ package away.utils
 	{
 		
 		public var maxlength:Number = 0;
-		public var arraybytes; //ArrayBuffer  
-		public var unalignedarraybytestemp; //ArrayBuffer
-		
+		public var arraybytes; //ArrayBuffer  		public var unalignedarraybytestemp; //ArrayBuffer		
 		public function ByteArray():void
 		{
 			super();
-			this._mode = "Typed array";
-			this.maxlength = 4;
-			this.arraybytes = new ArrayBuffer();// this.maxlength );
-			this.unalignedarraybytestemp = new ArrayBuffer();
+			_mode = "Typed array";
+			maxlength = 4;
+			arraybytes = new ArrayBuffer();// maxlength );
+			unalignedarraybytestemp = new ArrayBuffer();
 		}
 		
 		public function ensureWriteableSpace(n:Number):void
@@ -32,38 +27,11 @@ package away.utils
         public function setArrayBuffer(aBuffer:ArrayBuffer):void
         {
 
-            /*
-            var v2 : Int8Array = new Int8Array( aBuffer );
-
-            for (var i = 0; i < v2.length - 1 ; i++)
-            {
-                this.writeByte( v2[ i ] );
-            }
-            //*/
-            /*
-            this.maxlength = aBuffer.byteLength + 4;
-            this.arraybytes = new ArrayBuffer( this.maxlength );
-
-            this.length = aBuffer.byteLength;
-
-            for (var i = 0; i < aBuffer.byteLength; i++)
-            {
-                this.arraybytes [ i ] = aBuffer[ i  ];
-            }
-            //*/
+            /*            var v2 : Int8Array = new Int8Array( aBuffer );            for (var i = 0; i < v2.length - 1 ; i++)            {                this.writeByte( v2[ i ] );            }            //*/
+            /*            this.maxlength = aBuffer.byteLength + 4;            this.arraybytes = new ArrayBuffer( this.maxlength );            this.length = aBuffer.byteLength;            for (var i = 0; i < aBuffer.byteLength; i++)            {                this.arraybytes [ i ] = aBuffer[ i  ];            }            //*/
             //bytes.setArrayBuffer( result );
 
-            /*
-            this.maxlength += 4;
-
-            this.maxlength = this.length = aBuffer.byteLength;
-            this.maxlength += 4;
-
-            this.maxlength = this.length = aBuffer.byteLength;
-            this.maxlength += 4;
-
-            this.arraybytes = aBuffer;
-            */
+            /*            this.maxlength += 4;            this.maxlength = this.length = aBuffer.byteLength;            this.maxlength += 4;            this.maxlength = this.length = aBuffer.byteLength;            this.maxlength += 4;            this.arraybytes = aBuffer;            */
 
             //*
             maxlength = length = aBuffer.byteLength;

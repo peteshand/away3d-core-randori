@@ -17,7 +17,7 @@ package away.cameras.lenses
 		public function PerspectiveLens(fieldOfView:Number = 60):void
 		{
 			super();
-			this.fieldOfView = fieldOfView;
+			fieldOfView = fieldOfView;
 		}
 		
 		public function get fieldOfView():Number
@@ -27,16 +27,16 @@ package away.cameras.lenses
 		
 		public function set fieldOfView(value:Number):void
 		{
-			if ( value == this._fieldOfView )
+			if ( value == _fieldOfView )
 			{
 				return;
 			}
-			this._fieldOfView = value;
+			_fieldOfView = value;
 			
-			this._focalLengthInv = Math.tan( this._fieldOfView * Math.PI/360 );
-			this._focalLength = 1 / this._focalLengthInv;
+			_focalLengthInv = Math.tan( _fieldOfView * Math.PI/360 );
+			_focalLength = 1 / _focalLengthInv;
 			
-			this.pInvalidateMatrix();
+			pInvalidateMatrix();
 		}
 		
 		public function get focalLength():Number
@@ -46,16 +46,16 @@ package away.cameras.lenses
 		
 		public function set focalLength(value:Number):void
 		{
-			if ( value == this._focalLength )
+			if ( value == _focalLength )
 			{
 				return;
 			}
-			this._focalLength = value;
+			_focalLength = value;
 			
-			this._focalLengthInv = 1/this._focalLength;
-			this._fieldOfView = Math.atan( this._focalLengthInv ) * 360/Math.PI;
+			_focalLengthInv = 1/_focalLength;
+			_fieldOfView = Math.atan( _focalLengthInv ) * 360/Math.PI;
 			
-			this.pInvalidateMatrix();
+			pInvalidateMatrix();
 		}
 		
 		//@override

@@ -1,4 +1,4 @@
-package myTests
+package examples
 {
     import away.display.Stage;
     import away.display.Stage3D;

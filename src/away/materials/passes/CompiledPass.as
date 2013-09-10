@@ -78,9 +78,9 @@ package away.materials.passes
             super();
             //away.Debug.throwPIR( "away.materials.CompiledaPass" , 'normalMethod' , 'implement dependency: BasicNormalMethod, BasicAmbientMethod, BasicDiffuseMethod, BasicSpecularMethod');
 
-            this._pMaterial = material;
+            _pMaterial = material;
 
-            this.init();
+            init();
         }
 
         /**         * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and         * compatibility for constrained mode.         */
@@ -91,14 +91,14 @@ package away.materials.passes
 
         public function set enableLightFallOff(value:Boolean):void
         {
-            if (value != this._enableLightFallOff)
+            if (value != _enableLightFallOff)
             {
 
-                this.iInvalidateShaderProgram( true );//this.invalidateShaderProgram(true);
+                iInvalidateShaderProgram( true );//this.invalidateShaderProgram(true);
 
             }
 
-            this._enableLightFallOff = value;
+            _enableLightFallOff = value;
 
         }
 
@@ -110,7 +110,7 @@ package away.materials.passes
 
         public function set forceSeparateMVP(value:Boolean):void
         {
-            this._forceSeparateMVP = value;
+            _forceSeparateMVP = value;
         }
 
         /**         * The amount of point lights that need to be supported.         */
@@ -257,15 +257,15 @@ package away.materials.passes
 
         public function set preserveAlpha(value:Boolean):void
         {
-            if (this._preserveAlpha == value)
+            if (_preserveAlpha == value)
             {
 
                 return;
 
             }
 
-            this._preserveAlpha = value;
-            this.iInvalidateShaderProgram();//invalidateShaderProgram();
+            _preserveAlpha = value;
+            iInvalidateShaderProgram();//invalidateShaderProgram();
 
         }
 
@@ -277,12 +277,12 @@ package away.materials.passes
 
         public function set animateUVs(value:Boolean):void
         {
-            this._animateUVs = value;
+            _animateUVs = value;
 
-            if ((value && ! this._animateUVs) || (!value && this._animateUVs))
+            if ((value && ! _animateUVs) || (!value && _animateUVs))
             {
 
-                this.iInvalidateShaderProgram();
+                iInvalidateShaderProgram();
 
             }
 
@@ -291,7 +291,7 @@ package away.materials.passes
         /**         * @inheritDoc         */
         override public function set mipmap(value:Boolean):void
         {
-            if (this._pMipmap == value)
+            if (_pMipmap == value)
                 return;
 
             super.setMipMap( value ); //super.mipmap = value;
@@ -306,7 +306,7 @@ package away.materials.passes
         public function set normalMap(value:Texture2DBase):void
         {
 
-            this._pMethodSetup._iNormalMethod.normalMap = value;
+            _pMethodSetup._iNormalMethod.normalMap = value;
         }
 
         /**         * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.         */
@@ -318,7 +318,7 @@ package away.materials.passes
 
         public function set normalMethod(value:BasicNormalMethod):void
         {
-            this._pMethodSetup.normalMethod = value;
+            _pMethodSetup.normalMethod = value;
         }
 
         /**         * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.         */
@@ -330,7 +330,7 @@ package away.materials.passes
 
         public function set ambientMethod(value:BasicAmbientMethod):void
         {
-            this._pMethodSetup.ambientMethod = value;
+            _pMethodSetup.ambientMethod = value;
         }
 
         /**         * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.         */
@@ -342,7 +342,7 @@ package away.materials.passes
 
         public function set shadowMethod(value:ShadowMapMethodBase):void
         {
-            this._pMethodSetup.shadowMethod = value;
+            _pMethodSetup.shadowMethod = value;
         }
 
         /**         * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.         */
@@ -353,7 +353,7 @@ package away.materials.passes
 
         public function set diffuseMethod(value:BasicDiffuseMethod):void
         {
-            this._pMethodSetup.diffuseMethod = value;
+            _pMethodSetup.diffuseMethod = value;
         }
 
         /**         * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.         */
@@ -365,7 +365,7 @@ package away.materials.passes
 
         public function set specularMethod(value:BasicSpecularMethod):void
         {
-            this._pMethodSetup.specularMethod = value;
+            _pMethodSetup.specularMethod = value;
         }
 
         /**         * Initializes the pass.         */
@@ -770,7 +770,7 @@ package away.materials.passes
 
         public function set specularLightSources(value:Number):void
         {
-            this._pSpecularLightSources = value;
+            _pSpecularLightSources = value;
         }
 
         /**         * Define which light source types to use for diffuse reflections. This allows choosing between regular lights         * and/or light probes for diffuse reflections.         *         * @see away3d.materials.LightSources         */
@@ -781,7 +781,7 @@ package away.materials.passes
 
         public function set diffuseLightSources(value:Number):void
         {
-            this._pDiffuseLightSources = value;
+            _pDiffuseLightSources = value;
         }
 
     }

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:25 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,12 +6,12 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Matrix = function(a, b, c, d, tx, ty) {
-	this.a = a;
-	this.b = b;
-	this.c = c;
-	this.d = d;
-	this.tx = tx;
-	this.ty = ty;
+	a = a;
+	b = b;
+	c = c;
+	d = d;
+	tx = tx;
+	ty = ty;
 };
 
 away.geom.Matrix.prototype.clone = function() {

@@ -20,10 +20,10 @@ package away.utils
         public function RequestAnimationFrame(callback:Function, callbackContext:Object):void
         {
 
-			this.setCallback( callback , callbackContext );
+			setCallback( callback , callbackContext );
 
             var that:RequestAnimationFrame = this;
-			this._rafUpdateFunction = function() {
+			_rafUpdateFunction = function() {
 
                 if ( that._active )
                 {
@@ -34,7 +34,7 @@ package away.utils
 
             }
 
-            this._argsArray.push( this._dt );
+            _argsArray.push( _dt );
 
         }
 

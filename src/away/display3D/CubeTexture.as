@@ -15,7 +15,7 @@ package away.display3D
 		public function CubeTexture(gl:WebGLRenderingContext, size:Number):void
 		{
 			super( gl );
-			this._size = size;
+			_size = size;
 		}
 		
 		public function uploadFromHTMLImageElement(image:HTMLImageElement, miplevel:Number = 0):void

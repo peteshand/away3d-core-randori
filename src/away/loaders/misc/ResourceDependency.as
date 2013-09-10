@@ -34,15 +34,15 @@ package away.loaders.misc
 		public function ResourceDependency(id:String, req:URLRequest, data:*, parentParser:ParserBase, retrieveAsRawData:Boolean = false, suppressAssetEvents:Boolean = false):void
 		{
 
-			this._id = id;
-            this._req = req;
-            this._parentParser = parentParser;
-            this._data = data;
-            this._retrieveAsRawData = retrieveAsRawData;
-            this._suppressAssetEvents = suppressAssetEvents;
+			_id = id;
+            _req = req;
+            _parentParser = parentParser;
+            _data = data;
+            _retrieveAsRawData = retrieveAsRawData;
+            _suppressAssetEvents = suppressAssetEvents;
 
-            this._assets = new Vector.<IAsset>();//new Vector.<IAsset>();
-            this._dependencies = new Vector.<ResourceDependency>();
+            _assets = new Vector.<IAsset>();//new Vector.<IAsset>();
+            _dependencies = new Vector.<ResourceDependency>();
 		}
 		
 		

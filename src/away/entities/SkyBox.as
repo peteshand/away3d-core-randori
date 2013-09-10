@@ -46,10 +46,10 @@ package away.entities
 		{
 			super();
 
-			this._material = new SkyBoxMaterial(cubeMap);
-			this._material.iAddOwner(this);
-			this._geometry = new SubGeometry();
-			this.buildGeometry( this._geometry);
+			_material = new SkyBoxMaterial(cubeMap);
+			_material.iAddOwner(this);
+			_geometry = new SubGeometry();
+			buildGeometry( _geometry);
 		}
 		
 		/**		 * @inheritDoc		 */

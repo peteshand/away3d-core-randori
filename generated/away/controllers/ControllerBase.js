@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:31 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:21 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.controllers == "undefined")
 away.controllers.ControllerBase = function(targetObject) {
 	this._pTargetObject = null;
 	this._pAutoUpdate = true;
-	this.set_targetObject(targetObject);
+	targetObject = targetObject;
 };
 
 away.controllers.ControllerBase.prototype.pNotifyUpdate = function() {

@@ -56,8 +56,8 @@ package away.render
 		
 		public function RenderBase(renderToTexture:Boolean = false):void
 		{
-			this._pRenderableSorter = new RenderableMergeSort();
-			this._pRenderToTexture = renderToTexture;
+			_pRenderableSorter = new RenderableMergeSort();
+			_pRenderToTexture = renderToTexture;
 		}
 		
 		//@arcane
@@ -75,7 +75,7 @@ package away.render
 		//@arcane
 		public function set iViewWidth(value:Number):void
 		{
-			this._pViewWidth = value;
+			_pViewWidth = value;
 		}
 		
 		//@arcane
@@ -87,7 +87,7 @@ package away.render
 		//@arcane
 		public function set iViewHeight(value:Number):void
 		{
-			this._pViewHeight = value;
+			_pViewHeight = value;
 		}
 		
 		//@arcane
@@ -103,7 +103,7 @@ package away.render
 		
 		public function set renderableSorter(value:IEntitySorter):void
 		{
-			this._pRenderableSorter = value;
+			_pRenderableSorter = value;
 		}
 		
 		//@arcane
@@ -115,7 +115,7 @@ package away.render
 		//@arcane
 		public function set iClearOnRender(value:Boolean):void
 		{
-			this._clearOnRender = value;
+			_clearOnRender = value;
 		}
 		
 		//@arcane
@@ -127,7 +127,7 @@ package away.render
 		//@arcane
 		public function set iBackgroundR(value:Number):void
 		{
-			this._pBackgroundR = value;
+			_pBackgroundR = value;
 		}
 		
 		//@arcane
@@ -139,7 +139,7 @@ package away.render
 		//@arcane
 		public function set iBackgroundG(value:Number):void
 		{
-			this._pBackgroundG = value;
+			_pBackgroundG = value;
 		}
 		
 		//@arcane
@@ -151,7 +151,7 @@ package away.render
 		//@arcane
 		public function set iBackgroundB(value:Number):void
 		{
-			this._pBackgroundB = value;
+			_pBackgroundB = value;
 		}
 		
 		//@arcane
@@ -163,31 +163,31 @@ package away.render
 		//@arcane
 		public function set iStage3DProxy(value:Stage3DProxy):void
 		{
-			if( value == this._pStage3DProxy )
+			if( value == _pStage3DProxy )
 			{
 				return;
 			}
 			if(!value)
 			{
-				if( this._pStage3DProxy )
+				if( _pStage3DProxy )
 				{
-					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
-					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
+					_pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
+					_pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
 				}
-				this._pStage3DProxy = null;
-				this._pContext = null;
+				_pStage3DProxy = null;
+				_pContext = null;
 				return;
 			}
 			
-			this._pStage3DProxy = value;
-			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
-			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
+			_pStage3DProxy = value;
+			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
+			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
 			
 			/*if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.stage3DProxy = value;			}*/
 			
 			if( value.context3D )
 			{
-				this._pContext = value.context3D;
+				_pContext = value.context3D;
 			}
 		}
 		
@@ -200,7 +200,7 @@ package away.render
 		//@arcane
 		public function set iShareContext(value:Boolean):void
 		{
-			this._pShareContext = value;
+			_pShareContext = value;
 		}
 		
 		//@arcane
@@ -299,7 +299,7 @@ package away.render
 		//@arcane
 		public function set iBackgroundAlpha(value:Number):void
 		{
-			this._pBackgroundAlpha = value;
+			_pBackgroundAlpha = value;
 		}
 		
 		//@arcane

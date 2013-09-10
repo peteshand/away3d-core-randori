@@ -20,8 +20,8 @@ package away.lights
 		public function LightProbe(diffuseMap:CubeTextureBase, specularMap:CubeTextureBase = null):void
 		{
 			super();
-			this._diffuseMap = diffuseMap;
-			this._specularMap = specularMap;
+			_diffuseMap = diffuseMap;
+			_specularMap = specularMap;
 		}
 		
 		//@override
@@ -37,7 +37,7 @@ package away.lights
 		
 		public function set diffuseMap(value:CubeTextureBase):void
 		{
-			this._diffuseMap = value;
+			_diffuseMap = value;
 		}
 		
 		public function get specularMap():CubeTextureBase
@@ -47,7 +47,7 @@ package away.lights
 		
 		public function set specularMap(value:CubeTextureBase):void
 		{
-			this._specularMap = value;
+			_specularMap = value;
 		}
 		
 		//@override

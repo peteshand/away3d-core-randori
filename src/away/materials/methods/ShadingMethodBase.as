@@ -58,7 +58,7 @@ package away.materials.methods
 		
 		public function set iSharedRegisters(value:ShaderRegisterData):void
 		{
-			this._sharedRegisters = value;
+			_sharedRegisters = value;
 		}
 		
 		/**		 * Any passes required that render to a texture used by this method.		 */

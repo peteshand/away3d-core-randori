@@ -39,12 +39,12 @@ package away.materials.passes
 
 			super();
 
-			this._fragmentData = new Vector.<Number>(    1.0, 255.0, 65025.0, 16581375.0,
+			_fragmentData = new Vector.<Number>(    1.0, 255.0, 65025.0, 16581375.0,
 				                                        1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0,
 				                                        0.0, 0.0, 0.0, 0.0);
-			this._vertexData = new Vector.<Number>(4);
-			this._vertexData[3] = 1;
-			this._pNumUsedVertexConstants = 9;
+			_vertexData = new Vector.<Number>(4);
+			_vertexData[3] = 1;
+			_pNumUsedVertexConstants = 9;
 		}
 		
 		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
@@ -69,7 +69,7 @@ package away.materials.passes
 
             }
 
-			if (value == this._alphaThreshold)
+			if (value == _alphaThreshold)
             {
 
                 return;
@@ -77,16 +77,16 @@ package away.materials.passes
             }
 
 			
-			if (value == 0 || this._alphaThreshold == 0)
+			if (value == 0 || _alphaThreshold == 0)
             {
 
-                this.iInvalidateShaderProgram();
+                iInvalidateShaderProgram();
 
             }
 
 			
-			this._alphaThreshold = value;
-			this._fragmentData[8] = this._alphaThreshold;
+			_alphaThreshold = value;
+			_fragmentData[8] = _alphaThreshold;
 		}
 
 		/**		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.		 * Usually the diffuse texture when alphaThreshold is used.		 */
@@ -97,7 +97,7 @@ package away.materials.passes
 		
 		public function set alphaMask(value:Texture2DBase):void
 		{
-			this._alphaMask = value;
+			_alphaMask = value;
 		}
 		
 		/**		 * @inheritDoc		 */

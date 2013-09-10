@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:21 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,10 +6,10 @@ if (typeof away.math == "undefined")
 	away.math = {};
 
 away.math.Quaternion = function(x, y, z, w) {
-	this.x = x;
-	this.y = y;
-	this.z = z;
-	this.w = w;
+	x = x;
+	y = y;
+	z = z;
+	w = w;
 };
 
 away.math.Quaternion.prototype.get_magnitude = function() {

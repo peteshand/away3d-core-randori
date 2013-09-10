@@ -26,8 +26,8 @@ package away.textures
 		{
 			super();
 			
-			this._htmlImageElement= htmlImageElement;
-			this._generateMipmaps   = generateMipmaps;
+			_htmlImageElement= htmlImageElement;
+			_generateMipmaps   = generateMipmaps;
 		}
 		
 		public function get htmlImageElement():HTMLImageElement
@@ -38,7 +38,7 @@ package away.textures
 		public function set htmlImageElement(value:HTMLImageElement):void
 		{
 
-			if (value == this._htmlImageElement)
+			if (value == _htmlImageElement)
             {
 
                 return;
@@ -52,14 +52,14 @@ package away.textures
 
             }
 
-            this.invalidateContent();
-			this.pSetSize( value.width , value.height );
-            this._htmlImageElement = value;
+            invalidateContent();
+			pSetSize( value.width , value.height );
+            _htmlImageElement = value;
 			
-			if ( this._generateMipmaps )
+			if ( _generateMipmaps )
             {
 
-                this.getMipMapHolder();
+                getMipMapHolder();
 
             }
 

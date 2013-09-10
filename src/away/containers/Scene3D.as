@@ -19,12 +19,12 @@ package away.containers
 		public function Scene3D():void
 		{
 			super();
-			this._partitions = new <Partition3D>[];
-			this._iSceneGraphRoot = new ObjectContainer3D();
+			_partitions = new <Partition3D>[];
+			_iSceneGraphRoot = new ObjectContainer3D();
 			
-			this._iSceneGraphRoot.scene = this;
-			this._iSceneGraphRoot._iIsRoot = true;
-			this._iSceneGraphRoot.partition = new Partition3D( new NodeBase() );
+			_iSceneGraphRoot.scene = this;
+			_iSceneGraphRoot._iIsRoot = true;
+			_iSceneGraphRoot.partition = new Partition3D( new NodeBase() );
 		}
 		
 		public function traversePartitions(traverser:PartitionTraverser):void
@@ -53,8 +53,8 @@ package away.containers
 
             //console.log( 'scene3D.setPartition' , value );
 
-			this._iSceneGraphRoot.partition = value;
-			this.dispatchEvent( new Scene3DEvent( Scene3DEvent.PARTITION_CHANGED, this._iSceneGraphRoot ) );
+			_iSceneGraphRoot.partition = value;
+			dispatchEvent( new Scene3DEvent( Scene3DEvent.PARTITION_CHANGED, _iSceneGraphRoot ) );
 		}
 		
 		public function contains(child:ObjectContainer3D):Boolean

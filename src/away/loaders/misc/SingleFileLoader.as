@@ -14,7 +14,17 @@ package away.loaders.misc
 	import away.events.ParserEvent;
 	import away.events.AssetEvent;
 
-	/**	 * The SingleFileLoader is used to load a single file, as part of a resource.	 *	 * While SingleFileLoader can be used directly, e.g. to create a third-party asset 	 * management system, it's recommended to use any of the classes Loader3D, AssetLoader	 * and AssetLibrary instead in most cases.	 *	 * @see away3d.loading.Loader3D	 * @see away3d.loading.AssetLoader	 * @see away3d.loading.AssetLibrary	 */
+	/**
+	 * The SingleFileLoader is used to load a single file, as part of a resource.
+	 *
+	 * While SingleFileLoader can be used directly, e.g. to create a third-party asset 
+	 * management system, it's recommended to use any of the classes Loader3D, AssetLoader
+	 * and AssetLibrary instead in most cases.
+	 *
+	 * @see away3d.loading.Loader3D
+	 * @see away3d.loading.AssetLoader
+	 * @see away3d.loading.AssetLibrary
+	 */
 	public class SingleFileLoader extends EventDispatcher
 	{
 		private var _parser:ParserBase;
@@ -28,7 +38,7 @@ package away.loaders.misc
         // Static
 
 		// Image parser only parser that is added by default, to save file size.
-        private static var _parsers:Vector.<*> = new Vector.<*>( ImageParser );
+        private static var _parsers:Vector.<*> = new Vector.<*>();
 
         public static function enableParser(parser:Object):void
         {
@@ -55,12 +65,15 @@ package away.loaders.misc
 
         // Constructor
 
-		/**		 * Creates a new SingleFileLoader object.		 */
+		/**
+		 * Creates a new SingleFileLoader object.
+		 */
 		public function SingleFileLoader(materialMode:Number = 0):void
 		{
 
             super();
-			this._materialMode=materialMode;
+			_parsers.push(ImageParser);
+			_materialMode=materialMode;
 		}
 
         // Get / Set
@@ -83,7 +96,12 @@ package away.loaders.misc
 
         // Public
 
-		/**		 * Load a resource from a file.		 * 		 * @param urlRequest The URLRequest object containing the URL of the object to be loaded.		 * @param parser An optional parser object that will translate the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
+		/**
+		 * Load a resource from a file.
+		 * 
+		 * @param urlRequest The URLRequest object containing the URL of the object to be loaded.
+		 * @param parser An optional parser object that will translate the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
+		 */
 		public function load(urlRequest:URLRequest, parser:ParserBase = null, loadAsRawData:Boolean = false):void
 		{
 			//var urlLoader   : away.net.URLLoader;
@@ -168,7 +186,12 @@ package away.loaders.misc
 
 		}
 		
-		/**		 * Loads a resource from already loaded data.		 * @param data The data to be parsed. Depending on the parser type, this can be a ByteArray, String or XML.		 * @param uri The identifier (url or id) of the object to be loaded, mainly used for resource management.		 * @param parser An optional parser object that will translate the data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
+		/**
+		 * Loads a resource from already loaded data.
+		 * @param data The data to be parsed. Depending on the parser type, this can be a ByteArray, String or XML.
+		 * @param uri The identifier (url or id) of the object to be loaded, mainly used for resource management.
+		 * @param parser An optional parser object that will translate the data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
+		 */
 		
 		public function parseData(data:*, parser:ParserBase = null, req:URLRequest = null):void
 		{
@@ -187,13 +210,17 @@ package away.loaders.misc
 
 		}
 		
-		/**		 * A reference to the parser that will translate the loaded data into a usable resource.		 */
+		/**
+		 * A reference to the parser that will translate the loaded data into a usable resource.
+		 */
 		public function get parser():ParserBase
 		{
 			return _parser;
 		}
 		
-		/**		 * A list of dependencies that need to be loaded and resolved for the loaded object.		 */
+		/**
+		 * A list of dependencies that need to be loaded and resolved for the loaded object.
+		 */
 
 		public function get dependencies():Vector.<ResourceDependency>
 		{
@@ -202,7 +229,10 @@ package away.loaders.misc
 
         // Private
 
-        /**         *         * @param loaderType         */
+        /**
+         *
+         * @param loaderType
+         */
         private function getLoader(loaderType:String):ISingleFileTSLoader
         {
 
@@ -225,7 +255,10 @@ package away.loaders.misc
 
         }
 
-		/**		 * Splits a url string into base and extension.		 * @param url The url to be decomposed.		 */
+		/**
+		 * Splits a url string into base and extension.
+		 * @param url The url to be decomposed.
+		 */
 		private function decomposeFilename(url:String):void
 		{
 			
@@ -237,7 +270,10 @@ package away.loaders.misc
 
 		}
 		
-		/**		 * Guesses the parser to be used based on the file extension.		 * @return An instance of the guessed parser.		 */
+		/**
+		 * Guesses the parser to be used based on the file extension.
+		 * @return An instance of the guessed parser.
+		 */
 		private function getParserFromSuffix():ParserBase
 		{
 			var len : Number = SingleFileLoader._parsers.length;
@@ -263,7 +299,12 @@ package away.loaders.misc
 			return null;
 
 		}
-		/**		 * Guesses the parser to be used based on the file contents.		 * @param data The data to be parsed.		 * @param uri The url or id of the object to be parsed.		 * @return An instance of the guessed parser.		 */
+		/**
+		 * Guesses the parser to be used based on the file contents.
+		 * @param data The data to be parsed.
+		 * @param uri The url or id of the object to be parsed.
+		 * @return An instance of the guessed parser.
+		 */
 		private function getParserFromData(data:*):ParserBase
 		{
 			var len : Number = SingleFileLoader._parsers.length;
@@ -276,7 +317,9 @@ package away.loaders.misc
 			return null;
 		}
 		
-		/**		 * Cleanups		 */
+		/**
+		 * Cleanups
+		 */
 		private function removeListeners(urlLoader:ISingleFileTSLoader):void
 		{
 			urlLoader.removeEventListener(Event.COMPLETE, handleUrlLoaderComplete , this );
@@ -285,21 +328,25 @@ package away.loaders.misc
 
         // Events
 		
-		/**		 * Called when loading of a file has failed		 */
+		/**
+		 * Called when loading of a file has failed
+		 */
 		private function handleUrlLoaderError(event:IOErrorEvent):void
 		{
-			var urlLoader : ISingleFileTSLoader = ISingleFileTSLoader(event.target);
+			var urlLoader : ISingleFileTSLoader = (event.target as ISingleFileTSLoader);
 			removeListeners(urlLoader);
 			
 			//if(this.hasEventListener(away.events.LoaderEvent.LOAD_ERROR , this.handleUrlLoaderError , this ))
 				dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_ERROR, _req.url, true ) ) ;//, event.text));
 		}
 		
-		/**		 * Called when loading of a file is complete		 */
+		/**
+		 * Called when loading of a file is complete
+		 */
 		private function handleUrlLoaderComplete(event:Event):void
 		{
 
-			var urlLoader : ISingleFileTSLoader = ISingleFileTSLoader(event.target);
+			var urlLoader : ISingleFileTSLoader = (event.target as ISingleFileTSLoader);
 			removeListeners( urlLoader );
 			
 			_data = urlLoader.data;
@@ -315,7 +362,10 @@ package away.loaders.misc
 			}
 		}
 		
-		/**		 * Initiates parsing of the loaded data.		 * @param data The data to be parsed.		 */
+		/**
+		 * Initiates parsing of the loaded data.
+		 * @param data The data to be parsed.
+		 */
 		private function parse(data:*):void
 		{
 
@@ -391,7 +441,9 @@ package away.loaders.misc
 			dispatchEvent( event.clone() );
 		}
 		
-		/**		 * Called when parsing is complete.		 */
+		/**
+		 * Called when parsing is complete.
+		 */
 		private function onParseComplete(event:ParserEvent):void
 		{
 

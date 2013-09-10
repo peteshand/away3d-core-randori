@@ -138,9 +138,9 @@ package away.loaders
 		{
             super();
 
-			this._stack                 = new Vector.<ResourceDependency>();
-            this._errorHandlers         = new Vector.<Function>();
-            this._parseErrorHandlers    = new Vector.<Function>();
+			_stack                 = new Vector.<ResourceDependency>();
+            _errorHandlers         = new Vector.<Function>();
+            _parseErrorHandlers    = new Vector.<Function>();
 		}
 		
 		/**		 * Enables a specific parser. 		 * When no specific parser is set for a loading/parsing opperation, 		 * loader3d can autoselect the correct parser to use.		 * A parser must have been enabled, to be considered when autoselecting the parser.		 *		 * @param parserClass The parser class to enable.		 * 		 * @see away3d.loaders.parsers.Parsers		 */
@@ -165,8 +165,9 @@ package away.loaders
 
 				_token = new AssetLoaderToken(this);
 				
-				_uri       = req.url = req.url.replace(/\\/g, "/");
-				_context   = context;
+				req.url = req.url.replace(/\\/g, "/");
+				_uri = req.url;
+				_context = context;
 				_namespace = ns;
 				
 				_baseDependency = new ResourceDependency( '' , req , null , null );
@@ -415,7 +416,7 @@ package away.loaders
 		{
 			var handled:Boolean;
 			var isDependency:Boolean = (_loadingDependency != _baseDependency);
-			var loader:SingleFileLoader = SingleFileLoader(event.target);//TODO: keep on eye on this one
+			var loader:SingleFileLoader = (event.target as SingleFileLoader);//TODO: keep on eye on this one
 			
 			removeEventListeners(loader);
 			
@@ -435,7 +436,7 @@ package away.loaders
                 {
 					var handlerFunction = _errorHandlers[i];
 
-					handled  = handled || Boolean(handlerFunction(event));
+					handled  = handled || (handlerFunction(event) as Boolean);
 
 				}
 
@@ -474,7 +475,7 @@ package away.loaders
 
 			var isDependency:Boolean = (_loadingDependency != _baseDependency);
 
-			var loader:SingleFileLoader = SingleFileLoader(event.target);
+			var loader:SingleFileLoader = (event.target as SingleFileLoader);
 			
 			removeEventListeners(loader);
 			
@@ -493,7 +494,7 @@ package away.loaders
 				for (i = 0; i < len; i++) {
 					var handlerFunction = _parseErrorHandlers[i];
 
-                    handled  = handled || Boolean(handlerFunction(event));
+                    handled  = handled || (handlerFunction(event) as Boolean);
 
 					//handled ||= Boolean(handlerFunction(event));
 				}
@@ -542,7 +543,7 @@ package away.loaders
 		
 		private function onReadyForDependencies(event:ParserEvent):void
 		{
-			var loader:SingleFileLoader = SingleFileLoader(event.target); // was event.currentTarget / TODO: AS3 <> JS functionality change - keep on eye on this
+			var loader:SingleFileLoader = (event.target as SingleFileLoader); // was event.currentTarget / TODO: AS3 <> JS functionality change - keep on eye on this
 			
 			if (_context && !_context.includeDependencies)
             {
@@ -561,7 +562,7 @@ package away.loaders
 		/**		 * Called when a single dependency was parsed, and pushes further dependencies onto the stack.		 * @param event		 */
 		private function onRetrievalComplete(event:LoaderEvent):void
 		{
-            var loader:SingleFileLoader = SingleFileLoader(event.target);
+            var loader:SingleFileLoader = (event.target as SingleFileLoader);
             //var loader:SingleFileLoader = SingleFileLoader(event.target);
 			
 			// Resolve this dependency

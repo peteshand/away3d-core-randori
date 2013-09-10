@@ -1,4 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 
 ///<reference path="../_definitions.ts"/>
 
@@ -15,9 +18,9 @@ package away.geom
 		public function Rectangle(x:Number = 0, y:Number = 0, width:Number = 0, height:Number = 0):void
 		{
 			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
+            this.y = y;
+            this.width = width;
+            this.height = height;
 		}
 		
 		public function get left():Number

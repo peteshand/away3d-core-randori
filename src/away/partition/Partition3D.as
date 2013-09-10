@@ -16,7 +16,7 @@ package away.partition
 		
 		public function Partition3D(rootNode:NodeBase):void
 		{
-			this._rootNode = rootNode || NodeBase(new NullNode());
+			_rootNode = rootNode || (new NullNode() as NodeBase);
 		}
 		
 		public function get showDebugBounds():Boolean
@@ -26,7 +26,7 @@ package away.partition
 		
 		public function set showDebugBounds(value:Boolean):void
 		{
-			this._rootNode.showDebugBounds = value;
+			_rootNode.showDebugBounds = value;
 		}
 		
 		public function traverse(traverser:PartitionTraverser):void

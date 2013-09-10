@@ -84,21 +84,21 @@ package away.containers
                 View3D.sStage = new Stage();
             }
 
-			this._profile = profile;
-			this._pScene = scene || new Scene3D();
-			this._pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged, this );
-			this._pCamera = camera || new Camera3D();
-			this._pRenderer = renderer || new DefaultRenderer();
-			this._depthRenderer = new DepthRenderer();
-			this._forceSoftware = forceSoftware;
-			this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
-			this._pEntityCollector.camera = this._pCamera;
-			this._pScissorRect = new Rectangle();
-			this._pCamera.addEventListener( CameraEvent.LENS_CHANGED, this.onLensChanged, this );
-			this._pCamera.partition = this._pScene.partition;
-            this.stage = View3D.sStage;
+			_profile = profile;
+			_pScene = scene || new Scene3D();
+			_pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged, this );
+			_pCamera = camera || new Camera3D();
+			_pRenderer = renderer || new DefaultRenderer();
+			_depthRenderer = new DepthRenderer();
+			_forceSoftware = forceSoftware;
+			_pEntityCollector = _pRenderer.iCreateEntityCollector();
+			_pEntityCollector.camera = _pCamera;
+			_pScissorRect = new Rectangle();
+			_pCamera.addEventListener( CameraEvent.LENS_CHANGED, onLensChanged, this );
+			_pCamera.partition = _pScene.partition;
+            stage = View3D.sStage;
 
-            this.onAddedToStage();
+            onAddedToStage();
 
 		}
 
@@ -119,16 +119,16 @@ package away.containers
 		public function set stage3DProxy(stage3DProxy:Stage3DProxy):void
 		{
 
-			if (this._pStage3DProxy)
+			if (_pStage3DProxy)
 			{
-				this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
+				_pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
 			}
 			
-			this._pStage3DProxy = stage3DProxy;
-			this._pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
-			this._pRenderer.iStage3DProxy = this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
-			this._globalPosDirty = true;
-			this._pBackBufferInvalid = true;
+			_pStage3DProxy = stage3DProxy;
+			_pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
+			_pRenderer.iStage3DProxy = _depthRenderer.iStage3DProxy = _pStage3DProxy;
+			_globalPosDirty = true;
+			_pBackBufferInvalid = true;
 
 		}
         /**         *         * @returns {boolean}         */
@@ -139,7 +139,7 @@ package away.containers
         /**         *         * @param value         */
 		public function set layeredView(value:Boolean):void
 		{
-			this._layeredView = value;
+			_layeredView = value;
 		}
         /**         *         * @returns {*}         */
 		public function get filters3d():Vector.<Filter3DBase>
@@ -152,30 +152,30 @@ package away.containers
             if (value && value.length == 0)
                 value = null;
 
-            if (this._pFilter3DRenderer && !value)
+            if (_pFilter3DRenderer && !value)
             {
-                this._pFilter3DRenderer.dispose();
-                this._pFilter3DRenderer = null;
+                _pFilter3DRenderer.dispose();
+                _pFilter3DRenderer = null;
             }
-            else if (!this._pFilter3DRenderer && value)
+            else if (!_pFilter3DRenderer && value)
             {
-                this._pFilter3DRenderer = new Filter3DRenderer( this._pStage3DProxy );
-                this._pFilter3DRenderer.filters = value;
+                _pFilter3DRenderer = new Filter3DRenderer( _pStage3DProxy );
+                _pFilter3DRenderer.filters = value;
             }
 
-            if (this._pFilter3DRenderer)
+            if (_pFilter3DRenderer)
             {
-                this._pFilter3DRenderer.filters = value;
-                this._pRequireDepthRender = this._pFilter3DRenderer.requireDepthRender;
+                _pFilter3DRenderer.filters = value;
+                _pRequireDepthRender = _pFilter3DRenderer.requireDepthRender;
             }
             else
             {
-                this._pRequireDepthRender = false;
+                _pRequireDepthRender = false;
 
-                if (this._pDepthRender)
+                if (_pDepthRender)
                 {
-                    this._pDepthRender.dispose();
-                    this._pDepthRender = null;
+                    _pDepthRender.dispose();
+                    _pDepthRender = null;
                 }
             }
         }
@@ -187,21 +187,21 @@ package away.containers
         /**         *         * @param value         */
         public function set renderer(value:RendererBase):void
         {
-            this._pRenderer.iDispose();
-            this._pRenderer = value;
+            _pRenderer.iDispose();
+            _pRenderer = value;
 
-            this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
-            this._pEntityCollector.camera = this._pCamera;
-            this._pRenderer.iStage3DProxy = this._pStage3DProxy;
-            this._pRenderer.antiAlias = this._antiAlias;
-            this._pRenderer.iBackgroundR = ((this._backgroundColor >> 16) & 0xff)/0xff;
-            this._pRenderer.iBackgroundG = ((this._backgroundColor >> 8) & 0xff)/0xff;
-            this._pRenderer.iBackgroundB = (this._backgroundColor & 0xff)/0xff;
-            this._pRenderer.iBackgroundAlpha = this._backgroundAlpha;
-            this._pRenderer.iViewWidth = this._width;
-            this._pRenderer.iViewHeight = this._height;
+            _pEntityCollector = _pRenderer.iCreateEntityCollector();
+            _pEntityCollector.camera = _pCamera;
+            _pRenderer.iStage3DProxy = _pStage3DProxy;
+            _pRenderer.antiAlias = _antiAlias;
+            _pRenderer.iBackgroundR = ((_backgroundColor >> 16) & 0xff)/0xff;
+            _pRenderer.iBackgroundG = ((_backgroundColor >> 8) & 0xff)/0xff;
+            _pRenderer.iBackgroundB = (_backgroundColor & 0xff)/0xff;
+            _pRenderer.iBackgroundAlpha = _backgroundAlpha;
+            _pRenderer.iViewWidth = _width;
+            _pRenderer.iViewHeight = _height;
 
-            this._pBackBufferInvalid = true;
+            _pBackBufferInvalid = true;
 
         }
         /**         *         * @returns {number}         */
@@ -212,10 +212,10 @@ package away.containers
         /**         *         * @param value         */
         public function set backgroundColor(value:Number):void
         {
-            this._backgroundColor      = value;
-            this._pRenderer.iBackgroundR = ((value >> 16) & 0xff)/0xff;
-            this._pRenderer.iBackgroundG = ((value >> 8) & 0xff)/0xff;
-            this._pRenderer.iBackgroundB = (value & 0xff)/0xff;
+            _backgroundColor      = value;
+            _pRenderer.iBackgroundR = ((value >> 16) & 0xff)/0xff;
+            _pRenderer.iBackgroundG = ((value >> 8) & 0xff)/0xff;
+            _pRenderer.iBackgroundB = (value & 0xff)/0xff;
         }
         /**         *         * @returns {number}         */
 		public function get backgroundAlpha():Number
@@ -234,8 +234,8 @@ package away.containers
 				value = 0;
 			}
 			
-			this._pRenderer.iBackgroundAlpha = value;
-			this._backgroundAlpha = value;
+			_pRenderer.iBackgroundAlpha = value;
+			_backgroundAlpha = value;
 		}
         /**         *         * @returns {away.cameras.Camera3D}         */
 		public function get camera():Camera3D
@@ -245,19 +245,19 @@ package away.containers
         /**         * Set camera that's used to render the scene for this viewport         */
         public function set camera(camera:Camera3D):void
         {
-            this._pCamera.removeEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this );
-            this._pCamera = camera;
+            _pCamera.removeEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this );
+            _pCamera = camera;
 
-            this._pEntityCollector.camera = this._pCamera;
+            _pEntityCollector.camera = _pCamera;
 
-            if (this._pScene)
+            if (_pScene)
             {
-                this._pCamera.partition = this._pScene.partition;
+                _pCamera.partition = _pScene.partition;
             }
 
-            this._pCamera.addEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this);
-            this._scissorRectDirty = true;
-            this._viewportDirty = true;
+            _pCamera.addEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this);
+            _scissorRectDirty = true;
+            _viewportDirty = true;
 
         }
         /**         *         * @returns {away.containers.Scene3D}         */
@@ -268,13 +268,13 @@ package away.containers
         /**         * Set the scene that's used to render for this viewport         */
         public function set scene(scene:Scene3D):void
         {
-            this._pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
-            this._pScene = scene;
-            this._pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
+            _pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
+            _pScene = scene;
+            _pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
 
-            if (this._pCamera)
+            if (_pCamera)
             {
-                this._pCamera.partition = this._pScene.partition;
+                _pCamera.partition = _pScene.partition;
             }
 
         }
@@ -292,24 +292,24 @@ package away.containers
         public function set width(value:Number):void
         {
 
-            if (this._width == value)
+            if (_width == value)
             {
                 return;
             }
 
-            if (this._pRttBufferManager)
+            if (_pRttBufferManager)
             {
-                this._pRttBufferManager.viewWidth = value;
+                _pRttBufferManager.viewWidth = value;
             }
 
-            this._width = value;
-            this._aspectRatio = this._width/this._height;
-            this._pCamera.lens.iAspectRatio= this._aspectRatio;
-            this._depthTextureInvalid = true;
-            this._pRenderer.iViewWidth= value;
-            this._pScissorRect.width = value;
-            this._pBackBufferInvalid = true;
-            this._scissorRectDirty = true;
+            _width = value;
+            _aspectRatio = _width/_height;
+            _pCamera.lens.iAspectRatio= _aspectRatio;
+            _depthTextureInvalid = true;
+            _pRenderer.iViewWidth= value;
+            _pScissorRect.width = value;
+            _pBackBufferInvalid = true;
+            _scissorRectDirty = true;
         }
         /**         *         * @returns {number}         */
 		public function get height():Number
@@ -320,43 +320,43 @@ package away.containers
         public function set height(value:Number):void
         {
 
-            if (this._height == value)
+            if (_height == value)
             {
                 return;
             }
 
-            if (this._pRttBufferManager)
+            if (_pRttBufferManager)
             {
-                this._pRttBufferManager.viewHeight = value;
+                _pRttBufferManager.viewHeight = value;
             }
 
-            this._height = value;
-            this._aspectRatio = this._width/this._height;
-            this._pCamera.lens.iAspectRatio = this._aspectRatio;
-            this._depthTextureInvalid = true;
-            this._pRenderer.iViewHeight = value;
-            this._pScissorRect.height = value;
-            this._pBackBufferInvalid = true;
-            this._scissorRectDirty = true;
+            _height = value;
+            _aspectRatio = _width/_height;
+            _pCamera.lens.iAspectRatio = _aspectRatio;
+            _depthTextureInvalid = true;
+            _pRenderer.iViewHeight = value;
+            _pScissorRect.height = value;
+            _pBackBufferInvalid = true;
+            _scissorRectDirty = true;
 
         }
         /**         *         * @param value         */
         public function set x(value:Number):void
         {
-            if (this.x == value)
+            if (x == value)
                 return;
 
-            this._globalPos.x = this._localPos.x = value;
-            this._globalPosDirty = true;
+            _globalPos.x = _localPos.x = value;
+            _globalPosDirty = true;
         }
         /**         *         * @param value         */
         public function set y(value:Number):void
         {
-            if (this.y == value)
+            if (y == value)
                 return;
 
-            this._globalPos.y = this._localPos.y = value;
-            this._globalPosDirty = true;
+            _globalPos.y = _localPos.y = value;
+            _globalPosDirty = true;
         }
         /**         *         * @returns {number}         */
         public function get x():Number
@@ -392,9 +392,9 @@ package away.containers
         /**         *         * @param value         */
 		public function set antiAlias(value:Number):void
 		{
-			this._antiAlias = value;
-			this._pRenderer.antiAlias = value;
-			this._pBackBufferInvalid = true;
+			_antiAlias = value;
+			_pRenderer.antiAlias = value;
+			_pBackBufferInvalid = true;
 		}
         /**         *         * @returns {number}         */
 		public function get renderedFacesCount():Number
@@ -409,12 +409,12 @@ package away.containers
         /**         *         * @param value         */
 		public function set shareContext(value:Boolean):void
 		{
-			if ( this._pShareContext == value)
+			if ( _pShareContext == value)
 			{
 				return;
 			}
-			this._pShareContext = value;
-			this._globalPosDirty = true;
+			_pShareContext = value;
+			_globalPosDirty = true;
 		}
         /**         * Updates the backbuffer dimensions.         */
         public function pUpdateBackBuffer():void
@@ -555,7 +555,7 @@ package away.containers
         /**         *         */
 		public function pUpdateTime():void
 		{
-			var time:Number = new Date.getTime();
+			var time:Number = new Date().getTime();
 
 			if ( _time == 0 )
 			{
@@ -704,7 +704,7 @@ package away.containers
         /**         *         * @param value         */
 		public function set depthPrepass(value:Boolean):void
 		{
-			this._depthPrepass = value;
+			_depthPrepass = value;
 		}
         /**         *         */
         private function onAddedToStage():void

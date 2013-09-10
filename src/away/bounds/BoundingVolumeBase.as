@@ -22,8 +22,8 @@ package away.bounds
 		
 		public function BoundingVolumeBase():void
 		{
-			this._pMin = new Vector3D();
-			this._pMax = new Vector3D();
+			_pMin = new Vector3D();
+			_pMax = new Vector3D();
 		}
 		
 		public function get max():Vector3D

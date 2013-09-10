@@ -14,12 +14,12 @@ package away.textures
 		public function RenderTexture(width:Number, height:Number):void
 		{
 			super();
-			this.pSetSize(width, height);
+			pSetSize(width, height);
 		}
 		
 		public function set width(value:Number):void
 		{
-			if (value == this._pWidth)
+			if (value == _pWidth)
             {
 				return;
             }
@@ -27,13 +27,13 @@ package away.textures
 			if (!TextureUtils.isDimensionValid(value))
 				throw new Error("Invalid size: Width and height must be power of 2 and cannot exceed 2048");
 			
-			this.invalidateContent();
-			this.pSetSize(value, this._pHeight);
+			invalidateContent();
+			pSetSize(value, _pHeight);
 		}
 		
 		public function set height(value:Number):void
 		{
-			if (value == this._pHeight)
+			if (value == _pHeight)
             {
 				return;
             }
@@ -43,8 +43,8 @@ package away.textures
 				throw new Error("Invalid size: Width and height must be power of 2 and cannot exceed 2048");
             }
 
-			this.invalidateContent();
-			this.pSetSize( this._pWidth, value);
+			invalidateContent();
+			pSetSize( _pWidth, value);
 		}
 		
 		override public function pUploadContent(texture:TextureBase):void

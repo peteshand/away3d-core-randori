@@ -55,13 +55,13 @@ package away.loaders.parsers
 		public function OBJParser(scale:Number = 1):void
 		{
 			super(ParserDataFormat.PLAIN_TEXT);
-			this._scale = scale;
+			_scale = scale;
 		}
 		
 		/**		 * Scaling factor applied directly to vertices data		 * @param value The scaling factor.		 */
 		public function set scale(value:Number):void
 		{
-			this._scale = value;
+			_scale = value;
 		}
 		
 		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
@@ -112,7 +112,7 @@ package away.loaders.parsers
 
 					var lm:LoadedMaterial = new LoadedMaterial();
 					    lm.materialID = resourceDependency.id;
-					    lm.texture = Texture2DBase(asset);
+					    lm.texture = (asset as Texture2DBase);
 					
 					_materialLoaded.push(lm);
 					
@@ -315,7 +315,7 @@ package away.loaders.parsers
 						continue;
 					
 					// Finalize and force type-based name
-					_pFinalizeAsset( IAsset(geometry)) ;//, "");
+					_pFinalizeAsset( (geometry as IAsset)) ;//, "");
 
 					if (materialMode < 2)
 						bmMaterial = new TextureMaterial(DefaultMaterialManager.getDefaultTexture());
@@ -357,7 +357,7 @@ package away.loaders.parsers
 							mesh.subMeshes[sm].material = bmMaterial;
 					}
 
-                    _pFinalizeAsset(IAsset(mesh));
+                    _pFinalizeAsset((mesh) as IAsset);
 				}
 			}
 		}
@@ -509,17 +509,17 @@ package away.loaders.parsers
 						nTrunk.push(val);
 				}
 
-                v1 = Number(nTrunk[0]);
-                v2 = Number(nTrunk[1]);
-                v3 = Number(-nTrunk[2]);
+                v1 = (nTrunk[0] as Number);
+                v2 = (nTrunk[1] as Number);
+                v3 = (-nTrunk[2] as Number);
                 _vertices.push(new Vertex( v1, v2, v3 ));
 
 			}
             else
             {
-                v1 = Number(parseFloat(trunk[1]));
-                v2 = Number(parseFloat(trunk[2]));
-                v3 = Number(-parseFloat(trunk[3]));
+                v1 = (parseFloat(trunk[1]) as Number);
+                v2 = (parseFloat(trunk[2]) as Number);
+                v3 = (-parseFloat(trunk[3]) as Number);
 
                 _vertices.push(new Vertex(v1, v2, v3 ));
             }
@@ -749,7 +749,7 @@ package away.loaders.parsers
                     {
 						cm = new ColorMaterial(diffuseColor);
 
-                        var colorMat : ColorMaterial = ColorMaterial(cm);
+                        var colorMat : ColorMaterial = (cm as ColorMaterial);
 
                         colorMat.alpha = alpha;
                         colorMat.ambientColor = ambientColor;
@@ -766,7 +766,7 @@ package away.loaders.parsers
                     {
 						cm = new ColorMultiPassMaterial(diffuseColor);
 
-                        var colorMultiMat : ColorMultiPassMaterial = ColorMultiPassMaterial(cm);
+                        var colorMultiMat : ColorMultiPassMaterial = (cm as ColorMultiPassMaterial);
 
 
                         colorMultiMat.ambientColor = ambientColor;
@@ -868,9 +868,9 @@ package away.loaders.parsers
                     else if (lm.texture)
                     {
 						if (materialMode < 2) { // if materialMode is 0 or 1, we create a SinglePass
-							mat = TextureMaterial(mesh.material);
+							mat = (mesh.material as TextureMaterial);
 
-                            var tm : TextureMaterial = TextureMaterial(mat);
+                            var tm : TextureMaterial = (mat as TextureMaterial);
 
 							tm.texture = lm.texture;
                             tm.ambientColor = lm.ambientColor;
@@ -906,9 +906,9 @@ package away.loaders.parsers
 								}
 							}
 						} else { //if materialMode==2 this is a MultiPassTexture					
-							mat = TextureMultiPassMaterial(mesh.material);
+							mat = (mesh.material as TextureMultiPassMaterial);
 
-                            var tmMult : TextureMultiPassMaterial = TextureMultiPassMaterial(mat);
+                            var tmMult : TextureMultiPassMaterial = (mat as TextureMultiPassMaterial);
 
                             tmMult.texture = lm.texture;
                             tmMult.ambientColor = lm.ambientColor;

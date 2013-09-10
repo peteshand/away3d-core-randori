@@ -33,7 +33,7 @@ package away.materials.methods
 		
 		public function set colorTransform(value:ColorTransform):void
 		{
-            this._colorTransform = value;
+            _colorTransform = value;
 		}
 		
 		/**		 * @inheritDoc		 */

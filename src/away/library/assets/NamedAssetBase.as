@@ -25,10 +25,10 @@ package away.library.assets
 			if (name == null)
 				name = 'null';
 			
-			this._name = name;
-            this._originalName = name;
+			_name = name;
+            _originalName = name;
 
-            this.updateFullPath();
+            updateFullPath();
 
 		}
 		
@@ -45,7 +45,7 @@ package away.library.assets
 
         public function set id(newID:String):void
         {
-            this._id=newID;
+            _id=newID;
         }
 
         public function get assetType():String
@@ -55,7 +55,7 @@ package away.library.assets
 
         public function set assetType(type:String):void
         {
-            this._assetType=type;
+            _assetType=type;
         }
 		
 		public function get name():String
@@ -67,20 +67,20 @@ package away.library.assets
 		{
 			var prev : String;
 			
-			prev = this._name;
-            this._name = val;
+			prev = _name;
+            _name = val;
 
-			if ( this._name == null )
+			if ( _name == null )
             {
 
-                this._name = 'null';
+                _name = 'null';
 
             }
 
-			this.updateFullPath();
+			updateFullPath();
 			
 			//if (hasEventListener(AssetEvent.ASSET_RENAME))
-			this.dispatchEvent( new AssetEvent(AssetEvent.ASSET_RENAME , IAsset(this), prev));
+			dispatchEvent( new AssetEvent(AssetEvent.ASSET_RENAME , (this as IAsset), prev));
 
 		}
 

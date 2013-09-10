@@ -94,17 +94,17 @@ package away.pick
 		
 		public function set onlyMouseEnabled(value:Boolean):void
 		{
-            this._onlyMouseEnabled = value;
+            _onlyMouseEnabled = value;
 		}
 		
 		/**		 * Creates a new <code>ShaderPicker</code> object.		 */
 		public function ShaderPicker():void
 		{
-			this._id = new Vector.<Number>( 4 );//new Vector.<Number>(4, true);
-			this._viewportData = new Vector.<Number>( 4 );//new Vector.<Number>(4, true); // first 2 contain scale, last 2 translation
-			this._boundOffsetScale = new Vector.<Number>( 8 );//new Vector.<Number>(8, true); // first 2 contain scale, last 2 translation
-			this._boundOffsetScale[3] = 0;
-			this._boundOffsetScale[7] = 1;
+			_id = new Vector.<Number>( 4 );//new Vector.<Number>(4, true);
+			_viewportData = new Vector.<Number>( 4 );//new Vector.<Number>(4, true); // first 2 contain scale, last 2 translation
+			_boundOffsetScale = new Vector.<Number>( 8 );//new Vector.<Number>(8, true); // first 2 contain scale, last 2 translation
+			_boundOffsetScale[3] = 0;
+			_boundOffsetScale[7] = 1;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -371,7 +371,7 @@ package away.pick
 		private function getPreciseDetails(camera:Camera3D):void
 		{
 
-            var subMesh : SubMesh = SubMesh(_hitRenderable);
+            var subMesh : SubMesh = (_hitRenderable as SubMesh);
 
 			var subGeom:ISubGeometry = subMesh.subGeometry;
 			var indices:Vector.<Number> = subGeom.indexData;

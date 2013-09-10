@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:21 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -48,7 +48,7 @@ away.math.Matrix3DUtils.quaternion2matrix = function(quarternion, m) {
 };
 
 away.math.Matrix3DUtils.getForward = function(m, v) {
-	if (v === null) {
+	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
 	m.copyColumnTo(2, v);
@@ -57,7 +57,7 @@ away.math.Matrix3DUtils.getForward = function(m, v) {
 };
 
 away.math.Matrix3DUtils.getUp = function(m, v) {
-	if (v === null) {
+	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
 	m.copyColumnTo(1, v);
@@ -66,7 +66,7 @@ away.math.Matrix3DUtils.getUp = function(m, v) {
 };
 
 away.math.Matrix3DUtils.getRight = function(m, v) {
-	if (v === null) {
+	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
 	m.copyColumnTo(0, v);
@@ -116,7 +116,7 @@ away.math.Matrix3DUtils.lookAt = function(matrix, pos, dir, up) {
 };
 
 away.math.Matrix3DUtils.reflection = function(plane, target) {
-	if (target === null) {
+	if (target === null || target == undefined) {
 		target = new away.geom.Matrix3D();
 	}
 	var a = plane.a, b = plane.b, c = plane.c, d = plane.d;

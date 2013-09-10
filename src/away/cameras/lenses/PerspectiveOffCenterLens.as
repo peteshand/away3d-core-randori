@@ -25,10 +25,10 @@ package away.cameras.lenses
 		{
 			super();
 			
-			this.minAngleX = minAngleX;
-			this.maxAngleX = maxAngleX;
-			this.minAngleY = minAngleY;
-			this.maxAngleY = maxAngleY;
+			minAngleX = minAngleX;
+			maxAngleX = maxAngleX;
+			minAngleY = minAngleY;
+			maxAngleY = maxAngleY;
 		}
 		
 		public function get minAngleX():Number
@@ -38,9 +38,9 @@ package away.cameras.lenses
 		
 		public function set minAngleX(value:Number):void
 		{
-			this._minAngleX = value;
-			this._tanMinX = Math.tan( this._minAngleX*Math.PI/180 );
-			this.pInvalidateMatrix();
+			_minAngleX = value;
+			_tanMinX = Math.tan( _minAngleX*Math.PI/180 );
+			pInvalidateMatrix();
 		}
 		
 		public function get maxAngleX():Number
@@ -50,9 +50,9 @@ package away.cameras.lenses
 		
 		public function set maxAngleX(value:Number):void
 		{
-			this._maxAngleX = value;
-			this._tanMaxX = Math.tan(this._maxAngleX*Math.PI/180);
-			this.pInvalidateMatrix();
+			_maxAngleX = value;
+			_tanMaxX = Math.tan(_maxAngleX*Math.PI/180);
+			pInvalidateMatrix();
 		}
 		
 		public function get minAngleY():Number
@@ -62,9 +62,9 @@ package away.cameras.lenses
 		
 		public function set minAngleY(value:Number):void
 		{
-			this._minAngleY = value;
-			this._tanMinY = Math.tan(this._minAngleY*Math.PI/180);
-			this.pInvalidateMatrix();
+			_minAngleY = value;
+			_tanMinY = Math.tan(_minAngleY*Math.PI/180);
+			pInvalidateMatrix();
 		}
 		
 		public function get maxAngleY():Number
@@ -74,9 +74,9 @@ package away.cameras.lenses
 		
 		public function set maxAngleY(value:Number):void
 		{
-			this._maxAngleY = value;
-			this._tanMaxY = Math.tan(this._maxAngleY*Math.PI/180);
-			this.pInvalidateMatrix();
+			_maxAngleY = value;
+			_tanMaxY = Math.tan(_maxAngleY*Math.PI/180);
+			pInvalidateMatrix();
 		}
 		
 		//@override

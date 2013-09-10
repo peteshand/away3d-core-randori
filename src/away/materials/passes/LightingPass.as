@@ -61,7 +61,7 @@ package away.materials.passes
 		
 		public function set directionalLightsOffset(value:Number):void
 		{
-			this._directionalLightsOffset = value;
+			_directionalLightsOffset = value;
 		}
 
 		/**		 * Indicates the offset in the light picker's point light vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
@@ -72,7 +72,7 @@ package away.materials.passes
 		
 		public function set pointLightsOffset(value:Number):void
 		{
-            this._pointLightsOffset = value;
+            _pointLightsOffset = value;
 		}
 
 		/**		 * Indicates the offset in the light picker's light probes vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
@@ -83,7 +83,7 @@ package away.materials.passes
 		
 		public function set lightProbesOffset(value:Number):void
 		{
-            this._lightProbesOffset = value;
+            _lightProbesOffset = value;
 		}
 
 		/**		 * @inheritDoc		 */
@@ -101,10 +101,10 @@ package away.materials.passes
 		
 		public function set includeCasters(value:Boolean):void
 		{
-			if (this._includeCasters == value)
+			if (_includeCasters == value)
 				return;
-            this._includeCasters = value;
-            this.iInvalidateShaderProgram();
+            _includeCasters = value;
+            iInvalidateShaderProgram();
 		}
 
 		/**		 * @inheritDoc		 */
@@ -181,7 +181,7 @@ package away.materials.passes
 		{
 			super.pUpdateShaderProperties();
 
-            var compilerV : LightingShaderCompiler = LightingShaderCompiler(_pCompiler);
+            var compilerV : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
             _tangentSpace = compilerV.tangentSpace;
 
 		}
@@ -191,7 +191,7 @@ package away.materials.passes
 		{
 			super.pUpdateRegisterIndices();
 
-            var compilerV : LightingShaderCompiler = LightingShaderCompiler(_pCompiler);
+            var compilerV : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
 			_lightVertexConstantIndex = compilerV.lightVertexConstantIndex;
 
 		}
@@ -433,7 +433,7 @@ package away.materials.passes
 			var weights:Vector.<Number> = _pLightPicker.lightProbeWeights;
 			var len:Number = lightProbes.length - _lightProbesOffset;
 			var addDiff:Boolean = usesProbesForDiffuse();
-			var addSpec:Boolean = Boolean((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()));
+			var addSpec:Boolean = ((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()) as Boolean);
 			
 			if (!(addDiff || addSpec))
 				return;

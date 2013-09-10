@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -196,7 +196,7 @@ away.loaders.parsers.OBJParser.prototype.translate = function() {
 				this.translateMaterialGroup(materialGroups[m], geometry);
 			if (geometry.get_subGeometries().length == 0)
 				continue;
-			this._pFinalizeAsset(IAsset(geometry));
+			this._pFinalizeAsset(geometry);
 			if (this.get_materialMode() < 2)
 				bmMaterial = new away.materials.TextureMaterial(away.materials.utils.DefaultMaterialManager.getDefaultTexture(), true, false, false);
 			else
@@ -218,7 +218,7 @@ away.loaders.parsers.OBJParser.prototype.translate = function() {
 				for (sm = 1; sm < mesh.get_subMeshes().length; ++sm)
 					mesh.get_subMeshes()[sm].material = bmMaterial;
 			}
-			this._pFinalizeAsset(IAsset(mesh));
+			this._pFinalizeAsset(mesh);
 		}
 	}
 };
@@ -489,7 +489,7 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 			var cm;
 			if (this.get_materialMode() < 2) {
 				cm = new away.materials.ColorMaterial(diffuseColor, 1);
-				var colorMat = cm, 1;
+				var colorMat = cm;
 				colorMat.set_alpha(alpha);
 				colorMat.set_ambientColor(ambientColor);
 				colorMat.set_repeat(true);
@@ -579,8 +579,8 @@ away.loaders.parsers.OBJParser.prototype.applyMaterial = function(lm) {
 				mesh.set_material(lm.cm);
 			} else if (lm.texture) {
 				if (this.get_materialMode() < 2) {
-					mat = mesh.get_material(), true, false, false;
-					var tm = mat, true, false, false;
+					mat = mesh.get_material();
+					var tm = mat;
 					tm.set_texture(lm.texture);
 					tm.set_ambientColor(lm.ambientColor);
 					tm.set_alpha(lm.alpha);
@@ -601,8 +601,8 @@ away.loaders.parsers.OBJParser.prototype.applyMaterial = function(lm) {
 						}
 					}
 				} else {
-					mat = mesh.get_material(), true, false, true;
-					var tmMult = mat, true, false, true;
+					mat = mesh.get_material();
+					var tmMult = mat;
 					tmMult.set_texture(lm.texture);
 					tmMult.set_ambientColor(lm.ambientColor);
 					tmMult.set_repeat(true);

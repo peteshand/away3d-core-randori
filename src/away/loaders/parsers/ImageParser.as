@@ -60,19 +60,19 @@ package away.loaders.parsers
             if ( data  instanceof HTMLImageElement )
             {
 
-                asset = Texture2DBase(new HTMLImageElementTexture( HTMLImageElement(data) , false ));
+                asset = (new HTMLImageElementTexture( HTMLImageElement(data) , false ) as Texture2DBase);
 
                 if ( TextureUtils.isHTMLImageElementValid( HTMLImageElement(data) ) )
                 {
 
-                    _pFinalizeAsset( IAsset(asset), _iFileName );
+                    _pFinalizeAsset( (asset as IAsset), _iFileName );
 
 
                 }
                 else
                 {
 
-                    dispatchEvent( new AssetEvent( AssetEvent.TEXTURE_SIZE_ERROR , IAsset(asset)) );
+                    dispatchEvent( new AssetEvent( AssetEvent.TEXTURE_SIZE_ERROR , (asset as IAsset)) );
 
                 }
 

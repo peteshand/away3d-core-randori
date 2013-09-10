@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 21:30:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -36,7 +36,8 @@ away.loaders.AssetLoader.enableParsers = function(parserClasses) {
 away.loaders.AssetLoader.prototype.load = function(req, context, ns, parser) {
 	if (!this._token) {
 		this._token = new away.loaders.misc.AssetLoaderToken(this);
-		this._uri = req.set_url(req.get_url().replace(/\\/g, "\/"));
+		req.set_url(req.get_url().replace(/\\/g, "\/"));
+		this._uri = req.get_url();
 		this._context = context;
 		this._namespace = ns;
 		this._baseDependency = new away.loaders.misc.ResourceDependency("", req, null, null, false, false);

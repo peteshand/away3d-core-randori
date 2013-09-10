@@ -9,8 +9,8 @@ package away.geom
 		
 		public function Point(x:Number = 0, y:Number = 0):void
 		{
-			this.x = x;
-			this.y = y;
+			x = x;
+			y = y;
 		}
 		
 	}

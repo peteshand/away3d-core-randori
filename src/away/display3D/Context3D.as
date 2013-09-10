@@ -1,7 +1,4 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../_definitions.ts"/>
 
@@ -47,10 +44,10 @@ package away.display3D
 		{
 			try
 			{
-				this._gl = WebGLRenderingContext(canvas.getContext("experimental-webgl"));
-				if( !this._gl )
+				_gl = WebGLRenderingContext(canvas.getContext("experimental-webgl"));
+				if( !_gl )
 				{
-					this._gl = WebGLRenderingContext(canvas.getContext("webgl"));
+					_gl = WebGLRenderingContext(canvas.getContext("webgl"));
 				}
 			}
 			catch(e)
@@ -58,7 +55,7 @@ package away.display3D
 				//this.dispatchEvent( new away.events.AwayEvent( away.events.AwayEvent.INITIALIZE_FAILED, e ) );
 			}
 			
-			if( this._gl )
+			if( _gl )
 			{
 				//this.dispatchEvent( new away.events.AwayEvent( away.events.AwayEvent.INITIALIZE_SUCCESS ) );
 			}
@@ -70,10 +67,10 @@ package away.display3D
 			
 			for( var i:Number = 0; i < Context3D.MAX_SAMPLERS; ++i )
 			{
-				this._samplerStates[ i ] = new SamplerState();
-				this._samplerStates[ i ].wrap = Number(WebGLRenderingContext.REPEAT)
-				this._samplerStates[ i ].filter = Number(WebGLRenderingContext.LINEAR)
-				this._samplerStates[ i ].mipfilter = 0;
+				_samplerStates[ i ] = new SamplerState();
+				_samplerStates[ i ].wrap = Number(WebGLRenderingContext.REPEAT)
+				_samplerStates[ i ].filter = Number(WebGLRenderingContext.LINEAR)
+				_samplerStates[ i ].mipfilter = 0;
 			}
 		}
 		
@@ -183,42 +180,14 @@ package away.display3D
 		{
 			// TODO drawToBitmapData( destination:away.display.BitmapData )
 			
-			/*
-			rttFramebuffer = gl.createFramebuffer();
-			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
-			rttFramebuffer.width = 512;
-			rttFramebuffer.height = 512;
-			
-			rttTexture = gl.createTexture();
-			gl.bindTexture(gl.TEXTURE_2D, rttTexture);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-			gl.generateMipmap(gl.TEXTURE_2D);
-			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-			
-			var renderbuffer = gl.createRenderbuffer();
-			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
-			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);
-
-			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
-			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);
-			
-			gl.bindTexture(gl.TEXTURE_2D, null);
-			gl.bindRenderbuffer(gl.RENDERBUFFER, null);
-			gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-			*/
+			/*			rttFramebuffer = gl.createFramebuffer();			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);			rttFramebuffer.width = 512;			rttFramebuffer.height = 512;						rttTexture = gl.createTexture();			gl.bindTexture(gl.TEXTURE_2D, rttTexture);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);			gl.generateMipmap(gl.TEXTURE_2D);			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);						var renderbuffer = gl.createRenderbuffer();			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);						gl.bindTexture(gl.TEXTURE_2D, null);			gl.bindRenderbuffer(gl.RENDERBUFFER, null);			gl.bindFramebuffer(gl.FRAMEBUFFER, null);			*/
 			
 			throw new PartialImplementationError();
 		}
 		
 		public function drawTriangles(indexBuffer:IndexBuffer3D, firstIndex:Number = 0, numTriangles:Number = -1):void
 		{
-            /*
-			console.log( "======= drawTriangles ======= " )
-			console.log( indexBuffer );
-			console.log( "firstIndex   >>>>> " + firstIndex );
-			console.log( "numTriangles >>>>> " + numTriangles );
-			*/
+            /*			console.log( "======= drawTriangles ======= " )			console.log( indexBuffer );			console.log( "firstIndex   >>>>> " + firstIndex );			console.log( "numTriangles >>>>> " + numTriangles );			*/
 			if ( !_drawing ) 
 			{
 				throw "Need to clear before drawing if the buffer has not been cleared since the last present() call.";
@@ -421,9 +390,7 @@ package away.display3D
 			}
 		}
 		
-		/*
-		public setProgramConstantsFromByteArray
-		*/
+		/*		public setProgramConstantsFromByteArray		*/
 		
 		public function setProgramConstantsFromMatrix(programType:String, firstRegister:Number, matrix:Matrix3D, transposedMatrix:Boolean = false):void
 		{
@@ -443,29 +410,16 @@ package away.display3D
 			}
 		}
 		
-		/*
-		public setGLSLProgramConstantsFromByteArray
-		
-		*/
+		/*		public setGLSLProgramConstantsFromByteArray				*/
 		
 		public function setGLSLProgramConstantsFromMatrix(locationName:String, matrix:Matrix3D, transposedMatrix:Boolean = false):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "matrix : " + matrix.rawData );
-			console.log( "transposedMatrix : " + transposedMatrix );
-			console.log( "================================================= \n" )*/
+		{/*			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )			console.log( "locationName : " + locationName );			console.log( "matrix : " + matrix.rawData );			console.log( "transposedMatrix : " + transposedMatrix );			console.log( "================================================= \n" )*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
 			_gl.uniformMatrix4fv( location, !transposedMatrix, new Float32Array( matrix.rawData ) );
 		}
 		
 		public function setGLSLProgramConstantsFromArray(locationName:String, data:Vector.<Number>, startIndex:Number = 0):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromArray ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "data : " + data );
-			console.log( "startIndex : " + startIndex );
-			console.log( "================================================ \n" )*/
+		{/*			console.log( "======= setGLSLProgramConstantsFromArray ======= " )			console.log( "locationName : " + locationName );			console.log( "data : " + data );			console.log( "startIndex : " + startIndex );			console.log( "================================================ \n" )*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
 			_gl.uniform4f( location, data[startIndex], data[startIndex+1], data[startIndex+2], data[startIndex+3] );
 		}
@@ -615,7 +569,7 @@ package away.display3D
 			
             //if ( buffer == null )return;
 			
-			var location:Number = Number(_gl.getAttribLocation(_currentProgram.glProgram, locationName));
+			var location:Number = (_gl.getAttribLocation(_currentProgram.glProgram, locationName) as Number);
 			if( !buffer )
 			{
 				

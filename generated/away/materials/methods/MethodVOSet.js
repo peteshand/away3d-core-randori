@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:20 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.materials.methods == "undefined")
 
 away.materials.methods.MethodVOSet = function(method) {
 	this.data = null;
-	this.method = method;
+	method = method;
 	this.data = method.iCreateMethodVO();
 };
 

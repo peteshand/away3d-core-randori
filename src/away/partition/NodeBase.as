@@ -23,7 +23,7 @@ package away.partition
 		public var _iCollectionMark:Number;// = 0;		
 		public function NodeBase():void
 		{
-			this._pChildNodes = new <NodeBase>[];
+			_pChildNodes = new <NodeBase>[];
 		}
 		
 		public function get showDebugBounds():Boolean
@@ -33,12 +33,12 @@ package away.partition
 		
 		public function set showDebugBounds(value:Boolean):void
 		{
-			if( this._pDebugPrimitive && value == true )
+			if( _pDebugPrimitive && value == true )
 			{
 				return;
 			}
 			
-			if( !this._pDebugPrimitive && value == false )
+			if( !_pDebugPrimitive && value == false )
 			{
 				return;
 			}
@@ -46,17 +46,17 @@ package away.partition
 			if (value)
 			{
 				throw new PartialImplementationError();
-				this._pDebugPrimitive = this.pCreateDebugBounds();
+				_pDebugPrimitive = pCreateDebugBounds();
 			}
 			else
 			{
-				this._pDebugPrimitive.dispose();
-				this._pDebugPrimitive = null;
+				_pDebugPrimitive.dispose();
+				_pDebugPrimitive = null;
 			}
 			
-			for (var i:Number = 0; i < this._pNumChildNodes; ++i)
+			for (var i:Number = 0; i < _pNumChildNodes; ++i)
 			{
-				this._pChildNodes[i].showDebugBounds = value;
+				_pChildNodes[i].showDebugBounds = value;
 			}
 		}
 		
@@ -169,7 +169,7 @@ package away.partition
 		
 		public function set _pNumEntities(value:Number):void
 		{
-			this._iNumEntities = value;
+			_iNumEntities = value;
 		}
 		
 		public function _pUpdateNumEntities(value:Number):void

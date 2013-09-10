@@ -55,12 +55,12 @@ package away.materials.methods
 
 		public function set iUseAmbientTexture(value:Boolean):void
 		{
-			if (this._useAmbientTexture == value)
+			if (_useAmbientTexture == value)
 				return;
 
-			this._useAmbientTexture = value;
+			_useAmbientTexture = value;
 
-			this.iInvalidateShaderProgram();
+			iInvalidateShaderProgram();
 
 		}
 		
@@ -87,7 +87,7 @@ package away.materials.methods
 		
 		public function set diffuseAlpha(value:Number):void
 		{
-			this._diffuseA = value;
+			_diffuseA = value;
 		}
 		
 		/**		 * The color of the diffuse reflection when not using a texture.		 */
@@ -98,8 +98,8 @@ package away.materials.methods
 		
 		public function set diffuseColor(diffuseColor:Number):void
 		{
-			this._diffuseColor = diffuseColor;
-			this.updateDiffuse();
+			_diffuseColor = diffuseColor;
+			updateDiffuse();
 
 		}
 		
@@ -119,15 +119,15 @@ package away.materials.methods
             var b : Boolean =  ( value != null );
             //var b : boolean = <boolean> value;
 
-			if ( b != this._useTexture ||
-				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
+			if ( b != _useTexture ||
+				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
 
-				this.iInvalidateShaderProgram();
+				iInvalidateShaderProgram();
 
 			}
 			
-			this._useTexture = b;
-            this._texture = value;
+			_useTexture = b;
+            _texture = value;
 
 		}
 		
@@ -143,13 +143,13 @@ package away.materials.methods
 				value = 0;
 			else if (value > 1)
 				value = 1;
-			if (value == this._alphaThreshold)
+			if (value == _alphaThreshold)
 				return;
 			
-			if (value == 0 || this._alphaThreshold == 0)
-				this.iInvalidateShaderProgram();//invalidateShaderProgram();
+			if (value == 0 || _alphaThreshold == 0)
+				iInvalidateShaderProgram();//invalidateShaderProgram();
 			
-			this._alphaThreshold = value;
+			_alphaThreshold = value;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -164,7 +164,7 @@ package away.materials.methods
 
             var m : * = method;
 
-			var diff:BasicDiffuseMethod = BasicDiffuseMethod(m);
+			var diff:BasicDiffuseMethod = (m as BasicDiffuseMethod);
 
 			alphaThreshold = diff.alphaThreshold;
             texture = diff.texture;
@@ -462,7 +462,7 @@ package away.materials.methods
 		/**		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.		 */
 		public function set iShadowRegister(value:ShaderRegisterElement):void
 		{
-			this._shadowRegister = value;
+			_shadowRegister = value;
 		}
 	}
 }

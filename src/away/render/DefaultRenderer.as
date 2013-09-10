@@ -34,10 +34,10 @@ package away.render
 		/**		 * Creates a new DefaultRenderer object.		 * @param antiAlias The amount of anti-aliasing to use.		 * @param renderMode The render mode to use.		 */
 		public function DefaultRenderer():void
 		{
-			super();
-
-			this._pDepthRenderer = new DepthRenderer();
-            this._pDistanceRenderer = new DepthRenderer(false, true);
+			super(false);
+			
+			_pDepthRenderer = new DepthRenderer();
+            _pDistanceRenderer = new DepthRenderer(false, true);
 
 		}
 		
@@ -45,7 +45,7 @@ package away.render
 		{
 
 			super.iSetStage3DProxy(value );
-			this._pDistanceRenderer.iStage3DProxy = this._pDepthRenderer.iStage3DProxy = value;
+			_pDistanceRenderer.iStage3DProxy = _pDepthRenderer.iStage3DProxy = value;
 
 		}
 

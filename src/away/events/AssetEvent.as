@@ -45,8 +45,8 @@ package away.events
 		{
 			super(type);
 			
-			this._asset = asset;
-            this._prevName = prevName || (this._asset? this._asset.name : null);
+			_asset = asset;
+            _prevName = prevName || (_asset? _asset.name : null);
 		}
 		
 		
@@ -64,7 +64,7 @@ package away.events
 		
 		override public function clone():Event
 		{
-			return Event(new AssetEvent(type, asset, assetPrevName));
+			return (new AssetEvent(type, asset, assetPrevName) as Event);
 		}
 	}
 }

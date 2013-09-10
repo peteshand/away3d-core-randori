@@ -18,10 +18,10 @@ package away.primitives
 		{
 			super();
 			
-			this._radius = radius;
-            this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
-            this._yUp = yUp;
+			_radius = radius;
+            _segmentsW = segmentsW;
+            _segmentsH = segmentsH;
+            _yUp = yUp;
 		}
 		
 		/**		 * @inheritDoc		 */
@@ -213,8 +213,8 @@ package away.primitives
 		
 		public function set radius(value:Number):void
 		{
-            this._radius = value;
-            this.pInvalidateGeometry();
+            _radius = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * Defines the number of horizontal segments that make up the sphere. Defaults to 16.		 */
@@ -225,9 +225,9 @@ package away.primitives
 		
 		public function set segmentsW(value:Number):void
 		{
-            this._segmentsW = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsW = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * Defines the number of vertical segments that make up the sphere. Defaults to 12.		 */
@@ -238,9 +238,9 @@ package away.primitives
 		
 		public function set segmentsH(value:Number):void
 		{
-            this._segmentsH = value;
-            this.pInvalidateGeometry();
-            this.pInvalidateUVs();
+            _segmentsH = value;
+            pInvalidateGeometry();
+            pInvalidateUVs();
 		}
 		
 		/**		 * Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
@@ -251,8 +251,8 @@ package away.primitives
 		
 		public function set yUp(value:Boolean):void
 		{
-            this._yUp = value;
-            this.pInvalidateGeometry();
+            _yUp = value;
+            pInvalidateGeometry();
 		}
 	}
 }

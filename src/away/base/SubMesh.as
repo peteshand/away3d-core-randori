@@ -33,9 +33,9 @@ package away.base
 		/**		 * Creates a new SubMesh object		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.		 * @param parentMesh The Mesh object to which this SubMesh belongs.		 * @param material An optional material used to render this SubMesh.		 */
 		public function SubMesh(subGeometry:ISubGeometry, parentMesh:Mesh, material:MaterialBase = null):void
 		{
-			this._parentMesh = parentMesh;
-            this._subGeometry = subGeometry;
-			this.material = material;
+			_parentMesh = parentMesh;
+            _subGeometry = subGeometry;
+			material = material;
 		}
 		
 		public function get shaderPickingDetails():Boolean
@@ -51,15 +51,15 @@ package away.base
 		
 		public function set offsetU(value:Number):void
 		{
-			if (value == this._offsetU)
+			if (value == _offsetU)
             {
 
                 return;
 
             }
 
-			this._offsetU = value;
-            this._uvTransformDirty = true;
+			_offsetU = value;
+            _uvTransformDirty = true;
 		}
 		
 		public function get offsetV():Number
@@ -69,15 +69,15 @@ package away.base
 		
 		public function set offsetV(value:Number):void
 		{
-			if (value == this._offsetV)
+			if (value == _offsetV)
             {
 
                 return;
 
             }
 
-			this._offsetV = value;
-            this._uvTransformDirty = true;
+			_offsetV = value;
+            _uvTransformDirty = true;
 
 		}
 		
@@ -88,15 +88,15 @@ package away.base
 		
 		public function set scaleU(value:Number):void
 		{
-			if (value == this._scaleU)
+			if (value == _scaleU)
             {
 
                 return;
 
             }
 
-            this._scaleU = value;
-            this._uvTransformDirty = true;
+            _scaleU = value;
+            _uvTransformDirty = true;
 		}
 		
 		public function get scaleV():Number
@@ -106,15 +106,15 @@ package away.base
 		
 		public function set scaleV(value:Number):void
 		{
-			if (value ==this._scaleV)
+			if (value ==_scaleV)
             {
 
                 return;
 
             }
 
-			this._scaleV = value;
-            this._uvTransformDirty = true;
+			_scaleV = value;
+            _uvTransformDirty = true;
 		}
 		
 		public function get uvRotation():Number
@@ -124,15 +124,15 @@ package away.base
 		
 		public function set uvRotation(value:Number):void
 		{
-			if (value == this._uvRotation)
+			if (value == _uvRotation)
             {
 
                 return;
 
             }
 
-			this._uvRotation = value;
-            this._uvTransformDirty = true;
+			_uvRotation = value;
+            _uvTransformDirty = true;
 		}
 		
 		/**		 * The entity that that initially provided the IRenderable to the render pipeline (ie: the owning Mesh object).		 */
@@ -149,7 +149,7 @@ package away.base
 		
 		public function set subGeometry(value:ISubGeometry):void
 		{
-            this._subGeometry = value;
+            _subGeometry = value;
 		}
 		
 		/**		 * The material used to render the current SubMesh. If set to null, its parent Mesh's material will be used instead.		 */
@@ -163,19 +163,19 @@ package away.base
 
             //away.Debug.throwPIR( 'away.base.Submesh' , 'set material' , 'away.base.MaterialBase _iRemoveOwner , _iAddOwner');
             //*
-			if (this._iMaterial)
+			if (_iMaterial)
             {
 
-                this._iMaterial.iRemoveOwner(this);
+                _iMaterial.iRemoveOwner(this);
 
             }
 
-			this._iMaterial = value;
+			_iMaterial = value;
 			
-			if (this._iMaterial)
+			if (_iMaterial)
             {
 
-                this._iMaterial.iAddOwner(this);
+                _iMaterial.iAddOwner(this);
 
             }
             //*/
@@ -263,7 +263,7 @@ package away.base
 		
 		public function set iParentMesh(value:Mesh):void
 		{
-            this._parentMesh = value;
+            _parentMesh = value;
 		}
 		
 		public function get uvTransform():Matrix

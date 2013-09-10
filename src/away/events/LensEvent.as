@@ -14,7 +14,7 @@ package away.events
 		public function LensEvent(type:String, lens:LensBase):void
 		{
 			super( type );
-			this._lens = lens;
+			_lens = lens;
 		}
 		
 		public function get lens():LensBase

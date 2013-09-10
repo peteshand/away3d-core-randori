@@ -22,11 +22,11 @@ package away.materials
 			super();
 
 
-			this.texture = texture;
+			texture = texture;
 
-			this.smooth = smooth;
-			this.repeat = repeat;
-			this.mipmap = mipmap;
+			smooth = smooth;
+			repeat = repeat;
+			mipmap = mipmap;
 
 		}
 
@@ -38,7 +38,7 @@ package away.materials
 		
 		public function set animateUVs(value:Boolean):void
 		{
-			this._pScreenPass.animateUVs = value;
+			_pScreenPass.animateUVs = value;
 		}
 		
 		/**		 * The alpha of the surface.		 */
@@ -54,17 +54,17 @@ package away.materials
 			else if (value < 0)
 				value = 0;
 
-            if ( this.colorTransform == null )
+            if ( colorTransform == null )
             {
                     //colorTransform ||= new ColorTransform();
-                this.colorTransform = new ColorTransform();
+                colorTransform = new ColorTransform();
             }
 
-			this.colorTransform.alphaMultiplier = value;
+			colorTransform.alphaMultiplier = value;
 
-            this._pScreenPass.preserveAlpha = this.getRequiresBlending();
+            _pScreenPass.preserveAlpha = getRequiresBlending();
 
-            this._pScreenPass.setBlendMode( this.getBlendMode() == BlendMode.NORMAL && this.getRequiresBlending() ? BlendMode.LAYER : this.getBlendMode() );
+            _pScreenPass.setBlendMode( getBlendMode() == BlendMode.NORMAL && getRequiresBlending() ? BlendMode.LAYER : getBlendMode() );
 
 		}
 		
@@ -77,7 +77,7 @@ package away.materials
 		
 		public function set texture(value:Texture2DBase):void
 		{
-            this._pScreenPass.diffuseMethod.texture = value;
+            _pScreenPass.diffuseMethod.texture = value;
 		}
 		/**		 * The texture object to use for the ambient colour.		 */
 		public function get ambientTexture():Texture2DBase
@@ -87,8 +87,8 @@ package away.materials
 		
 		public function set ambientTexture(value:Texture2DBase):void
 		{
-            this._pScreenPass.ambientMethod.texture = value;
-            this._pScreenPass.diffuseMethod.iUseAmbientTexture = ! (value == null ); // Boolean( value ) //<-------- TODO: Check this works as expected
+            _pScreenPass.ambientMethod.texture = value;
+            _pScreenPass.diffuseMethod.iUseAmbientTexture = ! (value == null ); // Boolean( value ) //<-------- TODO: Check this works as expected
 		}
 
 	}

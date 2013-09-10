@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -56,7 +56,7 @@ away.library.assets.NamedAssetBase.prototype.set_name = function(val) {
 		this._name = "null";
 	}
 	this.updateFullPath();
-	this.dispatchEvent(new away.events.AssetEvent(away.events.AssetEvent.ASSET_RENAME, IAsset(this), prev));
+	this.dispatchEvent(new away.events.AssetEvent(away.events.AssetEvent.ASSET_RENAME, this, prev));
 };
 
 away.library.assets.NamedAssetBase.prototype.dispose = function() {

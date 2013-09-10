@@ -10,7 +10,9 @@ package away.display {
 	import randori.webkit.page.Window;
 	import randori.webkit.html.HTMLImageElement;
 
-    /**     *     */
+    /**
+     *
+     */
     public class BitmapData
     {
 
@@ -23,36 +25,44 @@ package away.display {
         private var _locked:Boolean = false;
 
 
-        /**         *         * @param width         * @param height         * @param transparent         * @param fillColor         */
+        /**
+         *
+         * @param width
+         * @param height
+         * @param transparent
+         * @param fillColor
+         */
         public function BitmapData(width:Number, height:Number, transparent:Boolean = true, fillColor:Number = -1):void
         {
 
-            this._transparent           = transparent;
-            this._imageCanvas           = HTMLCanvasElement(Window.document.createElement("canvas") );
-            this._imageCanvas.width     = width;
-            this._imageCanvas.height    = height;
-            this._context               = this._imageCanvas.getContext( "2d" );
-            this._rect                  = new Rectangle( 0 , 0 , width , height );
+            _transparent           = transparent;
+            _imageCanvas           = HTMLCanvasElement(Window.document.createElement("canvas") );
+            _imageCanvas.width     = width;
+            _imageCanvas.height    = height;
+            _context               = _imageCanvas.getContext( "2d" );
+            _rect                  = new Rectangle( 0 , 0 , width , height );
 
             if ( fillColor != -1 )
             {
 
-                if( this._transparent)
+                if( _transparent)
                 {
-                    this._alpha = ColorUtils.float32ColorToARGB( fillColor )[0] / 255;
+                    _alpha = ColorUtils.float32ColorToARGB( fillColor )[0] / 255;
                 }
                 else
                 {
-                    this._alpha = 1;
+                    _alpha = 1;
                 }
 
-                this.fillRect( this._rect , fillColor );
+                fillRect( _rect , fillColor );
 
             }
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
             _context = null;
@@ -63,14 +73,18 @@ package away.display {
             _locked = null;
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function lock():void
         {
             _locked    = true;
             _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function unlock():void
         {
             _locked = false;
@@ -84,7 +98,12 @@ package away.display {
             }
         }
 
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function getPixel(x, y):Number
         {
 
@@ -129,7 +148,12 @@ package away.display {
             return (a << 24) | (r << 16) | (g << 8) | b;
 
         }
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function setPixel(x, y, color:Number):void
         {
 
@@ -158,7 +182,12 @@ package away.display {
 
         }
 
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function setPixel32(x, y, color:Number):void
         {
 
@@ -187,7 +216,13 @@ package away.display {
 
         }
 
-        /**         * Copy an HTMLImageElement or BitmapData object         *         * @param img {BitmapData} / {HTMLImageElement}         * @param sourceRect - source rectange to copy from         * @param destRect - destinatoin rectange to copy to         */
+        /**
+         * Copy an HTMLImageElement or BitmapData object
+         *
+         * @param img {BitmapData} / {HTMLImageElement}
+         * @param sourceRect - source rectange to copy from
+         * @param destRect - destinatoin rectange to copy to
+         */
         public function drawImage(img:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
@@ -230,7 +265,12 @@ package away.display {
             }
         }
 
-        /**         *         * @param bmpd         * @param sourceRect         * @param destRect         */
+        /**
+         *
+         * @param bmpd
+         * @param sourceRect
+         * @param destRect
+         */
         public function copyPixels(bmpd:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
@@ -275,7 +315,11 @@ package away.display {
 
         }
 
-        /**         *         * @param rect         * @param color         */
+        /**
+         *
+         * @param rect
+         * @param color
+         */
         public function fillRect(rect:Rectangle, color:Number):void
         {
 
@@ -311,7 +355,11 @@ package away.display {
 
         }
 
-        /**         *         * @param source         * @param matrix         */
+        /**
+         *
+         * @param source
+         * @param matrix
+         */
         public function draw(source:*, matrix:Matrix):void
         {
 
@@ -365,57 +413,84 @@ package away.display {
 
         // Get / Set
 
-        /**         *         * @param {ImageData}         */
+        /**
+         *
+         * @param {ImageData}
+         */
         public function set imageData(value:ImageData):void
         {
-            this._context.putImageData( value , 0 , 0, 0 );
+            _context.putImageData( value , 0 , 0, 0 );
         }
 
-        /**         *         * @returns {ImageData}         */
+        /**
+         *
+         * @returns {ImageData}
+         */
         public function get imageData():ImageData
         {
             return _context.getImageData(0,0,_rect.width,_rect.height)
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get width():Number
         {
-            return Number(_imageCanvas.width);
+            return (_imageCanvas.width as Number);
         }
 
-        /**         *         * @param {number}         */
+        /**
+         *
+         * @param {number}
+         */
         public function set width(value:Number):void
         {
-            this._rect.width = value;
-            this._imageCanvas.width = value;
+            _rect.width = value;
+            _imageCanvas.width = value;
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get height():Number
         {
-            return Number(_imageCanvas.height);
+            return (_imageCanvas.height as Number);
         }
 
-        /**         *         * @param {number}         */
+        /**
+         *
+         * @param {number}
+         */
         public function set height(value:Number):void
         {
-            this._rect.height = value;
-            this._imageCanvas.height = value;
+            _rect.height = value;
+            _imageCanvas.height = value;
         }
 
-        /**         *         * @param {away.geom.Rectangle}         */
+        /**
+         *
+         * @param {away.geom.Rectangle}
+         */
         public function get rect():Rectangle
         {
             return _rect;
         }
 
-        /**         *         * @returns {HTMLCanvasElement}         */
+        /**
+         *
+         * @returns {HTMLCanvasElement}
+         */
         public function get canvas():HTMLCanvasElement
         {
             return _imageCanvas;
         }
 
-        /**         *         * @returns {HTMLCanvasElement}         */
+        /**
+         *
+         * @returns {HTMLCanvasElement}
+         */
         public function get context():CanvasRenderingContext2D
         {
             return _context;
@@ -423,7 +498,9 @@ package away.display {
 
         // Private
 
-        /**         * convert decimal value to Hex         */
+        /**
+         * convert decimal value to Hex
+         */
         private function hexToRGBACSS(d:Number):String
         {
 

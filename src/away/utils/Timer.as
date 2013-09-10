@@ -30,8 +30,8 @@ package away.utils
 
 
 
-            this._delay = delay;
-            this._repeatCount = repeatCount;
+            _delay = delay;
+            _repeatCount = repeatCount;
 
             if (isNaN(delay) || delay < 0)
             {
@@ -57,12 +57,12 @@ package away.utils
         public function set delay(value:Number):void
         {
 
-            this._delay = value;
+            _delay = value;
 
-            if (this._running)
+            if (_running)
             {
-                this.stop();
-                this.start();
+                stop();
+                start();
             }
 
         }
@@ -76,7 +76,7 @@ package away.utils
         public function set repeatCount(value:Number):void
         {
 
-            this._repeatCount = value;
+            _repeatCount = value;
         }
 
         public function reset():void

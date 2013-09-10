@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,7 +32,7 @@ away.materials.SinglePassMaterialBase.prototype.set_alphaThreshold = function(va
 
 away.materials.SinglePassMaterialBase.prototype.set_blendMode = function(value) {
 	away.materials.MaterialBase.prototype.setBlendMode.call(this,value);
-	this._pScreenPass.setBlendMode((this._pBlendMode == away.display.BlendMode.NORMAL) && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this._pBlendMode);
+	this._pScreenPass.setBlendMode((this._pBlendMode == away.display.BlendMode.NORMAL) && $createStaticDelegate(this, this.get_requiresBlending) ? away.display.BlendMode.LAYER : this._pBlendMode);
 };
 
 away.materials.SinglePassMaterialBase.prototype.set_depthCompareMode = function(value) {
@@ -227,8 +227,8 @@ away.materials.SinglePassMaterialBase.prototype.get_alphaBlending = function() {
 
 away.materials.SinglePassMaterialBase.prototype.set_alphaBlending = function(value) {
 	this._alphaBlending = value;
-	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this.getBlendMode());
-	this._pScreenPass.set_preserveAlpha(this.get_requiresBlending());
+	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && $createStaticDelegate(this, this.get_requiresBlending) ? away.display.BlendMode.LAYER : this.getBlendMode());
+	this._pScreenPass.set_preserveAlpha($createStaticDelegate(this, this.get_requiresBlending));
 };
 
 away.materials.SinglePassMaterialBase.prototype.iUpdateMaterial = function(context) {

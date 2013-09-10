@@ -19,11 +19,11 @@ package away.controllers
 			super( targetObject );
 			if( lookAtObject )
 			{
-				this.lookAtObject = lookAtObject;
+				lookAtObject = lookAtObject;
 			}
 			else
 			{
-				this.lookAtPosition = new Vector3D();
+				lookAtPosition = new Vector3D();
 			}
 		}
 		
@@ -34,14 +34,14 @@ package away.controllers
 		
 		public function set lookAtPosition(val:Vector3D):void
 		{
-			if( this._pLookAtObject )
+			if( _pLookAtObject )
 			{
-				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
-				this._pLookAtObject = null;
+				_pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
+				_pLookAtObject = null;
 			}
 			
-			this._pLookAtPosition = val;
-			this.pNotifyUpdate();
+			_pLookAtPosition = val;
+			pNotifyUpdate();
 		}
 		
 		public function get lookAtObject():ObjectContainer3D
@@ -51,28 +51,28 @@ package away.controllers
 		
 		public function set lookAtObject(val:ObjectContainer3D):void
 		{
-			if( this._pLookAtPosition )
+			if( _pLookAtPosition )
 			{
-				this._pLookAtPosition = null;
+				_pLookAtPosition = null;
 			}
 			
-			if( this._pLookAtObject == val )
+			if( _pLookAtObject == val )
 			{
 				return;
 			}
 			
-			if( this._pLookAtObject )
+			if( _pLookAtObject )
 			{
-				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				_pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
 			}
-			this._pLookAtObject = val;
+			_pLookAtObject = val;
 			
-			if( this._pLookAtObject )
+			if( _pLookAtObject )
 			{
-				this._pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				_pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
 			}
 			
-			this.pNotifyUpdate();
+			pNotifyUpdate();
 		}
 		
 		//@override

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:25:13 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -45,7 +45,7 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	}
 	this._profile = profile;
 	this._pScene = scene || new away.containers.Scene3D();
-	this._pScene.addEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(, this.onScenePartitionChanged), this);
+	this._pScene.addEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(this, this.onScenePartitionChanged), this);
 	this._pCamera = camera || new away.cameras.Camera3D();
 	this._pRenderer = renderer || new away.render.DefaultRenderer();
 	this._depthRenderer = new away.render.DepthRenderer(false, false);
@@ -53,7 +53,7 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
 	this._pEntityCollector.set_camera(this._pCamera);
 	this._pScissorRect = new away.geom.Rectangle(0, 0, 0, 0);
-	this._pCamera.addEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(, this.onLensChanged), this);
+	this._pCamera.addEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(this, this.onLensChanged), this);
 	this._pCamera.set_partition(this._pScene.get_partition());
 	this.stage = away.containers.View3D.sStage;
 	this.onAddedToStage();
@@ -73,10 +73,10 @@ away.containers.View3D.prototype.get_stage3DProxy = function() {
 
 away.containers.View3D.prototype.set_stage3DProxy = function(stage3DProxy) {
 	if (this._pStage3DProxy) {
-		this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(, this.onViewportUpdated), this);
+		this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(this, this.onViewportUpdated), this);
 	}
 	this._pStage3DProxy = stage3DProxy;
-	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(, this.onViewportUpdated), this);
+	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(this, this.onViewportUpdated), this);
 	this._pRenderer.set_iStage3DProxy(this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy));
 	this._globalPosDirty = true;
 	this._pBackBufferInvalid = true;
@@ -166,13 +166,13 @@ away.containers.View3D.prototype.get_camera = function() {
 };
 
 away.containers.View3D.prototype.set_camera = function(camera) {
-	this._pCamera.removeEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(, this.onLensChanged), this);
+	this._pCamera.removeEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(this, this.onLensChanged), this);
 	this._pCamera = camera;
 	this._pEntityCollector.set_camera(this._pCamera);
 	if (this._pScene) {
 		this._pCamera.set_partition(this._pScene.get_partition());
 	}
-	this._pCamera.addEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(, this.onLensChanged), this);
+	this._pCamera.addEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(this, this.onLensChanged), this);
 	this._scissorRectDirty = true;
 	this._viewportDirty = true;
 };
@@ -182,9 +182,9 @@ away.containers.View3D.prototype.get_scene = function() {
 };
 
 away.containers.View3D.prototype.set_scene = function(scene) {
-	this._pScene.removeEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(, this.onScenePartitionChanged), this);
+	this._pScene.removeEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(this, this.onScenePartitionChanged), this);
 	this._pScene = scene;
-	this._pScene.addEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(, this.onScenePartitionChanged), this);
+	this._pScene.addEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(this, this.onScenePartitionChanged), this);
 	if (this._pCamera) {
 		this._pCamera.set_partition(this._pScene.get_partition());
 	}
@@ -365,7 +365,7 @@ away.containers.View3D.prototype.pUpdateGlobalPos = function() {
 };
 
 away.containers.View3D.prototype.pUpdateTime = function() {
-	var time = new Date.getTime();
+	var time = new Date().getTime();
 	if (this._time == 0) {
 		this._time = time;
 	}

@@ -12,9 +12,9 @@ package aglsl.assembler
 		
 		public function Sampler(shift:Number, mask:Number, value:Number):void
 		{
-			this.shift = shift;
-			this.mask = mask;
-			this.value = value;
+			shift = shift;
+			mask = mask;
+			value = value;
 		}
 	}
 }

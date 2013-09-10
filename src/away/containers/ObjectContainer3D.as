@@ -193,8 +193,8 @@ package away.containers
 		
 		public function set mouseEnabled(value:Boolean):void
 		{
-			this._pMouseEnabled = value;
-			this.pUpdateMouseChildren();
+			_pMouseEnabled = value;
+			pUpdateMouseChildren();
 		}
 
         /**         * @inheritDoc         */
@@ -234,8 +234,8 @@ package away.containers
 		
 		public function set mouseChildren(value:Boolean):void
 		{
-			this._mouseChildren = value;
-			this.pUpdateMouseChildren();
+			_mouseChildren = value;
+			pUpdateMouseChildren();
 		}
 		
 		public function get visible():Boolean
@@ -245,13 +245,13 @@ package away.containers
 		
 		public function set visible(value:Boolean):void
 		{
-			var len:Number = this._children.length;
+			var len:Number = _children.length;
 			
-			this._explicitVisibility = value;
+			_explicitVisibility = value;
 			
 			for( var i:Number = 0; i < len; ++i )
 			{
-				this._children[i].updateImplicitVisibility();
+				_children[i].updateImplicitVisibility();
 			}
 		}
 		
@@ -388,8 +388,8 @@ package away.containers
 		
 		public function set partition(value:Partition3D):void
 		{
-			this._pExplicitPartition = value;
-			this.iSetImplicitPartition( value ? value : ( this._pParent ? this._pParent.iGetImplicitPartition() : null) );
+			_pExplicitPartition = value;
+			iSetImplicitPartition( value ? value : ( _pParent ? _pParent.iGetImplicitPartition() : null) );
 		}
 		
 		public function get sceneTransform():Matrix3D
@@ -409,7 +409,7 @@ package away.containers
         public function set scene(value:Scene3D):void
         {
 
-            this.setScene( value );
+            setScene( value );
 
         }
 
@@ -609,7 +609,7 @@ package away.containers
 			
 			for(var i:Number = 0; i < len; ++i)
 			{
-				clone.addChild( ObjectContainer3D(_children[i].clone()));
+				clone.addChild( (_children[i].clone() as ObjectContainer3D));
 			}
 			// todo: implement for all subtypes
 			return clone;

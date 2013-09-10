@@ -19,10 +19,10 @@ package away.bounds
 		public function NullBounds(alwaysIn:Boolean = true, renderable:WireframePrimitiveBase = null):void
 		{
 			super();
-			this._alwaysIn = alwaysIn;
-			this._renderable = renderable;
-			this._pMax.x = this._pMax.y = this._pMax.z = Number.POSITIVE_INFINITY;
-			this._pMin.x = this._pMin.y = this._pMin.z = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			_alwaysIn = alwaysIn;
+			_renderable = renderable;
+			_pMax.x = _pMax.y = _pMax.z = Number.POSITIVE_INFINITY;
+			_pMin.x = _pMin.y = _pMin.z = _alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
 		}
 		
 		//@override
@@ -71,7 +71,7 @@ package away.bounds
 		override public function transformFrom(bounds:BoundingVolumeBase, matrix:Matrix3D):void
 		{
 			matrix = matrix;
-			var nullBounds:NullBounds = NullBounds(bounds);
+			var nullBounds:NullBounds = (bounds as NullBounds);
 			_alwaysIn = nullBounds._alwaysIn;
 		}
 	}

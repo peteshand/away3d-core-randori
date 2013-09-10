@@ -26,10 +26,10 @@ package away.materials.passes
 
             super();
 
-			this._calcMatrix = new Matrix3D();
+			_calcMatrix = new Matrix3D();
 			
-			this._thickness = thickness;
-			this._constants[1] = 1/255;
+			_thickness = thickness;
+			_constants[1] = 1/255;
 
 		}
 		
@@ -110,7 +110,7 @@ package away.materials.passes
 			_calcMatrix.copyFrom(renderable.sourceEntity.sceneTransform);
 			_calcMatrix.append(camera.inverseSceneTransform);
 
-            var ss : SegmentSet = SegmentSet(renderable);
+            var ss : SegmentSet = (renderable as SegmentSet);
 
             var subSetCount:Number = ss.iSubSetCount;
 			

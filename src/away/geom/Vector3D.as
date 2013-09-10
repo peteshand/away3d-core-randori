@@ -20,10 +20,10 @@ package away.geom {
 
         /**         * Creates an instance of a Vector3D object.         */
         public function Vector3D(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0):void {
-                    this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = w;
+                    x = x;
+            y = y;
+            z = z;
+            w = w;
         }
 
         /**         * [read-only] The length, magnitude, of the current Vector3D object from the origin (0,0,0) to the object's         * x, y, and z coordinates.         * @returns The length of the Vector3D         */

@@ -14,9 +14,9 @@ package away.materials
 		{
 			super();
 			
-			this.bothSides = true;
-			this.pAddPass(this._screenPass = new SegmentPass(thickness));
-			this._screenPass.material = this;
+			bothSides = true;
+			pAddPass(_screenPass = new SegmentPass(thickness));
+			_screenPass.material = this;
 		}
 	}
 }

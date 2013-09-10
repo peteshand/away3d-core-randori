@@ -29,11 +29,12 @@ package away.managers
                 throw new Error("This class is a multiton and cannot be instantiated manually. Use Stage3DManager.getInstance instead.");
             }
 
-			this._stage = stage;
+			_stage = stage;
 			
 			if (!Stage3DManager._stageProxies)
             {
-                Stage3DManager._stageProxies = new Vector.<Stage3DProxy>( this._stage.stage3Ds.length ) ;//, true);
+                Stage3DManager._stageProxies = new Vector.<Stage3DProxy>( _stage.stage3Ds.length ) ;
+				Stage3DManager._stageProxies[_stage.stage3Ds.length-1] = undefined;//, true);
             }
 
 		}

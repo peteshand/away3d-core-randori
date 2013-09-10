@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:22 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,7 +7,7 @@ if (typeof away.materials == "undefined")
 
 away.materials.ColorMultiPassMaterial = function(color) {
 	away.materials.MultiPassMaterialBase.call(this);
-	this.set_color(color);
+	color = color;
 };
 
 away.materials.ColorMultiPassMaterial.prototype.get_color = function() {

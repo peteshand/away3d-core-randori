@@ -17,8 +17,8 @@ package away.cameras.lenses
 		public function ObliqueNearPlaneLens(baseLens:LensBase, plane:Plane3D):void
 		{
 			super();
-			this.baseLens = baseLens;
-			this.plane = plane;
+			baseLens = baseLens;
+			plane = plane;
 		}
 		
 		//@override
@@ -36,7 +36,7 @@ package away.cameras.lenses
 		//@override
 		override public function set near(value:Number):void
 		{
-			this._baseLens.near = value;
+			_baseLens.near = value;
 		}
 		
 		//@override
@@ -48,7 +48,7 @@ package away.cameras.lenses
 		//@override
 		override public function set far(value:Number):void
 		{
-			this._baseLens.far = value;
+			_baseLens.far = value;
 		}
 		
 		//@override
@@ -60,7 +60,7 @@ package away.cameras.lenses
 		//@override
 		override public function set iAspectRatio(value:Number):void
 		{
-			this._baseLens.iAspectRatio = value;
+			_baseLens.iAspectRatio = value;
 		}
 		
 		public function get plane():Plane3D
@@ -70,23 +70,23 @@ package away.cameras.lenses
 		
 		public function set plane(value:Plane3D):void
 		{
-			this._plane = value;
-			this.pInvalidateMatrix();
+			_plane = value;
+			pInvalidateMatrix();
 		}
 		
 		public function set baseLens(value:LensBase):void
 		{
-			if (this._baseLens)
+			if (_baseLens)
 			{
-				this._baseLens.removeEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+				_baseLens.removeEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			}
-			this._baseLens = value;
+			_baseLens = value;
 			
-			if (this._baseLens)
+			if (_baseLens)
 			{
-				this._baseLens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+				_baseLens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			}
-			this.pInvalidateMatrix();
+			pInvalidateMatrix();
 		}
 		
 		private function onLensMatrixChanged(event:LensEvent):void

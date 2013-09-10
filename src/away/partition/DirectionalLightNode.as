@@ -12,7 +12,7 @@ package away.partition
 		public function DirectionalLightNode(light:DirectionalLight):void
 		{
 			super( light );
-			this._light = light;
+			_light = light;
 		}
 		
 		public function get light():DirectionalLight

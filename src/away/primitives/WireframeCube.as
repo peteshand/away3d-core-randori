@@ -17,9 +17,9 @@ package away.primitives
 		{
 			super(color, thickness);
 			
-			this._width = width;
-            this._height = height;
-            this._depth = depth;
+			_width = width;
+            _height = height;
+            _depth = depth;
 		}
 		
 		/**		 * The size of the cube along its X-axis.		 */
@@ -30,8 +30,8 @@ package away.primitives
 		
 		public function set width(value:Number):void
 		{
-            this._width = value;
-            this.pInvalidateGeometry();
+            _width = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its Y-axis.		 */
@@ -44,8 +44,8 @@ package away.primitives
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the cube along its Z-axis.		 */
@@ -56,8 +56,8 @@ package away.primitives
 		
 		public function set depth(value:Number):void
 		{
-            this._depth = value;
-            this.pInvalidateGeometry();
+            _depth = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * @inheritDoc		 */

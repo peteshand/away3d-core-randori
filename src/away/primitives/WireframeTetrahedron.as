@@ -23,10 +23,10 @@ package away.primitives
 		{
 			super(color, thickness);
 			
-			this._width = width;
-            this._height = height;
+			_width = width;
+            _height = height;
 
-            this._orientation = orientation;
+            _orientation = orientation;
 		}
 		
 		/**		 * The orientation in which the plane lies		 */
@@ -37,8 +37,8 @@ package away.primitives
 		
 		public function set orientation(value:String):void
 		{
-            this._orientation = value;
-            this.pInvalidateGeometry();
+            _orientation = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the tetrahedron bottom.		 */
@@ -51,8 +51,8 @@ package away.primitives
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            this._width = value;
-			this.pInvalidateGeometry();
+            _width = value;
+			pInvalidateGeometry();
 		}
 		
 		/**		 * The size of the tetrahedron height.		 */
@@ -65,8 +65,8 @@ package away.primitives
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            this._height = value;
-            this.pInvalidateGeometry();
+            _height = value;
+            pInvalidateGeometry();
 		}
 		
 		/**		 * @inheritDoc		 */

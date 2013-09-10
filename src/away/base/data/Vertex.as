@@ -14,16 +14,16 @@ package away.base.data
 		/**		 * Creates a new <code>Vertex</code> value object.		 *		 * @param    x            [optional]    The x value. Defaults to 0.		 * @param    y            [optional]    The y value. Defaults to 0.		 * @param    z            [optional]    The z value. Defaults to 0.		 * @param    index        [optional]    The index value. Defaults is NaN.		 */
 		public function Vertex(x:Number = 0, y:Number = 0, z:Number = 0, index:Number = 0):void
 		{
-			this._x = x;
-            this._y = y;
-            this._z = z;
-            this._index = index;
+			_x = x;
+            _y = y;
+            _z = z;
+            _index = index;
 		}
 		
 		/**		 * To define/store the index of value object		 * @param    ind        The index		 */
 		public function set index(ind:Number):void
 		{
-            this._index = ind;
+            _index = ind;
 		}
 		
 		public function get index():Number
@@ -39,7 +39,7 @@ package away.base.data
 		
 		public function set x(value:Number):void
 		{
-            this._x = value;
+            _x = value;
 		}
 		
 		/**		 * To define/store the y value of the value object		 * @param    value        The y value		 */
@@ -50,7 +50,7 @@ package away.base.data
 		
 		public function set y(value:Number):void
 		{
-            this._y = value;
+            _y = value;
 		}
 		
 		/**		 * To define/store the z value of the value object		 * @param    value        The z value		 */
@@ -61,7 +61,7 @@ package away.base.data
 		
 		public function set z(value:Number):void
 		{
-            this._z = value;
+            _z = value;
 		}
 		
 		/**		 * returns a new Vertex value Object		 */

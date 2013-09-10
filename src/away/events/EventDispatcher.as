@@ -1,17 +1,34 @@
-/* * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/ * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk ) */
+/*
+ * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/
+ * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk )
+ */
 
 ///<reference path="../_definitions.ts"/>
 
-/** * @module kurst.events */
+/**
+ * @module kurst.events
+ */
 package away.events {
+import randori.webkit.page.Window;
 
-    /**     * Base class for dispatching events     *     * @class kurst.events.EventDispatcher     *     */
+/**
+     * Base class for dispatching events
+     *
+     * @class kurst.events.EventDispatcher
+     *
+     */
     public class EventDispatcher{
 
         private var listeners:Vector.<Object> = new Vector.<Object>();
         private var lFncLength:Number;
 
-        /**         * Add an event listener         * @method addEventListener         * @param {String} Name of event to add a listener for         * @param {Function} Callback function         * @param {Object} Target object listener is added to         */
+        /**
+         * Add an event listener
+         * @method addEventListener
+         * @param {String} Name of event to add a listener for
+         * @param {Function} Callback function
+         * @param {Object} Target object listener is added to
+         */
         public function addEventListener(type:String, listener:Function, target:Object):void {
         
             if ( listeners[ type ] === undefined ) {
@@ -32,7 +49,13 @@ package away.events {
             }
 
         }
-        /**         * Remove an event listener         * @method removeEventListener         * @param {String} Name of event to remove a listener for         * @param {Function} Callback function         * @param {Object} Target object listener is added to         */
+        /**
+         * Remove an event listener
+         * @method removeEventListener
+         * @param {String} Name of event to remove a listener for
+         * @param {Function} Callback function
+         * @param {Object} Target object listener is added to
+         */
         public function removeEventListener(type:String, listener:Function, target:Object):void {
         
             var index : Number = getEventListenerIndex( type , listener , target );
@@ -44,9 +67,14 @@ package away.events {
             }
 
         }
-        /**         * Dispatch an event         * @method dispatchEvent         * @param {Event} Event to dispatch         */
-        public function dispatchEvent(event:Event):void {
-        
+        /**
+         * Dispatch an event
+         * @method dispatchEvent
+         * @param {Event} Event to dispatch
+         */
+        public function dispatchEvent(event:Event):void
+        {
+            Window.console.log(event);
             var listenerArray : Vector.<EventData> = Vector.<EventData>(listeners[ event.type ]);
 
             if (listenerArray != null) {
@@ -65,7 +93,13 @@ package away.events {
             }
 
         }
-        /**         * get Event Listener Index in array. Returns -1 if no listener is added         * @method getEventListenerIndex         * @param {String} Name of event to remove a listener for         * @param {Function} Callback function         * @param {Object} Target object listener is added to         */
+        /**
+         * get Event Listener Index in array. Returns -1 if no listener is added
+         * @method getEventListenerIndex
+         * @param {String} Name of event to remove a listener for
+         * @param {Function} Callback function
+         * @param {Object} Target object listener is added to
+         */
         private function getEventListenerIndex(type:String, listener:Function, target:Object):Number {
         
             if ( listeners[ type ] !== undefined ) {
@@ -92,7 +126,13 @@ package away.events {
             return -1;
 
         }
-        /**         * check if an object has an event listener assigned to it         * @method hasListener         * @param {String} Name of event to remove a listener for         * @param {Function} Callback function         * @param {Object} Target object listener is added to         */
+        /**
+         * check if an object has an event listener assigned to it
+         * @method hasListener
+         * @param {String} Name of event to remove a listener for
+         * @param {Function} Callback function
+         * @param {Object} Target object listener is added to
+         */
 
         //todo: hasEventListener - relax check by not requiring target in param
 

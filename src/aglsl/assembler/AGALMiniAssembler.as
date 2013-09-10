@@ -1,4 +1,7 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
+/**
+ * ...
+ * @author Gary Paluk - http://www.plugin.io
+ */
 
 ///<reference path="../../away/_definitions.ts" />
 
@@ -13,8 +16,8 @@ package aglsl.assembler
 		
 		public function AGALMiniAssembler():void
 		{
-			this.r = {};
-			this.cur = new Part();
+			r = {};
+			cur = new Part();
 		}
 		
 		public function assemble(source:String, ext_part:String = null, ext_version:Number = 1):Object
@@ -41,7 +44,7 @@ package aglsl.assembler
 		
 		private function processLine(line:String, linenr:Number):void
 		{            
-			var startcomment:Number = line.search( "//" );  // remove comments
+			var startcomment = line.search( "//" );  // remove comments
 			if ( startcomment != -1 )
 			{
 				line = line.slice( 0, startcomment );
@@ -51,8 +54,8 @@ package aglsl.assembler
 			{
 				return;
 			}
-			var optsi:Number = line.search( /<.*>/g ); // split of options part <*> if there
-			var opts:Array = null;
+			var optsi = line.search( /<.*>/g ); // split of options part <*> if there
+			var opts = null;
 			if ( optsi != -1 )
 			{
 				opts = line.slice( optsi ).match( /([\w\.\-\+]+)/gi );
@@ -60,8 +63,9 @@ package aglsl.assembler
 			}
 			
 			// get opcode/command				            
-			var tokens:Array = line.match( /([\w\.\+\[\]]+)/gi ); // get tokens in line
-			if ( !tokens || tokens.length<1 ) {
+			var tokens = line.match( /([\w\.\+\[\]]+)/gi ); // get tokens in line
+			if ( !tokens || tokens.length<1 )
+			{
 				if ( line.length >= 3 )
 				{
 					Window.console.log ( "Warning: bad line "+linenr+": "+line );
@@ -70,25 +74,30 @@ package aglsl.assembler
 			}
 			
 			//console.log ( linenr, line, cur, tokens ); 
-			switch ( tokens[0] ) {
+			switch ( tokens[0] )
+			{
 				case "part":
 					addHeader( tokens[1], Number(tokens[2]) ); 
 					break;                
 				case "endpart":
-					if ( !cur ) throw "Unexpected endpart";  
+					if ( !cur )
+					{
+						throw "Unexpected endpart";
+					}
 					cur.data.position = 0;
 					cur = null; 
 					return; 
 				default: 
-					if ( !cur ) {
-						Window.console.log ( "Warning: bad line "+linenr+": "+line+" (Outside of any part definition)" );
+					if( !cur )
+					{
+						Window.console.log( "Warning: bad line "+linenr+": "+line+" (Outside of any part definition)" );
 						return; 
 					}
-					if ( cur.name=="comment" )
+					if ( cur.name == "comment" )
 					{
 						return;
 					}
-					var op : Opcode = Opcode(OpcodeMap.map[tokens[0]]);
+					var op: Opcode = (OpcodeMap.map[tokens[0]] as Opcode);
 					if ( !op )
 					{
 						throw "Bad opcode "+tokens[0]+" "+linenr+": "+line;
@@ -103,38 +112,57 @@ package aglsl.assembler
 						{
 							throw "Bad destination register "+tokens[ti-1]+" "+linenr+": "+line;
 						}
-					} else emitZeroDword ( cur ); 
-					if ( op.a && op.a.format!="none" ) {
-						if ( !emitSource ( cur, tokens[ti++], op.a ) ) throw "Bad source register "+tokens[ti-1]+" "+linenr+": "+line; 
-					} else emitZeroQword ( cur ); 
-					if ( op.b && op.b.format!="none" ) {
-						if ( op.b.format == "sampler" ) {
-							if ( !emitSampler ( cur, tokens[ti++], op.b, opts ) )
+					}
+					else 
+					{
+						emitZeroDword( cur );
+					}
+					
+					if ( op.a && op.a.format!="none" )
+					{
+						if ( !emitSource( cur, tokens[ti++], op.a ) ) throw "Bad source register "+tokens[ti-1]+" "+linenr+": "+line; 
+					}
+					else
+					{
+						emitZeroQword( cur ); 
+					}
+					
+					if ( op.b && op.b.format!="none" )
+					{
+						if ( op.b.format == "sampler" )
+						{
+							if( !emitSampler( cur, tokens[ti++], op.b, opts ) )
 							{
 								throw "Bad sampler register "+tokens[ti-1]+" "+linenr+": "+line;
 							}
-						} else {
-							if ( !emitSource ( cur, tokens[ti++], op.b ) )
+						}
+						else
+						{
+							if ( !emitSource( cur, tokens[ti++], op.b ) )
 							{
-								throw "Bad source register "+tokens[ti-1]+" "+linenr+": "+line;
+								throw "Bad source register " + tokens[ti-1] + " " + linenr + ": " + line;
 							}
 						}
-					} else emitZeroQword ( cur ); 
-					
-					break; 
+					}
+					else
+					{
+						emitZeroQword( cur ); 
+					}
+					break;
 			}                			                                             
 		}
 		
 		public function emitHeader(pr:Part):void
 		{
-			pr.data.writeUnsignedByte ( 0xa0 ); 	// tag version
-			pr.data.writeUnsignedInt ( pr.version ); 
-			if ( pr.version >= 0x10 )
+			pr.data.writeUnsignedByte( 0xa0 ); 	// tag version
+			pr.data.writeUnsignedInt( pr.version ); 
+			if( pr.version >= 0x10 )
 			{
 				pr.data.writeUnsignedByte ( 0 ); // align, for higher versions
 			}
 			pr.data.writeUnsignedByte ( 0xa1 );		// tag program id
-			switch( pr.name ) {
+			switch( pr.name )
+			{
 				case "fragment" : pr.data.writeUnsignedByte ( 1 ); break;
 				case "vertex" : pr.data.writeUnsignedByte ( 0 ); break;
 				case "cpu" : pr.data.writeUnsignedByte ( 2 ); break;
@@ -142,17 +170,20 @@ package aglsl.assembler
 			}                        
 		}    
 		
-		public function emitOpcode(pr:Part, opcode):void {
-					pr.data.writeUnsignedInt( opcode );
+		public function emitOpcode(pr:Part, opcode):void
+		{
+			pr.data.writeUnsignedInt( opcode );
 			//console.log ( "Emit opcode: ", opcode ); 
 		}
 		
-		public function emitZeroDword(pr:Part):void {
-					pr.data.writeUnsignedInt( 0 );
+		public function emitZeroDword(pr:Part):void
+		{
+			pr.data.writeUnsignedInt( 0 );
 		}
 		
-		public function emitZeroQword(pr):void {
-					pr.data.writeUnsignedInt( 0 );
+		public function emitZeroQword(pr):void
+		{
+			pr.data.writeUnsignedInt( 0 );
 			pr.data.writeUnsignedInt( 0 );
 		}
 		
@@ -187,43 +218,90 @@ package aglsl.assembler
 		
 		public function stringToSwizzle(s):Number
 		{
-			if ( !s ) return 0xe4; 
+			if( !s )
+			{
+				return 0xe4;
+			}
 			var chartoindex = { x:0, y:1, z:2, w:3 };
 			var sw = 0;
-			if ( s.charAt(0) != "." ) throw "Missing . for swizzle";
-			if ( s.length > 1) sw |= chartoindex[s.charAt(1)];             
-			if ( s.length > 2 ) sw |= chartoindex[s.charAt(2)]<<2; 
-			else sw |= (sw&3)<<2;
-			if ( s.length > 3) sw |= chartoindex[s.charAt(3)]<<4; 
-			else sw |= (sw&(3<<2))<<2;
-			if ( s.length > 4) sw |= chartoindex[s.charAt(4)]<<6; 
-			else sw |= (sw&(3<<4))<<2;
-			return sw; 
+			
+			if( s.charAt(0) != "." )
+			{
+				throw "Missing . for swizzle";
+			}
+			
+			if( s.length > 1)
+			{
+				sw |= chartoindex[s.charAt(1)];
+			}
+			
+			if( s.length > 2 )
+			{
+				sw |= chartoindex[s.charAt(2)] << 2;
+			}
+			else
+			{
+				sw |= (sw&3)<<2;
+			}
+			
+			if( s.length > 3)
+			{
+				sw |= chartoindex[s.charAt(3)] << 4;
+			}
+			else
+			{
+				sw |= (sw&(3<<2))<<2;
+			}
+			
+			if( s.length > 4)
+			{
+				sw |= chartoindex[s.charAt(4)] << 6;
+			}
+			else
+			{
+				sw |= (sw&(3<<4)) << 2;
+			}
+			
+			return sw;
 		}
 		
 		public function emitSampler(pr:Part, token, opsrc, opts):Boolean
-		{                            
-			var reg = token.match ( /fs(\d*)/i ); // g1:regnum
-			if ( !reg || !reg[1] ) return false; 
+		{
+			var reg = token.match( /fs(\d*)/i ); // g1:regnum
+			if( !reg || !reg[1] )
+			{
+				return false;
+			}
 			pr.data.writeUnsignedShort ( reg[1] ); 
 			pr.data.writeUnsignedByte ( 0 );   // bias
 			pr.data.writeUnsignedByte ( 0 );         
-			/*			pr.data.writeUnsignedByte ( 0x5 ); 			pr.data.writeUnsignedByte ( 0 );   // readmode, dim			pr.data.writeUnsignedByte ( 0 );   // special, wrap        			pr.data.writeUnsignedByte ( 0 );   // mip, filter                            			*/
-			var samplerbits = 0x5; 
-			var sampleroptset = 0; 
-			for ( var i=0; i<opts.length; i++ ) {
-				var o : Sampler = Sampler(SamplerMap.map[opts[i].toLowerCase()]);
+			/*
+			pr.data.writeUnsignedByte ( 0x5 ); 
+			pr.data.writeUnsignedByte ( 0 );   // readmode, dim
+			pr.data.writeUnsignedByte ( 0 );   // special, wrap        
+			pr.data.writeUnsignedByte ( 0 );   // mip, filter                            
+			*/
+			var samplerbits:Number = 0x5; 
+			var sampleroptset:Number = 0; 
+			for ( var i:Number = 0; i < opts.length; i++ )
+			{
+				var o:Sampler = (SamplerMap.map[opts[i].toLowerCase()] as Sampler);
 				
                 //console.log( 'AGALMiniAssembler' , 'emitSampler' , 'SampleMap opt:' , o , '<-------- WATCH FOR THIS');
 				
 				if( o )
 				{
-					if ( ((sampleroptset>>o.shift)&o.mask)!=0 ) Window.console.log ("Warning, duplicate sampler option");
-					sampleroptset |= o.mask<<o.shift;
-					samplerbits &= ~(o.mask<<o.shift);
-					samplerbits |= o.value<<o.shift;
-				} else {
-					Window.console.log ("Warning, unknown sampler option: ", opts[i] );
+					if ( ((sampleroptset >> o.shift) & o.mask) != 0 )
+					{
+						Window.console.log("Warning, duplicate sampler option");
+					}
+					sampleroptset |= o.mask << o.shift;
+					samplerbits &= ~(o.mask << o.shift);
+					samplerbits |= o.value << o.shift;
+				}
+				else
+				{
+					Window.console.log("Warning, unknown sampler option: ", opts[i] );
 					// todo bias
 				}
 			}
@@ -233,51 +311,60 @@ package aglsl.assembler
 		
 		public function emitSource(pr, token, opsrc):Boolean
 		{
-			var indexed = token.match ( /vc\[(v[tcai])(\d+)\.([xyzw])([\+\-]\d+)?\](\.[xyzw]{1,4})?/i ); // g1: indexregname, g2:indexregnum, g3:select, [g4:offset], [g5:swizzle] 
+			var indexed = token.match( /vc\[(v[tcai])(\d+)\.([xyzw])([\+\-]\d+)?\](\.[xyzw]{1,4})?/i ); // g1: indexregname, g2:indexregnum, g3:select, [g4:offset], [g5:swizzle] 
 			var reg;
-			if ( indexed ) {
-				if ( !RegMap.map[indexed[1]] ) return false;          
+			if( indexed )
+			{
+				if ( !RegMap.map[indexed[1]] )
+				{
+					return false;
+				}
 				var selindex = { x:0, y:1, z:2, w:3 };
-				var em : * = { num:indexed[2]|0, code:RegMap.map[indexed[1]].code, swizzle:stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4]|0 };
-				pr.data.writeUnsignedShort ( em.num );      
-				pr.data.writeByte ( em.offset );                     
-				pr.data.writeUnsignedByte ( em.swizzle ); 
-				pr.data.writeUnsignedByte ( 0x1 ); // constant reg
-				pr.data.writeUnsignedByte ( em.code ); 
-				pr.data.writeUnsignedByte ( em.select ); 
-				pr.data.writeUnsignedByte ( 1<<7 );                         				                                
-			} else {
-				reg = token.match ( /([fov]?[tpocidavs])(\d*)(\.[xyzw]{1,4})?/i ); // g1: regname, g2:regnum, g3:swizzle
-				if ( !RegMap.map[reg[1]] ) return false;          
+				var em:* = { num:indexed[2]|0, code:RegMap.map[indexed[1]].code, swizzle:stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4]|0 };
+				pr.data.writeUnsignedShort( em.num );
+				pr.data.writeByte( em.offset );
+				pr.data.writeUnsignedByte( em.swizzle );
+				pr.data.writeUnsignedByte( 0x1 ); // constant reg
+				pr.data.writeUnsignedByte( em.code );
+				pr.data.writeUnsignedByte( em.select );
+				pr.data.writeUnsignedByte( 1 << 7 );
+			}
+			else
+			{
+				reg = token.match( /([fov]?[tpocidavs])(\d*)(\.[xyzw]{1,4})?/i ); // g1: regname, g2:regnum, g3:swizzle
+				if( !RegMap.map[reg[1]] )
+				{
+					return false;
+				}
 				var em : * = { num:reg[2]|0, code:RegMap.map[reg[1]].code, swizzle:stringToSwizzle(reg[3]) };
-				pr.data.writeUnsignedShort ( em.num );      
-				pr.data.writeUnsignedByte ( 0 ); 
-				pr.data.writeUnsignedByte ( em.swizzle ); 
-				pr.data.writeUnsignedByte ( em.code ); 
-				pr.data.writeUnsignedByte ( 0 ); 
-				pr.data.writeUnsignedByte ( 0 ); 
-				pr.data.writeUnsignedByte ( 0 );                             
-				//console.log ( "  Emit source: ", em, pr.data.length );             
+				pr.data.writeUnsignedShort ( em.num );
+				pr.data.writeUnsignedByte ( 0 );
+				pr.data.writeUnsignedByte ( em.swizzle );
+				pr.data.writeUnsignedByte ( em.code );
+				pr.data.writeUnsignedByte ( 0 );
+				pr.data.writeUnsignedByte ( 0 );
+				pr.data.writeUnsignedByte ( 0 );
+				//console.log ( "  Emit source: ", em, pr.data.length );
 			}                    
 			return true; 
 		}  
 		
-		public function addHeader(partname:String, version:Number):void {
-					if( !version )
+		public function addHeader(partname:String, version:Number):void
+		{
+			if( !version )
 			{
 				version = 1;
 			}
 			if ( r[partname] == undefined )
 			{
 				r[partname] = new Part( partname, version );
-				emitHeader ( r[ partname ] ); 
+				emitHeader( r[ partname ] ); 
 			} 
 			else if ( r[partname].version != version )
 			{
-				throw "Multiple versions for part "+partname;
+				throw "Multiple versions for part " + partname;
 			}
 			cur = r[partname]; 
 		}
-		
 	}
 }

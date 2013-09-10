@@ -55,8 +55,8 @@ package away.render
 		/**		 * Creates a new RendererBase object.		 */
 		public function RendererBase(renderToTexture:Boolean = false):void
 		{
-			this._pRenderableSorter = new RenderableMergeSort();
-			this._renderToTexture = renderToTexture;
+			_pRenderableSorter = new RenderableMergeSort();
+			_renderToTexture = renderToTexture;
 		}
 		
 		public function iCreateEntityCollector():EntityCollector
@@ -71,7 +71,7 @@ package away.render
 		
 		public function set iViewWidth(value:Number):void
 		{
-			this._viewWidth = value;
+			_viewWidth = value;
 		}
 		
 		public function get iViewHeight():Number
@@ -81,7 +81,7 @@ package away.render
 		
 		public function set iViewHeight(value:Number):void
 		{
-			this._viewHeight = value;
+			_viewHeight = value;
 		}
 		
 		public function get iRenderToTexture():Boolean
@@ -96,7 +96,7 @@ package away.render
 		
 		public function set renderableSorter(value:IEntitySorter):void
 		{
-			this._pRenderableSorter = value;
+			_pRenderableSorter = value;
 		}
 		
 		public function get iClearOnRender():Boolean
@@ -106,7 +106,7 @@ package away.render
 		
 		public function set iClearOnRender(value:Boolean):void
 		{
-			this._clearOnRender = value;
+			_clearOnRender = value;
 		}
 		
 		/**		 * The background color's red component, used when clearing.		 *		 * @private		 */
@@ -117,7 +117,7 @@ package away.render
 		
 		public function set iBackgroundR(value:Number):void
 		{
-			this._backgroundR = value;
+			_backgroundR = value;
 		}
 		
 		/**		 * The background color's green component, used when clearing.		 *		 * @private		 */
@@ -128,7 +128,7 @@ package away.render
 		
 		public function set iBackgroundG(value:Number):void
 		{
-			this._backgroundG = value;
+			_backgroundG = value;
 		}
 		
 		/**		 * The background color's blue component, used when clearing.		 *		 * @private		 */
@@ -139,7 +139,7 @@ package away.render
 		
 		public function set iBackgroundB(value:Number):void
 		{
-			this._backgroundB = value;
+			_backgroundB = value;
 		}
 		
 		/**		 * The Stage3DProxy that will provide the Context3D used for rendering.		 *		 * @private		 */
@@ -151,7 +151,7 @@ package away.render
 		public function set iStage3DProxy(value:Stage3DProxy):void
 		{
 
-            this.iSetStage3DProxy( value );
+            iSetStage3DProxy( value );
 
 		}
 
@@ -203,7 +203,7 @@ package away.render
 		
 		public function set iShareContext(value:Boolean):void
 		{
-			this._shareContext = value;
+			_shareContext = value;
 		}
 		
 		/**		 * Disposes the resources used by the RendererBase.		 *		 * @private		 */
@@ -328,7 +328,7 @@ package away.render
 		
 		public function set iBackgroundAlpha(value:Number):void
 		{
-			this._backgroundAlpha = value;
+			_backgroundAlpha = value;
 		}
 
         /*		public get iBackground():away.textures.Texture2DBase		{			return this._background;		}		*/
@@ -343,7 +343,7 @@ package away.render
 		
 		public function set antiAlias(antiAlias:Number):void
 		{
-            this._antiAlias = antiAlias;
+            _antiAlias = antiAlias;
 		}
 		
 		public function get iTextureRatioX():Number
@@ -353,7 +353,7 @@ package away.render
 		
 		public function set iTextureRatioX(value:Number):void
 		{
-			this._textureRatioX = value;
+			_textureRatioX = value;
 		}
 		
 		public function get iTextureRatioY():Number
@@ -363,7 +363,7 @@ package away.render
 		
 		public function set iTextureRatioY(value:Number):void
 		{
-			this._textureRatioY = value;
+			_textureRatioY = value;
 		}
 
 	}

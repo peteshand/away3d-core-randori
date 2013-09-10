@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 21:30:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,6 +17,7 @@ away.loaders.misc.SingleFileLoader = function(materialMode) {
 	this._fileExtension = null;
 	this._parser = null;
 	away.events.EventDispatcher.call(this);
+	away.loaders.misc.SingleFileLoader._parsers.push(away.loaders.parsers.ImageParser);
 	this._materialMode = materialMode;
 };
 
@@ -155,13 +156,13 @@ away.loaders.misc.SingleFileLoader.prototype.removeListeners = function(urlLoade
 };
 
 away.loaders.misc.SingleFileLoader.prototype.handleUrlLoaderError = function(event) {
-	var urlLoader = ISingleFileTSLoader(event.target);
+	var urlLoader = event.target;
 	this.removeListeners(urlLoader);
 	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this._req.get_url(), true));
 };
 
 away.loaders.misc.SingleFileLoader.prototype.handleUrlLoaderComplete = function(event) {
-	var urlLoader = ISingleFileTSLoader(event.target);
+	var urlLoader = event.target;
 	this.removeListeners(urlLoader);
 	this._data = urlLoader.get_data();
 	if (this._loadAsRawData) {
@@ -257,6 +258,7 @@ away.loaders.misc.SingleFileLoader.getRuntimeDependencies = function(t) {
 	p.push('away.events.ParserEvent');
 	p.push('away.events.LoaderEvent');
 	p.push('away.loaders.parsers.ParserDataFormat');
+	p.push('away.loaders.parsers.ImageParser');
 	p.push('away.events.AssetEvent');
 	p.push('away.events.IOErrorEvent');
 	return p;

@@ -23,7 +23,7 @@ package away.lights
 		public function PointLight():void
 		{
 			super();
-			this._pFallOffFactor = 1/(this._pFallOff*this._pFallOff - this._pRadius*this._pRadius);
+			_pFallOffFactor = 1/(_pFallOff*_pFallOff - _pRadius*_pRadius);
 		}
 		
 		override public function pCreateShadowMapper():ShadowMapperBase
@@ -43,17 +43,17 @@ package away.lights
 		
 		public function set radius(value:Number):void
 		{
-			this._pRadius = value;
-			if (this._pRadius < 0)
+			_pRadius = value;
+			if (_pRadius < 0)
 			{
-				this._pRadius = 0;
+				_pRadius = 0;
 			}
-			else if( this._pRadius > this._pFallOff )
+			else if( _pRadius > _pFallOff )
 			{
-				this._pFallOff = this._pRadius;
-				this.pInvalidateBounds();
+				_pFallOff = _pRadius;
+				pInvalidateBounds();
 			}
-			this._pFallOffFactor = 1/( this._pFallOff*this._pFallOff - this._pRadius*this._pRadius );
+			_pFallOffFactor = 1/( _pFallOff*_pFallOff - _pRadius*_pRadius );
 		}
 		
 		public function iFallOffFactor():Number
@@ -68,17 +68,17 @@ package away.lights
 		
 		public function set fallOff(value:Number):void
 		{
-			this._pFallOff = value;
-			if( this._pFallOff < 0)
+			_pFallOff = value;
+			if( _pFallOff < 0)
 			{
-				this._pFallOff = 0;
+				_pFallOff = 0;
 			}
-			if( this._pFallOff < this._pRadius )
+			if( _pFallOff < _pRadius )
 			{
-				this._pRadius = this._pFallOff;
+				_pRadius = _pFallOff;
 			}
-			this._pFallOffFactor = 1/( this._pFallOff*this._pFallOff - this._pRadius*this._pRadius);
-			this.pInvalidateBounds();
+			_pFallOffFactor = 1/( _pFallOff*_pFallOff - _pRadius*_pRadius);
+			pInvalidateBounds();
 		}
 		
 		override public function pUpdateBounds():void

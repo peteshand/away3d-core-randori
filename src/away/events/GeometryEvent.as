@@ -20,7 +20,7 @@ package away.events
 		public function GeometryEvent(type:String, subGeometry:ISubGeometry = null):void
 		{
 			super( type ) //, false, false);
-			this._subGeometry = subGeometry;
+			_subGeometry = subGeometry;
 		}
 		
 		/**		 * The SubGeometry object that is the subject of this event, if appropriate.		 */

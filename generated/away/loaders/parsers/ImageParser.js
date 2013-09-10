@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -30,9 +30,9 @@ away.loaders.parsers.ImageParser.prototype._pProceedParsing = function() {
 	if (this.get_data() instanceof HTMLImageElement) {
 		asset = new away.textures.HTMLImageElementTexture(this.get_data(), false);
 		if (away.utils.TextureUtils.isHTMLImageElementValid(this.get_data())) {
-			this._pFinalizeAsset(IAsset(asset), this._iFileName);
+			this._pFinalizeAsset(asset, this._iFileName);
 		} else {
-			this.dispatchEvent(new away.events.AssetEvent(away.events.AssetEvent.TEXTURE_SIZE_ERROR, IAsset(asset)));
+			this.dispatchEvent(new away.events.AssetEvent(away.events.AssetEvent.TEXTURE_SIZE_ERROR, asset));
 		}
 		return away.loaders.parsers.ParserBase.PARSING_DONE;
 	}

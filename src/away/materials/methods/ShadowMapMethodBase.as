@@ -31,9 +31,9 @@ package away.materials.methods
 		public function ShadowMapMethodBase(castingLight:LightBase):void
 		{
 			super();
-			this._castingLight = castingLight;
+			_castingLight = castingLight;
 			castingLight.castsShadows = true;
-            this._shadowMapper = castingLight.shadowMapper;
+            _shadowMapper = castingLight.shadowMapper;
 
 		}
 
@@ -51,7 +51,7 @@ package away.materials.methods
 		
 		public function set alpha(value:Number):void
 		{
-            this._alpha = value;
+            _alpha = value;
 		}
 
 		/**		 * The light casting the shadows.		 */
@@ -68,7 +68,7 @@ package away.materials.methods
 		
 		public function set epsilon(value:Number):void
 		{
-            this._epsilon = value;
+            _epsilon = value;
 		}
 
 		/**		 * @inheritDoc		 */

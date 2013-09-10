@@ -179,7 +179,7 @@ package away.events
             if ( object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
             {
 
-                var objContainer : ObjectContainer3D = ObjectContainer3D(object);
+                var objContainer : ObjectContainer3D = (object as ObjectContainer3D);
                 return objContainer.sceneTransform.transformVector( localPosition );
 
             }
@@ -198,7 +198,7 @@ package away.events
 
             if ( object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
             {
-                var objContainer : ObjectContainer3D = ObjectContainer3D(object);
+                var objContainer : ObjectContainer3D = (object as ObjectContainer3D);
                 var sceneNormal  : Vector3D = objContainer.sceneTransform.deltaTransformVector( localNormal );
 
                     sceneNormal.normalize();

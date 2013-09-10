@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:15 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -12,12 +12,12 @@ aglsl.assembler.Opcode = function(dest, aformat, asize, bformat, bsize, opcode, 
 	this.a = new aglsl.assembler.FS();
 	this.b = new aglsl.assembler.FS();
 	this.flags = new aglsl.assembler.Flags();
-	this.dest = dest;
+	dest = dest;
 	this.a.format = aformat;
 	this.a.size = asize;
 	this.b.format = bformat;
 	this.b.size = bsize;
-	this.opcode = opcode;
+	opcode = opcode;
 	this.flags.simple = simple;
 	this.flags.horizontal = horizontal;
 	this.flags.fragonly = fragonly;

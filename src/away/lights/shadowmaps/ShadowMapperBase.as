@@ -29,7 +29,7 @@ package away.lights.shadowmaps
 		
 		public function ShadowMapperBase():void
 		{
-			this._pCasterCollector = this.pCreateCasterCollector();
+			_pCasterCollector = pCreateCasterCollector();
 		}
 		
 		public function pCreateCasterCollector():ShadowCasterCollector
@@ -44,7 +44,7 @@ package away.lights.shadowmaps
 		
 		public function set autoUpdateShadows(value:Boolean):void
 		{
-			this._autoUpdateShadows = value;
+			_autoUpdateShadows = value;
 		}
 		
 		public function updateShadows():void
@@ -81,7 +81,7 @@ package away.lights.shadowmaps
 		
 		public function set light(value:LightBase):void
 		{
-			this._pLight = value;
+			_pLight = value;
 		}
 		
 		public function get depthMap():TextureProxyBase
@@ -100,20 +100,20 @@ package away.lights.shadowmaps
 		
 		public function set depthMapSize(value:Number):void
 		{
-			if( value == this._pDepthMapSize )
+			if( value == _pDepthMapSize )
 			{
 				return;
 			}
-			this._pDepthMapSize = value;
+			_pDepthMapSize = value;
 			
-			if( this._explicitDepthMap )
+			if( _explicitDepthMap )
 			{
 				throw Error("Cannot set depth map size for the current renderer.");
 			}
-			else if( this._depthMap )
+			else if( _depthMap )
 			{
-				this._depthMap.dispose();
-				this._depthMap = null;
+				_depthMap.dispose();
+				_depthMap = null;
 			}
 		}
 		

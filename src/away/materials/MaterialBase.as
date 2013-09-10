@@ -68,17 +68,17 @@ package away.materials
 
             super();
 
-            this._owners = new Vector.< IMaterialOwner>();
-            this._passes = new Vector.<MaterialPassBase>();
-            this._pDepthPass= new DepthMapPass();
-            this._pDistancePass = new DistanceMapPass();
+            _owners = new Vector.< IMaterialOwner>();
+            _passes = new Vector.<MaterialPassBase>();
+            _pDepthPass= new DepthMapPass();
+            _pDistancePass = new DistanceMapPass();
 
-            this._pDepthPass.addEventListener(Event.CHANGE, this.onDepthPassChange, this );
-            this._pDistancePass.addEventListener(Event.CHANGE, this.onDistancePassChange , this);
+            _pDepthPass.addEventListener(Event.CHANGE, onDepthPassChange, this );
+            _pDistancePass.addEventListener(Event.CHANGE, onDistancePassChange , this);
 
-            this.alphaPremultiplied= true;
+            alphaPremultiplied= true;
 
-            this._iUniqueId = MaterialBase.MATERIAL_ID_COUNT++;
+            _iUniqueId = MaterialBase.MATERIAL_ID_COUNT++;
 
         }
 
@@ -97,7 +97,7 @@ package away.materials
         public function set lightPicker(value:LightPickerBase):void
         {
 
-            this.setLightPicker( value );
+            setLightPicker( value );
 
         }
 
@@ -130,7 +130,7 @@ package away.materials
         public function set mipmap(value:Boolean):void
         {
 
-            this.setMipMap( value );
+            setMipMap( value );
 
         }
 
@@ -156,12 +156,12 @@ package away.materials
 
         public function set smooth(value:Boolean):void
         {
-            this._smooth = value;
+            _smooth = value;
 
-            for (var i:Number = 0; i < this._numPasses; ++i)
+            for (var i:Number = 0; i < _numPasses; ++i)
             {
 
-                this._passes[i].smooth = value;
+                _passes[i].smooth = value;
 
             }
 
@@ -177,7 +177,7 @@ package away.materials
 
         public function set depthCompareMode(value:String):void
         {
-            this.setDepthCompareMode( value );
+            setDepthCompareMode( value );
         }
 
         public function setDepthCompareMode(value:String):void
@@ -193,13 +193,13 @@ package away.materials
 
         public function set repeat(value:Boolean):void
         {
-            this._repeat = value;
+            _repeat = value;
 
 
-            for (var i:Number = 0; i < this._numPasses; ++i)
+            for (var i:Number = 0; i < _numPasses; ++i)
             {
 
-                this._passes[i].repeat = value;
+                _passes[i].repeat = value;
 
             }
 
@@ -231,18 +231,18 @@ package away.materials
 
         public function set bothSides(value:Boolean):void
         {
-            this._bothSides = value;
+            _bothSides = value;
 
 
-            for (var i:Number = 0; i < this._numPasses; ++i)
+            for (var i:Number = 0; i < _numPasses; ++i)
             {
 
-                this._passes[i].bothSides = value;
+                _passes[i].bothSides = value;
 
             }
 
-            this._pDepthPass.bothSides = value;
-            this._pDistancePass.bothSides = value;
+            _pDepthPass.bothSides = value;
+            _pDistancePass.bothSides = value;
 
         }
 
@@ -259,7 +259,7 @@ package away.materials
 
         public function set blendMode(value:String):void
         {
-            this.setBlendMode( value );
+            setBlendMode( value );
         }
 
         public function setBlendMode(value:String):void
@@ -277,11 +277,11 @@ package away.materials
 
         public function set alphaPremultiplied(value:Boolean):void
         {
-            this._alphaPremultiplied = value;
+            _alphaPremultiplied = value;
 
-            for (var i:Number = 0; i < this._numPasses; ++i)
+            for (var i:Number = 0; i < _numPasses; ++i)
             {
-                this._passes[i].alphaPremultiplied = value;
+                _passes[i].alphaPremultiplied = value;
             }
 
         }

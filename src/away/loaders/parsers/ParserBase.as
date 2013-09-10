@@ -64,13 +64,13 @@ package away.loaders.parsers {
             if ( loaderType )
             {
 
-                this._loaderType = loaderType;
+                _loaderType = loaderType;
 
             }
 
-			this._materialMode=0;
-			this._dataFormat    = format;
-			this._dependencies  = new Vector.<ResourceDependency>();
+			_materialMode=0;
+			_dataFormat    = format;
+			_dependencies  = new Vector.<ResourceDependency>();
 		}
 		
 		/**		 * Validates a bitmapData loaded before assigning to a default BitmapMaterial 		 */
@@ -90,7 +90,7 @@ package away.loaders.parsers {
 
 		public function set parsingFailure(b:Boolean):void
 		{
-			this._parsingFailure = b;
+			_parsingFailure = b;
 		}
 
 		public function get parsingFailure():Boolean
@@ -110,7 +110,7 @@ package away.loaders.parsers {
 		
 		public function set materialMode(newMaterialMode:Number):void
 		{
-            this._materialMode=newMaterialMode;
+            _materialMode=newMaterialMode;
 		}
 		
 		public function get materialMode():Number
@@ -128,7 +128,7 @@ package away.loaders.parsers {
         public function set loaderType(value:String):void
         {
 
-            this._loaderType = value;
+            _loaderType = value;
 
         }
 
@@ -342,14 +342,14 @@ package away.loaders.parsers {
 		public function _pHasTime():Boolean
 		{
 
-			return ((new Date.getTime() - _lastFrameTime) < _frameLimit);
+			return ((new Date().getTime() - _lastFrameTime) < _frameLimit);
 
 		}
 		
 		/**		 * Called when the parsing pause interval has passed and parsing can proceed.		 */
 		public function _pOnInterval(event:TimerEvent = null):void
 		{
-			_lastFrameTime = new Date.getTime();
+			_lastFrameTime = new Date().getTime();
 
 			if (_pProceedParsing() && !_parsingFailure){
 

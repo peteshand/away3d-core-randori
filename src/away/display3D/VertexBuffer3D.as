@@ -18,10 +18,10 @@ package away.display3D
 	
 		public function VertexBuffer3D(gl:WebGLRenderingContext, numVertices:Number, data32PerVertex:Number):void
 		{
-			this._gl = gl;
-			this._buffer = _gl.createBuffer();
-			this._numVertices = numVertices;
-			this._data32PerVertex = data32PerVertex;
+			_gl = gl;
+			_buffer = _gl.createBuffer();
+			_numVertices = numVertices;
+			_data32PerVertex = data32PerVertex;
 		}
 		
 		public function uploadFromArray(vertices:Vector.<Number>, startVertex:Number, numVertices:Number):void

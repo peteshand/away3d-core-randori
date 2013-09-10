@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:19:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,7 +13,7 @@ away.cameras.Camera3D = function(lens) {
 	this._frustumPlanes = null;
 	away.entities.Entity.call(this);
 	this._lens = lens || new away.cameras.lenses.PerspectiveLens(60);
-	this._lens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(, this.onLensMatrixChanged), this);
+	this._lens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	this._frustumPlanes = [];
 	for (var i = 0; i < 6; ++i) {
 		this._frustumPlanes[i] = new away.math.Plane3D(0, 0, 0, 0);
@@ -151,9 +151,9 @@ away.cameras.Camera3D.prototype.set_lens = function(value) {
 	if (!value) {
 		throw new Error("Lens cannot be null!", 0);
 	}
-	this._lens.removeEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(, this.onLensMatrixChanged), this);
+	this._lens.removeEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	this._lens = value;
-	this._lens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(, this.onLensMatrixChanged), this);
+	this._lens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	this.dispatchEvent(new away.events.CameraEvent(away.events.CameraEvent.LENS_CHANGED, this));
 };
 

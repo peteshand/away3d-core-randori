@@ -30,7 +30,7 @@ package away.filters.tasks
 		public function Filter3DTaskBase(requireDepthRender:Boolean = false):void
 		{
 
-			this._requireDepthRender = requireDepthRender;
+			_requireDepthRender = requireDepthRender;
 
 		}
 		
@@ -45,17 +45,17 @@ package away.filters.tasks
 		public function set textureScale(value:Number):void
 		{
 
-			if (this._textureScale == value)
+			if (_textureScale == value)
             {
 
                 return;
 
             }
 
-			this._textureScale = value;
-            this._scaledTextureWidth = this._textureWidth >> this._textureScale;
-            this._scaledTextureHeight = this._textureHeight >> this._textureScale;
-            this._textureDimensionsInvalid = true;
+			_textureScale = value;
+            _scaledTextureWidth = _textureWidth >> _textureScale;
+            _scaledTextureHeight = _textureHeight >> _textureScale;
+            _textureDimensionsInvalid = true;
 
 		}
 		
@@ -69,7 +69,7 @@ package away.filters.tasks
 		public function set target(value:Texture):void
 		{
 
-			this._target = value;
+			_target = value;
 
 		}
 		
@@ -83,16 +83,16 @@ package away.filters.tasks
 		public function set textureWidth(value:Number):void
 		{
 
-			if (this._textureWidth == value)
+			if (_textureWidth == value)
             {
 
                 return;
 
             }
 
-			this._textureWidth = value;
-            this._scaledTextureWidth = this._textureWidth >> this._textureScale;
-            this._textureDimensionsInvalid = true;
+			_textureWidth = value;
+            _scaledTextureWidth = _textureWidth >> _textureScale;
+            _textureDimensionsInvalid = true;
 
 		}
 		
@@ -106,16 +106,16 @@ package away.filters.tasks
 		public function set textureHeight(value:Number):void
 		{
 
-			if (this._textureHeight == value)
+			if (_textureHeight == value)
             {
 
                 return;
 
             }
 
-            this._textureHeight = value;
-            this._scaledTextureHeight = this._textureHeight >> this._textureScale;
-            this._textureDimensionsInvalid = true;
+            _textureHeight = value;
+            _scaledTextureHeight = _textureHeight >> _textureScale;
+            _textureDimensionsInvalid = true;
 
 		}
 		

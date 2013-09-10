@@ -31,11 +31,11 @@ package away.lights.shadowmaps
 		public function DirectionalShadowMapper():void
 		{
 			super();
-			this._pCullPlanes = new <Plane3D>[];
-			this._pOverallDepthLens = new FreeMatrixLens();
-			this._pOverallDepthCamera = new Camera3D( this._pOverallDepthLens );
-			this._pLocalFrustum = new <Number>[];
-			this._pMatrix = new Matrix3D();
+			_pCullPlanes = new <Plane3D>[];
+			_pOverallDepthLens = new FreeMatrixLens();
+			_pOverallDepthCamera = new Camera3D( _pOverallDepthLens );
+			_pLocalFrustum = new <Number>[];
+			_pMatrix = new Matrix3D();
 		}
 		
 		public function get snap():Number
@@ -45,7 +45,7 @@ package away.lights.shadowmaps
 		
 		public function set snap(value:Number):void
 		{
-			this._pSnap = value;
+			_pSnap = value;
 		}
 		
 		public function get lightOffset():Number
@@ -55,7 +55,7 @@ package away.lights.shadowmaps
 		
 		public function set lightOffset(value:Number):void
 		{
-			this._pLightOffset = value;
+			_pLightOffset = value;
 		}
 		
 		//@arcane
@@ -93,7 +93,7 @@ package away.lights.shadowmaps
 			_pCullPlanes[2] = lightFrustumPlanes[2];
 			_pCullPlanes[3] = lightFrustumPlanes[3];
 			
-			var light:DirectionalLight = DirectionalLight(_pLight);
+			var light:DirectionalLight = (_pLight as DirectionalLight);
 			var dir:Vector3D = light.sceneDirection;
 			var dirX:Number = dir.x;
 			var dirY:Number = dir.y;
@@ -126,7 +126,7 @@ package away.lights.shadowmaps
 			var maxX:Number, maxY:Number;
 			var i:Number;
 			
-			var light: DirectionalLight = DirectionalLight(_pLight);
+			var light: DirectionalLight = (_pLight as DirectionalLight);
 			dir = light.sceneDirection;
 			_pOverallDepthCamera.transform = _pLight.sceneTransform;
 			x = Math.floor((viewCamera.x - dir.x*_pLightOffset)/_pSnap)*_pSnap;

@@ -37,11 +37,11 @@ package away.entities
 		public function Entity():void
 		{
 			super();
-			this._pBounds = this.pGetDefaultBoundingVolume();
+			_pBounds = pGetDefaultBoundingVolume();
 
             //console.log( "Entity() - Bounds:" , this._pBounds );
 
-			this._worldBounds = this.pGetDefaultBoundingVolume();
+			_worldBounds = pGetDefaultBoundingVolume();
 		}
 
 		//@override
@@ -66,7 +66,7 @@ package away.entities
 		
 		public function set staticNode(value:Boolean):void
 		{
-			this._iStaticNode = value;
+			_iStaticNode = value;
 		}
 		
 		public function get pickingCollisionVO():PickingCollisionVO
@@ -92,19 +92,19 @@ package away.entities
 		
 		public function set showBounds(value:Boolean):void
 		{
-			if (value == this._showBounds)
+			if (value == _showBounds)
 			{
 				return;
 			}
-			this._showBounds = value;
+			_showBounds = value;
 			
-			if (this._showBounds)
+			if (_showBounds)
 			{
-				this.addBounds();
+				addBounds();
 			}
 			else
 			{
-				this.removeBounds();
+				removeBounds();
 			}
 		}
 		
@@ -185,13 +185,13 @@ package away.entities
 		
 		public function set bounds(value:BoundingVolumeBase):void
 		{
-			this.removeBounds();
-			this._pBounds = value;
-			this._worldBounds = value.clone();
-			this.pInvalidateBounds();
-			if( this._showBounds )
+			removeBounds();
+			_pBounds = value;
+			_worldBounds = value.clone();
+			pInvalidateBounds();
+			if( _showBounds )
 			{
-				this.addBounds();
+				addBounds();
 			}
 		}
 		
@@ -237,13 +237,13 @@ package away.entities
 		//@override
 		override public function set scene(value:Scene3D):void
 		{
-			if(value == this._pScene)
+			if(value == _pScene)
 			{
 				return;
 			}
-			if( this._pScene)
+			if( _pScene)
 			{
-				this._pScene.iUnregisterEntity( this );
+				_pScene.iUnregisterEntity( this );
 			}
 			// callback to notify object has been spawned. Casts to please FDT
 			if ( value )
@@ -268,7 +268,7 @@ package away.entities
 
         public function set pickingCollider(value:IPickingCollider):void
         {
-            this.setPickingCollider( value );
+            setPickingCollider( value );
         }
 
         public function setPickingCollider(value:IPickingCollider):void
@@ -361,7 +361,7 @@ package away.entities
 				if ( _pParent instanceof Entity ) //if( this._pParent is Entity ) { // TODO: Test / validate
                 {
 
-                    var parentEntity : Entity =  Entity(_pParent);
+                    var parentEntity : Entity =  (_pParent as Entity);
 
 					var collider:IPickingCollider = parentEntity.pickingCollider;
 					if(collider)

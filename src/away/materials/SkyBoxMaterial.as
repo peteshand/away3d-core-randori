@@ -18,9 +18,9 @@ package away.materials
 
             super();
 
-			this._cubeMap = cubeMap;
-			this.pAddPass(this._skyboxPass = new SkyBoxPass());
-			this._skyboxPass.cubeTexture = this._cubeMap;
+			_cubeMap = cubeMap;
+			pAddPass(_skyboxPass = new SkyBoxPass());
+			_skyboxPass.cubeTexture = _cubeMap;
 		}
 		
 		/**		 * The cube texture to use as the skybox.		 */
@@ -31,11 +31,11 @@ package away.materials
 		
 		public function set cubeMap(value:CubeTextureBase):void
 		{
-			if (value && this._cubeMap && (value.hasMipMaps != this._cubeMap.hasMipMaps || value.format != this._cubeMap.format))
-				this.iInvalidatePasses(null);
+			if (value && _cubeMap && (value.hasMipMaps != _cubeMap.hasMipMaps || value.format != _cubeMap.format))
+				iInvalidatePasses(null);
 			
-			this._cubeMap = value;
-			this._skyboxPass.cubeTexture = this._cubeMap;
+			_cubeMap = value;
+			_skyboxPass.cubeTexture = _cubeMap;
 
 		}
 	}

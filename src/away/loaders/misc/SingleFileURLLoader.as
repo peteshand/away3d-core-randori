@@ -17,7 +17,7 @@ package away.loaders.misc
         public function SingleFileURLLoader():void
         {
             super();
-            this.initLoader();
+            initLoader();
         }
 
         // Public
@@ -49,7 +49,7 @@ package away.loaders.misc
         }
         public function set dataFormat(value:String):void
         {
-            this._loader.dataFormat = value;
+            _loader.dataFormat = value;
 
         }
 

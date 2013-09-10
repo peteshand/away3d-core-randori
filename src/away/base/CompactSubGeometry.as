@@ -21,8 +21,8 @@ package away.base
 		{
             super();
 
-			this._autoDeriveVertexNormals = false;
-            this._autoDeriveVertexTangents = false;
+			_autoDeriveVertexNormals = false;
+            _autoDeriveVertexTangents = false;
 		}
 		
 		public function get numVertices():Number

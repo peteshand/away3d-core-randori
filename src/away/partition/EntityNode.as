@@ -17,8 +17,8 @@ package away.partition
 		public function EntityNode(entity:Entity):void
 		{
 			super();
-			this._entity = entity;
-			this._iNumEntities = 1;
+			_entity = entity;
+			_iNumEntities = 1;
 		}
 		
 		public function get entity():Entity

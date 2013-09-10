@@ -24,9 +24,9 @@ package away.materials.passes
 		public function SkyBoxPass():void
 		{
 			super();
-			this.mipmap = false;
-			this._pNumUsedTextures = 1;
-            this._vertexData = new Vector.<Number>( 0, 0, 0, 0, 1, 1, 1, 1 );
+			mipmap = false;
+			_pNumUsedTextures = 1;
+            _vertexData = new Vector.<Number>( 0, 0, 0, 0, 1, 1, 1, 1 );
 		}
 		
 		/**		 * The cube texture to use as the skybox.		 */
@@ -37,7 +37,7 @@ package away.materials.passes
 		
 		public function set cubeTexture(value:CubeTextureBase):void
 		{
-			this._cubeTexture = value;
+			_cubeTexture = value;
 		}
 		
 		/**		 * @inheritDoc		 */

@@ -31,8 +31,8 @@ package away.display
 				throw new DocumentError( "A root document object does not exist." );
 			}
 			
-			this.initStage3DObjects();
-			this.resize( width, height );
+			initStage3DObjects();
+			resize( width, height );
 
 		}
 		
@@ -87,7 +87,7 @@ package away.display
         private function onContextCreated(e:Event):void
         {
 
-            var stage3D : Stage3D = Stage3D(e.target);
+            var stage3D : Stage3D = (e.target as Stage3D);
             addChildHTMLElement( stage3D.canvas );
         }
 

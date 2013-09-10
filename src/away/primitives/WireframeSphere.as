@@ -17,9 +17,9 @@ package away.primitives
 		{
 			super(color, thickness);
 			
-			this._radius = radius;
-            this._segmentsW = segmentsW;
-            this._segmentsH = segmentsH;
+			_radius = radius;
+            _segmentsW = segmentsW;
+            _segmentsH = segmentsH;
 		}
 		
 		/**		 * @inheritDoc		 */

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 04 21:18:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Thu Sep 05 22:44:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -319,11 +319,11 @@ away.materials.passes.MaterialPassBase.prototype.get_lightPicker = function() {
 
 away.materials.passes.MaterialPassBase.prototype.set_lightPicker = function(value) {
 	if (this._pLightPicker) {
-		this._pLightPicker.removeEventListener(away.events.Event.CHANGE, $createStaticDelegate(, this.onLightsChange), this);
+		this._pLightPicker.removeEventListener(away.events.Event.CHANGE, $createStaticDelegate(this, this.onLightsChange), this);
 	}
 	this._pLightPicker = value;
 	if (this._pLightPicker) {
-		this._pLightPicker.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(, this.onLightsChange), this);
+		this._pLightPicker.addEventListener(away.events.Event.CHANGE, $createStaticDelegate(this, this.onLightsChange), this);
 	}
 	this.pUpdateLights();
 };

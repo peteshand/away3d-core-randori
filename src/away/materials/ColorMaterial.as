@@ -15,8 +15,8 @@ package away.materials
 
 			super();
 
-			this.color = color;
-			this.alpha = alpha;
+			color = color;
+			alpha = alpha;
 
 		}
 		
@@ -40,9 +40,9 @@ package away.materials
                 value = 0;
             }
 
-			this._pScreenPass.diffuseMethod.diffuseAlpha = this._diffuseAlpha = value;
-            this._pScreenPass.preserveAlpha = this.requiresBlending;
-            this._pScreenPass.setBlendMode( this.getBlendMode() == BlendMode.NORMAL && this.requiresBlending? BlendMode.LAYER : this.getBlendMode());
+			_pScreenPass.diffuseMethod.diffuseAlpha = _diffuseAlpha = value;
+            _pScreenPass.preserveAlpha = requiresBlending;
+            _pScreenPass.setBlendMode( getBlendMode() == BlendMode.NORMAL && requiresBlending? BlendMode.LAYER : getBlendMode());
 		}
 		
 		/**		 * The diffuse reflectivity color of the surface.		 */
@@ -53,7 +53,7 @@ package away.materials
 		
 		public function set color(value:Number):void
 		{
-            this._pScreenPass.diffuseMethod.diffuseColor = value;
+            _pScreenPass.diffuseMethod.diffuseColor = value;
 		}
 		
 		/**		 * @inheritDoc		 */

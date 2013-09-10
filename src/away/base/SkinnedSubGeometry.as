@@ -28,8 +28,8 @@ package away.base
 		{
 			super();
 
-			this._jointsPerVertex = jointsPerVertex;
-            this._bufferFormat = "float" + this._jointsPerVertex;
+			_jointsPerVertex = jointsPerVertex;
+            _bufferFormat = "float" + _jointsPerVertex;
 		}
 		
 		/**		 * If indices have been condensed, this will contain the original index for each condensed index.		 */

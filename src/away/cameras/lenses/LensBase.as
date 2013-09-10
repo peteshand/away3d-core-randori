@@ -29,7 +29,7 @@ package away.cameras.lenses
 		public function LensBase():void
 		{
 			super();
-			this._pMatrix = new Matrix3D();
+			_pMatrix = new Matrix3D();
 		}
 		
 		public function get frustumCorners():Vector.<Number>
@@ -39,7 +39,7 @@ package away.cameras.lenses
 		
 		public function set frustumCorners(frustumCorners:Vector.<Number>):void
 		{
-			this._pFrustumCorners = frustumCorners;
+			_pFrustumCorners = frustumCorners;
 		}
 		
 		public function get matrix():Matrix3D
@@ -54,8 +54,8 @@ package away.cameras.lenses
 		
 		public function set matrix(value:Matrix3D):void
 		{
-			this._pMatrix = value;
-			this.pInvalidateMatrix();
+			_pMatrix = value;
+			pInvalidateMatrix();
 		}
 		
 		public function get near():Number
@@ -65,12 +65,12 @@ package away.cameras.lenses
 		
 		public function set near(value:Number):void
 		{
-			if( value == this._pNear )
+			if( value == _pNear )
 			{
 				return;
 			}
-			this._pNear = value;
-			this.pInvalidateMatrix();
+			_pNear = value;
+			pInvalidateMatrix();
 		}
 		
 		public function get far():Number
@@ -80,12 +80,12 @@ package away.cameras.lenses
 		
 		public function set far(value:Number):void
 		{
-			if( value == this._pFar)
+			if( value == _pFar)
 			{
 				return;
 			}
-			this._pFar = value;
-			this.pInvalidateMatrix();
+			_pFar = value;
+			pInvalidateMatrix();
 		}
 		
 		public function project(point3d:Vector3D):Vector3D
@@ -132,12 +132,12 @@ package away.cameras.lenses
 		
 		public function set iAspectRatio(value:Number):void
 		{
-			if ( this._pAspectRatio == value )
+			if ( _pAspectRatio == value )
 			{
 				return;
 			}
-			this._pAspectRatio = value;
-			this.pInvalidateMatrix();
+			_pAspectRatio = value;
+			pInvalidateMatrix();
 		}
 		
 		public function pInvalidateMatrix():void

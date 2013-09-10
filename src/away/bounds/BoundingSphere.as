@@ -193,7 +193,7 @@ package away.bounds
 		
 		override public function transformFrom(bounds:BoundingVolumeBase, matrix:Matrix3D):void
 		{
-			var sphere:BoundingSphere = BoundingSphere(bounds);
+			var sphere:BoundingSphere = (bounds as BoundingSphere);
 			var cx:Number = sphere._centerX;
 			var cy:Number = sphere._centerY;
 			var cz:Number = sphere._centerZ;

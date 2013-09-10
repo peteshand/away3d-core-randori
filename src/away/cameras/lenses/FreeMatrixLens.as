@@ -9,25 +9,25 @@ package away.cameras.lenses
 		public function FreeMatrixLens():void
 		{
 			super();
-			this._pMatrix.copyFrom( new PerspectiveLens().matrix );
+			_pMatrix.copyFrom( new PerspectiveLens().matrix );
 		}
 		
 		//@override
 		override public function set near(value:Number):void
 		{
-			this._pNear = value;
+			_pNear = value;
 		}
 		
 		//@override
 		override public function set far(value:Number):void
 		{
-			this._pFar = value;
+			_pFar = value;
 		}
 		
 		//@override
 		override public function set iAspectRatio(value:Number):void
 		{
-			this._pAspectRatio = value;
+			_pAspectRatio = value;
 		}
 		
 		//@override
