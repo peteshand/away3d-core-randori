@@ -1,4 +1,5 @@
 
+
 ///<reference path="../_definitions.ts"/>
 
 package away.net
@@ -23,59 +24,54 @@ package away.net
         {
 
             super();
-            _name = imageName;
-            initImage();
+            this._name = imageName;
+            this.initImage();
 
         }
 
         // Public
-        /**
-         * load an image
-         * @param request {away.net.URLRequest}
-         */
+        /**         * load an image         * @param request {away.net.URLRequest}         */
         public function load(request:URLRequest):void
         {
 
-            _loaded = false;
-            _request   = request;
+            this._loaded = false;
+            this._request   = request;
 
-            if ( _crossOrigin )
+            if ( this._crossOrigin )
             {
 
-                if ( _image['crossOrigin'] != null )
+                if ( this._image['crossOrigin'] != null )
                 {
 
-                    _image['crossOrigin'] = _crossOrigin;
+                    this._image['crossOrigin'] = this._crossOrigin;
 
                 }
 
 
             }
 
-            _image.src = _request.url;
+            this._image.src = this._request.url;
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function dispose():void
         {
 
-            if ( _image )
+            if ( this._image )
             {
 
-                _image.onabort = null;
-                _image.onerror = null;
-                _image.onload	= null;
-                _image         = null;
+                this._image.onabort = null;
+                this._image.onerror = null;
+                this._image.onload	= null;
+                this._image         = null;
 
             }
 
-            if ( _request )
+            if ( this._request )
             {
 
-                _request = null;
+                this._request = null;
 
             }
 
@@ -83,51 +79,42 @@ package away.net
 
         // Get / Set
 
-        /**
-         * Get reference to image if it is loaded
-         * @returns {HTMLImageElement}
-         */
+        /**         * Get reference to image if it is loaded         * @returns {HTMLImageElement}         */
         public function get image():HTMLImageElement
         {
 
-            return _image;
+            return this._image;
 
         }
 
-        /**
-         * Get image width. Returns null is image is not loaded
-         * @returns {number}
-         */
+        /**         * Get image width. Returns null is image is not loaded         * @returns {number}         */
         public function get loaded():Boolean
         {
 
-            return _loaded
+            return this._loaded
 
         }
 
         public function get crossOrigin():String
         {
 
-            return _crossOrigin;
+            return this._crossOrigin;
         }
 
         public function set crossOrigin(value:String):void
         {
 
-            _crossOrigin = value;
+            this._crossOrigin = value;
 
         }
 
-        /**
-         * Get image width. Returns null is image is not loaded
-         * @returns {number}
-         */
+        /**         * Get image width. Returns null is image is not loaded         * @returns {number}         */
         public function get width():Number
         {
 
-            if ( _image ) {
+            if ( this._image ) {
 
-                return _image.width;
+                return this._image.width;
 
             }
 
@@ -135,16 +122,13 @@ package away.net
 
         }
 
-        /**
-         * Get image height. Returns null is image is not loaded
-         * @returns {number}
-         */
+        /**         * Get image height. Returns null is image is not loaded         * @returns {number}         */
         public function get height():Number
         {
 
-            if ( _image ) {
+            if ( this._image ) {
 
-                return _image.height;
+                return this._image.height;
 
             }
 
@@ -152,70 +136,59 @@ package away.net
 
         }
 
-        /**
-         * return URL request used to load image
-         * @returns {away.net.URLRequest}
-         */
+        /**         * return URL request used to load image         * @returns {away.net.URLRequest}         */
         public function get request():URLRequest
         {
 
-            return _request;
+            return this._request;
 
         }
 
-        /**
-         * get name of HTMLImageElement
-         * @returns {string}
-         */
+        /**         * get name of HTMLImageElement         * @returns {string}         */
         public function get name():String
         {
 
-            if ( _image )
+            if ( this._image )
             {
 
-                return _image.name;
+                return this._image.name;
 
             }
 
-            return _name;
+            return this._name;
 
         }
 
-        /**
-         * set name of HTMLImageElement
-         * @returns {string}
-         */
+        /**         * set name of HTMLImageElement         * @returns {string}         */
         public function set name(value:String):void
         {
 
-            if ( _image )
+            if ( this._image )
             {
 
-                _image.name = value;
+                this._image.name = value;
 
             }
 
-            _name = value;
+            this._name = value;
 
         }
 
         // Private
 
-        /**
-         * intialise the image object
-         */
+        /**         * intialise the image object         */
         private function initImage():void
         {
 
             var that:IMGLoader = this;
-			if ( ! _image )
+			if ( ! this._image )
             {
 
-                _image         = new HTMLImageElement();
-                _image.onabort = function(event) { that.onAbort(event); } //Loading of an image is interrupted
-                _image.onerror = function(event) { that.onError(event); } //An error occurs when loading an image
-                _image.onload	= function(event) { that.onLoadComplete(event); } //image is finished loading
-                _image.name    = _name;
+                this._image         = new HTMLImageElement();
+                this._image.onabort = function(event) { that.onAbort(event); } //Loading of an image is interrupted
+                this._image.onerror = function(event) { that.onError(event); } //An error occurs when loading an image
+                this._image.onload	= function(event) { that.onLoadComplete(event); } //image is finished loading
+                this._image.name    = this._name;
 
             }
 
@@ -223,36 +196,27 @@ package away.net
 
         // Image - event handlers
 
-        /**
-         * Loading of an image is interrupted
-         * @param event
-         */
+        /**         * Loading of an image is interrupted         * @param event         */
         private function onAbort(event):void
         {
 
-            dispatchEvent( new Event( IOErrorEvent.IO_ERROR) );
+            this.dispatchEvent( new Event( IOErrorEvent.IO_ERROR) );
 
         }
 
-        /**
-         * An error occured when loading the image
-         * @param event
-         */
+        /**         * An error occured when loading the image         * @param event         */
         private function onError(event):void
         {
 
-            dispatchEvent( new Event( IOErrorEvent.IO_ERROR) );
+            this.dispatchEvent( new Event( IOErrorEvent.IO_ERROR) );
 
         }
 
-        /**
-         * image is finished loading
-         * @param event
-         */
+        /**         * image is finished loading         * @param event         */
         private function onLoadComplete(event):void
         {
-            _loaded = true;
-            dispatchEvent( new Event( Event.COMPLETE ));
+            this._loaded = true;
+            this.dispatchEvent( new Event( Event.COMPLETE ));
 
         }
 

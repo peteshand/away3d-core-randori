@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.passes
 {
 	import away.textures.Texture2DBase;
@@ -26,10 +25,7 @@ package away.materials.passes
 	//import flash.geom.Vector3D;
 	
 	//use namespace arcane;
-	/**
-	 * DistanceMapPass is a pass that writes distance values to a depth map as a 32-bit value exploded over the 4 texture channels.
-	 * This is used to render omnidirectional shadow maps.
-	 */
+	/**	 * DistanceMapPass is a pass that writes distance values to a depth map as a 32-bit value exploded over the 4 texture channels.	 * This is used to render omnidirectional shadow maps.	 */
 	public class DistanceMapPass extends MaterialPassBase
 	{
 		private var _fragmentData:Vector.<Number>;
@@ -37,30 +33,24 @@ package away.materials.passes
 		private var _alphaThreshold:Number;
 		private var _alphaMask:Texture2DBase;
 
-		/**
-		 * Creates a new DistanceMapPass object.
-		 */
+		/**		 * Creates a new DistanceMapPass object.		 */
 		public function DistanceMapPass():void
 		{
 
 			super();
 
-			_fragmentData = new Vector.<Number>(    1.0, 255.0, 65025.0, 16581375.0,
+			this._fragmentData = new Vector.<Number>(    1.0, 255.0, 65025.0, 16581375.0,
 				                                        1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0,
 				                                        0.0, 0.0, 0.0, 0.0);
-			_vertexData = new Vector.<Number>(4);
-			_vertexData[3] = 1;
-			_pNumUsedVertexConstants = 9;
+			this._vertexData = new Vector.<Number>(4);
+			this._vertexData[3] = 1;
+			this._pNumUsedVertexConstants = 9;
 		}
 		
-		/**
-		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
-		 * invisible or entirely opaque, often used with textures for foliage, etc.
-		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
-		 */
+		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
 		public function get alphaThreshold():Number
 		{
-			return _alphaThreshold;
+			return this._alphaThreshold;
 		}
 		
 		public function set alphaThreshold(value:Number):void
@@ -79,7 +69,7 @@ package away.materials.passes
 
             }
 
-			if (value == _alphaThreshold)
+			if (value == this._alphaThreshold)
             {
 
                 return;
@@ -87,35 +77,30 @@ package away.materials.passes
             }
 
 			
-			if (value == 0 || _alphaThreshold == 0)
+			if (value == 0 || this._alphaThreshold == 0)
             {
 
-                iInvalidateShaderProgram();
+                this.iInvalidateShaderProgram();
 
             }
 
 			
-			_alphaThreshold = value;
-			_fragmentData[8] = _alphaThreshold;
+			this._alphaThreshold = value;
+			this._fragmentData[8] = this._alphaThreshold;
 		}
 
-		/**
-		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.
-		 * Usually the diffuse texture when alphaThreshold is used.
-		 */
+		/**		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.		 * Usually the diffuse texture when alphaThreshold is used.		 */
 		public function get alphaMask():Texture2DBase
 		{
-			return _alphaMask;
+			return this._alphaMask;
 		}
 		
 		public function set alphaMask(value:Texture2DBase):void
 		{
-			_alphaMask = value;
+			this._alphaMask = value;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetVertexCode():String
 		{
 
@@ -126,47 +111,45 @@ package away.materials.passes
 				"m44 vt1, vt0, vc5		\n" +
 				"sub v0, vt1, vc9		\n";
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
 				code += "mov v1, va1\n";
 
-				_pNumUsedTextures = 1;
-				_pNumUsedStreams = 2;
+				this._pNumUsedTextures = 1;
+				this._pNumUsedStreams = 2;
 
 			}
             else
             {
 
-				_pNumUsedTextures = 0;
-				_pNumUsedStreams = 1;
+				this._pNumUsedTextures = 0;
+				this._pNumUsedStreams = 1;
 
 			}
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCode(animationCode:String):String
 		{
 			// TODO: not used
 			animationCode = animationCode;
 			var code:String;
-			var wrap:String = _pRepeat? "wrap" : "clamp";
+			var wrap:String = this._pRepeat? "wrap" : "clamp";
 			var filter:String;
 			
-			if (_pSmooth)
+			if (this._pSmooth)
             {
 
-                filter = _pMipmap? "linear,miplinear" : "linear";
+                filter = this._pMipmap? "linear,miplinear" : "linear";
 
             }
 			else
             {
 
-                filter = _pMipmap? "nearest,mipnearest" : "nearest";
+                filter = this._pMipmap? "nearest,mipnearest" : "nearest";
 
 
             }
@@ -179,12 +162,12 @@ package away.materials.passes
 				"frc ft0, ft0			\n" +
 				"mul ft1, ft0.yzww, fc1	\n";
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
 				var format:String;
 
-				switch (_alphaMask.format)
+				switch (this._alphaMask.format)
                 {
 
 					case Context3DTextureFormat.COMPRESSED:
@@ -215,26 +198,24 @@ package away.materials.passes
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
 			var pos:Vector3D = camera.scenePosition;
 			
-			_vertexData[0] = pos.x;
-            _vertexData[1] = pos.y;
-            _vertexData[2] = pos.z;
-            _vertexData[3] = 1;
+			this._vertexData[0] = pos.x;
+            this._vertexData[1] = pos.y;
+            this._vertexData[2] = pos.z;
+            this._vertexData[3] = 1;
 			
 			var sceneTransform:Matrix3D = renderable.getRenderSceneTransform(camera);
 			
 			context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 5, sceneTransform, true);
 
-			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 9, _vertexData, 1);
+			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 9, this._vertexData, 1);
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
                 renderable.activateUVBuffer(1, stage3DProxy);
@@ -252,9 +233,7 @@ package away.materials.passes
 			context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.numTriangles);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
@@ -264,22 +243,22 @@ package away.materials.passes
 			
 			f = 1/(2*f*f);
 			// sqrt(f*f+f*f) is largest possible distance for any frustum, so we need to divide by it. Rarely a tight fit, but with 32 bits precision, it's enough.
-			_fragmentData[0] = 1*f;
-            _fragmentData[1] = 255.0*f;
-            _fragmentData[2] = 65025.0*f;
-            _fragmentData[3] = 16581375.0*f;
+			this._fragmentData[0] = 1*f;
+            this._fragmentData[1] = 255.0*f;
+            this._fragmentData[2] = 65025.0*f;
+            this._fragmentData[3] = 16581375.0*f;
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
-                context.setTextureAt(0, _alphaMask.getTextureForStage3D(stage3DProxy));
-				context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, _fragmentData, 3);
+                context.setTextureAt(0, this._alphaMask.getTextureForStage3D(stage3DProxy));
+				context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, this._fragmentData, 3);
 
 			}
             else
             {
 
-                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, _fragmentData, 2);
+                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, this._fragmentData, 2);
             }
 
 		}

@@ -1,9 +1,7 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
-///<reference path="../_definitions.ts"/>
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
+///<reference path="../_definitions.ts"/>
+/** * @module away.events */
 package away.events
 {
 	import away.base.Object3D;

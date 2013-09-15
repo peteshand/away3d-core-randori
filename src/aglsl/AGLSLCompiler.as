@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../away/_definitions.ts" />
 
 package aglsl
@@ -44,9 +42,9 @@ package aglsl
 			var description:Description = tokenizer.decribeAGALByteArray( data );
 			
 			var parser:AGLSLParser = new AGLSLParser();
-			glsl = parser.parse( description );
+			this.glsl = parser.parse( description );
 			
-			return glsl;
+			return this.glsl;
 		}
 	}
 	

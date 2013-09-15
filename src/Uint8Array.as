@@ -14,5 +14,10 @@ package
         {
 
         }
+
+        public function get byteLength():Number
+        {
+            return 0;
+        }
     }
 }

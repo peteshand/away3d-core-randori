@@ -1,5 +1,6 @@
 ///<reference path="../../_definitions.ts"/>
 
+
 package away.library.naming
 {
 	import away.library.assets.IAsset;
@@ -13,8 +14,8 @@ package away.library.naming
 		{
 			super();
 			
-			_separator = separator;
-            _next_suffix = {};
+			this._separator = separator;
+            this._next_suffix = {};
 		}
 		
 		override public function resolveConflict(changedAsset:IAsset, oldAsset:IAsset, assetsDictionary:Object, precedence:String):void
@@ -26,12 +27,12 @@ package away.library.naming
 			
 			orig = changedAsset.name;
 
-			if (orig.indexOf(_separator) >= 0)
+			if (orig.indexOf(this._separator) >= 0)
             {
 				// Name has an ocurrence of the separator, so get base name and suffix,
 				// unless suffix is non-numerical, in which case revert to zero and 
 				// use entire name as base
-				base    = orig.substring(0, orig.lastIndexOf(_separator));
+				base    = orig.substring(0, orig.lastIndexOf(this._separator));
 				suffix  = parseInt(orig.substring(base.length - 1));
 
 				if (isNaN(suffix))
@@ -47,10 +48,10 @@ package away.library.naming
 				suffix = 0;
 			}
 			
-			if (suffix == 0 && _next_suffix.hasOwnProperty(base))
+			if (suffix == 0 && this._next_suffix.hasOwnProperty(base))
             {
 
-                suffix = _next_suffix[base];
+                suffix = this._next_suffix[base];
 
             }
 
@@ -60,18 +61,18 @@ package away.library.naming
 
 				suffix++;
 
-				new_name = base.concat( _separator , suffix.toString() );
+				new_name = base.concat( this._separator , suffix.toString() );
 
 			} while (assetsDictionary.hasOwnProperty( new_name ) );
 			
-			_next_suffix[ base ] = suffix;
-			_pUpdateNames( oldAsset.assetNamespace, new_name, oldAsset, changedAsset, assetsDictionary, precedence);
+			this._next_suffix[ base ] = suffix;
+			this._pUpdateNames( oldAsset.assetNamespace, new_name, oldAsset, changedAsset, assetsDictionary, precedence);
 
 		}
 		
 		override public function create():ConflictStrategyBase
 		{
-			return new NumSuffixConflictStrategy( _separator );
+			return new NumSuffixConflictStrategy( this._separator );
 		}
 	}
 }

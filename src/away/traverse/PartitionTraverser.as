@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.traverse
@@ -70,7 +68,7 @@ package away.traverse
 		
 		public function get entryPoint():Vector3D
 		{
-			return _iEntryPoint;
+			return this._iEntryPoint;
 		}
 	}
 }

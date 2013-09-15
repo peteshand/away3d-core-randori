@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -270,7 +270,11 @@ away.loaders.parsers.ParserBase.prototype._pFinishParsing = function() {
 };
 
 away.loaders.parsers.ParserBase.prototype._pGetTextData = function() {
-	return away.loaders.parsers.utils.ParserUtil.toString(this._data);
+	return away.loaders.parsers.utils.ParserUtil.toString(this._data, 0);
+};
+
+away.loaders.parsers.ParserBase.prototype._pGetByteData = function() {
+	return away.loaders.parsers.utils.ParserUtil.toByteArray(this._data);
 };
 
 $inherit(away.loaders.parsers.ParserBase, away.events.EventDispatcher);

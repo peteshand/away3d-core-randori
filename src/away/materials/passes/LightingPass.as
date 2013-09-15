@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.passes
 {
 	import away.materials.MaterialBase;
@@ -32,12 +33,7 @@ package away.materials.passes
 	
 	//use namespace arcane;
 	
-	/**
-	 * LightingPass is a shader pass that uses shader methods to compile a complete program. It only includes the lighting
-	 * methods. It's used by multipass materials to accumulate lighting passes.
-	 *
-	 * @see away3d.materials.MultiPassMaterialBase
-	 */
+	/**	 * LightingPass is a shader pass that uses shader methods to compile a complete program. It only includes the lighting	 * methods. It's used by multipass materials to accumulate lighting passes.	 *	 * @see away3d.materials.MultiPassMaterialBase	 */
 	
 	public class LightingPass extends CompiledPass
 	{
@@ -51,86 +47,67 @@ package away.materials.passes
 		private var _lightProbesOffset:Number;
 		private var _maxLights:Number = 3;
 		
-		/**
-		 * Creates a new LightingPass objects.
-		 *
-		 * @param material The material to which this pass belongs.
-		 */
+		/**		 * Creates a new LightingPass objects.		 *		 * @param material The material to which this pass belongs.		 */
 		public function LightingPass(material:MaterialBase):void
 		{
 			super(material);
 		}
 
-		/**
-		 * Indicates the offset in the light picker's directional light vector for which to start including lights.
-		 * This needs to be set before the light picker is assigned.
-		 */
+		/**		 * Indicates the offset in the light picker's directional light vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
 		public function get directionalLightsOffset():Number
 		{
-			return _directionalLightsOffset;
+			return this._directionalLightsOffset;
 		}
 		
 		public function set directionalLightsOffset(value:Number):void
 		{
-			_directionalLightsOffset = value;
+			this._directionalLightsOffset = value;
 		}
 
-		/**
-		 * Indicates the offset in the light picker's point light vector for which to start including lights.
-		 * This needs to be set before the light picker is assigned.
-		 */
+		/**		 * Indicates the offset in the light picker's point light vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
 		public function get pointLightsOffset():Number
 		{
-			return _pointLightsOffset;
+			return this._pointLightsOffset;
 		}
 		
 		public function set pointLightsOffset(value:Number):void
 		{
-            _pointLightsOffset = value;
+            this._pointLightsOffset = value;
 		}
 
-		/**
-		 * Indicates the offset in the light picker's light probes vector for which to start including lights.
-		 * This needs to be set before the light picker is assigned.
-		 */
+		/**		 * Indicates the offset in the light picker's light probes vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
 		public function get lightProbesOffset():Number
 		{
-			return _lightProbesOffset;
+			return this._lightProbesOffset;
 		}
 		
 		public function set lightProbesOffset(value:Number):void
 		{
-            _lightProbesOffset = value;
+            this._lightProbesOffset = value;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCreateCompiler(profile:String):ShaderCompiler
 		{
-			_maxLights = profile == "baselineConstrained"? 1 : 3;
+			this._maxLights = profile == "baselineConstrained"? 1 : 3;
 			return new LightingShaderCompiler(profile);
 		}
 
-		/**
-		 * Indicates whether or not shadow casting lights need to be included.
-		 */
+		/**		 * Indicates whether or not shadow casting lights need to be included.		 */
 		public function get includeCasters():Boolean
 		{
-			return _includeCasters;
+			return this._includeCasters;
 		}
 		
 		public function set includeCasters(value:Boolean):void
 		{
-			if (_includeCasters == value)
+			if (this._includeCasters == value)
 				return;
-            _includeCasters = value;
-            iInvalidateShaderProgram();
+            this._includeCasters = value;
+            this.iInvalidateShaderProgram();
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateLights():void
 		{
 			super.pUpdateLights();
@@ -138,16 +115,16 @@ package away.materials.passes
 			var numPointLights:Number = 0;
 			var numLightProbes:Number = 0;
 			
-			if (_pLightPicker)
+			if (this._pLightPicker)
             {
-				numDirectionalLights = calculateNumDirectionalLights(_pLightPicker.numDirectionalLights);
-				numPointLights = calculateNumPointLights(_pLightPicker.numPointLights);
-				numLightProbes = calculateNumProbes(_pLightPicker.numLightProbes);
+				numDirectionalLights = this.calculateNumDirectionalLights(this._pLightPicker.numDirectionalLights);
+				numPointLights = this.calculateNumPointLights(this._pLightPicker.numPointLights);
+				numLightProbes = this.calculateNumProbes(this._pLightPicker.numLightProbes);
 				
-				if (_includeCasters)
+				if (this._includeCasters)
                 {
-					numPointLights += _pLightPicker.numCastingPointLights;
-					numDirectionalLights += _pLightPicker.numCastingDirectionalLights;
+					numPointLights += this._pLightPicker.numCastingPointLights;
+					numDirectionalLights += this._pLightPicker.numCastingDirectionalLights;
 				}
 
 			}
@@ -159,140 +136,114 @@ package away.materials.passes
 			}
 			
 			
-			if (numPointLights != _pNumPointLights ||
-				numDirectionalLights != _pNumDirectionalLights ||
-				numLightProbes != _pNumLightProbes) {
-                _pNumPointLights = numPointLights;
-                _pNumDirectionalLights = numDirectionalLights;
-                _pNumLightProbes = numLightProbes;
-                iInvalidateShaderProgram();
+			if (numPointLights != this._pNumPointLights ||
+				numDirectionalLights != this._pNumDirectionalLights ||
+				numLightProbes != this._pNumLightProbes) {
+                this._pNumPointLights = numPointLights;
+                this._pNumDirectionalLights = numDirectionalLights;
+                this._pNumLightProbes = numLightProbes;
+                this.iInvalidateShaderProgram();
 			}
 		
 		}
 
-		/**
-		 * Calculates the amount of directional lights this material will support.
-		 * @param numDirectionalLights The maximum amount of directional lights to support.
-		 * @return The amount of directional lights this material will support, bounded by the amount necessary.
-		 */
+		/**		 * Calculates the amount of directional lights this material will support.		 * @param numDirectionalLights The maximum amount of directional lights to support.		 * @return The amount of directional lights this material will support, bounded by the amount necessary.		 */
 		private function calculateNumDirectionalLights(numDirectionalLights:Number):Number
 		{
-			return Math.min(numDirectionalLights - _directionalLightsOffset, _maxLights);
+			return Math.min(numDirectionalLights - this._directionalLightsOffset, this._maxLights);
 		}
 
-		/**
-		 * Calculates the amount of point lights this material will support.
-		 * @param numDirectionalLights The maximum amount of point lights to support.
-		 * @return The amount of point lights this material will support, bounded by the amount necessary.
-		 */
+		/**		 * Calculates the amount of point lights this material will support.		 * @param numDirectionalLights The maximum amount of point lights to support.		 * @return The amount of point lights this material will support, bounded by the amount necessary.		 */
 		private function calculateNumPointLights(numPointLights:Number):Number
 		{
-			var numFree:Number = _maxLights - _pNumDirectionalLights;
-			return Math.min(numPointLights - _pointLightsOffset, numFree);
+			var numFree:Number = this._maxLights - this._pNumDirectionalLights;
+			return Math.min(numPointLights - this._pointLightsOffset, numFree);
 		}
 
-		/**
-		 * Calculates the amount of light probes this material will support.
-		 * @param numDirectionalLights The maximum amount of light probes to support.
-		 * @return The amount of light probes this material will support, bounded by the amount necessary.
-		 */
+		/**		 * Calculates the amount of light probes this material will support.		 * @param numDirectionalLights The maximum amount of light probes to support.		 * @return The amount of light probes this material will support, bounded by the amount necessary.		 */
 		private function calculateNumProbes(numLightProbes:Number):Number
 		{
 			var numChannels:Number = 0;
-			if ((_pSpecularLightSources & LightSources.PROBES) != 0)
+			if ((this._pSpecularLightSources & LightSources.PROBES) != 0)
             {
 				++numChannels;
             }
-			if ((_pDiffuseLightSources & LightSources.PROBES) != 0)
+			if ((this._pDiffuseLightSources & LightSources.PROBES) != 0)
 				++numChannels;
 
 
 			// 4 channels available
-			return Math.min(numLightProbes - _lightProbesOffset, (4/numChannels) | 0);
+			return Math.min(numLightProbes - this._lightProbesOffset, (4/numChannels) | 0);
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateShaderProperties():void
 		{
 			super.pUpdateShaderProperties();
 
-            var compilerV : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
-            _tangentSpace = compilerV.tangentSpace;
+            var compilerV : LightingShaderCompiler = (this._pCompiler as LightingShaderCompiler);
+            this._tangentSpace = compilerV.tangentSpace;
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateRegisterIndices():void
 		{
 			super.pUpdateRegisterIndices();
 
-            var compilerV : LightingShaderCompiler = (_pCompiler as LightingShaderCompiler);
-			_lightVertexConstantIndex = compilerV.lightVertexConstantIndex;
+            var compilerV : LightingShaderCompiler = (this._pCompiler as LightingShaderCompiler);
+			this._lightVertexConstantIndex = compilerV.lightVertexConstantIndex;
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
-			renderable.inverseSceneTransform.copyRawDataTo(_inverseSceneMatrix);
+			renderable.inverseSceneTransform.copyRawDataTo(this._inverseSceneMatrix);
 			
-			if (_tangentSpace && _pCameraPositionIndex >= 0)
+			if (this._tangentSpace && this._pCameraPositionIndex >= 0)
             {
 				var pos:Vector3D = camera.scenePosition;
 				var x:Number = pos.x;
 				var y:Number = pos.y;
 				var z:Number = pos.z;
 
-				_pVertexConstantData[_pCameraPositionIndex] = _inverseSceneMatrix[0]*x + _inverseSceneMatrix[4]*y + _inverseSceneMatrix[8]*z + _inverseSceneMatrix[12];
-                _pVertexConstantData[_pCameraPositionIndex + 1] = _inverseSceneMatrix[1]*x + _inverseSceneMatrix[5]*y + _inverseSceneMatrix[9]*z + _inverseSceneMatrix[13];
-                _pVertexConstantData[_pCameraPositionIndex + 2] = _inverseSceneMatrix[2]*x + _inverseSceneMatrix[6]*y + _inverseSceneMatrix[10]*z + _inverseSceneMatrix[14];
+				this._pVertexConstantData[this._pCameraPositionIndex] = this._inverseSceneMatrix[0]*x + this._inverseSceneMatrix[4]*y + this._inverseSceneMatrix[8]*z + this._inverseSceneMatrix[12];
+                this._pVertexConstantData[this._pCameraPositionIndex + 1] = this._inverseSceneMatrix[1]*x + this._inverseSceneMatrix[5]*y + this._inverseSceneMatrix[9]*z + this._inverseSceneMatrix[13];
+                this._pVertexConstantData[this._pCameraPositionIndex + 2] = this._inverseSceneMatrix[2]*x + this._inverseSceneMatrix[6]*y + this._inverseSceneMatrix[10]*z + this._inverseSceneMatrix[14];
 			}
 			
 			super.iRender(renderable, stage3DProxy, camera, viewProjection);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);
 			
-			if (!_tangentSpace && _pCameraPositionIndex >= 0)
+			if (!this._tangentSpace && this._pCameraPositionIndex >= 0)
             {
 				var pos:Vector3D = camera.scenePosition;
 
-				_pVertexConstantData[_pCameraPositionIndex] = pos.x;
-                _pVertexConstantData[_pCameraPositionIndex + 1] = pos.y;
-                _pVertexConstantData[_pCameraPositionIndex + 2] = pos.z;
+				this._pVertexConstantData[this._pCameraPositionIndex] = pos.x;
+                this._pVertexConstantData[this._pCameraPositionIndex + 1] = pos.y;
+                this._pVertexConstantData[this._pCameraPositionIndex + 2] = pos.z;
 			}
 		}
 
-		/**
-		 * Indicates whether any light probes are used to contribute to the specular shading.
-		 */
+		/**		 * Indicates whether any light probes are used to contribute to the specular shading.		 */
 		private function usesProbesForSpecular():Boolean
 		{
-			return _pNumLightProbes > 0 && (_pSpecularLightSources & LightSources.PROBES) != 0;
+			return this._pNumLightProbes > 0 && (this._pSpecularLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**
-		 * Indicates whether any light probes are used to contribute to the diffuse shading.
-		 */
+		/**		 * Indicates whether any light probes are used to contribute to the diffuse shading.		 */
 		private function usesProbesForDiffuse():Boolean
 		{
-			return _pNumLightProbes > 0 && (_pDiffuseLightSources & LightSources.PROBES) != 0;
+			return this._pNumLightProbes > 0 && (this._pDiffuseLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateLightConstants():void
 		{
 			var dirLight:DirectionalLight;
@@ -302,17 +253,17 @@ package away.materials.passes
 			var len:Number;
 			var dirPos:Vector3D;
 			var total:Number = 0;
-			var numLightTypes:Number = _includeCasters? 2 : 1;
+			var numLightTypes:Number = this._includeCasters? 2 : 1;
 			var l:Number;
 			var offset:Number;
 			
-			l = _lightVertexConstantIndex;
-			k = _pLightFragmentConstantIndex;
+			l = this._lightVertexConstantIndex;
+			k = this._pLightFragmentConstantIndex;
 			
 			var cast:Number = 0;
-			var dirLights:Vector.<DirectionalLight> = _pLightPicker.directionalLights;
-			offset = _directionalLightsOffset;
-			len = _pLightPicker.directionalLights.length;
+			var dirLights:Vector.<DirectionalLight> = this._pLightPicker.directionalLights;
+			offset = this._directionalLightsOffset;
+			len = this._pLightPicker.directionalLights.length;
 
 			if (offset > len)
             {
@@ -323,50 +274,50 @@ package away.materials.passes
 			for (; cast < numLightTypes; ++cast)
             {
 				if (cast)
-					dirLights = _pLightPicker.castingDirectionalLights;
+					dirLights = this._pLightPicker.castingDirectionalLights;
 				len = dirLights.length;
-				if (len > _pNumDirectionalLights)
-					len = _pNumDirectionalLights;
+				if (len > this._pNumDirectionalLights)
+					len = this._pNumDirectionalLights;
 
 				for (i = 0; i < len; ++i)
                 {
 					dirLight = dirLights[offset + i];
 					dirPos = dirLight.sceneDirection;
 					
-					_pAmbientLightR += dirLight._iAmbientR;
-                    _pAmbientLightG += dirLight._iAmbientG;
-                    _pAmbientLightB += dirLight._iAmbientB;
+					this._pAmbientLightR += dirLight._iAmbientR;
+                    this._pAmbientLightG += dirLight._iAmbientG;
+                    this._pAmbientLightB += dirLight._iAmbientB;
 					
-					if (_tangentSpace)
+					if (this._tangentSpace)
                     {
 						var x:Number = -dirPos.x;
 						var y:Number = -dirPos.y;
 						var z:Number = -dirPos.z;
 
-						_pVertexConstantData[l++] = _inverseSceneMatrix[0]*x + _inverseSceneMatrix[4]*y + _inverseSceneMatrix[8]*z;
-                        _pVertexConstantData[l++] = _inverseSceneMatrix[1]*x + _inverseSceneMatrix[5]*y + _inverseSceneMatrix[9]*z;
-                        _pVertexConstantData[l++] = _inverseSceneMatrix[2]*x + _inverseSceneMatrix[6]*y + _inverseSceneMatrix[10]*z;
-                        _pVertexConstantData[l++] = 1;
+						this._pVertexConstantData[l++] = this._inverseSceneMatrix[0]*x + this._inverseSceneMatrix[4]*y + this._inverseSceneMatrix[8]*z;
+                        this._pVertexConstantData[l++] = this._inverseSceneMatrix[1]*x + this._inverseSceneMatrix[5]*y + this._inverseSceneMatrix[9]*z;
+                        this._pVertexConstantData[l++] = this._inverseSceneMatrix[2]*x + this._inverseSceneMatrix[6]*y + this._inverseSceneMatrix[10]*z;
+                        this._pVertexConstantData[l++] = 1;
 					}
                     else
                     {
-						_pFragmentConstantData[k++] = -dirPos.x;
-                        _pFragmentConstantData[k++] = -dirPos.y;
-                        _pFragmentConstantData[k++] = -dirPos.z;
-                        _pFragmentConstantData[k++] = 1;
+						this._pFragmentConstantData[k++] = -dirPos.x;
+                        this._pFragmentConstantData[k++] = -dirPos.y;
+                        this._pFragmentConstantData[k++] = -dirPos.z;
+                        this._pFragmentConstantData[k++] = 1;
 					}
 					
-					_pFragmentConstantData[k++] = dirLight._iDiffuseR;
-                    _pFragmentConstantData[k++] = dirLight._iDiffuseG;
-                    _pFragmentConstantData[k++] = dirLight._iDiffuseB;
-                    _pFragmentConstantData[k++] = 1;
+					this._pFragmentConstantData[k++] = dirLight._iDiffuseR;
+                    this._pFragmentConstantData[k++] = dirLight._iDiffuseG;
+                    this._pFragmentConstantData[k++] = dirLight._iDiffuseB;
+                    this._pFragmentConstantData[k++] = 1;
 
-                    _pFragmentConstantData[k++] = dirLight._iSpecularR;
-                    _pFragmentConstantData[k++] = dirLight._iSpecularG;
-                    _pFragmentConstantData[k++] = dirLight._iSpecularB;
-                    _pFragmentConstantData[k++] = 1;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularR;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularG;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularB;
+                    this._pFragmentConstantData[k++] = 1;
 					
-					if (++total == _pNumDirectionalLights) {
+					if (++total == this._pNumDirectionalLights) {
 						// break loop
 						i = len;
 						cast = numLightTypes;
@@ -375,22 +326,22 @@ package away.materials.passes
 			}
 			
 			// more directional supported than currently picked, need to clamp all to 0
-			if (_pNumDirectionalLights > total)
+			if (this._pNumDirectionalLights > total)
             {
-				i = k + (_pNumDirectionalLights - total)*12;
+				i = k + (this._pNumDirectionalLights - total)*12;
 
 				while (k < i)
                 {
-					_pFragmentConstantData[k++] = 0;
+					this._pFragmentConstantData[k++] = 0;
                 }
 
 			}
 			
 			total = 0;
 			
-			var pointLights:Vector.<PointLight> = _pLightPicker.pointLights;
-			offset = _pointLightsOffset;
-			len = _pLightPicker.pointLights.length;
+			var pointLights:Vector.<PointLight> = this._pLightPicker.pointLights;
+			offset = this._pointLightsOffset;
+			len = this._pLightPicker.pointLights.length;
 
 			if (offset > len)
             {
@@ -406,7 +357,7 @@ package away.materials.passes
             {
 				if (cast)
                 {
-					pointLights = _pLightPicker.castingPointLights;
+					pointLights = this._pLightPicker.castingPointLights;
                 }
 
 				len = pointLights.length;
@@ -416,43 +367,43 @@ package away.materials.passes
 					pointLight = pointLights[offset + i];
 					dirPos = pointLight.scenePosition;
 					
-					_pAmbientLightR += pointLight._iAmbientR;
-                    _pAmbientLightG += pointLight._iAmbientG;
-                    _pAmbientLightB += pointLight._iAmbientB;
+					this._pAmbientLightR += pointLight._iAmbientR;
+                    this._pAmbientLightG += pointLight._iAmbientG;
+                    this._pAmbientLightB += pointLight._iAmbientB;
 					
-					if (_tangentSpace)
+					if (this._tangentSpace)
                     {
 						x = dirPos.x;
 						y = dirPos.y;
 						z = dirPos.z;
 
-						_pVertexConstantData[l++] = _inverseSceneMatrix[0]*x + _inverseSceneMatrix[4]*y + _inverseSceneMatrix[8]*z + _inverseSceneMatrix[12];
-                        _pVertexConstantData[l++] = _inverseSceneMatrix[1]*x + _inverseSceneMatrix[5]*y + _inverseSceneMatrix[9]*z + _inverseSceneMatrix[13];
-                        _pVertexConstantData[l++] = _inverseSceneMatrix[2]*x + _inverseSceneMatrix[6]*y + _inverseSceneMatrix[10]*z + _inverseSceneMatrix[14];
+						this._pVertexConstantData[l++] = this._inverseSceneMatrix[0]*x + this._inverseSceneMatrix[4]*y + this._inverseSceneMatrix[8]*z + this._inverseSceneMatrix[12];
+                        this._pVertexConstantData[l++] = this._inverseSceneMatrix[1]*x + this._inverseSceneMatrix[5]*y + this._inverseSceneMatrix[9]*z + this._inverseSceneMatrix[13];
+                        this._pVertexConstantData[l++] = this._inverseSceneMatrix[2]*x + this._inverseSceneMatrix[6]*y + this._inverseSceneMatrix[10]*z + this._inverseSceneMatrix[14];
 					}
                     else
                     {
 
-						_pVertexConstantData[l++] = dirPos.x;
-						_pVertexConstantData[l++] = dirPos.y;
-						_pVertexConstantData[l++] = dirPos.z;
+						this._pVertexConstantData[l++] = dirPos.x;
+						this._pVertexConstantData[l++] = dirPos.y;
+						this._pVertexConstantData[l++] = dirPos.z;
 
 					}
-					_pVertexConstantData[l++] = 1;
+					this._pVertexConstantData[l++] = 1;
 					
-					_pFragmentConstantData[k++] = pointLight._iDiffuseR;
-                    _pFragmentConstantData[k++] = pointLight._iDiffuseG;
-                    _pFragmentConstantData[k++] = pointLight._iDiffuseB;
+					this._pFragmentConstantData[k++] = pointLight._iDiffuseR;
+                    this._pFragmentConstantData[k++] = pointLight._iDiffuseG;
+                    this._pFragmentConstantData[k++] = pointLight._iDiffuseB;
 
 					var radius:Number = pointLight._pRadius;
-					_pFragmentConstantData[k++] = radius*radius;
+					this._pFragmentConstantData[k++] = radius*radius;
 
-                    _pFragmentConstantData[k++] = pointLight._iSpecularR;
-                    _pFragmentConstantData[k++] = pointLight._iSpecularG;
-                    _pFragmentConstantData[k++] = pointLight._iSpecularB;
-                    _pFragmentConstantData[k++] = pointLight._pFallOffFactor;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularR;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularG;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularB;
+                    this._pFragmentConstantData[k++] = pointLight._pFallOffFactor;
 					
-					if (++total == _pNumPointLights)
+					if (++total == this._pNumPointLights)
                     {
 						// break loop
 						i = len;
@@ -462,54 +413,52 @@ package away.materials.passes
 			}
 			
 			// more directional supported than currently picked, need to clamp all to 0
-			if (_pNumPointLights > total)
+			if (this._pNumPointLights > total)
             {
-				i = k + (total - _pNumPointLights)*12;
+				i = k + (total - this._pNumPointLights)*12;
 				for (; k < i; ++k)
                 {
-					_pFragmentConstantData[k] = 0;
+					this._pFragmentConstantData[k] = 0;
 
                 }
 			}
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
 			var probe:LightProbe;
-			var lightProbes:Vector.<LightProbe> = _pLightPicker.lightProbes;
-			var weights:Vector.<Number> = _pLightPicker.lightProbeWeights;
-			var len:Number = lightProbes.length - _lightProbesOffset;
-			var addDiff:Boolean = usesProbesForDiffuse();
-			var addSpec:Boolean = ((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()) as Boolean);
+			var lightProbes:Vector.<LightProbe> = this._pLightPicker.lightProbes;
+			var weights:Vector.<Number> = this._pLightPicker.lightProbeWeights;
+			var len:Number = lightProbes.length - this._lightProbesOffset;
+			var addDiff:Boolean = this.usesProbesForDiffuse();
+			var addSpec:Boolean = ((this._pMethodSetup._iSpecularMethod && this.usesProbesForSpecular( ) ) as Boolean);
 			
 			if (!(addDiff || addSpec))
 				return;
 			
-			if (len > _pNumLightProbes)
+			if (len > this._pNumLightProbes)
             {
-				len = _pNumLightProbes;
+				len = this._pNumLightProbes;
             }
 
 			for (var i:Number = 0; i < len; ++i)
             {
-				probe = lightProbes[ _lightProbesOffset + i];
+				probe = lightProbes[ this._lightProbesOffset + i];
 				
 				if (addDiff)
                 {
-					context.setTextureAt(_pLightProbeDiffuseIndices[i], probe.diffuseMap.getTextureForStage3D(stage3DProxy));
+					context.setTextureAt(this._pLightProbeDiffuseIndices[i], probe.diffuseMap.getTextureForStage3D(stage3DProxy));
                 }
 				if (addSpec)
                 {
-					context.setTextureAt(_pLightProbeSpecularIndices[i], probe.specularMap.getTextureForStage3D(stage3DProxy));
+					context.setTextureAt(this._pLightProbeSpecularIndices[i], probe.specularMap.getTextureForStage3D(stage3DProxy));
                 }
 			}
 			
 			for (i = 0; i < len; ++i)
-				_pFragmentConstantData[_pProbeWeightsIndex + i] = weights[_lightProbesOffset + i];
+				this._pFragmentConstantData[this._pProbeWeightsIndex + i] = weights[this._lightProbesOffset + i];
 		}
 	}
 }

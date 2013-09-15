@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.lights
@@ -22,8 +20,8 @@ package away.lights
 		public function LightProbe(diffuseMap:CubeTextureBase, specularMap:CubeTextureBase = null):void
 		{
 			super();
-			_diffuseMap = diffuseMap;
-			_specularMap = specularMap;
+			this._diffuseMap = diffuseMap;
+			this._specularMap = specularMap;
 		}
 		
 		//@override
@@ -34,28 +32,28 @@ package away.lights
 		
 		public function get diffuseMap():CubeTextureBase
 		{
-			return _diffuseMap;
+			return this._diffuseMap;
 		}
 		
 		public function set diffuseMap(value:CubeTextureBase):void
 		{
-			_diffuseMap = value;
+			this._diffuseMap = value;
 		}
 		
 		public function get specularMap():CubeTextureBase
 		{
-			return _specularMap;
+			return this._specularMap;
 		}
 		
 		public function set specularMap(value:CubeTextureBase):void
 		{
-			_specularMap = value;
+			this._specularMap = value;
 		}
 		
 		//@override
 		override public function pUpdateBounds():void
 		{
-			_pBoundsInvalid = false;
+			this._pBoundsInvalid = false;
 		}
 		
 		//@override

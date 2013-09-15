@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -52,7 +52,7 @@ away.utils.ByteArrayBase.prototype.toFloatBits = function(x) {
 	throw "Virtual method";
 };
 
-away.utils.ByteArrayBase.prototype.readFloat = function(b) {
+away.utils.ByteArrayBase.prototype.readFloat = function() {
 	throw "Virtual method";
 };
 

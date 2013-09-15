@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -19,13 +17,13 @@ package away.textures
 		public function get size():Number
 		{
 			//TODO replace this with this._pWidth (requires change in super class to reflect the protected declaration)
-			return width;
+			return this.width;
 		}
 		
 		//@override
 		override public function pCreateTexture(context:Context3D):TextureBase
 		{
-			return context.createCubeTexture( width, Context3DTextureFormat.BGRA, false );
+			return context.createCubeTexture( this.width, Context3DTextureFormat.BGRA, false );
 		}
 	}
 }

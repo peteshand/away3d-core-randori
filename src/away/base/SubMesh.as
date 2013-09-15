@@ -1,5 +1,5 @@
 ///<reference path="../_definitions.ts"/>
-
+/** * @module away.base */
 package away.base
 {
 	import away.materials.MaterialBase;
@@ -13,12 +13,7 @@ package away.base
 	import away.bounds.BoundingVolumeBase;
 	import away.cameras.Camera3D;
 
-	/**
-	 * SubMesh wraps a SubGeometry as a scene graph instantiation. A SubMesh is owned by a Mesh object.
-	 *
-	 * @see away3d.core.base.SubGeometry
-	 * @see away3d.scenegraph.Mesh
-	 */
+    /**	 * SubMesh wraps a SubGeometry as a scene graph instantiation. A SubMesh is owned by a Mesh object.	 *     *	 * @see away3d.core.base.SubGeometry	 * @see away3d.scenegraph.Mesh     *     * @class away.base.SubGeometryBase	 */
 	public class SubMesh implements IRenderable
 	{
 		public var _iMaterial:MaterialBase;
@@ -36,143 +31,132 @@ package away.base
 		//public animationSubGeometry:AnimationSubGeometry;// TODO: implement dependencies AnimationSubGeometry
 		//public animatorSubGeometry:AnimationSubGeometry;// TODO: implement dependencies AnimationSubGeometry
 		
-		/**
-		 * Creates a new SubMesh object
-		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.
-		 * @param parentMesh The Mesh object to which this SubMesh belongs.
-		 * @param material An optional material used to render this SubMesh.
-		 */
+		/**		 * Creates a new SubMesh object		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.		 * @param parentMesh The Mesh object to which this SubMesh belongs.		 * @param material An optional material used to render this SubMesh.		 */
 		public function SubMesh(subGeometry:ISubGeometry, parentMesh:Mesh, material:MaterialBase = null):void
 		{
-			_parentMesh = parentMesh;
-            _subGeometry = subGeometry;
-			material = material;
+			this._parentMesh = parentMesh;
+            this._subGeometry = subGeometry;
+			this.material = material;
 		}
 		
 		public function get shaderPickingDetails():Boolean
 		{
 
-			return sourceEntity.shaderPickingDetails;
+			return this.sourceEntity.shaderPickingDetails;
 		}
 		
 		public function get offsetU():Number
 		{
-			return _offsetU;
+			return this._offsetU;
 		}
 		
 		public function set offsetU(value:Number):void
 		{
-			if (value == _offsetU)
+			if (value == this._offsetU)
             {
 
                 return;
 
             }
 
-			_offsetU = value;
-            _uvTransformDirty = true;
+			this._offsetU = value;
+            this._uvTransformDirty = true;
 		}
 		
 		public function get offsetV():Number
 		{
-			return _offsetV;
+			return this._offsetV;
 		}
 		
 		public function set offsetV(value:Number):void
 		{
-			if (value == _offsetV)
+			if (value == this._offsetV)
             {
 
                 return;
 
             }
 
-			_offsetV = value;
-            _uvTransformDirty = true;
+			this._offsetV = value;
+            this._uvTransformDirty = true;
 
 		}
 		
 		public function get scaleU():Number
 		{
-			return _scaleU;
+			return this._scaleU;
 		}
 		
 		public function set scaleU(value:Number):void
 		{
-			if (value == _scaleU)
+			if (value == this._scaleU)
             {
 
                 return;
 
             }
 
-            _scaleU = value;
-            _uvTransformDirty = true;
+            this._scaleU = value;
+            this._uvTransformDirty = true;
 		}
 		
 		public function get scaleV():Number
 		{
-			return _scaleV;
+			return this._scaleV;
 		}
 		
 		public function set scaleV(value:Number):void
 		{
-			if (value ==_scaleV)
+			if (value ==this._scaleV)
             {
 
                 return;
 
             }
 
-			_scaleV = value;
-            _uvTransformDirty = true;
+			this._scaleV = value;
+            this._uvTransformDirty = true;
 		}
 		
 		public function get uvRotation():Number
 		{
-			return _uvRotation;
+			return this._uvRotation;
 		}
 		
 		public function set uvRotation(value:Number):void
 		{
-			if (value == _uvRotation)
+			if (value == this._uvRotation)
             {
 
                 return;
 
             }
 
-			_uvRotation = value;
-            _uvTransformDirty = true;
+			this._uvRotation = value;
+            this._uvTransformDirty = true;
 		}
 		
-		/**
-		 * The entity that that initially provided the IRenderable to the render pipeline (ie: the owning Mesh object).
-		 */
+		/**		 * The entity that that initially provided the IRenderable to the render pipeline (ie: the owning Mesh object).		 */
 		public function get sourceEntity():Entity
 		{
-			return _parentMesh;
+			return this._parentMesh;
 		}
 		
-		/**
-		 * The SubGeometry object which provides the geometry data for this SubMesh.
-		 */
+		/**		 * The SubGeometry object which provides the geometry data for this SubMesh.		 */
 		public function get subGeometry():ISubGeometry
 		{
-			return _subGeometry;
+			return this._subGeometry;
 		}
 		
 		public function set subGeometry(value:ISubGeometry):void
 		{
-            _subGeometry = value;
+            this._subGeometry = value;
 		}
 		
-		/**
-		 * The material used to render the current SubMesh. If set to null, its parent Mesh's material will be used instead.
-		 */
+		/**		 * The material used to render the current SubMesh. If set to null, its parent Mesh's material will be used instead.		 */
 		public function get material():MaterialBase
 		{
-			return _iMaterial || _parentMesh.material;
+			return this._iMaterial || this._parentMesh.material;
 		}
 		
 		public function set material(value:MaterialBase):void
@@ -180,254 +164,228 @@ package away.base
 
             //away.Debug.throwPIR( 'away.base.Submesh' , 'set material' , 'away.base.MaterialBase _iRemoveOwner , _iAddOwner');
             //*
-			if (_iMaterial)
+			if (this._iMaterial)
             {
 
-                _iMaterial.iRemoveOwner(this);
+                this._iMaterial.iRemoveOwner(this);
 
             }
 
-			_iMaterial = value;
+			this._iMaterial = value;
 			
-			if (_iMaterial)
+			if (this._iMaterial)
             {
 
-                _iMaterial.iAddOwner(this);
+                this._iMaterial.iAddOwner(this);
 
             }
             //*/
 		}
 		
-		/**
-		 * The scene transform object that transforms from model to world space.
-		 */
+		/**		 * The scene transform object that transforms from model to world space.		 */
 		public function get sceneTransform():Matrix3D
 		{
-			return _parentMesh.sceneTransform;
+			return this._parentMesh.sceneTransform;
 		}
 		
-		/**
-		 * The inverse scene transform object that transforms from world to model space.
-		 */
+		/**		 * The inverse scene transform object that transforms from world to model space.		 */
 		public function get inverseSceneTransform():Matrix3D
 		{
-			return _parentMesh.inverseSceneTransform;
+			return this._parentMesh.inverseSceneTransform;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-			_subGeometry.activateVertexBuffer(index, stage3DProxy);
+			this._subGeometry.activateVertexBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-			_subGeometry.activateVertexNormalBuffer(index, stage3DProxy);
+			this._subGeometry.activateVertexNormalBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexTangentBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-			_subGeometry.activateVertexTangentBuffer(index, stage3DProxy);
+			this._subGeometry.activateVertexTangentBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-			_subGeometry.activateUVBuffer(index, stage3DProxy);
+			this._subGeometry.activateUVBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateSecondaryUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-            _subGeometry.activateSecondaryUVBuffer(index, stage3DProxy);
+            this._subGeometry.activateSecondaryUVBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function getIndexBuffer(stage3DProxy:Stage3DProxy):IndexBuffer3D
 		{
-			return _subGeometry.getIndexBuffer(stage3DProxy);
+			return this._subGeometry.getIndexBuffer(stage3DProxy);
 		}
 		
-		/**
-		 * The amount of triangles that make up this SubMesh.
-		 */
+		/**		 * The amount of triangles that make up this SubMesh.		 */
 		public function get numTriangles():Number
 		{
-			return _subGeometry.numTriangles;
+			return this._subGeometry.numTriangles;
 		}
 		
-		/**
-		 * The animator object that provides the state for the SubMesh's animation.
-		 */
+		/**		 * The animator object that provides the state for the SubMesh's animation.		 */
 		public function get animator():IAnimator
 		{
 
-			return _parentMesh.animator;
+			return this._parentMesh.animator;
 
 		}
-		/**
-		 * Indicates whether the SubMesh should trigger mouse events, and hence should be rendered for hit testing.
-		 */
+		/**		 * Indicates whether the SubMesh should trigger mouse events, and hence should be rendered for hit testing.		 */
 		public function get mouseEnabled():Boolean
 		{
 
 
-			return _parentMesh.mouseEnabled || _parentMesh._iAncestorsAllowMouseEnabled;//this._parentMesh._ancestorsAllowMouseEnabled;
+			return this._parentMesh.mouseEnabled || this._parentMesh._iAncestorsAllowMouseEnabled;//this._parentMesh._ancestorsAllowMouseEnabled;
 		}
 		
 		public function get castsShadows():Boolean
 		{
-			return _parentMesh.castsShadows;
+			return this._parentMesh.castsShadows;
 		}
 		
-		/**
-		 * A reference to the owning Mesh object
-		 *
-		 * @private
-		 */
+		/**		 * A reference to the owning Mesh object		 *		 * @private		 */
 		public function get iParentMesh():Mesh
 		{
-			return _parentMesh;
+			return this._parentMesh;
 		}
 		
 		public function set iParentMesh(value:Mesh):void
 		{
-            _parentMesh = value;
+            this._parentMesh = value;
 		}
 		
 		public function get uvTransform():Matrix
 		{
-			if (_uvTransformDirty)
+			if (this._uvTransformDirty)
             {
 
-                updateUVTransform();
+                this.updateUVTransform();
 
             }
 
-			return _uvTransform;
+			return this._uvTransform;
 		}
 		
 		private function updateUVTransform():void
 		{
-            if ( _uvTransform  == null )
+            if ( this._uvTransform  == null )
             {
 
-                _uvTransform = new Matrix();
+                this._uvTransform = new Matrix();
                 //_uvTransform ||= new Matrix();
 
             }
 
-			_uvTransform.identity();
+			this._uvTransform.identity();
 
-			if (_uvRotation != 0)
+			if (this._uvRotation != 0)
             {
 
-                _uvTransform.rotate(_uvRotation);
+                this._uvTransform.rotate(this._uvRotation);
 
             }
 
-			if (_scaleU != 1 || _scaleV != 1)
+			if (this._scaleU != 1 || this._scaleV != 1)
             {
 
-                _uvTransform.scale(_scaleU, _scaleV);
+                this._uvTransform.scale(this._scaleU, this._scaleV);
 
             }
 
-            _uvTransform.translate(_offsetU, _offsetV);
-            _uvTransformDirty = false;
+            this._uvTransform.translate(this._offsetU, this._offsetV);
+            this._uvTransformDirty = false;
 		}
 		
 		public function dispose():void
 		{
-            material = null;
+            this.material = null;
 		}
 		
 		public function get vertexData():Vector.<Number>
 		{
-			return _subGeometry.vertexData;
+			return this._subGeometry.vertexData;
 		}
 		
 		public function get indexData():Vector.<Number> /*uint*/		{
-			return _subGeometry.indexData;
+			return this._subGeometry.indexData;
 		}
 		
 		public function get UVData():Vector.<Number>
 		{
-			return _subGeometry.UVData;
+			return this._subGeometry.UVData;
 		}
 		
 		public function get bounds():BoundingVolumeBase
 		{
-			return _parentMesh.getBounds(); // TODO: return smaller, sub mesh bounds instead
+			return this._parentMesh.getBounds(); // TODO: return smaller, sub mesh bounds instead
 		}
 		
 		public function get visible():Boolean
 		{
-			return _parentMesh.visible;
+			return this._parentMesh.visible;
 		}
 		
 		public function get numVertices():Number
 		{
-			return _subGeometry.numVertices;
+			return this._subGeometry.numVertices;
 		}
 		
 		public function get vertexStride():Number
 		{
-			return _subGeometry.vertexStride;
+			return this._subGeometry.vertexStride;
 		}
 		
 		public function get UVStride():Number
 		{
-			return _subGeometry.UVStride;
+			return this._subGeometry.UVStride;
 		}
 		
 		public function get vertexNormalData():Vector.<Number>
 		{
-			return _subGeometry.vertexNormalData;
+			return this._subGeometry.vertexNormalData;
 		}
 		
 		public function get vertexTangentData():Vector.<Number>
 		{
-			return _subGeometry.vertexTangentData;
+			return this._subGeometry.vertexTangentData;
 		}
 		
 		public function get UVOffset():Number
 		{
-			return _subGeometry.UVOffset;
+			return this._subGeometry.UVOffset;
 		}
 		
 		public function get vertexOffset():Number
 		{
-			return _subGeometry.vertexOffset;
+			return this._subGeometry.vertexOffset;
 		}
 		
 		public function get vertexNormalOffset():Number
 		{
-			return _subGeometry.vertexNormalOffset;
+			return this._subGeometry.vertexNormalOffset;
 		}
 		
 		public function get vertexTangentOffset():Number
 		{
-			return _subGeometry.vertexTangentOffset;
+			return this._subGeometry.vertexTangentOffset;
 		}
 		
 		public function getRenderSceneTransform(camera:Camera3D):Matrix3D
 		{
-			return _parentMesh.sceneTransform;
+			return this._parentMesh.sceneTransform;
 		}
 	}
 }

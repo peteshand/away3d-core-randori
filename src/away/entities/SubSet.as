@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 
@@ -31,14 +29,14 @@ package away.entities
 		
 		public function dispose():void
 		{
-			vertices = null;
-			if( vertexBuffer )
+			this.vertices = null;
+			if( this.vertexBuffer )
 			{
-				vertexBuffer.dispose();
+				this.vertexBuffer.dispose();
 			}
-			if( indexBuffer )
+			if( this.indexBuffer )
 			{
-				indexBuffer.dispose();
+				this.indexBuffer.dispose();
 			}
 		}
 	}

@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.display
@@ -25,7 +23,7 @@ package away.display
 		public function Stage3D(canvas:HTMLCanvasElement):void
 		{
 			super();
-			_canvas = canvas;
+			this._canvas = canvas;
 		}
 		
 		public function requestContext(aglslContext:Boolean = false):void
@@ -34,87 +32,87 @@ package away.display
 			{
 				if( aglslContext )
 				{
-					_context3D = new AGLSLContext3D( _canvas );
+					this._context3D = new AGLSLContext3D( this._canvas );
 				}
 				else
 				{
-					_context3D = new Context3D( _canvas );
+					this._context3D = new Context3D( this._canvas );
 				}
 
 			}
 			catch( e )
 			{
-                dispatchEvent( new Event( Event.ERROR ) );
+                this.dispatchEvent( new Event( Event.ERROR ) );
 			}
 			
-			if( _context3D )
+			if( this._context3D )
 			{
-				dispatchEvent( new Event( Event.CONTEXT3D_CREATE ) );
+				this.dispatchEvent( new Event( Event.CONTEXT3D_CREATE ) );
 			}
 		}
 
         public function set width(v:Number):void
         {
-            _width = v;
-            CSS.setCanvasWidth( _canvas, v );
+            this._width = v;
+            CSS.setCanvasWidth( this._canvas, v );
         }
 
         public function get width():Number
         {
-            return _width;
+            return this._width;
         }
 
         public function set height(v:Number):void
         {
-            _height = v;
-            CSS.setCanvasHeight( _canvas, v );
+            this._height = v;
+            CSS.setCanvasHeight( this._canvas, v );
         }
 
         public function get height():Number
         {
-            return _height;
+            return this._height;
         }
 
         public function set x(v:Number):void
         {
-            _x = v;
-            CSS.setCanvasX( _canvas, v );
+            this._x = v;
+            CSS.setCanvasX( this._canvas, v );
         }
 
         public function get x():Number
         {
-            return _x;
+            return this._x;
         }
 
         public function set y(v:Number):void
         {
-            _y = v;
-            CSS.setCanvasY( _canvas, v );
+            this._y = v;
+            CSS.setCanvasY( this._canvas, v );
         }
 
         public function get y():Number
         {
-            return _y;
+            return this._y;
         }
 
         public function set visible(v:Boolean):void
         {
-            CSS.setCanvasVisibility( _canvas, v );
+            CSS.setCanvasVisibility( this._canvas, v );
         }
 
         public function get visible():Boolean
         {
-            return CSS.getCanvasVisibility( _canvas );
+            return CSS.getCanvasVisibility( this._canvas );
         }
 
 		public function get canvas():HTMLCanvasElement
 		{
-			return _canvas;
+			return this._canvas;
 		}
 		
 		public function get context3D():Context3D
 		{
-			return _context3D;
+			return this._context3D;
 		}
 		
 	}

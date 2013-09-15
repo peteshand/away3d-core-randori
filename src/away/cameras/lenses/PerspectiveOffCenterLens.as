@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../_definitions.ts" />
 
 package away.cameras.lenses
@@ -27,58 +25,58 @@ package away.cameras.lenses
 		{
 			super();
 			
-			minAngleX = minAngleX;
-			maxAngleX = maxAngleX;
-			minAngleY = minAngleY;
-			maxAngleY = maxAngleY;
+			this.minAngleX = minAngleX;
+			this.maxAngleX = maxAngleX;
+			this.minAngleY = minAngleY;
+			this.maxAngleY = maxAngleY;
 		}
 		
 		public function get minAngleX():Number
 		{
-			return _minAngleX;
+			return this._minAngleX;
 		}
 		
 		public function set minAngleX(value:Number):void
 		{
-			_minAngleX = value;
-			_tanMinX = Math.tan( _minAngleX*Math.PI/180 );
-			pInvalidateMatrix();
+			this._minAngleX = value;
+			this._tanMinX = Math.tan( this._minAngleX*Math.PI/180 );
+			this.pInvalidateMatrix();
 		}
 		
 		public function get maxAngleX():Number
 		{
-			return _maxAngleX;
+			return this._maxAngleX;
 		}
 		
 		public function set maxAngleX(value:Number):void
 		{
-			_maxAngleX = value;
-			_tanMaxX = Math.tan(_maxAngleX*Math.PI/180);
-			pInvalidateMatrix();
+			this._maxAngleX = value;
+			this._tanMaxX = Math.tan(this._maxAngleX*Math.PI/180);
+			this.pInvalidateMatrix();
 		}
 		
 		public function get minAngleY():Number
 		{
-			return _minAngleY;
+			return this._minAngleY;
 		}
 		
 		public function set minAngleY(value:Number):void
 		{
-			_minAngleY = value;
-			_tanMinY = Math.tan(_minAngleY*Math.PI/180);
-			pInvalidateMatrix();
+			this._minAngleY = value;
+			this._tanMinY = Math.tan(this._minAngleY*Math.PI/180);
+			this.pInvalidateMatrix();
 		}
 		
 		public function get maxAngleY():Number
 		{
-			return _maxAngleY;
+			return this._maxAngleY;
 		}
 		
 		public function set maxAngleY(value:Number):void
 		{
-			_maxAngleY = value;
-			_tanMaxY = Math.tan(_maxAngleY*Math.PI/180);
-			pInvalidateMatrix();
+			this._maxAngleY = value;
+			this._tanMaxY = Math.tan(this._maxAngleY*Math.PI/180);
+			this.pInvalidateMatrix();
 		}
 		
 		//@override
@@ -88,7 +86,7 @@ package away.cameras.lenses
 			
 			v.x *= sZ;
 			v.y *= sZ;
-			v = unprojectionMatrix.transformVector(v);
+			v = this.unprojectionMatrix.transformVector(v);
 			//z is unaffected by transform
 			v.z = sZ;
 			
@@ -98,10 +96,10 @@ package away.cameras.lenses
 		//@override
 		override public function clone():LensBase
 		{
-			var clone:PerspectiveOffCenterLens = new PerspectiveOffCenterLens( _minAngleX, _maxAngleX, _minAngleY, _maxAngleY );
-			clone._pNear = _pNear;
-			clone._pFar = _pFar;
-			clone._pAspectRatio = _pAspectRatio;
+			var clone:PerspectiveOffCenterLens = new PerspectiveOffCenterLens( this._minAngleX, this._maxAngleX, this._minAngleY, this._maxAngleY );
+			clone._pNear = this._pNear;
+			clone._pFar = this._pFar;
+			clone._pAspectRatio = this._pAspectRatio;
 			return clone;
 		}
 		
@@ -110,13 +108,13 @@ package away.cameras.lenses
 		{
 			var raw:Vector.<Number> = new Vector.<Number>();
 			
-			_minLengthX = _pNear*_tanMinX;
-			_maxLengthX = _pNear*_tanMaxX;
-			_minLengthY = _pNear*_tanMinY;
-			_maxLengthY = _pNear*_tanMaxY;
+			this._minLengthX = this._pNear*this._tanMinX;
+			this._maxLengthX = this._pNear*this._tanMaxX;
+			this._minLengthY = this._pNear*this._tanMinY;
+			this._maxLengthY = this._pNear*this._tanMaxY;
 			
-			var minLengthFracX:Number = -_minLengthX/(_maxLengthX - _minLengthX);
-			var minLengthFracY:Number = -_minLengthY/(_maxLengthY - _minLengthY);
+			var minLengthFracX:Number = -this._minLengthX/(this._maxLengthX - this._minLengthX);
+			var minLengthFracY:Number = -this._minLengthY/(this._maxLengthY - this._minLengthY);
 			
 			var left:Number;
 			var right:Number;
@@ -124,50 +122,45 @@ package away.cameras.lenses
 			var bottom:Number;
 			
 			// assume scissored frustum
-			var center:Number = -_minLengthX*(_pScissorRect.x + _pScissorRect.width*minLengthFracX)/(_pScissorRect.width*minLengthFracX);
-			var middle:Number = _minLengthY*(_pScissorRect.y + _pScissorRect.height*minLengthFracY)/(_pScissorRect.height*minLengthFracY);
+			var center:Number = -this._minLengthX*(this._pScissorRect.x + this._pScissorRect.width*minLengthFracX)/(this._pScissorRect.width*minLengthFracX);
+			var middle:Number = this._minLengthY*(this._pScissorRect.y + this._pScissorRect.height*minLengthFracY)/(this._pScissorRect.height*minLengthFracY);
 			
-			left = center - (_maxLengthX - _minLengthX)*(_pViewPort.width/_pScissorRect.width);
+			left = center - (this._maxLengthX - this._minLengthX)*(this._pViewPort.width/this._pScissorRect.width);
 			right = center;
 			top = middle;
-			bottom = middle + (_maxLengthY - _minLengthY)*(_pViewPort.height/_pScissorRect.height);
+			bottom = middle + (this._maxLengthY - this._minLengthY)*(this._pViewPort.height/this._pScissorRect.height);
 			
-			raw[0] = 2*_pNear/(right - left);
-			raw[5] = 2*_pNear/(bottom - top);
+			raw[0] = 2*this._pNear/(right - left);
+			raw[5] = 2*this._pNear/(bottom - top);
 			raw[8] = (right + left)/(right - left);
 			raw[9] = (bottom + top)/(bottom - top);
-			raw[10] = (_pFar + _pNear)/(_pFar - _pNear);
+			raw[10] = (this._pFar + this._pNear)/(this._pFar - this._pNear);
 			raw[11] = 1;
 			raw[1] = raw[2] = raw[3] = raw[4] =
 				raw[6] = raw[7] = raw[12] = raw[13] = raw[15] = 0;
-			raw[14] = -2*_pFar*_pNear/(_pFar - _pNear);
+			raw[14] = -2*this._pFar*this._pNear/(this._pFar - this._pNear);
 			
-			_pMatrix.copyRawDataFrom(raw);
+			this._pMatrix.copyRawDataFrom(raw);
 
-            //---------------------------------------------------------------------------------
-            // HACK ! - Need to find real solution for flipping scene on Z axis
-            _pMatrix.appendRotation( 180 , new Vector3D( 0 , 0 , 1 ));
-            //---------------------------------------------------------------------------------
-
-			_minLengthX = _pFar*_tanMinX;
-			_maxLengthX = _pFar*_tanMaxX;
-			_minLengthY = _pFar*_tanMinY;
-			_maxLengthY = _pFar*_tanMaxY;
+			this._minLengthX = this._pFar*this._tanMinX;
+			this._maxLengthX = this._pFar*this._tanMaxX;
+			this._minLengthY = this._pFar*this._tanMinY;
+			this._maxLengthY = this._pFar*this._tanMaxY;
 			
-			_pFrustumCorners[0] = _pFrustumCorners[9] = left;
-			_pFrustumCorners[3] = _pFrustumCorners[6] = right;
-			_pFrustumCorners[1] = _pFrustumCorners[4] = top;
-			_pFrustumCorners[7] = _pFrustumCorners[10] = bottom;
+			this._pFrustumCorners[0] = this._pFrustumCorners[9] = left;
+			this._pFrustumCorners[3] = this._pFrustumCorners[6] = right;
+			this._pFrustumCorners[1] = this._pFrustumCorners[4] = top;
+			this._pFrustumCorners[7] = this._pFrustumCorners[10] = bottom;
 			
-			_pFrustumCorners[12] = _pFrustumCorners[21] = _minLengthX;
-			_pFrustumCorners[15] = _pFrustumCorners[18] = _maxLengthX;
-			_pFrustumCorners[13] = _pFrustumCorners[16] = _minLengthY;
-			_pFrustumCorners[19] = _pFrustumCorners[22] = _maxLengthY;
+			this._pFrustumCorners[12] = this._pFrustumCorners[21] = this._minLengthX;
+			this._pFrustumCorners[15] = this._pFrustumCorners[18] = this._maxLengthX;
+			this._pFrustumCorners[13] = this._pFrustumCorners[16] = this._minLengthY;
+			this._pFrustumCorners[19] = this._pFrustumCorners[22] = this._maxLengthY;
 			
-			_pFrustumCorners[2] = _pFrustumCorners[5] = _pFrustumCorners[8] = _pFrustumCorners[11] = _pNear;
-			_pFrustumCorners[14] = _pFrustumCorners[17] = _pFrustumCorners[20] = _pFrustumCorners[23] = _pFar;
+			this._pFrustumCorners[2] = this._pFrustumCorners[5] = this._pFrustumCorners[8] = this._pFrustumCorners[11] = this._pNear;
+			this._pFrustumCorners[14] = this._pFrustumCorners[17] = this._pFrustumCorners[20] = this._pFrustumCorners[23] = this._pFar;
 			
-			_pMatrixInvalid = false;
+			this._pMatrixInvalid = false;
 		}
 		
 	}

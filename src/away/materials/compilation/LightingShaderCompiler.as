@@ -1,11 +1,10 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.compilation
 {
 	//import away3d.arcane;
 
-	/**
-	 * LightingShaderCompiler is a ShaderCompiler that generates code for passes performing shading only (no effect passes)
-	 */
+	/**	 * LightingShaderCompiler is a ShaderCompiler that generates code for passes performing shading only (no effect passes)	 */
 	public class LightingShaderCompiler extends ShaderCompiler
 	{
 		public var _pointLightFragmentConstants:Vector.<ShaderRegisterElement>;
@@ -17,368 +16,338 @@ package away.materials.compilation
 		
 		//use namespace arcane;
 
-		/**
-		 * Create a new LightingShaderCompiler object.
-		 * @param profile The compatibility profile of the renderer.
-		 */
+		/**		 * Create a new LightingShaderCompiler object.		 * @param profile The compatibility profile of the renderer.		 */
 		public function LightingShaderCompiler(profile:String):void
 		{
 			super(profile);
 		}
 
-		/**
-		 * The starting index if the vertex constant to which light data needs to be uploaded.
-		 */
+		/**		 * The starting index if the vertex constant to which light data needs to be uploaded.		 */
 		public function get lightVertexConstantIndex():Number
 		{
-			return _lightVertexConstantIndex;
+			return this._lightVertexConstantIndex;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pInitRegisterIndices():void
 		{
 			super.pInitRegisterIndices();
-            _lightVertexConstantIndex = -1;
+            this._lightVertexConstantIndex = -1;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCreateNormalRegisters():void
 		{
 			// need to be created FIRST and in this order
-			if (tangentSpace)
+			if (this.tangentSpace)
             {
 
-				_pSharedRegisters.animatedTangent = _pRegisterCache.getFreeVertexVectorTemp();
-                _pRegisterCache.addVertexTempUsages(_pSharedRegisters.animatedTangent, 1);
-                _pSharedRegisters.bitangent = _pRegisterCache.getFreeVertexVectorTemp();
-                _pRegisterCache.addVertexTempUsages(_pSharedRegisters.bitangent, 1);
+				this._pSharedRegisters.animatedTangent = this._pRegisterCache.getFreeVertexVectorTemp();
+                this._pRegisterCache.addVertexTempUsages(this._pSharedRegisters.animatedTangent, 1);
+                this._pSharedRegisters.bitangent = this._pRegisterCache.getFreeVertexVectorTemp();
+                this._pRegisterCache.addVertexTempUsages(this._pSharedRegisters.bitangent, 1);
 				
-				_pSharedRegisters.tangentInput = _pRegisterCache.getFreeVertexAttribute();
-                _pTangentBufferIndex = _pSharedRegisters.tangentInput.index;
+				this._pSharedRegisters.tangentInput = this._pRegisterCache.getFreeVertexAttribute();
+                this._pTangentBufferIndex = this._pSharedRegisters.tangentInput.index;
 				
-				_pAnimatableAttributes.push( _pSharedRegisters.tangentInput.toString());
-				_pAnimationTargetRegisters.push(_pSharedRegisters.animatedTangent.toString());
+				this._pAnimatableAttributes.push( this._pSharedRegisters.tangentInput.toString());
+				this._pAnimationTargetRegisters.push(this._pSharedRegisters.animatedTangent.toString());
 			}
 			
-			_pSharedRegisters.normalInput = _pRegisterCache.getFreeVertexAttribute();
-			_pNormalBufferIndex = _pSharedRegisters.normalInput.index;
+			this._pSharedRegisters.normalInput = this._pRegisterCache.getFreeVertexAttribute();
+			this._pNormalBufferIndex = this._pSharedRegisters.normalInput.index;
 			
-			_pSharedRegisters.animatedNormal = _pRegisterCache.getFreeVertexVectorTemp();
-			_pRegisterCache.addVertexTempUsages(_pSharedRegisters.animatedNormal, 1);
+			this._pSharedRegisters.animatedNormal = this._pRegisterCache.getFreeVertexVectorTemp();
+			this._pRegisterCache.addVertexTempUsages(this._pSharedRegisters.animatedNormal, 1);
 			
-			_pAnimatableAttributes.push(_pSharedRegisters.normalInput.toString());
-			_pAnimationTargetRegisters.push(_pSharedRegisters.animatedNormal.toString());
+			this._pAnimatableAttributes.push(this._pSharedRegisters.normalInput.toString());
+			this._pAnimationTargetRegisters.push(this._pSharedRegisters.animatedNormal.toString());
 		}
 
-		/**
-		 * Indicates whether or not lighting happens in tangent space. This is only the case if no world-space
-		 * dependencies exist.
-		 */
+		/**		 * Indicates whether or not lighting happens in tangent space. This is only the case if no world-space		 * dependencies exist.		 */
 		public function get tangentSpace():Boolean
 		{
-			return _pNumLightProbes == 0 && _pMethodSetup._iNormalMethod.iHasOutput && _pMethodSetup._iNormalMethod.iTangentSpace;
+			return this._pNumLightProbes == 0 && this._pMethodSetup._iNormalMethod.iHasOutput && this._pMethodSetup._iNormalMethod.iTangentSpace;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pInitLightData():void
 		{
 			super.pInitLightData();
 			
-			_pointLightVertexConstants = new Vector.<ShaderRegisterElement>(_pNumPointLights );
-			_pointLightFragmentConstants = new Vector.<ShaderRegisterElement>(_pNumPointLights*2 );
+			this._pointLightVertexConstants = new Vector.<ShaderRegisterElement>(this._pNumPointLights );
+			this._pointLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumPointLights*2 );
 
-			if ( tangentSpace )
+			if ( this.tangentSpace )
             {
-				_dirLightVertexConstants = new Vector.<ShaderRegisterElement>(_pNumDirectionalLights );
-				_dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(_pNumDirectionalLights*2 );
+				this._dirLightVertexConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights );
+				this._dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights*2 );
 			}
             else
             {
-				_dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(_pNumDirectionalLights*3);
+				this._dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights*3);
             }
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCalculateDependencies():void
 		{
 			super.pCalculateDependencies();
 
-			if (!tangentSpace)
+			if (!this.tangentSpace)
             {
-				_pDependencyCounter.addWorldSpaceDependencies(false);
+				this._pDependencyCounter.addWorldSpaceDependencies(false);
             }
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCompileNormalCode():void
 		{
-			_pSharedRegisters.normalFragment = _pRegisterCache.getFreeFragmentVectorTemp();
-			_pRegisterCache.addFragmentTempUsages(_pSharedRegisters.normalFragment, _pDependencyCounter.normalDependencies);
+			this._pSharedRegisters.normalFragment = this._pRegisterCache.getFreeFragmentVectorTemp();
+			this._pRegisterCache.addFragmentTempUsages(this._pSharedRegisters.normalFragment, this._pDependencyCounter.normalDependencies);
 			
-			if (_pMethodSetup._iNormalMethod.iHasOutput && ! _pMethodSetup._iNormalMethod.iTangentSpace)
+			if (this._pMethodSetup._iNormalMethod.iHasOutput && ! this._pMethodSetup._iNormalMethod.iTangentSpace)
             {
-				_pVertexCode += _pMethodSetup._iNormalMethod.iGetVertexCode(_pMethodSetup._iNormalMethodVO, _pRegisterCache);
-				_pFragmentCode += _pMethodSetup._iNormalMethod.iGetFragmentCode(_pMethodSetup._iNormalMethodVO, _pRegisterCache, _pSharedRegisters.normalFragment);
+				this._pVertexCode += this._pMethodSetup._iNormalMethod.iGetVertexCode(this._pMethodSetup._iNormalMethodVO, this._pRegisterCache);
+				this._pFragmentCode += this._pMethodSetup._iNormalMethod.iGetFragmentCode(this._pMethodSetup._iNormalMethodVO, this._pRegisterCache, this._pSharedRegisters.normalFragment);
 
 				return;
 
 			}
 			
-			if (tangentSpace)
+			if (this.tangentSpace)
             {
-				compileTangentSpaceNormalMapCode();
+				this.compileTangentSpaceNormalMapCode();
 
             }
 			else
             {
 				var normalMatrix:Vector.<ShaderRegisterElement> = new Vector.<ShaderRegisterElement>( 3 );
-			    	normalMatrix[0] = _pRegisterCache.getFreeVertexConstant();
-				    normalMatrix[1] = _pRegisterCache.getFreeVertexConstant();
-				    normalMatrix[2] = _pRegisterCache.getFreeVertexConstant();
+			    	normalMatrix[0] = this._pRegisterCache.getFreeVertexConstant();
+				    normalMatrix[1] = this._pRegisterCache.getFreeVertexConstant();
+				    normalMatrix[2] = this._pRegisterCache.getFreeVertexConstant();
 
-				_pRegisterCache.getFreeVertexConstant();
+				this._pRegisterCache.getFreeVertexConstant();
 
-				_pSceneNormalMatrixIndex = normalMatrix[0].index*4;
-				_pSharedRegisters.normalVarying = _pRegisterCache.getFreeVarying();
+				this._pSceneNormalMatrixIndex = normalMatrix[0].index*4;
+				this._pSharedRegisters.normalVarying = this._pRegisterCache.getFreeVarying();
 
 
 				// no output, world space is enough
-                _pVertexCode += "m33 " + _pSharedRegisters.normalVarying + ".xyz, " + _pSharedRegisters.animatedNormal + ", " + normalMatrix[0] + "\n" +
-					"mov " + _pSharedRegisters.normalVarying + ".w, " + _pSharedRegisters.animatedNormal + ".w	\n";
+                this._pVertexCode += "m33 " + this._pSharedRegisters.normalVarying + ".xyz, " + this._pSharedRegisters.animatedNormal + ", " + normalMatrix[0] + "\n" +
+					"mov " + this._pSharedRegisters.normalVarying + ".w, " + this._pSharedRegisters.animatedNormal + ".w	\n";
 
-                _pFragmentCode += "nrm " + _pSharedRegisters.normalFragment + ".xyz, " + _pSharedRegisters.normalVarying + "\n" +
-					"mov " + _pSharedRegisters.normalFragment + ".w, " + _pSharedRegisters.normalVarying + ".w		\n";
+                this._pFragmentCode += "nrm " + this._pSharedRegisters.normalFragment + ".xyz, " + this._pSharedRegisters.normalVarying + "\n" +
+					"mov " + this._pSharedRegisters.normalFragment + ".w, " + this._pSharedRegisters.normalVarying + ".w		\n";
 				
 			}
 			
-			if (_pDependencyCounter.tangentDependencies > 0)
+			if (this._pDependencyCounter.tangentDependencies > 0)
             {
-				_pSharedRegisters.tangentInput = _pRegisterCache.getFreeVertexAttribute();
-				_pTangentBufferIndex = _pSharedRegisters.tangentInput.index;
-				_pSharedRegisters.tangentVarying = _pRegisterCache.getFreeVarying();
+				this._pSharedRegisters.tangentInput = this._pRegisterCache.getFreeVertexAttribute();
+				this._pTangentBufferIndex = this._pSharedRegisters.tangentInput.index;
+				this._pSharedRegisters.tangentVarying = this._pRegisterCache.getFreeVarying();
 			}
 		}
 
-		/**
-		 * Generates code to retrieve the tangent space normal from the normal map
-		 */
+		/**		 * Generates code to retrieve the tangent space normal from the normal map		 */
 		private function compileTangentSpaceNormalMapCode():void
 		{
 			// normalize normal + tangent vector and generate (approximated) bitangent
-			_pVertexCode += "nrm " + _pSharedRegisters.animatedNormal + ".xyz, " + _pSharedRegisters.animatedNormal + "\n" +
-				"nrm " + _pSharedRegisters.animatedTangent + ".xyz, " + _pSharedRegisters.animatedTangent + "\n";
-			_pVertexCode += "crs " + _pSharedRegisters.bitangent + ".xyz, " + _pSharedRegisters.animatedNormal + ", " + _pSharedRegisters.animatedTangent + "\n";
+			this._pVertexCode += "nrm " + this._pSharedRegisters.animatedNormal + ".xyz, " + this._pSharedRegisters.animatedNormal + "\n" +
+				"nrm " + this._pSharedRegisters.animatedTangent + ".xyz, " + this._pSharedRegisters.animatedTangent + "\n";
+			this._pVertexCode += "crs " + this._pSharedRegisters.bitangent + ".xyz, " + this._pSharedRegisters.animatedNormal + ", " + this._pSharedRegisters.animatedTangent + "\n";
 
-			_pFragmentCode += _pMethodSetup._iNormalMethod.iGetFragmentCode( _pMethodSetup._iNormalMethodVO, _pRegisterCache, _pSharedRegisters.normalFragment);
+			this._pFragmentCode += this._pMethodSetup._iNormalMethod.iGetFragmentCode( this._pMethodSetup._iNormalMethodVO, this._pRegisterCache, this._pSharedRegisters.normalFragment);
 			
-			if (_pMethodSetup._iNormalMethodVO.needsView)
+			if (this._pMethodSetup._iNormalMethodVO.needsView)
             {
-				_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.viewDirFragment);
+				this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.viewDirFragment);
             }
 
-			if (_pMethodSetup._iNormalMethodVO.needsGlobalFragmentPos || _pMethodSetup._iNormalMethodVO.needsGlobalVertexPos)
+			if (this._pMethodSetup._iNormalMethodVO.needsGlobalFragmentPos || this._pMethodSetup._iNormalMethodVO.needsGlobalVertexPos)
             {
-				_pRegisterCache.removeVertexTempUsage(_pSharedRegisters.globalPositionVertex);
+				this._pRegisterCache.removeVertexTempUsage(this._pSharedRegisters.globalPositionVertex);
             }
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCompileViewDirCode():void
 		{
-			var cameraPositionReg:ShaderRegisterElement = _pRegisterCache.getFreeVertexConstant();
-			_pSharedRegisters.viewDirVarying = _pRegisterCache.getFreeVarying();
-			_pSharedRegisters.viewDirFragment = _pRegisterCache.getFreeFragmentVectorTemp();
-			_pRegisterCache.addFragmentTempUsages(_pSharedRegisters.viewDirFragment, _pDependencyCounter.viewDirDependencies);
+			var cameraPositionReg:ShaderRegisterElement = this._pRegisterCache.getFreeVertexConstant();
+			this._pSharedRegisters.viewDirVarying = this._pRegisterCache.getFreeVarying();
+			this._pSharedRegisters.viewDirFragment = this._pRegisterCache.getFreeFragmentVectorTemp();
+			this._pRegisterCache.addFragmentTempUsages(this._pSharedRegisters.viewDirFragment, this._pDependencyCounter.viewDirDependencies);
 			
-			_pCameraPositionIndex = cameraPositionReg.index*4;
+			this._pCameraPositionIndex = cameraPositionReg.index*4;
 			
-			if (tangentSpace)
+			if (this.tangentSpace)
             {
-				var temp:ShaderRegisterElement = _pRegisterCache.getFreeVertexVectorTemp();
-				_pVertexCode += "sub " + temp + ", " + cameraPositionReg + ", " + _pSharedRegisters.localPosition + "\n" +
-					"m33 " + _pSharedRegisters.viewDirVarying + ".xyz, " + temp + ", " + _pSharedRegisters.animatedTangent + "\n" +
-					"mov " + _pSharedRegisters.viewDirVarying + ".w, " + _pSharedRegisters.localPosition + ".w\n";
+				var temp:ShaderRegisterElement = this._pRegisterCache.getFreeVertexVectorTemp();
+				this._pVertexCode += "sub " + temp + ", " + cameraPositionReg + ", " + this._pSharedRegisters.localPosition + "\n" +
+					"m33 " + this._pSharedRegisters.viewDirVarying + ".xyz, " + temp + ", " + this._pSharedRegisters.animatedTangent + "\n" +
+					"mov " + this._pSharedRegisters.viewDirVarying + ".w, " + this._pSharedRegisters.localPosition + ".w\n";
 			}
             else
             {
-				_pVertexCode += "sub " + _pSharedRegisters.viewDirVarying + ", " + cameraPositionReg + ", " + _pSharedRegisters.globalPositionVertex + "\n";
-				_pRegisterCache.removeVertexTempUsage(_pSharedRegisters.globalPositionVertex);
+				this._pVertexCode += "sub " + this._pSharedRegisters.viewDirVarying + ", " + cameraPositionReg + ", " + this._pSharedRegisters.globalPositionVertex + "\n";
+				this._pRegisterCache.removeVertexTempUsage(this._pSharedRegisters.globalPositionVertex);
 			}
 			
-			_pFragmentCode += "nrm " + _pSharedRegisters.viewDirFragment + ".xyz, " + _pSharedRegisters.viewDirVarying + "\n" +
-				"mov " + _pSharedRegisters.viewDirFragment + ".w,   " + _pSharedRegisters.viewDirVarying + ".w 		\n";
+			this._pFragmentCode += "nrm " + this._pSharedRegisters.viewDirFragment + ".xyz, " + this._pSharedRegisters.viewDirVarying + "\n" +
+				"mov " + this._pSharedRegisters.viewDirFragment + ".w,   " + this._pSharedRegisters.viewDirVarying + ".w 		\n";
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCompileLightingCode():void
 		{
-			if (_pMethodSetup._iShadowMethod)
-				compileShadowCode();
+			if (this._pMethodSetup._iShadowMethod)
+				this.compileShadowCode();
 			
-			_pMethodSetup._iDiffuseMethod.iShadowRegister= _shadowRegister;
+			this._pMethodSetup._iDiffuseMethod.iShadowRegister= this._shadowRegister;
 			
-			_pSharedRegisters.shadedTarget = _pRegisterCache.getFreeFragmentVectorTemp();
-			_pRegisterCache.addFragmentTempUsages( _pSharedRegisters.shadedTarget, 1);
+			this._pSharedRegisters.shadedTarget = this._pRegisterCache.getFreeFragmentVectorTemp();
+			this._pRegisterCache.addFragmentTempUsages( this._pSharedRegisters.shadedTarget, 1);
 			
-			_pVertexCode += _pMethodSetup._iDiffuseMethod.iGetVertexCode( _pMethodSetup._iDiffuseMethodVO, _pRegisterCache);
-			_pFragmentCode += _pMethodSetup._iDiffuseMethod.iGetFragmentPreLightingCode(_pMethodSetup._iDiffuseMethodVO, _pRegisterCache);
+			this._pVertexCode += this._pMethodSetup._iDiffuseMethod.iGetVertexCode( this._pMethodSetup._iDiffuseMethodVO, this._pRegisterCache);
+			this._pFragmentCode += this._pMethodSetup._iDiffuseMethod.iGetFragmentPreLightingCode(this._pMethodSetup._iDiffuseMethodVO, this._pRegisterCache);
 			
-			if (_usingSpecularMethod)
+			if (this._usingSpecularMethod)
             {
-				_pVertexCode += _pMethodSetup._iSpecularMethod.iGetVertexCode(_pMethodSetup._iSpecularMethodVO, _pRegisterCache);
-				_pFragmentCode += _pMethodSetup._iSpecularMethod.iGetFragmentPreLightingCode(_pMethodSetup._iSpecularMethodVO, _pRegisterCache);
+				this._pVertexCode += this._pMethodSetup._iSpecularMethod.iGetVertexCode(this._pMethodSetup._iSpecularMethodVO, this._pRegisterCache);
+				this._pFragmentCode += this._pMethodSetup._iSpecularMethod.iGetFragmentPreLightingCode(this._pMethodSetup._iSpecularMethodVO, this._pRegisterCache);
 			}
 			
-			if (pUsesLights() )
+			if (this.pUsesLights() )
             {
-				initLightRegisters();
-				compileDirectionalLightCode();
-                compilePointLightCode();
+				this.initLightRegisters();
+				this.compileDirectionalLightCode();
+                this.compilePointLightCode();
 			}
 			
-			if (pUsesProbes())
-				compileLightProbeCode();
+			if (this.pUsesProbes())
+				this.compileLightProbeCode();
 			
 			// only need to create and reserve _shadedTargetReg here, no earlier?
-			_pVertexCode += _pMethodSetup._iAmbientMethod.iGetVertexCode(_pMethodSetup._iAmbientMethodVO, _pRegisterCache);
-			_pFragmentCode += _pMethodSetup._iAmbientMethod.iGetFragmentCode(_pMethodSetup._iAmbientMethodVO, _pRegisterCache, _pSharedRegisters.shadedTarget);
+			this._pVertexCode += this._pMethodSetup._iAmbientMethod.iGetVertexCode(this._pMethodSetup._iAmbientMethodVO, this._pRegisterCache);
+			this._pFragmentCode += this._pMethodSetup._iAmbientMethod.iGetFragmentCode(this._pMethodSetup._iAmbientMethodVO, this._pRegisterCache, this._pSharedRegisters.shadedTarget);
 
-			if (_pMethodSetup._iAmbientMethodVO.needsNormals)
+			if (this._pMethodSetup._iAmbientMethodVO.needsNormals)
             {
-				_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.normalFragment);
+				this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.normalFragment);
             }
 
-			if (_pMethodSetup._iAmbientMethodVO.needsView)
+			if (this._pMethodSetup._iAmbientMethodVO.needsView)
             {
-				_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.viewDirFragment);
+				this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.viewDirFragment);
             }
 
-			_pFragmentCode += _pMethodSetup._iDiffuseMethod.iGetFragmentPostLightingCode(_pMethodSetup._iDiffuseMethodVO, _pRegisterCache, _pSharedRegisters.shadedTarget);
+			this._pFragmentCode += this._pMethodSetup._iDiffuseMethod.iGetFragmentPostLightingCode(this._pMethodSetup._iDiffuseMethodVO, this._pRegisterCache, this._pSharedRegisters.shadedTarget);
 			
-			if (_pAlphaPremultiplied)
+			if (this._pAlphaPremultiplied)
             {
-				_pFragmentCode += "add " + _pSharedRegisters.shadedTarget + ".w, " + _pSharedRegisters.shadedTarget + ".w, " + _pSharedRegisters.commons + ".z\n" +
-					"div " + _pSharedRegisters.shadedTarget + ".xyz, " + _pSharedRegisters.shadedTarget + ", " + _pSharedRegisters.shadedTarget + ".w\n" +
-					"sub " + _pSharedRegisters.shadedTarget + ".w, " + _pSharedRegisters.shadedTarget + ".w, " + _pSharedRegisters.commons + ".z\n" +
-					"sat " + _pSharedRegisters.shadedTarget + ".xyz, " + _pSharedRegisters.shadedTarget + "\n";
+				this._pFragmentCode += "add " + this._pSharedRegisters.shadedTarget + ".w, " + this._pSharedRegisters.shadedTarget + ".w, " + this._pSharedRegisters.commons + ".z\n" +
+					"div " + this._pSharedRegisters.shadedTarget + ".xyz, " + this._pSharedRegisters.shadedTarget + ", " + this._pSharedRegisters.shadedTarget + ".w\n" +
+					"sub " + this._pSharedRegisters.shadedTarget + ".w, " + this._pSharedRegisters.shadedTarget + ".w, " + this._pSharedRegisters.commons + ".z\n" +
+					"sat " + this._pSharedRegisters.shadedTarget + ".xyz, " + this._pSharedRegisters.shadedTarget + "\n";
 			}
 			
 			// resolve other dependencies as well?
-			if (_pMethodSetup._iDiffuseMethodVO.needsNormals)
-				_pRegisterCache.removeFragmentTempUsage( _pSharedRegisters.normalFragment);
-			if (_pMethodSetup._iDiffuseMethodVO.needsView)
-				_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.viewDirFragment);
+			if (this._pMethodSetup._iDiffuseMethodVO.needsNormals)
+				this._pRegisterCache.removeFragmentTempUsage( this._pSharedRegisters.normalFragment);
+			if (this._pMethodSetup._iDiffuseMethodVO.needsView)
+				this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.viewDirFragment);
 			
-			if (_usingSpecularMethod)
+			if (this._usingSpecularMethod)
             {
-				_pMethodSetup._iSpecularMethod.iShadowRegister= _shadowRegister;
-				_pFragmentCode += _pMethodSetup._iSpecularMethod.iGetFragmentPostLightingCode(_pMethodSetup._iSpecularMethodVO, _pRegisterCache, _pSharedRegisters.shadedTarget);
-				if (_pMethodSetup._iSpecularMethodVO.needsNormals)
-					_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.normalFragment);
-				if (_pMethodSetup._iSpecularMethodVO.needsView)
-					_pRegisterCache.removeFragmentTempUsage(_pSharedRegisters.viewDirFragment);
+				this._pMethodSetup._iSpecularMethod.iShadowRegister= this._shadowRegister;
+				this._pFragmentCode += this._pMethodSetup._iSpecularMethod.iGetFragmentPostLightingCode(this._pMethodSetup._iSpecularMethodVO, this._pRegisterCache, this._pSharedRegisters.shadedTarget);
+				if (this._pMethodSetup._iSpecularMethodVO.needsNormals)
+					this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.normalFragment);
+				if (this._pMethodSetup._iSpecularMethodVO.needsView)
+					this._pRegisterCache.removeFragmentTempUsage(this._pSharedRegisters.viewDirFragment);
 			}
 			
-			if (_pMethodSetup._iShadowMethod)
+			if (this._pMethodSetup._iShadowMethod)
             {
-				_pRegisterCache.removeFragmentTempUsage(_shadowRegister);
+				this._pRegisterCache.removeFragmentTempUsage(this._shadowRegister);
 
             }
 		}
 
-		/**
-		 * Provides the code to provide shadow mapping.
-		 */
+		/**		 * Provides the code to provide shadow mapping.		 */
 		private function compileShadowCode():void
 		{
-			if (_pSharedRegisters.normalFragment)
-				_shadowRegister = _pSharedRegisters.normalFragment;
+			if (this._pSharedRegisters.normalFragment)
+				this._shadowRegister = this._pSharedRegisters.normalFragment;
 			else
-				_shadowRegister = _pRegisterCache.getFreeFragmentVectorTemp();
+				this._shadowRegister = this._pRegisterCache.getFreeFragmentVectorTemp();
 
-            _pRegisterCache.addFragmentTempUsages( _shadowRegister, 1);
+            this._pRegisterCache.addFragmentTempUsages( this._shadowRegister, 1);
 			
-			_pVertexCode += _pMethodSetup._iShadowMethod.iGetVertexCode(_pMethodSetup._iShadowMethodVO, _pRegisterCache);
-			_pFragmentCode += _pMethodSetup._iShadowMethod.iGetFragmentCode(_pMethodSetup._iShadowMethodVO, _pRegisterCache, _shadowRegister);
+			this._pVertexCode += this._pMethodSetup._iShadowMethod.iGetVertexCode(this._pMethodSetup._iShadowMethodVO, this._pRegisterCache);
+			this._pFragmentCode += this._pMethodSetup._iShadowMethod.iGetFragmentCode(this._pMethodSetup._iShadowMethodVO, this._pRegisterCache, this._shadowRegister);
 		}
 
-		/**
-		 * Initializes constant registers to contain light data.
-		 */
+		/**		 * Initializes constant registers to contain light data.		 */
 		private function initLightRegisters():void
 		{
 			// init these first so we're sure they're in sequence
 			var i:Number, len:Number;
 			
-			if (_dirLightVertexConstants)
+			if (this._dirLightVertexConstants)
             {
-				len = _dirLightVertexConstants.length;
+				len = this._dirLightVertexConstants.length;
 
 				for (i = 0; i < len; ++i)
                 {
-					_dirLightVertexConstants[i] = _pRegisterCache.getFreeVertexConstant();
+					this._dirLightVertexConstants[i] = this._pRegisterCache.getFreeVertexConstant();
 
-					if (_lightVertexConstantIndex == -1)
+					if (this._lightVertexConstantIndex == -1)
                     {
-						_lightVertexConstantIndex = _dirLightVertexConstants[i].index*4;
+						this._lightVertexConstantIndex = this._dirLightVertexConstants[i].index*4;
                     }
 
 				}
 			}
 			
-			len = _pointLightVertexConstants.length;
+			len = this._pointLightVertexConstants.length;
 			for (i = 0; i < len; ++i)
             {
-				_pointLightVertexConstants[i] = _pRegisterCache.getFreeVertexConstant();
+				this._pointLightVertexConstants[i] = this._pRegisterCache.getFreeVertexConstant();
 
-				if (_lightVertexConstantIndex == -1)
+				if (this._lightVertexConstantIndex == -1)
                 {
-					_lightVertexConstantIndex = _pointLightVertexConstants[i].index*4;
+					this._lightVertexConstantIndex = this._pointLightVertexConstants[i].index*4;
                 }
 			}
 			
-			len = _dirLightFragmentConstants.length;
+			len = this._dirLightFragmentConstants.length;
 			for (i = 0; i < len; ++i)
             {
-				_dirLightFragmentConstants[i] = _pRegisterCache.getFreeFragmentConstant();
+				this._dirLightFragmentConstants[i] = this._pRegisterCache.getFreeFragmentConstant();
 
-				if (_pLightFragmentConstantIndex == -1){
-					_pLightFragmentConstantIndex = _dirLightFragmentConstants[i].index*4;
+				if (this._pLightFragmentConstantIndex == -1){
+					this._pLightFragmentConstantIndex = this._dirLightFragmentConstants[i].index*4;
 
                 }
 			}
 			
-			len = _pointLightFragmentConstants.length;
+			len = this._pointLightFragmentConstants.length;
 
 			for (i = 0; i < len; ++i)
             {
-				_pointLightFragmentConstants[i] = _pRegisterCache.getFreeFragmentConstant();
-				if (_pLightFragmentConstantIndex == -1)
+				this._pointLightFragmentConstants[i] = this._pRegisterCache.getFreeFragmentConstant();
+				if (this._pLightFragmentConstantIndex == -1)
                 {
-					_pLightFragmentConstantIndex = _pointLightFragmentConstants[i].index*4;
+					this._pLightFragmentConstantIndex = this._pointLightFragmentConstants[i].index*4;
 
                 }
 			}
 		}
 
-		/**
-		 * Compiles the shading code for directional lights.
-		 */
+		/**		 * Compiles the shading code for directional lights.		 */
 		private function compileDirectionalLightCode():void
 		{
 			var diffuseColorReg:ShaderRegisterElement;
@@ -386,55 +355,53 @@ package away.materials.compilation
 			var lightDirReg:ShaderRegisterElement;
 			var vertexRegIndex:Number = 0;
 			var fragmentRegIndex:Number = 0;
-			var addSpec:Boolean = _usingSpecularMethod && pUsesLightsForSpecular();
-			var addDiff:Boolean = pUsesLightsForDiffuse();
+			var addSpec:Boolean = this._usingSpecularMethod && this.pUsesLightsForSpecular();
+			var addDiff:Boolean = this.pUsesLightsForDiffuse();
 			
 			if (!(addSpec || addDiff))
 				return;
 			
-			for (var i:Number = 0; i <_pNumDirectionalLights; ++i)
+			for (var i:Number = 0; i <this._pNumDirectionalLights; ++i)
             {
 				
-				if (tangentSpace) {
-					lightDirReg = _dirLightVertexConstants[vertexRegIndex++];
+				if (this.tangentSpace) {
+					lightDirReg = this._dirLightVertexConstants[vertexRegIndex++];
 
-                    var lightVarying:ShaderRegisterElement = _pRegisterCache.getFreeVarying();
+                    var lightVarying:ShaderRegisterElement = this._pRegisterCache.getFreeVarying();
 					
-					_pVertexCode += "m33 " + lightVarying + ".xyz, " + lightDirReg + ", " + _pSharedRegisters.animatedTangent + "\n" +
+					this._pVertexCode += "m33 " + lightVarying + ".xyz, " + lightDirReg + ", " + this._pSharedRegisters.animatedTangent + "\n" +
 						"mov " + lightVarying + ".w, " + lightDirReg + ".w\n";
 					
-					lightDirReg = _pRegisterCache.getFreeFragmentVectorTemp();
-					_pRegisterCache.addVertexTempUsages(lightDirReg, 1);
-					_pFragmentCode += "nrm " + lightDirReg + ".xyz, " + lightVarying + "\n";
-					_pFragmentCode += "mov " + lightDirReg + ".w, " + lightVarying + ".w\n";
+					lightDirReg = this._pRegisterCache.getFreeFragmentVectorTemp();
+					this._pRegisterCache.addVertexTempUsages(lightDirReg, 1);
+					this._pFragmentCode += "nrm " + lightDirReg + ".xyz, " + lightVarying + "\n";
+					this._pFragmentCode += "mov " + lightDirReg + ".w, " + lightVarying + ".w\n";
 
 				}
                 else
                 {
-					lightDirReg = _dirLightFragmentConstants[fragmentRegIndex++];
+					lightDirReg = this._dirLightFragmentConstants[fragmentRegIndex++];
                 }
 
-				diffuseColorReg = _dirLightFragmentConstants[fragmentRegIndex++];
-				specularColorReg = _dirLightFragmentConstants[fragmentRegIndex++];
+				diffuseColorReg = this._dirLightFragmentConstants[fragmentRegIndex++];
+				specularColorReg = this._dirLightFragmentConstants[fragmentRegIndex++];
 				if (addDiff)
                 {
-					_pFragmentCode += _pMethodSetup._iDiffuseMethod.iGetFragmentCodePerLight(_pMethodSetup._iDiffuseMethodVO, lightDirReg, diffuseColorReg, _pRegisterCache);
+					this._pFragmentCode += this._pMethodSetup._iDiffuseMethod.iGetFragmentCodePerLight(this._pMethodSetup._iDiffuseMethodVO, lightDirReg, diffuseColorReg, this._pRegisterCache);
                 }
 
 				if (addSpec)
                 {
-					_pFragmentCode += _pMethodSetup._iSpecularMethod.iGetFragmentCodePerLight(_pMethodSetup._iSpecularMethodVO, lightDirReg, specularColorReg, _pRegisterCache);
+					this._pFragmentCode += this._pMethodSetup._iSpecularMethod.iGetFragmentCodePerLight(this._pMethodSetup._iSpecularMethodVO, lightDirReg, specularColorReg, this._pRegisterCache);
 
                 }
 
-				if (tangentSpace)
-					_pRegisterCache.removeVertexTempUsage(lightDirReg);
+				if (this.tangentSpace)
+					this._pRegisterCache.removeVertexTempUsage(lightDirReg);
 			}
 		}
 
-		/**
-		 * Compiles the shading code for point lights.
-		 */
+		/**		 * Compiles the shading code for point lights.		 */
 		private function compilePointLightCode():void
 		{
 			var diffuseColorReg:ShaderRegisterElement;
@@ -443,41 +410,41 @@ package away.materials.compilation
 			var lightDirReg:ShaderRegisterElement;
 			var vertexRegIndex:Number = 0;
 			var fragmentRegIndex:Number = 0;
-			var addSpec:Boolean = _usingSpecularMethod && pUsesLightsForSpecular();
-			var addDiff:Boolean = pUsesLightsForDiffuse();
+			var addSpec:Boolean = this._usingSpecularMethod && this.pUsesLightsForSpecular();
+			var addDiff:Boolean = this.pUsesLightsForDiffuse();
 			
 			if (!(addSpec || addDiff))
             {
 				return;
             }
 
-			for (var i:Number = 0; i < _pNumPointLights; ++i)
+			for (var i:Number = 0; i < this._pNumPointLights; ++i)
             {
-				lightPosReg = _pointLightVertexConstants[vertexRegIndex++];
-				diffuseColorReg = _pointLightFragmentConstants[fragmentRegIndex++];
-				specularColorReg = _pointLightFragmentConstants[fragmentRegIndex++];
-				lightDirReg = _pRegisterCache.getFreeFragmentVectorTemp();
+				lightPosReg = this._pointLightVertexConstants[vertexRegIndex++];
+				diffuseColorReg = this._pointLightFragmentConstants[fragmentRegIndex++];
+				specularColorReg = this._pointLightFragmentConstants[fragmentRegIndex++];
+				lightDirReg = this._pRegisterCache.getFreeFragmentVectorTemp();
 
-				_pRegisterCache.addFragmentTempUsages(lightDirReg, 1);
+				this._pRegisterCache.addFragmentTempUsages(lightDirReg, 1);
 				
-				var lightVarying:ShaderRegisterElement = _pRegisterCache.getFreeVarying();
-				if (tangentSpace)
+				var lightVarying:ShaderRegisterElement = this._pRegisterCache.getFreeVarying();
+				if (this.tangentSpace)
                 {
 
-					var temp:ShaderRegisterElement = _pRegisterCache.getFreeVertexVectorTemp();
-					_pVertexCode += "sub " + temp + ", " + lightPosReg + ", " + _pSharedRegisters.localPosition + "\n" +
-						"m33 " + lightVarying + ".xyz, " + temp + ", " + _pSharedRegisters.animatedTangent + "\n" +
-						"mov " + lightVarying + ".w, " + _pSharedRegisters.localPosition + ".w\n";
+					var temp:ShaderRegisterElement = this._pRegisterCache.getFreeVertexVectorTemp();
+					this._pVertexCode += "sub " + temp + ", " + lightPosReg + ", " + this._pSharedRegisters.localPosition + "\n" +
+						"m33 " + lightVarying + ".xyz, " + temp + ", " + this._pSharedRegisters.animatedTangent + "\n" +
+						"mov " + lightVarying + ".w, " + this._pSharedRegisters.localPosition + ".w\n";
 				}
                 else
                 {
-					_pVertexCode += "sub " + lightVarying + ", " + lightPosReg + ", " + _pSharedRegisters.globalPositionVertex + "\n";
+					this._pVertexCode += "sub " + lightVarying + ", " + lightPosReg + ", " + this._pSharedRegisters.globalPositionVertex + "\n";
                 }
 
-				if (_pEnableLightFallOff && _pProfile != "baselineConstrained") {
+				if (this._pEnableLightFallOff && this._pProfile != "baselineConstrained") {
 					// calculate attenuation
 
-					_pFragmentCode +=
+					this._pFragmentCode +=
 						// attenuate
 						"dp3 " + lightDirReg + ".w, " + lightVarying + ", " + lightVarying + "\n" +
 						// w = d - radius
@@ -487,39 +454,37 @@ package away.materials.compilation
 						// w = clamp(w, 0, 1)
 						"sat " + lightDirReg + ".w, " + lightDirReg + ".w\n" +
 						// w = 1-w
-						"sub " + lightDirReg + ".w, " + _pSharedRegisters.commons + ".w, " + lightDirReg + ".w\n" +
+						"sub " + lightDirReg + ".w, " + this._pSharedRegisters.commons + ".w, " + lightDirReg + ".w\n" +
 						// normalize
 						"nrm " + lightDirReg + ".xyz, " + lightVarying + "\n";
 				}
                 else
                 {
-					_pFragmentCode += "nrm " + lightDirReg + ".xyz, " + lightVarying + "\n" +
+					this._pFragmentCode += "nrm " + lightDirReg + ".xyz, " + lightVarying + "\n" +
 						"mov " + lightDirReg + ".w, " + lightVarying + ".w\n";
 				}
 
-				if (_pLightFragmentConstantIndex == -1)
+				if (this._pLightFragmentConstantIndex == -1)
                 {
-					_pLightFragmentConstantIndex = lightPosReg.index*4;
+					this._pLightFragmentConstantIndex = lightPosReg.index*4;
                 }
 
 				if (addDiff)
                 {
-					_pFragmentCode += _pMethodSetup._iDiffuseMethod.iGetFragmentCodePerLight(_pMethodSetup._iDiffuseMethodVO, lightDirReg, diffuseColorReg, _pRegisterCache);
+					this._pFragmentCode += this._pMethodSetup._iDiffuseMethod.iGetFragmentCodePerLight(this._pMethodSetup._iDiffuseMethodVO, lightDirReg, diffuseColorReg, this._pRegisterCache);
                 }
 
 				if (addSpec)
                 {
-					_pFragmentCode += _pMethodSetup._iSpecularMethod.iGetFragmentCodePerLight(_pMethodSetup._iSpecularMethodVO, lightDirReg, specularColorReg, _pRegisterCache);
+					this._pFragmentCode += this._pMethodSetup._iSpecularMethod.iGetFragmentCodePerLight(this._pMethodSetup._iSpecularMethodVO, lightDirReg, specularColorReg, this._pRegisterCache);
                 }
 
-				_pRegisterCache.removeFragmentTempUsage(lightDirReg);
+				this._pRegisterCache.removeFragmentTempUsage(lightDirReg);
 				
 			}
 		}
 
-		/**
-		 * Compiles shading code for light probes.
-		 */
+		/**		 * Compiles shading code for light probes.		 */
 		private function compileLightProbeCode():void
 		{
 			var weightReg:String;
@@ -527,8 +492,8 @@ package away.materials.compilation
 			var weightRegisters:Vector.<ShaderRegisterElement> = new Vector.<ShaderRegisterElement>();
 			var i:Number;
 			var texReg:ShaderRegisterElement;
-			var addSpec:Boolean = _usingSpecularMethod && pUsesProbesForSpecular();
-			var addDiff:Boolean = pUsesProbesForDiffuse();
+			var addSpec:Boolean = this._usingSpecularMethod && this.pUsesProbesForSpecular();
+			var addDiff:Boolean = this.pUsesProbesForDiffuse();
 			
 			if (!(addSpec || addDiff))
             {
@@ -537,41 +502,41 @@ package away.materials.compilation
 
 			if (addDiff)
             {
-				_pLightProbeDiffuseIndices = new Vector.<Number>();
+				this._pLightProbeDiffuseIndices = new Vector.<Number>();
 
             }
 			if (addSpec)
             {
-				_pLightProbeSpecularIndices = new Vector.<Number>();
+				this._pLightProbeSpecularIndices = new Vector.<Number>();
             }
 
-			for (i = 0; i < _pNumProbeRegisters; ++i)
+			for (i = 0; i < this._pNumProbeRegisters; ++i)
             {
-				weightRegisters[i] = _pRegisterCache.getFreeFragmentConstant();
+				weightRegisters[i] = this._pRegisterCache.getFreeFragmentConstant();
 				if (i == 0)
                 {
-					_pProbeWeightsIndex = weightRegisters[i].index*4;
+					this._pProbeWeightsIndex = weightRegisters[i].index*4;
 
                 }
 			}
 			
-			for (i = 0; i < _pNumLightProbes; ++i)
+			for (i = 0; i < this._pNumLightProbes; ++i)
             {
 
 				weightReg = weightRegisters[Math.floor(i/4)].toString() + weightComponents[i%4];
 				
 				if (addDiff)
                 {
-					texReg = _pRegisterCache.getFreeTextureReg();
-					_pLightProbeDiffuseIndices[i] = texReg.index;
-					_pFragmentCode += _pMethodSetup._iDiffuseMethod.iGetFragmentCodePerProbe(_pMethodSetup._iDiffuseMethodVO, texReg, weightReg, _pRegisterCache);
+					texReg = this._pRegisterCache.getFreeTextureReg();
+					this._pLightProbeDiffuseIndices[i] = texReg.index;
+					this._pFragmentCode += this._pMethodSetup._iDiffuseMethod.iGetFragmentCodePerProbe(this._pMethodSetup._iDiffuseMethodVO, texReg, weightReg, this._pRegisterCache);
 				}
 				
 				if (addSpec)
                 {
-					texReg = _pRegisterCache.getFreeTextureReg();
-					_pLightProbeSpecularIndices[i] = texReg.index;
-					_pFragmentCode += _pMethodSetup._iSpecularMethod.iGetFragmentCodePerProbe(_pMethodSetup._iSpecularMethodVO, texReg, weightReg, _pRegisterCache);
+					texReg = this._pRegisterCache.getFreeTextureReg();
+					this._pLightProbeSpecularIndices[i] = texReg.index;
+					this._pFragmentCode += this._pMethodSetup._iSpecularMethod.iGetFragmentCodePerProbe(this._pMethodSetup._iSpecularMethodVO, texReg, weightReg, this._pRegisterCache);
 				}
 			}
 		}

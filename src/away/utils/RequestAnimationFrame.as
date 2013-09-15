@@ -1,6 +1,7 @@
 ///<reference path="../_definitions.ts"/>
 
 
+
 package away.utils
 {
 
@@ -19,10 +20,10 @@ package away.utils
         public function RequestAnimationFrame(callback:Function, callbackContext:Object):void
         {
 
-			setCallback( callback , callbackContext );
+			this.setCallback( callback , callbackContext );
 
             var that:RequestAnimationFrame = this;
-			_rafUpdateFunction = function() {
+			this._rafUpdateFunction = function() {
 
                 if ( that._active )
                 {
@@ -33,33 +34,27 @@ package away.utils
 
             }
 
-            _argsArray.push( _dt );
+            this._argsArray.push( this._dt );
 
         }
 
         // Public
 
-        /**
-         *
-         * @param callback
-         * @param callbackContext
-         */
+        /**         *         * @param callback         * @param callbackContext         */
         public function setCallback(callback:Function, callbackContext:Object):void
         {
 
-            _callback = callback;
-            _callbackContext = callbackContext;
+            this._callback = callback;
+            this._callbackContext = callbackContext;
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function start():void
         {
 
-            _prevTime = new Date().getTime();
-            _active = true;
+            this._prevTime = new Date().getTime();
+            this._active = true;
 
             if ( window['mozRequestAnimationFrame'] )
             {
@@ -83,53 +78,45 @@ package away.utils
             if ( window.requestAnimationFrame )
             {
 
-                window.requestAnimationFrame( _rafUpdateFunction );
+                window.requestAnimationFrame( this._rafUpdateFunction );
 
             }
 
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function stop():void
         {
 
-            _active = false;
+            this._active = false;
 
         }
 
         // Get / Set
 
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
         public function get active():Boolean
         {
 
-            return _active;
+            return this._active;
 
         }
 
         // Private
 
-        /**
-         *
-         * @private
-         */
+        /**         *         * @private         */
         private function _tick():void
         {
 
-            _currentTime   = new Date().getTime();
-            _dt            = _currentTime - _prevTime;
-            _argsArray[0]  = _dt;
-            _callback.apply( _callbackContext , _argsArray );
+            this._currentTime   = new Date().getTime();
+            this._dt            = this._currentTime - this._prevTime;
+            this._argsArray[0]  = this._dt;
+            this._callback.apply( this._callbackContext , this._argsArray );
 
-            window.requestAnimationFrame( _rafUpdateFunction );
+            window.requestAnimationFrame( this._rafUpdateFunction );
 
-            _prevTime      = _currentTime;
+            this._prevTime      = this._currentTime;
 
         }
 

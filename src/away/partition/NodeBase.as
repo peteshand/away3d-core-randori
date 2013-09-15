@@ -1,9 +1,7 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../_definitions.ts" />
+
 
 package away.partition
 {
@@ -22,26 +20,25 @@ package away.partition
 		public var _pDebugPrimitive:WireframePrimitiveBase;
 		
 		public var _iNumEntities:Number = 0;
-		public var _iCollectionMark:Number;// = 0;
-		
+		public var _iCollectionMark:Number;// = 0;		
 		public function NodeBase():void
 		{
-			_pChildNodes = new <NodeBase>[];
+			this._pChildNodes = new <NodeBase>[];
 		}
 		
 		public function get showDebugBounds():Boolean
 		{
-			return _pDebugPrimitive != null;
+			return this._pDebugPrimitive != null;
 		}
 		
 		public function set showDebugBounds(value:Boolean):void
 		{
-			if( _pDebugPrimitive && value == true )
+			if( this._pDebugPrimitive && value == true )
 			{
 				return;
 			}
 			
-			if( !_pDebugPrimitive && value == false )
+			if( !this._pDebugPrimitive && value == false )
 			{
 				return;
 			}
@@ -49,31 +46,31 @@ package away.partition
 			if (value)
 			{
 				throw new PartialImplementationError();
-				_pDebugPrimitive = pCreateDebugBounds();
+				this._pDebugPrimitive = this.pCreateDebugBounds();
 			}
 			else
 			{
-				_pDebugPrimitive.dispose();
-				_pDebugPrimitive = null;
+				this._pDebugPrimitive.dispose();
+				this._pDebugPrimitive = null;
 			}
 			
-			for (var i:Number = 0; i < _pNumChildNodes; ++i)
+			for (var i:Number = 0; i < this._pNumChildNodes; ++i)
 			{
-				_pChildNodes[i].showDebugBounds = value;
+				this._pChildNodes[i].showDebugBounds = value;
 			}
 		}
 		
 		public function get parent():NodeBase
 		{
-			return _iParent;
+			return this._iParent;
 		}
 		
 		public function iAddNode(node:NodeBase):void
 		{
 			node._iParent = this;
-			_iNumEntities += node._pNumEntities;
-			_pChildNodes[ _pNumChildNodes++ ] = node;
-			node.showDebugBounds = _pDebugPrimitive != null;
+			this._iNumEntities += node._pNumEntities;
+			this._pChildNodes[ this._pNumChildNodes++ ] = node;
+			node.showDebugBounds = this._pDebugPrimitive != null;
 			
 			var numEntities:Number = node._pNumEntities;
 			node = this;
@@ -87,9 +84,9 @@ package away.partition
 		
 		public function iRemoveNode(node:NodeBase):void
 		{
-			var index:Number = _pChildNodes.indexOf(node);
-			_pChildNodes[index] = _pChildNodes[--_pNumChildNodes];
-			_pChildNodes.pop();
+			var index:Number = this._pChildNodes.indexOf(node);
+			this._pChildNodes[index] = this._pChildNodes[--this._pNumChildNodes];
+			this._pChildNodes.pop();
 			
 			var numEntities:Number = node._pNumEntities;
 			node = this;
@@ -128,7 +125,7 @@ package away.partition
 
             //console.log( 'NodeBase' , '1 - acceptTraverser' , ( this._pNumEntities == 0 && !this._pDebugPrimitive ));
 
-			if( _pNumEntities == 0 && !_pDebugPrimitive )
+			if( this._pNumEntities == 0 && !this._pDebugPrimitive )
 			{
 				return;
 			}
@@ -145,17 +142,17 @@ package away.partition
 
 				var i:Number = 0;
 
-				while( i < _pNumChildNodes )
+				while( i < this._pNumChildNodes )
 				{
 
                     //console.log ( 'NodeBase' , 'loop through childNodes : ' , i );
 
-					_pChildNodes[i++].acceptTraverser( traverser );
+					this._pChildNodes[i++].acceptTraverser( traverser );
 				}
 				
-				if ( _pDebugPrimitive )
+				if ( this._pDebugPrimitive )
 				{
-					traverser.applyRenderable( _pDebugPrimitive );
+					traverser.applyRenderable( this._pDebugPrimitive );
 				}
 			}
 		}
@@ -167,18 +164,18 @@ package away.partition
 		
 		public function get _pNumEntities():Number
 		{
-			return _iNumEntities;
+			return this._iNumEntities;
 		}
 		
 		public function set _pNumEntities(value:Number):void
 		{
-			_iNumEntities = value;
+			this._iNumEntities = value;
 		}
 		
 		public function _pUpdateNumEntities(value:Number):void
 		{
 
-			var diff:Number = value - _pNumEntities;
+			var diff:Number = value - this._pNumEntities;
 			var node:NodeBase = this;
 			
 			do

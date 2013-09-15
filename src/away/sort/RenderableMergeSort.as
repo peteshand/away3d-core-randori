@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.sort
@@ -16,8 +14,8 @@ package away.sort
 		
 		public function sort(collector:EntityCollector):void
 		{
-			collector.opaqueRenderableHead = mergeSortByMaterial(collector.opaqueRenderableHead);
-			collector.blendedRenderableHead = mergeSortByDepth(collector.blendedRenderableHead);
+			collector.opaqueRenderableHead = this.mergeSortByMaterial(collector.opaqueRenderableHead);
+			collector.blendedRenderableHead = this.mergeSortByDepth(collector.blendedRenderableHead);
 		}
 		
 		private function mergeSortByDepth(head:RenderableListItem):RenderableListItem
@@ -47,8 +45,8 @@ package away.sort
 			slow.next = null;
 			
 			// recurse
-			head = mergeSortByDepth(head);
-			headB = mergeSortByDepth(headB);
+			head = this.mergeSortByDepth(head);
+			headB = this.mergeSortByDepth(headB);
 			
 			// merge sublists while respecting order
 			var result:RenderableListItem;
@@ -111,8 +109,8 @@ package away.sort
 			slow.next = null;
 			
 			// recurse
-			head = mergeSortByMaterial(head);
-			headB = mergeSortByMaterial(headB);
+			head = this.mergeSortByMaterial(head);
+			headB = this.mergeSortByMaterial(headB);
 			
 			// merge sublists while respecting order
 			var result:RenderableListItem;

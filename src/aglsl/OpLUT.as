@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../away/_definitions.ts" />
 
 package aglsl
@@ -23,17 +21,17 @@ package aglsl
 		
 		public function OpLUT(s:String, flags:Number, dest:Boolean, a:Boolean, b:Boolean, matrixwidth:Number, matrixheight:Number, ndwm:Boolean, scaler:Boolean, dm:Boolean, lod:Boolean):void
 		{
-			s = s;
-			flags = flags;
-			dest = dest;
-			a = a;
-			b = b;
-			matrixwidth = matrixwidth;
-			matrixheight = matrixheight;
-			ndwm = ndwm;
-			scalar = scaler;
-			dm = dm;
-			lod = lod;
+			this.s = s;
+			this.flags = flags;
+			this.dest = dest;
+			this.a = a;
+			this.b = b;
+			this.matrixwidth = matrixwidth;
+			this.matrixheight = matrixheight;
+			this.ndwm = ndwm;
+			this.scalar = scaler;
+			this.dm = dm;
+			this.lod = lod;
 		}
 	}
 }

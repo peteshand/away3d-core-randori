@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../away/_definitions.ts" />
 
 package aglsl
@@ -71,7 +69,7 @@ package aglsl
 				}                    
 				if ( lutentry.a )
 				{
-					readReg( token.a,1, desc, bytes );
+					this.readReg( token.a,1, desc, bytes );
 				}
 				else
 				{
@@ -81,7 +79,7 @@ package aglsl
 				}
 				if ( lutentry.b )
 				{
-					readReg ( token.b, lutentry.matrixheight|0, desc, bytes );
+					this.readReg ( token.b, lutentry.matrixheight|0, desc, bytes );
 				}
 				else
 				{

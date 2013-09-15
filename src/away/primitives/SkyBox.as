@@ -1,7 +1,7 @@
 ///<reference path="../_definitions.ts"/>
-
-package away.entities
+package away.primitives
 {
+	import away.entities.Entity;
 	import away.base.IRenderable;
 	import away.base.SubGeometry;
 	import away.materials.SkyBoxMaterial;
@@ -19,13 +19,8 @@ package away.entities
 	import away.partition.SkyBoxNode;
 	import away.cameras.Camera3D;
 	import away.geom.Matrix3D;
-	
 
-	/**
-	 * A SkyBox class is used to render a sky in the scene. It's always considered static and 'at infinity', and as
-	 * such it's always centered at the camera's position and sized to exactly fit within the camera's frustum, ensuring
-	 * the sky box is always as large as possible without being clipped.
-	 */
+	/**	 * A SkyBox class is used to render a sky in the scene. It's always considered static and 'at infinity', and as	 * such it's always centered at the camera's position and sized to exactly fit within the camera's frustum, ensuring	 * the sky box is always as large as possible without being clipped.	 */
 	public class SkyBox extends Entity implements IRenderable
 	{
 		// todo: remove SubGeometry, use a simple single buffer with offsets
@@ -36,7 +31,7 @@ package away.entities
 		
 		public function get animator():IAnimator
 		{
-			return _animator;
+			return this._animator;
 		}
 		
 		override public function pGetDefaultBoundingVolume():BoundingVolumeBase
@@ -44,45 +39,33 @@ package away.entities
 			return new NullBounds();
 		}
 		
-		/**
-		 * Create a new SkyBox object.
-		 * @param cubeMap The CubeMap to use for the sky box's texture.
-		 */
+		/**		 * Create a new SkyBox object.		 * @param cubeMap The CubeMap to use for the sky box's texture.		 */
 		public function SkyBox(cubeMap:CubeTextureBase):void
 		{
 			super();
-
-			_material = new SkyBoxMaterial(cubeMap);
-			_material.iAddOwner(this);
-			_geometry = new SubGeometry();
-			buildGeometry( _geometry);
+			this._material = new SkyBoxMaterial(cubeMap);
+			this._material.iAddOwner(this);
+			this._geometry = new SubGeometry();
+			this.buildGeometry(this._geometry);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
-			_geometry.activateVertexBuffer(index, stage3DProxy);
+			this._geometry.activateVertexBuffer(index, stage3DProxy);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexTangentBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 		}
@@ -91,36 +74,28 @@ package away.entities
 		{
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function getIndexBuffer(stage3DProxy:Stage3DProxy):IndexBuffer3D
 		{
-			return _geometry.getIndexBuffer(stage3DProxy);
+			return this._geometry.getIndexBuffer(stage3DProxy);
 		}
 		
-		/**
-		 * The amount of triangles that comprise the SkyBox geometry.
-		 */
+		/**		 * The amount of triangles that comprise the SkyBox geometry.		 */
 		public function get numTriangles():Number
 		{
-			return _geometry.numTriangles;
+			return this._geometry.numTriangles;
 		}
 		
-		/**
-		 * The entity that that initially provided the IRenderable to the render pipeline.
-		 */
+		/**		 * The entity that that initially provided the IRenderable to the render pipeline.		 */
 		public function get sourceEntity():Entity
 		{
 			return null;
 		}
 		
-		/**
-		 * The material with which to render the object.
-		 */
+		/**		 * The material with which to render the object.		 */
 		public function get material():MaterialBase
 		{
-			return _material;
+			return this._material;
 		}
 		
 		public function set material(value:MaterialBase):void
@@ -133,53 +108,44 @@ package away.entities
 			return AssetType.SKYBOX;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pInvalidateBounds():void
 		{
 			// dead end
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCreateEntityPartitionNode():EntityNode
 		{
-			return new SkyBoxNode(this);
+            var node : SkyBoxNode = new SkyBoxNode(this)
+			return (node as EntityNode);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateBounds():void
 		{
-			_pBoundsInvalid = false;
+            this._pBoundsInvalid = false;
 		}
 		
-		/**
-		 * Builds the geometry that forms the SkyBox
-		 */
+		/**		 * Builds the geometry that forms the SkyBox		 */
 		private function buildGeometry(target:SubGeometry):void
 		{
-			var vertices:Vector.<Number> = new Vector.<Number>(
+			var vertices:Vector.<Number> = [
 				-1, 1, -1, 1, 1, -1,
 				1, 1, 1, -1, 1, 1,
 				-1, -1, -1, 1, -1, -1,
 				1, -1, 1, -1, -1, 1
-                );
+				];
 
-			//vertices.fixed = true;
-			
-			var indices:Vector.<Number> /*uint*/ = new Vector.<Number>(
+			var indices:Vector.<Number> = [
 				0, 1, 2, 2, 3, 0,
 				6, 5, 4, 4, 7, 6,
 				2, 6, 7, 7, 3, 2,
 				4, 5, 1, 1, 0, 4,
 				4, 0, 3, 3, 7, 4,
 				2, 1, 5, 5, 6, 2
-                );
-
+				];
+			
 			target.updateVertexData(vertices);
 			target.updateIndexData(indices);
 		}
@@ -191,61 +157,63 @@ package away.entities
 		
 		public function get uvTransform():Matrix
 		{
-			return _uvTransform;
+			return this._uvTransform;
 		}
 		
 		public function get vertexData():Vector.<Number>
 		{
-			return _geometry.vertexData;
+			return this._geometry.vertexData;
 		}
 		
-		public function get indexData():Vector.<Number> /*uint*/		{
-			return _geometry.indexData;
+		public function get indexData():Vector.<Number>
+		{
+			return this._geometry.indexData;
 		}
 		
 		public function get UVData():Vector.<Number>
 		{
-			return _geometry.UVData;
+			return this._geometry.UVData;
 		}
 		
 		public function get numVertices():Number
 		{
-			return _geometry.numVertices;
+			return this._geometry.numVertices;
 		}
 		
 		public function get vertexStride():Number
 		{
-			return _geometry.vertexStride;
+			return this._geometry.vertexStride;
 		}
 		
 		public function get vertexNormalData():Vector.<Number>
 		{
-			return _geometry.vertexNormalData;
+			return this._geometry.vertexNormalData;
 		}
 		
 		public function get vertexTangentData():Vector.<Number>
 		{
-			return _geometry.vertexTangentData;
+			return this._geometry.vertexTangentData;
 		}
 		
 		public function get vertexOffset():Number
 		{
-			return _geometry.vertexOffset;
+			return this._geometry.vertexOffset;
 		}
 		
 		public function get vertexNormalOffset():Number
 		{
-			return _geometry.vertexNormalOffset;
+			return this._geometry.vertexNormalOffset;
 		}
 		
 		public function get vertexTangentOffset():Number
 		{
-			return _geometry.vertexTangentOffset;
+			return this._geometry.vertexTangentOffset;
 		}
 		
 		public function getRenderSceneTransform(camera:Camera3D):Matrix3D
 		{
-			return _pSceneTransform;
+
+			return this._pSceneTransform
 		}
 	}
 }

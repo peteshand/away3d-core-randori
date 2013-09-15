@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.pick
 {
 	import away.traverse.RaycastCollector;
@@ -9,11 +10,7 @@ package away.pick
 	import away.data.EntityListItem;
 	import away.containers.Scene3D;
 
-	/**
-	 * Picks a 3d object from a view or scene by 3D raycast calculations.
-	 * Performs an initial coarse boundary calculation to return a subset of entities whose bounding volumes intersect with the specified ray,
-	 * then triggers an optional picking collider on individual entity objects to further determine the precise values of the picking ray collision.
-	 */
+	/**	 * Picks a 3d object from a view or scene by 3D raycast calculations.	 * Performs an initial coarse boundary calculation to return a subset of entities whose bounding volumes intersect with the specified ray,	 * then triggers an optional picking collider on individual entity objects to further determine the precise values of the picking ray collision.	 */
 
 	public class RaycastPicker implements IPicker
 	{
@@ -22,39 +19,29 @@ package away.pick
 		private var _ignoredEntities:Array = new Array();
 		private var _onlyMouseEnabled:Boolean = true;
 		
-		private var _entities:Vector.<Entity>;//Vector.<Entity>;
-		private var _numEntities:Number = 0;
+		private var _entities:Vector.<Entity>;//Vector.<Entity>;		private var _numEntities:Number = 0;
 		private var _hasCollisions:Boolean;
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function get onlyMouseEnabled():Boolean
 		{
-			return _onlyMouseEnabled;
+			return this._onlyMouseEnabled;
 		}
 		
 		public function set onlyMouseEnabled(value:Boolean):void
 		{
-			_onlyMouseEnabled = value;
+			this._onlyMouseEnabled = value;
 		}
 		
-		/**
-		 * Creates a new <code>RaycastPicker</code> object.
-		 *
-		 * @param findClosestCollision Determines whether the picker searches for the closest bounds collision along the ray,
-		 * or simply returns the first collision encountered Defaults to false.
-		 */
+		/**		 * Creates a new <code>RaycastPicker</code> object.		 *		 * @param findClosestCollision Determines whether the picker searches for the closest bounds collision along the ray,		 * or simply returns the first collision encountered Defaults to false.		 */
 		public function RaycastPicker(findClosestCollision:Boolean):void
 		{
 			
-			_findClosestCollision = findClosestCollision;
-            _entities = new Vector.<Entity>();//Vector.<Entity>();
+			this._findClosestCollision = findClosestCollision;
+            this._entities = new Vector.<Entity>();//Vector.<Entity>();
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 
 		public function getViewCollision(x:Number, y:Number, view:View3D):PickingCollisionVO
 		{
@@ -72,75 +59,73 @@ package away.pick
 			rayDirection = rayDirection.subtract(rayPosition);
 			
 			// Perform ray-bounds collision checks.
-			_numEntities = 0;
+			this._numEntities = 0;
 			var node:EntityListItem = collector.entityHead;
 			var entity:Entity;
 			while (node)
             {
 				entity = node.entity;
 				
-				if (isIgnored(entity)) {
+				if (this.isIgnored(entity)) {
 					node = node.next;
 					continue;
 				}
 				
 				// If collision detected, store in new data set.
 				if (entity._iIsVisible && entity.isIntersectingRay(rayPosition, rayDirection))
-					_entities[_numEntities++] = entity;
+					this._entities[this._numEntities++] = entity;
 				
 				node = node.next;
 			}
 			
 			//early out if no collisions detected
-			if (!_numEntities)
+			if (!this._numEntities)
 				return null;
 			
-			return getPickingCollisionVO();
+			return this.getPickingCollisionVO();
 
 		}
 		//*/
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 
         //* TODO Implement Dependency: EntityListItem, EntityCollector, RaycastCollector
 		public function getSceneCollision(position:Vector3D, direction:Vector3D, scene:Scene3D):PickingCollisionVO
 		{
 
 			//clear collector
-			_raycastCollector.clear();
+			this._raycastCollector.clear();
 			
 			//setup ray vectors
-            _raycastCollector.rayPosition = position;
-            _raycastCollector.rayDirection = direction;
+            this._raycastCollector.rayPosition = position;
+            this._raycastCollector.rayDirection = direction;
 			
 			// collect entities to test
-			scene.traversePartitions(_raycastCollector);
+			scene.traversePartitions(this._raycastCollector);
 
-            _numEntities = 0;
-			var node:EntityListItem = _raycastCollector.entityHead;
+            this._numEntities = 0;
+			var node:EntityListItem = this._raycastCollector.entityHead;
 			var entity:Entity;
 
 			while (node)
             {
 				entity = node.entity;
 				
-				if (isIgnored(entity))
+				if (this.isIgnored(entity))
                 {
 					node = node.next;
 					continue;
 				}
 				
-				_entities[_numEntities++] = entity;
+				this._entities[this._numEntities++] = entity;
 				
 				node = node.next;
 			}
 			
 			//early out if no collisions detected
-			if (!_numEntities)
+			if (!this._numEntities)
 				return null;
 			
-			return getPickingCollisionVO();
+			return this.getPickingCollisionVO();
 
 		}
 		//*/
@@ -151,7 +136,7 @@ package away.pick
 			position = position; // TODO: remove ?
 			direction = direction;
 
-			_numEntities = 0;
+			this._numEntities = 0;
 			
 			var entity:Entity;
             var l : Number = entities.length;
@@ -165,25 +150,25 @@ package away.pick
                 if (entity.isIntersectingRay(position, direction))
                 {
 
-                    _entities[_numEntities++] = entity;
+                    this._entities[this._numEntities++] = entity;
 
                 }
 
 
             }
 
-			return getPickingCollisionVO();
+			return this.getPickingCollisionVO();
 
 		}
 		//*/
 		public function setIgnoreList(entities):void
 		{
-			_ignoredEntities = entities;
+			this._ignoredEntities = entities;
 		}
 		
 		private function isIgnored(entity:Entity):Boolean
 		{
-			if (_onlyMouseEnabled && (!entity._iAncestorsAllowMouseEnabled || !entity.mouseEnabled))
+			if (this._onlyMouseEnabled && (!entity._iAncestorsAllowMouseEnabled || !entity.mouseEnabled))
             {
 
                 return true;
@@ -193,12 +178,12 @@ package away.pick
 			
 			var ignoredEntity:Entity;
 
-            var l : Number = _ignoredEntities.length;
+            var l : Number = this._ignoredEntities.length;
 
             for ( var c : Number = 0 ; c < l ; c ++ )
             {
 
-                ignoredEntity = _ignoredEntities[ c ];
+                ignoredEntity = this._ignoredEntities[ c ];
 
                 if (ignoredEntity == entity)
                 {
@@ -221,10 +206,10 @@ package away.pick
 		private function getPickingCollisionVO():PickingCollisionVO
 		{
 			// trim before sorting
-			_entities.length = _numEntities;
+			this._entities.length = this._numEntities;
 			
 			// Sort entities from closest to furthest.
-			_entities = _entities.sort(sortOnNearT); // TODO - test sort filter in JS
+			this._entities = this._entities.sort(this.sortOnNearT); // TODO - test sort filter in JS
 			
 			// ---------------------------------------------------------------------
 			// Evaluate triangle collisions when needed.
@@ -237,16 +222,16 @@ package away.pick
 			var entity:Entity;
 			var i:Number;
 			
-			for (i = 0; i < _numEntities; ++i) {
-				entity = _entities[i];
+			for (i = 0; i < this._numEntities; ++i) {
+				entity = this._entities[i];
 				pickingCollisionVO = entity._iPickingCollisionVO;
 				if (entity.pickingCollider) {
 					// If a collision exists, update the collision data and stop all checks.
-					if ((bestCollisionVO == null || pickingCollisionVO.rayEntryDistance < bestCollisionVO.rayEntryDistance) && entity.iCollidesBefore(shortestCollisionDistance, _findClosestCollision)) {
+					if ((bestCollisionVO == null || pickingCollisionVO.rayEntryDistance < bestCollisionVO.rayEntryDistance) && entity.iCollidesBefore(shortestCollisionDistance, this._findClosestCollision)) {
 						shortestCollisionDistance = pickingCollisionVO.rayEntryDistance;
 						bestCollisionVO = pickingCollisionVO;
-						if (!_findClosestCollision) {
-							updateLocalPosition(pickingCollisionVO);
+						if (!this._findClosestCollision) {
+							this.updateLocalPosition(pickingCollisionVO);
 							return pickingCollisionVO;
 						}
 					}
@@ -256,7 +241,7 @@ package away.pick
 					// Therefore, bounds collisions with a ray origin inside its bounds can be ignored
 					// if it has been established that there is NO triangle collider to test
 					if (!pickingCollisionVO.rayOriginIsInsideBounds) {
-						updateLocalPosition(pickingCollisionVO);
+						this.updateLocalPosition(pickingCollisionVO);
 						return pickingCollisionVO;
 					}
 				}

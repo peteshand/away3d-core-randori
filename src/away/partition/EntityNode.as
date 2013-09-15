@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.partition
@@ -19,51 +17,47 @@ package away.partition
 		public function EntityNode(entity:Entity):void
 		{
 			super();
-			_entity = entity;
-			_iNumEntities = 1;
+			this._entity = entity;
+			this._iNumEntities = 1;
 		}
 		
 		public function get entity():Entity
 		{
-			return _entity;
+			return this._entity;
 		}
 		
 		public function removeFromParent():void
 		{
-			if( _iParent)
+			if( this._iParent)
 			{
-				_iParent.iRemoveNode( this );
+				this._iParent.iRemoveNode( this );
 			}
-			_iParent = null;
+			this._iParent = null;
 		}
 		
 		//@override
 		override public function isInFrustum(planes:Vector.<Plane3D>, numPlanes:Number):Boolean
 		{
-			if( !_entity._iIsVisible )
+			if( !this._entity._iIsVisible )
 			{
 				return false;
 			}
-			return _entity.worldBounds.isInFrustum( planes, numPlanes );
+			return this._entity.worldBounds.isInFrustum( planes, numPlanes );
 		}
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function acceptTraverser(traverser:PartitionTraverser):void
         {
-            traverser.applyEntity(_entity);
+            traverser.applyEntity(this._entity);
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function isIntersectingRay(rayPosition:Vector3D, rayDirection:Vector3D):Boolean
         {
-            if (!_entity._iIsVisible )
+            if (!this._entity._iIsVisible )
                 return false;
 
-            return _entity.isIntersectingRay(rayPosition, rayDirection);
+            return this._entity.isIntersectingRay(rayPosition, rayDirection);
         }
 
 

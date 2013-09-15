@@ -1,22 +1,19 @@
-
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
 {
 	import away.base.ISubGeometry;
 	import away.base.CompactSubGeometry;
+	import away.base.SkinnedSubGeometry;
 	import away.base.SubMesh;
 
 	public class GeometryUtils
 	{
-		/**
-		 * Build a list of sub-geometries from raw data vectors, splitting them up in
-		 * such a way that they won't exceed buffer length limits.
-		 */
+		/**		 * Build a list of sub-geometries from raw data vectors, splitting them up in		 * such a way that they won't exceed buffer length limits.		 */
 		public static function fromVectors(verts:Vector.<Number>, indices:Vector.<Number>/*uint*/, uvs:Vector.<Number>, normals:Vector.<Number>, tangents:Vector.<Number>, weights:Vector.<Number>, jointIndices:Vector.<Number>, triangleOffset:Number = 0):Vector.<ISubGeometry>
 		{
-			var LIMIT_VERTS:Number = 3*0xffff;
-            var LIMIT_INDICES:Number = 15*0xffff;
+			var LIMIT_VERTS     : Number = 3*0xffff;
+            var LIMIT_INDICES   : Number = 15*0xffff;
 			
 			var subs:Vector.<ISubGeometry> = new Vector.<ISubGeometry>();
 
@@ -38,7 +35,10 @@ package away.utils
 			if ((indices.length >= LIMIT_INDICES) || (verts.length >= LIMIT_VERTS))
             {
 
-				var i:Number, len:Number, outIndex:Number, j:Number;
+				var i:Number;
+                var len:Number;
+                var outIndex:Number;
+                var j:Number;
 				var splitVerts:Vector.<Number> = new Vector.<Number>();
 				var splitIndices:Vector.<Number> /*uint*/ = new Vector.<Number>();
 				var splitUvs:Vector.<Number> = (uvs != null)? new Vector.<Number>() : null;
@@ -58,8 +58,16 @@ package away.utils
 
 				var originalIndex:Number;
 				var splitIndex:Number;
-				var o0:Number, o1:Number, o2:Number, s0:Number, s1:Number, s2:Number,
-					su:Number, ou:Number, sv:Number, ov:Number;
+				var o0:Number;
+                var o1:Number;
+                var o2:Number;
+                var s0:Number;
+                var s1:Number;
+                var s2:Number;
+                var su:Number;
+                var ou:Number;
+                var sv:Number;
+                var ov:Number;
 				// Loop over all triangles
 				outIndex = 0;
 				len = indices.length;
@@ -97,9 +105,12 @@ package away.utils
 						originalIndex = indices[i + j];
 						
 						if (mappings[originalIndex] >= 0)
+                        {
 							splitIndex = mappings[originalIndex];
-						
-						else {
+
+                        }
+						else
+                        {
 							
 							o0 = originalIndex*3 + 0;
 							o1 = originalIndex*3 + 1;
@@ -175,9 +186,7 @@ package away.utils
 			return subs;
 		}
 		
-		/**
-		 * Build a sub-geometry from data vectors.
-		 */
+		/**		 * Build a sub-geometry from data vectors.		 */
 		public static function constructSubGeometry(verts:Vector.<Number>, indices:Vector.<Number>/*uint*/, uvs:Vector.<Number>, normals:Vector.<Number>, tangents:Vector.<Number>, weights:Vector.<Number>, jointIndices:Vector.<Number>, triangleOffset:Number):CompactSubGeometry
 		{
 			var sub:CompactSubGeometry;
@@ -191,11 +200,15 @@ package away.utils
                 //TODO: implement dependency: SkinnedSubGeometry
                 Debug.throwPIR( 'GeometryUtils' , 'constructSubGeometry' , 'Dependency: SkinnedSubGeometry');
 
-                /*
+                //*
 				sub = new SkinnedSubGeometry(weights.length/(verts.length/3));
-				SkinnedSubGeometry(sub).updateJointWeightsData(weights);
-				SkinnedSubGeometry(sub).updateJointIndexData(jointIndices);
-				*/
+
+                var ssg : SkinnedSubGeometry = (sub as SkinnedSubGeometry);
+
+                    //ssg.updateJointWeightsData(weights);
+                    //ssg.updateJointWeightsData(weights);
+                    //ssg.updateJointIndexData(jointIndices);
+				//*/
 				
 			}
             else
@@ -210,11 +223,7 @@ package away.utils
 			return sub;
 		}
 		
-		/*
-		 * Combines a set of separate raw buffers into an interleaved one, compatible
-		 * with CompactSubGeometry. SubGeometry uses separate buffers, whereas CompactSubGeometry
-		 * uses a single, combined buffer.
-		 * */
+		/*		 * Combines a set of separate raw buffers into an interleaved one, compatible		 * with CompactSubGeometry. SubGeometry uses separate buffers, whereas CompactSubGeometry		 * uses a single, combined buffer.		 * */
 		public static function interleaveBuffers(numVertices:Number, vertices:Vector.<Number> = null, normals:Vector.<Number> = null, tangents:Vector.<Number> = null, uvs:Vector.<Number> = null, suvs:Vector.<Number> = null):Vector.<Number>
 		{
 			
@@ -223,13 +232,7 @@ package away.utils
 			
 			interleavedBuffer = new Vector.<Number>();
 			
-			/**
-			 * 0 - 2: vertex position X, Y, Z
-			 * 3 - 5: normal X, Y, Z
-			 * 6 - 8: tangent X, Y, Z
-			 * 9 - 10: U V
-			 * 11 - 12: Secondary U V
-			 */
+			/**			 * 0 - 2: vertex position X, Y, Z			 * 3 - 5: normal X, Y, Z			 * 6 - 8: tangent X, Y, Z			 * 9 - 10: U V			 * 11 - 12: Secondary U V			 */
 			for (i = 0; i < numVertices; ++i)
             {
 				uvCompIndex = i*2;
@@ -255,9 +258,7 @@ package away.utils
 			return interleavedBuffer;
 		}
 		
-		/*
-		 * returns the subGeometry index in its parent mesh subgeometries vector
-		 */
+		/*		 * returns the subGeometry index in its parent mesh subgeometries vector		 */
 		public static function getMeshSubgeometryIndex(subGeometry:ISubGeometry):Number
 		{
 			var index:Number;
@@ -275,9 +276,7 @@ package away.utils
 			return index;
 		}
 		
-		/*
-		 * returns the subMesh index in its parent mesh subMeshes vector
-		 */
+		/*		 * returns the subMesh index in its parent mesh subMeshes vector		 */
 		public static function getMeshSubMeshIndex(subMesh:SubMesh):Number
 		{
 			var index:Number;

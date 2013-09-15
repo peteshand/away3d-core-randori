@@ -12,7 +12,7 @@ away.materials.passes.DistanceMapPass = function() {
 	this._vertexData = null;
 	this._fragmentData = null;
 	this._alphaThreshold = 0;
-	away.materials.passes.MaterialPassBase.call(thisfalse);
+	away.materials.passes.MaterialPassBase.call(this, false);
 	this._fragmentData = [1.0, 255.0, 65025.0, 16581375.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 	this._vertexData = [0, 0, 0, 0];
 	this._vertexData[3] = 1;

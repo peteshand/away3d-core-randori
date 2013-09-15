@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.containers
@@ -30,23 +28,10 @@ package away.containers
 	public class View3D
 	{
 
-        /*
-         *************************************************************************************************************************
-         * Development Notes
-         *************************************************************************************************************************
-         *
-         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested
-         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment
-         *
-         * Background
-         *                  - this is currently not being included in our tests and is currently disabled
-         *
-         **************************************************************************************************************************
-         */
+        /*         *************************************************************************************************************************         * Development Notes         *************************************************************************************************************************         *         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment         *         * Background         *                  - this is currently not being included in our tests and is currently disabled         *         **************************************************************************************************************************         */
 
         // Static
-        private static var sStage:Stage; // View3D's share the same stage
-
+        private static var sStage:Stage; // View3D's share the same stage
         // Public
         public var stage:Stage;
 
@@ -89,17 +74,7 @@ package away.containers
         private var _profile:String;
         private var _layeredView:Boolean = false;
 
-        /*
-         ***********************************************************************
-         * Disabled / Not yet implemented
-         ***********************************************************************
-         *
-         * private _background:away.textures.Texture2DBase;
-         *
-		 * public _pMouse3DManager:away.managers.Mouse3DManager;
-		 * public _pTouch3DManager:away.managers.Touch3DManager;
-		 *
-         */
+        /*         ***********************************************************************         * Disabled / Not yet implemented         ***********************************************************************         *         * private _background:away.textures.Texture2DBase;         *		 * public _pMouse3DManager:away.managers.Mouse3DManager;		 * public _pTouch3DManager:away.managers.Touch3DManager;		 *         */
 		public function View3D(scene:Scene3D = null, camera:Camera3D = null, renderer:RendererBase = null, forceSoftware:Boolean = false, profile:String = "baseline"):void
 		{
 
@@ -109,184 +84,145 @@ package away.containers
                 View3D.sStage = new Stage();
             }
 
-			_profile = profile;
-			_pScene = scene || new Scene3D();
-			_pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged, this );
-			_pCamera = camera || new Camera3D();
-			_pRenderer = renderer || new DefaultRenderer();
-			_depthRenderer = new DepthRenderer();
-			_forceSoftware = forceSoftware;
-			_pEntityCollector = _pRenderer.iCreateEntityCollector();
-			_pEntityCollector.camera = _pCamera;
-			_pScissorRect = new Rectangle();
-			_pCamera.addEventListener( CameraEvent.LENS_CHANGED, onLensChanged, this );
-			_pCamera.partition = _pScene.partition;
-            stage = View3D.sStage;
+			this._profile = profile;
+			this._pScene = scene || new Scene3D();
+			this._pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged, this );
+			this._pCamera = camera || new Camera3D();
+			this._pRenderer = renderer || new DefaultRenderer();
+			this._depthRenderer = new DepthRenderer();
+			this._forceSoftware = forceSoftware;
+			this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
+			this._pEntityCollector.camera = this._pCamera;
+			this._pScissorRect = new Rectangle();
+			this._pCamera.addEventListener( CameraEvent.LENS_CHANGED, this.onLensChanged, this );
+			this._pCamera.partition = this._pScene.partition;
+            this.stage = View3D.sStage;
 
-            onAddedToStage();
+            this.onAddedToStage();
 
 		}
 
-        /**
-         *
-         * @param e
-         */
+        /**         *         * @param e         */
 		private function onScenePartitionChanged(e:Scene3DEvent):void
 		{
-			if( _pCamera )
+			if( this._pCamera )
 			{
-				_pCamera.partition = scene.partition;
+				this._pCamera.partition = this.scene.partition;
 			}
 		}
-        /**
-         *
-         * @returns {away.managers.Stage3DProxy}
-         */
+        /**         *         * @returns {away.managers.Stage3DProxy}         */
 		public function get stage3DProxy():Stage3DProxy
 		{
-			return _pStage3DProxy;
+			return this._pStage3DProxy;
 		}
-        /**
-         *
-         * @param stage3DProxy
-         */
+        /**         *         * @param stage3DProxy         */
 		public function set stage3DProxy(stage3DProxy:Stage3DProxy):void
 		{
 
-			if (_pStage3DProxy)
+			if (this._pStage3DProxy)
 			{
-				_pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
+				this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
 			}
 			
-			_pStage3DProxy = stage3DProxy;
-			_pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
-			_pRenderer.iStage3DProxy = _depthRenderer.iStage3DProxy = _pStage3DProxy;
-			_globalPosDirty = true;
-			_pBackBufferInvalid = true;
+			this._pStage3DProxy = stage3DProxy;
+			this._pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
+			this._pRenderer.iStage3DProxy = this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
+			this._globalPosDirty = true;
+			this._pBackBufferInvalid = true;
 
 		}
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
 		public function get layeredView():Boolean
 		{
-			return _layeredView;
+			return this._layeredView;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
 		public function set layeredView(value:Boolean):void
 		{
-			_layeredView = value;
+			this._layeredView = value;
 		}
-        /**
-         *
-         * @returns {*}
-         */
+        /**         *         * @returns {*}         */
 		public function get filters3d():Vector.<Filter3DBase>
 		{
-			return _pFilter3DRenderer ? _pFilter3DRenderer.filters : null;
+			return this._pFilter3DRenderer ? this._pFilter3DRenderer.filters : null;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set filters3d(value:Vector.<Filter3DBase>):void
         {
             if (value && value.length == 0)
                 value = null;
 
-            if (_pFilter3DRenderer && !value)
+            if (this._pFilter3DRenderer && !value)
             {
-                _pFilter3DRenderer.dispose();
-                _pFilter3DRenderer = null;
+                this._pFilter3DRenderer.dispose();
+                this._pFilter3DRenderer = null;
             }
-            else if (!_pFilter3DRenderer && value)
+            else if (!this._pFilter3DRenderer && value)
             {
-                _pFilter3DRenderer = new Filter3DRenderer( _pStage3DProxy );
-                _pFilter3DRenderer.filters = value;
+                this._pFilter3DRenderer = new Filter3DRenderer( this._pStage3DProxy );
+                this._pFilter3DRenderer.filters = value;
             }
 
-            if (_pFilter3DRenderer)
+            if (this._pFilter3DRenderer)
             {
-                _pFilter3DRenderer.filters = value;
-                _pRequireDepthRender = _pFilter3DRenderer.requireDepthRender;
+                this._pFilter3DRenderer.filters = value;
+                this._pRequireDepthRender = this._pFilter3DRenderer.requireDepthRender;
             }
             else
             {
-                _pRequireDepthRender = false;
+                this._pRequireDepthRender = false;
 
-                if (_pDepthRender)
+                if (this._pDepthRender)
                 {
-                    _pDepthRender.dispose();
-                    _pDepthRender = null;
+                    this._pDepthRender.dispose();
+                    this._pDepthRender = null;
                 }
             }
         }
-        /**
-         *
-         * @returns {away.render.RendererBase}
-         */
+        /**         *         * @returns {away.render.RendererBase}         */
 		public function get renderer():RendererBase
 		{
-			return _pRenderer;
+			return this._pRenderer;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set renderer(value:RendererBase):void
         {
-            _pRenderer.iDispose();
-            _pRenderer = value;
+            this._pRenderer.iDispose();
+            this._pRenderer = value;
 
-            _pEntityCollector = _pRenderer.iCreateEntityCollector();
-            _pEntityCollector.camera = _pCamera;
-            _pRenderer.iStage3DProxy = _pStage3DProxy;
-            _pRenderer.antiAlias = _antiAlias;
-            _pRenderer.iBackgroundR = ((_backgroundColor >> 16) & 0xff)/0xff;
-            _pRenderer.iBackgroundG = ((_backgroundColor >> 8) & 0xff)/0xff;
-            _pRenderer.iBackgroundB = (_backgroundColor & 0xff)/0xff;
-            _pRenderer.iBackgroundAlpha = _backgroundAlpha;
-            _pRenderer.iViewWidth = _width;
-            _pRenderer.iViewHeight = _height;
+            this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
+            this._pEntityCollector.camera = this._pCamera;
+            this._pRenderer.iStage3DProxy = this._pStage3DProxy;
+            this._pRenderer.antiAlias = this._antiAlias;
+            this._pRenderer.iBackgroundR = ((this._backgroundColor >> 16) & 0xff)/0xff;
+            this._pRenderer.iBackgroundG = ((this._backgroundColor >> 8) & 0xff)/0xff;
+            this._pRenderer.iBackgroundB = (this._backgroundColor & 0xff)/0xff;
+            this._pRenderer.iBackgroundAlpha = this._backgroundAlpha;
+            this._pRenderer.iViewWidth = this._width;
+            this._pRenderer.iViewHeight = this._height;
 
-            _pBackBufferInvalid = true;
+            this._pBackBufferInvalid = true;
 
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get backgroundColor():Number
 		{
-			return _backgroundColor;
+			return this._backgroundColor;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set backgroundColor(value:Number):void
         {
-            _backgroundColor      = value;
-            _pRenderer.iBackgroundR = ((value >> 16) & 0xff)/0xff;
-            _pRenderer.iBackgroundG = ((value >> 8) & 0xff)/0xff;
-            _pRenderer.iBackgroundB = (value & 0xff)/0xff;
+            this._backgroundColor      = value;
+            this._pRenderer.iBackgroundR = ((value >> 16) & 0xff)/0xff;
+            this._pRenderer.iBackgroundG = ((value >> 8) & 0xff)/0xff;
+            this._pRenderer.iBackgroundB = (value & 0xff)/0xff;
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get backgroundAlpha():Number
 		{
-			return _backgroundAlpha;
+			return this._backgroundAlpha;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
 		public function set backgroundAlpha(value:Number):void
 		{
 			if (value > 1)
@@ -298,189 +234,146 @@ package away.containers
 				value = 0;
 			}
 			
-			_pRenderer.iBackgroundAlpha = value;
-			_backgroundAlpha = value;
+			this._pRenderer.iBackgroundAlpha = value;
+			this._backgroundAlpha = value;
 		}
-        /**
-         *
-         * @returns {away.cameras.Camera3D}
-         */
+        /**         *         * @returns {away.cameras.Camera3D}         */
 		public function get camera():Camera3D
 		{
-			return _pCamera;
+			return this._pCamera;
 		}
-        /**
-         * Set camera that's used to render the scene for this viewport
-         */
+        /**         * Set camera that's used to render the scene for this viewport         */
         public function set camera(camera:Camera3D):void
         {
-            _pCamera.removeEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this );
-            _pCamera = camera;
+            this._pCamera.removeEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this );
+            this._pCamera = camera;
 
-            _pEntityCollector.camera = _pCamera;
+            this._pEntityCollector.camera = this._pCamera;
 
-            if (_pScene)
+            if (this._pScene)
             {
-                _pCamera.partition = _pScene.partition;
+                this._pCamera.partition = this._pScene.partition;
             }
 
-            _pCamera.addEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this);
-            _scissorRectDirty = true;
-            _viewportDirty = true;
+            this._pCamera.addEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this);
+            this._scissorRectDirty = true;
+            this._viewportDirty = true;
 
         }
-        /**
-         *
-         * @returns {away.containers.Scene3D}
-         */
+        /**         *         * @returns {away.containers.Scene3D}         */
 		public function get scene():Scene3D
 		{
-			return _pScene;
+			return this._pScene;
 		}
-        /**
-         * Set the scene that's used to render for this viewport
-         */
+        /**         * Set the scene that's used to render for this viewport         */
         public function set scene(scene:Scene3D):void
         {
-            _pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
-            _pScene = scene;
-            _pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
+            this._pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
+            this._pScene = scene;
+            this._pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
 
-            if (_pCamera)
+            if (this._pCamera)
             {
-                _pCamera.partition = _pScene.partition;
+                this._pCamera.partition = this._pScene.partition;
             }
 
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get deltaTime():Number
 		{
-			return _deltaTime;
+			return this._deltaTime;
 		}
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get width():Number
 		{
-			return _width;
+			return this._width;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set width(value:Number):void
         {
 
-            if (_width == value)
+            if (this._width == value)
             {
                 return;
             }
 
-            if (_pRttBufferManager)
+            if (this._pRttBufferManager)
             {
-                _pRttBufferManager.viewWidth = value;
+                this._pRttBufferManager.viewWidth = value;
             }
 
-            _width = value;
-            _aspectRatio = _width/_height;
-            _pCamera.lens.iAspectRatio= _aspectRatio;
-            _depthTextureInvalid = true;
-            _pRenderer.iViewWidth= value;
-            _pScissorRect.width = value;
-            _pBackBufferInvalid = true;
-            _scissorRectDirty = true;
+            this._width = value;
+            this._aspectRatio = this._width/this._height;
+            this._pCamera.lens.iAspectRatio= this._aspectRatio;
+            this._depthTextureInvalid = true;
+            this._pRenderer.iViewWidth= value;
+            this._pScissorRect.width = value;
+            this._pBackBufferInvalid = true;
+            this._scissorRectDirty = true;
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set height(value:Number):void
         {
 
-            if (_height == value)
+            if (this._height == value)
             {
                 return;
             }
 
-            if (_pRttBufferManager)
+            if (this._pRttBufferManager)
             {
-                _pRttBufferManager.viewHeight = value;
+                this._pRttBufferManager.viewHeight = value;
             }
 
-            _height = value;
-            _aspectRatio = _width/_height;
-            _pCamera.lens.iAspectRatio = _aspectRatio;
-            _depthTextureInvalid = true;
-            _pRenderer.iViewHeight = value;
-            _pScissorRect.height = value;
-            _pBackBufferInvalid = true;
-            _scissorRectDirty = true;
+            this._height = value;
+            this._aspectRatio = this._width/this._height;
+            this._pCamera.lens.iAspectRatio = this._aspectRatio;
+            this._depthTextureInvalid = true;
+            this._pRenderer.iViewHeight = value;
+            this._pScissorRect.height = value;
+            this._pBackBufferInvalid = true;
+            this._scissorRectDirty = true;
 
         }
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set x(value:Number):void
         {
-            if (x == value)
+            if (this.x == value)
                 return;
 
-            _globalPos.x = _localPos.x = value;
-            _globalPosDirty = true;
+            this._globalPos.x = this._localPos.x = value;
+            this._globalPosDirty = true;
         }
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set y(value:Number):void
         {
-            if (y == value)
+            if (this.y == value)
                 return;
 
-            _globalPos.y = _localPos.y = value;
-            _globalPosDirty = true;
+            this._globalPos.y = this._localPos.y = value;
+            this._globalPosDirty = true;
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get x():Number
         {
-            return _localPos.x;
+            return this._localPos.x;
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get y():Number
         {
-            return _localPos.y;
+            return this._localPos.y;
         }
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
         public function get visible():Boolean
         {
             return true;
         }
-        /**
-         *
-         * @param v
-         */
+        /**         *         * @param v         */
         public function set visible(v:Boolean):void
         {
 
@@ -488,151 +381,132 @@ package away.containers
         public function get canvas():HTMLCanvasElement
         {
 
-            return _pStage3DProxy.canvas;
+            return this._pStage3DProxy.canvas;
 
         }
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get antiAlias():Number
 		{
-			return _antiAlias;
+			return this._antiAlias;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
 		public function set antiAlias(value:Number):void
 		{
-			_antiAlias = value;
-			_pRenderer.antiAlias = value;
-			_pBackBufferInvalid = true;
+			this._antiAlias = value;
+			this._pRenderer.antiAlias = value;
+			this._pBackBufferInvalid = true;
 		}
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get renderedFacesCount():Number
 		{
-			return _pEntityCollector._pNumTriangles;//numTriangles;
+			return this._pEntityCollector._pNumTriangles;//numTriangles;
 		}
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
 		public function get shareContext():Boolean
 		{
-			return _pShareContext;
+			return this._pShareContext;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
 		public function set shareContext(value:Boolean):void
 		{
-			if ( _pShareContext == value)
+			if ( this._pShareContext == value)
 			{
 				return;
 			}
-			_pShareContext = value;
-			_globalPosDirty = true;
+			this._pShareContext = value;
+			this._globalPosDirty = true;
 		}
-        /**
-         * Updates the backbuffer dimensions.
-         */
+        /**         * Updates the backbuffer dimensions.         */
         public function pUpdateBackBuffer():void
         {
             // No reason trying to configure back buffer if there is no context available.
             // Doing this anyway (and relying on _stage3DProxy to cache width/height for
             // context does get available) means usesSoftwareRendering won't be reliable.
 
-            if (_pStage3DProxy._iContext3D && ! _pShareContext)
+            if (this._pStage3DProxy._iContext3D && ! this._pShareContext)
             {
 
-                if ( _width && _height)
+                if ( this._width && this._height)
                 {
 
-                    _pStage3DProxy.configureBackBuffer( _width, _height, _antiAlias, true);
-                    _pBackBufferInvalid = false;
+                    this._pStage3DProxy.configureBackBuffer( this._width, this._height, this._antiAlias, true);
+                    this._pBackBufferInvalid = false;
                 }
 
             }
         }
-		/**
-         * Renders the view.
-         */
+		/**         * Renders the view.         */
         public function render():void
         {
 
-            if (!_pStage3DProxy.recoverFromDisposal()) //if context3D has Disposed by the OS,don't render at this frame
+            if (!this._pStage3DProxy.recoverFromDisposal()) //if context3D has Disposed by the OS,don't render at this frame
             {
-                _pBackBufferInvalid = true;
+                this._pBackBufferInvalid = true;
                 return;
             }
 
-            if (_pBackBufferInvalid)// reset or update render settings
+            if (this._pBackBufferInvalid)// reset or update render settings
             {
-                pUpdateBackBuffer();
+                this.pUpdateBackBuffer();
             }
 
-            if (_pShareContext && _layeredView)
+            if (this._pShareContext && this._layeredView)
             {
-                _pStage3DProxy.clearDepthBuffer();
+                this._pStage3DProxy.clearDepthBuffer();
             }
 
-            if (_globalPosDirty)
+            if (this._globalPosDirty)
             {
-                pUpdateGlobalPos();
+                this.pUpdateGlobalPos();
             }
 
-            pUpdateTime();
-            pUpdateViewSizeData();
-            _pEntityCollector.clear();
-            _pScene.traversePartitions( _pEntityCollector );// collect stuff to render
+            this.pUpdateTime();
+            this.pUpdateViewSizeData();
+            this._pEntityCollector.clear();
+            this._pScene.traversePartitions( this._pEntityCollector );// collect stuff to render
 
             // TODO: implement & integrate mouse3DManager
             // update picking
             //_mouse3DManager.updateCollider(this);
             //_touch3DManager.updateCollider();
 
-            if (_pRequireDepthRender)
+            if (this._pRequireDepthRender)
             {
-                pRenderSceneDepthToTexture(_pEntityCollector);
+                this.pRenderSceneDepthToTexture(this._pEntityCollector);
             }
 
-            if (_depthPrepass)
+            if (this._depthPrepass)
             {
-                pRenderDepthPrepass(_pEntityCollector);
+                this.pRenderDepthPrepass(this._pEntityCollector);
             }
 
-            _pRenderer.iClearOnRender = !_depthPrepass;
+            this._pRenderer.iClearOnRender = !this._depthPrepass;
 
-            if (_pFilter3DRenderer && _pStage3DProxy._iContext3D)
+            if (this._pFilter3DRenderer && this._pStage3DProxy._iContext3D)
             {
 
-                _pRenderer.iRender( _pEntityCollector, _pFilter3DRenderer.getMainInputTexture( _pStage3DProxy), _pRttBufferManager.renderToTextureRect);
-                _pFilter3DRenderer.render( _pStage3DProxy, _pCamera , _pDepthRender);
+                this._pRenderer.iRender( this._pEntityCollector, this._pFilter3DRenderer.getMainInputTexture( this._pStage3DProxy), this._pRttBufferManager.renderToTextureRect);
+                this._pFilter3DRenderer.render( this._pStage3DProxy, this._pCamera , this._pDepthRender);
 
             }
             else
             {
-                _pRenderer.iShareContext = _pShareContext;
+                this._pRenderer.iShareContext = this._pShareContext;
 
-                if (_pShareContext)
+                if (this._pShareContext)
                 {
-                    _pRenderer.iRender( _pEntityCollector, null, _pScissorRect);
+                    this._pRenderer.iRender( this._pEntityCollector, null, this._pScissorRect);
                 }
                 else
                 {
-                    _pRenderer.iRender( _pEntityCollector );
+                    this._pRenderer.iRender( this._pEntityCollector );
                 }
 
             }
 
-            if (! _pShareContext)
+            if (! this._pShareContext)
             {
-                _pStage3DProxy.present();
+                this._pStage3DProxy.present();
 
                 // TODO: imeplement mouse3dManager
                 // fire collected mouse events
@@ -642,164 +516,147 @@ package away.containers
             }
 
             // clean up data for this render
-            _pEntityCollector.cleanUp();
+            this._pEntityCollector.cleanUp();
 
             // register that a view has been rendered
-            _pStage3DProxy.bufferClear = false;
+            this._pStage3DProxy.bufferClear = false;
 
         }
-        /**
-         *
-         */
+        /**         *         */
         public function pUpdateGlobalPos():void
         {
 
-            _globalPosDirty = false;
+            this._globalPosDirty = false;
 
-            if (!_pStage3DProxy)
+            if (!this._pStage3DProxy)
             {
                 return;
             }
 
-            if (_pShareContext)
+            if (this._pShareContext)
             {
 
-                _pScissorRect.x = _globalPos.x - _pStage3DProxy.x;
-                _pScissorRect.y = _globalPos.y - _pStage3DProxy.y;
+                this._pScissorRect.x = this._globalPos.x - this._pStage3DProxy.x;
+                this._pScissorRect.y = this._globalPos.y - this._pStage3DProxy.y;
 
             }
             else
             {
 
-                _pScissorRect.x = 0;
-                _pScissorRect.y = 0;
-                _pStage3DProxy.x = _globalPos.x;
-                _pStage3DProxy.y = _globalPos.y;
+                this._pScissorRect.x = 0;
+                this._pScissorRect.y = 0;
+                this._pStage3DProxy.x = this._globalPos.x;
+                this._pStage3DProxy.y = this._globalPos.y;
 
             }
 
-            _scissorRectDirty = true;
+            this._scissorRectDirty = true;
         }
-        /**
-         *
-         */
+        /**         *         */
 		public function pUpdateTime():void
 		{
 			var time:Number = new Date().getTime();
 
-			if ( _time == 0 )
+			if ( this._time == 0 )
 			{
-				_time = time;
+				this._time = time;
 			}
 
-			_deltaTime = time - _time;
-			_time = time;
+			this._deltaTime = time - this._time;
+			this._time = time;
 
 		}
-        /**
-         *
-         */
+        /**         *         */
         public function pUpdateViewSizeData():void
         {
-            _pCamera.lens.iAspectRatio = _aspectRatio;
+            this._pCamera.lens.iAspectRatio = this._aspectRatio;
 
-            if (_scissorRectDirty)
+            if (this._scissorRectDirty)
             {
-                _scissorRectDirty = false;
-                _pCamera.lens.iUpdateScissorRect(_pScissorRect.x, _pScissorRect.y, _pScissorRect.width, _pScissorRect.height);
+                this._scissorRectDirty = false;
+                this._pCamera.lens.iUpdateScissorRect(this._pScissorRect.x, this._pScissorRect.y, this._pScissorRect.width, this._pScissorRect.height);
             }
 
-            if (_viewportDirty)
+            if (this._viewportDirty)
             {
-                _viewportDirty = false;
-                _pCamera.lens.iUpdateViewport(_pStage3DProxy.viewPort.x, _pStage3DProxy.viewPort.y, _pStage3DProxy.viewPort.width, _pStage3DProxy.viewPort.height);
+                this._viewportDirty = false;
+                this._pCamera.lens.iUpdateViewport(this._pStage3DProxy.viewPort.x, this._pStage3DProxy.viewPort.y, this._pStage3DProxy.viewPort.width, this._pStage3DProxy.viewPort.height);
             }
 
-            if (_pFilter3DRenderer || _pRenderer.iRenderToTexture )
+            if (this._pFilter3DRenderer || this._pRenderer.iRenderToTexture )
             {
-                _pRenderer.iTextureRatioX = _pRttBufferManager.textureRatioX;
-                _pRenderer.iTextureRatioY = _pRttBufferManager.textureRatioY;
+                this._pRenderer.iTextureRatioX = this._pRttBufferManager.textureRatioX;
+                this._pRenderer.iTextureRatioY = this._pRttBufferManager.textureRatioY;
             }
             else
             {
-                _pRenderer.iTextureRatioX = 1;
-                _pRenderer.iTextureRatioY = 1;
+                this._pRenderer.iTextureRatioX = 1;
+                this._pRenderer.iTextureRatioY = 1;
             }
         }
-        /**
-         *
-         * @param entityCollector
-         */
+        /**         *         * @param entityCollector         */
         public function pRenderDepthPrepass(entityCollector:EntityCollector):void
         {
-            _depthRenderer.disableColor = true;
+            this._depthRenderer.disableColor = true;
 
-            if ( _pFilter3DRenderer || _pRenderer.iRenderToTexture )
+            if ( this._pFilter3DRenderer || this._pRenderer.iRenderToTexture )
             {
-                _depthRenderer.iTextureRatioX = _pRttBufferManager.textureRatioX;
-                _depthRenderer.iTextureRatioY = _pRttBufferManager.textureRatioY;
-                _depthRenderer.iRender( entityCollector, _pFilter3DRenderer.getMainInputTexture(_pStage3DProxy), _pRttBufferManager.renderToTextureRect);
+                this._depthRenderer.iTextureRatioX = this._pRttBufferManager.textureRatioX;
+                this._depthRenderer.iTextureRatioY = this._pRttBufferManager.textureRatioY;
+                this._depthRenderer.iRender( entityCollector, this._pFilter3DRenderer.getMainInputTexture(this._pStage3DProxy), this._pRttBufferManager.renderToTextureRect);
             }
             else
             {
-                _depthRenderer.iTextureRatioX = 1;
-                _depthRenderer.iTextureRatioY = 1;
-                _depthRenderer.iRender(entityCollector);
+                this._depthRenderer.iTextureRatioX = 1;
+                this._depthRenderer.iTextureRatioY = 1;
+                this._depthRenderer.iRender(entityCollector);
             }
 
-            _depthRenderer.disableColor = false;
+            this._depthRenderer.disableColor = false;
 
         }
-        /**
-         *
-         * @param entityCollector
-         */
+        /**         *         * @param entityCollector         */
         public function pRenderSceneDepthToTexture(entityCollector:EntityCollector):void
         {
-            if (_depthTextureInvalid || !_pDepthRender)
+            if (this._depthTextureInvalid || !this._pDepthRender)
             {
-                initDepthTexture( _pStage3DProxy._iContext3D);
+                this.initDepthTexture( this._pStage3DProxy._iContext3D);
             }
-            _depthRenderer.iTextureRatioX = _pRttBufferManager.textureRatioX;
-            _depthRenderer.iTextureRatioY = _pRttBufferManager.textureRatioY;
-            _depthRenderer.iRender(entityCollector, _pDepthRender);
+            this._depthRenderer.iTextureRatioX = this._pRttBufferManager.textureRatioX;
+            this._depthRenderer.iTextureRatioY = this._pRttBufferManager.textureRatioY;
+            this._depthRenderer.iRender(entityCollector, this._pDepthRender);
         }
-        /**
-         *
-         * @param context
-         */
+        /**         *         * @param context         */
 		private function initDepthTexture(context:Context3D):void
 		{
-			_depthTextureInvalid = false;
+			this._depthTextureInvalid = false;
 			
-			if ( _pDepthRender)
+			if ( this._pDepthRender)
 			{
-				_pDepthRender.dispose();
+				this._pDepthRender.dispose();
 			}
-			_pDepthRender = context.createTexture( _pRttBufferManager.textureWidth, _pRttBufferManager.textureHeight, Context3DTextureFormat.BGRA, true );
+			this._pDepthRender = context.createTexture( this._pRttBufferManager.textureWidth, this._pRttBufferManager.textureHeight, Context3DTextureFormat.BGRA, true );
 		}
-        /**
-         *
-         */
+        /**         *         */
         public function dispose():void
         {
-            _pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated , this );
+            this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated , this );
 
-            if (!shareContext)
+            if (!this.shareContext)
             {
-                _pStage3DProxy.dispose();
+                this._pStage3DProxy.dispose();
             }
 
-            _pRenderer.iDispose();
+            this._pRenderer.iDispose();
 
-            if (_pDepthRender)
+            if (this._pDepthRender)
             {
-                _pDepthRender.dispose();
+                this._pDepthRender.dispose();
             }
 
-            if (_pRttBufferManager)
+            if (this._pRttBufferManager)
             {
-                _pRttBufferManager.dispose();
+                this._pRttBufferManager.dispose();
             }
 
             // TODO: imeplement mouse3DManager / touch3DManager
@@ -810,96 +667,79 @@ package away.containers
             //this._mouse3DManager = null;
             //this._touch3DManager = null;
 
-            _pRttBufferManager = null;
-            _pDepthRender = null;
-            _depthRenderer = null;
-            _pStage3DProxy = null;
-            _pRenderer = null;
-            _pEntityCollector = null;
+            this._pRttBufferManager = null;
+            this._pDepthRender = null;
+            this._depthRenderer = null;
+            this._pStage3DProxy = null;
+            this._pRenderer = null;
+            this._pEntityCollector = null;
         }
-        /**
-         *
-         * @returns {away.traverse.EntityCollector}
-         */
+        /**         *         * @returns {away.traverse.EntityCollector}         */
 		public function get iEntityCollector():EntityCollector
 		{
-			return _pEntityCollector;
+			return this._pEntityCollector;
 		}
-        /**
-         *
-         * @param event
-         */
+        /**         *         * @param event         */
 		private function onLensChanged(event:CameraEvent):void
 		{
-			_scissorRectDirty = true;
-			_viewportDirty = true;
+			this._scissorRectDirty = true;
+			this._viewportDirty = true;
 		}
-        /**
-         *
-         * @param event
-         */
+        /**         *         * @param event         */
 		private function onViewportUpdated(event:Stage3DEvent):void
 		{
-			if( _pShareContext)
+			if( this._pShareContext)
             {
-				_pScissorRect.x = _globalPos.x - _pStage3DProxy.x;
-				_pScissorRect.y = _globalPos.y - _pStage3DProxy.y;
-				_scissorRectDirty = true;
+				this._pScissorRect.x = this._globalPos.x - this._pStage3DProxy.x;
+				this._pScissorRect.y = this._globalPos.y - this._pStage3DProxy.y;
+				this._scissorRectDirty = true;
 			}
-			_viewportDirty = true;
+			this._viewportDirty = true;
 		}
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
 		public function get depthPrepass():Boolean
 		{
-			return _depthPrepass;
+			return this._depthPrepass;
 		}
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
 		public function set depthPrepass(value:Boolean):void
 		{
-			_depthPrepass = value;
+			this._depthPrepass = value;
 		}
-        /**
-         *
-         */
+        /**         *         */
         private function onAddedToStage():void
         {
 
-            _addedToStage = true;
+            this._addedToStage = true;
 
-            if (_pStage3DProxy == null )
+            if (this._pStage3DProxy == null )
             {
 
-                _pStage3DProxy= Stage3DManager.getInstance( stage ).getFreeStage3DProxy(_forceSoftware, _profile);
-                _pStage3DProxy.addEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated , this );
+                this._pStage3DProxy= Stage3DManager.getInstance( this.stage ).getFreeStage3DProxy(this._forceSoftware, this._profile);
+                this._pStage3DProxy.addEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated , this );
 
             }
 
-            _globalPosDirty = true;
-            _pRttBufferManager = RTTBufferManager.getInstance(_pStage3DProxy);
-            _pRenderer.iStage3DProxy = _depthRenderer.iStage3DProxy = _pStage3DProxy;
+            this._globalPosDirty = true;
+            this._pRttBufferManager = RTTBufferManager.getInstance(this._pStage3DProxy);
+            this._pRenderer.iStage3DProxy = this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
 
-            if (_width == 0)
+            if (this._width == 0)
             {
-                width = stage.stageWidth;
-            }
-            else
-            {
-                _pRttBufferManager.viewWidth = _width;
-            }
-
-            if (_height == 0)
-            {
-                height = stage.stageHeight;
+                this.width = this.stage.stageWidth;
             }
             else
             {
-                _pRttBufferManager.viewHeight = _height;
+                this._pRttBufferManager.viewWidth = this._width;
+            }
+
+            if (this._height == 0)
+            {
+                this.height = this.stage.stageHeight;
+            }
+            else
+            {
+                this._pRttBufferManager.viewHeight = this._height;
             }
 
         }
@@ -909,71 +749,29 @@ package away.containers
 
         public function project(point3d:Vector3D):Vector3D
         {
-            var v:Vector3D = _pCamera.project( point3d );
-            v.x = (v.x + 1.0) * _width/2.0;
-            v.y = (v.y + 1.0) * _height/2.0;
+            var v:Vector3D = this._pCamera.project( point3d );
+            v.x = (v.x + 1.0) * this._width/2.0;
+            v.y = (v.y + 1.0) * this._height/2.0;
             return v;
         }
 
         public function unproject(sX:Number, sY:Number, sZ:Number):Vector3D
         {
-            return _pCamera.unproject( (sX*2 - _width)/_pStage3DProxy.width, (sY*2 - _height)/_pStage3DProxy.height, sZ );
+            return this._pCamera.unproject( (sX*2 - this._width)/this._pStage3DProxy.width, (sY*2 - this._height)/this._pStage3DProxy.height, sZ );
         }
 
         public function getRay(sX:Number, sY:Number, sZ:Number):Vector3D
         {
-            return _pCamera.getRay( (sX*2 - _width)/_width, (sY*2 - _height)/_height, sZ );
+            return this._pCamera.getRay( (sX*2 - this._width)/this._width, (sY*2 - this._height)/this._height, sZ );
         }
-        /* TODO: implement Mouse3DManager
-        public get mousePicker():away.pick.IPicker
-        {
-            return this._mouse3DManager.mousePicker;
-        }
-        */
-        /* TODO: implement Mouse3DManager
-        public set mousePicker( value:away.pick.IPicker )
-        {
-            this._mouse3DManager.mousePicker = value;
-        }
-        */
-        /* TODO: implement Touch3DManager
-        public get touchPicker():away.pick.IPicker
-        {
-            return this._touch3DManager.touchPicker;
-        }
-        */
-        /* TODO: implement Touch3DManager
-        public set touchPicker( value:away.pick.IPicker)
-        {
-            this._touch3DManager.touchPicker = value;
-        }
-        */
-        /*TODO: implement Mouse3DManager
-        public get forceMouseMove():boolean
-        {
-            return this._mouse3DManager.forceMouseMove;
-        }
-        */
-        /* TODO: implement Mouse3DManager
-        public set forceMouseMove( value:boolean )
-        {
-            this._mouse3DManager.forceMouseMove = value;
-            this._touch3DManager.forceTouchMove = value;
-        }
-        */
-        /*TODO: implement Background
-        public get background():away.textures.Texture2DBase
-        {
-            return this._background;
-        }
-        */
-        /*TODO: implement Background
-        public set background( value:away.textures.Texture2DBase )
-        {
-            this._background = value;
-            this._renderer.background = _background;
-        }
-        */
+        /* TODO: implement Mouse3DManager        public get mousePicker():away.pick.IPicker        {            return this._mouse3DManager.mousePicker;        }        */
+        /* TODO: implement Mouse3DManager        public set mousePicker( value:away.pick.IPicker )        {            this._mouse3DManager.mousePicker = value;        }        */
+        /* TODO: implement Touch3DManager        public get touchPicker():away.pick.IPicker        {            return this._touch3DManager.touchPicker;        }        */
+        /* TODO: implement Touch3DManager        public set touchPicker( value:away.pick.IPicker)        {            this._touch3DManager.touchPicker = value;        }        */
+        /*TODO: implement Mouse3DManager        public get forceMouseMove():boolean        {            return this._mouse3DManager.forceMouseMove;        }        */
+        /* TODO: implement Mouse3DManager        public set forceMouseMove( value:boolean )        {            this._mouse3DManager.forceMouseMove = value;            this._touch3DManager.forceTouchMove = value;        }        */
+        /*TODO: implement Background        public get background():away.textures.Texture2DBase        {            return this._background;        }        */
+        /*TODO: implement Background        public set background( value:away.textures.Texture2DBase )        {            this._background = value;            this._renderer.background = _background;        }        */
 
 	}
 }

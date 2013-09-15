@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.bounds
@@ -21,16 +19,16 @@ package away.bounds
 		public function NullBounds(alwaysIn:Boolean = true, renderable:WireframePrimitiveBase = null):void
 		{
 			super();
-			_alwaysIn = alwaysIn;
-			_renderable = renderable;
-			_pMax.x = _pMax.y = _pMax.z = Number.POSITIVE_INFINITY;
-			_pMin.x = _pMin.y = _pMin.z = _alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			this._alwaysIn = alwaysIn;
+			this._renderable = renderable;
+			this._pMax.x = this._pMax.y = this._pMax.z = Number.POSITIVE_INFINITY;
+			this._pMin.x = this._pMin.y = this._pMin.z = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
 		}
 		
 		//@override
 		override public function clone():BoundingVolumeBase
 		{
-			return new NullBounds( _alwaysIn );
+			return new NullBounds( this._alwaysIn );
 		}
 		
 		//@override
@@ -45,7 +43,7 @@ package away.bounds
 		{
 			planes = planes;
 			numPlanes = numPlanes;
-			return _alwaysIn;
+			return this._alwaysIn;
 		}
 		
 		//@override
@@ -74,7 +72,7 @@ package away.bounds
 		{
 			matrix = matrix;
 			var nullBounds:NullBounds = (bounds as NullBounds);
-			_alwaysIn = nullBounds._alwaysIn;
+			this._alwaysIn = nullBounds._alwaysIn;
 		}
 	}
 }

@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.net {
@@ -9,26 +10,20 @@ package away.net {
 
         private var _variables:Object = new Object();
 
-        /**
-         *
-         * @param source
-         */
+        /**         *         * @param source         */
         public function URLVariables(source:String = null):void
         {
 
             if ( source !== null )
             {
 
-                decode( source );
+                this.decode( source );
 
             }
 
 
         }
-        /**
-         *
-         * @param source
-         */
+        /**         *         * @param source         */
         public function decode(source:String):void
         {
 
@@ -38,43 +33,34 @@ package away.net {
 
             while (tokens = re.exec(source)) {
 
-                _variables[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+                this._variables[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
 
             }
 
         }
-        /**
-         *
-         * @returns {string}
-         */
+        /**         *         * @returns {string}         */
         public function toString():String
         {
 
             return '';
         }
-        /**
-         *
-         * @returns {Object}
-         */
+        /**         *         * @returns {Object}         */
         public function get variables():Object
         {
 
-            return _variables;
+            return this._variables;
 
         }
-        /**
-         *
-         * @returns {Object}
-         */
+        /**         *         * @returns {Object}         */
         public function get formData():FormData
         {
 
             var fd : FormData = new FormData();
 
-            for ( var s in _variables )
+            for ( var s in this._variables )
             {
 
-                fd.append( s , _variables[s] );
+                fd.append( s , this._variables[s] );
 
             }
 
@@ -82,14 +68,11 @@ package away.net {
 
 
         }
-        /**
-         *
-         * @returns {Object}
-         */
+        /**         *         * @returns {Object}         */
         public function set variables(obj:Object):void
         {
 
-            _variables = obj;
+            this._variables = obj;
 
         }
 

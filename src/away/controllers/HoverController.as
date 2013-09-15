@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts" />
+
 package away.controllers
 {
 	import away.entities.Entity;
@@ -6,11 +7,7 @@ package away.controllers
 	import away.geom.Vector3D;
 	import away.math.MathConsts;
 
-	/**
-	 * Extended camera used to hover round a specified target object.
-	 *
-	 * @see    away3d.containers.View3D
-	 */
+	/**	 * Extended camera used to hover round a specified target object.	 *	 * @see    away3d.containers.View3D	 */
 	public class HoverController extends LookAtController
 	{
         public var _iCurrentPanAngle:Number = 0;
@@ -27,286 +24,239 @@ package away.controllers
 		private var _yFactor:Number = 2;
 		private var _wrapPanAngle:Boolean = false;
 		
-		/**
-		 * Fractional step taken each time the <code>hover()</code> method is called. Defaults to 8.
-		 *
-		 * Affects the speed at which the <code>tiltAngle</code> and <code>panAngle</code> resolve to their targets.
-		 *
-		 * @see    #tiltAngle
-		 * @see    #panAngle
-		 */
+		/**		 * Fractional step taken each time the <code>hover()</code> method is called. Defaults to 8.		 *		 * Affects the speed at which the <code>tiltAngle</code> and <code>panAngle</code> resolve to their targets.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 */
 		public function get steps():Number
 		{
-			return _steps;
+			return this._steps;
 		}
 		
 		public function set steps(val:Number):void
 		{
 			val = (val < 1)? 1 : val;
 			
-			if (_steps == val)
+			if (this._steps == val)
 				return;
 
-            _steps = val;
+            this._steps = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Rotation of the camera in degrees around the y axis. Defaults to 0.
-		 */
+		/**		 * Rotation of the camera in degrees around the y axis. Defaults to 0.		 */
 		public function get panAngle():Number
 		{
-			return _panAngle;
+			return this._panAngle;
 		}
 		
 		public function set panAngle(val:Number):void
 		{
-			val = Math.max(_minPanAngle, Math.min(_maxPanAngle, val));
+			val = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, val));
 			
-			if (_panAngle == val)
+			if (this._panAngle == val)
 				return;
 
-            _panAngle = val;
+            this._panAngle = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Elevation angle of the camera in degrees. Defaults to 90.
-		 */
+		/**		 * Elevation angle of the camera in degrees. Defaults to 90.		 */
 		public function get tiltAngle():Number
 		{
-			return _tiltAngle;
+			return this._tiltAngle;
 		}
 		
 		public function set tiltAngle(val:Number):void
 		{
-			val = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, val));
+			val = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, val));
 			
-			if (_tiltAngle == val)
+			if (this._tiltAngle == val)
 				return;
 
-            _tiltAngle = val;
+            this._tiltAngle = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Distance between the camera and the specified target. Defaults to 1000.
-		 */
+		/**		 * Distance between the camera and the specified target. Defaults to 1000.		 */
 		public function get distance():Number
 		{
-			return _distance;
+			return this._distance;
 		}
 		
 		public function set distance(val:Number):void
 		{
-			if (_distance == val)
+			if (this._distance == val)
 				return;
 
-            _distance = val;
+            this._distance = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Minimum bounds for the <code>panAngle</code>. Defaults to -Infinity.
-		 *
-		 * @see    #panAngle
-		 */
+		/**		 * Minimum bounds for the <code>panAngle</code>. Defaults to -Infinity.		 *		 * @see    #panAngle		 */
 		public function get minPanAngle():Number
 		{
-			return _minPanAngle;
+			return this._minPanAngle;
 		}
 		
 		public function set minPanAngle(val:Number):void
 		{
-			if (_minPanAngle == val)
+			if (this._minPanAngle == val)
 				return;
 
-            _minPanAngle = val;
+            this._minPanAngle = val;
 
-            panAngle = Math.max(_minPanAngle, Math.min(_maxPanAngle, _panAngle));
+            this.panAngle = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, this._panAngle));
 		}
 		
-		/**
-		 * Maximum bounds for the <code>panAngle</code>. Defaults to Infinity.
-		 *
-		 * @see    #panAngle
-		 */
+		/**		 * Maximum bounds for the <code>panAngle</code>. Defaults to Infinity.		 *		 * @see    #panAngle		 */
 		public function get maxPanAngle():Number
 		{
-			return _maxPanAngle;
+			return this._maxPanAngle;
 		}
 		
 		public function set maxPanAngle(val:Number):void
 		{
-			if (_maxPanAngle == val)
+			if (this._maxPanAngle == val)
 				return;
 
-            _maxPanAngle = val;
+            this._maxPanAngle = val;
 
-            panAngle = Math.max(_minPanAngle, Math.min(_maxPanAngle, _panAngle));
+            this.panAngle = Math.max(this._minPanAngle, Math.min(this._maxPanAngle, this._panAngle));
 		}
 		
-		/**
-		 * Minimum bounds for the <code>tiltAngle</code>. Defaults to -90.
-		 *
-		 * @see    #tiltAngle
-		 */
+		/**		 * Minimum bounds for the <code>tiltAngle</code>. Defaults to -90.		 *		 * @see    #tiltAngle		 */
 		public function get minTiltAngle():Number
 		{
-			return _minTiltAngle;
+			return this._minTiltAngle;
 		}
 		
 		public function set minTiltAngle(val:Number):void
 		{
-			if (_minTiltAngle == val)
+			if (this._minTiltAngle == val)
 				return;
 
-            _minTiltAngle = val;
+            this._minTiltAngle = val;
 
-            tiltAngle = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, _tiltAngle));
+            this.tiltAngle = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, this._tiltAngle));
 		}
 		
-		/**
-		 * Maximum bounds for the <code>tiltAngle</code>. Defaults to 90.
-		 *
-		 * @see    #tiltAngle
-		 */
+		/**		 * Maximum bounds for the <code>tiltAngle</code>. Defaults to 90.		 *		 * @see    #tiltAngle		 */
 		public function get maxTiltAngle():Number
 		{
-			return _maxTiltAngle;
+			return this._maxTiltAngle;
 		}
 		
 		public function set maxTiltAngle(val:Number):void
 		{
-			if (_maxTiltAngle == val)
+			if (this._maxTiltAngle == val)
 				return;
 
-            _maxTiltAngle = val;
+            this._maxTiltAngle = val;
 
-            tiltAngle = Math.max(_minTiltAngle, Math.min(_maxTiltAngle, _tiltAngle));
+            this.tiltAngle = Math.max(this._minTiltAngle, Math.min(this._maxTiltAngle, this._tiltAngle));
 		}
 		
-		/**
-		 * Fractional difference in distance between the horizontal camera orientation and vertical camera orientation. Defaults to 2.
-		 *
-		 * @see    #distance
-		 */
+		/**		 * Fractional difference in distance between the horizontal camera orientation and vertical camera orientation. Defaults to 2.		 *		 * @see    #distance		 */
 		public function get yFactor():Number
 		{
-			return _yFactor;
+			return this._yFactor;
 		}
 		
 		public function set yFactor(val:Number):void
 		{
-			if (_yFactor == val)
+			if (this._yFactor == val)
 				return;
 
-            _yFactor = val;
+            this._yFactor = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Defines whether the value of the pan angle wraps when over 360 degrees or under 0 degrees. Defaults to false.
-		 */
+		/**		 * Defines whether the value of the pan angle wraps when over 360 degrees or under 0 degrees. Defaults to false.		 */
 		public function get wrapPanAngle():Boolean
 		{
-			return _wrapPanAngle;
+			return this._wrapPanAngle;
 		}
 		
 		public function set wrapPanAngle(val:Boolean):void
 		{
-			if (_wrapPanAngle == val)
+			if (this._wrapPanAngle == val)
 				return;
 
-            _wrapPanAngle = val;
+            this._wrapPanAngle = val;
 
-            pNotifyUpdate();
+            this.pNotifyUpdate();
 		}
 		
-		/**
-		 * Creates a new <code>HoverController</code> object.
-		 */
+		/**		 * Creates a new <code>HoverController</code> object.		 */
 		public function HoverController(targetObject:Entity = null, lookAtObject:ObjectContainer3D = null, panAngle:Number = 0, tiltAngle:Number = 90, distance:Number = 1000, minTiltAngle:Number = -90, maxTiltAngle:Number = 90, minPanAngle:Number = NaN, maxPanAngle:Number = NaN, steps:Number = 8, yFactor:Number = 2, wrapPanAngle:Boolean = false):void
 		{
 			super(targetObject, lookAtObject);
 			
-			distance = distance;
-			panAngle = panAngle;
-			tiltAngle = tiltAngle;
-			minPanAngle = minPanAngle || -Infinity;
-			maxPanAngle = maxPanAngle || Infinity;
-			minTiltAngle = minTiltAngle;
-			maxTiltAngle = maxTiltAngle;
-			steps = steps;
-			yFactor = yFactor;
-			wrapPanAngle = wrapPanAngle;
+			this.distance = distance;
+			this.panAngle = panAngle;
+			this.tiltAngle = tiltAngle;
+			this.minPanAngle = minPanAngle || -Infinity;
+			this.maxPanAngle = maxPanAngle || Infinity;
+			this.minTiltAngle = minTiltAngle;
+			this.maxTiltAngle = maxTiltAngle;
+			this.steps = steps;
+			this.yFactor = yFactor;
+			this.wrapPanAngle = wrapPanAngle;
 			
 			//values passed in contrustor are applied immediately
-			_iCurrentPanAngle = _panAngle;
-            _iCurrentTiltAngle = _tiltAngle;
+			this._iCurrentPanAngle = this._panAngle;
+            this._iCurrentTiltAngle = this._tiltAngle;
 		}
 		
-		/**
-		 * Updates the current tilt angle and pan angle values.
-		 *
-		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.
-		 *
-		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.
-		 *
-		 * @see    #tiltAngle
-		 * @see    #panAngle
-		 * @see    #steps
-		 */
+		/**		 * Updates the current tilt angle and pan angle values.		 *		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.		 *		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 * @see    #steps		 */
 		override public function update(interpolate:Boolean = true):void
 		{
-			if (_tiltAngle != _iCurrentTiltAngle || _panAngle != _iCurrentPanAngle)
+			if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle)
             {
 
-                pNotifyUpdate();
+                this.pNotifyUpdate();
 				
-				if (_wrapPanAngle)
+				if (this._wrapPanAngle)
                 {
-					if (_panAngle < 0)
+					if (this._panAngle < 0)
                     {
-                        _iCurrentPanAngle += _panAngle%360 + 360 - _panAngle;
-                        _panAngle = _panAngle%360 + 360;
+                        this._iCurrentPanAngle += this._panAngle%360 + 360 - this._panAngle;
+                        this._panAngle = this._panAngle%360 + 360;
 					} else {
-                        _iCurrentPanAngle += _panAngle%360 - _panAngle;
-                        _panAngle = _panAngle%360;
+                        this._iCurrentPanAngle += this._panAngle%360 - this._panAngle;
+                        this._panAngle = this._panAngle%360;
 					}
 					
-					while (_panAngle - _iCurrentPanAngle < -180)
-                        _iCurrentPanAngle -= 360;
+					while (this._panAngle - this._iCurrentPanAngle < -180)
+                        this._iCurrentPanAngle -= 360;
 					
-					while (_panAngle - _iCurrentPanAngle > 180)
-                        _iCurrentPanAngle += 360;
+					while (this._panAngle - this._iCurrentPanAngle > 180)
+                        this._iCurrentPanAngle += 360;
 				}
 				
 				if (interpolate) {
-                    _iCurrentTiltAngle += (_tiltAngle - _iCurrentTiltAngle)/(steps + 1);
-                    _iCurrentPanAngle += (_panAngle - _iCurrentPanAngle)/(steps + 1);
+                    this._iCurrentTiltAngle += (this._tiltAngle - this._iCurrentTiltAngle)/(this.steps + 1);
+                    this._iCurrentPanAngle += (this._panAngle - this._iCurrentPanAngle)/(this.steps + 1);
 				} else {
-                    _iCurrentPanAngle = _panAngle;
-                    _iCurrentTiltAngle = _tiltAngle;
+                    this._iCurrentPanAngle = this._panAngle;
+                    this._iCurrentTiltAngle = this._tiltAngle;
 				}
 				
 				//snap coords if angle differences are close
-				if ((Math.abs(tiltAngle - _iCurrentTiltAngle) < 0.01) && (Math.abs(_panAngle - _iCurrentPanAngle) < 0.01))
+				if ((Math.abs(this.tiltAngle - this._iCurrentTiltAngle) < 0.01) && (Math.abs(this._panAngle - this._iCurrentPanAngle) < 0.01))
                 {
-                    _iCurrentTiltAngle = _tiltAngle;
-                    _iCurrentPanAngle = _panAngle;
+                    this._iCurrentTiltAngle = this._tiltAngle;
+                    this._iCurrentPanAngle = this._panAngle;
 				}
 			}
 			
-			var pos:Vector3D = (lookAtObject)? lookAtObject.position : (lookAtPosition)? lookAtPosition : _pOrigin;
-			targetObject.x = pos.x + distance*Math.sin(_iCurrentPanAngle*MathConsts.DEGREES_TO_RADIANS)*Math.cos(_iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS);
-            targetObject.z = pos.z + distance*Math.cos(_iCurrentPanAngle*MathConsts.DEGREES_TO_RADIANS)*Math.cos(_iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS);
-            targetObject.y = pos.y + distance*Math.sin(_iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS)*yFactor;
+			var pos:Vector3D = (this.lookAtObject)? this.lookAtObject.position : (this.lookAtPosition)? this.lookAtPosition : this._pOrigin;
+			this.targetObject.x = pos.x + this.distance*Math.sin(this._iCurrentPanAngle*MathConsts.DEGREES_TO_RADIANS)*Math.cos(this._iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS);
+            this.targetObject.z = pos.z + this.distance*Math.cos(this._iCurrentPanAngle*MathConsts.DEGREES_TO_RADIANS)*Math.cos(this._iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS);
+            this.targetObject.y = pos.y + this.distance*Math.sin(this._iCurrentTiltAngle*MathConsts.DEGREES_TO_RADIANS)*this.yFactor;
 			
 			super.update();
 		}

@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.render
 {
 	import away.materials.MaterialBase;
@@ -18,10 +19,7 @@ package away.render
 	import away.geom.Vector3D;
 	import away.data.RenderableListItem;
 
-	/**
-	 * The DefaultRenderer class provides the default rendering method. It renders the scene graph objects using the
-	 * materials assigned to them.
-	 */
+	/**	 * The DefaultRenderer class provides the default rendering method. It renders the scene graph objects using the	 * materials assigned to them.	 */
 	public class DefaultRenderer extends RendererBase
 	{
 		private static var RTT_PASSES:Number = 1;
@@ -33,17 +31,13 @@ package away.render
 		private var _pDepthRenderer:DepthRenderer;
 		private var _skyboxProjection:Matrix3D = new Matrix3D();
 		
-		/**
-		 * Creates a new DefaultRenderer object.
-		 * @param antiAlias The amount of anti-aliasing to use.
-		 * @param renderMode The render mode to use.
-		 */
+		/**		 * Creates a new DefaultRenderer object.		 * @param antiAlias The amount of anti-aliasing to use.		 * @param renderMode The render mode to use.		 */
 		public function DefaultRenderer():void
 		{
 			super(false);
 			
-			_pDepthRenderer = new DepthRenderer();
-            _pDistanceRenderer = new DepthRenderer(false, true);
+			this._pDepthRenderer = new DepthRenderer();
+            this._pDistanceRenderer = new DepthRenderer(false, true);
 
 		}
 		
@@ -51,22 +45,22 @@ package away.render
 		{
 
 			super.iSetStage3DProxy(value );
-			_pDistanceRenderer.iStage3DProxy = _pDepthRenderer.iStage3DProxy = value;
+			this._pDistanceRenderer.iStage3DProxy = this._pDepthRenderer.iStage3DProxy = value;
 
 		}
 
         override public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
 
-			updateLights(entityCollector);
+			this.updateLights(entityCollector);
 			
 			// otherwise RTT will interfere with other RTTs
 
 			if (target)
             {
 
-				drawRenderables(entityCollector.opaqueRenderableHead, entityCollector, DefaultRenderer.RTT_PASSES);
-                drawRenderables(entityCollector.blendedRenderableHead, entityCollector, DefaultRenderer.RTT_PASSES);
+				this.drawRenderables(entityCollector.opaqueRenderableHead, entityCollector, DefaultRenderer.RTT_PASSES);
+                this.drawRenderables(entityCollector.blendedRenderableHead, entityCollector, DefaultRenderer.RTT_PASSES);
 
 			}
 			
@@ -93,7 +87,7 @@ package away.render
 				if (light.castsShadows && (shadowMapper.autoUpdateShadows || shadowMapper._iShadowsInvalid ))
                 {
 
-                    shadowMapper.iRenderDepthMap( _pStage3DProxy, entityCollector, _pDepthRenderer);
+                    shadowMapper.iRenderDepthMap( this._pStage3DProxy, entityCollector, this._pDepthRenderer);
                     
                 }
 					
@@ -111,62 +105,57 @@ package away.render
 				if (light.castsShadows && (shadowMapper.autoUpdateShadows || shadowMapper._iShadowsInvalid))
                 {
 
-                    shadowMapper.iRenderDepthMap(_pStage3DProxy, entityCollector, _pDistanceRenderer);
+                    shadowMapper.iRenderDepthMap(this._pStage3DProxy, entityCollector, this._pDistanceRenderer);
                     
                 }
 					
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pDraw(entityCollector:EntityCollector, target:TextureBase):void
 		{
 
-			_pContext.setBlendFactors(Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO);
+			this._pContext.setBlendFactors(Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO);
 
 			if (entityCollector.skyBox)
             {
-				if (_activeMaterial)
+				if (this._activeMaterial)
                 {
 
-                    _activeMaterial.iDeactivate(_pStage3DProxy);
+                    this._activeMaterial.iDeactivate(this._pStage3DProxy);
 
                 }
 
-				_activeMaterial = null;
+				this._activeMaterial = null;
 				
-				_pContext.setDepthTest(false, Context3DCompareMode.ALWAYS);
-				drawSkyBox(entityCollector);
+				this._pContext.setDepthTest(false, Context3DCompareMode.ALWAYS);
+				this.drawSkyBox(entityCollector);
 
 			}
 			
-			_pContext.setDepthTest(true, Context3DCompareMode.LESS_EQUAL);
+			this._pContext.setDepthTest(true, Context3DCompareMode.LESS_EQUAL);
 			
 			var which:Number = target? DefaultRenderer.SCREEN_PASSES : DefaultRenderer.ALL_PASSES;
 
-			drawRenderables(entityCollector.opaqueRenderableHead, entityCollector, which);
-            drawRenderables(entityCollector.blendedRenderableHead, entityCollector, which);
+			this.drawRenderables(entityCollector.opaqueRenderableHead, entityCollector, which);
+            this.drawRenderables(entityCollector.blendedRenderableHead, entityCollector, which);
 			
-			_pContext.setDepthTest(false, Context3DCompareMode.LESS_EQUAL);
+			this._pContext.setDepthTest(false, Context3DCompareMode.LESS_EQUAL);
 			
-			if (_activeMaterial)
+			if (this._activeMaterial)
             {
 
-                _activeMaterial.iDeactivate(_pStage3DProxy);
+                this._activeMaterial.iDeactivate(this._pStage3DProxy);
 
             }
 
 			
-			_activeMaterial = null;
+			this._activeMaterial = null;
 
 		}
 		
-		/**
-		 * Draw the skybox if present.
-		 * @param entityCollector The EntityCollector containing all potentially visible information.
-		 */
+		/**		 * Draw the skybox if present.		 * @param entityCollector The EntityCollector containing all potentially visible information.		 */
 		private function drawSkyBox(entityCollector:EntityCollector):void
 		{
 			var skyBox:IRenderable = entityCollector.skyBox;
@@ -175,11 +164,11 @@ package away.render
 
 			var camera:Camera3D = entityCollector.camera;
 			
-			updateSkyBoxProjection(camera);
+			this.updateSkyBoxProjection(camera);
 			
-			material.iActivatePass(0, _pStage3DProxy, camera);
-			material.iRenderPass(0, skyBox, _pStage3DProxy, entityCollector, _skyboxProjection);
-			material.iDeactivatePass(0, _pStage3DProxy);
+			material.iActivatePass(0, this._pStage3DProxy, camera);
+			material.iRenderPass(0, skyBox, this._pStage3DProxy, entityCollector, this._skyboxProjection);
+			material.iDeactivatePass(0, this._pStage3DProxy);
 
 		}
 		
@@ -188,8 +177,8 @@ package away.render
 
 			var near:Vector3D = new Vector3D();
 
-			_skyboxProjection.copyFrom(_pRttViewProjectionMatrix);
-            _skyboxProjection.copyRowTo(2, near);
+			this._skyboxProjection.copyFrom(this._pRttViewProjectionMatrix);
+            this._skyboxProjection.copyRowTo(2, near);
 
 			var camPos:Vector3D = camera.scenePosition;
 			
@@ -203,24 +192,20 @@ package away.render
 
 			var p:Vector3D = new Vector3D(signX, signY, 1, 1);
 
-			var inverse:Matrix3D = _skyboxProjection.clone();
+			var inverse:Matrix3D = this._skyboxProjection.clone();
 			    inverse.invert();
 
 			var q:Vector3D = inverse.transformVector(p);
 
-			_skyboxProjection.copyRowTo(3, p);
+			this._skyboxProjection.copyRowTo(3, p);
 
 			var a:Number = (q.x*p.x + q.y*p.y + q.z*p.z + q.w*p.w)/(cx*q.x + cy*q.y + cz*q.z + cw*q.w);
 
-			_skyboxProjection.copyRowFrom(2, new Vector3D(cx*a, cy*a, cz*a, cw*a));
+			this._skyboxProjection.copyRowFrom(2, new Vector3D(cx*a, cy*a, cz*a, cw*a));
 		
 		}
 		
-		/**
-		 * Draw a list of renderables.
-		 * @param renderables The renderables to draw.
-		 * @param entityCollector The EntityCollector containing all potentially visible information.
-		 */
+		/**		 * Draw a list of renderables.		 * @param renderables The renderables to draw.		 * @param entityCollector The EntityCollector containing all potentially visible information.		 */
 		private function drawRenderables(item:RenderableListItem, entityCollector:EntityCollector, which:Number):void
 		{
 			var numPasses:Number;
@@ -232,11 +217,11 @@ package away.render
             {
 
                 //console.log( 'DefaultRenderer' , 'drawRenderables' , item );
-				_activeMaterial = item.renderable.material;
+				this._activeMaterial = item.renderable.material;
 
-				_activeMaterial.iUpdateMaterial( _pContext);
+				this._activeMaterial.iUpdateMaterial( this._pContext);
 
-				numPasses = _activeMaterial._iNumPasses;
+				numPasses = this._activeMaterial._iNumPasses;
 
 				j = 0;
 				
@@ -245,20 +230,20 @@ package away.render
 
 					item2 = item;
 
-					var rttMask:Number = _activeMaterial.iPassRendersToTexture(j)? 1 : 2;
+					var rttMask:Number = this._activeMaterial.iPassRendersToTexture(j)? 1 : 2;
 					
 					if ((rttMask & which) != 0)
                     {
-						_activeMaterial.iActivatePass(j, _pStage3DProxy, camera);
+						this._activeMaterial.iActivatePass(j, this._pStage3DProxy, camera);
 
 						do {
-							_activeMaterial.iRenderPass(j, item2.renderable, _pStage3DProxy, entityCollector, _pRttViewProjectionMatrix);
+							this._activeMaterial.iRenderPass(j, item2.renderable, this._pStage3DProxy, entityCollector, this._pRttViewProjectionMatrix);
 
 							item2 = item2.next;
 
-						} while (item2 && item2.renderable.material == _activeMaterial);
+						} while (item2 && item2.renderable.material == this._activeMaterial);
 
-						_activeMaterial.iDeactivatePass(j, _pStage3DProxy);
+						this._activeMaterial.iDeactivatePass(j, this._pStage3DProxy);
 
 					}
                     else
@@ -269,7 +254,7 @@ package away.render
                             item2 = item2.next;
 
                         }
-						while (item2 && item2.renderable.material == _activeMaterial);
+						while (item2 && item2.renderable.material == this._activeMaterial);
 
 					}
 					
@@ -283,10 +268,10 @@ package away.render
 		{
 			super.iDispose();
 
-			_pDepthRenderer.iDispose();
-            _pDistanceRenderer.iDispose();
-            _pDepthRenderer = null;
-            _pDistanceRenderer = null;
+			this._pDepthRenderer.iDispose();
+            this._pDistanceRenderer.iDispose();
+            this._pDepthRenderer = null;
+            this._pDistanceRenderer = null;
 
 		}
 	}

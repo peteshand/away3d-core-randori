@@ -1,5 +1,4 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
 	import away.geom.ColorTransform;
@@ -15,38 +14,29 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**
-	 * ColorTransformMethod provides a shading method that changes the colour of a material analogous to a
-	 * ColorTransform object.
-	 */
+	/**	 * ColorTransformMethod provides a shading method that changes the colour of a material analogous to a	 * ColorTransform object.	 */
 	public class ColorTransformMethod extends EffectMethodBase
 	{
 		private var _colorTransform:ColorTransform;
 		
-		/**
-		 * Creates a new ColorTransformMethod.
-		 */
+		/**		 * Creates a new ColorTransformMethod.		 */
 		public function ColorTransformMethod():void
 		{
 			super();
 		}
 		
-		/**
-		 * The ColorTransform object to transform the colour of the material with.
-		 */
+		/**		 * The ColorTransform object to transform the colour of the material with.		 */
 		public function get colorTransform():ColorTransform
 		{
-			return _colorTransform;
+			return this._colorTransform;
 		}
 		
 		public function set colorTransform(value:ColorTransform):void
 		{
-            _colorTransform = value;
+            this._colorTransform = value;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -63,23 +53,21 @@ package away.materials.methods
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			var inv:Number = 1/0xff;
 			var index:Number = vo.fragmentConstantsIndex;
 			var data:Vector.<Number> = vo.fragmentData;
 
-			data[index] = _colorTransform.redMultiplier;
-			data[index + 1] = _colorTransform.greenMultiplier;
-			data[index + 2] = _colorTransform.blueMultiplier;
-			data[index + 3] = _colorTransform.alphaMultiplier;
-			data[index + 4] = _colorTransform.redOffset*inv;
-			data[index + 5] = _colorTransform.greenOffset*inv;
-			data[index + 6] = _colorTransform.blueOffset*inv;
-			data[index + 7] = _colorTransform.alphaOffset*inv;
+			data[index] = this._colorTransform.redMultiplier;
+			data[index + 1] = this._colorTransform.greenMultiplier;
+			data[index + 2] = this._colorTransform.blueMultiplier;
+			data[index + 3] = this._colorTransform.alphaMultiplier;
+			data[index + 4] = this._colorTransform.redOffset*inv;
+			data[index + 5] = this._colorTransform.greenOffset*inv;
+			data[index + 6] = this._colorTransform.blueOffset*inv;
+			data[index + 7] = this._colorTransform.alphaOffset*inv;
 
 		}
 	}

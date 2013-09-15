@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 
@@ -17,45 +15,45 @@ package away.geom
 		public function Rectangle(x:Number = 0, y:Number = 0, width:Number = 0, height:Number = 0):void
 		{
 			this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
+			this.y = y;
+			this.width = width;
+			this.height = height;
 		}
 		
 		public function get left():Number
 		{
-			return x;
+			return this.x;
 		}
 		
 		public function get right():Number
 		{
-			return x + width;
+			return this.x + this.width;
 		}
 		
 		public function get top():Number
 		{
-			return y;
+			return this.y;
 		}
 		
 		public function get bottom():Number
 		{
-			return y + height;
+			return this.y + this.height;
 		}
 		
 		public function get topLeft():Point
 		{
-			return new Point( x, y );
+			return new Point( this.x, this.y );
 		}
 		
 		public function get bottomRight():Point
 		{
-			return new Point( x + width, y + height );
+			return new Point( this.x + this.width, this.y + this.height );
 		}
 
         public function clone():Rectangle
         {
 
-            return new Rectangle( x , y , width , height );
+            return new Rectangle( this.x , this.y , this.width , this.height );
 
         }
 	}

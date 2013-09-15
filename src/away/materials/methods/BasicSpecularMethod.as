@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.methods
 {
 	import away.materials.compilation.ShaderRegisterElement;
@@ -15,10 +16,7 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**
-	 * BasicSpecularMethod provides the default shading method for Blinn-Phong specular highlights (an optimized but approximated
-	 * version of Phong specularity).
-	 */
+	/**	 * BasicSpecularMethod provides the default shading method for Blinn-Phong specular highlights (an optimized but approximated	 * version of Phong specularity).	 */
 	public class BasicSpecularMethod extends LightingMethodBase
 	{
 		private var _useTexture:Boolean;
@@ -38,83 +36,69 @@ package away.materials.methods
 		private var _shadowRegister:ShaderRegisterElement;
 		private var _isFirstLight:Boolean;
 		
-		/**
-		 * Creates a new BasicSpecularMethod object.
-		 */
+		/**		 * Creates a new BasicSpecularMethod object.		 */
 		public function BasicSpecularMethod():void
 		{
 			super();
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iInitVO(vo:MethodVO):void
 		{
-			vo.needsUV = _useTexture;
+			vo.needsUV = this._useTexture;
 			vo.needsNormals = vo.numLights > 0;
 			vo.needsView = vo.numLights > 0;
 		}
 		
-		/**
-		 * The sharpness of the specular highlight.
-		 */
+		/**		 * The sharpness of the specular highlight.		 */
 		public function get gloss():Number
 		{
-			return _gloss;
+			return this._gloss;
 		}
 		
 		public function set gloss(value:Number):void
 		{
-            _gloss = value;
+            this._gloss = value;
 		}
 		
-		/**
-		 * The overall strength of the specular highlights.
-		 */
+		/**		 * The overall strength of the specular highlights.		 */
 		public function get specular():Number
 		{
-			return _specular;
+			return this._specular;
 		}
 		
 		public function set specular(value:Number):void
 		{
-			if (value == _specular)
+			if (value == this._specular)
 				return;
 
-            _specular = value;
-            updateSpecular();
+            this._specular = value;
+            this.updateSpecular();
 		}
 		
-		/**
-		 * The colour of the specular reflection of the surface.
-		 */
+		/**		 * The colour of the specular reflection of the surface.		 */
 		public function get specularColor():Number
 		{
-			return _specularColor;
+			return this._specularColor;
 		}
 		
 		public function set specularColor(value:Number):void
 		{
-			if (_specularColor == value)
+			if (this._specularColor == value)
 				return;
 			
 			// specular is now either enabled or disabled
-			if (_specularColor == 0 || value == 0)
-                iInvalidateShaderProgram();
+			if (this._specularColor == 0 || value == 0)
+                this.iInvalidateShaderProgram();
 
-			_specularColor = value;
-			updateSpecular();
+			this._specularColor = value;
+			this.updateSpecular();
 		}
 		
-		/**
-		 * The bitmapData that encodes the specular highlight strength per texel in the red channel, and the sharpness
-		 * in the green channel. You can use SpecularBitmapTexture if you want to easily set specular and gloss maps
-		 * from grayscale images, but prepared images are preferred.
-		 */
+		/**		 * The bitmapData that encodes the specular highlight strength per texel in the red channel, and the sharpness		 * in the green channel. You can use SpecularBitmapTexture if you want to easily set specular and gloss maps		 * from grayscale images, but prepared images are preferred.		 */
 		public function get texture():Texture2DBase
 		{
-			return _texture;
+			return this._texture;
 		}
 		
 		public function set texture(value:Texture2DBase):void
@@ -122,18 +106,16 @@ package away.materials.methods
 
             var b : Boolean =  ( value != null );
 
-			if ( b != _useTexture ||
-				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
-				iInvalidateShaderProgram();
+			if ( b != this._useTexture ||
+				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
+				this.iInvalidateShaderProgram();
 			}
-			_useTexture = b;//Boolean(value);
-			_texture = value;
+			this._useTexture = b;//Boolean(value);
+			this._texture = value;
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function copyFrom(method:ShadingMethodBase):void
 		{
 
@@ -141,76 +123,70 @@ package away.materials.methods
             var bsm : BasicSpecularMethod = (method as BasicSpecularMethod);
 
 			var spec:BasicSpecularMethod = bsm;//BasicSpecularMethod(method);
-			texture = spec.texture;
-            specular = spec.specular;
-            specularColor = spec.specularColor;
-            gloss = spec.gloss;
+			this.texture = spec.texture;
+            this.specular = spec.specular;
+            this.specularColor = spec.specularColor;
+            this.gloss = spec.gloss;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iCleanCompilationData():void
 		{
 			super.iCleanCompilationData();
-			_shadowRegister = null;
-            _totalLightColorReg = null;
-            _specularTextureRegister = null;
-            _specularTexData = null;
-            _specularDataRegister = null;
+			this._shadowRegister = null;
+            this._totalLightColorReg = null;
+            this._specularTextureRegister = null;
+            this._specularTexData = null;
+            this._specularDataRegister = null;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentPreLightingCode(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			
-			_isFirstLight = true;
+			this._isFirstLight = true;
 			
 			if (vo.numLights > 0)
             {
 
-				_specularDataRegister = regCache.getFreeFragmentConstant();
-				vo.fragmentConstantsIndex = _specularDataRegister.index*4;
+				this._specularDataRegister = regCache.getFreeFragmentConstant();
+				vo.fragmentConstantsIndex = this._specularDataRegister.index*4;
 				
-				if (_useTexture)
+				if (this._useTexture)
                 {
 
-					_specularTexData = regCache.getFreeFragmentVectorTemp();
-					regCache.addFragmentTempUsages(_specularTexData, 1);
-					_specularTextureRegister = regCache.getFreeTextureReg();
-					vo.texturesIndex = _specularTextureRegister.index;
-					code = pGetTex2DSampleCode( vo, _specularTexData, _specularTextureRegister, _texture );
+					this._specularTexData = regCache.getFreeFragmentVectorTemp();
+					regCache.addFragmentTempUsages(this._specularTexData, 1);
+					this._specularTextureRegister = regCache.getFreeTextureReg();
+					vo.texturesIndex = this._specularTextureRegister.index;
+					code = this.pGetTex2DSampleCode( vo, this._specularTexData, this._specularTextureRegister, this._texture );
 
 				}
                 else
                 {
 
-                    _specularTextureRegister = null;
+                    this._specularTextureRegister = null;
                 }
 
 				
-				_totalLightColorReg = regCache.getFreeFragmentVectorTemp();
-				regCache.addFragmentTempUsages(_totalLightColorReg, 1);
+				this._totalLightColorReg = regCache.getFreeFragmentVectorTemp();
+				regCache.addFragmentTempUsages(this._totalLightColorReg, 1);
 			}
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCodePerLight(vo:MethodVO, lightDirReg:ShaderRegisterElement, lightColReg:ShaderRegisterElement, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			var t:ShaderRegisterElement;
 			
-			if (_isFirstLight)
+			if (this._isFirstLight)
             {
 
-                t = _totalLightColorReg;
+                t = this._totalLightColorReg;
 
             }
 			else
@@ -221,8 +197,8 @@ package away.materials.methods
 
 			}
 			
-			var viewDirReg:ShaderRegisterElement = _sharedRegisters.viewDirFragment;
-			var normalReg:ShaderRegisterElement = _sharedRegisters.normalFragment;
+			var viewDirReg:ShaderRegisterElement = this._sharedRegisters.viewDirFragment;
+			var normalReg:ShaderRegisterElement = this._sharedRegisters.normalFragment;
 			
 			// blinn-phong half vector model
 
@@ -234,14 +210,14 @@ package away.materials.methods
 				"sat " + t.toString() + ".w, " + t.toString() + ".w\n";
 
 
-			if (_useTexture)
+			if (this._useTexture)
             {
 
                 //TODO: AGAL <> GLSL
 
 				// apply gloss modulation from texture
-				code += "mul " + _specularTexData.toString() + ".w, " + _specularTexData.toString() + ".y, " + _specularDataRegister.toString() + ".w\n" +
-					"pow " + t + ".w, " + t + ".w, " + _specularTexData.toString() + ".w\n";
+				code += "mul " + this._specularTexData.toString() + ".w, " + this._specularTexData.toString() + ".y, " + this._specularDataRegister.toString() + ".w\n" +
+					"pow " + t + ".w, " + t + ".w, " + this._specularTexData.toString() + ".w\n";
 
 
 			}
@@ -250,7 +226,7 @@ package away.materials.methods
 
                 //TODO: AGAL <> GLSL
 
-                code += "pow " + t.toString() + ".w, " + t.toString() + ".w, " + _specularDataRegister.toString() + ".w\n";
+                code += "pow " + t.toString() + ".w, " + t.toString() + ".w, " + this._specularDataRegister.toString() + ".w\n";
 
 
             }
@@ -267,11 +243,21 @@ package away.materials.methods
             }
 
 			
-			if (_iModulateMethod != null)
+			if (this._iModulateMethod != null)
             {
 
                 //TODO: AGAL <> GLSL
-                code += _iModulateMethod (vo, t, regCache, _sharedRegisters);
+
+                if (  this._iModulateMethodScope != null )
+                {
+                    code += this._iModulateMethod.apply( this._iModulateMethodScope, [vo, t, regCache, this._sharedRegisters] );
+                }
+                else
+                {
+                    throw "Modulated methods needs a scope";
+                }
+
+                //code += this._iModulateMethod (vo, t, regCache, this._sharedRegisters);
 
             }
 
@@ -279,33 +265,31 @@ package away.materials.methods
             //TODO: AGAL <> GLSL
 			code += "mul " + t.toString() + ".xyz, " + lightColReg.toString() + ", " + t.toString() + ".w\n";
 			
-			if (! _isFirstLight)
+			if (! this._isFirstLight)
             {
                 //TODO: AGAL <> GLSL
-				code += "add " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + t.toString() + "\n";
+				code += "add " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + t.toString() + "\n";
 
 				regCache.removeFragmentTempUsage(t);
 
 			}
 			
-			_isFirstLight = false;
+			this._isFirstLight = false;
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCodePerProbe(vo:MethodVO, cubeMapReg:ShaderRegisterElement, weightRegister:String, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			var t:ShaderRegisterElement;
 			
 			// write in temporary if not first light, so we can add to total diffuse colour
-			if (_isFirstLight)
+			if (this._isFirstLight)
             {
 
-                t = _totalLightColorReg;
+                t = this._totalLightColorReg;
 
             }
 			else
@@ -316,8 +300,8 @@ package away.materials.methods
 
 			}
 			
-			var normalReg:ShaderRegisterElement = _sharedRegisters.normalFragment;
-			var viewDirReg:ShaderRegisterElement = _sharedRegisters.viewDirFragment;
+			var normalReg:ShaderRegisterElement = this._sharedRegisters.normalFragment;
+			var viewDirReg:ShaderRegisterElement = this._sharedRegisters.viewDirFragment;
 
             //TODO: AGAL <> GLSL
 
@@ -329,33 +313,42 @@ package away.materials.methods
 				"mul " + t.toString() + ".xyz, " + t.toString() + ", " + weightRegister.toString() + "\n";
 
 
-			if (_iModulateMethod!= null)
+            if (this._iModulateMethod != null)
             {
 
                 //TODO: AGAL <> GLSL
-                code += _iModulateMethod(vo, t, regCache, _sharedRegisters);
+
+                if (  this._iModulateMethodScope != null )
+                {
+                    code += this._iModulateMethod.apply( this._iModulateMethodScope, [vo, t, regCache, this._sharedRegisters] );
+                }
+                else
+                {
+                    throw "Modulated methods needs a scope";
+                }
+
+                //code += this._iModulateMethod (vo, t, regCache, this._sharedRegisters);
 
             }
 
-			
-			if (!_isFirstLight)
+            /*			if (this._iModulateMethod!= null)            {                //TODO: AGAL <> GLSL                code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);            }            */
+
+			if (!this._isFirstLight)
             {
 
                 //TODO: AGAL <> GLSL
-				code += "add " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + t.toString() + "\n";
+				code += "add " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + t.toString() + "\n";
 
 				regCache.removeFragmentTempUsage(t);
 
 			}
 			
-			_isFirstLight = false;
+			this._isFirstLight = false;
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentPostLightingCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -363,24 +356,24 @@ package away.materials.methods
 			if (vo.numLights == 0)
 				return code;
 			
-			if (_shadowRegister)
+			if (this._shadowRegister)
             {
 
                 //TODO: AGAL <> GLSL
-                code += "mul " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + _shadowRegister.toString() + ".w\n";
+                code += "mul " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + this._shadowRegister.toString() + ".w\n";
 
             }
 
 			
-			if (_useTexture)
+			if (this._useTexture)
             {
 
 				// apply strength modulation from texture
 
                 //TODO: AGAL <> GLSL
-				code += "mul " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + _specularTexData.toString() + ".x\n";
+				code += "mul " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + this._specularTexData.toString() + ".x\n";
 
-				regCache.removeFragmentTempUsage(_specularTexData);
+				regCache.removeFragmentTempUsage(this._specularTexData);
 
 
 			}
@@ -389,17 +382,15 @@ package away.materials.methods
 
             //TODO: AGAL <> GLSL
 
-			code += "mul " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + _specularDataRegister.toString() + "\n" +
-				"add " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + _totalLightColorReg.toString() + "\n";
+			code += "mul " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + this._specularDataRegister.toString() + "\n" +
+				"add " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + this._totalLightColorReg.toString() + "\n";
 
-			regCache.removeFragmentTempUsage( _totalLightColorReg );
+			regCache.removeFragmentTempUsage( this._totalLightColorReg );
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
 			//var context : Context3D = stage3DProxy._context3D;
@@ -407,44 +398,48 @@ package away.materials.methods
 			if (vo.numLights == 0)
 				return;
 			
-			if (_useTexture)
+			if (this._useTexture)
             {
 
                stage3DProxy._iContext3D.setSamplerStateAt( vo.texturesIndex ,
                     vo.repeatTextures ?  Context3DWrapMode.REPEAT :  Context3DWrapMode.CLAMP,
                     vo.useSmoothTextures ? Context3DTextureFilter.LINEAR : Context3DTextureFilter.NEAREST ,
                     vo.useMipmapping ? Context3DMipFilter.MIPLINEAR : Context3DMipFilter.MIPNONE );
-               stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, _texture.getTextureForStage3D(stage3DProxy));
+               stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, this._texture.getTextureForStage3D(stage3DProxy));
 
             }
 
 			var index:Number = vo.fragmentConstantsIndex;
 			var data:Vector.<Number> = vo.fragmentData;
-			data[index] = _iSpecularR;
-			data[index + 1] = _iSpecularG;
-			data[index + 2] = _iSpecularB;
-			data[index + 3] = _gloss;
+			data[index] = this._iSpecularR;
+			data[index + 1] = this._iSpecularG;
+			data[index + 2] = this._iSpecularB;
+			data[index + 3] = this._gloss;
 		}
 		
-		/**
-		 * Updates the specular color data used by the render state.
-		 */
+		/**		 * Updates the specular color data used by the render state.		 */
 		private function updateSpecular():void
 		{
-			_iSpecularR = (( _specularColor >> 16) & 0xff)/0xff*_specular;
-			_iSpecularG = (( _specularColor >> 8) & 0xff)/0xff*_specular;
-			_iSpecularB = ( _specularColor & 0xff)/0xff*_specular;
+			this._iSpecularR = (( this._specularColor >> 16) & 0xff)/0xff*this._specular;
+			this._iSpecularG = (( this._specularColor >> 8) & 0xff)/0xff*this._specular;
+			this._iSpecularB = ( this._specularColor & 0xff)/0xff*this._specular;
 		}
 
-		/**
-		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.
-		 */
-		public function set iShadowRegister(shadowReg:ShaderRegisterElement):void
-		{
+		/**		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.		 */
+        public function set iShadowRegister(shadowReg:ShaderRegisterElement):void
+        {
 
-			_shadowRegister = shadowReg;
+            this._shadowRegister = shadowReg;
 
-		}
+        }
+
+        public function setIShadowRegister(shadowReg:ShaderRegisterElement):void
+        {
+
+            this._shadowRegister = shadowReg;
+
+        }
+
         
 	}
 }

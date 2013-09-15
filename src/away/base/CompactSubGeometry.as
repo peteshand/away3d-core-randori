@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.base
 {
 	import away.display3D.VertexBuffer3D;
@@ -7,13 +6,10 @@ package away.base
 	import away.managers.Stage3DProxy;
 	import away.display3D.Context3DVertexBufferFormat;
 	import away.geom.Matrix3D;
-
+    /**     * @class away.base.Geometry     */
 	public class CompactSubGeometry extends SubGeometryBase implements ISubGeometry
 	{
-		public var _pVertexDataInvalid:Vector.<Boolean> = Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);
-		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
-		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);
-		public var _pNumVertices:Number;
+		public var _pVertexDataInvalid:Vector.<Boolean> = Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		public var _pNumVertices:Number;
 		private var _contextIndex:Number;
 		public var _pActiveBuffer:VertexBuffer3D;
 		private var _activeContext:Context3D;
@@ -25,56 +21,49 @@ package away.base
 		{
             super();
 
-			_autoDeriveVertexNormals = false;
-            _autoDeriveVertexTangents = false;
+			this._autoDeriveVertexNormals = false;
+            this._autoDeriveVertexTangents = false;
 		}
 		
 		public function get numVertices():Number
 		{
-			return _pNumVertices;
+			return this._pNumVertices;
 		}
 		
-		/**
-		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:
-		 * 0 - 2: vertex position X, Y, Z
-		 * 3 - 5: normal X, Y, Z
-		 * 6 - 8: tangent X, Y, Z
-		 * 9 - 10: U V
-		 * 11 - 12: Secondary U V
-		 */
+		/**		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:		 * 0 - 2: vertex position X, Y, Z		 * 3 - 5: normal X, Y, Z		 * 6 - 8: tangent X, Y, Z		 * 9 - 10: U V		 * 11 - 12: Secondary U V		 */
 		public function updateData(data:Vector.<Number>):void
 		{
-			if (_autoDeriveVertexNormals)
+			if (this._autoDeriveVertexNormals)
             {
-                _vertexNormalsDirty = true;
+                this._vertexNormalsDirty = true;
             }
 
-			if (_autoDeriveVertexTangents)
+			if (this._autoDeriveVertexTangents)
             {
-                _vertexTangentsDirty = true;
+                this._vertexTangentsDirty = true;
             }
 
-			_faceNormalsDirty = true;
-            _faceTangentsDirty = true;
-            _isolatedVertexPositionDataDirty = true;
-            _vertexData = data;
+			this._faceNormalsDirty = true;
+            this._faceTangentsDirty = true;
+            this._isolatedVertexPositionDataDirty = true;
+            this._vertexData = data;
 
-			var numVertices:Number = _vertexData.length/13;
+			var numVertices:Number = this._vertexData.length/13;
 
-			if (numVertices != _pNumVertices)
+			if (numVertices != this._pNumVertices)
             {
-                pDisposeVertexBuffers(_vertexBuffer);
+                this.pDisposeVertexBuffers(this._vertexBuffer);
             }
 
-			_pNumVertices = numVertices;
+			this._pNumVertices = numVertices;
 			
-			if (_pNumVertices == 0)
+			if (this._pNumVertices == 0)
             {
                 throw new Error("Bad data: geometry can't have zero triangles");
             }
 
-			pInvalidateBuffers( _pVertexDataInvalid );
-            pInvalidateBounds();
+			this.pInvalidateBuffers( this._pVertexDataInvalid );
+            this.pInvalidateBounds();
 
 		}
 		
@@ -83,22 +72,22 @@ package away.base
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
 			var context:Context3D = stage3DProxy._iContext3D;
 			
-			if (contextIndex != _contextIndex)
+			if (contextIndex != this._contextIndex)
             {
-                pUpdateActiveBuffer(contextIndex);
+                this.pUpdateActiveBuffer(contextIndex);
             }
 
-			if (!_pActiveBuffer || _activeContext != context)
+			if (!this._pActiveBuffer || this._activeContext != context)
             {
-                pCreateBuffer(contextIndex, context);
+                this.pCreateBuffer(contextIndex, context);
             }
 
-			if ( _pActiveDataInvalid )
+			if ( this._pActiveDataInvalid )
             {
-                pUploadData(contextIndex);
+                this.pUploadData(contextIndex);
             }
 
-			context.setVertexBufferAt(index, _pActiveBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
+			context.setVertexBufferAt(index, this._pActiveBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
 
 		}
 		
@@ -107,29 +96,29 @@ package away.base
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
             var context:Context3D = stage3DProxy._iContext3D;
 			
-			if (_uvsDirty && _autoGenerateUVs)
+			if (this._uvsDirty && this._autoGenerateUVs)
             {
-				_vertexData = pUpdateDummyUVs( _vertexData);
-                pInvalidateBuffers( _pVertexDataInvalid );
+				this._vertexData = this.pUpdateDummyUVs( this._vertexData);
+                this.pInvalidateBuffers( this._pVertexDataInvalid );
 			}
 			
-			if (contextIndex != _contextIndex)
+			if (contextIndex != this._contextIndex)
             {
-                pUpdateActiveBuffer( contextIndex );
+                this.pUpdateActiveBuffer( contextIndex );
 
             }
 
-			if (!_pActiveBuffer || _activeContext != context)
+			if (!this._pActiveBuffer || this._activeContext != context)
             {
-                pCreateBuffer( contextIndex , context );
+                this.pCreateBuffer( contextIndex , context );
             }
 
-			if (_pActiveDataInvalid)
+			if (this._pActiveDataInvalid)
             {
-                pUploadData( contextIndex );
+                this.pUploadData( contextIndex );
             }
 
-			context.setVertexBufferAt(index, _pActiveBuffer, 9, Context3DVertexBufferFormat.FLOAT_2);
+			context.setVertexBufferAt(index, this._pActiveBuffer, 9, Context3DVertexBufferFormat.FLOAT_2);
 
 		}
 		
@@ -138,29 +127,29 @@ package away.base
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
 			var context:Context3D = stage3DProxy._iContext3D;
 			
-			if (contextIndex != _contextIndex)
+			if (contextIndex != this._contextIndex)
             {
-                pUpdateActiveBuffer( contextIndex );
+                this.pUpdateActiveBuffer( contextIndex );
             }
 
-			if (!_pActiveBuffer || _activeContext != context)
+			if (!this._pActiveBuffer || this._activeContext != context)
             {
-                pCreateBuffer( contextIndex , context );
+                this.pCreateBuffer( contextIndex , context );
             }
 
-			if ( _pActiveDataInvalid )
+			if ( this._pActiveDataInvalid )
             {
-                pUploadData( contextIndex );
+                this.pUploadData( contextIndex );
             }
 
-			context.setVertexBufferAt(index, _pActiveBuffer, 11, Context3DVertexBufferFormat.FLOAT_2);
+			context.setVertexBufferAt(index, this._pActiveBuffer, 11, Context3DVertexBufferFormat.FLOAT_2);
 
 		}
 		
 		public function pUploadData(contextIndex:Number):void
 		{
-			_pActiveBuffer.uploadFromArray(_vertexData, 0, _pNumVertices);
-			_pVertexDataInvalid[contextIndex] = _pActiveDataInvalid = false;
+			this._pActiveBuffer.uploadFromArray(this._vertexData, 0, this._pNumVertices);
+			this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = false;
 		}
 		
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
@@ -168,22 +157,22 @@ package away.base
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
 			var context:Context3D = stage3DProxy._iContext3D;
 			
-			if (contextIndex != _contextIndex)
+			if (contextIndex != this._contextIndex)
             {
-                pUpdateActiveBuffer( contextIndex );
+                this.pUpdateActiveBuffer( contextIndex );
             }
 
-			if (!_pActiveBuffer || _activeContext != context)
+			if (!this._pActiveBuffer || this._activeContext != context)
             {
-                pCreateBuffer( contextIndex , context );
+                this.pCreateBuffer( contextIndex , context );
             }
 
-			if (_pActiveDataInvalid)
+			if (this._pActiveDataInvalid)
             {
-                pUploadData(contextIndex);
+                this.pUploadData(contextIndex);
             }
 
-			context.setVertexBufferAt(index, _pActiveBuffer, 3, Context3DVertexBufferFormat.FLOAT_3);
+			context.setVertexBufferAt(index, this._pActiveBuffer, 3, Context3DVertexBufferFormat.FLOAT_3);
 
 		}
 		
@@ -192,75 +181,75 @@ package away.base
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
 			var context:Context3D = stage3DProxy._iContext3D;
 			
-			if (contextIndex != _contextIndex)
+			if (contextIndex != this._contextIndex)
             {
-                pUpdateActiveBuffer( contextIndex );
+                this.pUpdateActiveBuffer( contextIndex );
             }
 
-			if (!_pActiveBuffer || _activeContext != context)
+			if (!this._pActiveBuffer || this._activeContext != context)
             {
-                pCreateBuffer( contextIndex , context );
+                this.pCreateBuffer( contextIndex , context );
             }
 
-			if ( _pActiveDataInvalid )
+			if ( this._pActiveDataInvalid )
             {
-                pUploadData(contextIndex);
+                this.pUploadData(contextIndex);
             }
 
 			
-			context.setVertexBufferAt(index, _pActiveBuffer, 6, Context3DVertexBufferFormat.FLOAT_3);
+			context.setVertexBufferAt(index, this._pActiveBuffer, 6, Context3DVertexBufferFormat.FLOAT_3);
 
 		}
 		
 		public function pCreateBuffer(contextIndex:Number, context:Context3D):void
 		{
-			_vertexBuffer[contextIndex] = _pActiveBuffer = context.createVertexBuffer(_pNumVertices, 13);
-			_bufferContext[contextIndex] = _activeContext = context;
-			_pVertexDataInvalid[contextIndex] = _pActiveDataInvalid = true;
+			this._vertexBuffer[contextIndex] = this._pActiveBuffer = context.createVertexBuffer(this._pNumVertices, 13);
+			this._bufferContext[contextIndex] = this._activeContext = context;
+			this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = true;
 		}
 		
 		public function pUpdateActiveBuffer(contextIndex:Number):void
 		{
-			_contextIndex = contextIndex;
-            _pActiveDataInvalid = _pVertexDataInvalid[contextIndex];
-            _pActiveBuffer = _vertexBuffer[contextIndex];
-            _activeContext = _bufferContext[contextIndex];
+			this._contextIndex = contextIndex;
+            this._pActiveDataInvalid = this._pVertexDataInvalid[contextIndex];
+            this._pActiveBuffer = this._vertexBuffer[contextIndex];
+            this._activeContext = this._bufferContext[contextIndex];
 		}
 		
 		override public function get vertexData():Vector.<Number>
 		{
-			if ( _autoDeriveVertexNormals && _vertexNormalsDirty)
+			if ( this._autoDeriveVertexNormals && this._vertexNormalsDirty)
             {
-                _vertexData = pUpdateVertexNormals(_vertexData);
+                this._vertexData = this.pUpdateVertexNormals(this._vertexData);
             }
 
-			if (_autoDeriveVertexTangents && _vertexTangentsDirty)
+			if (this._autoDeriveVertexTangents && this._vertexTangentsDirty)
             {
-                _vertexData = pUpdateVertexTangents(_vertexData);
+                this._vertexData = this.pUpdateVertexTangents(this._vertexData);
             }
 
-			if (_uvsDirty && _autoGenerateUVs)
+			if (this._uvsDirty && this._autoGenerateUVs)
             {
-                _vertexData = pUpdateDummyUVs( _vertexData );
+                this._vertexData = this.pUpdateDummyUVs( this._vertexData );
             }
 
-			return _vertexData;
+			return this._vertexData;
 		}
 		
 		override public function pUpdateVertexNormals(target:Vector.<Number>):Vector.<Number>
 		{
-            pInvalidateBuffers( _pVertexDataInvalid);
+            this.pInvalidateBuffers( this._pVertexDataInvalid);
 			return super.pUpdateVertexNormals(target);
 		}
 		
 		override public function pUpdateVertexTangents(target:Vector.<Number>):Vector.<Number>
 		{
-			if (_vertexNormalsDirty)
+			if (this._vertexNormalsDirty)
             {
-                _vertexData = pUpdateVertexNormals( _vertexData );
+                this._vertexData = this.pUpdateVertexNormals( this._vertexData );
             }
 
-			pInvalidateBuffers( _pVertexDataInvalid);
+			this.pInvalidateBuffers( this._pVertexDataInvalid);
 
 			return super.pUpdateVertexTangents(target);
 
@@ -268,57 +257,57 @@ package away.base
 		
 		override public function get vertexNormalData():Vector.<Number>
 		{
-			if ( _autoDeriveVertexNormals && _vertexNormalsDirty)
+			if ( this._autoDeriveVertexNormals && this._vertexNormalsDirty)
             {
-                _vertexData = pUpdateVertexNormals(_vertexData);
+                this._vertexData = this.pUpdateVertexNormals(this._vertexData);
             }
 
-			return _vertexData;
+			return this._vertexData;
 
 		}
 		
 		override public function get vertexTangentData():Vector.<Number>
 		{
-			if ( _autoDeriveVertexTangents && _vertexTangentsDirty)
+			if ( this._autoDeriveVertexTangents && this._vertexTangentsDirty)
             {
-                _vertexData = pUpdateVertexTangents( _vertexData );
+                this._vertexData = this.pUpdateVertexTangents( this._vertexData );
             }
 
-			return _vertexData;
+			return this._vertexData;
 		}
 		
 		override public function get UVData():Vector.<Number>
 		{
-			if ( _uvsDirty && _autoGenerateUVs)
+			if ( this._uvsDirty && this._autoGenerateUVs)
             {
-				_vertexData = pUpdateDummyUVs(_vertexData);
-				pInvalidateBuffers( _pVertexDataInvalid );
+				this._vertexData = this.pUpdateDummyUVs(this._vertexData);
+				this.pInvalidateBuffers( this._pVertexDataInvalid );
 			}
 
-			return _vertexData;
+			return this._vertexData;
 		}
 		
 		override public function applyTransformation(transform:Matrix3D):void
 		{
 			super.applyTransformation(transform);
-			pInvalidateBuffers( _pVertexDataInvalid );
+			this.pInvalidateBuffers( this._pVertexDataInvalid );
 		}
 		
 		override public function scale(scale:Number):void
 		{
 			super.scale(scale);
-			pInvalidateBuffers(_pVertexDataInvalid);
+			this.pInvalidateBuffers(this._pVertexDataInvalid);
 		}
 		
 		public function clone():ISubGeometry
 		{
 			var clone:CompactSubGeometry = new CompactSubGeometry();
 
-			    clone._autoDeriveVertexNormals = _autoDeriveVertexNormals;
-			    clone._autoDeriveVertexTangents = _autoDeriveVertexTangents;
+			    clone._autoDeriveVertexNormals = this._autoDeriveVertexNormals;
+			    clone._autoDeriveVertexTangents = this._autoDeriveVertexTangents;
 
-                clone.updateData(_vertexData.concat());
-			    clone.updateIndexData(_indices.concat());
+                clone.updateData(this._vertexData.concat());
+			    clone.updateIndexData(this._indices.concat());
 
 			return clone;
 		}
@@ -328,7 +317,7 @@ package away.base
 
 			super.scaleUV(scaleU, scaleV);
 
-			pInvalidateBuffers( _pVertexDataInvalid );
+			this.pInvalidateBuffers( this._pVertexDataInvalid );
 
 		}
 		
@@ -385,45 +374,45 @@ package away.base
 		override public function dispose():void
 		{
 			super.dispose();
-			pDisposeVertexBuffers(_vertexBuffer);
-			_vertexBuffer = null;
+			this.pDisposeVertexBuffers(this._vertexBuffer);
+			this._vertexBuffer = null;
 		}
 		
 		override public function pDisposeVertexBuffers(buffers:Vector.<VertexBuffer3D>):void
 		{
 
 			super.pDisposeVertexBuffers(buffers);
-			_pActiveBuffer = null;
+			this._pActiveBuffer = null;
 
 		}
 		
 		override public function pInvalidateBuffers(invalid:Vector.<Boolean>):void
 		{
 			super.pInvalidateBuffers(invalid);
-			_pActiveDataInvalid = true;
+			this._pActiveDataInvalid = true;
 		}
 
 		public function cloneWithSeperateBuffers():SubGeometry
 		{
 			var clone:SubGeometry = new SubGeometry();
 
-			clone.updateVertexData(_isolatedVertexPositionData? _isolatedVertexPositionData : _isolatedVertexPositionData = stripBuffer(0, 3));
-			clone.autoDeriveVertexNormals = _autoDeriveVertexNormals;
-			clone.autoDeriveVertexTangents = _autoDeriveVertexTangents;
+			clone.updateVertexData(this._isolatedVertexPositionData? this._isolatedVertexPositionData : this._isolatedVertexPositionData = this.stripBuffer(0, 3));
+			clone.autoDeriveVertexNormals = this._autoDeriveVertexNormals;
+			clone.autoDeriveVertexTangents = this._autoDeriveVertexTangents;
 
-			if (!_autoDeriveVertexNormals)
+			if (!this._autoDeriveVertexNormals)
             {
-                clone.updateVertexNormalData(stripBuffer(3, 3));
+                clone.updateVertexNormalData(this.stripBuffer(3, 3));
             }
 
-			if (!_autoDeriveVertexTangents)
+			if (!this._autoDeriveVertexTangents)
             {
-                clone.updateVertexTangentData(stripBuffer(6, 3));
+                clone.updateVertexTangentData(this.stripBuffer(6, 3));
             }
 
-			clone.updateUVData(stripBuffer(9, 2));
-			clone.updateSecondaryUVData(stripBuffer(11, 2));
-			clone.updateIndexData(indexData.concat());
+			clone.updateUVData(this.stripBuffer(9, 2));
+			clone.updateSecondaryUVData(this.stripBuffer(11, 2));
+			clone.updateIndexData(this.indexData.concat());
 
 			return clone;
 
@@ -431,42 +420,34 @@ package away.base
 
         override public function get vertexPositionData():Vector.<Number>
         {
-            if (_isolatedVertexPositionDataDirty || !_isolatedVertexPositionData)
+            if (this._isolatedVertexPositionDataDirty || !this._isolatedVertexPositionData)
             {
-                _isolatedVertexPositionData = stripBuffer(0, 3);
-                _isolatedVertexPositionDataDirty = false;
+                this._isolatedVertexPositionData = this.stripBuffer(0, 3);
+                this._isolatedVertexPositionDataDirty = false;
             }
 
-            return _isolatedVertexPositionData;
+            return this._isolatedVertexPositionData;
 
         }
 
         public function get strippedUVData():Vector.<Number>
         {
-            return stripBuffer(9, 2);
+            return this.stripBuffer(9, 2);
         }
 		
-		/**
-		 * Isolate and returns a Vector.Number of a specific buffer type
-		 *
-		 * - stripBuffer(0, 3), return only the vertices
-		 * - stripBuffer(3, 3): return only the normals
-		 * - stripBuffer(6, 3): return only the tangents
-		 * - stripBuffer(9, 2): return only the uv's
-		 * - stripBuffer(11, 2): return only the secondary uv's
-		 */
+		/**		 * Isolate and returns a Vector.Number of a specific buffer type		 *		 * - stripBuffer(0, 3), return only the vertices		 * - stripBuffer(3, 3): return only the normals		 * - stripBuffer(6, 3): return only the tangents		 * - stripBuffer(9, 2): return only the uv's		 * - stripBuffer(11, 2): return only the secondary uv's		 */
 		public function stripBuffer(offset:Number, numEntries:Number):Vector.<Number>
 		{
-			var data:Vector.<Number> = new Vector.<Number>( _pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);
+			var data:Vector.<Number> = new Vector.<Number>( this._pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);
 			var i:Number = 0;
             var j:Number = offset;
 			var skip:Number = 13 - numEntries;
 			
-			for (var v:Number = 0; v < _pNumVertices; ++v)
+			for (var v:Number = 0; v < this._pNumVertices; ++v)
             {
 				for (var k:Number = 0; k < numEntries; ++k)
                 {
-                    data[i++] = _vertexData[j++];
+                    data[i++] = this._vertexData[j++];
                 }
 
 				j += skip;
@@ -539,10 +520,10 @@ package away.base
 				}
 			}
 			
-			autoDeriveVertexNormals = !(normals && normals.length);
-            autoDeriveVertexTangents = !(tangents && tangents.length);
-            autoGenerateDummyUVs = !(uvs && uvs.length);
-            updateData(data);
+			this.autoDeriveVertexNormals = !(normals && normals.length);
+            this.autoDeriveVertexTangents = !(tangents && tangents.length);
+            this.autoGenerateDummyUVs = !(uvs && uvs.length);
+            this.updateData(data);
 
 		}
 	}

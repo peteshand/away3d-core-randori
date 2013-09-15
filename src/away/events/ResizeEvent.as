@@ -1,9 +1,7 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
-///<reference path="../_definitions.ts"/>
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
+///<reference path="../_definitions.ts"/>
+/** * @module away.events */
 package away.events
 {
 	public class ResizeEvent extends Event
@@ -17,18 +15,18 @@ package away.events
 		public function ResizeEvent(type:String, oldHeight:Number = NaN, oldWidth:Number = NaN):void
 		{
 			super( type );
-			_oldHeight = oldHeight;
-			_oldWidth = oldWidth;
+			this._oldHeight = oldHeight;
+			this._oldWidth = oldWidth;
 		}
 		
 		public function get oldHeight():Number
 		{
-			return _oldHeight;
+			return this._oldHeight;
 		}
 		
 		public function get oldWidth():Number
 		{
-			return _oldWidth;
+			return this._oldWidth;
 		}
 	}
 }

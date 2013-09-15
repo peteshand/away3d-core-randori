@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts" />
+
 package away.bounds
 {
 	import away.math.Plane3D;
@@ -17,10 +18,7 @@ package away.bounds
 	
 	//use namespace arcane;
 	
-	/**
-	 * AxisAlignedBoundingBox represents a bounding box volume that has its planes aligned to the local coordinate axes of the bounded object.
-	 * This is useful for most meshes.
-	 */
+	/**	 * AxisAlignedBoundingBox represents a bounding box volume that has its planes aligned to the local coordinate axes of the bounded object.	 * This is useful for most meshes.	 */
 	public class AxisAlignedBoundingBox extends BoundingVolumeBase
 	{
 		private var _centerX:Number = 0;
@@ -30,9 +28,7 @@ package away.bounds
 		private var _halfExtentsY:Number = 0;
 		private var _halfExtentsZ:Number = 0;
 		
-		/**
-		 * Creates a new <code>AxisAlignedBoundingBox</code> object.
-		 */
+		/**		 * Creates a new <code>AxisAlignedBoundingBox</code> object.		 */
 		public function AxisAlignedBoundingBox():void
 		{
 
@@ -40,20 +36,16 @@ package away.bounds
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function nullify():void
 		{
 			super.nullify();
 
-			_centerX = _centerY = _centerZ = 0;
-            _halfExtentsX = _halfExtentsY = _halfExtentsZ = 0;
+			this._centerX = this._centerY = this._centerZ = 0;
+            this._halfExtentsX = this._halfExtentsY = this._halfExtentsZ = 0;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function isInFrustum(planes:Vector.<Plane3D>, numPlanes:Number):Boolean
 		{
 			for (var i:Number = 0; i < numPlanes; ++i)
@@ -63,10 +55,10 @@ package away.bounds
 				var a:Number = plane.a;
 				var b:Number = plane.b;
 				var c:Number = plane.c;
-				var flippedExtentX:Number = a < 0? - _halfExtentsX : _halfExtentsX;
-				var flippedExtentY:Number = b < 0? - _halfExtentsY : _halfExtentsY;
-				var flippedExtentZ:Number = c < 0? - _halfExtentsZ : _halfExtentsZ;
-				var projDist:Number = a*(_centerX + flippedExtentX) + b*(_centerY + flippedExtentY) + c*(_centerZ + flippedExtentZ) - plane.d;
+				var flippedExtentX:Number = a < 0? - this._halfExtentsX : this._halfExtentsX;
+				var flippedExtentY:Number = b < 0? - this._halfExtentsY : this._halfExtentsY;
+				var flippedExtentZ:Number = c < 0? - this._halfExtentsZ : this._halfExtentsZ;
+				var projDist:Number = a*(this._centerX + flippedExtentX) + b*(this._centerY + flippedExtentY) + c*(this._centerZ + flippedExtentZ) - plane.d;
 
 				if (projDist < 0)
 					return false;
@@ -78,12 +70,12 @@ package away.bounds
 		override public function rayIntersection(position:Vector3D, direction:Vector3D, targetNormal:Vector3D):Number
 		{
 			
-			if (containsPoint(position))
+			if (this.containsPoint(position))
 				return 0;
 			
-			var px:Number = position.x - _centerX
-            var py:Number = position.y - _centerY
-            var pz:Number = position.z - _centerZ;
+			var px:Number = position.x - this._centerX
+            var py:Number = position.y - this._centerY
+            var pz:Number = position.z - this._centerZ;
 
 			var vx:Number = direction.x
             var vy:Number = direction.y
@@ -97,11 +89,11 @@ package away.bounds
 			// ray-plane tests
 			var intersects:Boolean;
 			if (vx < 0) {
-				rayEntryDistance = ( _halfExtentsX - px )/vx;
+				rayEntryDistance = ( this._halfExtentsX - px )/vx;
 				if (rayEntryDistance > 0) {
 					iy = py + rayEntryDistance*vy;
 					iz = pz + rayEntryDistance*vz;
-					if (iy > -_halfExtentsY && iy < _halfExtentsY && iz > -_halfExtentsZ && iz < _halfExtentsZ) {
+					if (iy > -this._halfExtentsY && iy < this._halfExtentsY && iz > -this._halfExtentsZ && iz < this._halfExtentsZ) {
 						targetNormal.x = 1;
 						targetNormal.y = 0;
 						targetNormal.z = 0;
@@ -111,11 +103,11 @@ package away.bounds
 				}
 			}
 			if (!intersects && vx > 0) {
-				rayEntryDistance = ( -_halfExtentsX - px )/vx;
+				rayEntryDistance = ( -this._halfExtentsX - px )/vx;
 				if (rayEntryDistance > 0) {
 					iy = py + rayEntryDistance*vy;
 					iz = pz + rayEntryDistance*vz;
-					if (iy > -_halfExtentsY && iy < _halfExtentsY && iz > -_halfExtentsZ && iz < _halfExtentsZ) {
+					if (iy > -this._halfExtentsY && iy < this._halfExtentsY && iz > -this._halfExtentsZ && iz < this._halfExtentsZ) {
 						targetNormal.x = -1;
 						targetNormal.y = 0;
 						targetNormal.z = 0;
@@ -124,11 +116,11 @@ package away.bounds
 				}
 			}
 			if (!intersects && vy < 0) {
-				rayEntryDistance = ( _halfExtentsY - py )/vy;
+				rayEntryDistance = ( this._halfExtentsY - py )/vy;
 				if (rayEntryDistance > 0) {
 					ix = px + rayEntryDistance*vx;
 					iz = pz + rayEntryDistance*vz;
-					if (ix > -_halfExtentsX && ix < _halfExtentsX && iz > -_halfExtentsZ && iz < _halfExtentsZ) {
+					if (ix > -this._halfExtentsX && ix < this._halfExtentsX && iz > -this._halfExtentsZ && iz < this._halfExtentsZ) {
 						targetNormal.x = 0;
 						targetNormal.y = 1;
 						targetNormal.z = 0;
@@ -137,11 +129,11 @@ package away.bounds
 				}
 			}
 			if (!intersects && vy > 0) {
-				rayEntryDistance = ( -_halfExtentsY - py )/vy;
+				rayEntryDistance = ( -this._halfExtentsY - py )/vy;
 				if (rayEntryDistance > 0) {
 					ix = px + rayEntryDistance*vx;
 					iz = pz + rayEntryDistance*vz;
-					if (ix > -_halfExtentsX && ix < _halfExtentsX && iz > -_halfExtentsZ && iz < _halfExtentsZ) {
+					if (ix > -this._halfExtentsX && ix < this._halfExtentsX && iz > -this._halfExtentsZ && iz < this._halfExtentsZ) {
 						targetNormal.x = 0;
 						targetNormal.y = -1;
 						targetNormal.z = 0;
@@ -150,11 +142,11 @@ package away.bounds
 				}
 			}
 			if (!intersects && vz < 0) {
-				rayEntryDistance = ( _halfExtentsZ - pz )/vz;
+				rayEntryDistance = ( this._halfExtentsZ - pz )/vz;
 				if (rayEntryDistance > 0) {
 					ix = px + rayEntryDistance*vx;
 					iy = py + rayEntryDistance*vy;
-					if (iy > -_halfExtentsY && iy <_halfExtentsY && ix > -_halfExtentsX && ix < _halfExtentsX) {
+					if (iy > -this._halfExtentsY && iy <this._halfExtentsY && ix > -this._halfExtentsX && ix < this._halfExtentsX) {
 						targetNormal.x = 0;
 						targetNormal.y = 0;
 						targetNormal.z = 1;
@@ -163,11 +155,11 @@ package away.bounds
 				}
 			}
 			if (!intersects && vz > 0) {
-				rayEntryDistance = ( -_halfExtentsZ - pz )/vz;
+				rayEntryDistance = ( -this._halfExtentsZ - pz )/vz;
 				if (rayEntryDistance > 0) {
 					ix = px + rayEntryDistance*vx;
 					iy = py + rayEntryDistance*vy;
-					if (iy > -_halfExtentsY && iy < _halfExtentsY && ix > -_halfExtentsX && ix < _halfExtentsX) {
+					if (iy > -this._halfExtentsY && iy < this._halfExtentsY && ix > -this._halfExtentsX && ix < this._halfExtentsX) {
 						targetNormal.x = 0;
 						targetNormal.y = 0;
 						targetNormal.z = -1;
@@ -179,65 +171,54 @@ package away.bounds
 			return intersects? rayEntryDistance : -1;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function containsPoint(position:Vector3D):Boolean
 		{
-			var px:Number = position.x - _centerX, py:Number = position.y - _centerY, pz:Number = position.z - _centerZ;
-			return px <= _halfExtentsX && px >= -_halfExtentsX &&
-				py <= _halfExtentsY && py >= -_halfExtentsY &&
-				pz <= _halfExtentsZ && pz >= -_halfExtentsZ;
+			var px:Number = position.x - this._centerX, py:Number = position.y - this._centerY, pz:Number = position.z - this._centerZ;
+			return px <= this._halfExtentsX && px >= -this._halfExtentsX &&
+				py <= this._halfExtentsY && py >= -this._halfExtentsY &&
+				pz <= this._halfExtentsZ && pz >= -this._halfExtentsZ;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function fromExtremes(minX:Number, minY:Number, minZ:Number, maxX:Number, maxY:Number, maxZ:Number):void
 		{
 
-            _centerX = (maxX + minX)*.5;
-            _centerY = (maxY + minY)*.5;
-            _centerZ = (maxZ + minZ)*.5;
-            _halfExtentsX = (maxX - minX)*.5;
-            _halfExtentsY = (maxY - minY)*.5;
-            _halfExtentsZ = (maxZ - minZ)*.5;
+            this._centerX = (maxX + minX)*.5;
+            this._centerY = (maxY + minY)*.5;
+            this._centerZ = (maxZ + minZ)*.5;
+            this._halfExtentsX = (maxX - minX)*.5;
+            this._halfExtentsY = (maxY - minY)*.5;
+            this._halfExtentsZ = (maxZ - minZ)*.5;
 
 			super.fromExtremes(minX, minY, minZ, maxX, maxY, maxZ);
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function clone():BoundingVolumeBase
 		{
 			var clone:AxisAlignedBoundingBox = new AxisAlignedBoundingBox();
-			clone.fromExtremes(_pMin.x, _pMin.y, _pMin.z, _pMax.x, _pMax.y, _pMax.z);
+			clone.fromExtremes(this._pMin.x, this._pMin.y, this._pMin.z, this._pMax.x, this._pMax.y, this._pMax.z);
 			return clone;
 		}
 		
 		public function get halfExtentsX():Number
 		{
-			return _halfExtentsX;
+			return this._halfExtentsX;
 		}
 		
 		public function get halfExtentsY():Number
 		{
-			return _halfExtentsY;
+			return this._halfExtentsY;
 		}
 		
 		public function get halfExtentsZ():Number
 		{
-			return _halfExtentsZ;
+			return this._halfExtentsZ;
 		}
 		
-		/**
-		 * Finds the closest point on the bounding volume to another given point. This can be used for maximum error calculations for content within a given bound.
-		 * @param point The point for which to find the closest point on the bounding volume
-		 * @param target An optional Vector3D to store the result to prevent creating a new object.
-		 * @return
-		 */
+		/**		 * Finds the closest point on the bounding volume to another given point. This can be used for maximum error calculations for content within a given bound.		 * @param point The point for which to find the closest point on the bounding volume		 * @param target An optional Vector3D to store the result to prevent creating a new object.		 * @return		 */
 		public function closestPointToPoint(point:Vector3D, target:Vector3D = null):Vector3D
 		{
 			var p:Number;
@@ -249,24 +230,24 @@ package away.bounds
 
 			
 			p = point.x;
-			if (p < _pMin.x)
-				p = _pMin.x;
-			if (p > _pMax.x)
-				p = _pMax.x;
+			if (p < this._pMin.x)
+				p = this._pMin.x;
+			if (p > this._pMax.x)
+				p = this._pMax.x;
 			target.x = p;
 			
 			p = point.y;
-			if (p < _pMin.y)
-				p = _pMin.y;
-			if (p > _pMax.y)
-				p = _pMax.y;
+			if (p < this._pMin.y)
+				p = this._pMin.y;
+			if (p > this._pMax.y)
+				p = this._pMax.y;
 			target.y = p;
 			
 			p = point.z;
-			if (p < _pMin.z)
-				p = _pMin.z;
-			if (p > _pMax.z)
-				p = _pMax.z;
+			if (p < this._pMin.z)
+				p = this._pMin.z;
+			if (p > this._pMax.z)
+				p = this._pMax.z;
 			target.z = p;
 			
 			return target;
@@ -274,17 +255,17 @@ package away.bounds
 		
 		override public function pUpdateBoundingRenderable():void
 		{
-			_pBoundingRenderable.scaleX = Math.max(_halfExtentsX*2, 0.001);
-            _pBoundingRenderable.scaleY = Math.max(_halfExtentsY*2, 0.001);
-            _pBoundingRenderable.scaleZ = Math.max(_halfExtentsZ*2, 0.001);
-            _pBoundingRenderable.x = _centerX;
-            _pBoundingRenderable.y = _centerY;
-            _pBoundingRenderable.z = _centerZ;
+			this._pBoundingRenderable.scaleX = Math.max(this._halfExtentsX*2, 0.001);
+            this._pBoundingRenderable.scaleY = Math.max(this._halfExtentsY*2, 0.001);
+            this._pBoundingRenderable.scaleZ = Math.max(this._halfExtentsZ*2, 0.001);
+            this._pBoundingRenderable.x = this._centerX;
+            this._pBoundingRenderable.y = this._centerY;
+            this._pBoundingRenderable.z = this._centerZ;
 		}
 
         override public function pCreateBoundingRenderable():WireframePrimitiveBase
 		{
-			return (new WireframeCube(1, 1, 1, 0xffffff, 0.5) as WireframePrimitiveBase);
+			return (new WireframeCube(1 , 1 , 1 , 0xffffff , 0.5 ) as WireframePrimitiveBase);
 		}
 		
 		override public function classifyToPlane(plane:Plane3D):Number
@@ -292,7 +273,7 @@ package away.bounds
 			var a:Number = plane.a;
 			var b:Number = plane.b;
 			var c:Number = plane.c;
-			var centerDistance:Number = a*_centerX + b*_centerY + c*_centerZ - plane.d;
+			var centerDistance:Number = a*this._centerX + b*this._centerY + c*this._centerZ - plane.d;
 
 			if (a < 0)
 				a = -a;
@@ -303,7 +284,7 @@ package away.bounds
 			if (c < 0)
 				c = -c;
 
-			var boundOffset:Number = a*_halfExtentsX + b*_halfExtentsY + c*_halfExtentsZ;
+			var boundOffset:Number = a*this._halfExtentsX + b*this._halfExtentsY + c*this._halfExtentsZ;
 
 			return centerDistance > boundOffset? PlaneClassification.FRONT :
 				centerDistance < -boundOffset? PlaneClassification.BACK :
@@ -324,9 +305,9 @@ package away.bounds
 			var m21:Number = raw[1], m22:Number = raw[5], m23:Number = raw[9], m24:Number = raw[13];
 			var m31:Number = raw[2], m32:Number = raw[6], m33:Number = raw[10], m34:Number = raw[14];
 			
-			_centerX = cx*m11 + cy*m12 + cz*m13 + m14;
-            _centerY = cx*m21 + cy*m22 + cz*m23 + m24;
-            _centerZ = cx*m31 + cy*m32 + cz*m33 + m34;
+			this._centerX = cx*m11 + cy*m12 + cz*m13 + m14;
+            this._centerY = cx*m21 + cy*m22 + cz*m23 + m24;
+            this._centerZ = cx*m31 + cy*m32 + cz*m33 + m34;
 			
 			if (m11 < 0)
 				m11 = -m11;
@@ -349,16 +330,16 @@ package away.bounds
 			var hx:Number = aabb._halfExtentsX;
 			var hy:Number = aabb._halfExtentsY;
 			var hz:Number = aabb._halfExtentsZ;
-            _halfExtentsX = hx*m11 + hy*m12 + hz*m13;
-            _halfExtentsY = hx*m21 + hy*m22 + hz*m23;
-            _halfExtentsZ = hx*m31 + hy*m32 + hz*m33;
+            this._halfExtentsX = hx*m11 + hy*m12 + hz*m13;
+            this._halfExtentsY = hx*m21 + hy*m22 + hz*m23;
+            this._halfExtentsZ = hx*m31 + hy*m32 + hz*m33;
 
-            _pMin.x = _centerX - _halfExtentsX;
-            _pMin.y = _centerY - _halfExtentsY;
-            _pMin.z = _centerZ - _halfExtentsZ;
-            _pMax.x = _centerX + _halfExtentsX;
-            _pMax.y = _centerY + _halfExtentsY;
-            _pMax.z = _centerZ + _halfExtentsZ;
+            this._pMin.x = this._centerX - this._halfExtentsX;
+            this._pMin.y = this._centerY - this._halfExtentsY;
+            this._pMin.z = this._centerZ - this._halfExtentsZ;
+            this._pMax.x = this._centerX + this._halfExtentsX;
+            this._pMax.y = this._centerY + this._halfExtentsY;
+            this._pMax.z = this._centerZ + this._halfExtentsZ;
 		}
 	}
 }

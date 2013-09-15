@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.lights
@@ -25,7 +23,7 @@ package away.lights
 		public function PointLight():void
 		{
 			super();
-			_pFallOffFactor = 1/(_pFallOff*_pFallOff - _pRadius*_pRadius);
+			this._pFallOffFactor = 1/(this._pFallOff*this._pFallOff - this._pRadius*this._pRadius);
 		}
 		
 		override public function pCreateShadowMapper():ShadowMapperBase
@@ -40,53 +38,53 @@ package away.lights
 		
 		public function get radius():Number
 		{
-			return _pRadius;
+			return this._pRadius;
 		}
 		
 		public function set radius(value:Number):void
 		{
-			_pRadius = value;
-			if (_pRadius < 0)
+			this._pRadius = value;
+			if (this._pRadius < 0)
 			{
-				_pRadius = 0;
+				this._pRadius = 0;
 			}
-			else if( _pRadius > _pFallOff )
+			else if( this._pRadius > this._pFallOff )
 			{
-				_pFallOff = _pRadius;
-				pInvalidateBounds();
+				this._pFallOff = this._pRadius;
+				this.pInvalidateBounds();
 			}
-			_pFallOffFactor = 1/( _pFallOff*_pFallOff - _pRadius*_pRadius );
+			this._pFallOffFactor = 1/( this._pFallOff*this._pFallOff - this._pRadius*this._pRadius );
 		}
 		
 		public function iFallOffFactor():Number
 		{
-			return _pFallOffFactor;
+			return this._pFallOffFactor;
 		}
 		
 		public function get fallOff():Number
 		{
-			return _pFallOff;
+			return this._pFallOff;
 		}
 		
 		public function set fallOff(value:Number):void
 		{
-			_pFallOff = value;
-			if( _pFallOff < 0)
+			this._pFallOff = value;
+			if( this._pFallOff < 0)
 			{
-				_pFallOff = 0;
+				this._pFallOff = 0;
 			}
-			if( _pFallOff < _pRadius )
+			if( this._pFallOff < this._pRadius )
 			{
-				_pRadius = _pFallOff;
+				this._pRadius = this._pFallOff;
 			}
-			_pFallOffFactor = 1/( _pFallOff*_pFallOff - _pRadius*_pRadius);
-			pInvalidateBounds();
+			this._pFallOffFactor = 1/( this._pFallOff*this._pFallOff - this._pRadius*this._pRadius);
+			this.pInvalidateBounds();
 		}
 		
 		override public function pUpdateBounds():void
 		{
-			_pBounds.fromSphere( new Vector3D(), _pFallOff );
-			_pBoundsInvalid = false;
+			this._pBounds.fromSphere( new Vector3D(), this._pFallOff );
+			this._pBoundsInvalid = false;
 		}
 		
 		override public function pGetDefaultBoundingVolume():BoundingVolumeBase
@@ -102,16 +100,16 @@ package away.lights
 			
 			// todo: do not use lookAt on Light
 			m.copyFrom( renderable.sceneTransform );
-			m.append( _pParent.inverseSceneTransform );
-			lookAt( m.position );
+			m.append( this._pParent.inverseSceneTransform );
+			this.lookAt( m.position );
 			
 			m.copyFrom( renderable.sceneTransform );
-			m.append( inverseSceneTransform );
-			m.copyColumnTo( 3, _pPos );
+			m.append( this.inverseSceneTransform );
+			m.copyColumnTo( 3, this._pPos );
 			
 			var v1:Vector3D = m.deltaTransformVector( bounds.min );
 			var v2:Vector3D = m.deltaTransformVector( bounds.max );
-			var z:Number = _pPos.z;
+			var z:Number = this._pPos.z;
 			var d1:Number = v1.x*v1.x + v1.y*v1.y + v1.z*v1.z;
 			var d2:Number = v2.x*v2.x + v2.y*v2.y + v2.z*v2.z;
 			var d:Number = Math.sqrt(d1 > d2? d1 : d2);

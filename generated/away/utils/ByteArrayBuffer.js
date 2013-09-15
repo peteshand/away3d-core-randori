@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -103,7 +103,7 @@ away.utils.ByteArrayBuffer.prototype.toFloatBits = function(x) {
 	return ((sign << 31) >>> 0) | (exponent << 23) | mantissa;
 };
 
-away.utils.ByteArrayBuffer.prototype.readFloat = function(b) {
+away.utils.ByteArrayBuffer.prototype.readFloat = function() {
 	return this.fromFloatBits(this.readUnsignedInt());
 };
 

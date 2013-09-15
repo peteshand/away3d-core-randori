@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:41:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -117,7 +117,7 @@ away.containers.ObjectContainer3D.prototype.pUpdateMouseChildren = function() {
 	if (this._pParent && !this._pParent._iIsRoot) {
 		this._iAncestorsAllowMouseEnabled = this._pParent._iAncestorsAllowMouseEnabled && this._pParent.get_mouseChildren();
 	} else {
-		this._iAncestorsAllowMouseEnabled = $createStaticDelegate(this, this.get_mouseChildren);
+		this._iAncestorsAllowMouseEnabled = this.get_mouseChildren();
 	}
 	var len = this._children.length;
 	for (var i = 0; i < len; ++i) {
@@ -424,9 +424,9 @@ away.containers.ObjectContainer3D.prototype.disposeWithChildren = function() {
 
 away.containers.ObjectContainer3D.prototype.clone = function() {
 	var clone = new away.containers.ObjectContainer3D();
-	clone.set_pivotPoint($createStaticDelegate(this, this.get_pivotPoint));
-	clone.set_transform($createStaticDelegate(this, this.get_transform));
-	clone.set_partition($createStaticDelegate(this, this.get_partition));
+	clone.set_pivotPoint(this.get_pivotPoint());
+	clone.set_transform(this.get_transform());
+	clone.set_partition(this.get_partition());
 	clone.set_name($createStaticDelegate(this, this.get_name));
 	var len = this._children.length;
 	for (var i = 0; i < len; ++i) {

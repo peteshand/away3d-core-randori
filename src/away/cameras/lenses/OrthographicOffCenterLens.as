@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../_definitions.ts" />
 
 package away.cameras.lenses
@@ -18,61 +16,61 @@ package away.cameras.lenses
 		public function OrthographicOffCenterLens(minX:Number, maxX:Number, minY:Number, maxY:Number):void
 		{
 			super();
-			_minX = minX;
-			_maxX = maxX;
-			_minY = minY;
-			_maxY = maxY;
+			this._minX = minX;
+			this._maxX = maxX;
+			this._minY = minY;
+			this._maxY = maxY;
 		}
 		
 		public function get minX():Number
 		{
-			return _minX;
+			return this._minX;
 		}
 		
 		public function set minX(value:Number):void
 		{
-			_minX = value;
-			pInvalidateMatrix();
+			this._minX = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function get maxX():Number
 		{
-			return _maxX;
+			return this._maxX;
 		}
 		
 		public function set maxX(value:Number):void
 		{
-			_maxX = value;
-			pInvalidateMatrix();
+			this._maxX = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function get minY():Number
 		{
-			return _minY;
+			return this._minY;
 		}
 		
 		public function set minY(value:Number):void
 		{
-			_minY = value;
-			pInvalidateMatrix();
+			this._minY = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function get maxY():Number
 		{
-			return _maxY;
+			return this._maxY;
 		}
 		
 		public function set maxY(value:Number):void
 		{
-			_maxY = value;
-			pInvalidateMatrix();
+			this._maxY = value;
+			this.pInvalidateMatrix();
 		}
 		
 		//@override
 		override public function unproject(nX:Number, nY:Number, sZ:Number):Vector3D
 		{
 			var v:Vector3D = new Vector3D(nX, -nY, sZ, 1.0);
-			v = unprojectionMatrix.transformVector(v);
+			v = this.unprojectionMatrix.transformVector(v);
 			//z is unaffected by transform
 			v.z = sZ;
 			
@@ -82,10 +80,10 @@ package away.cameras.lenses
 		//@override
 		override public function clone():LensBase
 		{
-			var clone:OrthographicOffCenterLens = new OrthographicOffCenterLens(_minX, _maxX, _minY, _maxY);
-			clone._pNear = _pNear;
-			clone._pFar = _pFar;
-			clone._pAspectRatio = _pAspectRatio;
+			var clone:OrthographicOffCenterLens = new OrthographicOffCenterLens(this._minX, this._maxX, this._minY, this._maxY);
+			clone._pNear = this._pNear;
+			clone._pFar = this._pFar;
+			clone._pAspectRatio = this._pAspectRatio;
 			return clone;
 		}
 		
@@ -93,29 +91,29 @@ package away.cameras.lenses
 		override public function pUpdateMatrix():void
 		{
 			var raw:Vector.<Number> = new Vector.<Number>();
-			var w:Number = 1/(_maxX - _minX);
-			var h:Number = 1/(_maxY - _minY);
-			var d:Number = 1/(_pFar - _pNear);
+			var w:Number = 1/(this._maxX - this._minX);
+			var h:Number = 1/(this._maxY - this._minY);
+			var d:Number = 1/(this._pFar - this._pNear);
 			
 			raw[0] = 2*w;
 			raw[5] = 2*h;
 			raw[10] = d;
-			raw[12] = -(_maxX + _minX)*w;
-			raw[13] = -(_maxY + _minY)*h;
-			raw[14] = -_pNear*d;
+			raw[12] = -(this._maxX + this._minX)*w;
+			raw[13] = -(this._maxY + this._minY)*h;
+			raw[14] = -this._pNear*d;
 			raw[15] = 1;
 			raw[1] = raw[2] = raw[3] = raw[4] =
 				raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
-			_pMatrix.copyRawDataFrom(raw);
+			this._pMatrix.copyRawDataFrom(raw);
 			
-			_pFrustumCorners[0] = _pFrustumCorners[9] = _pFrustumCorners[12] = _pFrustumCorners[21] = _minX;
-			_pFrustumCorners[3] = _pFrustumCorners[6] = _pFrustumCorners[15] = _pFrustumCorners[18] = _maxX;
-			_pFrustumCorners[1] = _pFrustumCorners[4] = _pFrustumCorners[13] = _pFrustumCorners[16] = _minY;
-			_pFrustumCorners[7] = _pFrustumCorners[10] = _pFrustumCorners[19] = _pFrustumCorners[22] = _maxY;
-			_pFrustumCorners[2] = _pFrustumCorners[5] = _pFrustumCorners[8] = _pFrustumCorners[11] = _pNear;
-			_pFrustumCorners[14] = _pFrustumCorners[17] = _pFrustumCorners[20] = _pFrustumCorners[23] = _pFar;
+			this._pFrustumCorners[0] = this._pFrustumCorners[9] = this._pFrustumCorners[12] = this._pFrustumCorners[21] = this._minX;
+			this._pFrustumCorners[3] = this._pFrustumCorners[6] = this._pFrustumCorners[15] = this._pFrustumCorners[18] = this._maxX;
+			this._pFrustumCorners[1] = this._pFrustumCorners[4] = this._pFrustumCorners[13] = this._pFrustumCorners[16] = this._minY;
+			this._pFrustumCorners[7] = this._pFrustumCorners[10] = this._pFrustumCorners[19] = this._pFrustumCorners[22] = this._maxY;
+			this._pFrustumCorners[2] = this._pFrustumCorners[5] = this._pFrustumCorners[8] = this._pFrustumCorners[11] = this._pNear;
+			this._pFrustumCorners[14] = this._pFrustumCorners[17] = this._pFrustumCorners[20] = this._pFrustumCorners[23] = this._pFar;
 			
-			_pMatrixInvalid = false;
+			this._pMatrixInvalid = false;
 		}
 	}
 }

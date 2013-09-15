@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.bounds
@@ -24,58 +22,58 @@ package away.bounds
 		
 		public function BoundingVolumeBase():void
 		{
-			_pMin = new Vector3D();
-			_pMax = new Vector3D();
+			this._pMin = new Vector3D();
+			this._pMax = new Vector3D();
 		}
 		
 		public function get max():Vector3D
 		{
-			return _pMax;
+			return this._pMax;
 		}
 		
 		public function get min():Vector3D
 		{
-			return _pMin;
+			return this._pMin;
 		}
 		
 		public function get aabbPoints():Vector.<Number>
 		{
-			if( _pAabbPointsDirty )
+			if( this._pAabbPointsDirty )
 			{
-				pUpdateAABBPoints();
+				this.pUpdateAABBPoints();
 			}
-			return _pAabbPoints;
+			return this._pAabbPoints;
 		}
 		
 		public function get boundingRenderable():WireframePrimitiveBase
 		{
-			if( !_pBoundingRenderable )
+			if( !this._pBoundingRenderable )
 			{
-				_pBoundingRenderable = pCreateBoundingRenderable();
-				pUpdateBoundingRenderable();
+				this._pBoundingRenderable = this.pCreateBoundingRenderable();
+				this.pUpdateBoundingRenderable();
 			}
-			return _pBoundingRenderable;
+			return this._pBoundingRenderable;
 		}
 		
 		public function nullify():void
 		{
-			_pMin.x = _pMin.y = _pMin.z = 0;
-			_pMax.x = _pMax.y = _pMax.z = 0;
-			_pAabbPointsDirty = true;
+			this._pMin.x = this._pMin.y = this._pMin.z = 0;
+			this._pMax.x = this._pMax.y = this._pMax.z = 0;
+			this._pAabbPointsDirty = true;
 			
-			if( _pBoundingRenderable )
+			if( this._pBoundingRenderable )
 			{
-				pUpdateBoundingRenderable();
+				this.pUpdateBoundingRenderable();
 			}
 		}
 		
 		public function disposeRenderable():void
 		{
-			if( _pBoundingRenderable )
+			if( this._pBoundingRenderable )
 			{
-				_pBoundingRenderable.dispose();
+				this._pBoundingRenderable.dispose();
 			}
-			_pBoundingRenderable = null;
+			this._pBoundingRenderable = null;
 		}
 		
 		public function fromVertices(vertices:Vector.<Number>):void
@@ -87,7 +85,7 @@ package away.bounds
 			
 			if( len == 0 )
 			{
-				nullify();
+				this.nullify();
 				return;
 			}
 			
@@ -116,7 +114,7 @@ package away.bounds
 					maxZ = v;
 			}
 			
-			fromExtremes( minX, minY, minZ, maxX, maxY, maxZ );
+			this.fromExtremes( minX, minY, minZ, maxX, maxY, maxZ );
 		}
 		
 		public function fromGeometry(geometry:Geometry):void
@@ -193,12 +191,12 @@ package away.bounds
 					}
 				}
 				
-				fromExtremes(minX, minY, minZ, maxX, maxY, maxZ);
+				this.fromExtremes(minX, minY, minZ, maxX, maxY, maxZ);
 			}
             else
             {
 
-                fromExtremes(0, 0, 0, 0, 0, 0);
+                this.fromExtremes(0, 0, 0, 0, 0, 0);
 
             }
 
@@ -206,22 +204,22 @@ package away.bounds
 
 		public function fromSphere(center:Vector3D, radius:Number):void
 		{
-			fromExtremes( center.x - radius, center.y - radius, center.z - radius, center.x + radius, center.y + radius, center.z + radius );
+			this.fromExtremes( center.x - radius, center.y - radius, center.z - radius, center.x + radius, center.y + radius, center.z + radius );
 		}
 		
 		public function fromExtremes(minX:Number, minY:Number, minZ:Number, maxX:Number, maxY:Number, maxZ:Number):void
 		{
-			_pMin.x = minX;
-			_pMin.y = minY;
-			_pMin.z = minZ;
-			_pMax.x = maxX;
-			_pMax.y = maxY;
-			_pMax.z = maxZ;
-			_pAabbPointsDirty = true;
+			this._pMin.x = minX;
+			this._pMin.y = minY;
+			this._pMin.z = minZ;
+			this._pMax.x = maxX;
+			this._pMax.y = maxY;
+			this._pMax.z = maxZ;
+			this._pAabbPointsDirty = true;
 			
-			if( _pBoundingRenderable )
+			if( this._pBoundingRenderable )
 			{
-				pUpdateBoundingRenderable();
+				this.pUpdateBoundingRenderable();
 			}
 		}
 		
@@ -234,12 +232,12 @@ package away.bounds
 		{
 			var min:Vector3D = bounds._pMin;
 			var max:Vector3D = bounds._pMax;
-			return _pMax.x > min.x &&
-				_pMin.x < max.x &&
-				_pMax.y > min.y &&
-				_pMin.y < max.y &&
-				_pMax.z > min.z &&
-				_pMin.z < max.z;
+			return this._pMax.x > min.x &&
+				this._pMin.x < max.x &&
+				this._pMax.y > min.y &&
+				this._pMin.y < max.y &&
+				this._pMax.z > min.z &&
+				this._pMin.z < max.z;
 		}
 		
 		public function clone():BoundingVolumeBase
@@ -263,38 +261,38 @@ package away.bounds
 		
 		public function pUpdateAABBPoints():void
 		{
-			var maxX:Number = _pMax.x;
-			var maxY:Number = _pMax.y;
-			var maxZ:Number = _pMax.z;
-			var minX:Number = _pMin.x;
-			var minY:Number = _pMin.y;
-			var minZ:Number = _pMin.z;
+			var maxX:Number = this._pMax.x;
+			var maxY:Number = this._pMax.y;
+			var maxZ:Number = this._pMax.z;
+			var minX:Number = this._pMin.x;
+			var minY:Number = this._pMin.y;
+			var minZ:Number = this._pMin.z;
 			
-			_pAabbPoints[0] = minX;
-			_pAabbPoints[1] = minY;
-			_pAabbPoints[2] = minZ;
-			_pAabbPoints[3] = maxX;
-			_pAabbPoints[4] = minY;
-			_pAabbPoints[5] = minZ;
-			_pAabbPoints[6] = minX;
-			_pAabbPoints[7] = maxY;
-			_pAabbPoints[8] = minZ;
-			_pAabbPoints[9] = maxX;
-			_pAabbPoints[10] = maxY;
-			_pAabbPoints[11] = minZ;
-			_pAabbPoints[12] = minX;
-			_pAabbPoints[13] = minY;
-			_pAabbPoints[14] = maxZ;
-			_pAabbPoints[15] = maxX;
-			_pAabbPoints[16] = minY;
-			_pAabbPoints[17] = maxZ;
-			_pAabbPoints[18] = minX;
-			_pAabbPoints[19] = maxY;
-			_pAabbPoints[20] = maxZ;
-			_pAabbPoints[21] = maxX;
-			_pAabbPoints[22] = maxY;
-			_pAabbPoints[23] = maxZ;
-			_pAabbPointsDirty = false;
+			this._pAabbPoints[0] = minX;
+			this._pAabbPoints[1] = minY;
+			this._pAabbPoints[2] = minZ;
+			this._pAabbPoints[3] = maxX;
+			this._pAabbPoints[4] = minY;
+			this._pAabbPoints[5] = minZ;
+			this._pAabbPoints[6] = minX;
+			this._pAabbPoints[7] = maxY;
+			this._pAabbPoints[8] = minZ;
+			this._pAabbPoints[9] = maxX;
+			this._pAabbPoints[10] = maxY;
+			this._pAabbPoints[11] = minZ;
+			this._pAabbPoints[12] = minX;
+			this._pAabbPoints[13] = minY;
+			this._pAabbPoints[14] = maxZ;
+			this._pAabbPoints[15] = maxX;
+			this._pAabbPoints[16] = minY;
+			this._pAabbPoints[17] = maxZ;
+			this._pAabbPoints[18] = minX;
+			this._pAabbPoints[19] = maxY;
+			this._pAabbPoints[20] = maxZ;
+			this._pAabbPoints[21] = maxX;
+			this._pAabbPoints[22] = maxY;
+			this._pAabbPoints[23] = maxZ;
+			this._pAabbPointsDirty = false;
 		}
 		
 		public function pUpdateBoundingRenderable():void

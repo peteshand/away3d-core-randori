@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.primitives
@@ -24,21 +22,21 @@ package away.primitives
 			{
 				thickness = 1;
 			}
-			_color = color;
-			_thickness = thickness;
-			mouseEnabled = mouseChildren = false;
+			this._color = color;
+			this._thickness = thickness;
+			this.mouseEnabled = this.mouseChildren = false;
 		}
 		
 		public function get color():Number
 		{
-			return _color;
+			return this._color;
 		}
 		
 		public function set color(value:Number):void
 		{
-			_color = value;
+			this._color = value;
 			
-			for( var segRef in _pSegments )
+			for( var segRef in this._pSegments )
 			{
 				segRef.segment.startColor = segRef.segment.endColor = value;
 			}
@@ -46,14 +44,14 @@ package away.primitives
 		
 		public function get thickness():Number
 		{
-			return _thickness;
+			return this._thickness;
 		}
 		
 		public function set thickness(value:Number):void
 		{
-			_thickness = value;
+			this._thickness = value;
 			
-			for( var segRef in _pSegments)
+			for( var segRef in this._pSegments)
 			{
 				segRef.segment.thickness = segRef.segment.thickness = value;
 			}
@@ -68,9 +66,9 @@ package away.primitives
 		//@override
 		override public function getBounds():BoundingVolumeBase
 		{
-			if( _geomDirty )
+			if( this._geomDirty )
 			{
-				updateGeometry();
+				this.updateGeometry();
 			}
 			return super.getBounds();
 		}
@@ -82,14 +80,14 @@ package away.primitives
 		
 		public function pInvalidateGeometry():void
 		{
-			_geomDirty = true;
-			pInvalidateBounds();
+			this._geomDirty = true;
+			this.pInvalidateBounds();
 		}
 		
 		private function updateGeometry():void
 		{
-			pBuildGeometry();
-			_geomDirty = false;
+			this.pBuildGeometry();
+			this._geomDirty = false;
 		}
 		
 		public function pUpdateOrAddSegment(index:Number, v0:Vector3D, v1:Vector3D):void
@@ -98,7 +96,7 @@ package away.primitives
 			var s:Vector3D;
 			var e:Vector3D;
 			
-			if( (segment = getSegment(index)) != null )
+			if( (segment = this.getSegment(index)) != null )
 			{
 				s = segment.start;
 				e = segment.end;
@@ -108,18 +106,18 @@ package away.primitives
 				e.x = v1.x;
 				e.y = v1.y;
 				e.z = v1.z;
-				segment.updateSegment(s, e, null, _color, _color, _thickness );
+				segment.updateSegment(s, e, null, this._color, this._color, this._thickness );
 			}
 			else
 			{
-				addSegment( new LineSegment( v0.clone(), v1.clone(), _color, _color, _thickness) );
+				this.addSegment( new LineSegment( v0.clone(), v1.clone(), this._color, this._color, this._thickness) );
 			}
 		}
 		
 		//@override
 		override public function pUpdateMouseChildren():void
 		{
-			_iAncestorsAllowMouseEnabled = false;
+			this._iAncestorsAllowMouseEnabled = false;
 		}
 		
 	}

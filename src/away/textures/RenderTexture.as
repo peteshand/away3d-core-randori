@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.textures
 {
 	import away.utils.TextureUtils;
@@ -13,12 +14,12 @@ package away.textures
 		public function RenderTexture(width:Number, height:Number):void
 		{
 			super();
-			pSetSize(width, height);
+			this.pSetSize(width, height);
 		}
 		
 		public function set width(value:Number):void
 		{
-			if (value == _pWidth)
+			if (value == this._pWidth)
             {
 				return;
             }
@@ -26,13 +27,13 @@ package away.textures
 			if (!TextureUtils.isDimensionValid(value))
 				throw new Error("Invalid size: Width and height must be power of 2 and cannot exceed 2048");
 			
-			invalidateContent();
-			pSetSize(value, _pHeight);
+			this.invalidateContent();
+			this.pSetSize(value, this._pHeight);
 		}
 		
 		public function set height(value:Number):void
 		{
-			if (value == _pHeight)
+			if (value == this._pHeight)
             {
 				return;
             }
@@ -42,21 +43,21 @@ package away.textures
 				throw new Error("Invalid size: Width and height must be power of 2 and cannot exceed 2048");
             }
 
-			invalidateContent();
-			pSetSize( _pWidth, value);
+			this.invalidateContent();
+			this.pSetSize( this._pWidth, value);
 		}
 		
 		override public function pUploadContent(texture:TextureBase):void
 		{
 			// fake data, to complete texture for sampling
-			var bmp:BitmapData = new BitmapData ( width, height, false, 0xff0000);
+			var bmp:BitmapData = new BitmapData ( this.width, this.height, false, 0xff0000);
 			MipmapGenerator.generateMipMaps(bmp, texture);
 			bmp.dispose();
 		}
 		
 		override public function pCreateTexture(context:Context3D):TextureBase
 		{
-			return context.createTexture(width, height, Context3DTextureFormat.BGRA, true);
+			return context.createTexture(this.width, this.height, Context3DTextureFormat.BGRA, true);
 		}
 	}
 }

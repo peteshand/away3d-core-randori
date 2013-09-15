@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.lights
@@ -26,8 +24,8 @@ package away.lights
 		public function DirectionalLight(xDir:Number = 0, yDir:Number = -1, zDir:Number = 1):void
 		{
 			super();
-			direction = new Vector3D( xDir, yDir, zDir );
-			_sceneDirection = new Vector3D();
+			this.direction = new Vector3D( xDir, yDir, zDir );
+			this._sceneDirection = new Vector3D();
 		}
 		
 		//@override
@@ -38,31 +36,31 @@ package away.lights
 		
 		public function get sceneDirection():Vector3D
 		{
-			if( _pSceneTransformDirty )
+			if( this._pSceneTransformDirty )
 			{
-				pUpdateSceneTransform();
+				this.pUpdateSceneTransform();
 			}
-			return _sceneDirection;
+			return this._sceneDirection;
 		}
 		
 		public function get direction():Vector3D
 		{
-			return _direction;
+			return this._direction;
 		}
 		
 		public function set direction(value:Vector3D):void
 		{
-			_direction = value;
+			this._direction = value;
 
-			if (!_tmpLookAt)
+			if (!this._tmpLookAt)
 			{
-				_tmpLookAt = new Vector3D();
+				this._tmpLookAt = new Vector3D();
 			}
-			_tmpLookAt.x = x + _direction.x;
-			_tmpLookAt.y = y + _direction.y;
-			_tmpLookAt.z = z + _direction.z;
+			this._tmpLookAt.x = this.x + this._direction.x;
+			this._tmpLookAt.y = this.y + this._direction.y;
+			this._tmpLookAt.z = this.z + this._direction.z;
 			
-			lookAt( _tmpLookAt );
+			this.lookAt( this._tmpLookAt );
 		}
 		
 		//@override
@@ -80,8 +78,8 @@ package away.lights
 		override public function pUpdateSceneTransform():void
 		{
 			super.pUpdateSceneTransform();
-			sceneTransform.copyColumnTo( 2, _sceneDirection );
-			_sceneDirection.normalize();
+			this.sceneTransform.copyColumnTo( 2, this._sceneDirection );
+			this._sceneDirection.normalize();
 		}
 		
 		//@override
@@ -98,30 +96,30 @@ package away.lights
 			var m:Matrix3D = new Matrix3D();
 			
 			m.copyFrom( renderable.sceneTransform );
-			m.append( inverseSceneTransform );
+			m.append( this.inverseSceneTransform );
 			
-			if( !_projAABBPoints )
+			if( !this._projAABBPoints )
 			{
-				_projAABBPoints = new <Number>[];
+				this._projAABBPoints = new <Number>[];
 			}
-			m.transformVectors( bounds.aabbPoints, _projAABBPoints );
+			m.transformVectors( bounds.aabbPoints, this._projAABBPoints );
 			
 			var xMin:Number = Infinity, xMax:Number = -Infinity;
 			var yMin:Number = Infinity, yMax:Number = -Infinity;
 			var zMin:Number = Infinity, zMax:Number = -Infinity;
 			var d:Number;
 			for( var i:Number = 0; i < 24; ) {
-				d = _projAABBPoints[i++];
+				d = this._projAABBPoints[i++];
 				if (d < xMin)
 					xMin = d;
 				if (d > xMax)
 					xMax = d;
-				d = _projAABBPoints[i++];
+				d = this._projAABBPoints[i++];
 				if (d < yMin)
 					yMin = d;
 				if (d > yMax)
 					yMax = d;
-				d = _projAABBPoints[i++];
+				d = this._projAABBPoints[i++];
 				if (d < zMin)
 					zMin = d;
 				if (d > zMax)

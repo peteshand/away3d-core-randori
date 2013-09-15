@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.passes
 {
 	import away.materials.MaterialBase;
@@ -17,60 +18,45 @@ package away.materials.passes
 	import away.lights.LightProbe;
 	import away.display3D.Context3D;
 
-	/**
-	 * SuperShaderPass is a shader pass that uses shader methods to compile a complete program. It includes all methods
-	 * associated with a material.
-	 *
-	 * @see away3d.materials.methods.ShadingMethodBase
-	 */
+	/**	 * SuperShaderPass is a shader pass that uses shader methods to compile a complete program. It includes all methods	 * associated with a material.	 *	 * @see away3d.materials.methods.ShadingMethodBase	 */
 	public class SuperShaderPass extends CompiledPass
 	{
 		private var _includeCasters:Boolean = true;
 		private var _ignoreLights:Boolean;
 		
-		/**
-		 * Creates a new SuperShaderPass objects.
-		 *
-		 * @param material The material to which this material belongs.
-		 */
+		/**		 * Creates a new SuperShaderPass objects.		 *		 * @param material The material to which this material belongs.		 */
 		public function SuperShaderPass(material:MaterialBase):void
 		{
 			super(material);
-			_pNeedFragmentAnimation = true;
+			this._pNeedFragmentAnimation = true;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pCreateCompiler(profile:String):ShaderCompiler
 		{
 			return new SuperShaderCompiler(profile);
 		}
 
-		/**
-		 * Indicates whether lights that cast shadows should be included in the pass.
-		 */
+		/**		 * Indicates whether lights that cast shadows should be included in the pass.		 */
 		public function get includeCasters():Boolean
 		{
-			return _includeCasters;
+			return this._includeCasters;
 		}
 		
 		public function set includeCasters(value:Boolean):void
 		{
-			if (_includeCasters == value)
+			if (this._includeCasters == value)
 				return;
-            _includeCasters = value;
-            iInvalidateShaderProgram();//invalidateShaderProgram();
+            this._includeCasters = value;
+            this.iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 
-		/**
-		 * The ColorTransform object to transform the colour of the material with. Defaults to null.
-		 */
+		/**		 * The ColorTransform object to transform the colour of the material with. Defaults to null.		 */
 		public function get colorTransform():ColorTransform
 		{
 
 
-            return _pMethodSetup._iColorTransformMethod ? _pMethodSetup._iColorTransformMethod.colorTransform : null;
+            return this._pMethodSetup._iColorTransformMethod ? this._pMethodSetup._iColorTransformMethod.colorTransform : null;
 		}
 
 		public function set colorTransform(value:ColorTransform):void
@@ -79,144 +65,116 @@ package away.materials.passes
             {
 
                 //colorTransformMethod ||= new away.geom.ColorTransform();
-                if ( colorTransformMethod == null )
+                if ( this.colorTransformMethod == null )
                 {
 
 
-                    colorTransformMethod = new ColorTransformMethod();
+                    this.colorTransformMethod = new ColorTransformMethod();
 
                 }
 
-				_pMethodSetup._iColorTransformMethod.colorTransform = value;
+				this._pMethodSetup._iColorTransformMethod.colorTransform = value;
 
 			}
             else if (!value)
             {
 
-				if (_pMethodSetup._iColorTransformMethod)
+				if (this._pMethodSetup._iColorTransformMethod)
                 {
 
-                    colorTransformMethod = null;
+                    this.colorTransformMethod = null;
 
                 }
 
-				colorTransformMethod = _pMethodSetup._iColorTransformMethod = null;
+				this.colorTransformMethod = this._pMethodSetup._iColorTransformMethod = null;
 			}
 		}
 
-		/**
-		 * The ColorTransformMethod object to transform the colour of the material with. Defaults to null.
-		 */
+		/**		 * The ColorTransformMethod object to transform the colour of the material with. Defaults to null.		 */
 		public function get colorTransformMethod():ColorTransformMethod
 		{
 
-			return _pMethodSetup._iColorTransformMethod;
+			return this._pMethodSetup._iColorTransformMethod;
 		}
 		
 		public function set colorTransformMethod(value:ColorTransformMethod):void
 		{
-			_pMethodSetup.iColorTransformMethod = value;
+			this._pMethodSetup.iColorTransformMethod = value;
 		}
 
-		/**
-		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting
-		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the
-		 * methods added prior.
-		 */
+		/**		 * Appends an "effect" shading method to the shader. Effect methods are those that do not influence the lighting		 * but modulate the shaded colour, used for fog, outlines, etc. The method will be applied to the result of the		 * methods added prior.		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
-			_pMethodSetup.addMethod(method);
+			this._pMethodSetup.addMethod(method);
 		}
 
-		/**
-		 * The number of "effect" methods added to the material.
-		 */
+		/**		 * The number of "effect" methods added to the material.		 */
 		public function get numMethods():Number
 		{
-			return _pMethodSetup.numMethods;
+			return this._pMethodSetup.numMethods;
 		}
 
-		/**
-		 * Queries whether a given effect method was added to the material.
-		 *
-		 * @param method The method to be queried.
-		 * @return true if the method was added to the material, false otherwise.
-		 */
+		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
-			return _pMethodSetup.hasMethod(method);
+			return this._pMethodSetup.hasMethod(method);
 		}
 
-		/**
-		 * Returns the method added at the given index.
-		 * @param index The index of the method to retrieve.
-		 * @return The method at the given index.
-		 */
+		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
-			return _pMethodSetup.getMethodAt(index);
+			return this._pMethodSetup.getMethodAt(index);
 		}
 
-		/**
-		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect
-		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,
-		 * etc. The method will be applied to the result of the methods with a lower index.
-		 */
+		/**		 * Adds an effect method at the specified index amongst the methods already added to the material. Effect		 * methods are those that do not influence the lighting but modulate the shaded colour, used for fog, outlines,		 * etc. The method will be applied to the result of the methods with a lower index.		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
-			_pMethodSetup.addMethodAt(method, index);
+			this._pMethodSetup.addMethodAt(method, index);
 		}
 
-		/**
-		 * Removes an effect method from the material.
-		 * @param method The method to be removed.
-		 */
+		/**		 * Removes an effect method from the material.		 * @param method The method to be removed.		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
-            _pMethodSetup.removeMethod(method);
+            this._pMethodSetup.removeMethod(method);
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateLights():void
 		{
 
-			if (_pLightPicker && !_ignoreLights)
+			if (this._pLightPicker && !this._ignoreLights)
             {
 
-				_pNumPointLights = _pLightPicker.numPointLights;
-                _pNumDirectionalLights = _pLightPicker.numDirectionalLights;
-                _pNumLightProbes = _pLightPicker.numLightProbes;
+				this._pNumPointLights = this._pLightPicker.numPointLights;
+                this._pNumDirectionalLights = this._pLightPicker.numDirectionalLights;
+                this._pNumLightProbes = this._pLightPicker.numLightProbes;
 
-				if (_includeCasters)
+				if (this._includeCasters)
                 {
-					_pNumPointLights += _pLightPicker.numCastingPointLights;
-					_pNumDirectionalLights += _pLightPicker.numCastingDirectionalLights;
+					this._pNumPointLights += this._pLightPicker.numCastingPointLights;
+					this._pNumDirectionalLights += this._pLightPicker.numCastingDirectionalLights;
 				}
 
 			}
             else
             {
-				_pNumPointLights = 0;
-                _pNumDirectionalLights = 0;
-                _pNumLightProbes = 0;
+				this._pNumPointLights = 0;
+                this._pNumDirectionalLights = 0;
+                this._pNumLightProbes = 0;
 			}
 
-            iInvalidateShaderProgram();//invalidateShaderProgram();
+            this.iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);
 
-			if (_pMethodSetup._iColorTransformMethod)
-                _pMethodSetup._iColorTransformMethod.iActivate(_pMethodSetup._iColorTransformMethodVO, stage3DProxy);
+			if (this._pMethodSetup._iColorTransformMethod)
+                this._pMethodSetup._iColorTransformMethod.iActivate(this._pMethodSetup._iColorTransformMethodVO, stage3DProxy);
 
-			var methods:Vector.<MethodVOSet> = _pMethodSetup._iMethods;
+			var methods:Vector.<MethodVOSet> = this._pMethodSetup._iMethods;
 			var len:Number = methods.length;
 
 			for (var i:Number = 0; i < len; ++i)
@@ -228,34 +186,32 @@ package away.materials.passes
 			}
 
 
-			if (_pCameraPositionIndex >= 0)
+			if (this._pCameraPositionIndex >= 0)
             {
 
 				var pos : Vector3D = camera.scenePosition;
 
-				_pVertexConstantData[_pCameraPositionIndex] = pos.x;
-                _pVertexConstantData[_pCameraPositionIndex + 1] = pos.y;
-                _pVertexConstantData[_pCameraPositionIndex + 2] = pos.z;
+				this._pVertexConstantData[this._pCameraPositionIndex] = pos.x;
+                this._pVertexConstantData[this._pCameraPositionIndex + 1] = pos.y;
+                this._pVertexConstantData[this._pCameraPositionIndex + 2] = pos.z;
 
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 			super.iDeactivate(stage3DProxy);
 
-			if (_pMethodSetup._iColorTransformMethod)
+			if (this._pMethodSetup._iColorTransformMethod)
             {
 
-                _pMethodSetup._iColorTransformMethod.iDeactivate(_pMethodSetup._iColorTransformMethodVO, stage3DProxy);
+                this._pMethodSetup._iColorTransformMethod.iDeactivate(this._pMethodSetup._iColorTransformMethodVO, stage3DProxy);
 
             }
 
 			var aset:MethodVOSet;
-			var methods:Vector.<MethodVOSet> =  _pMethodSetup._iMethods;
+			var methods:Vector.<MethodVOSet> =  this._pMethodSetup._iMethods;
 			var len:Number = methods.length;
 
 			for (var i:Number = 0; i < len; ++i)
@@ -266,66 +222,58 @@ package away.materials.passes
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pAddPassesFromMethods():void
 		{
 			super.pAddPassesFromMethods();
 			
-			if (_pMethodSetup._iColorTransformMethod)
+			if (this._pMethodSetup._iColorTransformMethod)
             {
 
-                pAddPasses( _pMethodSetup._iColorTransformMethod.passes );
+                this.pAddPasses( this._pMethodSetup._iColorTransformMethod.passes );
 
             }
-			var methods:Vector.<MethodVOSet> = _pMethodSetup._iMethods;
+			var methods:Vector.<MethodVOSet> = this._pMethodSetup._iMethods;
 
 			for (var i:Number = 0; i < methods.length; ++i)
             {
 
-                pAddPasses(methods[i].method.passes);
+                this.pAddPasses(methods[i].method.passes);
 
             }
 
 
 		}
 
-		/**
-		 * Indicates whether any light probes are used to contribute to the specular shading.
-		 */
+		/**		 * Indicates whether any light probes are used to contribute to the specular shading.		 */
 		private function usesProbesForSpecular():Boolean
 		{
 
-			return _pNumLightProbes > 0 && (_pSpecularLightSources & LightSources.PROBES) != 0;
+			return this._pNumLightProbes > 0 && (this._pSpecularLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**
-		 * Indicates whether any light probes are used to contribute to the diffuse shading.
-		 */
+		/**		 * Indicates whether any light probes are used to contribute to the diffuse shading.		 */
 		private function usesProbesForDiffuse():Boolean
 		{
 
-			return _pNumLightProbes > 0 && (_pDiffuseLightSources & LightSources.PROBES) != 0;
+			return this._pNumLightProbes > 0 && (this._pDiffuseLightSources & LightSources.PROBES) != 0;
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateMethodConstants():void
 		{
 
 			super.pUpdateMethodConstants();
 
-			if (_pMethodSetup._iColorTransformMethod)
+			if (this._pMethodSetup._iColorTransformMethod)
             {
 
-                _pMethodSetup._iColorTransformMethod.iInitConstants(_pMethodSetup._iColorTransformMethodVO);
+                this._pMethodSetup._iColorTransformMethod.iInitConstants(this._pMethodSetup._iColorTransformMethodVO);
 
             }
 
-			var methods:Vector.<MethodVOSet> = _pMethodSetup._iMethods;
+			var methods:Vector.<MethodVOSet> = this._pMethodSetup._iMethods;
 			var len:Number = methods.length;
 
 			for (var i:Number = 0; i < len; ++i)
@@ -339,9 +287,7 @@ package away.materials.passes
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateLightConstants():void
 		{
 
@@ -358,14 +304,14 @@ package away.materials.passes
 
 			var total:Number = 0;
 
-			var numLightTypes:Number = _includeCasters? 2 : 1;
+			var numLightTypes:Number = this._includeCasters? 2 : 1;
 			
-			k = _pLightFragmentConstantIndex;
+			k = this._pLightFragmentConstantIndex;
 			
 			for (var cast:Number = 0; cast < numLightTypes; ++cast)
             {
 
-				var dirLights:Vector.<DirectionalLight> = cast? _pLightPicker.castingDirectionalLights : _pLightPicker.directionalLights;
+				var dirLights:Vector.<DirectionalLight> = cast? this._pLightPicker.castingDirectionalLights : this._pLightPicker.directionalLights;
 				len = dirLights.length;
 				total += len;
 				
@@ -375,36 +321,36 @@ package away.materials.passes
 					dirLight = dirLights[i];
 					dirPos = dirLight.sceneDirection;
 					
-					_pAmbientLightR += dirLight._iAmbientR;
-                    _pAmbientLightG += dirLight._iAmbientG;
-                    _pAmbientLightB += dirLight._iAmbientB;
+					this._pAmbientLightR += dirLight._iAmbientR;
+                    this._pAmbientLightG += dirLight._iAmbientG;
+                    this._pAmbientLightB += dirLight._iAmbientB;
 
-                    _pFragmentConstantData[k++] = -dirPos.x;
-                    _pFragmentConstantData[k++] = -dirPos.y;
-                    _pFragmentConstantData[k++] = -dirPos.z;
-                    _pFragmentConstantData[k++] = 1;
+                    this._pFragmentConstantData[k++] = -dirPos.x;
+                    this._pFragmentConstantData[k++] = -dirPos.y;
+                    this._pFragmentConstantData[k++] = -dirPos.z;
+                    this._pFragmentConstantData[k++] = 1;
 
-                    _pFragmentConstantData[k++] = dirLight._iDiffuseR;
-                    _pFragmentConstantData[k++] = dirLight._iDiffuseG;
-                    _pFragmentConstantData[k++] = dirLight._iDiffuseB;
-                    _pFragmentConstantData[k++] = 1;
+                    this._pFragmentConstantData[k++] = dirLight._iDiffuseR;
+                    this._pFragmentConstantData[k++] = dirLight._iDiffuseG;
+                    this._pFragmentConstantData[k++] = dirLight._iDiffuseB;
+                    this._pFragmentConstantData[k++] = 1;
 
-                    _pFragmentConstantData[k++] = dirLight._iSpecularR;
-                    _pFragmentConstantData[k++] = dirLight._iSpecularG;
-                    _pFragmentConstantData[k++] = dirLight._iSpecularB;
-                    _pFragmentConstantData[k++] = 1;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularR;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularG;
+                    this._pFragmentConstantData[k++] = dirLight._iSpecularB;
+                    this._pFragmentConstantData[k++] = 1;
 				}
 			}
 			
 			// more directional supported than currently picked, need to clamp all to 0
-			if (_pNumDirectionalLights > total)
+			if (this._pNumDirectionalLights > total)
             {
-				i = k + (_pNumDirectionalLights - total)*12;
+				i = k + (this._pNumDirectionalLights - total)*12;
 
 				while (k < i)
                 {
 
-                    _pFragmentConstantData[k++] = 0;
+                    this._pFragmentConstantData[k++] = 0;
 
                 }
 
@@ -414,7 +360,7 @@ package away.materials.passes
 			for (cast = 0; cast < numLightTypes; ++cast)
             {
 
-				var pointLights:Vector.<PointLight>= cast? _pLightPicker.castingPointLights : _pLightPicker.pointLights;
+				var pointLights:Vector.<PointLight>= cast? this._pLightPicker.castingPointLights : this._pLightPicker.pointLights;
 
 				len = pointLights.length;
 
@@ -423,37 +369,37 @@ package away.materials.passes
 					pointLight = pointLights[i];
 					dirPos = pointLight.scenePosition;
 					
-					_pAmbientLightR += pointLight._iAmbientR;
-                    _pAmbientLightG += pointLight._iAmbientG;
-                    _pAmbientLightB += pointLight._iAmbientB;
+					this._pAmbientLightR += pointLight._iAmbientR;
+                    this._pAmbientLightG += pointLight._iAmbientG;
+                    this._pAmbientLightB += pointLight._iAmbientB;
 
-                    _pFragmentConstantData[k++] = dirPos.x;
-                    _pFragmentConstantData[k++] = dirPos.y;
-                    _pFragmentConstantData[k++] = dirPos.z;
-                    _pFragmentConstantData[k++] = 1;
+                    this._pFragmentConstantData[k++] = dirPos.x;
+                    this._pFragmentConstantData[k++] = dirPos.y;
+                    this._pFragmentConstantData[k++] = dirPos.z;
+                    this._pFragmentConstantData[k++] = 1;
 
-                    _pFragmentConstantData[k++] = pointLight._iDiffuseR;
-                    _pFragmentConstantData[k++] = pointLight._iDiffuseG;
-                    _pFragmentConstantData[k++] = pointLight._iDiffuseB;
-                    _pFragmentConstantData[k++] = pointLight._pRadius*pointLight._pRadius;
+                    this._pFragmentConstantData[k++] = pointLight._iDiffuseR;
+                    this._pFragmentConstantData[k++] = pointLight._iDiffuseG;
+                    this._pFragmentConstantData[k++] = pointLight._iDiffuseB;
+                    this._pFragmentConstantData[k++] = pointLight._pRadius*pointLight._pRadius;
 
-                    _pFragmentConstantData[k++] = pointLight._iSpecularR;
-                    _pFragmentConstantData[k++] = pointLight._iSpecularG;
-                    _pFragmentConstantData[k++] = pointLight._iSpecularB;
-                    _pFragmentConstantData[k++] = pointLight._pFallOffFactor;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularR;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularG;
+                    this._pFragmentConstantData[k++] = pointLight._iSpecularB;
+                    this._pFragmentConstantData[k++] = pointLight._pFallOffFactor;
 				}
 			}
 			
 			// more directional supported than currently picked, need to clamp all to 0
-			if (_pNumPointLights > total)
+			if (this._pNumPointLights > total)
             {
 
-				i = k + (total - _pNumPointLights )*12;
+				i = k + (total - this._pNumPointLights )*12;
 
 				for (; k < i; ++k)
                 {
 
-                    _pFragmentConstantData[k] = 0;
+                    this._pFragmentConstantData[k] = 0;
 
                 }
 
@@ -461,18 +407,16 @@ package away.materials.passes
 
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
 		{
 
 			var probe:LightProbe;
-			var lightProbes:Vector.<LightProbe> = _pLightPicker.lightProbes;
-			var weights:Vector.<Number> = _pLightPicker.lightProbeWeights;
+			var lightProbes:Vector.<LightProbe> = this._pLightPicker.lightProbes;
+			var weights:Vector.<Number> = this._pLightPicker.lightProbeWeights;
 			var len:Number = lightProbes.length;
-			var addDiff:Boolean = usesProbesForDiffuse();
-			var addSpec:Boolean = ((_pMethodSetup._iSpecularMethod && usesProbesForSpecular()) as Boolean);
+			var addDiff:Boolean = this.usesProbesForDiffuse();
+			var addSpec:Boolean = ((this._pMethodSetup._iSpecularMethod && this.usesProbesForSpecular( ) ) as Boolean);
 			var context:Context3D = stage3DProxy._iContext3D;
 			
 			if (!(addDiff || addSpec))
@@ -492,38 +436,35 @@ package away.materials.passes
 				if (addDiff)
                 {
 
-                    context.setTextureAt(_pLightProbeSpecularIndices[i], probe.diffuseMap.getTextureForStage3D(stage3DProxy));//<------ TODO: implement
+                    context.setTextureAt(this._pLightProbeSpecularIndices[i], probe.diffuseMap.getTextureForStage3D(stage3DProxy));//<------ TODO: implement
 
                 }
 
 				if (addSpec)
                 {
 
-                    context.setTextureAt(_pLightProbeSpecularIndices[i], probe.specularMap.getTextureForStage3D(stage3DProxy));//<------ TODO: implement
+                    context.setTextureAt(this._pLightProbeSpecularIndices[i], probe.specularMap.getTextureForStage3D(stage3DProxy));//<------ TODO: implement
 
                 }
 
 			}
 			
-			_pFragmentConstantData[_pProbeWeightsIndex] = weights[0];
-            _pFragmentConstantData[_pProbeWeightsIndex + 1] = weights[1];
-            _pFragmentConstantData[_pProbeWeightsIndex + 2] = weights[2];
-            _pFragmentConstantData[_pProbeWeightsIndex + 3] = weights[3];
+			this._pFragmentConstantData[this._pProbeWeightsIndex] = weights[0];
+            this._pFragmentConstantData[this._pProbeWeightsIndex + 1] = weights[1];
+            this._pFragmentConstantData[this._pProbeWeightsIndex + 2] = weights[2];
+            this._pFragmentConstantData[this._pProbeWeightsIndex + 3] = weights[3];
 
 		}
 
-		/**
-		 * Indicates whether lights should be ignored in this pass. This is used when only effect methods are rendered in
-		 * a multipass material.
-		 */
+		/**		 * Indicates whether lights should be ignored in this pass. This is used when only effect methods are rendered in		 * a multipass material.		 */
 		public function set iIgnoreLights(ignoreLights:Boolean):void
 		{
-			_ignoreLights = ignoreLights;
+			this._ignoreLights = ignoreLights;
 		}
 		
 		public function get iIgnoreLights():Boolean
 		{
-			return _ignoreLights;
+			return this._ignoreLights;
 		}
 	}
 }

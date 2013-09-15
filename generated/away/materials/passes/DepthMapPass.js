@@ -11,7 +11,7 @@ away.materials.passes.DepthMapPass = function() {
 	this._alphaMask = null;
 	this._data = null;
 	this._alphaThreshold = 0;
-	away.materials.passes.MaterialPassBase.call(thisfalse);
+	away.materials.passes.MaterialPassBase.call(this, false);
 	this._data = [1.0, 255.0, 65025.0, 16581375.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 };
 

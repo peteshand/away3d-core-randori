@@ -1,9 +1,7 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
-///<reference path="../_definitions.ts"/>
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
+///<reference path="../_definitions.ts"/>
+/** * @module away.events */
 package away.events
 {
 	import away.cameras.lenses.LensBase;
@@ -16,12 +14,12 @@ package away.events
 		public function LensEvent(type:String, lens:LensBase):void
 		{
 			super( type );
-			_lens = lens;
+			this._lens = lens;
 		}
 		
 		public function get lens():LensBase
 		{
-			return _lens;
+			return this._lens;
 		}
 	}
 }

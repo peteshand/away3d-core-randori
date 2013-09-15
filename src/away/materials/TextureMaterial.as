@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.materials
 {
 	import away.textures.Texture2DBase;
@@ -12,52 +13,38 @@ package away.materials
 	
 	//use namespace arcane;
 	
-	/**
-	 * TextureMaterial is a single-pass material that uses a texture to define the surface's diffuse reflection colour (albedo).
-	 */
+	/**	 * TextureMaterial is a single-pass material that uses a texture to define the surface's diffuse reflection colour (albedo).	 */
 	public class TextureMaterial extends SinglePassMaterialBase
 	{
-		/**
-		 * Creates a new TextureMaterial.
-		 * @param texture The texture used for the material's albedo color.
-		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.
-		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.
-		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.
-		 */
+		/**		 * Creates a new TextureMaterial.		 * @param texture The texture used for the material's albedo color.		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.		 */
 		public function TextureMaterial(texture:Texture2DBase = null, smooth:Boolean = true, repeat:Boolean = false, mipmap:Boolean = false):void
 		{
 			super();
 
 
-			texture = texture;
+			this.texture = texture;
 
-			smooth = smooth;
-			repeat = repeat;
-			mipmap = mipmap;
+			this.smooth = smooth;
+			this.repeat = repeat;
+			this.mipmap = mipmap;
 
 		}
 
-		/**
-		 * Specifies whether or not the UV coordinates should be animated using IRenderable's uvTransform matrix.
-		 *
-		 * @see IRenderable.uvTransform
-		 */
+		/**		 * Specifies whether or not the UV coordinates should be animated using IRenderable's uvTransform matrix.		 *		 * @see IRenderable.uvTransform		 */
 		public function get animateUVs():Boolean
 		{
-			return _pScreenPass.animateUVs;
+			return this._pScreenPass.animateUVs;
 		}
 		
 		public function set animateUVs(value:Boolean):void
 		{
-			_pScreenPass.animateUVs = value;
+			this._pScreenPass.animateUVs = value;
 		}
 		
-		/**
-		 * The alpha of the surface.
-		 */
+		/**		 * The alpha of the surface.		 */
 		public function get alpha():Number
 		{
-			return _pScreenPass.colorTransform? _pScreenPass.colorTransform.alphaMultiplier : 1;
+			return this._pScreenPass.colorTransform? this._pScreenPass.colorTransform.alphaMultiplier : 1;
 		}
 		
 		public function set alpha(value:Number):void
@@ -67,45 +54,41 @@ package away.materials
 			else if (value < 0)
 				value = 0;
 
-            if ( colorTransform == null )
+            if ( this.colorTransform == null )
             {
                     //colorTransform ||= new ColorTransform();
-                colorTransform = new ColorTransform();
+                this.colorTransform = new ColorTransform();
             }
 
-			colorTransform.alphaMultiplier = value;
+			this.colorTransform.alphaMultiplier = value;
 
-            _pScreenPass.preserveAlpha = getRequiresBlending();
+            this._pScreenPass.preserveAlpha = this.getRequiresBlending();
 
-            _pScreenPass.setBlendMode( getBlendMode() == BlendMode.NORMAL && getRequiresBlending() ? BlendMode.LAYER : getBlendMode() );
+            this._pScreenPass.setBlendMode( this.getBlendMode() == BlendMode.NORMAL && this.getRequiresBlending() ? BlendMode.LAYER : this.getBlendMode() );
 
 		}
 		
-		/**
-		 * The texture object to use for the albedo colour.
-		 */
+		/**		 * The texture object to use for the albedo colour.		 */
 
 		public function get texture():Texture2DBase
 		{
-			return _pScreenPass.diffuseMethod.texture;
+			return this._pScreenPass.diffuseMethod.texture;
 		}
 		
 		public function set texture(value:Texture2DBase):void
 		{
-            _pScreenPass.diffuseMethod.texture = value;
+            this._pScreenPass.diffuseMethod.texture = value;
 		}
-		/**
-		 * The texture object to use for the ambient colour.
-		 */
+		/**		 * The texture object to use for the ambient colour.		 */
 		public function get ambientTexture():Texture2DBase
 		{
-			return _pScreenPass.ambientMethod.texture;
+			return this._pScreenPass.ambientMethod.texture;
 		}
 		
 		public function set ambientTexture(value:Texture2DBase):void
 		{
-            _pScreenPass.ambientMethod.texture = value;
-            _pScreenPass.diffuseMethod.iUseAmbientTexture = ! (value == null ); // Boolean( value ) //<-------- TODO: Check this works as expected
+            this._pScreenPass.ambientMethod.texture = value;
+            this._pScreenPass.diffuseMethod.iUseAmbientTexture = ! (value == null ); // Boolean( value ) //<-------- TODO: Check this works as expected
 		}
 
 	}

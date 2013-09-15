@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../_definitions.ts" />
 
 package away.cameras.lenses
@@ -31,68 +29,68 @@ package away.cameras.lenses
 		public function LensBase():void
 		{
 			super();
-			_pMatrix = new Matrix3D();
+			this._pMatrix = new Matrix3D();
 		}
 		
 		public function get frustumCorners():Vector.<Number>
 		{
-			return _pFrustumCorners;
+			return this._pFrustumCorners;
 		}
 		
 		public function set frustumCorners(frustumCorners:Vector.<Number>):void
 		{
-			_pFrustumCorners = frustumCorners;
+			this._pFrustumCorners = frustumCorners;
 		}
 		
 		public function get matrix():Matrix3D
 		{
-			if( _pMatrixInvalid )
+			if( this._pMatrixInvalid )
 			{
-				pUpdateMatrix();
-				_pMatrixInvalid = false;
+				this.pUpdateMatrix();
+				this._pMatrixInvalid = false;
 			}
-			return _pMatrix;
+			return this._pMatrix;
 		}
 		
 		public function set matrix(value:Matrix3D):void
 		{
-			_pMatrix = value;
-			pInvalidateMatrix();
+			this._pMatrix = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function get near():Number
 		{
-			return _pNear;
+			return this._pNear;
 		}
 		
 		public function set near(value:Number):void
 		{
-			if( value == _pNear )
+			if( value == this._pNear )
 			{
 				return;
 			}
-			_pNear = value;
-			pInvalidateMatrix();
+			this._pNear = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function get far():Number
 		{
-			return _pFar;
+			return this._pFar;
 		}
 		
 		public function set far(value:Number):void
 		{
-			if( value == _pFar)
+			if( value == this._pFar)
 			{
 				return;
 			}
-			_pFar = value;
-			pInvalidateMatrix();
+			this._pFar = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function project(point3d:Vector3D):Vector3D
 		{
-			var v:Vector3D = matrix.transformVector(point3d);
+			var v:Vector3D = this.matrix.transformVector(point3d);
 			v.x = v.x/v.w;
 			v.y = -v.y/v.w;
 			
@@ -104,17 +102,17 @@ package away.cameras.lenses
 		
 		public function get unprojectionMatrix():Matrix3D
 		{
-			if( _unprojectionInvalid )
+			if( this._unprojectionInvalid )
 			{
-				if( !_unprojection )
+				if( !this._unprojection )
 				{
-					_unprojection = new Matrix3D();
+					this._unprojection = new Matrix3D();
 				}
-				_unprojection.copyFrom( matrix );
-				_unprojection.invert();
-				_unprojectionInvalid = false;
+				this._unprojection.copyFrom( this.matrix );
+				this._unprojection.invert();
+				this._unprojectionInvalid = false;
 			}
-			return _unprojection;
+			return this._unprojection;
 		}
 		
 		public function unproject(nX:Number, nY:Number, sZ:Number):Vector3D
@@ -129,24 +127,24 @@ package away.cameras.lenses
 		
 		public function get iAspectRatio():Number
 		{
-			return _pAspectRatio;
+			return this._pAspectRatio;
 		}
 		
 		public function set iAspectRatio(value:Number):void
 		{
-			if ( _pAspectRatio == value )
+			if ( this._pAspectRatio == value )
 			{
 				return;
 			}
-			_pAspectRatio = value;
-			pInvalidateMatrix();
+			this._pAspectRatio = value;
+			this.pInvalidateMatrix();
 		}
 		
 		public function pInvalidateMatrix():void
 		{
-			_pMatrixInvalid = true;
-			_unprojectionInvalid = true;
-			dispatchEvent( new LensEvent(LensEvent.MATRIX_CHANGED, this) );
+			this._pMatrixInvalid = true;
+			this._unprojectionInvalid = true;
+			this.dispatchEvent( new LensEvent(LensEvent.MATRIX_CHANGED, this) );
 		}
 		
 		public function pUpdateMatrix():void
@@ -156,20 +154,20 @@ package away.cameras.lenses
 		
 		public function iUpdateScissorRect(x:Number, y:Number, width:Number, height:Number):void
 		{
-			_pScissorRect.x = x;
-			_pScissorRect.y = y;
-			_pScissorRect.width = width;
-			_pScissorRect.height = height;
-			pInvalidateMatrix();
+			this._pScissorRect.x = x;
+			this._pScissorRect.y = y;
+			this._pScissorRect.width = width;
+			this._pScissorRect.height = height;
+			this.pInvalidateMatrix();
 		}
 		
 		public function iUpdateViewport(x:Number, y:Number, width:Number, height:Number):void
 		{
-			_pViewPort.x = x;
-			_pViewPort.y = y;
-			_pViewPort.width = width;
-			_pViewPort.height = height;
-			pInvalidateMatrix();
+			this._pViewPort.x = x;
+			this._pViewPort.y = y;
+			this._pViewPort.width = width;
+			this._pViewPort.height = height;
+			this.pInvalidateMatrix();
 		}
 	}
 }

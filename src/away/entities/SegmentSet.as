@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 
@@ -38,41 +36,40 @@ package away.entities
 		private var _animator:IAnimator;
 		private var _hasData:Boolean;
 		
-		public var _pSegments:Object; //Dictionary
-		private var _indexSegments:Number;
+		public var _pSegments:Object; //Dictionary		private var _indexSegments:Number = 0;
 		
 		public function SegmentSet():void
 		{
 			super();
 			
-			_subSetCount = 0;
-			_subSets = new <SubSet>[];
-			addSubSet();
+			this._subSetCount = 0;
+			this._subSets = new <SubSet>[];
+			this.addSubSet();
 			
-			_pSegments = new Object();
+			this._pSegments = new Object();
 
-        material = new SegmentMaterial();
+            this.material = new SegmentMaterial();
 		}
 		
 		public function addSegment(segment:Segment):void
 		{
 			segment.iSegmentsBase = this;
 			
-			_hasData = true;
+			this._hasData = true;
 			
-			var subSetIndex:Number = _subSets.length - 1;
-			var subSet:SubSet = _subSets[subSetIndex];
+			var subSetIndex:Number = this._subSets.length - 1;
+			var subSet:SubSet = this._subSets[subSetIndex];
 			
-			if( subSet.vertices.length + 44 > LIMIT )
+			if( subSet.vertices.length + 44 > this.LIMIT )
 			{
-				subSet = addSubSet();
+				subSet = this.addSubSet();
 				subSetIndex++;
 			}
 			
 			segment.iIndex = subSet.vertices.length;
 			segment.iSubSetIndex = subSetIndex;
 			
-			iUpdateSegment( segment );
+			this.iUpdateSegment( segment );
 			
 			var index:Number = subSet.lineCount << 2;
 			
@@ -86,21 +83,21 @@ package away.entities
 			segRef.subSetIndex = subSetIndex;
 			segRef.segment = segment;
 			
-			_pSegments[_indexSegments] = segRef;
+			this._pSegments[this._indexSegments] = segRef;
 			
-			_indexSegments++;
+			this._indexSegments++;
 		}
 		
 		public function removeSegmentByIndex(index:Number, dispose:Boolean = false):void
 		{
 			var segRef:SegRef;
-			if (index >= _indexSegments)
+			if (index >= this._indexSegments)
 			{
 				return;
 			}
-			if( _pSegments[index] )
+			if( this._pSegments[index] )
 			{
-				segRef = _pSegments[index];
+				segRef = this._pSegments[index];
 			}
 			else
 			{
@@ -108,13 +105,13 @@ package away.entities
 			}
 			
 			var subSet:SubSet;
-			if ( !_subSets[segRef.subSetIndex] )
+			if ( !this._subSets[segRef.subSetIndex] )
 			{
 				return;
 			}
 			
 			var subSetIndex:Number = segRef.subSetIndex;
-			subSet = _subSets[segRef.subSetIndex];
+			subSet = this._subSets[segRef.subSetIndex];
 			
 			var segment:Segment = segRef.segment;
 			var indices:Vector.<Number> = subSet.indices;
@@ -148,21 +145,21 @@ package away.entities
 				
 				if( subSetIndex == 0 )
 				{
-					_hasData = false;
+					this._hasData = false;
 				}
 				else
 				{
 					subSet.dispose();
-					_subSets[subSetIndex] = null;
-					_subSets.splice(subSetIndex, 1);
+					this._subSets[subSetIndex] = null;
+					this._subSets.splice(subSetIndex, 1);
 				}
 			}
 			
-			reOrderIndices( subSetIndex, index );
+			this.reOrderIndices( subSetIndex, index );
 			
 			segRef = null;
-			_pSegments[_indexSegments] = null;
-			_indexSegments--;
+			this._pSegments[this._indexSegments] = null;
+			this._indexSegments--;
 		}
 		
 		public function removeSegment(segment:Segment, dispose:Boolean = false):void
@@ -171,15 +168,15 @@ package away.entities
 			{
 				return;
 			}
-			removeSegmentByIndex(segment.iIndex/44);
+			this.removeSegmentByIndex(segment.iIndex/44);
 		}
 		
 		public function removeAllSegments():void
 		{
 			var subSet:SubSet;
-			for ( var i:Number = 0; i < _subSetCount; ++i )
+			for ( var i:Number = 0; i < this._subSetCount; ++i )
 			{
-				subSet = _subSets[i];
+				subSet = this._subSets[i];
 				subSet.vertices = null;
 				subSet.indices = null;
 				if (subSet.vertexBuffer)
@@ -193,39 +190,39 @@ package away.entities
 				subSet = null;
 			}
 			
-			for( var segRef in _pSegments )
+			for( var segRef in this._pSegments )
 			{
 				segRef = null;
 			}
-			_pSegments = null; //WHY?
-			_subSetCount = 0;
-			_activeSubSet = null;
-			_indexSegments = 0;
-			_subSets = new <SubSet>[];
-			_pSegments = new Object();
+			this._pSegments = null; //WHY?
+			this._subSetCount = 0;
+			this._activeSubSet = null;
+			this._indexSegments = 0;
+			this._subSets = new <SubSet>[];
+			this._pSegments = new Object();
 			
-			addSubSet();
+			this.addSubSet();
 			
-			_hasData = false;
+			this._hasData = false;
 		}
 		
 		public function getSegment(index:Number):Segment
 		{
-			if (index > _indexSegments - 1)
+			if (index > this._indexSegments - 1)
 			{
 				return null;
 			}
-			return _pSegments[index].segment;
+			return this._pSegments[index].segment;
 		}
 		
 		public function get segmentCount():Number
 		{
-			return _indexSegments;
+			return this._indexSegments;
 		}
 		
 		public function get iSubSetCount():Number
 		{
-			return _subSetCount;
+			return this._subSetCount;
 		}
 		
 		public function iUpdateSegment(segment:Segment):void
@@ -239,7 +236,7 @@ package away.entities
 			var index:Number = segment.iIndex;
 			var t:Number = segment.thickness;
 			
-			var subSet:SubSet = _subSets[segment.iSubSetIndex];
+			var subSet:SubSet = this._subSets[segment.iSubSetIndex];
 			var vertices:Vector.<Number> = subSet.vertices;
 			
 			vertices[index++] = startX;
@@ -292,27 +289,27 @@ package away.entities
 			
 			subSet.vertexBufferDirty = true;
 			
-			_pBoundsInvalid = true;
+			this._pBoundsInvalid = true;
 		}
 		
 		public function get hasData():Boolean
 		{
-			return _hasData;
+			return this._hasData;
 		}
 		
 
 		public function getIndexBuffer(stage3DProxy:Stage3DProxy):IndexBuffer3D
 		{
 
-			if( _activeSubSet.indexContext3D != stage3DProxy.context3D || _activeSubSet.indexBufferDirty )
+			if( this._activeSubSet.indexContext3D != stage3DProxy.context3D || this._activeSubSet.indexBufferDirty )
 			{
-				_activeSubSet.indexBuffer = stage3DProxy._iContext3D.createIndexBuffer( _activeSubSet.numIndices );
-				_activeSubSet.indexBuffer.uploadFromArray( _activeSubSet.indices, 0, _activeSubSet.numIndices );
-				_activeSubSet.indexBufferDirty = false;
-				_activeSubSet.indexContext3D = stage3DProxy.context3D;
+				this._activeSubSet.indexBuffer = stage3DProxy._iContext3D.createIndexBuffer( this._activeSubSet.numIndices );
+				this._activeSubSet.indexBuffer.uploadFromArray( this._activeSubSet.indices, 0, this._activeSubSet.numIndices );
+				this._activeSubSet.indexBufferDirty = false;
+				this._activeSubSet.indexContext3D = stage3DProxy.context3D;
 			}
 			
-			return _activeSubSet.indexBuffer;
+			return this._activeSubSet.indexBuffer;
 
 		}
 
@@ -320,10 +317,10 @@ package away.entities
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 
-			var subSet:SubSet = _subSets[index];
+			var subSet:SubSet = this._subSets[index];
 			
-			_activeSubSet = subSet;
-			_numIndices = subSet.numIndices;
+			this._activeSubSet = subSet;
+			this._numIndices = subSet.numIndices;
 			
 			var vertexBuffer:VertexBuffer3D = subSet.vertexBuffer;
 			
@@ -362,22 +359,22 @@ package away.entities
 		{
 			var segRef:SegRef;
 			
-			for( var i:Number = index; i < _indexSegments - 1; ++i )
+			for( var i:Number = index; i < this._indexSegments - 1; ++i )
 			{
-				segRef = _pSegments[i + 1];
+				segRef = this._pSegments[i + 1];
 				segRef.index = i;
 				if( segRef.subSetIndex == subSetIndex )
 				{
 					segRef.segment.iIndex -= 44;
 				}
-				_pSegments[i] = segRef;
+				this._pSegments[i] = segRef;
 			}
 		}
 		
 		private function addSubSet():SubSet
 		{
 			var subSet:SubSet = new SubSet();
-			_subSets.push(subSet);
+			this._subSets.push(subSet);
 			
 			subSet.vertices = new <Number>[];
 			subSet.numVertices = 0;
@@ -387,7 +384,7 @@ package away.entities
 			subSet.indexBufferDirty = true;
 			subSet.lineCount = 0;
 			
-			_subSetCount++;
+			this._subSetCount++;
 			
 			return subSet;
 		}
@@ -396,13 +393,13 @@ package away.entities
 		override public function dispose():void
 		{
 			super.dispose();
-			removeAllSegments();
-			_pSegments = null
-			_material = null;
-			var subSet:SubSet = _subSets[0];
+			this.removeAllSegments();
+			this._pSegments = null
+			this._material = null;
+			var subSet:SubSet = this._subSets[0];
 			subSet.vertices = null;
 			subSet.indices = null;
-			_subSets = null;
+			this._subSets = null;
 		}
 		
 		//@override
@@ -433,9 +430,9 @@ package away.entities
 			var maxZ:Number = -Infinity;
 			var vertices:Vector.<Number>;
 			
-			for( var i:Number = 0; i < _subSetCount; ++i )
+			for( var i:Number = 0; i < this._subSetCount; ++i )
 			{
-				subSet = _subSets[i];
+				subSet = this._subSets[i];
 				index = 0;
 				vertices = subSet.vertices;
 				len = vertices.length;
@@ -471,16 +468,16 @@ package away.entities
 
 			if (minX != Infinity)
             {
-				_pBounds.fromExtremes(minX, minY, minZ, maxX, maxY, maxZ);
+				this._pBounds.fromExtremes(minX, minY, minZ, maxX, maxY, maxZ);
 
             }
 			else
             {
 				var min:Number = .5;
-				_pBounds.fromExtremes(-min, -min, -min, min, min, min);
+				this._pBounds.fromExtremes(-min, -min, -min, min, min, min);
 			}
 
-			_pBoundsInvalid = false;
+			this._pBoundsInvalid = false;
 		}
 		
 		
@@ -493,7 +490,7 @@ package away.entities
 
 		public function get numTriangles():Number
 		{
-			return _numIndices/3;
+			return this._numIndices/3;
 		}
 		
 		public function get sourceEntity():Entity
@@ -508,33 +505,33 @@ package away.entities
 		
 		public function get material():MaterialBase
 		{
-			return _material;
+			return this._material;
 		}
 
 		public function get animator():IAnimator
 		{
-			return _animator;
+			return this._animator;
 		}
 		
 		public function set animator(value:IAnimator):void
 		{
-			_animator = value;
+			this._animator = value;
 		}
 		
 		public function set material(value:MaterialBase):void
 		{
-			if( value == _material)
+			if( value == this._material)
 			{
 				return;
 			}
-			if( _material )
+			if( this._material )
 			{
-				_material.iRemoveOwner( this );
+				this._material.iRemoveOwner( this );
 			}
-			_material = value;
-			if( _material )
+			this._material = value;
+			if( this._material )
 			{
-				_material.iAddOwner( this );
+				this._material.iAddOwner( this );
 			}
 		}
 		
@@ -601,7 +598,7 @@ package away.entities
 		
 		public function getRenderSceneTransform(camera:Camera3D):Matrix3D
 		{
-			return _pSceneTransform;
+			return this._pSceneTransform;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:10:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 14 19:10:14 EST 2013 */
 
 
 Main = function() {
@@ -6,7 +6,7 @@ Main = function() {
 };
 
 Main.prototype.main = function() {
-	var objChiefTestDay2 = new examples.ObjChiefTestDay();
+	var cubeDemo = new examples.CubeDemo();
 };
 
 Main.className = "Main";
@@ -14,7 +14,7 @@ Main.className = "Main";
 Main.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('examples.ObjChiefTestDay');
+	p.push('examples.CubeDemo');
 	return p;
 };
 

@@ -11,7 +11,7 @@ away.materials.passes.SegmentPass = function(thickness) {
 	this._thickness = 0;
 	this._calcMatrix = null;
 	this._constants = [0, 0, 0, 0];
-	away.materials.passes.MaterialPassBase.call(thisfalse);
+	away.materials.passes.MaterialPassBase.call(this, false);
 	this._calcMatrix = new away.geom.Matrix3D();
 	this._thickness = thickness;
 	this._constants[1] = 1 / 255;

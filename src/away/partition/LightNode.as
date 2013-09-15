@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 package away.partition
 {
 	import away.lights.LightBase;
@@ -14,12 +12,12 @@ package away.partition
 		public function LightNode(light:LightBase):void
 		{
 			super( light );
-			_light = light;
+			this._light = light;
 		}
 		
 		public function get light():LightBase
 		{
-			return _light;
+			return this._light;
 		}
 		
 		//@override
@@ -28,7 +26,7 @@ package away.partition
 			if( traverser.enterNode(this))
 			{
 				super.acceptTraverser( traverser );
-				traverser.applyUnknownLight( _light);
+				traverser.applyUnknownLight( this._light);
 			}
 		}
 	}

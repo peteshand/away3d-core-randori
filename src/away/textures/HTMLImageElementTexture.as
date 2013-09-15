@@ -1,4 +1,5 @@
 
+
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -19,25 +20,24 @@ package away.textures
 		private var _htmlImageElement:HTMLImageElement;
         private var _generateMipmaps:Boolean;
 		private var _mipMapHolder:BitmapData;
-
 		
 		public function HTMLImageElementTexture(htmlImageElement:HTMLImageElement, generateMipmaps:Boolean = true):void
 		{
 			super();
 			
-			_htmlImageElement= htmlImageElement;
-			_generateMipmaps   = generateMipmaps;
+			this._htmlImageElement= htmlImageElement;
+			this._generateMipmaps   = generateMipmaps;
 		}
 		
 		public function get htmlImageElement():HTMLImageElement
 		{
-			return _htmlImageElement;
+			return this._htmlImageElement;
 		}
 		
 		public function set htmlImageElement(value:HTMLImageElement):void
 		{
 
-			if (value == _htmlImageElement)
+			if (value == this._htmlImageElement)
             {
 
                 return;
@@ -51,14 +51,14 @@ package away.textures
 
             }
 
-            invalidateContent();
-			pSetSize( value.width , value.height );
-            _htmlImageElement = value;
+            this.invalidateContent();
+			this.pSetSize( value.width , value.height );
+            this._htmlImageElement = value;
 			
-			if ( _generateMipmaps )
+			if ( this._generateMipmaps )
             {
 
-                getMipMapHolder();
+                this.getMipMapHolder();
 
             }
 
@@ -67,17 +67,17 @@ package away.textures
 		override public function pUploadContent(texture:TextureBase):void
 		{
 
-			if (_generateMipmaps)
+			if (this._generateMipmaps)
             {
 
-                MipmapGenerator.generateHTMLImageElementMipMaps( _htmlImageElement , texture , _mipMapHolder , true);
+                MipmapGenerator.generateHTMLImageElementMipMaps( this._htmlImageElement , texture , this._mipMapHolder , true);
 
             }
 			else
             {
 
                 var tx : Texture = Texture(texture)
-                    tx.uploadFromHTMLImageElement( _htmlImageElement , 0 );
+                    tx.uploadFromHTMLImageElement( this._htmlImageElement , 0 );
 
             }
 
@@ -86,19 +86,19 @@ package away.textures
 		private function getMipMapHolder():void
 		{
 
-            var newW : Number  = _htmlImageElement.width;
-            var newH : Number = _htmlImageElement.height;
+            var newW : Number  = this._htmlImageElement.width;
+            var newH : Number = this._htmlImageElement.height;
 			
-			if (_mipMapHolder) {
+			if (this._mipMapHolder) {
 
-				if (_mipMapHolder.width == newW && _htmlImageElement.height == newH)
+				if (this._mipMapHolder.width == newW && this._htmlImageElement.height == newH)
                 {
 
                     return;
 
                 }
 
-                freeMipMapHolder();
+                this.freeMipMapHolder();
 
 			}
 			
@@ -113,7 +113,7 @@ package away.textures
 			if (!HTMLImageElementTexture._mipMaps[newW][newH])
             {
 
-                _mipMapHolder = HTMLImageElementTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+                this._mipMapHolder = HTMLImageElementTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
                 HTMLImageElementTexture._mipMapUses[newW][newH] = 1;
 
 			}
@@ -121,15 +121,15 @@ package away.textures
             {
 
                 HTMLImageElementTexture._mipMapUses[newW][newH] = HTMLImageElementTexture._mipMapUses[newW][newH] + 1;
-                _mipMapHolder = HTMLImageElementTexture._mipMaps[newW][newH];
+                this._mipMapHolder = HTMLImageElementTexture._mipMaps[newW][newH];
 
 			}
 		}
 		
 		private function freeMipMapHolder():void
 		{
-			var holderWidth     : Number = _mipMapHolder.width;
-			var holderHeight    : Number = _mipMapHolder.height;
+			var holderWidth     : Number = this._mipMapHolder.width;
+			var holderHeight    : Number = this._mipMapHolder.height;
 			
 			if ( --HTMLImageElementTexture._mipMapUses[holderWidth][holderHeight] == 0 )
             {
@@ -144,10 +144,10 @@ package away.textures
 		{
 			super.dispose();
 			
-			if (_mipMapHolder)
+			if (this._mipMapHolder)
             {
 
-                freeMipMapHolder();
+                this.freeMipMapHolder();
 
             }
 

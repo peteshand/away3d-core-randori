@@ -58,10 +58,11 @@ package examples
             view.camera.z          = -50;
             view.camera.y          = 20;
             view.camera.lens.near  = 0.1;
-            view.backgroundColor   = 0xCEC8C6//A0A7DE;//0E0E10;
+            view.backgroundColor   = 0xFF0000//A0A7DE;//0E0E10;
 
             //view.backgroundColor   = 0xFF0000;
             raf                    = new RequestAnimationFrame( render , this );
+            raf.start();
 
             light                  = new DirectionalLight();
             light.color            = 0xc1582d;//683019;
@@ -80,25 +81,25 @@ package examples
 
             AssetLibrary.enableParser( OBJParser ) ;
 
-            token = AssetLibrary.load(new URLRequest('Halo_3_SPARTAN4.obj') );
+            token = AssetLibrary.load(new URLRequest('assets/Halo_3_SPARTAN4.obj') );
             token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
             token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
-            token = AssetLibrary.load(new URLRequest('terrain.obj') );
+            token = AssetLibrary.load(new URLRequest('assets/terrain.obj') );
             token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
             token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
 
             //*
-            //token = AssetLibrary.load(new URLRequest('masterchief_base.png') );
-            //token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
-            //token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
+            token = AssetLibrary.load(new URLRequest('assets/masterchief_base.png') );
+            token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
+            token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
-            //token = AssetLibrary.load(new URLRequest('stone_tx.jpg' ) );
-            //token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
-            //token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
+            token = AssetLibrary.load(new URLRequest('assets/stone_tx.jpg' ) );
+            token.addEventListener(LoaderEvent.RESOURCE_COMPLETE , onResourceComplete , this );
+            token.addEventListener(AssetEvent.ASSET_COMPLETE , onAssetComplete, this );
 
-            //window.onresize = resize();
+            window.onresize = resize();
         }
 
 
@@ -208,6 +209,7 @@ package examples
 
             view.width     = window.innerWidth;
             view.height    = window.innerHeight;
+            Window.console.log('resize');
         }
     }
 }

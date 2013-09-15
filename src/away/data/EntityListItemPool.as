@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.data
@@ -15,33 +13,33 @@ package away.data
 		
 		public function EntityListItemPool():void
 		{
-			_pool = new <EntityListItem>[];
+			this._pool = new <EntityListItem>[];
 		}
 		
 		public function getItem():EntityListItem
 		{
 			var item:EntityListItem;
-			if( _index == _poolSize )
+			if( this._index == this._poolSize )
 			{
 				item = new EntityListItem();
-				_pool[_index++] = item;
-				++_poolSize;
+				this._pool[this._index++] = item;
+				++this._poolSize;
 			}
 			else
 			{
-				item = _pool[_index++];
+				item = this._pool[this._index++];
 			}
 			return item;
 		}
 		
 		public function freeAll():void
 		{
-			_index = 0;
+			this._index = 0;
 		}
 		
 		public function dispose():void
 		{
-			_pool.length = 0;
+			this._pool.length = 0;
 		}
 	}
 }

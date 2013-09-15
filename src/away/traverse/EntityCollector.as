@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.traverse
@@ -50,123 +48,123 @@ package away.traverse
 		public function EntityCollector():void
 		{
 			super();
-			init();
+			this.init();
 		}
 		
 		private function init():void
 		{
-			_pLights = new <LightBase>[];
-			_directionalLights = new <DirectionalLight>[];
-			_pointLights = new <PointLight>[];
-			_lightProbes = new <LightProbe>[];
-			_pRenderableListItemPool = new RenderableListItemPool();
-			_pEntityListItemPool = new EntityListItemPool();
+			this._pLights = new <LightBase>[];
+			this._directionalLights = new <DirectionalLight>[];
+			this._pointLights = new <PointLight>[];
+			this._lightProbes = new <LightProbe>[];
+			this._pRenderableListItemPool = new RenderableListItemPool();
+			this._pEntityListItemPool = new EntityListItemPool();
 		}
 		
 		public function get camera():Camera3D
 		{
-			return _pCamera;
+			return this._pCamera;
 		}
 		
 		public function set camera(value:Camera3D):void
 		{
-			_pCamera = value;
-			_iEntryPoint = _pCamera.scenePosition;
-			_pCameraForward = _pCamera.forwardVector;
-			_cullPlanes = _pCamera.frustumPlanes;
+			this._pCamera = value;
+			this._iEntryPoint = this._pCamera.scenePosition;
+			this._pCameraForward = this._pCamera.forwardVector;
+			this._cullPlanes = this._pCamera.frustumPlanes;
 		}
 		
 		public function get cullPlanes():Vector.<Plane3D>
 		{
-			return _customCullPlanes;
+			return this._customCullPlanes;
 		}
 		
 		public function set cullPlanes(value:Vector.<Plane3D>):void
 		{
-			_customCullPlanes = value;
+			this._customCullPlanes = value;
 		}
 		
 		public function get numMouseEnableds():Number
 		{
-			return _pNumMouseEnableds;
+			return this._pNumMouseEnableds;
 		}
 		
 		public function get skyBox():IRenderable
 		{
-			return _pSkyBox;
+			return this._pSkyBox;
 		}
 		
 		public function get opaqueRenderableHead():RenderableListItem
 		{
-			return _pOpaqueRenderableHead;
+			return this._pOpaqueRenderableHead;
 		}
 		
 		public function set opaqueRenderableHead(value:RenderableListItem):void
 		{
-			_pOpaqueRenderableHead = value;
+			this._pOpaqueRenderableHead = value;
 		}
 		
 		public function get blendedRenderableHead():RenderableListItem
 		{
-			return _pBlendedRenderableHead;
+			return this._pBlendedRenderableHead;
 		}
 		
 		public function set blendedRenderableHead(value:RenderableListItem):void
 		{
-			_pBlendedRenderableHead = value;
+			this._pBlendedRenderableHead = value;
 		}
 		
 		public function get entityHead():EntityListItem
 		{
-			return _entityHead;
+			return this._entityHead;
 		}
 		
 		public function get lights():Vector.<LightBase>
 		{
-			return _pLights;
+			return this._pLights;
 		}
 		
 		public function get directionalLights():Vector.<DirectionalLight>
 		{
-			return _directionalLights;
+			return this._directionalLights;
 		}
 		
 		public function get pointLights():Vector.<PointLight>
 		{
-			return _pointLights;
+			return this._pointLights;
 		}
 		
 		public function get lightProbes():Vector.<LightProbe>
 		{
-			return _lightProbes;
+			return this._lightProbes;
 		}
 		
 		public function clear():void
 		{
-			_cullPlanes = _customCullPlanes ? _customCullPlanes : ( _pCamera ? _pCamera.frustumPlanes : null );
-			_numCullPlanes = _cullPlanes ? _cullPlanes.length : 0;
-			_pNumTriangles = _pNumMouseEnableds = 0;
-			_pBlendedRenderableHead = null;
-			_pOpaqueRenderableHead = null;
-			_entityHead = null;
-			_pRenderableListItemPool.freeAll();
-			_pEntityListItemPool.freeAll();
-			_pSkyBox = null;
-			if( _pNumLights > 0 )
+			this._cullPlanes = this._customCullPlanes ? this._customCullPlanes : ( this._pCamera ? this._pCamera.frustumPlanes : null );
+			this._numCullPlanes = this._cullPlanes ? this._cullPlanes.length : 0;
+			this._pNumTriangles = this._pNumMouseEnableds = 0;
+			this._pBlendedRenderableHead = null;
+			this._pOpaqueRenderableHead = null;
+			this._entityHead = null;
+			this._pRenderableListItemPool.freeAll();
+			this._pEntityListItemPool.freeAll();
+			this._pSkyBox = null;
+			if( this._pNumLights > 0 )
 			{
-				_pLights.length = _pNumLights = 0;
+				this._pLights.length = this._pNumLights = 0;
 			}
-			if( _numDirectionalLights > 0 )
+			if( this._numDirectionalLights > 0 )
 			{
-				_directionalLights.length = _numDirectionalLights = 0;
+				this._directionalLights.length = this._numDirectionalLights = 0;
 			}
-			if( _numPointLights > 0 )
+			if( this._numPointLights > 0 )
 			{
-				_pointLights.length = _numPointLights = 0;
+				this._pointLights.length = this._numPointLights = 0;
 			}
-			if( _numLightProbes > 0 )
+			if( this._numLightProbes > 0 )
 			{
-				_lightProbes.length = _numLightProbes = 0;
+				this._lightProbes.length = this._numLightProbes = 0;
 			}
 		}
 		
@@ -174,7 +172,7 @@ package away.traverse
 		override public function enterNode(node:NodeBase):Boolean
 		{
 
-            var enter : Boolean = PartitionTraverser._iCollectionMark != node._iCollectionMark && node.isInFrustum( _cullPlanes, _numCullPlanes );
+            var enter : Boolean = PartitionTraverser._iCollectionMark != node._iCollectionMark && node.isInFrustum( this._cullPlanes, this._numCullPlanes );
 
             node._iCollectionMark = PartitionTraverser._iCollectionMark;
 
@@ -184,7 +182,7 @@ package away.traverse
 		//@override
 		override public function applySkyBox(renderable:IRenderable):void
 		{
-			_pSkyBox = renderable;
+			this._pSkyBox = renderable;
 		}
 		
 		//@override
@@ -194,33 +192,33 @@ package away.traverse
 			var entity:Entity = renderable.sourceEntity;
 			if( renderable.mouseEnabled )
 			{
-				++_pNumMouseEnableds;
+				++this._pNumMouseEnableds;
 			}
-			_pNumTriangles += renderable.numTriangles;
+			this._pNumTriangles += renderable.numTriangles;
 			
 			material = renderable.material;
 			if( material )
 			{
-				var item:RenderableListItem = _pRenderableListItemPool.getItem();
+				var item:RenderableListItem = this._pRenderableListItemPool.getItem();
 				item.renderable = renderable;
 				item.materialId = material._iUniqueId;
 				item.renderOrderId = material._iRenderOrderId;
 				item.cascaded = false;
-				var dx:Number = _iEntryPoint.x - entity.x;
-				var dy:Number = _iEntryPoint.y - entity.y;
-				var dz:Number = _iEntryPoint.z - entity.z;
+				var dx:Number = this._iEntryPoint.x - entity.x;
+				var dy:Number = this._iEntryPoint.y - entity.y;
+				var dz:Number = this._iEntryPoint.z - entity.z;
 				// project onto camera's z-axis
-				item.zIndex = dx*_pCameraForward.x + dy*_pCameraForward.y + dz*_pCameraForward.z + entity.zOffset;
-				item.renderSceneTransform = renderable.getRenderSceneTransform( _pCamera );
+				item.zIndex = dx*this._pCameraForward.x + dy*this._pCameraForward.y + dz*this._pCameraForward.z + entity.zOffset;
+				item.renderSceneTransform = renderable.getRenderSceneTransform( this._pCamera );
 				if( material.requiresBlending )
 				{
-					item.next = _pBlendedRenderableHead;
-					_pBlendedRenderableHead = item;
+					item.next = this._pBlendedRenderableHead;
+					this._pBlendedRenderableHead = item;
 				}
 				else
 				{
-					item.next = _pOpaqueRenderableHead;
-					_pOpaqueRenderableHead = item;
+					item.next = this._pOpaqueRenderableHead;
+					this._pOpaqueRenderableHead = item;
 				}
 			}
 		}
@@ -231,13 +229,13 @@ package away.traverse
 
 
 
-			++_pNumEntities;
+			++this._pNumEntities;
 			
-			var item:EntityListItem = _pEntityListItemPool.getItem();
+			var item:EntityListItem = this._pEntityListItemPool.getItem();
 			item.entity = entity;
 			
-			item.next = _entityHead;
-			_entityHead = item;
+			item.next = this._entityHead;
+			this._entityHead = item;
 
 
             //console.log ( 'EntityCollector' , 'applyEntity: ' , entity , ' item: ' , item , 'item.next' , item.next , ' head: ' , this._entityHead );
@@ -247,33 +245,31 @@ package away.traverse
 		//@override
 		override public function applyUnknownLight(light:LightBase):void
 		{
-			_pLights[ _pNumLights++ ] = light;
+			this._pLights[ this._pNumLights++ ] = light;
 		}
 		
 		//@override
 		override public function applyDirectionalLight(light:DirectionalLight):void
 		{
-			_pLights[ _pNumLights++ ] = light;
-			_directionalLights[ _numDirectionalLights++ ] = light;
+			this._pLights[ this._pNumLights++ ] = light;
+			this._directionalLights[ this._numDirectionalLights++ ] = light;
 		}
 		
 		//@override
 		override public function applyPointLight(light:PointLight):void
 		{
-			_pLights[ _pNumLights++ ] = light;
-			_pointLights[ _numPointLights++ ] = light;
+			this._pLights[ this._pNumLights++ ] = light;
+			this._pointLights[ this._numPointLights++ ] = light;
 		}
 		
 		//@override
 		override public function applyLightProbe(light:LightProbe):void
 		{
-			_pLights[ _pNumLights++ ] = light;
-			_lightProbes[ _numLightProbes++ ] = light;
+			this._pLights[ this._pNumLights++ ] = light;
+			this._lightProbes[ this._numLightProbes++ ] = light;
 		}
 
-        /**
-         * Cleans up any data at the end of a frame.
-         */
+        /**         * Cleans up any data at the end of a frame.         */
         public function cleanUp():void
         {
         }

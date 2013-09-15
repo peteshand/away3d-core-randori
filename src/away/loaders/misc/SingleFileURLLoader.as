@@ -1,3 +1,4 @@
+
 ///<reference path="../../_definitions.ts"/>
 package away.loaders.misc
 {
@@ -16,101 +17,80 @@ package away.loaders.misc
         public function SingleFileURLLoader():void
         {
             super();
-            initLoader();
+            this.initLoader();
         }
 
         // Public
 
-        /**
-         *
-         * @param req
-         */
+        /**         *         * @param req         */
         public function load(req:URLRequest):void
         {
-            _loader.load( req );
+            this._loader.load( req );
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function dispose():void
         {
-            disposeLoader();
-            _data = null;
+            this.disposeLoader();
+            this._data = null;
         }
 
         // Get / Set
 
-        /**
-         *
-         * @returns {*}
-         */
+        /**         *         * @returns {*}         */
         public function get data():*
         {
-            return _loader.data;
+            return this._loader.data;
         }
-        /**
-         *
-         * @returns {*}
-         */
+        /**         *         * @returns {*}         */
         public function get dataFormat():String
         {
-            return _loader.dataFormat;
+            return this._loader.dataFormat;
         }
         public function set dataFormat(value:String):void
         {
-            _loader.dataFormat = value;
+            this._loader.dataFormat = value;
 
         }
 
         // Private
 
-        /**
-         *
-         */
+        /**         *         */
         private function initLoader():void
         {
-            if ( ! _loader )
+            if ( ! this._loader )
             {
-                _loader = new URLLoader();
-                _loader.addEventListener( Event.COMPLETE , onLoadComplete , this );
-                _loader.addEventListener( IOErrorEvent.IO_ERROR, onLoadError , this );
+                this._loader = new URLLoader();
+                this._loader.addEventListener( Event.COMPLETE , this.onLoadComplete , this );
+                this._loader.addEventListener( IOErrorEvent.IO_ERROR, this.onLoadError , this );
             }
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         private function disposeLoader():void
         {
-            if ( _loader )
+            if ( this._loader )
             {
-                _loader.dispose();
-                _loader.removeEventListener( Event.COMPLETE , onLoadComplete , this );
-                _loader.removeEventListener( IOErrorEvent.IO_ERROR, onLoadError , this );
-                _loader = null
+                this._loader.dispose();
+                this._loader.removeEventListener( Event.COMPLETE , this.onLoadComplete , this );
+                this._loader.removeEventListener( IOErrorEvent.IO_ERROR, this.onLoadError , this );
+                this._loader = null
             }
         }
 
         // Events
 
-        /**
-         *
-         * @param event
-         */
+        /**         *         * @param event         */
         private function onLoadComplete(event:Event):void
         {
-            dispatchEvent( event );
+            this.dispatchEvent( event );
         }
 
-        /**
-         *
-         * @param event
-         */
+        /**         *         * @param event         */
         private function onLoadError(event:IOErrorEvent):void
         {
-            dispatchEvent( event );
+            this.dispatchEvent( event );
         }
 
     }

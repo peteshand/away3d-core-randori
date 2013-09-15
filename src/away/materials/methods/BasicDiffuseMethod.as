@@ -1,10 +1,10 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.methods
 {
 	import away.materials.compilation.ShaderRegisterElement;
 	import away.textures.Texture2DBase;
 	import away.managers.Stage3DProxy;
-	import away.utils.Debug;
 	import away.materials.compilation.ShaderRegisterCache;
 	import away.display3D.Context3DWrapMode;
 	import away.display3D.Context3DTextureFilter;
@@ -17,15 +17,13 @@ package away.materials.methods
 	
 	//use namespace arcane;
 	
-	/**
-	 * BasicDiffuseMethod provides the default shading method for Lambert (dot3) diffuse lighting.
-	 */
+	/**	 * BasicDiffuseMethod provides the default shading method for Lambert (dot3) diffuse lighting.	 */
 	public class BasicDiffuseMethod extends LightingMethodBase
 	{
 		private var _useAmbientTexture:Boolean;
 		
 		private var _useTexture:Boolean;
-		private var _totalLightColorReg:ShaderRegisterElement;
+		public var pTotalLightColorReg:ShaderRegisterElement;
 		
 		// TODO: are these registers at all necessary to be members?
 		private var _diffuseInputRegister:ShaderRegisterElement;
@@ -42,117 +40,95 @@ package away.materials.methods
 		private var _alphaThreshold:Number = 0;
 		private var _isFirstLight:Boolean;
 		
-		/**
-		 * Creates a new BasicDiffuseMethod object.
-		 */
+		/**		 * Creates a new BasicDiffuseMethod object.		 */
 		public function BasicDiffuseMethod():void
 		{
 			super();
 		}
 
-		/**
-		 * Set internally if the ambient method uses a texture.
-		 */
+		/**		 * Set internally if the ambient method uses a texture.		 */
 		public function get iUseAmbientTexture():Boolean
 		{
-			return _useAmbientTexture;
+			return this._useAmbientTexture;
 		}
 
 		public function set iUseAmbientTexture(value:Boolean):void
 		{
-			if (_useAmbientTexture == value)
+			if (this._useAmbientTexture == value)
 				return;
 
-			_useAmbientTexture = value;
+			this._useAmbientTexture = value;
 
-			iInvalidateShaderProgram();
+			this.iInvalidateShaderProgram();
 
 		}
 		
 		override public function iInitVO(vo:MethodVO):void
 		{
 
-			vo.needsUV = _useTexture;
+			vo.needsUV = this._useTexture;
 			vo.needsNormals = vo.numLights > 0;
 
 		}
 
-		/**
-		 * Forces the creation of the texture.
-		 * @param stage3DProxy The Stage3DProxy used by the renderer
-		 */
+		/**		 * Forces the creation of the texture.		 * @param stage3DProxy The Stage3DProxy used by the renderer		 */
 		public function generateMip(stage3DProxy:Stage3DProxy):void
 		{
-			if (_useTexture)
-				_texture.getTextureForStage3D(stage3DProxy);
+			if (this._useTexture)
+				this._texture.getTextureForStage3D(stage3DProxy);
 		}
 
-		/**
-		 * The alpha component of the diffuse reflection.
-		 */
+		/**		 * The alpha component of the diffuse reflection.		 */
 		public function get diffuseAlpha():Number
 		{
-			return _diffuseA;
+			return this._diffuseA;
 		}
 		
 		public function set diffuseAlpha(value:Number):void
 		{
-			_diffuseA = value;
+			this._diffuseA = value;
 		}
 		
-		/**
-		 * The color of the diffuse reflection when not using a texture.
-		 */
+		/**		 * The color of the diffuse reflection when not using a texture.		 */
 		public function get diffuseColor():Number
 		{
-			return _diffuseColor;
+			return this._diffuseColor;
 		}
 		
 		public function set diffuseColor(diffuseColor:Number):void
 		{
-			_diffuseColor = diffuseColor;
-			updateDiffuse();
+			this._diffuseColor = diffuseColor;
+			this.updateDiffuse();
 
 		}
 		
-		/**
-		 * The bitmapData to use to define the diffuse reflection color per texel.
-		 */
+		/**		 * The bitmapData to use to define the diffuse reflection color per texel.		 */
 		public function get texture():Texture2DBase
 		{
-			return _texture;
+			return this._texture;
 		}
 		
 		public function set texture(value:Texture2DBase):void
 		{
 
-            // TODO: Check - TRICKY
-            Debug.throwPIR( 'BasicDiffuseMethod' , 'set texture' , 'TRICKY - Odd boolean assignment - needs testing' );
-
-            //var v : any = value;
             var b : Boolean =  ( value != null );
-            //var b : boolean = <boolean> value;
 
-			if ( b != _useTexture ||
-				(value && _texture && (value.hasMipMaps != _texture.hasMipMaps || value.format != _texture.format))) {
+			if ( b != this._useTexture ||
+				(value && this._texture && (value.hasMipMaps != this._texture.hasMipMaps || value.format != this._texture.format))) {
 
-				iInvalidateShaderProgram();
+				this.iInvalidateShaderProgram();
 
 			}
 			
-			_useTexture = b;
-            _texture = value;
+			this._useTexture = b;
+            this._texture = value;
 
 		}
 		
-		/**
-		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
-		 * invisible or entirely opaque, often used with textures for foliage, etc.
-		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
-		 */
+		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
 		public function get alphaThreshold():Number
 		{
-			return _alphaThreshold;
+			return this._alphaThreshold;
 		}
 		
 		public function set alphaThreshold(value:Number):void
@@ -161,26 +137,22 @@ package away.materials.methods
 				value = 0;
 			else if (value > 1)
 				value = 1;
-			if (value == _alphaThreshold)
+			if (value == this._alphaThreshold)
 				return;
 			
-			if (value == 0 || _alphaThreshold == 0)
-				iInvalidateShaderProgram();//invalidateShaderProgram();
+			if (value == 0 || this._alphaThreshold == 0)
+				this.iInvalidateShaderProgram();//invalidateShaderProgram();
 			
-			_alphaThreshold = value;
+			this._alphaThreshold = value;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function dispose():void
 		{
-			_texture = null;
+			this._texture = null;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function copyFrom(method:ShadingMethodBase):void
 		{
 
@@ -188,55 +160,49 @@ package away.materials.methods
 
 			var diff:BasicDiffuseMethod = (m as BasicDiffuseMethod);
 
-			alphaThreshold = diff.alphaThreshold;
-            texture = diff.texture;
-            iUseAmbientTexture = diff.iUseAmbientTexture;
-            diffuseAlpha = diff.diffuseAlpha;
-            diffuseColor = diff.diffuseColor;
+			this.alphaThreshold = diff.alphaThreshold;
+            this.texture = diff.texture;
+            this.iUseAmbientTexture = diff.iUseAmbientTexture;
+            this.diffuseAlpha = diff.diffuseAlpha;
+            this.diffuseColor = diff.diffuseColor;
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iCleanCompilationData():void
 		{
 			super.iCleanCompilationData();
 
-			_shadowRegister = null;
-            _totalLightColorReg = null;
-            _diffuseInputRegister = null;
+			this._shadowRegister = null;
+            this.pTotalLightColorReg = null;
+            this._diffuseInputRegister = null;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentPreLightingCode(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			
-			_isFirstLight = true;
+			this._isFirstLight = true;
 			
 			if (vo.numLights > 0)
             {
-				_totalLightColorReg = regCache.getFreeFragmentVectorTemp();
-				regCache.addFragmentTempUsages(_totalLightColorReg, 1);
+				this.pTotalLightColorReg = regCache.getFreeFragmentVectorTemp();
+				regCache.addFragmentTempUsages(this.pTotalLightColorReg, 1);
 			}
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCodePerLight(vo:MethodVO, lightDirReg:ShaderRegisterElement, lightColReg:ShaderRegisterElement, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			var t:ShaderRegisterElement;
 			
 			// write in temporary if not first light, so we can add to total diffuse colour
-			if (_isFirstLight)
+			if (this._isFirstLight)
             {
-                t = _totalLightColorReg;
+                t = this.pTotalLightColorReg;
             }
 			else
             {
@@ -249,8 +215,8 @@ package away.materials.methods
             //TODO: AGAL <> GLSL
 
             //*
-			code += "dp3 " + t + ".x, " + lightDirReg.toString() + ", " + _sharedRegisters.normalFragment.toString() + "\n" +
-				"max " + t.toString() + ".w, " + t.toString() + ".x, " + _sharedRegisters.commons.toString() + ".y\n";
+			code += "dp3 " + t + ".x, " + lightDirReg.toString() + ", " + this._sharedRegisters.normalFragment.toString() + "\n" +
+				"max " + t.toString() + ".w, " + t.toString() + ".x, " + this._sharedRegisters.commons.toString() + ".y\n";
 			
 			if (vo.useLightFallOff)
             {
@@ -260,39 +226,37 @@ package away.materials.methods
             }
 
 			
-			if (_iModulateMethod != null)
+			if (this._iModulateMethod != null)
             {
 
-                code += _iModulateMethod(vo, t, regCache, _sharedRegisters);
+                code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);
 
             }
 
 			
 			code += "mul " + t.toString() + ", " + t.toString() + ".w, " + lightColReg.toString() + "\n";
 			
-			if (!_isFirstLight) {
-				code += "add " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + t.toString() + "\n";
+			if (!this._isFirstLight) {
+				code += "add " + this.pTotalLightColorReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + t.toString() + "\n";
 				regCache.removeFragmentTempUsage(t);
 			}
 			//*/
-			_isFirstLight = false;
+			this._isFirstLight = false;
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCodePerProbe(vo:MethodVO, cubeMapReg:ShaderRegisterElement, weightRegister:String, regCache:ShaderRegisterCache):String
 		{
 			var code:String = "";
 			var t:ShaderRegisterElement;
 			
 			// write in temporary if not first light, so we can add to total diffuse colour
-			if (_isFirstLight)
+			if (this._isFirstLight)
             {
 
-                t = _totalLightColorReg;
+                t = this.pTotalLightColorReg;
 
             }
 			else
@@ -306,33 +270,31 @@ package away.materials.methods
             // TODO: AGAL <> GLSL
 
 
-			code += "tex " + t.toString() + ", " + _sharedRegisters.normalFragment.toString() + ", " + cubeMapReg.toString() + " <cube,linear,miplinear>\n" +
+			code += "tex " + t.toString() + ", " + this._sharedRegisters.normalFragment.toString() + ", " + cubeMapReg.toString() + " <cube,linear,miplinear>\n" +
 				"mul " + t.toString() + ".xyz, " + t.toString() + ".xyz, " + weightRegister + "\n";
 			
-			if (_iModulateMethod!= null)
+			if (this._iModulateMethod!= null)
             {
 
-                code += _iModulateMethod(vo, t, regCache, _sharedRegisters);
+                code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);
 
             }
 
 			
-			if (!_isFirstLight)
+			if (!this._isFirstLight)
             {
 
-				code += "add " + _totalLightColorReg + ".xyz, " + _totalLightColorReg + ", " + t.toString() + "\n";
+				code += "add " + this.pTotalLightColorReg + ".xyz, " + this.pTotalLightColorReg + ", " + t.toString() + "\n";
 				regCache.removeFragmentTempUsage(t);
 
 			}
 
-			_isFirstLight = false;
+			this._isFirstLight = false;
 			
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentPostLightingCode(vo:MethodVO, regCache:ShaderRegisterCache, targetReg:ShaderRegisterElement):String
 		{
 			var code:String = "";
@@ -343,8 +305,8 @@ package away.materials.methods
 			if (vo.numLights > 0)
             {
 
-				if (_shadowRegister)
-					code += pApplyShadow(vo, regCache);
+				if (this._shadowRegister)
+					code += this.pApplyShadow(vo, regCache);
 
 				albedo = regCache.getFreeFragmentVectorTemp();
 				regCache.addFragmentTempUsages(albedo, 1);
@@ -358,17 +320,17 @@ package away.materials.methods
             }
 
 			
-			if (_useTexture)
+			if (this._useTexture)
             {
 
-				_diffuseInputRegister = regCache.getFreeTextureReg();
+				this._diffuseInputRegister = regCache.getFreeTextureReg();
 
-				vo.texturesIndex = _diffuseInputRegister.index;
+				vo.texturesIndex = this._diffuseInputRegister.index;
 
 
-				code += pGetTex2DSampleCode(vo, albedo, _diffuseInputRegister, _texture);
+				code += this.pGetTex2DSampleCode(vo, albedo, this._diffuseInputRegister, this._texture);
 
-				if (_alphaThreshold > 0)
+				if (this._alphaThreshold > 0)
                 {
 
                     //TODO: AGAL <> GLSL
@@ -388,11 +350,11 @@ package away.materials.methods
 
                 //TODO: AGAL <> GLSL
 
-				_diffuseInputRegister = regCache.getFreeFragmentConstant();
+				this._diffuseInputRegister = regCache.getFreeFragmentConstant();
 
-				vo.fragmentConstantsIndex = _diffuseInputRegister.index*4;
+				vo.fragmentConstantsIndex = this._diffuseInputRegister.index*4;
 
-				code += "mov " + albedo.toString() + ", " + _diffuseInputRegister.toString() + "\n";
+				code += "mov " + albedo.toString() + ", " + this._diffuseInputRegister.toString() + "\n";
 
 
 			}
@@ -401,16 +363,16 @@ package away.materials.methods
 				return code;
 
             //TODO: AGAL <> GLSL
-			code += "sat " + _totalLightColorReg.toString() + ", " + _totalLightColorReg.toString() + "\n";
+			code += "sat " + this.pTotalLightColorReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n";
 			
-			if (_useAmbientTexture)
+			if (this._useAmbientTexture)
             {
 
                 //TODO: AGAL <> GLSL
 
-				code += "mul " + albedo.toString() + ".xyz, " + albedo.toString() + ", " + _totalLightColorReg.toString() + "\n" +
-					"mul " + _totalLightColorReg.toString() + ".xyz, " + targetReg.toString() + ", " + _totalLightColorReg.toString() + "\n" +
-					"sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + _totalLightColorReg.toString() + "\n" +
+				code += "mul " + albedo.toString() + ".xyz, " + albedo.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" +
+					"mul " + this.pTotalLightColorReg.toString() + ".xyz, " + targetReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" +
+					"sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" +
 					"add " + targetReg.toString() + ".xyz, " + albedo.toString() + ", " + targetReg.toString() + "\n";
 
 
@@ -420,9 +382,9 @@ package away.materials.methods
 
                 //TODO: AGAL <> GLSL
 
-				code += "add " + targetReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + targetReg.toString() + "\n";
+				code += "add " + targetReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + targetReg.toString() + "\n";
 
-				if (_useTexture)
+				if (this._useTexture)
                 {
 
 					code += "mul " + targetReg.toString() + ".xyz, " + albedo.toString() + ", " + targetReg.toString() + "\n" +
@@ -432,48 +394,42 @@ package away.materials.methods
                 else
                 {
 
-					code += "mul " + targetReg.toString() + ".xyz, " + _diffuseInputRegister.toString() + ", " + targetReg.toString() + "\n" +
-						"mov " + targetReg.toString() + ".w, " + _diffuseInputRegister.toString() + ".w\n";
+					code += "mul " + targetReg.toString() + ".xyz, " + this._diffuseInputRegister.toString() + ", " + targetReg.toString() + "\n" +
+						"mov " + targetReg.toString() + ".w, " + this._diffuseInputRegister.toString() + ".w\n";
 
 				}
 
 			}
 			
-			regCache.removeFragmentTempUsage(_totalLightColorReg);
+			regCache.removeFragmentTempUsage(this.pTotalLightColorReg);
 			regCache.removeFragmentTempUsage(albedo);
 			
 			return code;
 		}
 
-		/**
-		 * Generate the code that applies the calculated shadow to the diffuse light
-		 * @param vo The MethodVO object for which the compilation is currently happening.
-		 * @param regCache The register cache the compiler is currently using for the register management.
-		 */
+		/**		 * Generate the code that applies the calculated shadow to the diffuse light		 * @param vo The MethodVO object for which the compilation is currently happening.		 * @param regCache The register cache the compiler is currently using for the register management.		 */
 		public function pApplyShadow(vo:MethodVO, regCache:ShaderRegisterCache):String
 		{
 
             //TODO: AGAL <> GLSL
-			return "mul " + _totalLightColorReg.toString() + ".xyz, " + _totalLightColorReg.toString() + ", " + _shadowRegister.toString() + ".w\n";
+			return "mul " + this.pTotalLightColorReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + this._shadowRegister.toString() + ".w\n";
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(vo:MethodVO, stage3DProxy:Stage3DProxy):void
 		{
-			if (_useTexture)
+			if (this._useTexture)
             {
                 stage3DProxy._iContext3D.setSamplerStateAt( vo.texturesIndex ,
                     vo.repeatTextures ?  Context3DWrapMode.REPEAT :  Context3DWrapMode.CLAMP,
                     vo.useSmoothTextures ? Context3DTextureFilter.LINEAR : Context3DTextureFilter.NEAREST ,
                     vo.useMipmapping ? Context3DMipFilter.MIPLINEAR : Context3DMipFilter.MIPNONE );
 
-                stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, _texture.getTextureForStage3D(stage3DProxy));
+                stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, this._texture.getTextureForStage3D(stage3DProxy));
 
-				if (_alphaThreshold > 0)
-					vo.fragmentData[vo.fragmentConstantsIndex] = _alphaThreshold;
+				if (this._alphaThreshold > 0)
+					vo.fragmentData[vo.fragmentConstantsIndex] = this._alphaThreshold;
 
 			}
             else
@@ -481,30 +437,31 @@ package away.materials.methods
 
 				var index:Number = vo.fragmentConstantsIndex;
 				var data:Vector.<Number> = vo.fragmentData;
-				data[index] = _diffuseR;
-				data[index + 1] = _diffuseG;
-				data[index + 2] = _diffuseB;
-				data[index + 3] = _diffuseA;
+				data[index] = this._diffuseR;
+				data[index + 1] = this._diffuseG;
+				data[index + 2] = this._diffuseB;
+				data[index + 3] = this._diffuseA;
 
 			}
 		}
 		
-		/**
-		 * Updates the diffuse color data used by the render state.
-		 */
+		/**		 * Updates the diffuse color data used by the render state.		 */
 		private function updateDiffuse():void
 		{
-			_diffuseR = ((_diffuseColor >> 16) & 0xff)/0xff;
-            _diffuseG = ((_diffuseColor >> 8) & 0xff)/0xff;
-            _diffuseB = (_diffuseColor & 0xff)/0xff;
+			this._diffuseR = ((this._diffuseColor >> 16) & 0xff)/0xff;
+            this._diffuseG = ((this._diffuseColor >> 8) & 0xff)/0xff;
+            this._diffuseB = (this._diffuseColor & 0xff)/0xff;
 		}
 
-		/**
-		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.
-		 */
-		public function set iShadowRegister(value:ShaderRegisterElement):void
-		{
-			_shadowRegister = value;
-		}
+		/**		 * Set internally by the compiler, so the method knows the register containing the shadow calculation.		 */
+        public function set iShadowRegister(value:ShaderRegisterElement):void
+        {
+            this._shadowRegister = value;
+        }
+
+        public function setIShadowRegister(value:ShaderRegisterElement):void
+        {
+            this._shadowRegister = value;
+        }
 	}
 }

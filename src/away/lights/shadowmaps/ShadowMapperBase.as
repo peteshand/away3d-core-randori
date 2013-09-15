@@ -1,8 +1,4 @@
-
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../../_definitions.ts"/>
 
@@ -33,7 +29,7 @@ package away.lights.shadowmaps
 		
 		public function ShadowMapperBase():void
 		{
-			_pCasterCollector = pCreateCasterCollector();
+			this._pCasterCollector = this.pCreateCasterCollector();
 		}
 		
 		public function pCreateCasterCollector():ShadowCasterCollector
@@ -43,92 +39,92 @@ package away.lights.shadowmaps
 		
 		public function get autoUpdateShadows():Boolean
 		{
-			return _autoUpdateShadows;
+			return this._autoUpdateShadows;
 		}
 		
 		public function set autoUpdateShadows(value:Boolean):void
 		{
-			_autoUpdateShadows = value;
+			this._autoUpdateShadows = value;
 		}
 		
 		public function updateShadows():void
 		{
-			_iShadowsInvalid = true;
+			this._iShadowsInvalid = true;
 		}
 		
 		public function iSetDepthMap(depthMap:TextureProxyBase):void
 		{
-			if( _depthMap == depthMap )
+			if( this._depthMap == depthMap )
 			{
 				return;
 			}
-			if( _depthMap && !_explicitDepthMap )
+			if( this._depthMap && !this._explicitDepthMap )
 			{
-				_depthMap.dispose();
+				this._depthMap.dispose();
 			}
-			_depthMap = depthMap;
-			if( _depthMap )
+			this._depthMap = depthMap;
+			if( this._depthMap )
 			{
-				_explicitDepthMap = true;
-				_pDepthMapSize = _depthMap.width;
+				this._explicitDepthMap = true;
+				this._pDepthMapSize = this._depthMap.width;
 			}
 			else
 			{
-				_explicitDepthMap = false;
+				this._explicitDepthMap = false;
 			}
 		}
 		
 		public function get light():LightBase
 		{
-			return _pLight;
+			return this._pLight;
 		}
 		
 		public function set light(value:LightBase):void
 		{
-			_pLight = value;
+			this._pLight = value;
 		}
 		
 		public function get depthMap():TextureProxyBase
 		{
-			if ( !_depthMap )
+			if ( !this._depthMap )
 			{
-				_depthMap = pCreateDepthTexture()
+				this._depthMap = this.pCreateDepthTexture()
 			}
-			return _depthMap;
+			return this._depthMap;
 		}
 		
 		public function get depthMapSize():Number
 		{
-			return _pDepthMapSize;
+			return this._pDepthMapSize;
 		}
 		
 		public function set depthMapSize(value:Number):void
 		{
-			if( value == _pDepthMapSize )
+			if( value == this._pDepthMapSize )
 			{
 				return;
 			}
-			_pDepthMapSize = value;
+			this._pDepthMapSize = value;
 			
-			if( _explicitDepthMap )
+			if( this._explicitDepthMap )
 			{
 				throw Error("Cannot set depth map size for the current renderer.");
 			}
-			else if( _depthMap )
+			else if( this._depthMap )
 			{
-				_depthMap.dispose();
-				_depthMap = null;
+				this._depthMap.dispose();
+				this._depthMap = null;
 			}
 		}
 		
 		public function dispose():void
 		{
-			_pCasterCollector = null;
-			if ( _depthMap && !_explicitDepthMap )
+			this._pCasterCollector = null;
+			if ( this._depthMap && !this._explicitDepthMap )
 			{
-				_depthMap.dispose();
+				this._depthMap.dispose();
 			}
-			_depthMap = null;
+			this._depthMap = null;
 		}
 
         public function pCreateDepthTexture():TextureProxyBase
@@ -137,20 +133,20 @@ package away.lights.shadowmaps
             //away.Debug.throwPIR( 'ShadowMapperBase' , 'pCreateDepthTexture' , 'Depedency: RenderTexture');
             //return null;
 
-            return new RenderTexture( _pDepthMapSize, _pDepthMapSize);
+            return new RenderTexture( this._pDepthMapSize, this._pDepthMapSize);
         }
 
 		public function iRenderDepthMap(stage3DProxy:Stage3DProxy, entityCollector:EntityCollector, renderer:DepthRenderer):void
 		{
-			_iShadowsInvalid = false;
+			this._iShadowsInvalid = false;
 
-			pUpdateDepthProjection( entityCollector.camera );
+			this.pUpdateDepthProjection( entityCollector.camera );
 
-			if( !_depthMap )
+			if( !this._depthMap )
 			{
-				_depthMap = pCreateDepthTexture();
+				this._depthMap = this.pCreateDepthTexture();
 			}
-			pDrawDepthMap( _depthMap.getTextureForStage3D(stage3DProxy), entityCollector.scene, renderer);
+			this.pDrawDepthMap( this._depthMap.getTextureForStage3D(stage3DProxy), entityCollector.scene, renderer);
 		}
 		
 		public function pUpdateDepthProjection(viewCamera:Camera3D):void

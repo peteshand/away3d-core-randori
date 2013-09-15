@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../away/_definitions.ts" />
 
 package aglsl.assembler
@@ -14,9 +12,9 @@ package aglsl.assembler
 		
 		public function Sampler(shift:Number, mask:Number, value:Number):void
 		{
-			shift = shift;
-			mask = mask;
-			value = value;
+			this.shift = shift;
+			this.mask = mask;
+			this.value = value;
 		}
 	}
 }

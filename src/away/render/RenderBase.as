@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.render
@@ -58,8 +56,8 @@ package away.render
 		
 		public function RenderBase(renderToTexture:Boolean = false):void
 		{
-			_pRenderableSorter = new RenderableMergeSort();
-			_pRenderToTexture = renderToTexture;
+			this._pRenderableSorter = new RenderableMergeSort();
+			this._pRenderToTexture = renderToTexture;
 		}
 		
 		//@arcane
@@ -71,222 +69,210 @@ package away.render
 		//@arcane
 		public function get iViewWidth():Number
 		{
-			return _pViewWidth;
+			return this._pViewWidth;
 		}
 		
 		//@arcane
 		public function set iViewWidth(value:Number):void
 		{
-			_pViewWidth = value;
+			this._pViewWidth = value;
 		}
 		
 		//@arcane
 		public function get iViewHeight():Number
 		{
-			return _pViewHeight;
+			return this._pViewHeight;
 		}
 		
 		//@arcane
 		public function set iViewHeight(value:Number):void
 		{
-			_pViewHeight = value;
+			this._pViewHeight = value;
 		}
 		
 		//@arcane
 		public function get iRenderToTexture():Boolean
 		{
-			return _pRenderToTexture;
+			return this._pRenderToTexture;
 		}
 		
 		public function get renderableSorter():IEntitySorter
 		{
-			return _pRenderableSorter;
+			return this._pRenderableSorter;
 		}
 		
 		public function set renderableSorter(value:IEntitySorter):void
 		{
-			_pRenderableSorter = value;
+			this._pRenderableSorter = value;
 		}
 		
 		//@arcane
 		public function get iClearOnRender():Boolean
 		{
-			return _clearOnRender;
+			return this._clearOnRender;
 		}
 		
 		//@arcane
 		public function set iClearOnRender(value:Boolean):void
 		{
-			_clearOnRender = value;
+			this._clearOnRender = value;
 		}
 		
 		//@arcane
 		public function get iBackgroundR():Number
 		{
-			return _pBackgroundR;
+			return this._pBackgroundR;
 		}
 		
 		//@arcane
 		public function set iBackgroundR(value:Number):void
 		{
-			_pBackgroundR = value;
+			this._pBackgroundR = value;
 		}
 		
 		//@arcane
 		public function get iBackgroundG():Number
 		{
-			return _pBackgroundG;
+			return this._pBackgroundG;
 		}
 		
 		//@arcane
 		public function set iBackgroundG(value:Number):void
 		{
-			_pBackgroundG = value;
+			this._pBackgroundG = value;
 		}
 		
 		//@arcane
 		public function get iBackgroundB():Number
 		{
-			return _pBackgroundB;
+			return this._pBackgroundB;
 		}
 		
 		//@arcane
 		public function set iBackgroundB(value:Number):void
 		{
-			_pBackgroundB = value;
+			this._pBackgroundB = value;
 		}
 		
 		//@arcane
 		public function get iStage3DProxy():Stage3DProxy
 		{
-			return _pStage3DProxy;
+			return this._pStage3DProxy;
 		}
 		
 		//@arcane
 		public function set iStage3DProxy(value:Stage3DProxy):void
 		{
-			if( value == _pStage3DProxy )
+			if( value == this._pStage3DProxy )
 			{
 				return;
 			}
 			if(!value)
 			{
-				if( _pStage3DProxy )
+				if( this._pStage3DProxy )
 				{
-					_pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
-					_pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
+					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
+					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
 				}
-				_pStage3DProxy = null;
-				_pContext = null;
+				this._pStage3DProxy = null;
+				this._pContext = null;
 				return;
 			}
 			
-			_pStage3DProxy = value;
-			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
-			_pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
+			this._pStage3DProxy = value;
+			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
+			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
 			
-			/*if( this._pBackgroundImageRenderer )
-			{
-				this._pBackgroundImageRenderer.stage3DProxy = value;
-			}*/
+			/*if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.stage3DProxy = value;			}*/
 			
 			if( value.context3D )
 			{
-				_pContext = value.context3D;
+				this._pContext = value.context3D;
 			}
 		}
 		
 		//@arcane
 		public function get iShareContext():Boolean
 		{
-			return _pShareContext;
+			return this._pShareContext;
 		}
 		
 		//@arcane
 		public function set iShareContext(value:Boolean):void
 		{
-			_pShareContext = value;
+			this._pShareContext = value;
 		}
 		
 		//@arcane
 		public function iDispose():void
 		{
-			_pStage3DProxy = null;
-			/*
-			if( this._pBackgroundImageRenderer )
-			{
-				this._pBackgroundImageRenderer.dispose();
-				this._pBackgroundImageRenderer = null;
-			}*/
+			this._pStage3DProxy = null;
+			/*			if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.dispose();				this._pBackgroundImageRenderer = null;			}*/
 		}
 		
 		//@arcane
 		public function iRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
-			if( !_pStage3DProxy || !_pContext )
+			if( !this._pStage3DProxy || !this._pContext )
 			{
 				return;
 			}
 			
-			_pRttViewProjectionMatrix.copyFrom( entityCollector.camera.viewProjection);
-			_pRttViewProjectionMatrix.appendScale( _pTextureRatioX, _pTextureRatioY, 1);
+			this._pRttViewProjectionMatrix.copyFrom( entityCollector.camera.viewProjection);
+			this._pRttViewProjectionMatrix.appendScale( this._pTextureRatioX, this._pTextureRatioY, 1);
 			
-			pExecuteRender( entityCollector, target, scissorRect, surfaceSelector );
+			this.pExecuteRender( entityCollector, target, scissorRect, surfaceSelector );
 			
 			// clear buffers
 			for( var i:Number = 0; i < 8; ++i )
 			{
-				_pContext.setVertexBufferAt( i, null );
-				_pContext.setTextureAt( i, null );
+				this._pContext.setVertexBufferAt( i, null );
+				this._pContext.setTextureAt( i, null );
 			}
 		}
 		
 		public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
-			_pRenderTarget = target;
-			_pRenderTargetSurface = surfaceSelector;
+			this._pRenderTarget = target;
+			this._pRenderTargetSurface = surfaceSelector;
 			
-			if( _pRenderableSorter )
+			if( this._pRenderableSorter )
 			{
-				_pRenderableSorter.sort(entityCollector);
+				this._pRenderableSorter.sort(entityCollector);
 			}
-			if( _pRenderToTexture )
+			if( this._pRenderToTexture )
 			{
-				pExecuteRenderToTexturePass(entityCollector);
+				this.pExecuteRenderToTexturePass(entityCollector);
 			}
 			
-			_pStage3DProxy.setRenderTarget( target, true, surfaceSelector );
+			this._pStage3DProxy.setRenderTarget( target, true, surfaceSelector );
 			
-			if ((target || !_pShareContext) && _clearOnRender)
+			if ((target || !this._pShareContext) && this._clearOnRender)
 			{
-				_pContext.clear( _pBackgroundR, _pBackgroundG, _pBackgroundB, _pBackgroundAlpha, 1, 0 );
+				this._pContext.clear( this._pBackgroundR, this._pBackgroundG, this._pBackgroundB, this._pBackgroundAlpha, 1, 0 );
 			}
-			_pContext.setDepthTest(false, Context3DCompareMode.ALWAYS );
-			_pStage3DProxy.scissorRect = scissorRect;
-			/*
-			if( this._backgroundImageRenderer )
-			{
-				this._backgroundImageRenderer.render();
-			}*/
-			pDraw(entityCollector, target);
+			this._pContext.setDepthTest(false, Context3DCompareMode.ALWAYS );
+			this._pStage3DProxy.scissorRect = scissorRect;
+			/*			if( this._backgroundImageRenderer )			{				this._backgroundImageRenderer.render();			}*/
+			this.pDraw(entityCollector, target);
 			
 			//line required for correct rendering when using away3d with starling. DO NOT REMOVE UNLESS STARLING INTEGRATION IS RETESTED!
-			_pContext.setDepthTest( false, Context3DCompareMode.LESS_EQUAL );
+			this._pContext.setDepthTest( false, Context3DCompareMode.LESS_EQUAL );
 			
-			if( !_pShareContext )
+			if( !this._pShareContext )
 			{
-				if( _snapshotRequired && _snapshotBitmapData) {
-					_pContext.drawToBitmapData( _snapshotBitmapData );
-					_snapshotRequired = false;
+				if( this._snapshotRequired && this._snapshotBitmapData) {
+					this._pContext.drawToBitmapData( this._snapshotBitmapData );
+					this._snapshotRequired = false;
 				}
 			}
-			_pStage3DProxy.scissorRect = null;
+			this._pStage3DProxy.scissorRect = null;
 		}
 		
 		public function queueSnapshot(bmd:BitmapData):void
 		{
-			_snapshotRequired = true;
-			_snapshotBitmapData = bmd;
+			this._snapshotRequired = true;
+			this._snapshotBitmapData = bmd;
 		}
 		
 		public function pExecuteRenderToTexturePass(entityCollector:EntityCollector):void
@@ -301,58 +287,35 @@ package away.render
 		
 		private function onContextUpdate(event:Event):void
 		{
-			_pContext = _pStage3DProxy.context3D;
+			this._pContext = this._pStage3DProxy.context3D;
 		}
 		
 		//@arcane
 		public function get iBackgroundAlpha():Number
 		{
-			return _pBackgroundAlpha;
+			return this._pBackgroundAlpha;
 		}
 		
 		//@arcane
 		public function set iBackgroundAlpha(value:Number):void
 		{
-			_pBackgroundAlpha = value;
+			this._pBackgroundAlpha = value;
 		}
 		
 		//@arcane
 		public function get iBackground():Texture2DBase
 		{
-			return _background;
+			return this._background;
 		}
 		
 		//@arcane
-		/*
-		public set iBackground( value:away.textures.Texture2DBase )
-		{
-			if( this._backgroundImageRenderer && !value )
-			{
-				this._backgroundImageRenderer.dispose();
-				this._backgroundImageRenderer = null;
-			}
-			
-			if( !this._backgroundImageRenderer && value )
-			{
-				this._backgroundImageRenderer = new away.render.BackgroundImageRenderer( this._stage3DProxy );
-			}
-			this._background = value;
-			
-			if( this._backgroundImageRenderer )
-			{
-				this._backgroundImageRenderer.texture = value;
-			}
-		}*/
+		/*		public set iBackground( value:away.textures.Texture2DBase )		{			if( this._backgroundImageRenderer && !value )			{				this._backgroundImageRenderer.dispose();				this._backgroundImageRenderer = null;			}						if( !this._backgroundImageRenderer && value )			{				this._backgroundImageRenderer = new away.render.BackgroundImageRenderer( this._stage3DProxy );			}			this._background = value;						if( this._backgroundImageRenderer )			{				this._backgroundImageRenderer.texture = value;			}		}*/
 		
-		/*
-		public get backgroundImageRenderer():away.render.BackgroundImageRenderer
-		{
-			return this._backgroundImageRenderer;
-		}*/
+		/*		public get backgroundImageRenderer():away.render.BackgroundImageRenderer		{			return this._backgroundImageRenderer;		}*/
 		
 		public function get antiAlias():Number
 		{
-			return _pAntiAlias;
+			return this._pAntiAlias;
 		}
 		
 	}

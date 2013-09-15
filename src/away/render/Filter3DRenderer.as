@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.render
@@ -17,9 +18,7 @@ package away.render
 
 	public class Filter3DRenderer
 	{
-		private var _filters:Vector.<Filter3DBase>; // TODO: check / changed to strongly typed array
-		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>;
-		private var _filterTasksInvalid:Boolean;
+		private var _filters:Vector.<Filter3DBase>; // TODO: check / changed to strongly typed array		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>;		private var _filterTasksInvalid:Boolean;
 		private var _mainInputTexture:Texture;
 		private var _requireDepthRender:Boolean;
 		private var _rttManager:RTTBufferManager;
@@ -29,68 +28,68 @@ package away.render
 		public function Filter3DRenderer(stage3DProxy:Stage3DProxy):void
 		{
 
-			_stage3DProxy = stage3DProxy;
-            _rttManager = RTTBufferManager.getInstance(stage3DProxy);
-            _rttManager.addEventListener(Event.RESIZE, onRTTResize , this );
+			this._stage3DProxy = stage3DProxy;
+            this._rttManager = RTTBufferManager.getInstance(stage3DProxy);
+            this._rttManager.addEventListener(Event.RESIZE, this.onRTTResize , this );
 
 		}
 		
 		private function onRTTResize(event:Event):void
 		{
-			_filterSizesInvalid = true;
+			this._filterSizesInvalid = true;
 		}
 		
 		public function get requireDepthRender():Boolean
 		{
-			return _requireDepthRender;
+			return this._requireDepthRender;
 		}
 		
 		public function getMainInputTexture(stage3DProxy:Stage3DProxy):Texture
 		{
-			if (_filterTasksInvalid)
+			if (this._filterTasksInvalid)
             {
 
-                updateFilterTasks(stage3DProxy);
+                this.updateFilterTasks(stage3DProxy);
 
             }
 
-			return _mainInputTexture;
+			return this._mainInputTexture;
 		}
 		
 		public function get filters():Vector.<Filter3DBase>
 		{
-			return _filters;
+			return this._filters;
 		}
 		
 		public function set filters(value:Vector.<Filter3DBase>):void
 		{
-            _filters = value;
+            this._filters = value;
 
-            _filterTasksInvalid = true;
+            this._filterTasksInvalid = true;
 
-            _requireDepthRender = false;
+            this._requireDepthRender = false;
 
-			if (!_filters)
+			if (!this._filters)
             {
 
                 return;
 
             }
 
-			for (var i:Number = 0; i < _filters.length; ++i)
+			for (var i:Number = 0; i < this._filters.length; ++i)
             {
 
                 // TODO: check logic:
                 // this._requireDepthRender ||=  Boolean ( this._filters[i].requireDepthRender )
 
-                var s : * = _filters[i];
-                var b : Boolean = (( s.requireDepthRender == null ) as Boolean)? false : s.requireDepthRender;
+                var s : * = this._filters[i];
+                var b : Boolean = (( s.requireDepthRender == null  ) as Boolean)? false : s.requireDepthRender;
 
-				_requireDepthRender = _requireDepthRender || b;
+				this._requireDepthRender = this._requireDepthRender || b;
 
             }
 
-			_filterSizesInvalid = true;
+			this._filterSizesInvalid = true;
 
 		}
 		
@@ -98,22 +97,22 @@ package away.render
 		{
 			var len:Number;
 			
-			if (_filterSizesInvalid)
+			if (this._filterSizesInvalid)
             {
 
-                updateFilterSizes();
+                this.updateFilterSizes();
 
             }
 
-			if (!_filters)
+			if (!this._filters)
             {
-				_tasks = null;
+				this._tasks = null;
 				return;
 			}
 			
-			_tasks = new Vector.<Filter3DTaskBase>();
+			this._tasks = new Vector.<Filter3DTaskBase>();
 			
-			len = _filters.length - 1;
+			len = this._filters.length - 1;
 			
 			var filter:Filter3DBase;
 			
@@ -121,18 +120,18 @@ package away.render
             {
 
 				// make sure all internal tasks are linked together
-				filter = _filters[i];
+				filter = this._filters[i];
 
                 // TODO: check logic
                 // filter.setRenderTargets(i == len? null : Filter3DBase(_filters[i + 1]).getMainInputTexture(stage3DProxy), stage3DProxy);
 
-				filter.setRenderTargets(i == len? null : _filters[i + 1].getMainInputTexture(stage3DProxy), stage3DProxy);
+				filter.setRenderTargets(i == len? null : this._filters[i + 1].getMainInputTexture(stage3DProxy), stage3DProxy);
 
-				_tasks = _tasks.concat(filter.tasks);
+				this._tasks = this._tasks.concat(filter.tasks);
 
 			}
 			
-			_mainInputTexture = _filters[0].getMainInputTexture(stage3DProxy);
+			this._mainInputTexture = this._filters[0].getMainInputTexture(stage3DProxy);
 
 		}
 		
@@ -143,33 +142,33 @@ package away.render
 			var task:Filter3DTaskBase;
 			var context:Context3D = stage3DProxy._iContext3D;
 
-			var indexBuffer:IndexBuffer3D = _rttManager.indexBuffer;
+			var indexBuffer:IndexBuffer3D = this._rttManager.indexBuffer;
 
-			var vertexBuffer:VertexBuffer3D = _rttManager.renderToTextureVertexBuffer;
+			var vertexBuffer:VertexBuffer3D = this._rttManager.renderToTextureVertexBuffer;
 			
-			if (!_filters)
+			if (!this._filters)
             {
                 return;
             }
 
-			if (_filterSizesInvalid)
+			if (this._filterSizesInvalid)
             {
-                updateFilterSizes();
+                this.updateFilterSizes();
             }
 
-			if ( _filterTasksInvalid)
+			if ( this._filterTasksInvalid)
             {
-                updateFilterTasks(stage3DProxy);
+                this.updateFilterTasks(stage3DProxy);
             }
 
-			len = _filters.length;
+			len = this._filters.length;
 
 			for (i = 0; i < len; ++i)
             {
-				_filters[i].update(stage3DProxy, camera3D);
+				this._filters[i].update(stage3DProxy, camera3D);
             }
 
-			len = _tasks.length;
+			len = this._tasks.length;
 			
 			if (len > 1)
             {
@@ -180,7 +179,7 @@ package away.render
 			for (i = 0; i < len; ++i)
             {
 
-				task = _tasks[i];
+				task = this._tasks[i];
 
 				stage3DProxy.setRenderTarget(task.target);
 				
@@ -188,7 +187,7 @@ package away.render
                 {
 
 					stage3DProxy.scissorRect = null;
-					vertexBuffer = _rttManager.renderToScreenVertexBuffer;
+					vertexBuffer = this._rttManager.renderToScreenVertexBuffer;
 					context.setVertexBufferAt(0, vertexBuffer, 0, Context3DVertexBufferFormat.FLOAT_2);
 					context.setVertexBufferAt(1, vertexBuffer, 2, Context3DVertexBufferFormat.FLOAT_2);
 
@@ -213,21 +212,21 @@ package away.render
 		
 		private function updateFilterSizes():void
 		{
-			for (var i:Number = 0; i < _filters.length; ++i)
+			for (var i:Number = 0; i < this._filters.length; ++i)
             {
-				_filters[i].textureWidth = _rttManager.textureWidth;
-                _filters[i].textureHeight = _rttManager.textureHeight;
+				this._filters[i].textureWidth = this._rttManager.textureWidth;
+                this._filters[i].textureHeight = this._rttManager.textureHeight;
 			}
 
-            _filterSizesInvalid = true;
+            this._filterSizesInvalid = true;
 
 		}
 		
 		public function dispose():void
 		{
-            _rttManager.removeEventListener(Event.RESIZE, onRTTResize , this );
-            _rttManager = null;
-            _stage3DProxy = null;
+            this._rttManager.removeEventListener(Event.RESIZE, this.onRTTResize , this );
+            this._rttManager = null;
+            this._stage3DProxy = null;
 		}
 	}
 

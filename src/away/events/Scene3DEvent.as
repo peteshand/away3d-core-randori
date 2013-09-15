@@ -1,10 +1,8 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
-
+/** * @module away.events */
 package away.events 
 {
 	import away.containers.ObjectContainer3D;
@@ -19,7 +17,7 @@ package away.events
 		
 		public function Scene3DEvent(type:String, objectContainer:ObjectContainer3D):void
 		{
-			target = objectContainer;
+			this.target = objectContainer;
 			super( type );
 		}
 		

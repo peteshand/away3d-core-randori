@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.passes
 {
 	import away.geom.Matrix3D;
@@ -9,9 +10,7 @@ package away.materials.passes
 	import away.entities.SegmentSet;
 	import away.display3D.Context3DProgramType;
 
-	/**
-	 * SegmentPass is a material pass that draws wireframe segments.
-	 */
+	/**	 * SegmentPass is a material pass that draws wireframe segments.	 */
 	public class SegmentPass extends MaterialPassBase
 	{
 		public static var pONE_VECTOR:Vector.<Number> = Vector.<Number>( 1, 1, 1, 1 );
@@ -21,26 +20,20 @@ package away.materials.passes
 		private var _calcMatrix:Matrix3D;
 		private var _thickness:Number;
 		
-		/**
-		 * Creates a new SegmentPass object.
-		 *
-		 * @param thickness the thickness of the segments to be drawn.
-		 */
+		/**		 * Creates a new SegmentPass object.		 *		 * @param thickness the thickness of the segments to be drawn.		 */
 		public function SegmentPass(thickness:Number):void
 		{
 
             super();
 
-			_calcMatrix = new Matrix3D();
+			this._calcMatrix = new Matrix3D();
 			
-			_thickness = thickness;
-			_constants[1] = 1/255;
+			this._thickness = thickness;
+			this._constants[1] = 1/255;
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetVertexCode():String
 		{
 			return "m44 vt0, va0, vc8			\n" + // transform Q0 to eye space
@@ -104,23 +97,18 @@ package away.materials.passes
 				"mov v0, va3				\n";
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCode(animationCode:String):String
 		{
 			return "mov oc, v0\n";
 		}
 		
-		/**
-		 * @inheritDoc
-		 * todo: keep maps in dictionary per renderable
-		 */
+		/**		 * @inheritDoc		 * todo: keep maps in dictionary per renderable		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
-			_calcMatrix.copyFrom(renderable.sourceEntity.sceneTransform);
-			_calcMatrix.append(camera.inverseSceneTransform);
+			this._calcMatrix.copyFrom(renderable.sourceEntity.sceneTransform);
+			this._calcMatrix.append(camera.inverseSceneTransform);
 
             var ss : SegmentSet = (renderable as SegmentSet);
 
@@ -131,39 +119,35 @@ package away.materials.passes
 				for (var i:Number = 0; i < subSetCount; ++i)
                 {
 					renderable.activateVertexBuffer(i, stage3DProxy);
-					context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 8, _calcMatrix, true);
+					context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 8, this._calcMatrix, true);
 					context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.numTriangles);
 				}
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
 			super.iActivate(stage3DProxy, camera);
 			
 			if (stage3DProxy.scissorRect)
-				_constants[0] = _thickness/Math.min(stage3DProxy.scissorRect.width, stage3DProxy.scissorRect.height);
+				this._constants[0] = this._thickness/Math.min(stage3DProxy.scissorRect.width, stage3DProxy.scissorRect.height);
 			else
-				_constants[0] = _thickness/Math.min(stage3DProxy.width, stage3DProxy.height);
+				this._constants[0] = this._thickness/Math.min(stage3DProxy.width, stage3DProxy.height);
 			
 			// value to convert distance from camera to model length per pixel width
-			_constants[2] = camera.lens.near;
+			this._constants[2] = camera.lens.near;
 			
 			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 5, SegmentPass.pONE_VECTOR);
 			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 6, SegmentPass.pFRONT_VECTOR);
-			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 7, _constants);
+			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 7, this._constants);
 			
 			// projection matrix
 			context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 0, camera.lens.matrix, true);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function pDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;

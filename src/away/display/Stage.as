@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+ 
 ///<reference path="../_definitions.ts" />
 
 package away.display
@@ -33,22 +31,22 @@ package away.display
 				throw new DocumentError( "A root document object does not exist." );
 			}
 			
-			initStage3DObjects();
-			resize( width, height );
+			this.initStage3DObjects();
+			this.resize( width, height );
 
 		}
 		
 		public function resize(width:Number, height:Number):void
 		{
-			_stageHeight = height;
-			_stageWidth = width;
+			this._stageHeight = height;
+			this._stageWidth = width;
 
             var s3d : Stage3D;
 
 			for( var i: Number = 0; i <  Stage.STAGE3D_MAX_QUANTITY; ++i )
 			{
 
-                s3d         = stage3Ds[ i ];
+                s3d         = this.stage3Ds[ i ];
                 s3d.width   = width;
                 s3d.height  = height;
                 s3d.x       = 0;
@@ -57,30 +55,30 @@ package away.display
 				//away.utils.CSS.setCanvasSize( this.stage3Ds[ i ].canvas, width, height );
 				//away.utils.CSS.setCanvasPosition( this.stage3Ds[ i ].canvas, 0, 0, true );
 			}
-			dispatchEvent( new Event( Event.RESIZE ) );
+			this.dispatchEvent( new Event( Event.RESIZE ) );
 		}
 		
 		public function getStage3DAt(index:Number):Stage3D
 		{
 			if( 0 <= index && index < Stage.STAGE3D_MAX_QUANTITY )
 			{
-				return stage3Ds[ index ];
+				return this.stage3Ds[ index ];
 			}
 			throw new away.errors.ArgumentError( "Index is out of bounds [0.." + Stage.STAGE3D_MAX_QUANTITY + "]" );
 		}
 		
 		public function initStage3DObjects():void
 		{
-			stage3Ds = new <Stage3D>[];
+			this.stage3Ds = new <Stage3D>[];
 
 			for( var i: Number = 0; i < Stage.STAGE3D_MAX_QUANTITY; ++i )
 			{
 
-				var canvas  : HTMLCanvasElement     = createHTMLCanvasElement();
+				var canvas  : HTMLCanvasElement     = this.createHTMLCanvasElement();
                 var stage3D : Stage3D  = new Stage3D( canvas );
-                    stage3D.addEventListener( Event.CONTEXT3D_CREATE , onContextCreated , this );
+                    stage3D.addEventListener( Event.CONTEXT3D_CREATE , this.onContextCreated , this );
 
-				stage3Ds.push( stage3D );
+				this.stage3Ds.push( stage3D );
 
 			}
 
@@ -90,7 +88,7 @@ package away.display
         {
 
             var stage3D : Stage3D = (e.target as Stage3D);
-            addChildHTMLElement( stage3D.canvas );
+            this.addChildHTMLElement( stage3D.canvas );
         }
 
 		private function createHTMLCanvasElement():HTMLCanvasElement
@@ -106,21 +104,21 @@ package away.display
         public function get stageWidth():Number
         {
 
-            return _stageWidth;
+            return this._stageWidth;
 
         }
 
         public function get stageHeight():Number
         {
 
-            return _stageHeight;
+            return this._stageHeight;
 
         }
 
         public function get rect():Rectangle
         {
 
-            return new Rectangle( 0 ,0 , _stageWidth , _stageHeight );
+            return new Rectangle( 0 ,0 , this._stageWidth , this._stageHeight );
 
         }
 	}

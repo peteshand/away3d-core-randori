@@ -1,13 +1,10 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.geom.Vector3D;
 	//import flash.geom.Vector3D;
 	
-	/**
-	 * A WireframePlane primitive mesh.
-	 */
+	/**	 * A WireframePlane primitive mesh.	 */
 	public class WireframePlane extends WireframePrimitiveBase
 	{
 		public static var ORIENTATION_YZ:String = "yz";
@@ -20,114 +17,93 @@ package away.primitives
 		private var _segmentsH:Number;
 		private var _orientation:String;
 		
-		/**
-		 * Creates a new WireframePlane object.
-		 * @param width The size of the cube along its X-axis.
-		 * @param height The size of the cube along its Y-axis.
-		 * @param segmentsW The number of segments that make up the cube along the X-axis.
-		 * @param segmentsH The number of segments that make up the cube along the Y-axis.
-		 * @param color The colour of the wireframe lines
-		 * @param thickness The thickness of the wireframe lines
-		 * @param orientation The orientaion in which the plane lies.
-		 */
+		/**		 * Creates a new WireframePlane object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
 		public function WireframePlane(width:Number, height:Number, segmentsW:Number = 10, segmentsH:Number = 10, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void
 		{
 			super(color, thickness);
 			
-			_width = width;
-            _height = height;
-            _segmentsW = segmentsW;
-            _segmentsH = segmentsH;
-            _orientation = orientation;
+			this._width = width;
+            this._height = height;
+            this._segmentsW = segmentsW;
+            this._segmentsH = segmentsH;
+            this._orientation = orientation;
 		}
 		
-		/**
-		 * The orientaion in which the plane lies.
-		 */
+		/**		 * The orientaion in which the plane lies.		 */
 		public function get orientation():String
 		{
-			return _orientation;
+			return this._orientation;
 		}
 		
 		public function set orientation(value:String):void
 		{
-            _orientation = value;
-            pInvalidateGeometry();
+            this._orientation = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the cube along its X-axis.
-		 */
+		/**		 * The size of the cube along its X-axis.		 */
 		public function get width():Number
 		{
-			return _width;
+			return this._width;
 		}
 		
 		public function set width(value:Number):void
 		{
-            _width = value;
-            pInvalidateGeometry();
+            this._width = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the cube along its Y-axis.
-		 */
+		/**		 * The size of the cube along its Y-axis.		 */
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
 		
 		public function set height(value:Number):void
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            _height = value;
-            pInvalidateGeometry();
+            this._height = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The number of segments that make up the plane along the X-axis.
-		 */
+		/**		 * The number of segments that make up the plane along the X-axis.		 */
 		public function get segmentsW():Number
 		{
-			return _segmentsW;
+			return this._segmentsW;
 		}
 		
 		public function set segmentsW(value:Number):void
 		{
-            _segmentsW = value;
-            removeAllSegments();
-            pInvalidateGeometry();
+            this._segmentsW = value;
+            this.removeAllSegments();
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The number of segments that make up the plane along the Y-axis.
-		 */
+		/**		 * The number of segments that make up the plane along the Y-axis.		 */
 		public function get segmentsH():Number
 		{
-			return _segmentsH;
+			return this._segmentsH;
 		}
 		
 		public function set segmentsH(value:Number):void
 		{
-            _segmentsH = value;
-            removeAllSegments();
-            pInvalidateGeometry();
+            this._segmentsH = value;
+            this.removeAllSegments();
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry():void
 		{
 			var v0:Vector3D = new Vector3D();
 			var v1:Vector3D = new Vector3D();
-			var hw:Number = _width*.5;
-			var hh:Number = _height*.5;
+			var hw:Number = this._width*.5;
+			var hh:Number = this._height*.5;
 			var index:Number = 0;
 			var ws:Number, hs:Number;
 			
-			if ( _orientation == WireframePlane.ORIENTATION_XY)
+			if ( this._orientation == WireframePlane.ORIENTATION_XY)
             {
 
 				v0.y = hh;
@@ -135,63 +111,63 @@ package away.primitives
 				v1.y = -hh;
 				v1.z = 0;
 				
-				for (ws = 0; ws <= _segmentsW; ++ws)
+				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.x = v1.x = (ws/_segmentsW - .5)*_width;
-                    pUpdateOrAddSegment(index++, v0, v1);
+					v0.x = v1.x = (ws/this._segmentsW - .5)*this._width;
+                    this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
 				v0.x = -hw;
 				v1.x = hw;
 				
-				for (hs = 0; hs <= _segmentsH; ++hs)
+				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.y = v1.y = (hs/_segmentsH - .5)*_height;
-					pUpdateOrAddSegment(index++, v0, v1);
+					v0.y = v1.y = (hs/this._segmentsH - .5)*this._height;
+					this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}
-			else if (_orientation == WireframePlane.ORIENTATION_XZ)
+			else if (this._orientation == WireframePlane.ORIENTATION_XZ)
             {
 				v0.z = hh;
 				v0.y = 0;
 				v1.z = -hh;
 				v1.y = 0;
 				
-				for (ws = 0; ws <= _segmentsW; ++ws)
+				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.x = v1.x = (ws/_segmentsW - .5)*_width;
-                    pUpdateOrAddSegment(index++, v0, v1);
+					v0.x = v1.x = (ws/this._segmentsW - .5)*this._width;
+                    this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
 				v0.x = -hw;
 				v1.x = hw;
 				
-				for (hs = 0; hs <= _segmentsH; ++hs)
+				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.z = v1.z = (hs/_segmentsH - .5)*_height;
-                    pUpdateOrAddSegment(index++, v0, v1);
+					v0.z = v1.z = (hs/this._segmentsH - .5)*this._height;
+                    this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}
-			else if (_orientation == WireframePlane.ORIENTATION_YZ)
+			else if (this._orientation == WireframePlane.ORIENTATION_YZ)
             {
 				v0.y = hh;
 				v0.x = 0;
 				v1.y = -hh;
 				v1.x = 0;
 				
-				for (ws = 0; ws <= _segmentsW; ++ws)
+				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.z = v1.z = (ws/_segmentsW - .5)*_width;
-                    pUpdateOrAddSegment(index++, v0, v1);
+					v0.z = v1.z = (ws/this._segmentsW - .5)*this._width;
+                    this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
 				v0.z = hw;
 				v1.z = -hw;
 				
-				for (hs = 0; hs <= _segmentsH; ++hs)
+				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.y = v1.y = (hs/_segmentsH - .5)*_height;
-                    pUpdateOrAddSegment(index++, v0, v1);
+					v0.y = v1.y = (hs/this._segmentsH - .5)*this._height;
+                    this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.loaders.parsers
 {
 	import away.entities.Mesh;
@@ -22,9 +23,7 @@ package away.loaders.parsers
 	import away.materials.ColorMultiPassMaterial;
 	import randori.webkit.page.Window;
 
-	/**
-	 * OBJParser provides a parser for the OBJ data type.
-	 */
+	/**	 * OBJParser provides a parser for the OBJ data type.	 */
 	public class OBJParser extends ParserBase
 	{
 		private var _textData:String;
@@ -52,42 +51,27 @@ package away.loaders.parsers
 		private var _mtlLibLoaded:Boolean = true;
 		private var _activeMaterialID:String = "";
 		
-		/**
-		 * Creates a new OBJParser object.
-		 * @param uri The url or id of the data or file to be parsed.
-		 * @param extra The holder for extra contextual data that the parser might need.
-		 */
+		/**		 * Creates a new OBJParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
 		public function OBJParser(scale:Number = 1):void
 		{
 			super(ParserDataFormat.PLAIN_TEXT);
-			_scale = scale;
+			this._scale = scale;
 		}
 		
-		/**
-		 * Scaling factor applied directly to vertices data
-		 * @param value The scaling factor.
-		 */
+		/**		 * Scaling factor applied directly to vertices data		 * @param value The scaling factor.		 */
 		public function set scale(value:Number):void
 		{
-			_scale = value;
+			this._scale = value;
 		}
 		
-		/**
-		 * Indicates whether or not a given file extension is supported by the parser.
-		 * @param extension The file extension of a potential file to be parsed.
-		 * @return Whether or not the given file type is supported.
-		 */
+		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
 			return extension == "obj";
 		}
 		
-		/**
-		 * Tests whether a data block can be parsed by the parser.
-		 * @param data The data block to potentially be parsed.
-		 * @return Whether or not the given data is supported.
-		 */
+		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
 		public static function supportsData(data:*):Boolean
 		{
 			var content:String = ParserUtil.toString(data);
@@ -103,15 +87,13 @@ package away.loaders.parsers
 			return hasV && hasF;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _iResolveDependency(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == 'mtl')
             {
 				var str:String = ParserUtil.toString(resourceDependency.data);
-				parseMtl(str);
+				this.parseMtl(str);
 				
 			}
             else
@@ -132,107 +114,103 @@ package away.loaders.parsers
 					    lm.materialID = resourceDependency.id;
 					    lm.texture = (asset as Texture2DBase);
 					
-					_materialLoaded.push(lm);
+					this._materialLoaded.push(lm);
 					
-					if (_meshes.length > 0)
+					if (this._meshes.length > 0)
                     {
-						applyMaterial(lm);
+						this.applyMaterial(lm);
                     }
 				}
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == "mtl")
             {
-				_mtlLib = false;
-				_mtlLibLoaded = false;
+				this._mtlLib = false;
+				this._mtlLibLoaded = false;
 			}
             else
             {
 				var lm:LoadedMaterial = new LoadedMaterial();
 				    lm.materialID = resourceDependency.id;
-				_materialLoaded.push(lm);
+				this._materialLoaded.push(lm);
 			}
 			
-			if (_meshes.length > 0)
-				applyMaterial(lm);
+			if (this._meshes.length > 0)
+				this.applyMaterial(lm);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _pProceedParsing():Boolean
 		{
 			var line:String;
 			var creturn:String = String.fromCharCode(10);
 			var trunk;
 			
-			if (!_startedParsing)
+			if (!this._startedParsing)
             {
-				_textData = _pGetTextData();
+				this._textData = this._pGetTextData();
 				// Merge linebreaks that are immediately preceeded by
 				// the "escape" backward slash into single lines.
-				_textData = _textData.replace(/\\[\r\n]+\s*/gm, ' ');
+				this._textData = this._textData.replace(/\\[\r\n]+\s*/gm, ' ');
 			}
 			
-			if (_textData.indexOf(creturn) == -1)
+			if (this._textData.indexOf(creturn) == -1)
 				creturn = String.fromCharCode(13);
 			
-			if (!_startedParsing)
+			if (!this._startedParsing)
             {
-				_startedParsing = true;
-                _vertices = new Vector.<Vertex>();
-                _vertexNormals = new Vector.<Vertex>();
-                _materialIDs = new Vector.<String>();
-                _materialLoaded = new Vector.<LoadedMaterial>();
-                _meshes = new Vector.<Mesh>();
-                _uvs = new Vector.<UV>();
-                _stringLength = _textData.length;
-                _charIndex = _textData.indexOf(creturn, 0);
-                _oldIndex = 0;
-                _objects = new Vector.<ObjectGroup>();
-                _objectIndex = 0;
+				this._startedParsing = true;
+                this._vertices = new Vector.<Vertex>();
+                this._vertexNormals = new Vector.<Vertex>();
+                this._materialIDs = new Vector.<String>();
+                this._materialLoaded = new Vector.<LoadedMaterial>();
+                this._meshes = new Vector.<Mesh>();
+                this._uvs = new Vector.<UV>();
+                this._stringLength = this._textData.length;
+                this._charIndex = this._textData.indexOf(creturn, 0);
+                this._oldIndex = 0;
+                this._objects = new Vector.<ObjectGroup>();
+                this._objectIndex = 0;
 			}
 			
-			while (_charIndex < _stringLength && _pHasTime())
+			while (this._charIndex < this._stringLength && this._pHasTime())
             {
-				_charIndex = _textData.indexOf(creturn, _oldIndex);
+				this._charIndex = this._textData.indexOf(creturn, this._oldIndex);
 				
-				if (_charIndex == -1)
-                    _charIndex = _stringLength;
+				if (this._charIndex == -1)
+                    this._charIndex = this._stringLength;
 				
-				line = _textData.substring(_oldIndex, _charIndex);
+				line = this._textData.substring(this._oldIndex, this._charIndex);
 				line = line.split('\r').join("");
 				line = line.replace("  ", " ");
 				trunk = line.split(" ");
-                _oldIndex = _charIndex + 1;
-                parseLine(trunk);
+                this._oldIndex = this._charIndex + 1;
+                this.parseLine(trunk);
 				
 				// If whatever was parsed on this line resulted in the
 				// parsing being paused to retrieve dependencies, break
 				// here and do not continue parsing until un-paused.
-				if (parsingPaused)
+				if (this.parsingPaused)
                 {
 					return ParserBase.MORE_TO_PARSE;
                 }
 
 			}
 			
-			if (_charIndex >= _stringLength)
+			if (this._charIndex >= this._stringLength)
             {
 				
-				if (_mtlLib && !_mtlLibLoaded)
+				if (this._mtlLib && !this._mtlLibLoaded)
                 {
 					return ParserBase.MORE_TO_PARSE;
                 }
 
-				translate();
-				applyMaterials();
+				this.translate();
+				this.applyMaterials();
 				
 				return ParserBase.PARSING_DONE;
 			}
@@ -240,9 +218,7 @@ package away.loaders.parsers
 			return ParserBase.MORE_TO_PARSE;
 		}
 		
-		/**
-		 * Parses a single line in the OBJ file.
-		 */
+		/**		 * Parses a single line in the OBJ file.		 */
 		private function parseLine(trunk):void
 		{
 			switch (trunk[0])
@@ -250,74 +226,72 @@ package away.loaders.parsers
 
 				case "mtllib":
 
-					_mtlLib = true;
-                    _mtlLibLoaded = false;
-                    loadMtl(trunk[1]);
+					this._mtlLib = true;
+                    this._mtlLibLoaded = false;
+                    this.loadMtl(trunk[1]);
 
 					break;
 
 				case "g":
 
-                    createGroup(trunk);
+                    this.createGroup(trunk);
 
 					break;
 
 				case "o":
 
-                    createObject(trunk);
+                    this.createObject(trunk);
 
 					break;
 
 				case "usemtl":
 
-					if (_mtlLib)
+					if (this._mtlLib)
                     {
 
 						if (!trunk[1])
 							trunk[1] = "def000";
 
-                        _materialIDs.push(trunk[1]);
-                        _activeMaterialID = trunk[1];
+                        this._materialIDs.push(trunk[1]);
+                        this._activeMaterialID = trunk[1];
 
-						if (_currentGroup)
-                            _currentGroup.materialID = _activeMaterialID;
+						if (this._currentGroup)
+                            this._currentGroup.materialID = this._activeMaterialID;
 					}
 
 					break;
 
 				case "v":
 
-                    parseVertex(trunk);
+                    this.parseVertex(trunk);
 
 					break;
 
 				case "vt":
 
-                    parseUV(trunk);
+                    this.parseUV(trunk);
 
 					break;
 
 				case "vn":
 
-                    parseVertexNormal(trunk);
+                    this.parseVertexNormal(trunk);
 
 					break;
 
 				case "f":
 
-                    parseFace(trunk);
+                    this.parseFace(trunk);
 
 			}
 		}
 		
-		/**
-		 * Converts the parsed data into an Away3D scenegraph structure
-		 */
+		/**		 * Converts the parsed data into an Away3D scenegraph structure		 */
 		private function translate():void
 		{
-			for (var objIndex:Number = 0; objIndex < _objects.length; ++objIndex)
+			for (var objIndex:Number = 0; objIndex < this._objects.length; ++objIndex)
             {
-				var groups:Vector.<Group> = _objects[objIndex].groups;
+				var groups:Vector.<Group> = this._objects[objIndex].groups;
 				var numGroups:Number = groups.length;
 				var materialGroups:Vector.<MaterialGroup>;
 				var numMaterialGroups:Number;
@@ -335,25 +309,25 @@ package away.loaders.parsers
 					numMaterialGroups = materialGroups.length;
 					
 					for (m = 0; m < numMaterialGroups; ++m)
-						translateMaterialGroup(materialGroups[m], geometry);
+						this.translateMaterialGroup(materialGroups[m], geometry);
 					
 					if (geometry.subGeometries.length == 0)
 						continue;
 					
 					// Finalize and force type-based name
-					_pFinalizeAsset( (geometry as IAsset)) ;//, "");
+					this._pFinalizeAsset( (geometry as IAsset) ) ;//, "");
 
-					if (materialMode < 2)
+					if (this.materialMode < 2)
 						bmMaterial = new TextureMaterial(DefaultMaterialManager.getDefaultTexture());
 					else
 						bmMaterial = new TextureMultiPassMaterial(DefaultMaterialManager.getDefaultTexture());
 					//bmMaterial = new TextureMaterial(DefaultMaterialManager.getDefaultTexture());
 					mesh = new Mesh(geometry, bmMaterial);
 					
-					if (_objects[objIndex].name)
+					if (this._objects[objIndex].name)
                     {
 						// this is a full independent object ('o' tag in OBJ file)
-						mesh.name = _objects[objIndex].name;
+						mesh.name = this._objects[objIndex].name;
 
 					}
                     else if (groups[g].name)
@@ -370,12 +344,12 @@ package away.loaders.parsers
 						mesh.name = "";
 					}
 					
-					_meshes.push(mesh);
+					this._meshes.push(mesh);
 					
 					if (groups[g].materialID != "")
 						bmMaterial.name = groups[g].materialID + "~" + mesh.name;
 					else
-						bmMaterial.name = _lastMtlID + "~" + mesh.name;
+						bmMaterial.name = this._lastMtlID + "~" + mesh.name;
 					
 					if (mesh.subMeshes.length > 1)
                     {
@@ -383,16 +357,12 @@ package away.loaders.parsers
 							mesh.subMeshes[sm].material = bmMaterial;
 					}
 
-                    _pFinalizeAsset((mesh) as IAsset);
+                    this._pFinalizeAsset((mesh as IAsset));
 				}
 			}
 		}
 		
-		/**
-		 * Translates an obj's material group to a subgeometry.
-		 * @param materialGroup The material group data to convert.
-		 * @param geometry The Geometry to contain the converted SubGeometry.
-		 */
+		/**		 * Translates an obj's material group to a subgeometry.		 * @param materialGroup The material group data to convert.		 * @param geometry The Geometry to contain the converted SubGeometry.		 */
 		private function translateMaterialGroup(materialGroup:MaterialGroup, geometry:Geometry):void
 		{
 			var faces:Vector.<FaceData> = materialGroup.faces;
@@ -406,8 +376,8 @@ package away.loaders.parsers
 			var normals:Vector.<Number> = new Vector.<Number>();
 			var indices:Vector.<Number> /*uint*/ = new Vector.<Number>();
 			
-			_realIndices = [];
-            _vertexIndex = 0;
+			this._realIndices = [];
+            this._vertexIndex = 0;
 			
 			var j:Number;
 			for (var i:Number = 0; i < numFaces; ++i)
@@ -419,9 +389,9 @@ package away.loaders.parsers
 				for (j = 1; j < numVerts; ++j)
                 {
 
-					translateVertexData(face, j, vertices, uvs, indices, normals);
-                    translateVertexData(face, 0, vertices, uvs, indices, normals);
-                    translateVertexData(face, j + 1, vertices, uvs, indices, normals);
+					this.translateVertexData(face, j, vertices, uvs, indices, normals);
+                    this.translateVertexData(face, 0, vertices, uvs, indices, normals);
+                    this.translateVertexData(face, j + 1, vertices, uvs, indices, normals);
 				}
 			}
 			if (vertices.length > 0)
@@ -441,23 +411,23 @@ package away.loaders.parsers
 			var vertexNormal:Vertex;
 			var uv:UV;
 			
-			if (!_realIndices[face.indexIds[vertexIndex]])
+			if (!this._realIndices[face.indexIds[vertexIndex]])
             {
 
-				index = _vertexIndex;
-				_realIndices[face.indexIds[vertexIndex]] = ++_vertexIndex;
-				vertex = _vertices[face.vertexIndices[vertexIndex] - 1];
-				vertices.push(vertex.x*_scale, vertex.y*_scale, vertex.z*_scale);
+				index = this._vertexIndex;
+				this._realIndices[face.indexIds[vertexIndex]] = ++this._vertexIndex;
+				vertex = this._vertices[face.vertexIndices[vertexIndex] - 1];
+				vertices.push(vertex.x*this._scale, vertex.y*this._scale, vertex.z*this._scale);
 				
 				if (face.normalIndices.length > 0) {
-					vertexNormal = _vertexNormals[face.normalIndices[vertexIndex] - 1];
+					vertexNormal = this._vertexNormals[face.normalIndices[vertexIndex] - 1];
 					normals.push(vertexNormal.x, vertexNormal.y, vertexNormal.z);
 				}
 				
 				if (face.uvIndices.length > 0) {
 					
 					try {
-						uv = _uvs[face.uvIndices[vertexIndex] - 1];
+						uv = this._uvs[face.uvIndices[vertexIndex] - 1];
 						uvs.push(uv.u, uv.v);
 						
 					} catch (e) {
@@ -479,61 +449,49 @@ package away.loaders.parsers
 			}
             else
             {
-				index = _realIndices[face.indexIds[vertexIndex]] - 1;
+				index = this._realIndices[face.indexIds[vertexIndex]] - 1;
             }
 
 			indices.push(index);
 		}
 		
-		/**
-		 * Creates a new object group.
-		 * @param trunk The data block containing the object tag and its parameters
-		 */
+		/**		 * Creates a new object group.		 * @param trunk The data block containing the object tag and its parameters		 */
 		private function createObject(trunk):void
 		{
-			_currentGroup = null;
-            _currentMaterialGroup = null;
-            _objects.push(_currentObject = new ObjectGroup());
+			this._currentGroup = null;
+            this._currentMaterialGroup = null;
+            this._objects.push(this._currentObject = new ObjectGroup());
 			
 			if (trunk)
-                _currentObject.name = trunk[1];
+                this._currentObject.name = trunk[1];
 		}
 		
-		/**
-		 * Creates a new group.
-		 * @param trunk The data block containing the group tag and its parameters
-		 */
+		/**		 * Creates a new group.		 * @param trunk The data block containing the group tag and its parameters		 */
 		private function createGroup(trunk):void
 		{
-			if (!_currentObject)
-                createObject(null);
-            _currentGroup = new Group();
+			if (!this._currentObject)
+                this.createObject(null);
+            this._currentGroup = new Group();
 
-            _currentGroup.materialID = _activeMaterialID;
+            this._currentGroup.materialID = this._activeMaterialID;
 			
 			if (trunk)
-                _currentGroup.name = trunk[1];
-            _currentObject.groups.push(_currentGroup);
+                this._currentGroup.name = trunk[1];
+            this._currentObject.groups.push(this._currentGroup);
 
-            createMaterialGroup(null);
+            this.createMaterialGroup(null);
 		}
 		
-		/**
-		 * Creates a new material group.
-		 * @param trunk The data block containing the material tag and its parameters
-		 */
+		/**		 * Creates a new material group.		 * @param trunk The data block containing the material tag and its parameters		 */
 		private function createMaterialGroup(trunk):void
 		{
-            _currentMaterialGroup = new MaterialGroup();
+            this._currentMaterialGroup = new MaterialGroup();
 			if (trunk)
-                _currentMaterialGroup.url = trunk[1];
-            _currentGroup.materialGroups.push(_currentMaterialGroup);
+                this._currentMaterialGroup.url = trunk[1];
+            this._currentGroup.materialGroups.push(this._currentMaterialGroup);
 		}
 		
-		/**
-		 * Reads the next vertex coordinates.
-		 * @param trunk The data block containing the vertex tag and its parameters
-		 */
+		/**		 * Reads the next vertex coordinates.		 * @param trunk The data block containing the vertex tag and its parameters		 */
 		private function parseVertex(trunk):void
 		{
 			//for the very rare cases of other delimiters/charcodes seen in some obj files
@@ -554,24 +512,21 @@ package away.loaders.parsers
                 v1 = (nTrunk[0] as Number);
                 v2 = (nTrunk[1] as Number);
                 v3 = (-nTrunk[2] as Number);
-                _vertices.push(new Vertex( v1, v2, v3 ));
+                this._vertices.push(new Vertex( v1, v2, v3 ));
 
 			}
             else
             {
-                v1 = (parseFloat(trunk[1]) as Number);
-                v2 = (parseFloat(trunk[2]) as Number);
-                v3 = (-parseFloat(trunk[3]) as Number);
+                v1 = (parseFloat(trunk[1] ) as Number);
+                v2 = (parseFloat(trunk[2] ) as Number);
+                v3 = (-parseFloat(trunk[3] ) as Number);
 
-                _vertices.push(new Vertex(v1, v2, v3 ));
+                this._vertices.push(new Vertex(v1, v2, v3 ));
             }
 
 		}
 		
-		/**
-		 * Reads the next uv coordinates.
-		 * @param trunk The data block containing the uv tag and its parameters
-		 */
+		/**		 * Reads the next uv coordinates.		 * @param trunk The data block containing the uv tag and its parameters		 */
 		private function parseUV(trunk):void
 		{
             if (trunk.length > 3)
@@ -584,20 +539,17 @@ package away.loaders.parsers
 					if (!isNaN(val))
 						nTrunk.push(val);
 				}
-				_uvs.push(new UV( 1 - nTrunk[0], 1 - nTrunk[1]));
+				this._uvs.push(new UV( nTrunk[0], 1 - nTrunk[1]));
 
 			}
             else
             {
-                _uvs.push(new UV( 1 - parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
+                this._uvs.push(new UV( parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
             }
 
 		}
 		
-		/**
-		 * Reads the next vertex normal coordinates.
-		 * @param trunk The data block containing the vertex normal tag and its parameters
-		 */
+		/**		 * Reads the next vertex normal coordinates.		 * @param trunk The data block containing the vertex normal tag and its parameters		 */
 		private function parseVertexNormal(trunk):void
 		{
 			if (trunk.length > 4) {
@@ -608,27 +560,24 @@ package away.loaders.parsers
 					if (!isNaN(val))
 						nTrunk.push(val);
 				}
-				_vertexNormals.push(new Vertex(nTrunk[0], nTrunk[1], -nTrunk[2]));
+				this._vertexNormals.push(new Vertex(nTrunk[0], nTrunk[1], -nTrunk[2]));
 				
 			}
             else
             {
-                _vertexNormals.push(new Vertex(parseFloat(trunk[1]), parseFloat(trunk[2]), -parseFloat(trunk[3])));
+                this._vertexNormals.push(new Vertex(parseFloat(trunk[1]), parseFloat(trunk[2]), -parseFloat(trunk[3])));
             }
 		}
 		
-		/**
-		 * Reads the next face's indices.
-		 * @param trunk The data block containing the face tag and its parameters
-		 */
+		/**		 * Reads the next face's indices.		 * @param trunk The data block containing the face tag and its parameters		 */
 		private function parseFace(trunk):void
 		{
 			var len:Number = trunk.length;
 			var face:FaceData = new FaceData();
 			
-			if (!_currentGroup)
+			if (!this._currentGroup)
             {
-                createGroup(null);
+                this.createGroup(null);
             }
 
 			var indices;
@@ -641,23 +590,21 @@ package away.loaders.parsers
                 }
 
 				indices = trunk[i].split("/");
-				face.vertexIndices.push(parseIndex(parseInt(indices[0]), _vertices.length));
+				face.vertexIndices.push(this.parseIndex(parseInt(indices[0]), this._vertices.length));
 
 				if (indices[1] && String(indices[1]).length > 0)
-					face.uvIndices.push(parseIndex(parseInt(indices[1]), _uvs.length));
+					face.uvIndices.push(this.parseIndex(parseInt(indices[1]), this._uvs.length));
 
 				if (indices[2] && String(indices[2]).length > 0)
-					face.normalIndices.push(parseIndex(parseInt(indices[2]), _vertexNormals.length));
+					face.normalIndices.push(this.parseIndex(parseInt(indices[2]), this._vertexNormals.length));
 
 				face.indexIds.push(trunk[i]);
 			}
 			
-			_currentMaterialGroup.faces.push(face);
+			this._currentMaterialGroup.faces.push(face);
 		}
 		
-		/**
-		 * This is a hack around negative face coords
-		 */
+		/**		 * This is a hack around negative face coords		 */
 		private function parseIndex(index:Number, length:Number):Number
 		{
 			if (index < 0)
@@ -712,8 +659,8 @@ package away.loaders.parsers
 						
 						if (j == 0)
                         {
-							_lastMtlID = trunk.join("");
-                            _lastMtlID = (_lastMtlID == "")? "def000" : _lastMtlID;
+							this._lastMtlID = trunk.join("");
+                            this._lastMtlID = (this._lastMtlID == "")? "def000" : this._lastMtlID;
 							
 						}
                         else
@@ -755,7 +702,7 @@ package away.loaders.parsers
 									break;
 								
 								case "map_Kd":
-									mapkd = parseMapKdString(trunk);
+									mapkd = this.parseMapKdString(trunk);
 									mapkd = mapkd.replace(/\\/g, "/");
 							}
 						}
@@ -775,30 +722,30 @@ package away.loaders.parsers
 						var specularData:SpecularData = new SpecularData();
 						    specularData.alpha = alpha;
 						    specularData.basicSpecularMethod = basicSpecularMethod;
-						    specularData.materialID = _lastMtlID;
+						    specularData.materialID = this._lastMtlID;
 						
-						if (!_materialSpecularData)
-							_materialSpecularData = new Vector.<SpecularData>();
+						if (!this._materialSpecularData)
+							this._materialSpecularData = new Vector.<SpecularData>();
 						
-						_materialSpecularData.push(specularData);
+						this._materialSpecularData.push(specularData);
 
 					}
 					
-					_pAddDependency(_lastMtlID, new URLRequest(mapkd));
+					this._pAddDependency(this._lastMtlID, new URLRequest(mapkd));
 					
 				}
                 else if (useColor && !isNaN(diffuseColor))
                 {
 					
 					var lm:LoadedMaterial = new LoadedMaterial();
-					lm.materialID = _lastMtlID;
+					lm.materialID = this._lastMtlID;
 					
 					if (alpha == 0)
-						Window.console.log("Warning: an alpha value of 0 was found in mtl color tag (Tr or d) ref:" + _lastMtlID + ", mesh(es) using it will be invisible!");
+						Window.console.log("Warning: an alpha value of 0 was found in mtl color tag (Tr or d) ref:" + this._lastMtlID + ", mesh(es) using it will be invisible!");
 					
 					var cm:MaterialBase;
 
-					if (materialMode < 2)
+					if (this.materialMode < 2)
                     {
 						cm = new ColorMaterial(diffuseColor);
 
@@ -834,15 +781,15 @@ package away.loaders.parsers
 					
 					lm.cm = cm;
 
-					_materialLoaded.push(lm);
+					this._materialLoaded.push(lm);
 					
-					if (_meshes.length > 0)
-						applyMaterial(lm);
+					if (this._meshes.length > 0)
+						this.applyMaterial(lm);
 					
 				}
 			}
 			
-			_mtlLibLoaded = true;
+			this._mtlLibLoaded = true;
 		}
 		
 		private function parseMapKdString(trunk):String
@@ -893,8 +840,8 @@ package away.loaders.parsers
 		{
 			// Add raw-data dependency to queue and load dependencies now,
 			// which will pause the parsing in the meantime.
-			_pAddDependency('mtl', new URLRequest(mtlurl), true);
-			_pPauseAndRetrieveDependencies();//
+			this._pAddDependency('mtl', new URLRequest(mtlurl), true);
+			this._pPauseAndRetrieveDependencies();//
 		}
 		
 		private function applyMaterial(lm:LoadedMaterial):void
@@ -905,9 +852,9 @@ package away.loaders.parsers
 			var j:Number;
 			var specularData:SpecularData;
 			
-			for (var i:Number = 0; i < _meshes.length; ++i)
+			for (var i:Number = 0; i < this._meshes.length; ++i)
             {
-				mesh = _meshes[i];
+				mesh = this._meshes[i];
 				decomposeID = mesh.material.name.split("~");
 				
 				if (decomposeID[0] == lm.materialID) {
@@ -920,7 +867,7 @@ package away.loaders.parsers
 					}
                     else if (lm.texture)
                     {
-						if (materialMode < 2) { // if materialMode is 0 or 1, we create a SinglePass
+						if (this.materialMode < 2) { // if materialMode is 0 or 1, we create a SinglePass
 							mat = (mesh.material as TextureMaterial);
 
                             var tm : TextureMaterial = (mat as TextureMaterial);
@@ -941,12 +888,12 @@ package away.loaders.parsers
                                 tm.specularMethod = lm.specularMethod;
 
 							}
-                            else if (_materialSpecularData)
+                            else if (this._materialSpecularData)
                             {
 
-								for (j = 0; j < _materialSpecularData.length; ++j)
+								for (j = 0; j < this._materialSpecularData.length; ++j)
                                 {
-									specularData = _materialSpecularData[j];
+									specularData = this._materialSpecularData[j];
 
 									if (specularData.materialID == lm.materialID)
                                     {
@@ -976,11 +923,11 @@ package away.loaders.parsers
                                 tmMult.specularMethod = null;
                                 tmMult.specularMethod = lm.specularMethod;
 							}
-                            else if (_materialSpecularData)
+                            else if (this._materialSpecularData)
                             {
-								for (j = 0; j < _materialSpecularData.length; ++j)
+								for (j = 0; j < this._materialSpecularData.length; ++j)
                                 {
-									specularData = _materialSpecularData[j];
+									specularData = this._materialSpecularData[j];
 
 									if (specularData.materialID == lm.materialID)
                                     {
@@ -997,22 +944,22 @@ package away.loaders.parsers
 					}
 					
 					mesh.material.name = decomposeID[1]? decomposeID[1] : decomposeID[0];
-                    _meshes.splice(i, 1);
+                    this._meshes.splice(i, 1);
 					--i;
 				}
 			}
 			
 			if (lm.cm || mat)
-                _pFinalizeAsset(lm.cm || mat);
+                this._pFinalizeAsset(lm.cm || mat);
 		}
 		
 		private function applyMaterials():void
 		{
-			if (_materialLoaded.length == 0)
+			if (this._materialLoaded.length == 0)
 				return;
 			
-			for (var i:Number = 0; i < _materialLoaded.length; ++i)
-                applyMaterial(_materialLoaded[i]);
+			for (var i:Number = 0; i < this._materialLoaded.length; ++i)
+                this.applyMaterial(this._materialLoaded[i]);
 		}
 	}
 }
@@ -1097,8 +1044,7 @@ class FaceData
 	public var vertexIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
 	public var uvIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
 	public var normalIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
-	public var indexIds:Vector.<String> = new Vector.<String>(); // used for real index lookups
-	
+	public var indexIds:Vector.<String> = new Vector.<String>(); // used for real index lookups	
 	public function FaceData():void
 	{
 	}

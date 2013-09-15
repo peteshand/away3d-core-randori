@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.events
@@ -6,7 +7,7 @@ package away.events
 	//import away3d.library.assets.IAsset;
 
 	//import flash.events.Event;
-
+    /**     * @class away.events.AssetEvent     */
 	public class AssetEvent extends Event
 	{
 		public static var ASSET_COMPLETE:String = "assetComplete";
@@ -44,26 +45,26 @@ package away.events
 		{
 			super(type);
 			
-			_asset = asset;
-            _prevName = prevName || (_asset? _asset.name : null);
+			this._asset = asset;
+            this._prevName = prevName || (this._asset? this._asset.name : null);
 		}
 		
 		
 		public function get asset():IAsset
 		{
-			return _asset;
+			return this._asset;
 		}
 		
 		
 		public function get assetPrevName():String
 		{
-			return _prevName;
+			return this._prevName;
 		}
 		
 		
 		override public function clone():Event
 		{
-			return (new AssetEvent(type, asset, assetPrevName) as Event);
+			return (new AssetEvent(this.type , this.asset , this.assetPrevName ) as Event);
 		}
 	}
 }

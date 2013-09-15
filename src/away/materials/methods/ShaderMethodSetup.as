@@ -1,13 +1,10 @@
 ///<reference path="../../_definitions.ts"/>
-
 package away.materials.methods
 {
 	import away.events.EventDispatcher;
 	import away.events.ShadingMethodEvent;
 
-	/**
-	 * ShaderMethodSetup contains the method configuration for an entire material.
-	 */
+	/**	 * ShaderMethodSetup contains the method configuration for an entire material.	 */
 	public class ShaderMethodSetup extends EventDispatcher
 	{
 		public var _iColorTransformMethod:ColorTransformMethod;
@@ -22,63 +19,54 @@ package away.materials.methods
         public var _iDiffuseMethodVO:MethodVO;
         public var _iSpecularMethod:BasicSpecularMethod;
         public var _iSpecularMethodVO:MethodVO;
-        public var _iMethods:Vector.<MethodVOSet>;//Vector.<MethodVOSet>;
-
-		/**
-		 * Creates a new ShaderMethodSetup object.
-		 */
+        public var _iMethods:Vector.<MethodVOSet>;//Vector.<MethodVOSet>;
+		/**		 * Creates a new ShaderMethodSetup object.		 */
 		public function ShaderMethodSetup():void
 		{
 
             super();
 
-			_iMethods = new Vector.<MethodVOSet>();//Vector.<MethodVOSet>();
-            _iNormalMethod = new BasicNormalMethod();
-            _iAmbientMethod = new BasicAmbientMethod();
-            _iDiffuseMethod = new BasicDiffuseMethod();
-            _iSpecularMethod = new BasicSpecularMethod();
-            _iNormalMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
-            _iDiffuseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
-            _iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
-            _iAmbientMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this);
-            _iNormalMethodVO = _iNormalMethod.iCreateMethodVO();
-            _iAmbientMethodVO = _iAmbientMethod.iCreateMethodVO();
-            _iDiffuseMethodVO = _iDiffuseMethod.iCreateMethodVO();
-            _iSpecularMethodVO = _iSpecularMethod.iCreateMethodVO();
+			this._iMethods = new Vector.<MethodVOSet>();//Vector.<MethodVOSet>();
+            this._iNormalMethod = new BasicNormalMethod();
+            this._iAmbientMethod = new BasicAmbientMethod();
+            this._iDiffuseMethod = new BasicDiffuseMethod();
+            this._iSpecularMethod = new BasicSpecularMethod();
+            this._iNormalMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
+            this._iDiffuseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
+            this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
+            this._iAmbientMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this);
+            this._iNormalMethodVO = this._iNormalMethod.iCreateMethodVO();
+            this._iAmbientMethodVO = this._iAmbientMethod.iCreateMethodVO();
+            this._iDiffuseMethodVO = this._iDiffuseMethod.iCreateMethodVO();
+            this._iSpecularMethodVO = this._iSpecularMethod.iCreateMethodVO();
 		}
 
-		/**
-		 * Called when any method's code is invalidated.
-		 */
+		/**		 * Called when any method's code is invalidated.		 */
 		private function onShaderInvalidated(event:ShadingMethodEvent):void
 		{
-			invalidateShaderProgram();
+			this.invalidateShaderProgram();
 		}
 
-		/**
-		 * Invalidates the material's shader code.
-		 */
+		/**		 * Invalidates the material's shader code.		 */
 		private function invalidateShaderProgram():void
 		{
 
-			dispatchEvent( new ShadingMethodEvent(ShadingMethodEvent.SHADER_INVALIDATED) );
+			this.dispatchEvent( new ShadingMethodEvent(ShadingMethodEvent.SHADER_INVALIDATED) );
 
 		}
 
-		/**
-		 *  The method used to generate the per-pixel normals.
-		 */
+		/**		 *  The method used to generate the per-pixel normals.		 */
 		public function get normalMethod():BasicNormalMethod
 		{
-			return _iNormalMethod;
+			return this._iNormalMethod;
 		}
 		
 		public function set normalMethod(value:BasicNormalMethod):void
 		{
-			if (_iNormalMethod)
+			if (this._iNormalMethod)
             {
 
-                _iNormalMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+                this._iNormalMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
             }
 
@@ -86,327 +74,292 @@ package away.materials.methods
 			if (value)
             {
 
-				if (_iNormalMethod)
+				if (this._iNormalMethod)
                 {
 
-                    value.copyFrom(_iNormalMethod);
+                    value.copyFrom(this._iNormalMethod);
 
                 }
 
 
-				_iNormalMethodVO = value.iCreateMethodVO();
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+				this._iNormalMethodVO = value.iCreateMethodVO();
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 			}
 			
-			_iNormalMethod = value;
+			this._iNormalMethod = value;
 			
 			if (value)
-				invalidateShaderProgram();
+				this.invalidateShaderProgram();
 		}
 
-		/**
-		 * The method that provides the ambient lighting contribution.
-		 */
+		/**		 * The method that provides the ambient lighting contribution.		 */
 		public function get ambientMethod():BasicAmbientMethod
 		{
-			return _iAmbientMethod;
+			return this._iAmbientMethod;
 		}
 		
 		public function set ambientMethod(value:BasicAmbientMethod):void
 		{
-			if (_iAmbientMethod)
-				_iAmbientMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+			if (this._iAmbientMethod)
+				this._iAmbientMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
 			if (value)
             {
 
-				if (_iAmbientMethod)
-					value.copyFrom(_iAmbientMethod);
+				if (this._iAmbientMethod)
+					value.copyFrom(this._iAmbientMethod);
 
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
-				_iAmbientMethodVO = value.iCreateMethodVO();
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iAmbientMethodVO = value.iCreateMethodVO();
 
 			}
-			_iAmbientMethod = value;
+			this._iAmbientMethod = value;
 			
 			if (value)
-				invalidateShaderProgram();
+				this.invalidateShaderProgram();
 		}
 
-		/**
-		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered.
-		 */
+		/**		 * The method used to render shadows cast on this surface, or null if no shadows are to be rendered.		 */
 		public function get shadowMethod():ShadowMapMethodBase
 		{
-			return _iShadowMethod;
+			return this._iShadowMethod;
 		}
 		
 		public function set shadowMethod(value:ShadowMapMethodBase):void
 		{
-			if (_iShadowMethod)
+			if (this._iShadowMethod)
             {
 
-                _iShadowMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+                this._iShadowMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
             }
 
-			_iShadowMethod = value;
+			this._iShadowMethod = value;
 
-			if ( _iShadowMethod)
+			if ( this._iShadowMethod)
             {
 
-				_iShadowMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
-				_iShadowMethodVO = _iShadowMethod.iCreateMethodVO();
+				this._iShadowMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iShadowMethodVO = this._iShadowMethod.iCreateMethodVO();
 
 			}
             else
             {
 
-                _iShadowMethodVO = null;
+                this._iShadowMethodVO = null;
 
             }
 
-			invalidateShaderProgram();
+			this.invalidateShaderProgram();
 
 		}
 
-		/**
-		 * The method that provides the diffuse lighting contribution.
-		 */
+		/**		 * The method that provides the diffuse lighting contribution.		 */
 		 public function get diffuseMethod():BasicDiffuseMethod
 		{
-			return _iDiffuseMethod;
+			return this._iDiffuseMethod;
 		}
 		
 		public function set diffuseMethod(value:BasicDiffuseMethod):void
 		{
-			if (_iDiffuseMethod)
-				_iDiffuseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+			if (this._iDiffuseMethod)
+				this._iDiffuseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 			
 			if (value)
             {
 
-				if (_iDiffuseMethod)
-					value.copyFrom( _iDiffuseMethod);
+				if (this._iDiffuseMethod)
+					value.copyFrom( this._iDiffuseMethod);
 
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
-				_iDiffuseMethodVO = value.iCreateMethodVO();
+				this._iDiffuseMethodVO = value.iCreateMethodVO();
 			}
 			
-			_iDiffuseMethod = value;
+			this._iDiffuseMethod = value;
 			
 			if (value)
-				invalidateShaderProgram();
+				this.invalidateShaderProgram();
 
 		}
 		
-		/**
-		 * The method to perform specular shading.
-		 */
+		/**		 * The method to perform specular shading.		 */
 		public function get specularMethod():BasicSpecularMethod
 		{
-			return _iSpecularMethod;
+			return this._iSpecularMethod;
 		}
 		
 		public function set specularMethod(value:BasicSpecularMethod):void
 		{
-			if (_iSpecularMethod)
+			if (this._iSpecularMethod)
             {
-				_iSpecularMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+				this._iSpecularMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
 				if (value)
-					value.copyFrom(_iSpecularMethod);
+					value.copyFrom(this._iSpecularMethod);
 
 			}
 			
-			_iSpecularMethod = value;
-			if (_iSpecularMethod)
+			this._iSpecularMethod = value;
+			if (this._iSpecularMethod)
             {
 
-				_iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
-				_iSpecularMethodVO = _iSpecularMethod.iCreateMethodVO();
+				this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iSpecularMethodVO = this._iSpecularMethod.iCreateMethodVO();
 
 			}
             else
             {
 
-                _iSpecularMethodVO = null;
+                this._iSpecularMethodVO = null;
 
             }
 
-			invalidateShaderProgram();
+			this.invalidateShaderProgram();
 
 		}
 		
-		/**
-		 * @private
-		 */
+		/**		 * @private		 */
 		public function get iColorTransformMethod():ColorTransformMethod
 		{
-			return _iColorTransformMethod;
+			return this._iColorTransformMethod;
 		}
 		
 		public function set iColorTransformMethod(value:ColorTransformMethod):void
 		{
-			if (_iColorTransformMethod == value)
+			if (this._iColorTransformMethod == value)
 				return;
 
-			if (_iColorTransformMethod)
-				_iColorTransformMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+			if (this._iColorTransformMethod)
+				this._iColorTransformMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
-			if (!_iColorTransformMethod || !value)
+			if (!this._iColorTransformMethod || !value)
             {
 
-                invalidateShaderProgram();
+                this.invalidateShaderProgram();
 
             }
 
 			
-			_iColorTransformMethod = value;
+			this._iColorTransformMethod = value;
 
-			if (_iColorTransformMethod)
+			if (this._iColorTransformMethod)
             {
-				_iColorTransformMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
-				_iColorTransformMethodVO = _iColorTransformMethod.iCreateMethodVO();
+				this._iColorTransformMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iColorTransformMethodVO = this._iColorTransformMethod.iCreateMethodVO();
 
 			}
             else
             {
 
-                _iColorTransformMethodVO = null;
+                this._iColorTransformMethodVO = null;
 
             }
 
 		}
 
-		/**
-		 * Disposes the object.
-		 */
+		/**		 * Disposes the object.		 */
 		public function dispose():void
 		{
-			clearListeners(_iNormalMethod);
-            clearListeners(_iDiffuseMethod);
-            clearListeners(_iShadowMethod);
-            clearListeners(_iAmbientMethod);
-            clearListeners(_iSpecularMethod);
+			this.clearListeners(this._iNormalMethod);
+            this.clearListeners(this._iDiffuseMethod);
+            this.clearListeners(this._iShadowMethod);
+            this.clearListeners(this._iAmbientMethod);
+            this.clearListeners(this._iSpecularMethod);
 			
-			for (var i:Number = 0; i < _iMethods.length; ++i)
+			for (var i:Number = 0; i < this._iMethods.length; ++i)
             {
 
-                clearListeners(_iMethods[i].method);
+                this.clearListeners(this._iMethods[i].method);
 
             }
 
 			
-			_iMethods = null;
+			this._iMethods = null;
 
 		}
 
-		/**
-		 * Removes all listeners from a method.
-		 */
+		/**		 * Removes all listeners from a method.		 */
 		private function clearListeners(method:ShadingMethodBase):void
 		{
 			if (method)
-				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 		}
 		
-		/**
-		 * Adds a method to change the material after all lighting is performed.
-		 * @param method The method to be added.
-		 */
+		/**		 * Adds a method to change the material after all lighting is performed.		 * @param method The method to be added.		 */
 		public function addMethod(method:EffectMethodBase):void
 		{
-			_iMethods.push(new MethodVOSet(method));
+			this._iMethods.push(new MethodVOSet(method));
 
-			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
-			invalidateShaderProgram();
+			this.invalidateShaderProgram();
 
 		}
 
-		/**
-		 * Queries whether a given effect method was added to the material.
-		 *
-		 * @param method The method to be queried.
-		 * @return true if the method was added to the material, false otherwise.
-		 */
+		/**		 * Queries whether a given effect method was added to the material.		 *		 * @param method The method to be queried.		 * @return true if the method was added to the material, false otherwise.		 */
 		public function hasMethod(method:EffectMethodBase):Boolean
 		{
 
-			return getMethodSetForMethod(method) != null;
+			return this.getMethodSetForMethod(method) != null;
 
 		}
 		
-		/**
-		 * Inserts a method to change the material after all lighting is performed at the given index.
-		 * @param method The method to be added.
-		 * @param index The index of the method's occurrence
-		 */
+		/**		 * Inserts a method to change the material after all lighting is performed at the given index.		 * @param method The method to be added.		 * @param index The index of the method's occurrence		 */
 		public function addMethodAt(method:EffectMethodBase, index:Number):void
 		{
-			_iMethods.splice(index, 0, new MethodVOSet(method));
+			this._iMethods.splice(index, 0, new MethodVOSet(method));
 
-			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
-			invalidateShaderProgram();
+			this.invalidateShaderProgram();
 
 		}
 
-		/**
-		 * Returns the method added at the given index.
-		 * @param index The index of the method to retrieve.
-		 * @return The method at the given index.
-		 */
+		/**		 * Returns the method added at the given index.		 * @param index The index of the method to retrieve.		 * @return The method at the given index.		 */
 		public function getMethodAt(index:Number):EffectMethodBase
 		{
-			if (index > _iMethods.length - 1)
+			if (index > this._iMethods.length - 1)
 				return null;
 			
-			return _iMethods[index].method;
+			return this._iMethods[index].method;
 
 		}
 
-		/**
-		 * The number of "effect" methods added to the material.
-		 */
+		/**		 * The number of "effect" methods added to the material.		 */
 		public function get numMethods():Number
 		{
 
-			return _iMethods.length;
+			return this._iMethods.length;
 
 		}
 		
-		/**
-		 * Removes a method from the pass.
-		 * @param method The method to be removed.
-		 */
+		/**		 * Removes a method from the pass.		 * @param method The method to be removed.		 */
 		public function removeMethod(method:EffectMethodBase):void
 		{
-			var methodSet:MethodVOSet = getMethodSetForMethod(method);
+			var methodSet:MethodVOSet = this.getMethodSetForMethod(method);
 
 			if (methodSet != null)
             {
-				var index:Number = _iMethods.indexOf(methodSet);
+				var index:Number = this._iMethods.indexOf(methodSet);
 
-				_iMethods.splice(index, 1);
+				this._iMethods.splice(index, 1);
 
-				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
+				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
 
-				invalidateShaderProgram();
+				this.invalidateShaderProgram();
 
 			}
 		}
 		
 		private function getMethodSetForMethod(method:EffectMethodBase):MethodVOSet
 		{
-			var len:Number = _iMethods.length;
+			var len:Number = this._iMethods.length;
 
 			for (var i:Number = 0; i < len; ++i)
             {
-				if (_iMethods[i].method == method)
-					return _iMethods[i];
+				if (this._iMethods[i].method == method)
+					return this._iMethods[i];
 			}
 			
 			return null;

@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.managers
 {
 	import away.events.Stage3DEvent;
@@ -28,12 +29,12 @@ package away.managers
 				throw new Error("This class is a multiton and cannot be instantiated manually. Use Stage3DManager.getInstance instead.");
             }
 
-			_stage3DProxy = stage3DProxy;
+			this._stage3DProxy = stage3DProxy;
 
-            _program3Ds = new Object();
-            _ids = new Object();
-            _usages = new Object();
-            _keys = new Object();
+            this._program3Ds = new Object();
+            this._ids = new Object();
+            this._usages = new Object();
+            this._keys = new Object();
 
 		}
 		
@@ -89,31 +90,31 @@ package away.managers
 		
 		public function dispose():void
 		{
-			for (var key in _program3Ds)
+			for (var key in this._program3Ds)
             {
 
-				destroyProgram(key);
+				this.destroyProgram(key);
             }
 
-			_keys = null;
-            _program3Ds = null;
-            _usages = null;
+			this._keys = null;
+            this._program3Ds = null;
+            this._usages = null;
 		}
 		
 		public function setProgram3D(pass:MaterialPassBase, vertexCode:String, fragmentCode:String):void
 		{
-			var stageIndex:Number = _stage3DProxy._iStage3DIndex;
+			var stageIndex:Number = this._stage3DProxy._iStage3DIndex;
 			var program:Program3D;
-			var key:String = getKey(vertexCode, fragmentCode);
+			var key:String = this.getKey(vertexCode, fragmentCode);
 			
-			if (_program3Ds[key] == null)
+			if (this._program3Ds[key] == null)
             {
-				_keys[AGALProgram3DCache._currentId] = key;
-                _usages[AGALProgram3DCache._currentId] = 0;
-                _ids[key] = AGALProgram3DCache._currentId;
+				this._keys[AGALProgram3DCache._currentId] = key;
+                this._usages[AGALProgram3DCache._currentId] = 0;
+                this._ids[key] = AGALProgram3DCache._currentId;
 				++AGALProgram3DCache._currentId;
 
-				program = _stage3DProxy._iContext3D.createProgram();
+				program = this._stage3DProxy._iContext3D.createProgram();
 
                 //away.Debug.throwPIR( 'AGALProgram3DCache' , 'setProgram3D' , 'Dependency: AGALMiniAssembler.assemble');
 
@@ -123,13 +124,7 @@ package away.managers
 				//var fragmentByteCode:ByteArray = new AGALMiniAssembler(Debug.active).assemble(Context3DProgramType.FRAGMENT, fragmentCode);
 				//program.upload(vertexByteCode, fragmentByteCode);
 
-                /*
-                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );
-                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );
-
-                 program.uploadGLSL(vertexByteCode, fragmentByteCode);
-
-                 */
+                /*                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );                 program.uploadGLSL(vertexByteCode, fragmentByteCode);                 */
 
                 var vertCompiler:AGLSLCompiler = new AGLSLCompiler();
                 var fragCompiler:AGLSLCompiler = new AGLSLCompiler();
@@ -152,58 +147,48 @@ package away.managers
                 
 
                 program.upload(vertString, fragString);
-                /*
+                /*                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );                 this._program3D.upload( vertString , fragString );                 */
 
-                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
-                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
-
-                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );
-                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );
-
-                 this._program3D.upload( vertString , fragString );
-
-                 */
-
-				_program3Ds[key] = program;
+				this._program3Ds[key] = program;
 			}
 
 
 			var oldId:Number = pass._iProgram3Dids[stageIndex];
-			var newId:Number = _ids[key];
+			var newId:Number = this._ids[key];
 			
 			if (oldId != newId)
             {
 				if (oldId >= 0)
                 {
-                    freeProgram3D(oldId);
+                    this.freeProgram3D(oldId);
                 }
 
-				_usages[newId]++;
+				this._usages[newId]++;
 
 			}
 			
 			pass._iProgram3Dids[stageIndex] = newId;
-			pass._iProgram3Ds[stageIndex] = _program3Ds[key];
+			pass._iProgram3Ds[stageIndex] = this._program3Ds[key];
 
 		}
 		
 		public function freeProgram3D(programId:Number):void
 		{
-			_usages[programId]--;
+			this._usages[programId]--;
 
-			if (_usages[programId] == 0)
+			if (this._usages[programId] == 0)
             {
-				destroyProgram(_keys[programId]);
+				this.destroyProgram(this._keys[programId]);
             }
 
 		}
 		
 		private function destroyProgram(key:String):void
 		{
-			_program3Ds[key].dispose();
-            _program3Ds[key] = null;
-			delete _program3Ds[key];
-            _ids[key] = -1;
+			this._program3Ds[key].dispose();
+            this._program3Ds[key] = null;
+			delete this._program3Ds[key];
+            this._ids[key] = -1;
 
 		}
 		

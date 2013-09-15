@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts" />
+
 package away.display {
 	import away.geom.Rectangle;
 	import away.utils.ColorUtils;
@@ -9,9 +10,7 @@ package away.display {
 	import randori.webkit.page.Window;
 	import randori.webkit.html.HTMLImageElement;
 
-    /**
-     *
-     */
+    /**     *     */
     public class BitmapData
     {
 
@@ -24,85 +23,68 @@ package away.display {
         private var _locked:Boolean = false;
 
 
-        /**
-         *
-         * @param width
-         * @param height
-         * @param transparent
-         * @param fillColor
-         */
+        /**         *         * @param width         * @param height         * @param transparent         * @param fillColor         */
         public function BitmapData(width:Number, height:Number, transparent:Boolean = true, fillColor:Number = -1):void
         {
 
-            _transparent           = transparent;
-            _imageCanvas           = HTMLCanvasElement(Window.document.createElement("canvas") );
-            _imageCanvas.width     = width;
-            _imageCanvas.height    = height;
-            _context               = _imageCanvas.getContext( "2d" );
-            _rect                  = new Rectangle( 0 , 0 , width , height );
+            this._transparent           = transparent;
+            this._imageCanvas           = HTMLCanvasElement(Window.document.createElement("canvas") );
+            this._imageCanvas.width     = width;
+            this._imageCanvas.height    = height;
+            this._context               = this._imageCanvas.getContext( "2d" );
+            this._rect                  = new Rectangle( 0 , 0 , width , height );
 
             if ( fillColor != -1 )
             {
 
-                if( _transparent)
+                if( this._transparent)
                 {
-                    _alpha = ColorUtils.float32ColorToARGB( fillColor )[0] / 255;
+                    this._alpha = ColorUtils.float32ColorToARGB( fillColor )[0] / 255;
                 }
                 else
                 {
-                    _alpha = 1;
+                    this._alpha = 1;
                 }
 
-                fillRect( _rect , fillColor );
+                this.fillRect( this._rect , fillColor );
 
             }
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function dispose():void
         {
-            _context = null;
-            _imageCanvas = null
-            _imageData = null;
-            _rect = null;
-            _transparent = null;
-            _locked = null;
+            this._context = null;
+            this._imageCanvas = null
+            this._imageData = null;
+            this._rect = null;
+            this._transparent = null;
+            this._locked = null;
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function lock():void
         {
-            _locked    = true;
-            _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+            this._locked    = true;
+            this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function unlock():void
         {
-            _locked = false;
+            this._locked = false;
 
-            if ( _imageData )
+            if ( this._imageData )
             {
 
-                _context.putImageData( _imageData, 0, 0, 0); // at coords 0,0
-                _imageData = null;
+                this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                this._imageData = null;
 
             }
         }
 
-        /**
-         *
-         * @param x
-         * @param y
-         * @param color
-         */
+        /**         *         * @param x         * @param y         * @param color         */
         public function getPixel(x, y):Number
         {
 
@@ -111,121 +93,105 @@ package away.display {
             var b : Number;
             var a : Number;
 
-            var index : Number = (x + y * _imageCanvas.width) * 4;
+            var index : Number = (x + y * this._imageCanvas.width) * 4;
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
 
-                r = _imageData.data[index+0]
-                g = _imageData.data[index+1]
-                b = _imageData.data[index+2]
-                a = _imageData.data[index+3]
+                r = this._imageData.data[index+0]
+                g = this._imageData.data[index+1]
+                b = this._imageData.data[index+2]
+                a = this._imageData.data[index+3]
 
             }
             else
             {
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _context.putImageData( _imageData, 0, 0, 0);
+                    this._context.putImageData( this._imageData, 0, 0, 0);
                 }
 
-                _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
 
-                r = _imageData.data[index+0]
-                g = _imageData.data[index+1]
-                b = _imageData.data[index+2]
-                a = _imageData.data[index+3]
+                r = this._imageData.data[index+0]
+                g = this._imageData.data[index+1]
+                b = this._imageData.data[index+2]
+                a = this._imageData.data[index+3]
 
             }
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _imageData = null;
+                this._imageData = null;
             }
 
             return (a << 24) | (r << 16) | (g << 8) | b;
 
         }
-        /**
-         *
-         * @param x
-         * @param y
-         * @param color
-         */
+        /**         *         * @param x         * @param y         * @param color         */
         public function setPixel(x, y, color:Number):void
         {
 
             var argb : Vector.<Number> = ColorUtils.float32ColorToARGB( color );
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
             }
 
-            if ( _imageData )
+            if ( this._imageData )
             {
-                var index : Number = (x + y * _imageCanvas.width) * 4;
+                var index : Number = (x + y * this._imageCanvas.width) * 4;
 
-                _imageData.data[index+0] = argb[1];
-                _imageData.data[index+1] = argb[2];
-                _imageData.data[index+2] = argb[3];
-                _imageData.data[index+3] = 255;
+                this._imageData.data[index+0] = argb[1];
+                this._imageData.data[index+1] = argb[2];
+                this._imageData.data[index+2] = argb[3];
+                this._imageData.data[index+3] = 255;
             }
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _context.putImageData( _imageData, 0, 0, 0);
-                _imageData = null;
+                this._context.putImageData( this._imageData, 0, 0, 0);
+                this._imageData = null;
             }
 
         }
 
-        /**
-         *
-         * @param x
-         * @param y
-         * @param color
-         */
+        /**         *         * @param x         * @param y         * @param color         */
         public function setPixel32(x, y, color:Number):void
         {
 
             var argb : Vector.<Number> = ColorUtils.float32ColorToARGB( color );
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
             }
 
-            if ( _imageData )
+            if ( this._imageData )
             {
-                var index : Number = (x + y * _imageCanvas.width) * 4;
+                var index : Number = (x + y * this._imageCanvas.width) * 4;
 
-                _imageData.data[index+0] = argb[1];
-                _imageData.data[index+1] = argb[2];
-                _imageData.data[index+2] = argb[3];
-                _imageData.data[index+3] = argb[0];
+                this._imageData.data[index+0] = argb[1];
+                this._imageData.data[index+1] = argb[2];
+                this._imageData.data[index+2] = argb[3];
+                this._imageData.data[index+3] = argb[0];
             }
 
-            if ( ! _locked )
+            if ( ! this._locked )
             {
-                _context.putImageData( _imageData, 0, 0, 0);
-                _imageData = null;
+                this._context.putImageData( this._imageData, 0, 0, 0);
+                this._imageData = null;
             }
 
         }
 
-        /**
-         * Copy an HTMLImageElement or BitmapData object
-         *
-         * @param img {BitmapData} / {HTMLImageElement}
-         * @param sourceRect - source rectange to copy from
-         * @param destRect - destinatoin rectange to copy to
-         */
+        /**         * Copy an HTMLImageElement or BitmapData object         *         * @param img {BitmapData} / {HTMLImageElement}         * @param sourceRect - source rectange to copy from         * @param destRect - destinatoin rectange to copy to         */
         public function drawImage(img:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
-            if ( _locked )
+            if ( this._locked )
             {
                 // If canvas is locked:
                 //
@@ -233,22 +199,22 @@ package away.display {
                 //      2) draw object
                 //      3) read _imageData back out
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _context.putImageData( _imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
-                _drawImage(img , sourceRect , destRect );
+                this._drawImage(img , sourceRect , destRect );
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                    this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
                 }
 
             }
             else
             {
-                _drawImage(img , sourceRect , destRect )
+                this._drawImage(img , sourceRect , destRect )
             }
 
         }
@@ -256,24 +222,19 @@ package away.display {
         {
             if ( img instanceof BitmapData )
             {
-                _context.drawImage3(img.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+                this._context.drawImage3(img.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
             else if ( img instanceof HTMLImageElement )
             {
-                _context.drawImage3(img , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+                this._context.drawImage3(img , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
         }
 
-        /**
-         *
-         * @param bmpd
-         * @param sourceRect
-         * @param destRect
-         */
+        /**         *         * @param bmpd         * @param sourceRect         * @param destRect         */
         public function copyPixels(bmpd:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
-            if ( _locked )
+            if ( this._locked )
             {
 
                 // If canvas is locked:
@@ -282,21 +243,21 @@ package away.display {
                 //      2) draw object
                 //      3) read _imageData back out
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _context.putImageData( _imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
-                _copyPixels(  bmpd , sourceRect , destRect );
+                this._copyPixels(  bmpd , sourceRect , destRect );
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                    this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
                 }
             }
             else
             {
-                _copyPixels(  bmpd , sourceRect , destRect );
+                this._copyPixels(  bmpd , sourceRect , destRect );
             }
 
         }
@@ -305,24 +266,20 @@ package away.display {
 
             if ( bmpd instanceof BitmapData )
             {
-                _context.drawImage3( bmpd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+                this._context.drawImage3( bmpd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
             else if ( bmpd instanceof HTMLImageElement )
             {
-                _context.drawImage3( bmpd , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+                this._context.drawImage3( bmpd , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
 
         }
 
-        /**
-         *
-         * @param rect
-         * @param color
-         */
+        /**         *         * @param rect         * @param color         */
         public function fillRect(rect:Rectangle, color:Number):void
         {
 
-            if ( _locked )
+            if ( this._locked )
             {
 
                 // If canvas is locked:
@@ -331,38 +288,34 @@ package away.display {
                 //      2) apply fill
                 //      3) read _imageData back out
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _context.putImageData( _imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
-                _context.fillStyle = hexToRGBACSS( color );
-                _context.fillRect( rect.x , rect.y , rect.width , rect.height );
+                this._context.fillStyle = this.hexToRGBACSS( color );
+                this._context.fillRect( rect.x , rect.y , rect.width , rect.height );
 
-                if ( _imageData )
+                if ( this._imageData )
                 {
-                    _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                    this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
                 }
 
             }
             else
             {
-                _context.fillStyle = hexToRGBACSS( color );
-                _context.fillRect( rect.x , rect.y , rect.width , rect.height );
+                this._context.fillStyle = this.hexToRGBACSS( color );
+                this._context.fillRect( rect.x , rect.y , rect.width , rect.height );
             }
 
 
         }
 
-        /**
-         *
-         * @param source
-         * @param matrix
-         */
+        /**         *         * @param source         * @param matrix         */
         public function draw(source:*, matrix:Matrix):void
         {
 
-            if ( _locked )
+            if ( this._locked )
             {
 
                 // If canvas is locked:
@@ -371,21 +324,21 @@ package away.display {
                 //      2) draw object
                 //      3) read _imageData back out
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _context.putImageData( _imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
-                _draw( source , matrix );
+                this._draw( source , matrix );
 
-                if (  _imageData )
+                if (  this._imageData )
                 {
-                    _imageData = _context.getImageData(0,0,_rect.width,_rect.height);
+                    this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
                 }
             }
             else
             {
-                _draw( source , matrix );
+                this._draw( source , matrix );
             }
 
         }
@@ -394,118 +347,89 @@ package away.display {
 
             if ( source instanceof BitmapData )
             {
-                _context.save();
-                _context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                _context.drawImage1(source.canvas, 0, 0)
-                _context.restore();
+                this._context.save();
+                this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                this._context.drawImage1(source.canvas, 0, 0)
+                this._context.restore();
 
             }
             else if ( source instanceof HTMLImageElement )
             {
-                _context.save();
-                _context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                _context.drawImage1(source, 0, 0)
-                _context.restore();
+                this._context.save();
+                this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+                this._context.drawImage1(source, 0, 0)
+                this._context.restore();
             }
 
         }
 
         // Get / Set
 
-        /**
-         *
-         * @param {ImageData}
-         */
+        /**         *         * @param {ImageData}         */
         public function set imageData(value:ImageData):void
         {
-            _context.putImageData( value , 0 , 0, 0 );
+            this._context.putImageData( value , 0 , 0, 0 );
         }
 
-        /**
-         *
-         * @returns {ImageData}
-         */
+        /**         *         * @returns {ImageData}         */
         public function get imageData():ImageData
         {
-            return _context.getImageData(0,0,_rect.width,_rect.height)
+            return this._context.getImageData(0,0,this._rect.width,this._rect.height)
         }
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get width():Number
         {
-            return (_imageCanvas.width as Number);
+            return (this._imageCanvas.width as Number);
         }
 
-        /**
-         *
-         * @param {number}
-         */
+        /**         *         * @param {number}         */
         public function set width(value:Number):void
         {
-            _rect.width = value;
-            _imageCanvas.width = value;
+            this._rect.width = value;
+            this._imageCanvas.width = value;
         }
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get height():Number
         {
-            return (_imageCanvas.height as Number);
+            return (this._imageCanvas.height as Number);
         }
 
-        /**
-         *
-         * @param {number}
-         */
+        /**         *         * @param {number}         */
         public function set height(value:Number):void
         {
-            _rect.height = value;
-            _imageCanvas.height = value;
+            this._rect.height = value;
+            this._imageCanvas.height = value;
         }
 
-        /**
-         *
-         * @param {away.geom.Rectangle}
-         */
+        /**         *         * @param {away.geom.Rectangle}         */
         public function get rect():Rectangle
         {
-            return _rect;
+            return this._rect;
         }
 
-        /**
-         *
-         * @returns {HTMLCanvasElement}
-         */
+        /**         *         * @returns {HTMLCanvasElement}         */
         public function get canvas():HTMLCanvasElement
         {
-            return _imageCanvas;
+            return this._imageCanvas;
         }
 
-        /**
-         *
-         * @returns {HTMLCanvasElement}
-         */
+        /**         *         * @returns {HTMLCanvasElement}         */
         public function get context():CanvasRenderingContext2D
         {
-            return _context;
+            return this._context;
         }
 
         // Private
 
-        /**
-         * convert decimal value to Hex
-         */
+        /**         * convert decimal value to Hex         */
         private function hexToRGBACSS(d:Number):String
         {
 
             var argb : Vector.<Number> = ColorUtils.float32ColorToARGB( d );
 
-            if ( _transparent == false )
+            if ( this._transparent == false )
             {
 
                 argb[0] = 1;

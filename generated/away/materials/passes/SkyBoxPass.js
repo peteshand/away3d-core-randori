@@ -10,7 +10,7 @@ if (typeof away.materials.passes == "undefined")
 away.materials.passes.SkyBoxPass = function() {
 	this._vertexData = null;
 	this._cubeTexture = null;
-	away.materials.passes.MaterialPassBase.call(thisfalse);
+	away.materials.passes.MaterialPassBase.call(this, false);
 	this.set_mipmap(false);
 	this._pNumUsedTextures = 1;
 	this._vertexData = [0, 0, 0, 0, 1, 1, 1, 1];

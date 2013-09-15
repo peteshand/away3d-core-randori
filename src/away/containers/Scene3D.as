@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.containers
@@ -21,18 +19,18 @@ package away.containers
 		public function Scene3D():void
 		{
 			super();
-			_partitions = new <Partition3D>[];
-			_iSceneGraphRoot = new ObjectContainer3D();
+			this._partitions = new <Partition3D>[];
+			this._iSceneGraphRoot = new ObjectContainer3D();
 			
-			_iSceneGraphRoot.scene = this;
-			_iSceneGraphRoot._iIsRoot = true;
-			_iSceneGraphRoot.partition = new Partition3D( new NodeBase() );
+			this._iSceneGraphRoot.scene = this;
+			this._iSceneGraphRoot._iIsRoot = true;
+			this._iSceneGraphRoot.partition = new Partition3D( new NodeBase() );
 		}
 		
 		public function traversePartitions(traverser:PartitionTraverser):void
 		{
 			var i:Number = 0;
-			var len:Number = _partitions.length;
+			var len:Number = this._partitions.length;
 
 
             //console.log( 'Scene3D.traversePartitions' , len );
@@ -41,13 +39,13 @@ package away.containers
 			
 			while (i < len)
 			{
-				_partitions[i++].traverse( traverser );
+				this._partitions[i++].traverse( traverser );
 			}
 		}
 		
 		public function get partition():Partition3D
 		{
-			return _iSceneGraphRoot.partition;
+			return this._iSceneGraphRoot.partition;
 		}
 		
 		public function set partition(value:Partition3D):void
@@ -55,39 +53,39 @@ package away.containers
 
             //console.log( 'scene3D.setPartition' , value );
 
-			_iSceneGraphRoot.partition = value;
-			dispatchEvent( new Scene3DEvent( Scene3DEvent.PARTITION_CHANGED, _iSceneGraphRoot ) );
+			this._iSceneGraphRoot.partition = value;
+			this.dispatchEvent( new Scene3DEvent( Scene3DEvent.PARTITION_CHANGED, this._iSceneGraphRoot ) );
 		}
 		
 		public function contains(child:ObjectContainer3D):Boolean
 		{
-			return _iSceneGraphRoot.contains( child );
+			return this._iSceneGraphRoot.contains( child );
 		}
 		
 		public function addChild(child:ObjectContainer3D):ObjectContainer3D
 		{
-			return _iSceneGraphRoot.addChild( child );
+			return this._iSceneGraphRoot.addChild( child );
 		}
 		
 		public function removeChild(child:ObjectContainer3D):void
 		{
-			_iSceneGraphRoot.removeChild( child );
+			this._iSceneGraphRoot.removeChild( child );
 		}
 
 		public function removeChildAt(index:Number):void
 		{
-			_iSceneGraphRoot.removeChildAt( index );
+			this._iSceneGraphRoot.removeChildAt( index );
 		}
 
 		
 		public function getChildAt(index:Number):ObjectContainer3D
 		{
-			return _iSceneGraphRoot.getChildAt( index );
+			return this._iSceneGraphRoot.getChildAt( index );
 		}
 		
 		public function get numChildren():Number
 		{
-			return _iSceneGraphRoot.numChildren;
+			return this._iSceneGraphRoot.numChildren;
 		}
 
 		public function iRegisterEntity(entity:Entity):void
@@ -100,8 +98,8 @@ package away.containers
 
             //console.log( 'scene3D.iRegisterEntity' , entity , entity.iImplicitPartition , partition );
 
-			iAddPartitionUnique( partition );
-			partition.iMarkForUpdate( entity );
+			this.iAddPartitionUnique( partition );
+			this.partition.iMarkForUpdate( entity );
 
 
 
@@ -119,7 +117,7 @@ package away.containers
 
 		public function iRegisterPartition(entity:Entity):void
 		{
-			iAddPartitionUnique( entity.iGetImplicitPartition() );
+			this.iAddPartitionUnique( entity.iGetImplicitPartition() );
 		}
 
 		public function iUnregisterPartition(entity:Entity):void
@@ -132,9 +130,9 @@ package away.containers
 
             //console.log( 'scene3D.iAddPartitionUnique' , partition );
 
-			if (_partitions.indexOf(partition) == -1)
+			if (this._partitions.indexOf(partition) == -1)
 			{
-				_partitions.push( partition );
+				this._partitions.push( partition );
 			}
 
 		}

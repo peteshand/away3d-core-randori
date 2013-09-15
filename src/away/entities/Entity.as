@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 
@@ -39,45 +37,45 @@ package away.entities
 		public function Entity():void
 		{
 			super();
-			_pBounds = pGetDefaultBoundingVolume();
+			this._pBounds = this.pGetDefaultBoundingVolume();
 
             //console.log( "Entity() - Bounds:" , this._pBounds );
 
-			_worldBounds = pGetDefaultBoundingVolume();
+			this._worldBounds = this.pGetDefaultBoundingVolume();
 		}
 
 		//@override
 		override public function setIgnoreTransform(value:Boolean):void
 		{
-			if( _pScene )
+			if( this._pScene )
 			{
-				_pScene.iInvalidateEntityBounds( this );
+				this._pScene.iInvalidateEntityBounds( this );
 			}
 			super.setIgnoreTransform( value );
 		}
 		
 		public function get shaderPickingDetails():Boolean
 		{
-			return _shaderPickingDetails;
+			return this._shaderPickingDetails;
 		}
 		
 		public function get staticNode():Boolean
 		{
-			return _iStaticNode;
+			return this._iStaticNode;
 		}
 		
 		public function set staticNode(value:Boolean):void
 		{
-			_iStaticNode = value;
+			this._iStaticNode = value;
 		}
 		
 		public function get pickingCollisionVO():PickingCollisionVO
 		{
-			if ( !_iPickingCollisionVO )
+			if ( !this._iPickingCollisionVO )
 			{
-				_iPickingCollisionVO = new PickingCollisionVO( this );
+				this._iPickingCollisionVO = new PickingCollisionVO( this );
 			}
-			return _iPickingCollisionVO;
+			return this._iPickingCollisionVO;
 		}
 		
 		public function iCollidesBefore(shortestCollisionDistance:Number, findClosest:Boolean):Boolean
@@ -89,134 +87,138 @@ package away.entities
 		
 		public function get showBounds():Boolean
 		{
-			return _showBounds;
+			return this._showBounds;
 		}
 		
 		public function set showBounds(value:Boolean):void
 		{
-			if (value == _showBounds)
+			if (value == this._showBounds)
 			{
 				return;
 			}
-			_showBounds = value;
+			this._showBounds = value;
 			
-			if (_showBounds)
+			if (this._showBounds)
 			{
-				addBounds();
+				this.addBounds();
 			}
 			else
 			{
-				removeBounds();
+				this.removeBounds();
 			}
 		}
 		
 		//@override
 		override public function get minX():Number
 		{
-			if( _pBoundsInvalid )
+			if( this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.min.x;
+			return this._pBounds.min.x;
 		}
 		
 		//@override
 		override public function get minY():Number
 		{
-			if( _pBoundsInvalid )
+			if( this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.min.y;
+			return this._pBounds.min.y;
 		}
 		
 		//@override
 		override public function get minZ():Number
 		{
-			if(_pBoundsInvalid )
+			if(this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.min.z;
+			return this._pBounds.min.z;
 		}
 		
 		//@override
 		override public function get maxX():Number
 		{
-			if( _pBoundsInvalid )
+			if( this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.max.x;
+			return this._pBounds.max.x;
 		}
 		
 		//@override
 		override public function get maxY():Number
 		{
-			if( _pBoundsInvalid )
+			if( this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.max.y;
+			return this._pBounds.max.y;
 		}
 		
 		//@override
 		override public function get maxZ():Number
 		{
-			if( _pBoundsInvalid )
+			if( this._pBoundsInvalid )
 			{
-				pUpdateBounds();
+				this.pUpdateBounds();
 			}
-			return _pBounds.max.z;
+			return this._pBounds.max.z;
 		}
 
         public function getBounds():BoundingVolumeBase
         {
-            if ( _pBoundsInvalid )
+            if ( this._pBoundsInvalid )
             {
-                pUpdateBounds();
+                this.pUpdateBounds();
             }
-            return _pBounds;
+            return this._pBounds;
         }
 
         public function get bounds():BoundingVolumeBase
         {
 
-            return getBounds();
+            return this.getBounds();
         }
 		
 		public function set bounds(value:BoundingVolumeBase):void
 		{
-			removeBounds();
-			_pBounds = value;
-			_worldBounds = value.clone();
-			pInvalidateBounds();
-			if( _showBounds )
+			this.removeBounds();
+			this._pBounds = value;
+			this._worldBounds = value.clone();
+			this.pInvalidateBounds();
+			if( this._showBounds )
 			{
-				addBounds();
+				this.addBounds();
 			}
 		}
 		
 		public function get worldBounds():BoundingVolumeBase
 		{
-			if( _worldBoundsInvalid )
+			if( this._worldBoundsInvalid )
 			{
-				updateWorldBounds();
+				this.updateWorldBounds();
 			}
-			return _worldBounds;
+			return this._worldBounds;
 		}
 		
 		private function updateWorldBounds():void
 		{
-			_worldBounds.transformFrom( getBounds() , sceneTransform );
-			_worldBoundsInvalid = false;
+			this._worldBounds.transformFrom( this.getBounds() , this.sceneTransform );
+			this._worldBoundsInvalid = false;
 		}
 
         //@override
-        /*
-        public set iImplicitPartition( value:away.partition.Partition3D )
+        /*        public set iImplicitPartition( value:away.partition.Partition3D )        {          */  /*            if( value == this._pImplicitPartition )            {                return;            }            if( this._pImplicitPartition )            {                this.notifyPartitionUnassigned();            }            super.iSetImplicitPartition( value );            this.notifyPartitionAssigned();            */
+/*            this.iSetImplicitPartition( value );        }*/
+        //@override
+        override public function iSetImplicitPartition(value:Partition3D):void
         {
-          */  /*
+
+            //console.log( 'Entity' , 'iSetImplicitPartition' , value , 'this._pImplicitPartition' , this._pImplicitPartition , '==' , ( this._pImplicitPartition ==  value ));
+
             if( value == this._pImplicitPartition )
             {
                 return;
@@ -229,42 +231,19 @@ package away.entities
 
             super.iSetImplicitPartition( value );
             this.notifyPartitionAssigned();
-            */
-/*
-            this.iSetImplicitPartition( value );
-        }
-*/
-        //@override
-        override public function iSetImplicitPartition(value:Partition3D):void
-        {
-
-            //console.log( 'Entity' , 'iSetImplicitPartition' , value , 'this._pImplicitPartition' , this._pImplicitPartition , '==' , ( this._pImplicitPartition ==  value ));
-
-            if( value == _pImplicitPartition )
-            {
-                return;
-            }
-
-            if( _pImplicitPartition )
-            {
-                notifyPartitionUnassigned();
-            }
-
-            super.iSetImplicitPartition( value );
-            notifyPartitionAssigned();
 
         }
 
 		//@override
 		override public function set scene(value:Scene3D):void
 		{
-			if(value == _pScene)
+			if(value == this._pScene)
 			{
 				return;
 			}
-			if( _pScene)
+			if( this._pScene)
 			{
-				_pScene.iUnregisterEntity( this );
+				this._pScene.iUnregisterEntity( this );
 			}
 			// callback to notify object has been spawned. Casts to please FDT
 			if ( value )
@@ -284,55 +263,55 @@ package away.entities
 		
 		public function get pickingCollider():IPickingCollider
 		{
-			return _iPickingCollider;
+			return this._iPickingCollider;
 		}
 
         public function set pickingCollider(value:IPickingCollider):void
         {
-            setPickingCollider( value );
+            this.setPickingCollider( value );
         }
 
         public function setPickingCollider(value:IPickingCollider):void
         {
-            _iPickingCollider = value;
+            this._iPickingCollider = value;
         }
 
 
 		
 		public function getEntityPartitionNode():EntityNode
 		{
-			if( !_partitionNode )
+			if( !this._partitionNode )
 			{
-				_partitionNode = pCreateEntityPartitionNode()
+				this._partitionNode = this.pCreateEntityPartitionNode()
 			}
-			return _partitionNode;
+			return this._partitionNode;
 		}
 		
 		public function isIntersectingRay(rayPosition:Vector3D, rayDirection:Vector3D):Boolean
 		{
-			var localRayPosition:Vector3D = inverseSceneTransform.transformVector( rayPosition );
-			var localRayDirection:Vector3D = inverseSceneTransform.deltaTransformVector( rayDirection );
+			var localRayPosition:Vector3D = this.inverseSceneTransform.transformVector( rayPosition );
+			var localRayDirection:Vector3D = this.inverseSceneTransform.deltaTransformVector( rayDirection );
 
 
-			if( !_iPickingCollisionVO.localNormal )
+			if( !this._iPickingCollisionVO.localNormal )
 			{
-                _iPickingCollisionVO.localNormal = new Vector3D()
+                this._iPickingCollisionVO.localNormal = new Vector3D()
 			}
 
 
-			var rayEntryDistance:Number = _pBounds.rayIntersection(localRayPosition, localRayDirection, _iPickingCollisionVO.localNormal );
+			var rayEntryDistance:Number = this._pBounds.rayIntersection(localRayPosition, localRayDirection, this._iPickingCollisionVO.localNormal );
 			
 			if( rayEntryDistance < 0 )
 			{
 				return false;
 			}
 
-            _iPickingCollisionVO.rayEntryDistance = rayEntryDistance;
-            _iPickingCollisionVO.localRayPosition = localRayPosition;
-            _iPickingCollisionVO.localRayDirection = localRayDirection;
-            _iPickingCollisionVO.rayPosition = rayPosition;
-            _iPickingCollisionVO.rayDirection = rayDirection;
-            _iPickingCollisionVO.rayOriginIsInsideBounds = rayEntryDistance == 0;
+            this._iPickingCollisionVO.rayEntryDistance = rayEntryDistance;
+            this._iPickingCollisionVO.localRayPosition = localRayPosition;
+            this._iPickingCollisionVO.localRayDirection = localRayDirection;
+            this._iPickingCollisionVO.rayPosition = rayPosition;
+            this._iPickingCollisionVO.rayDirection = rayDirection;
+            this._iPickingCollisionVO.rayOriginIsInsideBounds = rayEntryDistance == 0;
 			
 			return true;
 		}
@@ -357,38 +336,38 @@ package away.entities
 		
 		override public function pInvalidateSceneTransform():void
 		{
-			if( !_pIgnoreTransform )
+			if( !this._pIgnoreTransform )
 			{
 				super.pInvalidateSceneTransform();
-				_worldBoundsInvalid = true;
-				notifySceneBoundsInvalid();
+				this._worldBoundsInvalid = true;
+				this.notifySceneBoundsInvalid();
 			}
 		}
 		
 		public function pInvalidateBounds():void
 		{
-			_pBoundsInvalid = true;
-			_worldBoundsInvalid = true;
-			notifySceneBoundsInvalid();
+			this._pBoundsInvalid = true;
+			this._worldBoundsInvalid = true;
+			this.notifySceneBoundsInvalid();
 		}
 		
 		override public function pUpdateMouseChildren():void
 		{
 			// If there is a parent and this child does not have a triangle collider, use its parent's triangle collider.
 
-			if( _pParent && !pickingCollider )
+			if( this._pParent && !this.pickingCollider )
 			{
 
-				if ( _pParent instanceof Entity ) //if( this._pParent is Entity ) { // TODO: Test / validate
+				if ( this._pParent instanceof Entity ) //if( this._pParent is Entity ) { // TODO: Test / validate
                 {
 
-                    var parentEntity : Entity =  (_pParent as Entity);
+                    var parentEntity : Entity =  (this._pParent as Entity);
 
 					var collider:IPickingCollider = parentEntity.pickingCollider;
 					if(collider)
                     {
 
-                        pickingCollider = collider;
+                        this.pickingCollider = collider;
 
                     }
 
@@ -400,53 +379,53 @@ package away.entities
 
 		private function notifySceneBoundsInvalid():void
 		{
-			if( _pScene )
+			if( this._pScene )
 			{
-				_pScene.iInvalidateEntityBounds( this );
+				this._pScene.iInvalidateEntityBounds( this );
 			}
 		}
 		
 		private function notifyPartitionAssigned():void
 		{
-			if( _pScene)
+			if( this._pScene)
 			{
-				_pScene.iRegisterPartition( this ); //_onAssignPartitionCallback(this);
+				this._pScene.iRegisterPartition( this ); //_onAssignPartitionCallback(this);
 			}
 		}
 		
 		private function notifyPartitionUnassigned():void
 		{
-			if( _pScene )
+			if( this._pScene )
 			{
-				_pScene.iUnregisterPartition( this );
+				this._pScene.iUnregisterPartition( this );
 			}
 		}
 		
 		private function addBounds():void
 		{
-			if ( !_boundsIsShown )
+			if ( !this._boundsIsShown )
 			{
-				_boundsIsShown = true;
-				addChild( _pBounds.boundingRenderable );
+				this._boundsIsShown = true;
+				this.addChild( this._pBounds.boundingRenderable );
 			}
 		}
 		
 		private function removeBounds():void
 		{
-			if( !_boundsIsShown )
+			if( this._boundsIsShown )
 			{
-				_boundsIsShown = false;
-				removeChild( _pBounds.boundingRenderable );
-				_pBounds.disposeRenderable();
+				this._boundsIsShown = false;
+				this.removeChild( this._pBounds.boundingRenderable );
+				this._pBounds.disposeRenderable();
 			}
 		}
 		
 		public function iInternalUpdate():void
 		{
 
-			if( _iController )
+			if( this._iController )
 			{
-				_iController.update();
+				this._iController.update();
 			}
 
 		}

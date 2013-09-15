@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.render
 {
 	import away.display3D.Context3D;
@@ -15,10 +16,7 @@ package away.render
 	import away.errors.AbstractMethodError;
 	import away.events.Event;
 
-	/**
-	 * RendererBase forms an abstract base class for classes that are used in the rendering pipeline to render geometry
-	 * to the back buffer or a texture.
-	 */
+	/**	 * RendererBase forms an abstract base class for classes that are used in the rendering pipeline to render geometry	 * to the back buffer or a texture.	 */
 	public class RendererBase
 	{
 		public var _pContext:Context3D;
@@ -54,13 +52,11 @@ package away.render
 		public var _pRttViewProjectionMatrix:Matrix3D = new Matrix3D();
 
 		
-		/**
-		 * Creates a new RendererBase object.
-		 */
+		/**		 * Creates a new RendererBase object.		 */
 		public function RendererBase(renderToTexture:Boolean = false):void
 		{
-			_pRenderableSorter = new RenderableMergeSort();
-			_renderToTexture = renderToTexture;
+			this._pRenderableSorter = new RenderableMergeSort();
+			this._renderToTexture = renderToTexture;
 		}
 		
 		public function iCreateEntityCollector():EntityCollector
@@ -70,115 +66,99 @@ package away.render
 		
 		public function get iViewWidth():Number
 		{
-			return _viewWidth;
+			return this._viewWidth;
 		}
 		
 		public function set iViewWidth(value:Number):void
 		{
-			_viewWidth = value;
+			this._viewWidth = value;
 		}
 		
 		public function get iViewHeight():Number
 		{
-			return _viewHeight;
+			return this._viewHeight;
 		}
 		
 		public function set iViewHeight(value:Number):void
 		{
-			_viewHeight = value;
+			this._viewHeight = value;
 		}
 		
 		public function get iRenderToTexture():Boolean
 		{
-			return _renderToTexture;
+			return this._renderToTexture;
 		}
 		
 		public function get renderableSorter():IEntitySorter
 		{
-			return _pRenderableSorter;
+			return this._pRenderableSorter;
 		}
 		
 		public function set renderableSorter(value:IEntitySorter):void
 		{
-			_pRenderableSorter = value;
+			this._pRenderableSorter = value;
 		}
 		
 		public function get iClearOnRender():Boolean
 		{
-			return _clearOnRender;
+			return this._clearOnRender;
 		}
 		
 		public function set iClearOnRender(value:Boolean):void
 		{
-			_clearOnRender = value;
+			this._clearOnRender = value;
 		}
 		
-		/**
-		 * The background color's red component, used when clearing.
-		 *
-		 * @private
-		 */
+		/**		 * The background color's red component, used when clearing.		 *		 * @private		 */
 		public function get iBackgroundR():Number
 		{
-			return _backgroundR;
+			return this._backgroundR;
 		}
 		
 		public function set iBackgroundR(value:Number):void
 		{
-			_backgroundR = value;
+			this._backgroundR = value;
 		}
 		
-		/**
-		 * The background color's green component, used when clearing.
-		 *
-		 * @private
-		 */
+		/**		 * The background color's green component, used when clearing.		 *		 * @private		 */
 		public function get iBackgroundG():Number
 		{
-			return _backgroundG;
+			return this._backgroundG;
 		}
 		
 		public function set iBackgroundG(value:Number):void
 		{
-			_backgroundG = value;
+			this._backgroundG = value;
 		}
 		
-		/**
-		 * The background color's blue component, used when clearing.
-		 *
-		 * @private
-		 */
+		/**		 * The background color's blue component, used when clearing.		 *		 * @private		 */
 		public function get iBackgroundB():Number
 		{
-			return _backgroundB;
+			return this._backgroundB;
 		}
 		
 		public function set iBackgroundB(value:Number):void
 		{
-			_backgroundB = value;
+			this._backgroundB = value;
 		}
 		
-		/**
-		 * The Stage3DProxy that will provide the Context3D used for rendering.
-		 *
-		 * @private
-		 */
+		/**		 * The Stage3DProxy that will provide the Context3D used for rendering.		 *		 * @private		 */
 		public function get iStage3DProxy():Stage3DProxy
 		{
-			return _pStage3DProxy;
+			return this._pStage3DProxy;
 		}
 		
 		public function set iStage3DProxy(value:Stage3DProxy):void
 		{
 
-            iSetStage3DProxy( value );
+            this.iSetStage3DProxy( value );
 
 		}
 
         public function iSetStage3DProxy(value:Stage3DProxy):void
         {
 
-            if (value == _pStage3DProxy)
+            if (value == this._pStage3DProxy)
             {
 
                 return;
@@ -189,78 +169,55 @@ package away.render
             if (!value)
             {
 
-                if (_pStage3DProxy)
+                if (this._pStage3DProxy)
                 {
 
-                    _pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate , this );
-                    _pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate , this );
+                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate , this );
+                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate , this );
 
                 }
 
-                _pStage3DProxy = null;
-                _pContext = null;
+                this._pStage3DProxy = null;
+                this._pContext = null;
 
                 return;
             }
 
             //else if (_pStage3DProxy) throw new Error("A Stage3D instance was already assigned!");
 
-            _pStage3DProxy = value;
-            _pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate , this );
-            _pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate , this );
+            this._pStage3DProxy = value;
+            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate , this );
+            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate , this );
 
-            /*
-             if (_backgroundImageRenderer)
-             _backgroundImageRenderer.stage3DProxy = value;
-             */
+            /*             if (_backgroundImageRenderer)             _backgroundImageRenderer.stage3DProxy = value;             */
             if (value.context3D)
-                _pContext = value.context3D;
+                this._pContext = value.context3D;
 
         }
 		
-		/**
-		 * Defers control of Context3D clear() and present() calls to Stage3DProxy, enabling multiple Stage3D frameworks
-		 * to share the same Context3D object.
-		 *
-		 * @private
-		 */
+		/**		 * Defers control of Context3D clear() and present() calls to Stage3DProxy, enabling multiple Stage3D frameworks		 * to share the same Context3D object.		 *		 * @private		 */
 		public function get iShareContext():Boolean
 		{
-			return _shareContext;
+			return this._shareContext;
 		}
 		
 		public function set iShareContext(value:Boolean):void
 		{
-			_shareContext = value;
+			this._shareContext = value;
 		}
 		
-		/**
-		 * Disposes the resources used by the RendererBase.
-		 *
-		 * @private
-		 */
+		/**		 * Disposes the resources used by the RendererBase.		 *		 * @private		 */
 		public function iDispose():void
 		{
-			_pStage3DProxy = null;
+			this._pStage3DProxy = null;
 
-            /*
-			if (_backgroundImageRenderer) {
-				_backgroundImageRenderer.dispose();
-				_backgroundImageRenderer = null;
-			}
-			*/
+            /*			if (_backgroundImageRenderer) {				_backgroundImageRenderer.dispose();				_backgroundImageRenderer = null;			}			*/
 		}
 		
-		/**
-		 * Renders the potentially visible geometry to the back buffer or texture.
-		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.
-		 * @param target An option target texture to render to.
-		 * @param surfaceSelector The index of a CubeTexture's face to render to.
-		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.
-		 */
+		/**		 * Renders the potentially visible geometry to the back buffer or texture.		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.		 * @param target An option target texture to render to.		 * @param surfaceSelector The index of a CubeTexture's face to render to.		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.		 */
 		public function iRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
-			if (!_pStage3DProxy || !_pContext)
+			if (!this._pStage3DProxy || !this._pContext)
             {
 
                 return;
@@ -269,93 +226,82 @@ package away.render
             }
 
 			
-			_pRttViewProjectionMatrix.copyFrom(entityCollector.camera.viewProjection);
-            _pRttViewProjectionMatrix.appendScale(_textureRatioX, _textureRatioY, 1);
+			this._pRttViewProjectionMatrix.copyFrom(entityCollector.camera.viewProjection);
+            this._pRttViewProjectionMatrix.appendScale(this._textureRatioX, this._textureRatioY, 1);
 
-            pExecuteRender(entityCollector, target, scissorRect, surfaceSelector);
+            this.pExecuteRender(entityCollector, target, scissorRect, surfaceSelector);
 			
 			// clear buffers
 			
 			for (var i:Number = 0; i < 8; ++i)
             {
 
-				_pContext.setVertexBufferAt(i, null);
-                _pContext.setTextureAt(i, null);
+				this._pContext.setVertexBufferAt(i, null);
+                this._pContext.setTextureAt(i, null);
 
 			}
 		}
 		
-		/**
-		 * Renders the potentially visible geometry to the back buffer or texture. Only executed if everything is set up.
-		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.
-		 * @param target An option target texture to render to.
-		 * @param surfaceSelector The index of a CubeTexture's face to render to.
-		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.
-		 */
+		/**		 * Renders the potentially visible geometry to the back buffer or texture. Only executed if everything is set up.		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.		 * @param target An option target texture to render to.		 * @param surfaceSelector The index of a CubeTexture's face to render to.		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.		 */
 		public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
-			_pRenderTarget = target;
-			_pRenderTargetSurface = surfaceSelector;
+			this._pRenderTarget = target;
+			this._pRenderTargetSurface = surfaceSelector;
 			
-			if (_pRenderableSorter)
+			if (this._pRenderableSorter)
             {
 
-                _pRenderableSorter.sort(entityCollector);
+                this._pRenderableSorter.sort(entityCollector);
 
             }
 
 			
-			if (_renderToTexture){
+			if (this._renderToTexture){
 
-                pExecuteRenderToTexturePass(entityCollector);
+                this.pExecuteRenderToTexturePass(entityCollector);
 
             }
 
-			_pStage3DProxy.setRenderTarget(target, true, surfaceSelector);
+			this._pStage3DProxy.setRenderTarget(target, true, surfaceSelector);
 			
-			if ((target || !_shareContext) && _clearOnRender)
+			if ((target || !this._shareContext) && this._clearOnRender)
             {
 
-               this. _pContext.clear(_backgroundR, _backgroundG, _backgroundB, _backgroundAlpha, 1, 0);
+               this. _pContext.clear(this._backgroundR, this._backgroundG, this._backgroundB, this._backgroundAlpha, 1, 0);
 
             }
 
-			_pContext.setDepthTest(false, Context3DCompareMode.ALWAYS);
+			this._pContext.setDepthTest(false, Context3DCompareMode.ALWAYS);
 
-			_pStage3DProxy.scissorRect = scissorRect;
+			this._pStage3DProxy.scissorRect = scissorRect;
 
-            /*
-			if (_backgroundImageRenderer)
-				_backgroundImageRenderer.render();
-			*/
+            /*			if (_backgroundImageRenderer)				_backgroundImageRenderer.render();			*/
 
-			pDraw(entityCollector, target);
+			this.pDraw(entityCollector, target);
 			
 			//line required for correct rendering when using away3d with starling. DO NOT REMOVE UNLESS STARLING INTEGRATION IS RETESTED!
-			_pContext.setDepthTest(false, Context3DCompareMode.LESS_EQUAL);
+			this._pContext.setDepthTest(false, Context3DCompareMode.LESS_EQUAL);
 			
-			if (!_shareContext)
+			if (!this._shareContext)
             {
 
-				if (_snapshotRequired && _snapshotBitmapData)
+				if (this._snapshotRequired && this._snapshotBitmapData)
                 {
 
-                    _pContext.drawToBitmapData(_snapshotBitmapData);
-                    _snapshotRequired = false;
+                    this._pContext.drawToBitmapData(this._snapshotBitmapData);
+                    this._snapshotRequired = false;
 
 				}
 
 			}
-            _pStage3DProxy.scissorRect = null;
+            this._pStage3DProxy.scissorRect = null;
 		}
 		
-		/*
-		 * Will draw the renderer's output on next render to the provided bitmap data.
-		 * */
+		/*		 * Will draw the renderer's output on next render to the provided bitmap data.		 * */
 		public function queueSnapshot(bmd:BitmapData):void
 		{
-			_snapshotRequired = true;
-            _snapshotBitmapData = bmd;
+			this._snapshotRequired = true;
+            this._snapshotBitmapData = bmd;
 		}
 		
 		public function pExecuteRenderToTexturePass(entityCollector:EntityCollector):void
@@ -363,97 +309,61 @@ package away.render
 			throw new AbstractMethodError();
 		}
 		
-		/**
-		 * Performs the actual drawing of geometry to the target.
-		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.
-		 */
+		/**		 * Performs the actual drawing of geometry to the target.		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.		 */
 		public function pDraw(entityCollector:EntityCollector, target:TextureBase):void
 		{
             throw new AbstractMethodError();
 		}
 		
-		/**
-		 * Assign the context once retrieved
-		 */
+		/**		 * Assign the context once retrieved		 */
 		private function onContextUpdate(event:Event):void
 		{
-			_pContext = _pStage3DProxy.context3D;
+			this._pContext = this._pStage3DProxy.context3D;
 		}
 		
 		public function get iBackgroundAlpha():Number
 		{
-			return _backgroundAlpha;
+			return this._backgroundAlpha;
 		}
 		
 		public function set iBackgroundAlpha(value:Number):void
 		{
-			_backgroundAlpha = value;
+			this._backgroundAlpha = value;
 		}
 
-        /*
-		public get iBackground():away.textures.Texture2DBase
-		{
-			return this._background;
-		}
-		*/
+        /*		public get iBackground():away.textures.Texture2DBase		{			return this._background;		}		*/
 
-        /*
-		public set iBackground(value:away.textures.Texture2DBase)
-		{
-			if (this._backgroundImageRenderer && !value) {
-                this._backgroundImageRenderer.dispose();
-                this._backgroundImageRenderer = null;
-			}
-			
-			if (!this._backgroundImageRenderer && value)
-            {
-
-                this._backgroundImageRenderer = new BackgroundImageRenderer(this._pStage3DProxy);
-
-            }
-
-			
-			this._background = value;
-			
-			if (this._backgroundImageRenderer)
-                this._backgroundImageRenderer.texture = value;
-		}
-		*/
-		/*
-		public get backgroundImageRenderer():BackgroundImageRenderer
-		{
-			return _backgroundImageRenderer;
-		}
-		*/
+        /*		public set iBackground(value:away.textures.Texture2DBase)		{			if (this._backgroundImageRenderer && !value) {                this._backgroundImageRenderer.dispose();                this._backgroundImageRenderer = null;			}						if (!this._backgroundImageRenderer && value)            {                this._backgroundImageRenderer = new BackgroundImageRenderer(this._pStage3DProxy);            }						this._background = value;						if (this._backgroundImageRenderer)                this._backgroundImageRenderer.texture = value;		}		*/
+		/*		public get backgroundImageRenderer():BackgroundImageRenderer		{			return _backgroundImageRenderer;		}		*/
 
 		public function get antiAlias():Number
 		{
-			return _antiAlias;
+			return this._antiAlias;
 		}
 		
 		public function set antiAlias(antiAlias:Number):void
 		{
-            _antiAlias = antiAlias;
+            this._antiAlias = antiAlias;
 		}
 		
 		public function get iTextureRatioX():Number
 		{
-			return _textureRatioX;
+			return this._textureRatioX;
 		}
 		
 		public function set iTextureRatioX(value:Number):void
 		{
-			_textureRatioX = value;
+			this._textureRatioX = value;
 		}
 		
 		public function get iTextureRatioY():Number
 		{
-			return _textureRatioY;
+			return this._textureRatioY;
 		}
 		
 		public function set iTextureRatioY(value:Number):void
 		{
-			_textureRatioY = value;
+			this._textureRatioY = value;
 		}
 
 	}

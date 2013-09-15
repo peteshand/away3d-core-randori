@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.managers
 {
 	import away.events.EventDispatcher;
@@ -41,9 +42,9 @@ package away.managers
             }
 
 			
-			_renderToTextureRect = new Rectangle();
+			this._renderToTextureRect = new Rectangle();
 			
-			_stage3DProxy = stage3DProxy;
+			this._stage3DProxy = stage3DProxy;
 
 		}
 		
@@ -130,177 +131,177 @@ package away.managers
 		public function get textureRatioX():Number
 		{
 
-			if (_buffersInvalid)
+			if (this._buffersInvalid)
             {
 
-                updateRTTBuffers();
+                this.updateRTTBuffers();
 
             }
 
-			return _textureRatioX;
+			return this._textureRatioX;
 
 		}
 		
 		public function get textureRatioY():Number
 		{
 
-			if (_buffersInvalid)
+			if (this._buffersInvalid)
             {
 
-                updateRTTBuffers();
+                this.updateRTTBuffers();
 
             }
 
-			return _textureRatioY;
+			return this._textureRatioY;
 
 		}
 		
 		public function get viewWidth():Number
 		{
-			return _viewWidth;
+			return this._viewWidth;
 		}
 		
 		public function set viewWidth(value:Number):void
 		{
-			if (value == _viewWidth)
+			if (value == this._viewWidth)
             {
 
                 return;
 
             }
 
-			_viewWidth = value;
+			this._viewWidth = value;
 
-            _buffersInvalid = true;
+            this._buffersInvalid = true;
 
-            _textureWidth = TextureUtils.getBestPowerOf2(_viewWidth);
+            this._textureWidth = TextureUtils.getBestPowerOf2(this._viewWidth);
 			
-			if (_textureWidth > _viewWidth)
+			if (this._textureWidth > this._viewWidth)
             {
 
-                _renderToTextureRect.x = Math.floor( (_textureWidth - _viewWidth)*.5);
-                _renderToTextureRect.width = _viewWidth;
+                this._renderToTextureRect.x = Math.floor( (this._textureWidth - this._viewWidth)*.5);
+                this._renderToTextureRect.width = this._viewWidth;
 
 			}
             else
             {
-				_renderToTextureRect.x = 0;
-                _renderToTextureRect.width = _textureWidth;
+				this._renderToTextureRect.x = 0;
+                this._renderToTextureRect.width = this._textureWidth;
 
 			}
 			
-			dispatchEvent( new Event(Event.RESIZE));
+			this.dispatchEvent( new Event(Event.RESIZE));
 
 		}
 		
 		public function get viewHeight():Number
 		{
-			return _viewHeight;
+			return this._viewHeight;
 		}
 
 		public function set viewHeight(value:Number):void
 		{
-			if (value == _viewHeight)
+			if (value == this._viewHeight)
             {
 
                 return;
 
             }
 
-			_viewHeight = value;
+			this._viewHeight = value;
 
-            _buffersInvalid = true;
+            this._buffersInvalid = true;
 
-            _textureHeight = TextureUtils.getBestPowerOf2(_viewHeight);
+            this._textureHeight = TextureUtils.getBestPowerOf2(this._viewHeight);
 			
-			if ( _textureHeight > _viewHeight)
+			if ( this._textureHeight > this._viewHeight)
             {
 
-                _renderToTextureRect.y = Math.floor((_textureHeight - _viewHeight)*.5);
-                _renderToTextureRect.height = _viewHeight;
+                this._renderToTextureRect.y = Math.floor((this._textureHeight - this._viewHeight)*.5);
+                this._renderToTextureRect.height = this._viewHeight;
 
 			}
             else
             {
 
-                _renderToTextureRect.y = 0;
-                _renderToTextureRect.height = _textureHeight;
+                this._renderToTextureRect.y = 0;
+                this._renderToTextureRect.height = this._textureHeight;
 
 			}
 			
-			dispatchEvent(new Event(Event.RESIZE));
+			this.dispatchEvent(new Event(Event.RESIZE));
 
 		}
 		
 		public function get renderToTextureVertexBuffer():VertexBuffer3D
 		{
 
-			if (_buffersInvalid)
+			if (this._buffersInvalid)
             {
 
-                updateRTTBuffers();
+                this.updateRTTBuffers();
 
             }
 
-			return _renderToTextureVertexBuffer;
+			return this._renderToTextureVertexBuffer;
 		}
 		
 		public function get renderToScreenVertexBuffer():VertexBuffer3D
 		{
 
-			if (_buffersInvalid)
+			if (this._buffersInvalid)
             {
 
-                updateRTTBuffers();
+                this.updateRTTBuffers();
 
             }
 
-			return _renderToScreenVertexBuffer;
+			return this._renderToScreenVertexBuffer;
 
 		}
 		
 		public function get indexBuffer():IndexBuffer3D
 		{
-			return _indexBuffer;
+			return this._indexBuffer;
 		}
 		
 		public function get renderToTextureRect():Rectangle
 		{
 
-			if (_buffersInvalid)
+			if (this._buffersInvalid)
             {
 
-				updateRTTBuffers();
+				this.updateRTTBuffers();
 
             }
 
-			return _renderToTextureRect;
+			return this._renderToTextureRect;
 		}
 		
 		public function get textureWidth():Number
 		{
-			return _textureWidth;
+			return this._textureWidth;
 		}
 		
 		public function get textureHeight():Number
 		{
-			return _textureHeight;
+			return this._textureHeight;
 		}
 		
 		public function dispose():void
 		{
 
-            RTTBufferManager.deleteRTTBufferManager( _stage3DProxy );
+            RTTBufferManager.deleteRTTBufferManager( this._stage3DProxy );
 
-			if (_indexBuffer)
+			if (this._indexBuffer)
             {
 
-                _indexBuffer.dispose();
-                _renderToScreenVertexBuffer.dispose();
-                _renderToTextureVertexBuffer.dispose();
-                _renderToScreenVertexBuffer = null;
-                _renderToTextureVertexBuffer = null;
-                _indexBuffer = null;
+                this._indexBuffer.dispose();
+                this._renderToScreenVertexBuffer.dispose();
+                this._renderToTextureVertexBuffer.dispose();
+                this._renderToScreenVertexBuffer = null;
+                this._renderToTextureVertexBuffer = null;
+                this._indexBuffer = null;
 
 			}
 		}
@@ -310,37 +311,37 @@ package away.managers
 		// needs to be stored per view of course
 		private function updateRTTBuffers():void
 		{
-			var context:Context3D = _stage3DProxy._iContext3D;
+			var context:Context3D = this._stage3DProxy._iContext3D;
 			var textureVerts:Vector.<Number>;
 			var screenVerts:Vector.<Number>;
 
 			var x:Number;
             var y:Number;
 
-            if ( _renderToTextureVertexBuffer  == null )
+            if ( this._renderToTextureVertexBuffer  == null )
             {
 
-                _renderToTextureVertexBuffer = context.createVertexBuffer(4, 5);
+                this._renderToTextureVertexBuffer = context.createVertexBuffer(4, 5);
 
             }
 
-            if ( _renderToScreenVertexBuffer == null )
+            if ( this._renderToScreenVertexBuffer == null )
             {
 
-                _renderToScreenVertexBuffer = context.createVertexBuffer(4, 5);
+                this._renderToScreenVertexBuffer = context.createVertexBuffer(4, 5);
 
             }
 
-			if (!_indexBuffer)
+			if (!this._indexBuffer)
             {
 
-				_indexBuffer = context.createIndexBuffer(6);
+				this._indexBuffer = context.createIndexBuffer(6);
 
-                _indexBuffer.uploadFromArray( new <Number>[2, 1, 0, 3, 2, 0], 0, 6);
+                this._indexBuffer.uploadFromArray( new <Number>[2, 1, 0, 3, 2, 0], 0, 6);
 			}
 			
-			_textureRatioX = x = Math.min(_viewWidth/_textureWidth, 1);
-            _textureRatioY = y = Math.min(_viewHeight/_textureHeight, 1);
+			this._textureRatioX = x = Math.min(this._viewWidth/this._textureWidth, 1);
+            this._textureRatioY = y = Math.min(this._viewHeight/this._textureHeight, 1);
 			
 			var u1:Number = (1 - x)*.5;
 			var u2:Number = (x + 1)*.5;
@@ -358,10 +359,10 @@ package away.managers
 				                1, 1, u2, v2, 2,
 				                -1, 1, u1, v2, 3 ];
 			
-			_renderToTextureVertexBuffer.uploadFromArray(textureVerts, 0, 4);
-            _renderToScreenVertexBuffer.uploadFromArray(screenVerts, 0, 4);
+			this._renderToTextureVertexBuffer.uploadFromArray(textureVerts, 0, 4);
+            this._renderToScreenVertexBuffer.uploadFromArray(screenVerts, 0, 4);
 			
-			_buffersInvalid = false;
+			this._buffersInvalid = false;
 			
 		}
 	}

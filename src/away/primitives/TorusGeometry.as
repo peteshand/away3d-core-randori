@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
@@ -7,9 +8,7 @@ package away.primitives
 	
 	//use namespace arcane;
 	
-	/**
-	 * A UV Cylinder primitive mesh.
-	 */
+	/**	 * A UV Cylinder primitive mesh.	 */
 	public class TorusGeometry extends PrimitiveBase
 	{
 		private var _radius:Number;
@@ -28,75 +27,73 @@ package away.primitives
 		
 		private function addVertex(px:Number, py:Number, pz:Number, nx:Number, ny:Number, nz:Number, tx:Number, ty:Number, tz:Number):void
 		{
-			var compVertInd:Number = _vertexOffset + _nextVertexIndex*_vertexStride; // current component vertex index
-            _rawVertexData[compVertInd++] = px;
-            _rawVertexData[compVertInd++] = py;
-            _rawVertexData[compVertInd++] = pz;
-            _rawVertexData[compVertInd++] = nx;
-            _rawVertexData[compVertInd++] = ny;
-            _rawVertexData[compVertInd++] = nz;
-            _rawVertexData[compVertInd++] = tx;
-            _rawVertexData[compVertInd++] = ty;
-            _rawVertexData[compVertInd] = tz;
-            _nextVertexIndex++;
+			var compVertInd:Number = this._vertexOffset + this._nextVertexIndex*this._vertexStride; // current component vertex index
+            this._rawVertexData[compVertInd++] = px;
+            this._rawVertexData[compVertInd++] = py;
+            this._rawVertexData[compVertInd++] = pz;
+            this._rawVertexData[compVertInd++] = nx;
+            this._rawVertexData[compVertInd++] = ny;
+            this._rawVertexData[compVertInd++] = nz;
+            this._rawVertexData[compVertInd++] = tx;
+            this._rawVertexData[compVertInd++] = ty;
+            this._rawVertexData[compVertInd] = tz;
+            this._nextVertexIndex++;
 
 		}
 		
 		private function addTriangleClockWise(cwVertexIndex0:Number, cwVertexIndex1:Number, cwVertexIndex2:Number):void
 		{
-            _rawIndices[_currentIndex++] = cwVertexIndex0;
-            _rawIndices[_currentIndex++] = cwVertexIndex1;
-            _rawIndices[_currentIndex++] = cwVertexIndex2;
-            _currentTriangleIndex++;
+            this._rawIndices[this._currentIndex++] = cwVertexIndex0;
+            this._rawIndices[this._currentIndex++] = cwVertexIndex1;
+            this._rawIndices[this._currentIndex++] = cwVertexIndex2;
+            this._currentTriangleIndex++;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number;
 			var x:Number, y:Number, z:Number, nx:Number, ny:Number, nz:Number, revolutionAngleR:Number, revolutionAngleT:Number;
 			var numTriangles:Number;
 			// reset utility variables
-			_numVertices = 0;
-            _nextVertexIndex = 0;
-            _currentIndex = 0;
-            _currentTriangleIndex = 0;
-            _vertexStride = target.vertexStride;
-            _vertexOffset = target.vertexOffset;
+			this._numVertices = 0;
+            this._nextVertexIndex = 0;
+            this._currentIndex = 0;
+            this._currentTriangleIndex = 0;
+            this._vertexStride = target.vertexStride;
+            this._vertexOffset = target.vertexOffset;
 			
 			// evaluate target number of vertices, triangles and indices
-            _numVertices = (_segmentsT + 1)*(_segmentsR + 1); // segmentsT + 1 because of closure, segmentsR + 1 because of closure
-			numTriangles = _segmentsT*_segmentsR*2; // each level has segmentR quads, each of 2 triangles
+            this._numVertices = (this._segmentsT + 1)*(this._segmentsR + 1); // segmentsT + 1 because of closure, segmentsR + 1 because of closure
+			numTriangles = this._segmentsT*this._segmentsR*2; // each level has segmentR quads, each of 2 triangles
 			
 			// need to initialize raw arrays or can be reused?
-			if (_numVertices == target.numVertices)
+			if (this._numVertices == target.numVertices)
             {
-                _rawVertexData = target.vertexData;
+                this._rawVertexData = target.vertexData;
 
                 if ( target.indexData == null )
                 {
-                    _rawIndices = new Vector.<Number>( numTriangles * 3 );
+                    this._rawIndices = new Vector.<Number>( numTriangles * 3 );
                 }
                 else
                 {
-                    _rawIndices = target.indexData;
+                    this._rawIndices = target.indexData;
                 }
 
                      			}
             else
             {
-				var numVertComponents:Number = _numVertices*_vertexStride;
-                _rawVertexData = new Vector.<Number>(numVertComponents);
-                _rawIndices = new Vector.<Number>(numTriangles*3);
-                pInvalidateUVs();
+				var numVertComponents:Number = this._numVertices*this._vertexStride;
+                this._rawVertexData = new Vector.<Number>(numVertComponents);
+                this._rawIndices = new Vector.<Number>(numTriangles*3);
+                this.pInvalidateUVs();
 
 			}
 			
 			// evaluate revolution steps
-			var revolutionAngleDeltaR:Number = 2*Math.PI/_segmentsR;
-			var revolutionAngleDeltaT:Number = 2*Math.PI/_segmentsT;
+			var revolutionAngleDeltaR:Number = 2*Math.PI/this._segmentsR;
+			var revolutionAngleDeltaT:Number = 2*Math.PI/this._segmentsT;
 			
 			var comp1:Number, comp2:Number;
 			var t1:Number, t2:Number, n1:Number, n2:Number;
@@ -105,12 +102,12 @@ package away.primitives
 			// surface
 			var a:Number, b:Number, c:Number, d:Number, length:Number;
 			
-			for (j = 0; j <= _segmentsT; ++j)
+			for (j = 0; j <= this._segmentsT; ++j)
             {
 				
-				startIndex = _vertexOffset + _nextVertexIndex * _vertexStride;
+				startIndex = this._vertexOffset + this._nextVertexIndex * this._vertexStride;
 				
-				for (i = 0; i <= _segmentsR; ++i)
+				for (i = 0; i <= this._segmentsR; ++i)
                 {
 
 					// revolution vertex
@@ -122,17 +119,17 @@ package away.primitives
 					ny = length*Math.sin(revolutionAngleR);
 					nz = Math.sin(revolutionAngleT);
 					
-					x = _radius*Math.cos(revolutionAngleR) + _tubeRadius*nx;
-					y = _radius*Math.sin(revolutionAngleR) + _tubeRadius*ny;
-					z = (j == _segmentsT)? 0 : _tubeRadius*nz;
+					x = this._radius*Math.cos(revolutionAngleR) + this._tubeRadius*nx;
+					y = this._radius*Math.sin(revolutionAngleR) + this._tubeRadius*ny;
+					z = (j == this._segmentsT)? 0 : this._tubeRadius*nz;
 					
-					if (_yUp)
+					if (this._yUp)
                     {
 
 						n1 = -nz;
 						n2 = ny;
 						t1 = 0;
-						t2 = (length? nx/length : x/_radius);
+						t2 = (length? nx/length : x/this._radius);
 						comp1 = -z;
 						comp2 = y;
 						
@@ -141,46 +138,44 @@ package away.primitives
                     {
 						n1 = ny;
 						n2 = nz;
-						t1 = (length? nx/length : x/_radius);
+						t1 = (length? nx/length : x/this._radius);
 						t2 = 0;
 						comp1 = y;
 						comp2 = z;
 					}
 					
-					if (i == _segmentsR)
+					if (i == this._segmentsR)
                     {
-						addVertex(x, _rawVertexData[startIndex + 1], _rawVertexData[startIndex + 2],
+						this.addVertex(x, this._rawVertexData[startIndex + 1], this._rawVertexData[startIndex + 2],
 							nx, n1, n2,
-							-(length? ny/length : y/_radius), t1, t2);
+							-(length? ny/length : y/this._radius), t1, t2);
 					}
                     else
                     {
-						addVertex(x, comp1, comp2,
+						this.addVertex(x, comp1, comp2,
 							nx, n1, n2,
-							-(length? ny/length : y/_radius), t1, t2);
+							-(length? ny/length : y/this._radius), t1, t2);
 					}
 					
 					// close triangle
 					if (i > 0 && j > 0)
                     {
-						a = _nextVertexIndex - 1; // current
-						b = _nextVertexIndex - 2; // previous
-						c = b - _segmentsR - 1; // previous of last level
-						d = a - _segmentsR - 1; // current of last level
-                        addTriangleClockWise(a, b, c);
-                        addTriangleClockWise(a, c, d);
+						a = this._nextVertexIndex - 1; // current
+						b = this._nextVertexIndex - 2; // previous
+						c = b - this._segmentsR - 1; // previous of last level
+						d = a - this._segmentsR - 1; // current of last level
+                        this.addTriangleClockWise(a, b, c);
+                        this.addTriangleClockWise(a, c, d);
 					}
 				}
 			}
 			
 			// build real data from raw data
-			target.updateData(_rawVertexData);
-			target.updateIndexData(_rawIndices);
+			target.updateData(this._rawVertexData);
+			target.updateIndexData(this._rawIndices);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 
@@ -191,7 +186,7 @@ package away.primitives
 			var skip:Number = target.UVStride - 2;
 			
 			// evaluate num uvs
-			var numUvs:Number = _numVertices*stride;
+			var numUvs:Number = this._numVertices*stride;
 			
 			// need to initialize raw array or can be reused?
 			if (target.UVData && numUvs == target.UVData.length)
@@ -201,21 +196,21 @@ package away.primitives
 			else
             {
 				data = new Vector.<Number>( numUvs );
-				pInvalidateGeometry();//invalidateGeometry();
+				this.pInvalidateGeometry();//invalidateGeometry();
 			}
 			
 			// current uv component index
 			var currentUvCompIndex:Number = offset;
 			
 			// surface
-			for (j = 0; j <= _segmentsT; ++j)
+			for (j = 0; j <= this._segmentsT; ++j)
             {
 
-				for (i = 0; i <= _segmentsR; ++i)
+				for (i = 0; i <= this._segmentsR; ++i)
                 {
 					// revolution vertex
-					data[currentUvCompIndex++] = 1 - ( i/_segmentsR )*target.scaleU;
-					data[currentUvCompIndex++] = ( j/_segmentsT )*target.scaleV;
+					data[currentUvCompIndex++] = ( i/this._segmentsR )*target.scaleU;
+					data[currentUvCompIndex++] = ( j/this._segmentsT )*target.scaleV;
 					currentUvCompIndex += skip;
 				}
 
@@ -225,95 +220,78 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**
-		 * The radius of the torus.
-		 */
+		/**		 * The radius of the torus.		 */
 		public function get radius():Number
 		{
-			return _radius;
+			return this._radius;
 		}
 		
 		public function set radius(value:Number):void
 		{
-            _radius = value;
-            pInvalidateGeometry();
+            this._radius = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The radius of the inner tube of the torus.
-		 */
+		/**		 * The radius of the inner tube of the torus.		 */
 		public function get tubeRadius():Number
 		{
-			return _tubeRadius;
+			return this._tubeRadius;
 		}
 		
 		public function set tubeRadius(value:Number):void
 		{
-            _tubeRadius = value;
-            pInvalidateGeometry();
+            this._tubeRadius = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.
-		 */
+		/**		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.		 */
 		public function get segmentsR():Number
 		{
-			return _segmentsR;
+			return this._segmentsR;
 		}
 		
 		public function set segmentsR(value:Number):void
 		{
-            _segmentsR = value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsR = value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines the number of vertical segments that make up the torus. Defaults to 8.
-		 */
+		/**		 * Defines the number of vertical segments that make up the torus. Defaults to 8.		 */
 		public function get segmentsT():Number
 		{
-			return _segmentsT;
+			return this._segmentsT;
 		}
 		
 		public function set segmentsT(value:Number):void
 		{
-            _segmentsT = value;
-            pInvalidateGeometry();
-			pInvalidateUVs();
+            this._segmentsT = value;
+            this.pInvalidateGeometry();
+			this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function get yUp():Boolean
 		{
-			return _yUp;
+			return this._yUp;
 		}
 		
 		public function set yUp(value:Boolean):void
 		{
-            _yUp = value;
-            pInvalidateGeometry();
+            this._yUp = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * Creates a new <code>Torus</code> object.
-		 * @param radius The radius of the torus.
-		 * @param tuebRadius The radius of the inner tube of the torus.
-		 * @param segmentsR Defines the number of horizontal segments that make up the torus.
-		 * @param segmentsT Defines the number of vertical segments that make up the torus.
-		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Creates a new <code>Torus</code> object.		 * @param radius The radius of the torus.		 * @param tuebRadius The radius of the inner tube of the torus.		 * @param segmentsR Defines the number of horizontal segments that make up the torus.		 * @param segmentsT Defines the number of vertical segments that make up the torus.		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function TorusGeometry(radius:Number = 50, tubeRadius:Number = 50, segmentsR:Number = 16, segmentsT:Number = 8, yUp:Boolean = true):void
 		{
 			super();
 
-            _radius = radius;
-            _tubeRadius = tubeRadius;
-            _segmentsR = segmentsR;
-            _segmentsT = segmentsT;
-			_yUp = yUp;
+            this._radius = radius;
+            this._tubeRadius = tubeRadius;
+            this._segmentsR = segmentsR;
+            this._segmentsT = segmentsT;
+			this._yUp = yUp;
 		}
 	}
 }

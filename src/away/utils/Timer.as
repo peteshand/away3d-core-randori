@@ -1,4 +1,5 @@
 
+
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
@@ -29,8 +30,8 @@ package away.utils
 
 
 
-            _delay = delay;
-            _repeatCount = repeatCount;
+            this._delay = delay;
+            this._repeatCount = repeatCount;
 
             if (isNaN(delay) || delay < 0)
             {
@@ -42,26 +43,26 @@ package away.utils
         public function get currentCount():Number
         {
 
-            return _currentCount;
+            return this._currentCount;
 
         }
 
         public function get delay():Number
         {
 
-            return _delay;
+            return this._delay;
 
         }
 
         public function set delay(value:Number):void
         {
 
-            _delay = value;
+            this._delay = value;
 
-            if (_running)
+            if (this._running)
             {
-                stop();
-                start();
+                this.stop();
+                this.start();
             }
 
         }
@@ -69,68 +70,68 @@ package away.utils
         public function get repeatCount():Number
         {
 
-            return _repeatCount;
+            return this._repeatCount;
         }
 
         public function set repeatCount(value:Number):void
         {
 
-            _repeatCount = value;
+            this._repeatCount = value;
         }
 
         public function reset():void
         {
 
-            if (_running)
+            if (this._running)
             {
-                stop();
+                this.stop();
             }
 
-            _currentCount = 0;
+            this._currentCount = 0;
 
         }
 
         public function get running():Boolean
         {
 
-            return _running;
+            return this._running;
 
         }
 
         public function start():void
         {
 
-            _running = true;
-            Window.clearInterval( _iid );
-            _iid = Window.setInterval( tick , _delay );
+            this._running = true;
+            Window.clearInterval( this._iid );
+            this._iid = Window.setInterval( tick , this._delay );
 
         }
 
         public function stop():void
         {
 
-            _running = false;
-            Window.clearInterval( _iid );
+            this._running = false;
+            Window.clearInterval( this._iid );
 
         }
 
         private function tick():void
         {
 
-            _currentCount ++;
+            this._currentCount ++;
 
-            if ( ( _repeatCount > 0 ) && _currentCount >= _repeatCount)
+            if ( ( this._repeatCount > 0 ) && this._currentCount >= this._repeatCount)
             {
 
-                stop();
-                dispatchEvent( new TimerEvent( TimerEvent.TIMER ) );
-                dispatchEvent( new TimerEvent( TimerEvent.TIMER_COMPLETE ) );
+                this.stop();
+                this.dispatchEvent( new TimerEvent( TimerEvent.TIMER ) );
+                this.dispatchEvent( new TimerEvent( TimerEvent.TIMER_COMPLETE ) );
 
             }
             else
             {
 
-                dispatchEvent( new TimerEvent( TimerEvent.TIMER ) );
+                this.dispatchEvent( new TimerEvent( TimerEvent.TIMER ) );
 
             }
 

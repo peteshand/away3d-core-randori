@@ -1,4 +1,5 @@
 
+
 ///<reference path="../../_definitions.ts"/>
 
 package away.materials.utils
@@ -16,22 +17,13 @@ package away.materials.utils
 	//import flash.display3D.textures.TextureBase;
 	//import flash.geom.*;
 
-	/**
-	 * MipmapGenerator is a helper class that uploads BitmapData to a Texture including mipmap levels.
-	 */
+	/**	 * MipmapGenerator is a helper class that uploads BitmapData to a Texture including mipmap levels.	 */
 	public class MipmapGenerator
 	{
 		private static var _matrix:Matrix = new Matrix();
         private static var _rect:Rectangle = new Rectangle();
-        private static var _source:BitmapData;//= new away.display.BitmapData();
-
-        /**
-         * Uploads a BitmapData with mip maps to a target Texture object.
-         * @param source
-         * @param target The target Texture to upload to.
-         * @param mipmap An optional mip map holder to avoids creating new instances for fe animated materials.
-         * @param alpha Indicate whether or not the uploaded bitmapData is transparent.
-         */
+        private static var _source:BitmapData;//= new away.display.BitmapData();
+        /**         * Uploads a BitmapData with mip maps to a target Texture object.         * @param source         * @param target The target Texture to upload to.         * @param mipmap An optional mip map holder to avoids creating new instances for fe animated materials.         * @param alpha Indicate whether or not the uploaded bitmapData is transparent.         */
         public static function generateHTMLImageElementMipMaps(source:HTMLImageElement, target:TextureBase, mipmap:BitmapData = null, alpha:Boolean = false, side:Number = -1):void
         {
 
@@ -49,13 +41,7 @@ package away.materials.utils
 
 
         }
-		/**
-		 * Uploads a BitmapData with mip maps to a target Texture object.
-		 * @param source The source BitmapData to upload.
-		 * @param target The target Texture to upload to.
-		 * @param mipmap An optional mip map holder to avoids creating new instances for fe animated materials.
-		 * @param alpha Indicate whether or not the uploaded bitmapData is transparent.
-		 */
+		/**		 * Uploads a BitmapData with mip maps to a target Texture object.		 * @param source The source BitmapData to upload.		 * @param target The target Texture to upload to.		 * @param mipmap An optional mip map holder to avoids creating new instances for fe animated materials.		 * @param alpha Indicate whether or not the uploaded bitmapData is transparent.		 */
 		public static function generateMipMaps(source:BitmapData, target:TextureBase, mipmap:BitmapData = null, alpha:Boolean = false, side:Number = -1):void
 		{
 			var w       : Number    = source.width;

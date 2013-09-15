@@ -1,9 +1,7 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
     ///<reference path="../_definitions.ts"/>
+
 package away.utils
 {
 	import away.geom.Matrix3D;
@@ -18,7 +16,7 @@ package away.utils
 		{
 			var yScale:Number = 1/Math.tan( fieldOfViewY/2 );
 			var xScale:Number = yScale / aspectRatio;
-			copyRawDataFrom( new <Number>[xScale, 0.0, 0.0, 0.0,
+			this.copyRawDataFrom( new <Number>[xScale, 0.0, 0.0, 0.0,
 				0.0, yScale, 0.0, 0.0,
 				0.0, 0.0, zFar/(zFar-zNear), 1.0,
 				0.0, 0.0, (zNear*zFar)/(zNear-zFar), 0.0]

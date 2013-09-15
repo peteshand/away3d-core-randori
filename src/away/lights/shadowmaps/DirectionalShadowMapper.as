@@ -1,8 +1,4 @@
-
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
 
 ///<reference path="../../_definitions.ts" />
 
@@ -35,69 +31,69 @@ package away.lights.shadowmaps
 		public function DirectionalShadowMapper():void
 		{
 			super();
-			_pCullPlanes = new <Plane3D>[];
-			_pOverallDepthLens = new FreeMatrixLens();
-			_pOverallDepthCamera = new Camera3D( _pOverallDepthLens );
-			_pLocalFrustum = new <Number>[];
-			_pMatrix = new Matrix3D();
+			this._pCullPlanes = new <Plane3D>[];
+			this._pOverallDepthLens = new FreeMatrixLens();
+			this._pOverallDepthCamera = new Camera3D( this._pOverallDepthLens );
+			this._pLocalFrustum = new <Number>[];
+			this._pMatrix = new Matrix3D();
 		}
 		
 		public function get snap():Number
 		{
-			return _pSnap;
+			return this._pSnap;
 		}
 		
 		public function set snap(value:Number):void
 		{
-			_pSnap = value;
+			this._pSnap = value;
 		}
 		
 		public function get lightOffset():Number
 		{
-			return _pLightOffset;
+			return this._pLightOffset;
 		}
 		
 		public function set lightOffset(value:Number):void
 		{
-			_pLightOffset = value;
+			this._pLightOffset = value;
 		}
 		
 		//@arcane
 		public function get iDepthProjection():Matrix3D
 		{
-			return _pOverallDepthCamera.viewProjection;
+			return this._pOverallDepthCamera.viewProjection;
 		}
 		
 		//@arcane
 		public function get depth():Number
 		{
-			return _pMaxZ - _pMinZ;
+			return this._pMaxZ - this._pMinZ;
 		}
 		
 		//@override
 		override public function pDrawDepthMap(target:TextureBase, scene:Scene3D, renderer:DepthRenderer):void
 		{
-			_pCasterCollector.camera = _pOverallDepthCamera;
-			_pCasterCollector.cullPlanes = _pCullPlanes;
-			_pCasterCollector.clear();
-			scene.traversePartitions( _pCasterCollector);
-			renderer.iRender( _pCasterCollector, target);
-			_pCasterCollector.cleanUp();
+			this._pCasterCollector.camera = this._pOverallDepthCamera;
+			this._pCasterCollector.cullPlanes = this._pCullPlanes;
+			this._pCasterCollector.clear();
+			scene.traversePartitions( this._pCasterCollector);
+			renderer.iRender( this._pCasterCollector, target);
+			this._pCasterCollector.cleanUp();
 		}
 
 		//@protected
 		public function pUpdateCullPlanes(viewCamera:Camera3D):void
 		{
-			var lightFrustumPlanes:Vector.<Plane3D> = _pOverallDepthCamera.frustumPlanes;
+			var lightFrustumPlanes:Vector.<Plane3D> = this._pOverallDepthCamera.frustumPlanes;
 			var viewFrustumPlanes:Vector.<Plane3D> = viewCamera.frustumPlanes;
-			_pCullPlanes.length = 4;
+			this._pCullPlanes.length = 4;
 			
-			_pCullPlanes[0] = lightFrustumPlanes[0];
-			_pCullPlanes[1] = lightFrustumPlanes[1];
-			_pCullPlanes[2] = lightFrustumPlanes[2];
-			_pCullPlanes[3] = lightFrustumPlanes[3];
+			this._pCullPlanes[0] = lightFrustumPlanes[0];
+			this._pCullPlanes[1] = lightFrustumPlanes[1];
+			this._pCullPlanes[2] = lightFrustumPlanes[2];
+			this._pCullPlanes[3] = lightFrustumPlanes[3];
 			
-			var light:DirectionalLight = (_pLight as DirectionalLight);
+			var light:DirectionalLight = (this._pLight as DirectionalLight);
 			var dir:Vector3D = light.sceneDirection;
 			var dirX:Number = dir.x;
 			var dirY:Number = dir.y;
@@ -108,7 +104,7 @@ package away.lights.shadowmaps
 				var plane:Plane3D = viewFrustumPlanes[i];
 				if( plane.a*dirX + plane.b*dirY + plane.c*dirZ < 0 )
 				{
-					_pCullPlanes[j++] = plane;
+					this._pCullPlanes[j++] = plane;
 				}
 			}
 		}
@@ -116,9 +112,9 @@ package away.lights.shadowmaps
 		//@override
 		override public function pUpdateDepthProjection(viewCamera:Camera3D):void
 		{
-			pUpdateProjectionFromFrustumCorners( viewCamera, viewCamera.lens.frustumCorners, _pMatrix );
-			_pOverallDepthLens.matrix = _pMatrix;
-			pUpdateCullPlanes( viewCamera );
+			this.pUpdateProjectionFromFrustumCorners( viewCamera, viewCamera.lens.frustumCorners, this._pMatrix );
+			this._pOverallDepthLens.matrix = this._pMatrix;
+			this.pUpdateCullPlanes( viewCamera );
 		}
 		
 		public function pUpdateProjectionFromFrustumCorners(viewCamera:Camera3D, corners:Vector.<Number>, matrix:Matrix3D):void
@@ -130,29 +126,29 @@ package away.lights.shadowmaps
 			var maxX:Number, maxY:Number;
 			var i:Number;
 			
-			var light: DirectionalLight = (_pLight as DirectionalLight);
+			var light: DirectionalLight = (this._pLight as DirectionalLight);
 			dir = light.sceneDirection;
-			_pOverallDepthCamera.transform = _pLight.sceneTransform;
-			x = Math.floor((viewCamera.x - dir.x*_pLightOffset)/_pSnap)*_pSnap;
-			y = Math.floor((viewCamera.y - dir.y*_pLightOffset)/_pSnap)*_pSnap;
-			z = Math.floor((viewCamera.z - dir.z*_pLightOffset)/_pSnap)*_pSnap;
-			_pOverallDepthCamera.x = x;
-			_pOverallDepthCamera.y = y;
-			_pOverallDepthCamera.z = z;
+			this._pOverallDepthCamera.transform = this._pLight.sceneTransform;
+			x = Math.floor((viewCamera.x - dir.x*this._pLightOffset)/this._pSnap)*this._pSnap;
+			y = Math.floor((viewCamera.y - dir.y*this._pLightOffset)/this._pSnap)*this._pSnap;
+			z = Math.floor((viewCamera.z - dir.z*this._pLightOffset)/this._pSnap)*this._pSnap;
+			this._pOverallDepthCamera.x = x;
+			this._pOverallDepthCamera.y = y;
+			this._pOverallDepthCamera.z = z;
 			
-			_pMatrix.copyFrom( _pOverallDepthCamera.inverseSceneTransform );
-			_pMatrix.prepend( viewCamera.sceneTransform );
-			_pMatrix.transformVectors( corners, _pLocalFrustum );
+			this._pMatrix.copyFrom( this._pOverallDepthCamera.inverseSceneTransform );
+			this._pMatrix.prepend( viewCamera.sceneTransform );
+			this._pMatrix.transformVectors( corners, this._pLocalFrustum );
 			
-			minX = maxX = _pLocalFrustum[0];
-			minY = maxY = _pLocalFrustum[1];
-			_pMaxZ = _pLocalFrustum[2];
+			minX = maxX = this._pLocalFrustum[0];
+			minY = maxY = this._pLocalFrustum[1];
+			this._pMaxZ = this._pLocalFrustum[2];
 			
 			i = 3;
 			while (i < 24) {
-				x = _pLocalFrustum[i];
-				y = _pLocalFrustum[i + 1];
-				z = _pLocalFrustum[i + 2];
+				x = this._pLocalFrustum[i];
+				y = this._pLocalFrustum[i + 1];
+				z = this._pLocalFrustum[i + 2];
 				if (x < minX)
 					minX = x;
 				if (x > maxX)
@@ -161,28 +157,28 @@ package away.lights.shadowmaps
 					minY = y;
 				if (y > maxY)
 					maxY = y;
-				if (z > _pMaxZ)
-					_pMaxZ = z;
+				if (z > this._pMaxZ)
+					this._pMaxZ = z;
 				i += 3;
 			}
-			_pMinZ = 1;
+			this._pMinZ = 1;
 			
 			var w:Number = maxX - minX;
 			var h:Number = maxY - minY;
-			var d:Number = 1/(_pMaxZ - _pMinZ);
+			var d:Number = 1/(this._pMaxZ - this._pMinZ);
 			
 			if( minX < 0 )
 			{
-				minX -= _pSnap; // because int() rounds up for < 0
+				minX -= this._pSnap; // because int() rounds up for < 0
 			}
 			if( minY < 0 )
 			{
-				minY -= _pSnap;
+				minY -= this._pSnap;
 			}
-			minX = Math.floor(minX/_pSnap)*_pSnap;
-			minY = Math.floor(minY/_pSnap)*_pSnap;
+			minX = Math.floor(minX/this._pSnap)*this._pSnap;
+			minY = Math.floor(minY/this._pSnap)*this._pSnap;
 			
-			var snap2:Number = 2*_pSnap;
+			var snap2:Number = 2*this._pSnap;
 			w = Math.floor(w/snap2 + 2)*snap2;
 			h = Math.floor(h/snap2 + 2)*snap2;
 			
@@ -197,7 +193,7 @@ package away.lights.shadowmaps
 			raw[10] = d;
 			raw[12] = -(maxX + minX)*w;
 			raw[13] = -(maxY + minY)*h;
-			raw[14] = -_pMinZ*d;
+			raw[14] = -this._pMinZ*d;
 			raw[15] = 1;
 			raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
 			

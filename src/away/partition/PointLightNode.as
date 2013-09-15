@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.partition
@@ -16,20 +14,20 @@ package away.partition
 		public function PointLightNode(light:PointLight):void
 		{
 			super( light );
-			_light = light;
+			this._light = light;
 		}
 		
 		public function get light():PointLight
 		{
-			return _light;
+			return this._light;
 		}
 		
 		override public function acceptTraverser(traverser:PartitionTraverser):void
 		{
-			if( traverser.enterNode( (this as NodeBase)) )
+			if( traverser.enterNode( (this as NodeBase) )  )
 			{
 				super.acceptTraverser( traverser );
-				traverser.applyPointLight( _light );
+				traverser.applyPointLight( this._light );
 			}
 		}
 	}

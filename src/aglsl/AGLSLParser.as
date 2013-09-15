@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../away/_definitions.ts" />
 
 package aglsl
@@ -109,14 +107,14 @@ package aglsl
 							{
 								continue;
 							}
-							var destregstring:String = regtostring( desc.tokens[i].dest.regtype, desc.tokens[i].dest.regnum, desc, tag );
+							var destregstring:String = this.regtostring( desc.tokens[i].dest.regtype, desc.tokens[i].dest.regnum, desc, tag );
 							var destcaststring:String = "float"; 
 							var destmaskstring = ["x","y","z","w"][sl];           
 							destregstring += "." + destmaskstring;
 						}
 						else
 						{
-							var destregstring:String = regtostring( desc.tokens[i].dest.regtype, desc.tokens[i].dest.regnum, desc, tag );
+							var destregstring:String = this.regtostring( desc.tokens[i].dest.regtype, desc.tokens[i].dest.regnum, desc, tag );
 							var destcaststring:String;
 							var destmaskstring:String;
 							if ( desc.tokens[i].dest.mask != 0xf )
@@ -169,11 +167,11 @@ package aglsl
 					}
 					if ( desc.tokens[i].a )
 					{
-						line = line.replace ( "%a", sourcetostring( desc.tokens[i].a, 0, dwm, lutentry.scalar, desc, tag ) );
+						line = line.replace ( "%a", this.sourcetostring( desc.tokens[i].a, 0, dwm, lutentry.scalar, desc, tag ) );
 					}
 					if ( desc.tokens[i].b )
 					{
-						line = line.replace( "%b", sourcetostring( desc.tokens[i].b, sl, dwm, lutentry.scalar, desc, tag ) );                                                                                
+						line = line.replace( "%b", this.sourcetostring( desc.tokens[i].b, sl, dwm, lutentry.scalar, desc, tag ) );                                                                                
 						if ( desc.tokens[i].b.regtype == 0x5 )
 						{
 							// sampler dim
@@ -236,7 +234,7 @@ package aglsl
 			var r;
 			
 			if ( s.indirectflag ) {                                    
-				r = "vcarrr[int("+regtostring(s.indexregtype, s.regnum, desc, tag)+"."+swiz[s.indexselect]+")";
+				r = "vcarrr[int("+this.regtostring(s.indexregtype, s.regnum, desc, tag)+"."+swiz[s.indexselect]+")";
 				var realofs = subline+s.indexoffset;            
 				if ( realofs<0 ) r+=realofs.toString();
 				if ( realofs>0 ) r+="+"+realofs.toString();            
@@ -244,7 +242,7 @@ package aglsl
 			}
 			else
 			{
-				r = regtostring(s.regtype, s.regnum+subline, desc, tag);
+				r = this.regtostring(s.regtype, s.regnum+subline, desc, tag);
 			}
 			
 			// samplers never add swizzle        

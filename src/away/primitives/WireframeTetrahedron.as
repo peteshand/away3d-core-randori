@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts" />
-
 package away.primitives
 {
 	import away.geom.Vector3D;
@@ -7,9 +6,7 @@ package away.primitives
 	
 	//import away3d.primitives.WireframePrimitiveBase;
 	
-	/**
-	 * A WireframeTetrahedron primitive mesh
-	 */
+	/**	 * A WireframeTetrahedron primitive mesh	 */
 	public class WireframeTetrahedron extends WireframePrimitiveBase
 	{
 		
@@ -21,72 +18,58 @@ package away.primitives
 		private var _height:Number;
 		private var _orientation:String;
 		
-		/**
-		 * Creates a new WireframeTetrahedron object.
-		 * @param width The size of the tetrahedron buttom size.
-		 * @param height The size of the tetranhedron height.
-		 * @param color The color of the wireframe lines.
-		 * @param thickness The thickness of the wireframe lines.
-		 */
+		/**		 * Creates a new WireframeTetrahedron object.		 * @param width The size of the tetrahedron buttom size.		 * @param height The size of the tetranhedron height.		 * @param color The color of the wireframe lines.		 * @param thickness The thickness of the wireframe lines.		 */
 		public function WireframeTetrahedron(width:Number, height:Number, color:Number = 0xffffff, thickness:Number = 1, orientation:String = "yz"):void
 		{
 			super(color, thickness);
 			
-			_width = width;
-            _height = height;
+			this._width = width;
+            this._height = height;
 
-            _orientation = orientation;
+            this._orientation = orientation;
 		}
 		
-		/**
-		 * The orientation in which the plane lies
-		 */
+		/**		 * The orientation in which the plane lies		 */
 		public function get orientation():String
 		{
-			return _orientation;
+			return this._orientation;
 		}
 		
 		public function set orientation(value:String):void
 		{
-            _orientation = value;
-            pInvalidateGeometry();
+            this._orientation = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the tetrahedron bottom.
-		 */
+		/**		 * The size of the tetrahedron bottom.		 */
 		public function get width():Number
 		{
-			return _width;
+			return this._width;
 		}
 		
 		public function set width(value:Number):void
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            _width = value;
-			pInvalidateGeometry();
+            this._width = value;
+			this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the tetrahedron height.
-		 */
+		/**		 * The size of the tetrahedron height.		 */
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
 		
 		public function set height(value:Number):void
 		{
 			if (value <= 0)
 				throw new Error("Value needs to be greater than 0");
-            _height = value;
-            pInvalidateGeometry();
+            this._height = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry():void
 		{
 			
@@ -96,9 +79,9 @@ package away.primitives
 			var bv3:Vector3D;
 			var top:Vector3D;
 
-			var hw:Number = _width*0.5;
+			var hw:Number = this._width*0.5;
 			
-			switch (_orientation)
+			switch (this._orientation)
             {
 				case WireframeTetrahedron.ORIENTATION_XY:
 
@@ -106,33 +89,33 @@ package away.primitives
 					bv1 = new Vector3D(hw, hw, 0);
 					bv2 = new Vector3D(hw, -hw, 0);
 					bv3 = new Vector3D(-hw, -hw, 0);
-					top = new Vector3D(0, 0, _height);
+					top = new Vector3D(0, 0, this._height);
 					break;
 				case WireframeTetrahedron.ORIENTATION_XZ:
 					bv0 = new Vector3D(-hw, 0, hw);
 					bv1 = new Vector3D(hw, 0, hw);
 					bv2 = new Vector3D(hw, 0, -hw);
 					bv3 = new Vector3D(-hw, 0, -hw);
-					top = new Vector3D(0, _height, 0);
+					top = new Vector3D(0, this._height, 0);
 					break;
 				case WireframeTetrahedron.ORIENTATION_YZ:
 					bv0 = new Vector3D(0, -hw, hw);
 					bv1 = new Vector3D(0, hw, hw);
 					bv2 = new Vector3D(0, hw, -hw);
 					bv3 = new Vector3D(0, -hw, -hw);
-					top = new Vector3D(_height, 0, 0);
+					top = new Vector3D(this._height, 0, 0);
 					break;
 			}
 			//bottom
-			pUpdateOrAddSegment(0, bv0, bv1);
-            pUpdateOrAddSegment(1, bv1, bv2);
-            pUpdateOrAddSegment(2, bv2, bv3);
-            pUpdateOrAddSegment(3, bv3, bv0);
+			this.pUpdateOrAddSegment(0, bv0, bv1);
+            this.pUpdateOrAddSegment(1, bv1, bv2);
+            this.pUpdateOrAddSegment(2, bv2, bv3);
+            this.pUpdateOrAddSegment(3, bv3, bv0);
 			//bottom to top
-            pUpdateOrAddSegment(4, bv0, top);
-            pUpdateOrAddSegment(5, bv1, top);
-            pUpdateOrAddSegment(6, bv2, top);
-            pUpdateOrAddSegment(7, bv3, top);
+            this.pUpdateOrAddSegment(4, bv0, top);
+            this.pUpdateOrAddSegment(5, bv1, top);
+            this.pUpdateOrAddSegment(6, bv2, top);
+            this.pUpdateOrAddSegment(7, bv3, top);
 		}
 	}
 }

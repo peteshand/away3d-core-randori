@@ -1,5 +1,4 @@
 ///<reference path="../_definitions.ts"/>
-
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
@@ -8,9 +7,7 @@ package away.primitives
 	
 	//use namespace arcane;
 	
-	/**
-	 * A Cube primitive mesh.
-	 */
+	/**	 * A Cube primitive mesh.	 */
 	public class CubeGeometry extends PrimitiveBase
 	{
 		private var _width:Number;
@@ -22,138 +19,108 @@ package away.primitives
 		private var _segmentsH:Number;
 		private var _segmentsD:Number;
 		
-		/**
-		 * Creates a new Cube object.
-		 * @param width The size of the cube along its X-axis.
-		 * @param height The size of the cube along its Y-axis.
-		 * @param depth The size of the cube along its Z-axis.
-		 * @param segmentsW The number of segments that make up the cube along the X-axis.
-		 * @param segmentsH The number of segments that make up the cube along the Y-axis.
-		 * @param segmentsD The number of segments that make up the cube along the Z-axis.
-		 * @param tile6 The type of uv mapping to use. When true, a texture will be subdivided in a 2x3 grid, each used for a single face. When false, the entire image is mapped on each face.
-		 */
+		/**		 * Creates a new Cube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param segmentsD The number of segments that make up the cube along the Z-axis.		 * @param tile6 The type of uv mapping to use. When true, a texture will be subdivided in a 2x3 grid, each used for a single face. When false, the entire image is mapped on each face.		 */
 		public function CubeGeometry(width:Number = 100, height:Number = 100, depth:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, segmentsD:Number = 1, tile6:Boolean = true):void
 		{
 			super();
 			
-			_width = width;
-            _height = height;
-            _depth = depth;
-            _segmentsW = segmentsW;
-            _segmentsH = segmentsH;
-            _segmentsD = segmentsD;
-            _tile6 = tile6;
+			this._width = width;
+            this._height = height;
+            this._depth = depth;
+            this._segmentsW = segmentsW;
+            this._segmentsH = segmentsH;
+            this._segmentsD = segmentsD;
+            this._tile6 = tile6;
 		}
 		
-		/**
-		 * The size of the cube along its X-axis.
-		 */
+		/**		 * The size of the cube along its X-axis.		 */
 		public function get width():Number
 		{
-			return _width;
+			return this._width;
 		}
 		
 		public function set width(value:Number):void
 		{
-            _width = value;
-            pInvalidateGeometry();
+            this._width = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the cube along its Y-axis.
-		 */
+		/**		 * The size of the cube along its Y-axis.		 */
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
 		
 		public function set height(value:Number):void
 		{
-            _height = value;
-            pInvalidateGeometry();
+            this._height = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The size of the cube along its Z-axis.
-		 */
+		/**		 * The size of the cube along its Z-axis.		 */
 		public function get depth():Number
 		{
-			return _depth;
+			return this._depth;
 		}
 		
 		public function set depth(value:Number):void
 		{
-            _depth = value;
-            pInvalidateGeometry();
+            this._depth = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The type of uv mapping to use. When false, the entire image is mapped on each face.
-		 * When true, a texture will be subdivided in a 3x2 grid, each used for a single face.
-		 * Reading the tiles from left to right, top to bottom they represent the faces of the
-		 * cube in the following order: bottom, top, back, left, front, right. This creates
-		 * several shared edges (between the top, front, left and right faces) which simplifies
-		 * texture painting.
-		 */
+		/**		 * The type of uv mapping to use. When false, the entire image is mapped on each face.		 * When true, a texture will be subdivided in a 3x2 grid, each used for a single face.		 * Reading the tiles from left to right, top to bottom they represent the faces of the		 * cube in the following order: bottom, top, back, left, front, right. This creates		 * several shared edges (between the top, front, left and right faces) which simplifies		 * texture painting.		 */
 		public function get tile6():Boolean
 		{
-			return _tile6;
+			return this._tile6;
 		}
 		
 		public function set tile6(value:Boolean):void
 		{
-            _tile6 = value;
-            pInvalidateGeometry();
+            this._tile6 = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The number of segments that make up the cube along the X-axis. Defaults to 1.
-		 */
+		/**		 * The number of segments that make up the cube along the X-axis. Defaults to 1.		 */
 		public function get segmentsW():Number
 		{
-			return _segmentsW;
+			return this._segmentsW;
 		}
 		
 		public function set segmentsW(value:Number):void
 		{
-            _segmentsW = value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsW = value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * The number of segments that make up the cube along the Y-axis. Defaults to 1.
-		 */
+		/**		 * The number of segments that make up the cube along the Y-axis. Defaults to 1.		 */
 		public function get segmentsH():Number
 		{
-			return _segmentsH;
+			return this._segmentsH;
 		}
 		
 		public function set segmentsH(value:Number):void
 		{
-            _segmentsH = value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsH = value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * The number of segments that make up the cube along the Z-axis. Defaults to 1.
-		 */
+		/**		 * The number of segments that make up the cube along the Z-axis. Defaults to 1.		 */
 		public function get segmentsD():Number
 		{
-			return _segmentsD;
+			return this._segmentsD;
 		}
 		
 		public function set segmentsD(value:Number):void
 		{
-            _segmentsD = value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsD = value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -168,9 +135,9 @@ package away.primitives
 			
 			var outer_pos:Number;
 			
-			var numVerts:Number = ((_segmentsW + 1)*(_segmentsH + 1) +
-				(_segmentsW + 1)*(_segmentsD + 1) +
-				(_segmentsH + 1)*(_segmentsD + 1))*2;
+			var numVerts:Number = ((this._segmentsW + 1)*(this._segmentsH + 1) +
+				(this._segmentsW + 1)*(this._segmentsD + 1) +
+				(this._segmentsH + 1)*(this._segmentsD + 1))*2;
 			
 			var stride:Number = target.vertexStride;
 			var skip:Number = stride - 9;
@@ -180,13 +147,13 @@ package away.primitives
 
 				data = target.vertexData;
 
-                indices = ( target.indexData ) ? target.indexData : new Vector.<Number>((_segmentsW*_segmentsH + _segmentsW*_segmentsD + _segmentsH*_segmentsD)*12 );
+                indices = ( target.indexData ) ? target.indexData : new Vector.<Number>((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
                 //indices = target.indexData || new Vector.<uint>((_segmentsW*_segmentsH + _segmentsW*_segmentsD + _segmentsH*_segmentsD)*12, true);
 
 			} else {
 				data = new Vector.<Number>( numVerts*stride );
-				indices = new Vector.<Number>((_segmentsW*_segmentsH + _segmentsW*_segmentsD + _segmentsH*_segmentsD)*12 );
-                pInvalidateUVs();
+				indices = new Vector.<Number>((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
+                this.pInvalidateUVs();
 			}
 			
 			// Indices
@@ -194,19 +161,19 @@ package away.primitives
 			fidx = 0;
 			
 			// half cube dimensions
-			hw = _width/2;
-			hh = _height/2;
-			hd = _depth/2;
+			hw = this._width/2;
+			hh = this._height/2;
+			hd = this._depth/2;
 			
 			// Segment dimensions
-			dw = _width/_segmentsW;
-			dh = _height/_segmentsH;
-			dd = _depth/_segmentsD;
+			dw = this._width/this._segmentsW;
+			dh = this._height/this._segmentsH;
+			dd = this._depth/this._segmentsD;
 			
-			for (i = 0; i <= _segmentsW; i++) {
+			for (i = 0; i <= this._segmentsW; i++) {
 				outer_pos = -hw + i*dw;
 				
-				for (j = 0; j <= _segmentsH; j++) {
+				for (j = 0; j <= this._segmentsH; j++) {
 					// front
 					data[vidx++] = outer_pos;
 					data[vidx++] = -hh + j*dh;
@@ -232,8 +199,8 @@ package away.primitives
 					vidx += skip;
 					
 					if (i && j) {
-						tl = 2*((i - 1)*(_segmentsH + 1) + (j - 1));
-						tr = 2*(i*(_segmentsH + 1) + (j - 1));
+						tl = 2*((i - 1)*(this._segmentsH + 1) + (j - 1));
+						tr = 2*(i*(this._segmentsH + 1) + (j - 1));
 						bl = tl + 2;
 						br = tr + 2;
 						
@@ -253,12 +220,12 @@ package away.primitives
 				}
 			}
 			
-			inc += 2*(_segmentsW + 1)*(_segmentsH + 1);
+			inc += 2*(this._segmentsW + 1)*(this._segmentsH + 1);
 			
-			for (i = 0; i <= _segmentsW; i++) {
+			for (i = 0; i <= this._segmentsW; i++) {
 				outer_pos = -hw + i*dw;
 				
-				for (j = 0; j <= _segmentsD; j++) {
+				for (j = 0; j <= this._segmentsD; j++) {
 					// top
 					data[vidx++] = outer_pos;
 					data[vidx++] = hh;
@@ -284,8 +251,8 @@ package away.primitives
 					vidx += skip;
 					
 					if (i && j) {
-						tl = inc + 2*((i - 1)*(_segmentsD + 1) + (j - 1));
-						tr = inc + 2*(i*(_segmentsD + 1) + (j - 1));
+						tl = inc + 2*((i - 1)*(this._segmentsD + 1) + (j - 1));
+						tr = inc + 2*(i*(this._segmentsD + 1) + (j - 1));
 						bl = tl + 2;
 						br = tr + 2;
 						
@@ -305,12 +272,12 @@ package away.primitives
 				}
 			}
 			
-			inc += 2*(_segmentsW + 1)*(_segmentsD + 1);
+			inc += 2*(this._segmentsW + 1)*(this._segmentsD + 1);
 			
-			for (i = 0; i <= _segmentsD; i++) {
+			for (i = 0; i <= this._segmentsD; i++) {
 				outer_pos = hd - i*dd;
 				
-				for (j = 0; j <= _segmentsH; j++) {
+				for (j = 0; j <= this._segmentsH; j++) {
 					// left
 					data[vidx++] = -hw;
 					data[vidx++] = -hh + j*dh;
@@ -336,8 +303,8 @@ package away.primitives
 					vidx += skip;
 					
 					if (i && j) {
-						tl = inc + 2*((i - 1)*(_segmentsH + 1) + (j - 1));
-						tr = inc + 2*(i*(_segmentsH + 1) + (j - 1));
+						tl = inc + 2*((i - 1)*(this._segmentsH + 1) + (j - 1));
+						tr = inc + 2*(i*(this._segmentsH + 1) + (j - 1));
 						bl = tl + 2;
 						br = tr + 2;
 						
@@ -361,9 +328,7 @@ package away.primitives
 			target.updateIndexData(indices);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number, uidx:Number;
@@ -375,19 +340,19 @@ package away.primitives
 			var tl1u:Number, tl1v:Number;
 			var du:Number, dv:Number;
 			var stride:Number = target.UVStride;
-			var numUvs:Number = ((_segmentsW + 1)*(_segmentsH + 1) +
-				(_segmentsW + 1)*(_segmentsD + 1) +
-				(_segmentsH + 1)*(_segmentsD + 1))*2*stride;
+			var numUvs:Number = ((this._segmentsW + 1)*(this._segmentsH + 1) +
+				(this._segmentsW + 1)*(this._segmentsD + 1) +
+				(this._segmentsH + 1)*(this._segmentsD + 1))*2*stride;
 			var skip:Number = stride - 2;
 			
 			if (target.UVData && numUvs == target.UVData.length)
 				data = target.UVData;
 			else {
 				data = new Vector.<Number>( numUvs );
-                pInvalidateGeometry();
+                this.pInvalidateGeometry();
 			}
 			
-			if (_tile6) {
+			if (this._tile6) {
 				u_tile_dim = u_tile_step = 1/3;
 				v_tile_dim = v_tile_step = 1/2;
 			} else {
@@ -414,14 +379,14 @@ package away.primitives
 			tl0v = 1*v_tile_step;
 			tl1u = 2*u_tile_step;
 			tl1v = 0*v_tile_step;
-			du = u_tile_dim/_segmentsW;
-			dv = v_tile_dim/_segmentsH;
-			for (i = 0; i <= _segmentsW; i++) {
-				for (j = 0; j <= _segmentsH; j++) {
-					data[uidx++] = 1 - ( ( tl0u + i*du )*target.scaleU ) ;
+			du = u_tile_dim/this._segmentsW;
+			dv = v_tile_dim/this._segmentsH;
+			for (i = 0; i <= this._segmentsW; i++) {
+				for (j = 0; j <= this._segmentsH; j++) {
+					data[uidx++] = ( tl0u + i*du )*target.scaleU  ;
 					data[uidx++] = ( tl0v + (v_tile_dim - j*dv))*target.scaleV;
 					uidx += skip;
-					data[uidx++] = 1 - ( ( tl1u + (u_tile_dim - i*du))*target.scaleU ) ;
+					data[uidx++] = ( tl1u + (u_tile_dim - i*du))*target.scaleU;
 					data[uidx++] = ( tl1v + (v_tile_dim - j*dv))*target.scaleV;
 					uidx += skip;
 				}
@@ -432,10 +397,10 @@ package away.primitives
 			tl0v = 0*v_tile_step;
 			tl1u = 0*u_tile_step;
 			tl1v = 0*v_tile_step;
-			du = u_tile_dim/_segmentsW;
-			dv = v_tile_dim/_segmentsD;
-			for (i = 0; i <= _segmentsW; i++) {
-				for (j = 0; j <= _segmentsD; j++) {
+			du = u_tile_dim/this._segmentsW;
+			dv = v_tile_dim/this._segmentsD;
+			for (i = 0; i <= this._segmentsW; i++) {
+				for (j = 0; j <= this._segmentsD; j++) {
 					data[uidx++] = ( tl0u + i*du)*target.scaleU;
 					data[uidx++] = ( tl0v + (v_tile_dim - j*dv))*target.scaleV;
 					uidx += skip;
@@ -450,10 +415,10 @@ package away.primitives
 			tl0v = 1*v_tile_step;
 			tl1u = 2*u_tile_step;
 			tl1v = 1*v_tile_step;
-			du = u_tile_dim/_segmentsD;
-			dv = v_tile_dim/_segmentsH;
-			for (i = 0; i <= _segmentsD; i++) {
-				for (j = 0; j <= _segmentsH; j++) {
+			du = u_tile_dim/this._segmentsD;
+			dv = v_tile_dim/this._segmentsH;
+			for (i = 0; i <= this._segmentsD; i++) {
+				for (j = 0; j <= this._segmentsH; j++) {
 					data[uidx++] = ( tl0u + i*du)*target.scaleU;;
 					data[uidx++] = ( tl0v + (v_tile_dim - j*dv))*target.scaleV;
 					uidx += skip;

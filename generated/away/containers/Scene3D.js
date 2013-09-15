@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:13 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:44:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -61,7 +61,7 @@ away.containers.Scene3D.prototype.get_numChildren = function() {
 away.containers.Scene3D.prototype.iRegisterEntity = function(entity) {
 	var partition = entity.iGetImplicitPartition();
 	this.iAddPartitionUnique(partition);
-	partition.iMarkForUpdate(entity);
+	this.get_partition().iMarkForUpdate(entity);
 };
 
 away.containers.Scene3D.prototype.iUnregisterEntity = function(entity) {

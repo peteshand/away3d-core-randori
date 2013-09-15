@@ -1,18 +1,12 @@
-/*
- * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/
- * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk )
- */
+/* * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/ * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk ) */
+
 ///<reference path="../_definitions.ts"/>
 
-/**
- * @module kurst.events
- */
+/** * @module kurst.events */
 package away.events {
 
     
-    /**
-     * Event listener data container
-     */
+    /**     * Event listener data container     */
     public class EventData{
 
         public var listener:Function;

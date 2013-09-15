@@ -1,245 +1,287 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
 {
 	import randori.webkit.html.canvas.ArrayBuffer;
+	import randori.webkit.html.canvas.DataView;
 	public class ByteArray extends ByteArrayBase
 	{
 		
 		public var maxlength:Number = 0;
-		public var arraybytes; //ArrayBuffer  
-		public var unalignedarraybytestemp; //ArrayBuffer
-		
+		public var arraybytes; //ArrayBuffer  		public var unalignedarraybytestemp; //ArrayBuffer		
 		public function ByteArray():void
 		{
 			super();
-			_mode = "Typed array";
-			maxlength = 4;
-			arraybytes = new ArrayBuffer();// maxlength );
-			unalignedarraybytestemp = new ArrayBuffer();
+			this._mode = "Typed array";
+			this.maxlength = 4;
+			this.arraybytes = new ArrayBuffer();// this.maxlength );
+			this.unalignedarraybytestemp = new ArrayBuffer();
 		}
 		
 		public function ensureWriteableSpace(n:Number):void
 		{
-			ensureSpace( n + position );
+			this.ensureSpace( n + this.position );
 		}
 
         public function setArrayBuffer(aBuffer:ArrayBuffer):void
         {
 
-            /*
-            var v2 : Int8Array = new Int8Array( aBuffer );
+            this.ensureSpace( aBuffer.byteLength );
 
-            for (var i = 0; i < v2.length - 1 ; i++)
-            {
-                this.writeByte( v2[ i ] );
-            }
-            //*/
-            /*
-            this.maxlength = aBuffer.byteLength + 4;
-            this.arraybytes = new ArrayBuffer( this.maxlength );
+            this.length                     = aBuffer.byteLength;
 
-            this.length = aBuffer.byteLength;
+            var inInt8AView     : Int8Array = new Int8Array( aBuffer );
+            var localInt8View   : Int8Array = new Int8Array( this.arraybytes, 0, this.length );
 
-            for (var i = 0; i < aBuffer.byteLength; i++)
-            {
-                this.arraybytes [ i ] = aBuffer[ i  ];
-            }
-            //*/
-            //bytes.setArrayBuffer( result );
+                localInt8View.set( inInt8AView );
 
-            /*
-            this.maxlength += 4;
-
-            this.maxlength = this.length = aBuffer.byteLength;
-            this.maxlength += 4;
-
-            this.maxlength = this.length = aBuffer.byteLength;
-            this.maxlength += 4;
-
-            this.arraybytes = aBuffer;
-            */
-
-            //*
-            maxlength = length = aBuffer.byteLength;
-            //this.maxlength += 4;
-
-            arraybytes = aBuffer;
-            //*/
+            this.position = 0;
 
         }
 
         override public function getBytesAvailable():Number
         {
-            return ( arraybytes.byteLength ) - ( position ) ;
+            return ( this.length ) - ( this.position ) ;
         }
 
 		public function ensureSpace(n:Number):void
 		{
-			if ( n > maxlength )
+			if ( n > this.maxlength )
 			{
 				var newmaxlength:Number = (n+255)&(~255); 
 				var newarraybuffer = new ArrayBuffer();                              
-				var view = new Uint8Array( arraybytes, 0, length ); 
-				var newview = new Uint8Array( newarraybuffer, 0, length ); 
+				var view = new Uint8Array( this.arraybytes, 0, this.length ); 
+				var newview = new Uint8Array( newarraybuffer, 0, this.length ); 
 				newview.set( view );      // memcpy                        
-				arraybytes = newarraybuffer;
-				maxlength = newmaxlength;                         
+				this.arraybytes = newarraybuffer;
+				this.maxlength = newmaxlength;                         
 			}
 		}
 		
 		override public function writeByte(b:Number):void
 		{                    
-			ensureWriteableSpace( 1 );         
-			var view = new Int8Array( arraybytes ); 
-			view[ position++ ] = (~~b); // ~~ is cast to int in js...
-			if ( position > length )
+			this.ensureWriteableSpace( 1 );         
+			var view = new Int8Array( this.arraybytes ); 
+			view[ this.position++ ] = (~~b); // ~~ is cast to int in js...
+			if ( this.position > this.length )
 			{
-				length = position;
+				this.length = this.position;
 			}
 		}
 		
 		override public function readByte():Number
-		{     
-			if ( position >= length )
+		{
+			if ( this.position >= this.length )
 			{
-				throw "ByteArray out of bounds read. Positon="+position+", Length="+length; 
+				throw "ByteArray out of bounds read. Positon="+this.position+", Length="+this.length; 
 			}
-			var view = new Int8Array(arraybytes);
-			return view[ position++ ];
+			var view = new Int8Array(this.arraybytes);
+
+			return view[ this.position++ ];
 		}
 
-        public function readBytes(bytes:ByteArray, start:Number = 0, end:Number = 0):void
+        public function readBytes(bytes:ByteArray, offset:Number = 0, length:Number = 0):void
         {
 
-            var uintArr : Uint8Array = new Uint8Array( arraybytes );
-
-            if ( end == start || end <= start )
+            if (length == 0)
             {
-                end = uintArr.length;
+                length = bytes.length;
             }
 
-            var result      : ArrayBuffer   = new ArrayBuffer();
-            var resultArray : Uint8Array    = new Uint8Array(result);
+            bytes.ensureWriteableSpace(offset + length);
 
-            for (var i = 0; i < resultArray.length; i++)
+            var byteView        : Int8Array = new Int8Array( bytes.arraybytes );
+            var localByteView   : Int8Array = new Int8Array( this.arraybytes );
+
+            byteView.set( localByteView.subarray( this.position , this.position + length), offset);
+
+            this.position += length;
+
+            if ( length + offset > bytes.length)
             {
-                resultArray[ i ] = uintArr[ i + start ];
+                bytes.length += ( length + offset ) - bytes.length;
             }
-
-            bytes.setArrayBuffer( result );
 
         }
-		
+
 		override public function writeUnsignedByte(b:Number):void
 		{                    
-			ensureWriteableSpace( 1 );         
-			var view = new Uint8Array( arraybytes ); 
-			view[position++] = (~~b) & 0xff; // ~~ is cast to int in js...
-			if ( position > length )
+			this.ensureWriteableSpace( 1 );         
+			var view = new Uint8Array( this.arraybytes ); 
+			view[this.position++] = (~~b) & 0xff; // ~~ is cast to int in js...
+			if ( this.position > this.length )
 			{
-				length = position;
+				this.length = this.position;
 			}
 		}
-		
 		override public function readUnsignedByte():Number
 		{     
-			if ( position >= length )
+			if ( this.position >= this.length )
 			{
-				throw "ByteArray out of bounds read. Positon="+position+", Length="+length; 
+				throw "ByteArray out of bounds read. Positon="+this.position+", Length="+this.length; 
 			}
-			var view = new Uint8Array(arraybytes); 
-			return view[position++];                
+			var view = new Uint8Array(this.arraybytes); 
+			return view[this.position++];                
 		}
 		
 		override public function writeUnsignedShort(b:Number):void
 		{       
-			ensureWriteableSpace ( 2 );         
-			if ( ( position & 1 ) == 0 )
+			this.ensureWriteableSpace ( 2 );         
+			if ( ( this.position & 1 ) == 0 )
 			{
-				var view = new Uint16Array( arraybytes );
-				view[ position >> 1 ] = (~~b) & 0xffff; // ~~ is cast to int in js...
+				var view = new Uint16Array( this.arraybytes );
+				view[ this.position >> 1 ] = (~~b) & 0xffff; // ~~ is cast to int in js...
 			} 
 			else
 			{
-				var view = new Uint16Array(unalignedarraybytestemp, 0, 1 );
+				var view = new Uint16Array(this.unalignedarraybytestemp, 0, 1 );
 				view[0] = (~~b) & 0xffff;
-				var view2 = new Uint8Array( arraybytes, position, 2 );                         
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 2 ); 
+				var view2 = new Uint8Array( this.arraybytes, this.position, 2 );                         
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 2 ); 
 				view2.set(view3);               
 			}
-			position += 2;
-			if ( position > length )
+			this.position += 2;
+			if ( this.position > this.length )
 			{
-				length = position;
+				this.length = this.position;
 			}
 		}
 		
+        public function readUTFBytes(len:Number):String {
+        
+            var value   : String    = "";
+            var max     : Number    = this.position + len;
+            var data    : DataView  = DataView( this.arraybytes );
+
+            // utf8-encode
+            while (this.position < max) {
+
+                var c : Number = data.getUint16(this.position++);
+
+                if (c < 0x80) {
+
+                    if (c == 0) break;
+                    value += String.fromCharCode(c);
+
+                } else if (c < 0xE0) {
+
+                    value += String.fromCharCode(((c & 0x3F) << 6) |(data.getUint16(this.position++) & 0x7F));
+
+                } else if (c < 0xF0) {
+
+                    var c2 = data.getUint16(this.position++);
+                    value += String.fromCharCode(((c & 0x1F) << 12) |((c2 & 0x7F) << 6) |(data.getUint16(this.position++) & 0x7F));
+
+                } else {
+
+                    var c2 = data.getUint16(this.position++);
+                    var c3 = data.getUint16(this.position++);
+
+                    value += String.fromCharCode(((c & 0x0F) << 18) |((c2 & 0x7F) << 12) |((c3 << 6) & 0x7F) |(data.getUint16(this.position++) & 0x7F));
+
+                }
+
+            }
+
+            return value;
+
+        }
+
+        public function readInt():Number
+        {
+
+            var data    : DataView      = DataView( this.arraybytes );
+            var int     : Number        = data.getInt32( this.position );
+
+            this.position += 4;
+
+            return int;
+
+        }
+
+        public function readShort():Number
+        {
+
+            var data    : DataView      = DataView( this.arraybytes );
+            var short   : Number        = data.getInt16(this.position );
+
+            this.position += 2;
+            return short;
+
+        }
+
+        public function readDouble():Number
+        {
+            var data    : DataView      = DataView( this.arraybytes );
+            var double  : Number        = data.getFloat64( this.position );
+
+            this.position += 8;
+            return double;
+
+        }
+
 		override public function readUnsignedShort():Number
 		{     
-			if ( position > length + 2 )
+			if ( this.position > this.length + 2 )
 			{
-				throw "ByteArray out of bounds read. Positon=" + position + ", Length=" + length;         
+				throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
 			}
-			if ( ( position & 1 )==0 )
+			if ( ( this.position & 1 )==0 )
 			{
-				var view = new Uint16Array( arraybytes );
-				var pa:Number = position >> 1;
-				position += 2;
+				var view = new Uint16Array( this.arraybytes );
+				var pa:Number = this.position >> 1;
+				this.position += 2;
 				return view[ pa ];
 			}
 			else
 			{
-				var view = new Uint16Array( unalignedarraybytestemp, 0, 1 );
-				var view2 = new Uint8Array( arraybytes,position, 2 );
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 2 );
+				var view = new Uint16Array( this.unalignedarraybytestemp, 0, 1 );
+				var view2 = new Uint8Array( this.arraybytes,this.position, 2 );
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 2 );
 				view3.set( view2 );
-				position += 2;
+				this.position += 2;
 				return view[0];
 			}
 		}
 		
 		override public function writeUnsignedInt(b:Number):void
 		{                    
-			ensureWriteableSpace( 4 );         
-			if ( ( position & 3 ) == 0 )
+			this.ensureWriteableSpace( 4 );         
+			if ( ( this.position & 3 ) == 0 )
 			{
-				var view = new Uint32Array( arraybytes );
-				view[ position >> 2 ] = (~~b) & 0xffffffff; // ~~ is cast to int in js...            
+				var view = new Uint32Array( this.arraybytes );
+				view[ this.position >> 2 ] = (~~b) & 0xffffffff; // ~~ is cast to int in js...            
 			}
 			else
 			{
-				var view = new Uint32Array( unalignedarraybytestemp, 0, 1 );
+				var view = new Uint32Array( this.unalignedarraybytestemp, 0, 1 );
 				view[0] = (~~b) & 0xffffffff; 
-				var view2 = new Uint8Array( arraybytes, position, 4 );                         
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 ); 
+				var view2 = new Uint8Array( this.arraybytes, this.position, 4 );                         
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 4 ); 
 				view2.set( view3 );                 
 			}        
-			position+=4; 
-			if ( position > length )
+			this.position+=4; 
+			if ( this.position > this.length )
 			{
-				length = position;
+				this.length = this.position;
 			}
 		}
-
 
         public function readUnsignedInteger():Number
         {
 
-            if ( position > length + 4 )
+            if ( this.position > this.length + 4 )
             {
-                throw "ByteArray out of bounds read. Position=" + position + ", Length=" + length;
+                throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
             }
 
-            var view = new Uint32Array( unalignedarraybytestemp, 0, 1 );
-            var view2 = new Uint8Array( arraybytes,position, 4 );
-            var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 );
+            var view = new Uint32Array( this.unalignedarraybytestemp, 0, 1 );
+            var view2 = new Uint8Array( this.arraybytes,this.position, 4 );
+            var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 4 );
             view3.set( view2 );
-            position += 4;
+            this.position += 4;
             return view[0];
 
         }
@@ -248,71 +290,70 @@ package away.utils
 
 		override public function readUnsignedInt():Number
 		{
-
-			if ( position > length + 4 )
+			if ( this.position > this.length + 4 )
 			{
-				throw "ByteArray out of bounds read. Position=" + position + ", Length=" + length;
+				throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
 			}
-			if ( ( position & 3 ) == 0 )
+			if ( ( this.position & 3 ) == 0 )
 			{
-				var view = new Uint32Array( arraybytes );
-				var pa:Number = position >> 2;
-				position += 4;
+				var view = new Uint32Array( this.arraybytes );
+				var pa:Number = this.position >> 2;
+				this.position += 4;
 				return view[ pa ];
 			}
 			else
 			{
-				var view = new Uint32Array( unalignedarraybytestemp, 0, 1 );
-				var view2 = new Uint8Array( arraybytes,position, 4 );
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 );
+				var view = new Uint32Array( this.unalignedarraybytestemp, 0, 1 );
+				var view2 = new Uint8Array( this.arraybytes,this.position, 4 );
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 4 );
 				view3.set( view2 );
-				position += 4;
+				this.position += 4;
 				return view[0];
 			}
 		}
 		
 		override public function writeFloat(b:Number):void
 		{                    
-			ensureWriteableSpace( 4 );         
-			if ( ( position & 3 ) == 0 ) {
-				var view = new Float32Array( arraybytes );
-				view[ position >> 2 ] = b; 
+			this.ensureWriteableSpace( 4 );         
+			if ( ( this.position & 3 ) == 0 ) {
+				var view = new Float32Array( this.arraybytes );
+				view[ this.position >> 2 ] = b; 
 			}
 			else
 			{
-				var view = new Float32Array( unalignedarraybytestemp, 0, 1 );
+				var view = new Float32Array( this.unalignedarraybytestemp, 0, 1 );
 				view[0] = b;
-				var view2 = new Uint8Array( arraybytes,position, 4 );
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 );
+				var view2 = new Uint8Array( this.arraybytes,this.position, 4 );
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 4 );
 				view2.set(view3);
 			}
-			position += 4; 
-			if ( position > length )
+			this.position += 4; 
+			if ( this.position > this.length )
 			{
-				length = position;
+				this.length = this.position;
 			}
 		}
 		
-		override public function readFloat(b:Number):Number
+		override public function readFloat():Number
 		{     
-			if ( position > length + 4 )
+			if ( this.position > this.length + 4 )
 			{
-				throw "ByteArray out of bounds read. Positon="+position+", Length="+length;         
+				throw "ByteArray out of bounds read. Positon="+this.position+", Length="+this.length;         
 			}
-			if ( (position&3) == 0 )
+			if ( (this.position&3) == 0 )
 			{
-				var view = new Float32Array(arraybytes);
-				var pa = position >> 2;
-				position += 4;
+				var view = new Float32Array(this.arraybytes);
+				var pa = this.position >> 2;
+				this.position += 4;
 				return view[pa];
 			}
 			else
 			{
-				var view = new Float32Array( unalignedarraybytestemp, 0, 1 );
-				var view2 = new Uint8Array( arraybytes, position, 4 );
-				var view3 = new Uint8Array( unalignedarraybytestemp, 0, 4 );
+				var view = new Float32Array( this.unalignedarraybytestemp, 0, 1 );
+				var view2 = new Uint8Array( this.arraybytes, this.position, 4 );
+				var view3 = new Uint8Array( this.unalignedarraybytestemp, 0, 4 );
 				view3.set( view2 );
-				position += 4;
+				this.position += 4;
 				return view[ 0 ];
 			}
 		}

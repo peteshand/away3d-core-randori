@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -21,21 +22,21 @@ package away.textures
 		{
 			super();
 			
-			bitmapData         = bitmapData;
-			_generateMipmaps   = generateMipmaps;
+			this.bitmapData         = bitmapData;
+			this._generateMipmaps   = generateMipmaps;
 		}
 		
 		public function get bitmapData():BitmapData
 		{
 
-			return _bitmapData;
+			return this._bitmapData;
 
 		}
 		
 		public function set bitmapData(value:BitmapData):void
 		{
 
-			if (value == _bitmapData)
+			if (value == this._bitmapData)
             {
 
                 return;
@@ -50,16 +51,16 @@ package away.textures
             }
 
 
-            invalidateContent();
+            this.invalidateContent();
 
-			pSetSize( value.width, value.height);
+			this.pSetSize( value.width, value.height);
 
-            _bitmapData = value;
+            this._bitmapData = value;
 			
-			if (_generateMipmaps)
+			if (this._generateMipmaps)
             {
 
-                getMipMapHolder();
+                this.getMipMapHolder();
 
             }
 
@@ -68,17 +69,17 @@ package away.textures
 		override public function pUploadContent(texture:TextureBase):void
 		{
 
-			if (_generateMipmaps)
+			if (this._generateMipmaps)
             {
 
-                MipmapGenerator.generateMipMaps(_bitmapData, texture, _mipMapHolder, true);
+                MipmapGenerator.generateMipMaps(this._bitmapData, texture, this._mipMapHolder, true);
 
             }
 			else
             {
 
                 var tx : Texture = (texture as Texture);
-                    tx.uploadFromBitmapData( _bitmapData , 0 );
+                    tx.uploadFromBitmapData( this._bitmapData , 0 );
 
             }
 
@@ -88,13 +89,13 @@ package away.textures
 		{
 			var newW:Number, newH:Number;
 			
-			newW = _bitmapData.width;
-			newH = _bitmapData.height;
+			newW = this._bitmapData.width;
+			newH = this._bitmapData.height;
 			
-			if (_mipMapHolder)
+			if (this._mipMapHolder)
             {
 
-				if (_mipMapHolder.width == newW && _bitmapData.height == newH)
+				if (this._mipMapHolder.width == newW && this._bitmapData.height == newH)
                 {
 
                     return;
@@ -102,7 +103,7 @@ package away.textures
                 }
 
 
-                freeMipMapHolder();
+                this.freeMipMapHolder();
 
 			}
 			
@@ -117,7 +118,7 @@ package away.textures
 			if (!BitmapTexture._mipMaps[newW][newH])
             {
 
-                _mipMapHolder = BitmapTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+                this._mipMapHolder = BitmapTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
                 BitmapTexture._mipMapUses[newW][newH] = 1;
 
 			}
@@ -125,15 +126,15 @@ package away.textures
             {
 
                 BitmapTexture._mipMapUses[newW][newH] = BitmapTexture._mipMapUses[newW][newH] + 1;
-                _mipMapHolder = BitmapTexture._mipMaps[newW][newH];
+                this._mipMapHolder = BitmapTexture._mipMaps[newW][newH];
 
 			}
 		}
 		
 		private function freeMipMapHolder():void
 		{
-			var holderWidth:Number = _mipMapHolder.width;
-			var holderHeight:Number = _mipMapHolder.height;
+			var holderWidth:Number = this._mipMapHolder.width;
+			var holderHeight:Number = this._mipMapHolder.height;
 			
 			if (--BitmapTexture._mipMapUses[holderWidth][holderHeight] == 0)
             {
@@ -148,10 +149,10 @@ package away.textures
 		{
 			super.dispose();
 			
-			if (_mipMapHolder)
+			if (this._mipMapHolder)
             {
 
-                freeMipMapHolder();
+                this.freeMipMapHolder();
             }
 
 		}

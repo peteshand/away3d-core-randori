@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.net {
@@ -31,83 +32,62 @@ package away.net {
 
         // Public
 
-        /**
-         *
-         * @param request {away.net.URLRequest}
-         */
+        /**         *         * @param request {away.net.URLRequest}         */
         public function load(request:URLRequest):void
         {
 
-            initXHR();
-            _request = request;
+            this.initXHR();
+            this._request = request;
 
             if ( request.method === URLRequestMethod.POST ){
 
-                postRequest( request );
+                this.postRequest( request );
 
 
             } else {
 
-                getRequest( request );
+                this.getRequest( request );
 
             }
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function close():void
         {
 
-            _XHR.abort();
-            disposeXHR();
+            this._XHR.abort();
+            this.disposeXHR();
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         public function dispose():void
         {
 
-            if ( _XHR)
+            if ( this._XHR)
             {
 
-                _XHR.abort();
+                this._XHR.abort();
 
             }
 
-            disposeXHR();
+            this.disposeXHR();
 
-            _data          = null;
-            _dataFormat    = null;
-            _bytesLoaded   = null;
-            _bytesTotal    = null;
+            this._data          = null;
+            this._dataFormat    = null;
+            this._bytesLoaded   = null;
+            this._bytesTotal    = null;
 
-            /*
-            if( this._request )
-            {
+            /*            if( this._request )            {                this._request.dispose();            }            */
 
-                this._request.dispose();
-
-            }
-            */
-
-            _request   = null;
+            this._request   = null;
 
         }
 
         // Get / Set
 
-        /**
-         *
-         * away.net.URLLoaderDataFormat.BINARY
-         * away.net.URLLoaderDataFormat.TEXT
-         * away.net.URLLoaderDataFormat.VARIABLES
-         *
-         * @param format
-         */
+        /**         *         * away.net.URLLoaderDataFormat.BINARY         * away.net.URLLoaderDataFormat.TEXT         * away.net.URLLoaderDataFormat.VARIABLES         *         * @param format         */
         public function set dataFormat(format:String):void
         {
 
@@ -117,7 +97,7 @@ package away.net {
                 || format === URLLoaderDataFormat.TEXT
                 || format === URLLoaderDataFormat.VARIABLES) {
 
-                _dataFormat = format;
+                this._dataFormat = format;
 
             } else {
 
@@ -127,69 +107,49 @@ package away.net {
 
         }
 
-        /**
-         *
-         * @returns {string}
-         *      away.net.URLLoaderDataFormat
-         */
+        /**         *         * @returns {string}         *      away.net.URLLoaderDataFormat         */
         public function get dataFormat():String
         {
 
-            return _dataFormat;
+            return this._dataFormat;
 
         }
 
-        /**
-         *
-         * @returns {*}
-         */
+        /**         *         * @returns {*}         */
         public function get data():*
         {
 
-            return _data;
+            return this._data;
 
         }
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get bytesLoaded():Number
         {
 
-            return _bytesLoaded;
+            return this._bytesLoaded;
 
         }
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
         public function get bytesTotal():Number
         {
 
-            return _bytesTotal;
+            return this._bytesTotal;
 
         }
 
-        /**
-         *
-         * @returns {away.net.URLRequest}
-         */
+        /**         *         * @returns {away.net.URLRequest}         */
         public function get request():URLRequest
         {
 
-            return _request;
+            return this._request;
 
         }
 
         // Private
 
-        /**
-         *
-         * @param xhr
-         * @param responseType
-         */
+        /**         *         * @param xhr         * @param responseType         */
         private function setResponseType(xhr:XMLHttpRequest, responseType:String):void
         {
 
@@ -223,37 +183,31 @@ package away.net {
 
         }
 
-        /**
-         *
-         * @param request {away.net.URLRequest}
-         */
+        /**         *         * @param request {away.net.URLRequest}         */
         private function getRequest(request:URLRequest):void
         {
 
             try {
 
-                _XHR.open( request.method , request.url , request.async );
-                setResponseType( _XHR , _dataFormat );
-                _XHR.send(); // No data to send
+                this._XHR.open( request.method , request.url , request.async );
+                this.setResponseType( this._XHR , this._dataFormat );
+                this._XHR.send(); // No data to send
 
             } catch ( e /* <XMLHttpRequestException> */ ) {
 
-                handleXmlHttpRequestException( e);
+                this.handleXmlHttpRequestException( e);
 
             }
 
         }
 
-        /**
-         *
-         * @param request {away.net.URLRequest}
-         */
+        /**         *         * @param request {away.net.URLRequest}         */
         private function postRequest(request:URLRequest):void
         {
 
-            _loadError = false;
+            this._loadError = false;
 
-            _XHR.open( request.method , request.url , request.async );
+            this._XHR.open( request.method , request.url , request.async );
 
             if ( request.data != null )
             {
@@ -265,13 +219,13 @@ package away.net {
 
                     try {
 
-                        _XHR.responseType = 'text';
-                        _XHR.send( urlVars.formData );
+                        this._XHR.responseType = 'text';
+                        this._XHR.send( urlVars.formData );
 
 
                     } catch ( e /* <XMLHttpRequestException> */ ) {
 
-                        handleXmlHttpRequestException( e );
+                        this.handleXmlHttpRequestException( e );
 
                     }
 
@@ -279,15 +233,15 @@ package away.net {
                 else
                 {
 
-                    setResponseType( _XHR , _dataFormat );
+                    this.setResponseType( this._XHR , this._dataFormat );
 
                     if ( request.data ) {
 
-                        _XHR.send( request.data ); // TODO: Test
+                        this._XHR.send( request.data ); // TODO: Test
 
                     } else {
 
-                        _XHR.send( ); // no data to send
+                        this._XHR.send( ); // no data to send
 
                     }
 
@@ -298,28 +252,20 @@ package away.net {
             else
             {
 
-                _XHR.send(); // No data to send
+                this._XHR.send(); // No data to send
 
             }
 
         }
 
-        /**
-         *
-         * @param error {XMLHttpRequestException}
-         */
+        /**         *         * @param error {XMLHttpRequestException}         */
         private function handleXmlHttpRequestException(error /* <XMLHttpRequestException> */):void
         {
 
             switch ( error.code )
             {
 
-                /******************************************************************************************************************************************************************************************************
-                 *
-                 *  XMLHttpRequestException { message: "NETWORK_ERR: XMLHttpRequest Exception 101", name: "NETWORK_ERR", code: 101, stack: "Error: A network error occurred in synchronous req…",NETWORK_ERR: 101… }
-                 *  code: 101 , message: "NETWORK_ERR: XMLHttpRequest Exception 101" ,  name: "NETWORK_ERR"
-                 *
-                 ******************************************************************************************************************************************************************************************************/
+                /******************************************************************************************************************************************************************************************************                 *                 *  XMLHttpRequestException { message: "NETWORK_ERR: XMLHttpRequest Exception 101", name: "NETWORK_ERR", code: 101, stack: "Error: A network error occurred in synchronous req…",NETWORK_ERR: 101… }                 *  code: 101 , message: "NETWORK_ERR: XMLHttpRequest Exception 101" ,  name: "NETWORK_ERR"                 *                 ******************************************************************************************************************************************************************************************************/
 
                 //case 101:
 
@@ -334,56 +280,49 @@ package away.net {
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         private function initXHR():void
         {
 
-            if ( ! _XHR )
+            if ( ! this._XHR )
             {
 
-                _XHR = new XMLHttpRequest();
+                this._XHR = new XMLHttpRequest();
 
-                _XHR.onloadstart = onLoadStart;                 // loadstart	        - When the request starts.
-                _XHR.onprogress = onProgress;	                // progress	            - While loading and sending data.
-                _XHR.onabort = onAbort;	                        // abort	            - When the request has been aborted, either by invoking the abort() method or navigating away from the page.
-                _XHR.onerror = onLoadError;                     // error	            - When the request has failed.
-                _XHR.onload = onLoadComplete;                   // load	                - When the request has successfully completed.
-                _XHR.ontimeout	= onTimeOut;                     // timeout	            - When the author specified timeout has passed before the request could complete.
-                _XHR.onloadend	= onLoadEnd;                     // loadend	            - When the request has completed, regardless of whether or not it was successful.
-                _XHR.onreadystatechange = onReadyStateChange;   // onreadystatechange   - When XHR state changes
+                this._XHR.onloadstart = this.onLoadStart;                 // loadstart	        - When the request starts.
+                this._XHR.onprogress = this.onProgress;	                // progress	            - While loading and sending data.
+                this._XHR.onabort = this.onAbort;	                        // abort	            - When the request has been aborted, either by invoking the abort() method or navigating away from the page.
+                this._XHR.onerror = this.onLoadError;                     // error	            - When the request has failed.
+                this._XHR.onload = this.onLoadComplete;                   // load	                - When the request has successfully completed.
+                this._XHR.ontimeout	= this.onTimeOut;                     // timeout	            - When the author specified timeout has passed before the request could complete.
+                this._XHR.onloadend	= this.onLoadEnd;                     // loadend	            - When the request has completed, regardless of whether or not it was successful.
+                this._XHR.onreadystatechange = this.onReadyStateChange;   // onreadystatechange   - When XHR state changes
 
             }
 
         }
 
-        /**
-         *
-         */
+        /**         *         */
         private function disposeXHR():void
         {
 
-            if ( _XHR !== null )
+            if ( this._XHR !== null )
             {
 
-                _XHR.onloadstart   = null;
-                _XHR.onprogress    = null;
-                _XHR.onabort       = null;
-                _XHR.onerror       = null;
-                _XHR.onload        = null;
-                _XHR.ontimeout	    = null;
-                _XHR.onloadend	    = null;
-                _XHR               = null;
+                this._XHR.onloadstart   = null;
+                this._XHR.onprogress    = null;
+                this._XHR.onabort       = null;
+                this._XHR.onerror       = null;
+                this._XHR.onload        = null;
+                this._XHR.ontimeout	    = null;
+                this._XHR.onloadend	    = null;
+                this._XHR               = null;
 
             }
 
         }
 
-        /**
-         *
-         * @param source
-         */
+        /**         *         * @param source         */
         public function decodeURLVariables(source:String):Object
         {
 
@@ -406,44 +345,35 @@ package away.net {
 
         // XMLHttpRequest - Event Handlers
 
-        /**
-         * When XHR state changes
-         * @param event
-         */
+        /**         * When XHR state changes         * @param event         */
         private function onReadyStateChange(event):void
         {
-            if (_XHR.readyState==4)
+            if (this._XHR.readyState==4)
             {
 
-                if (_XHR.status==404)
+                if (this._XHR.status==404)
                 {
 
-                    _loadError = true;
-                    dispatchEvent( new IOErrorEvent(IOErrorEvent.IO_ERROR ));
+                    this._loadError = true;
+                    this.dispatchEvent( new IOErrorEvent(IOErrorEvent.IO_ERROR ));
 
                 }
 
-                dispatchEvent( new HTTPStatusEvent( HTTPStatusEvent.HTTP_STATUS , _XHR.status ));
+                this.dispatchEvent( new HTTPStatusEvent( HTTPStatusEvent.HTTP_STATUS , this._XHR.status ));
 
             }
 
         }
 
-        /**
-         * When the request has completed, regardless of whether or not it was successful.
-         * @param event
-         */
+        /**         * When the request has completed, regardless of whether or not it was successful.         * @param event         */
         private function onLoadEnd(event):void
         {
 
-            if( _loadError === true ) return;
+            if( this._loadError === true ) return;
 
         }
 
-        /**
-         * When the author specified timeout has passed before the request could complete.
-         * @param event
-         */
+        /**         * When the author specified timeout has passed before the request could complete.         * @param event         */
         private function onTimeOut(event):void
         {
 
@@ -451,10 +381,7 @@ package away.net {
 
         }
 
-        /**
-         * When the request has been aborted, either by invoking the abort() method or navigating away from the page.
-         * @param event
-         */
+        /**         * When the request has been aborted, either by invoking the abort() method or navigating away from the page.         * @param event         */
         private function onAbort(event):void
         {
 
@@ -462,56 +389,47 @@ package away.net {
 
         }
 
-        /**
-         * While loading and sending data.
-         * @param event
-         */
+        /**         * While loading and sending data.         * @param event         */
         private function onProgress(event):void
         {
 
-            _bytesTotal    = event.total;
-            _bytesLoaded   = event.loaded;
+            this._bytesTotal    = event.total;
+            this._bytesLoaded   = event.loaded;
 
             var progressEvent : ProgressEvent   = new ProgressEvent( ProgressEvent.PROGRESS );
-                progressEvent.bytesLoaded                   = _bytesLoaded;
-                progressEvent.bytesTotal                    = _bytesTotal;
-            dispatchEvent( progressEvent );
+                progressEvent.bytesLoaded                   = this._bytesLoaded;
+                progressEvent.bytesTotal                    = this._bytesTotal;
+            this.dispatchEvent( progressEvent );
 
         }
 
-        /**
-         * When the request starts.
-         * @param event
-         */
+        /**         * When the request starts.         * @param event         */
         private function onLoadStart(event):void
         {
 
-            dispatchEvent( new Event( Event.OPEN ));
+            this.dispatchEvent( new Event( Event.OPEN ));
 
         }
 
-        /**
-         * When the request has successfully completed.
-         * @param event
-         */
+        /**         * When the request has successfully completed.         * @param event         */
         private function onLoadComplete(event):void
         {
 
-            if( _loadError === true ) return;
+            if( this._loadError === true ) return;
 
             // TODO: Assert received data format
 
-            switch ( _dataFormat ){
+            switch ( this._dataFormat ){
 
                 case URLLoaderDataFormat.TEXT:
 
-                    _data = _XHR.responseText;
+                    this._data = this._XHR.responseText;
 
                     break;
 
                 case URLLoaderDataFormat.VARIABLES:
 
-                    _data = decodeURLVariables( _XHR.responseText );
+                    this._data = this.decodeURLVariables( this._XHR.responseText );
 
                     break;
 
@@ -519,31 +437,28 @@ package away.net {
                 case URLLoaderDataFormat.ARRAY_BUFFER:
                 case URLLoaderDataFormat.BINARY:
 
-                    _data = _XHR.response;
+                    this._data = this._XHR.response;
 
                     break;
 
                 default:
 
-                    _data = _XHR.responseText;
+                    this._data = this._XHR.responseText;
 
                     break;
 
             }
 
-            dispatchEvent( new Event( Event.COMPLETE ));
+            this.dispatchEvent( new Event( Event.COMPLETE ));
 
         }
 
-        /**
-         * When the request has failed. ( due to network issues ).
-         * @param event
-         */
+        /**         * When the request has failed. ( due to network issues ).         * @param event         */
         private function onLoadError(event):void
         {
 
-            _loadError = true;
-            dispatchEvent( new IOErrorEvent(IOErrorEvent.IO_ERROR ));
+            this._loadError = true;
+            this.dispatchEvent( new IOErrorEvent(IOErrorEvent.IO_ERROR ));
 
         }
 

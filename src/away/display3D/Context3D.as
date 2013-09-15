@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.display3D
@@ -46,10 +44,10 @@ package away.display3D
 		{
 			try
 			{
-				_gl = WebGLRenderingContext(canvas.getContext("experimental-webgl"));
-				if( !_gl )
+				this._gl = WebGLRenderingContext(canvas.getContext("experimental-webgl"));
+				if( !this._gl )
 				{
-					_gl = WebGLRenderingContext(canvas.getContext("webgl"));
+					this._gl = WebGLRenderingContext(canvas.getContext("webgl"));
 				}
 			}
 			catch(e)
@@ -57,7 +55,7 @@ package away.display3D
 				//this.dispatchEvent( new away.events.AwayEvent( away.events.AwayEvent.INITIALIZE_FAILED, e ) );
 			}
 			
-			if( _gl )
+			if( this._gl )
 			{
 				//this.dispatchEvent( new away.events.AwayEvent( away.events.AwayEvent.INITIALIZE_SUCCESS ) );
 			}
@@ -69,24 +67,24 @@ package away.display3D
 			
 			for( var i:Number = 0; i < Context3D.MAX_SAMPLERS; ++i )
 			{
-				_samplerStates[ i ] = new SamplerState();
-				_samplerStates[ i ].wrap = Number(WebGLRenderingContext.REPEAT)
-				_samplerStates[ i ].filter = Number(WebGLRenderingContext.LINEAR)
-				_samplerStates[ i ].mipfilter = 0;
+				this._samplerStates[ i ] = new SamplerState();
+				this._samplerStates[ i ].wrap = Number(WebGLRenderingContext.REPEAT)
+				this._samplerStates[ i ].filter = Number(WebGLRenderingContext.LINEAR)
+				this._samplerStates[ i ].mipfilter = 0;
 			}
 		}
 		
 		public function gl():WebGLRenderingContext
 		{
-			return _gl;
+			return this._gl;
 		}
 		
 		public function clear(red:Number = 0, green:Number = 0, blue:Number = 0, alpha:Number = 1, depth:Number = 1, stencil:Number = 0, mask:Number = 0):void
 		{
-			if (!_drawing) 
+			if (!this._drawing) 
 			{
-				updateBlendStatus();
-				_drawing = true;
+				this.updateBlendStatus();
+				this._drawing = true;
 			}
 			_gl.clearColor( red, green, blue, alpha );
 			_gl.clearDepth( depth );
@@ -110,115 +108,88 @@ package away.display3D
 		
 		public function createCubeTexture(size:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):CubeTexture 
 		{
-            var texture: CubeTexture = new CubeTexture( _gl, size );
-            _textureList.push( texture );
+            var texture: CubeTexture = new CubeTexture( this._gl, size );
+            this._textureList.push( texture );
             return texture;
 		}
 		
 		public function createIndexBuffer(numIndices:Number):IndexBuffer3D
 		{
-			var indexBuffer:IndexBuffer3D = new IndexBuffer3D( _gl, numIndices );
-			_indexBufferList.push( indexBuffer );
+			var indexBuffer:IndexBuffer3D = new IndexBuffer3D( this._gl, numIndices );
+			this._indexBufferList.push( indexBuffer );
 			return indexBuffer;
 		}
 		
 		public function createProgram():Program3D
 		{
-			var program:Program3D = new Program3D( _gl );
-			_programList.push( program );
+			var program:Program3D = new Program3D( this._gl );
+			this._programList.push( program );
 			return program;
 		}
 		
 		public function createTexture(width:Number, height:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):Texture
 		{
 			//TODO streaming
-			var texture: Texture = new Texture( _gl, width, height );
-			_textureList.push( texture );
+			var texture: Texture = new Texture( this._gl, width, height );
+			this._textureList.push( texture );
 			return texture;
 		}
 		
 		public function createVertexBuffer(numVertices:Number, data32PerVertex:Number):VertexBuffer3D
 		{
-			var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( _gl, numVertices, data32PerVertex );
-			_vertexBufferList.push( vertexBuffer );
+			var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( this._gl, numVertices, data32PerVertex );
+			this._vertexBufferList.push( vertexBuffer );
 			return vertexBuffer;
 		}
 		
 		public function dispose():void
 		{
 			var i:Number;
-			for( i = 0; i < _indexBufferList.length; ++i )
+			for( i = 0; i < this._indexBufferList.length; ++i )
 			{
-				_indexBufferList[i].dispose();
+				this._indexBufferList[i].dispose();
 			}
-			_indexBufferList = null;
+			this._indexBufferList = null;
 			
-			for( i = 0; i < _vertexBufferList.length; ++i )
+			for( i = 0; i < this._vertexBufferList.length; ++i )
 			{
-				_vertexBufferList[i].dispose();
+				this._vertexBufferList[i].dispose();
 			}
-			_vertexBufferList = null;
+			this._vertexBufferList = null;
 			
-			for( i = 0; i < _textureList.length; ++i )
+			for( i = 0; i < this._textureList.length; ++i )
 			{
-				_textureList[i].dispose();
+				this._textureList[i].dispose();
 			}
-			_textureList = null;
+			this._textureList = null;
 			
-			for( i = 0; i < _programList.length; ++i )
+			for( i = 0; i < this._programList.length; ++i )
 			{
-				_programList[i].dispose();
-			}
-			
-			for( i = 0; i < _samplerStates.length; ++i )
-			{
-				_samplerStates[i] = null;
+				this._programList[i].dispose();
 			}
 			
-			_programList = null;
+			for( i = 0; i < this._samplerStates.length; ++i )
+			{
+				this._samplerStates[i] = null;
+			}
+			
+			this._programList = null;
 		}
 		
 		public function drawToBitmapData(destination:BitmapData):void 
 		{
 			// TODO drawToBitmapData( destination:away.display.BitmapData )
 			
-			/*
-			rttFramebuffer = gl.createFramebuffer();
-			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
-			rttFramebuffer.width = 512;
-			rttFramebuffer.height = 512;
-			
-			rttTexture = gl.createTexture();
-			gl.bindTexture(gl.TEXTURE_2D, rttTexture);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-			gl.generateMipmap(gl.TEXTURE_2D);
-			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-			
-			var renderbuffer = gl.createRenderbuffer();
-			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
-			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);
-
-			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
-			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);
-			
-			gl.bindTexture(gl.TEXTURE_2D, null);
-			gl.bindRenderbuffer(gl.RENDERBUFFER, null);
-			gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-			*/
+			/*			rttFramebuffer = gl.createFramebuffer();			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);			rttFramebuffer.width = 512;			rttFramebuffer.height = 512;						rttTexture = gl.createTexture();			gl.bindTexture(gl.TEXTURE_2D, rttTexture);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);			gl.generateMipmap(gl.TEXTURE_2D);			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);						var renderbuffer = gl.createRenderbuffer();			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);						gl.bindTexture(gl.TEXTURE_2D, null);			gl.bindRenderbuffer(gl.RENDERBUFFER, null);			gl.bindFramebuffer(gl.FRAMEBUFFER, null);			*/
 			
 			throw new PartialImplementationError();
 		}
 		
 		public function drawTriangles(indexBuffer:IndexBuffer3D, firstIndex:Number = 0, numTriangles:Number = -1):void
 		{
-            /*
-			console.log( "======= drawTriangles ======= " )
-			console.log( indexBuffer );
-			console.log( "firstIndex   >>>>> " + firstIndex );
-			console.log( "numTriangles >>>>> " + numTriangles );
-			*/
-			if ( !_drawing ) 
+			// this.setCulling( Context3DTriangleFace.FRONT );
+            /*			console.log( "======= drawTriangles ======= " )			console.log( indexBuffer );			console.log( "firstIndex   >>>>> " + firstIndex );			console.log( "numTriangles >>>>> " + numTriangles );			*/
+			if ( !this._drawing ) 
 			{
 				throw "Need to clear before drawing if the buffer has not been cleared since the last present() call.";
 			}
@@ -240,48 +211,48 @@ package away.display3D
 		
 		public function present():void
 		{
-			_drawing = false;
+			this._drawing = false;
 			//this._gl.useProgram( null );
 		}
 		
 		public function setBlendFactors(sourceFactor:String, destinationFactor:String):void 
 		{
-			_blendEnabled = true;
+			this._blendEnabled = true;
 			
 			switch( sourceFactor )
 			{
 				case Context3DBlendFactor.ONE:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE);
 					break;
 				case Context3DBlendFactor.DESTINATION_ALPHA:
-						_blendSourceFactor = Number(WebGLRenderingContext.DST_ALPHA);
+						this._blendSourceFactor = Number(WebGLRenderingContext.DST_ALPHA);
 					break;
 				case Context3DBlendFactor.DESTINATION_COLOR:
-						_blendSourceFactor = Number(WebGLRenderingContext.DST_COLOR);
+						this._blendSourceFactor = Number(WebGLRenderingContext.DST_COLOR);
 					break;
 				case Context3DBlendFactor.ONE:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_ALPHA);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_ALPHA);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_DESTINATION_COLOR:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_COLOR);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_COLOR);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR:
-						_blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_COLOR);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_COLOR);
 					break;
 				case Context3DBlendFactor.SOURCE_ALPHA:
-						_blendSourceFactor = Number(WebGLRenderingContext.SRC_ALPHA);
+						this._blendSourceFactor = Number(WebGLRenderingContext.SRC_ALPHA);
 					break;
 				case Context3DBlendFactor.SOURCE_COLOR:
-						_blendSourceFactor = Number(WebGLRenderingContext.SRC_COLOR);
+						this._blendSourceFactor = Number(WebGLRenderingContext.SRC_COLOR);
 					break;
 				case Context3DBlendFactor.ZERO:
-						_blendSourceFactor = Number(WebGLRenderingContext.ZERO);
+						this._blendSourceFactor = Number(WebGLRenderingContext.ZERO);
 					break;
 				default:
 						throw "Unknown blend source factor"; // TODO error
@@ -291,44 +262,44 @@ package away.display3D
 			switch( destinationFactor )
 			{
 				case Context3DBlendFactor.ONE:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE);
 					break;
 				case Context3DBlendFactor.DESTINATION_ALPHA:
-						_blendDestinationFactor = Number(WebGLRenderingContext.DST_ALPHA);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.DST_ALPHA);
 					break;
 				case Context3DBlendFactor.DESTINATION_COLOR:
-						_blendDestinationFactor = Number(WebGLRenderingContext.DST_COLOR);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.DST_COLOR);
 					break;
 				case Context3DBlendFactor.ONE:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_ALPHA);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_ALPHA);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_DESTINATION_COLOR:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_COLOR);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_DST_COLOR);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_ALPHA);
 					break;
 				case Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_COLOR);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ONE_MINUS_SRC_COLOR);
 					break;
 				case Context3DBlendFactor.SOURCE_ALPHA:
-						_blendDestinationFactor = Number(WebGLRenderingContext.SRC_ALPHA);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.SRC_ALPHA);
 					break;
 				case Context3DBlendFactor.SOURCE_COLOR:
-						_blendDestinationFactor = Number(WebGLRenderingContext.SRC_COLOR);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.SRC_COLOR);
 					break;
 				case Context3DBlendFactor.ZERO:
-						_blendDestinationFactor = Number(WebGLRenderingContext.ZERO);
+						this._blendDestinationFactor = Number(WebGLRenderingContext.ZERO);
 					break;
 				default:
 						throw "Unknown blend destination factor"; // TODO error
 					break;
 			}
 			
-			updateBlendStatus();
+			this.updateBlendStatus();
 		}
 		
 		public function setColorMask(red:Boolean, green:Boolean, blue:Boolean, alpha:Boolean):void 
@@ -401,7 +372,7 @@ package away.display3D
 		public function setProgram(program3D:Program3D):void
 		{
 			//TODO decide on construction/reference resposibilities
-			_currentProgram = program3D;
+			this._currentProgram = program3D;
 			program3D.focusProgram();
 		}
 		
@@ -420,14 +391,12 @@ package away.display3D
 			}
 		}
 		
-		/*
-		public setProgramConstantsFromByteArray
-		*/
+		/*		public setProgramConstantsFromByteArray		*/
 		
 		public function setProgramConstantsFromMatrix(programType:String, firstRegister:Number, matrix:Matrix3D, transposedMatrix:Boolean = false):void
 		{
-			var locationName = getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
-			setGLSLProgramConstantsFromMatrix( locationName, matrix, transposedMatrix );
+			var locationName = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
+			this.setGLSLProgramConstantsFromMatrix( locationName, matrix, transposedMatrix );
 		}
 		
 		public static var modulo:Number = 0;		
@@ -436,36 +405,23 @@ package away.display3D
 			for( var i: Number = 0; i < numRegisters; ++i )
 			{
 				var currentIndex:Number = i * 4;
-				var locationName:String = getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister + i ) + ( i + firstRegister );
+				var locationName:String = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister + i ) + ( i + firstRegister );
 				
-				setGLSLProgramConstantsFromArray( locationName, data, currentIndex );
+				this.setGLSLProgramConstantsFromArray( locationName, data, currentIndex );
 			}
 		}
 		
-		/*
-		public setGLSLProgramConstantsFromByteArray
-		
-		*/
+		/*		public setGLSLProgramConstantsFromByteArray				*/
 		
 		public function setGLSLProgramConstantsFromMatrix(locationName:String, matrix:Matrix3D, transposedMatrix:Boolean = false):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "matrix : " + matrix.rawData );
-			console.log( "transposedMatrix : " + transposedMatrix );
-			console.log( "================================================= \n" )*/
-			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
+		{/*			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )			console.log( "locationName : " + locationName );			console.log( "matrix : " + matrix.rawData );			console.log( "transposedMatrix : " + transposedMatrix );			console.log( "================================================= \n" )*/
+			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
 			_gl.uniformMatrix4fv( location, !transposedMatrix, new Float32Array( matrix.rawData ) );
 		}
 		
 		public function setGLSLProgramConstantsFromArray(locationName:String, data:Vector.<Number>, startIndex:Number = 0):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromArray ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "data : " + data );
-			console.log( "startIndex : " + startIndex );
-			console.log( "================================================ \n" )*/
-			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
+		{/*			console.log( "======= setGLSLProgramConstantsFromArray ======= " )			console.log( "locationName : " + locationName );			console.log( "data : " + data );			console.log( "startIndex : " + startIndex );			console.log( "================================================ \n" )*/
+			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
 			_gl.uniform4f( location, data[startIndex], data[startIndex+1], data[startIndex+2], data[startIndex+3] );
 		}
 		
@@ -484,20 +440,21 @@ package away.display3D
 		public function setTextureAt(sampler:Number, texture:TextureBase):void
 		{
 			var locationName:String = "fs" + sampler;
-			setGLSLTextureAt( locationName, texture, sampler );
+			this.setGLSLTextureAt( locationName, texture, sampler );
 		}
 		
 		public function setGLSLTextureAt(locationName:String, texture:TextureBase, textureIndex:Number):void
 		{
+			
 			if( !texture )
 			{
 				_gl.activeTexture( Number(WebGLRenderingContext.TEXTURE0) + (textureIndex));
 				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
+				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), null );
 				return;
 			}
 			
-			var location:WebGLUniformLocation = _gl.getUniformLocation( _currentProgram.glProgram, locationName );
-            switch( textureIndex )
+			switch( textureIndex )
 			{
                 case 0: 
 						_gl.activeTexture( Number(WebGLRenderingContext.TEXTURE0) );
@@ -527,27 +484,63 @@ package away.display3D
 					throw "Texture " + textureIndex + " is out of bounds.";
             }
 			
-			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), texture.glTexture );
-			_gl.uniform1i( location, textureIndex );
+			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
 			
-			var samplerState:SamplerState = _samplerStates[ textureIndex ];
-			
-			if( samplerState.wrap != _currentWrap )
+			if( texture.textureType == "texture2d" )
 			{
-				_currentWrap = samplerState.wrap;
-				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_S), samplerState.wrap );
-				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_T), samplerState.wrap );
+				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), Texture(texture).glTexture );
+				_gl.uniform1i( location, textureIndex );
+				
+				var samplerState:SamplerState = this._samplerStates[ textureIndex ];
+				
+				if( samplerState.wrap != this._currentWrap )
+				{
+					this._currentWrap = samplerState.wrap;
+					_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_S), samplerState.wrap );
+					_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_WRAP_T), samplerState.wrap );
+				}
+				
+				if( samplerState.filter != this._currentFilter )
+				{
+					_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MIN_FILTER), samplerState.filter );
+					_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
+				}
+				
+				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
+			}
+			else if( texture.textureType == "textureCube" )
+			{
+				//console.log( "******************************* setGLSLTextureAt *******************************" );
+				//console.log( locationName, texture, textureIndex );
+				
+				for( var i:Number = 0; i < 6; ++i )
+				{
+					_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), CubeTexture(texture).glTextureAt( i ) );
+					_gl.uniform1i( location, textureIndex );
+					
+					var samplerState:SamplerState = this._samplerStates[ textureIndex ];
+					
+					if( samplerState.wrap != this._currentWrap )
+					{
+						this._currentWrap = samplerState.wrap;
+						_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), Number(WebGLRenderingContext.TEXTURE_WRAP_S), samplerState.wrap );
+						_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), Number(WebGLRenderingContext.TEXTURE_WRAP_T), samplerState.wrap );
+					}
+					
+					if( samplerState.filter != this._currentFilter )
+					{
+						_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), Number(WebGLRenderingContext.TEXTURE_MIN_FILTER), samplerState.filter );
+						_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
+					}
+					
+					_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), null );
+				}
 			}
 			
-			if( samplerState.filter != _currentFilter )
-			{
-				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MIN_FILTER), samplerState.filter );
-				_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
-			}
         }
 		
 		public function setSamplerStateAt(sampler:Number, wrap:String, filter:String, mipfilter:String):void
-		{			
+		{
 			var glWrap:Number = 0;
 			var glFilter:Number = 0;
 			var glMipFilter:Number = 0;
@@ -593,9 +586,9 @@ package away.display3D
 			
 			if( 0 <= sampler && sampler < Context3D.MAX_SAMPLERS )
 			{
-				_samplerStates[ sampler ].wrap = glWrap;
-				_samplerStates[ sampler ].filter = glFilter;
-				_samplerStates[ sampler ].mipfilter = glMipFilter;
+				this._samplerStates[ sampler ].wrap = glWrap;
+				this._samplerStates[ sampler ].filter = glFilter;
+				this._samplerStates[ sampler ].mipfilter = glMipFilter;
 			}
 			else
 			{
@@ -606,7 +599,7 @@ package away.display3D
 		public function setVertexBufferAt(index:Number, buffer:VertexBuffer3D, bufferOffset:Number = 0, format:String = null):void
 		{
 			var locationName:String = "va" + index;
-			setGLSLVertexBufferAt( locationName, buffer, bufferOffset, format );
+			this.setGLSLVertexBufferAt( locationName, buffer, bufferOffset, format );
 		}
 		
 		public function setGLSLVertexBufferAt(locationName, buffer:VertexBuffer3D, bufferOffset:Number = 0, format:String = null):void
@@ -614,7 +607,7 @@ package away.display3D
 			
             //if ( buffer == null )return;
 			
-			var location:Number = (_gl.getAttribLocation(_currentProgram.glProgram, locationName) as Number);
+			var location:Number = (_gl.getAttribLocation(this._currentProgram.glProgram , locationName ) as Number);
 			if( !buffer )
 			{
 				
@@ -659,11 +652,11 @@ package away.display3D
 		
 		private function updateBlendStatus():void 
 		{
-			if ( _blendEnabled ) 
+			if ( this._blendEnabled ) 
 			{
 				_gl.enable( Number(WebGLRenderingContext.BLEND) );
 				_gl.blendEquation( Number(WebGLRenderingContext.FUNC_ADD) );
-				_gl.blendFunc( _blendSourceFactor, _blendDestinationFactor );
+				_gl.blendFunc( this._blendSourceFactor, this._blendDestinationFactor );
 			}
 			else
 			{

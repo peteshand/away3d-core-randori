@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:23:06 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -46,7 +46,7 @@ away.loaders.parsers.OBJParser.supportsType = function(extension) {
 };
 
 away.loaders.parsers.OBJParser.supportsData = function(data) {
-	var content = away.loaders.parsers.utils.ParserUtil.toString(data);
+	var content = away.loaders.parsers.utils.ParserUtil.toString(data, 0);
 	var hasV = false;
 	var hasF = false;
 	if (content) {
@@ -58,7 +58,7 @@ away.loaders.parsers.OBJParser.supportsData = function(data) {
 
 away.loaders.parsers.OBJParser.prototype._iResolveDependency = function(resourceDependency) {
 	if (resourceDependency.get_id() == "mtl") {
-		var str = away.loaders.parsers.utils.ParserUtil.toString(resourceDependency.get_data());
+		var str = away.loaders.parsers.utils.ParserUtil.toString(resourceDependency.get_data(), 0);
 		this.parseMtl(str);
 	} else {
 		var asset;
@@ -347,9 +347,9 @@ away.loaders.parsers.OBJParser.prototype.parseUV = function(trunk) {
 			if (!isNaN(val))
 				nTrunk.push(val);
 		}
-		this._uvs.push(new away.base.data.UV(1 - nTrunk[0], 1 - nTrunk[1]));
+		this._uvs.push(new away.base.data.UV(nTrunk[0], 1 - nTrunk[1]));
 	} else {
-		this._uvs.push(new away.base.data.UV(1 - parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
+		this._uvs.push(new away.base.data.UV(parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
 	}
 };
 

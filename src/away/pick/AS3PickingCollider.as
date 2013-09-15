@@ -1,3 +1,4 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.pick
@@ -5,30 +6,19 @@ package away.pick
 	import away.base.SubMesh;
 	import away.geom.Vector3D;
 
-	/**
-	 * Pure AS3 picking collider for entity objects. Used with the <code>RaycastPicker</code> picking object.
-	 *
-	 * @see away3d.entities.Entity#pickingCollider
-	 * @see away3d.core.pick.RaycastPicker
-	 */
+	/**	 * Pure AS3 picking collider for entity objects. Used with the <code>RaycastPicker</code> picking object.	 *	 * @see away3d.entities.Entity#pickingCollider	 * @see away3d.core.pick.RaycastPicker	 */
 	public class AS3PickingCollider extends PickingColliderBase implements IPickingCollider
 	{
 		private var _findClosestCollision:Boolean;
 		
-		/**
-		 * Creates a new <code>AS3PickingCollider</code> object.
-		 *
-		 * @param findClosestCollision Determines whether the picking collider searches for the closest collision along the ray. Defaults to false.
-		 */
+		/**		 * Creates a new <code>AS3PickingCollider</code> object.		 *		 * @param findClosestCollision Determines whether the picking collider searches for the closest collision along the ray. Defaults to false.		 */
 		public function AS3PickingCollider(findClosestCollision:Boolean = false):void
 		{
             super();
-			_findClosestCollision = findClosestCollision;
+			this._findClosestCollision = findClosestCollision;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
         //* TODO: Implement & Integrate Dependencies: SubMesh
 		public function testSubMeshCollision(subMesh:SubMesh, pickingCollisionVO:PickingCollisionVO, shortestCollisionDistance:Number):Boolean
 		{
@@ -90,16 +80,16 @@ package away.pick
 				nz *= nl;
 				
 				// -- plane intersection test --
-				nDotV = nx*rayDirection.x + ny* +rayDirection.y + nz*rayDirection.z; // rayDirection . normal
+				nDotV = nx*this.rayDirection.x + ny* +this.rayDirection.y + nz*this.rayDirection.z; // rayDirection . normal
 				if (( !bothSides && nDotV < 0.0 ) || ( bothSides && nDotV != 0.0 )) { // an intersection must exist
 					// find collision t
 					D = -( nx*p0x + ny*p0y + nz*p0z );
-					disToPlane = -( nx*rayPosition.x + ny*rayPosition.y + nz*rayPosition.z + D );
+					disToPlane = -( nx*this.rayPosition.x + ny*this.rayPosition.y + nz*this.rayPosition.z + D );
 					t = disToPlane/nDotV;
 					// find collision point
-					cx = rayPosition.x + t*rayDirection.x;
-					cy = rayPosition.y + t*rayDirection.y;
-					cz = rayPosition.z + t*rayDirection.z;
+					cx = this.rayPosition.x + t*this.rayDirection.x;
+					cy = this.rayPosition.y + t*this.rayDirection.y;
+					cz = this.rayPosition.z + t*this.rayDirection.z;
 					// collision point inside triangle? ( using barycentric coordinates )
 					Q1Q2 = s0x*s1x + s0y*s1y + s0z*s1z;
 					Q1Q1 = s0x*s0x + s0y*s0y + s0z*s0z;
@@ -123,12 +113,12 @@ package away.pick
 						pickingCollisionVO.rayEntryDistance = t;
 						pickingCollisionVO.localPosition = new Vector3D(cx, cy, cz);
 						pickingCollisionVO.localNormal = new Vector3D(nx, ny, nz);
-						pickingCollisionVO.uv = _pGetCollisionUV(indexData, uvData, index, v, w, u, uvOffset, uvStride);
+						pickingCollisionVO.uv = this._pGetCollisionUV(indexData, uvData, index, v, w, u, uvOffset, uvStride);
 						pickingCollisionVO.index = index;
-						pickingCollisionVO.subGeometryIndex = pGetMeshSubMeshIndex(subMesh);
+						pickingCollisionVO.subGeometryIndex = this.pGetMeshSubMeshIndex(subMesh);
 						
 						// if not looking for best hit, first found will do...
-						if (!_findClosestCollision)
+						if (!this._findClosestCollision)
 							return true;
 					}
 				}

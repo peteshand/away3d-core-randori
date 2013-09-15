@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+ 
 ///<reference path="../_definitions.ts" />
 
 package away.containers
@@ -51,244 +49,209 @@ package away.containers
 		
 		public function getIgnoreTransform():Boolean
 		{
-			return _pIgnoreTransform;
+			return this._pIgnoreTransform;
 		}
 		
 		public function setIgnoreTransform(value:Boolean):void
 		{
-			_pIgnoreTransform = value;
-			_pSceneTransformDirty = !value;
-			_inverseSceneTransformDirty = !value;
-			_scenePositionDirty = !value;
+			this._pIgnoreTransform = value;
+			this._pSceneTransformDirty = !value;
+			this._inverseSceneTransformDirty = !value;
+			this._scenePositionDirty = !value;
 			
 			if( value ) {
-				_pSceneTransform.identity();
-				_scenePosition.setTo( 0, 0, 0 );
+				this._pSceneTransform.identity();
+				this._scenePosition.setTo( 0, 0, 0 );
 			}
 		}
 
-        /*
-        public get iImplicitPartition():away.partition.Partition3D
-        {
-            return this._pImplicitPartition;
-        }
-        */
+        /*        public get iImplicitPartition():away.partition.Partition3D        {            return this._pImplicitPartition;        }        */
         public function iGetImplicitPartition():Partition3D
         {
 
-            return _pImplicitPartition;
+            return this._pImplicitPartition;
         }
 
-        /*
-		public set iImplicitPartition( value:away.partition.Partition3D )
-		{
-
-            this.iSetImplicitPartition( value );
-		}
-        */
+        /*		public set iImplicitPartition( value:away.partition.Partition3D )		{            this.iSetImplicitPartition( value );		}        */
         public function iSetImplicitPartition(value:Partition3D):void
         {
 
-            if (value == _pImplicitPartition)
+            if (value == this._pImplicitPartition)
                 return;
 
             var i:Number = 0;
-            var len:Number = _children.length;
+            var len:Number = this._children.length;
             var child:ObjectContainer3D;
-
-            _pImplicitPartition = value;
-
-            while (i < len)
-            {
-                child = _children[i++];
-
-                // assign implicit partition if no explicit one is given
-                if (!child._pExplicitPartition)
-                    child._pImplicitPartition = value;
-            }
-
-            /*
-            if ( value == this._pImplicitPartition )
-            {
-                return;
-            }
-
-            console.log( 'ObjectContainer3D','iSetImplicitPartition' , value );
-
-            var i:number = 0;
-            var len:number = this._children.length;
-            var child:away.containers.ObjectContainer3D;
 
             this._pImplicitPartition = value;
 
             while (i < len)
             {
                 child = this._children[i++];
-                if( !child._pExplicitPartition )
-                {
+
+                // assign implicit partition if no explicit one is given
+                if (!child._pExplicitPartition)
                     child._pImplicitPartition = value;
-                }
             }
-            */
+
+            /*            if ( value == this._pImplicitPartition )            {                return;            }            console.log( 'ObjectContainer3D','iSetImplicitPartition' , value );            var i:number = 0;            var len:number = this._children.length;            var child:away.containers.ObjectContainer3D;            this._pImplicitPartition = value;            while (i < len)            {                child = this._children[i++];                if( !child._pExplicitPartition )                {                    child._pImplicitPartition = value;                }            }            */
 
         }
 		
 		public function get _iIsVisible():Boolean
 		{
-			return _implicitVisibility && _explicitVisibility;
+			return this._implicitVisibility && this._explicitVisibility;
 		}
 		
 		public function iSetParent(value:ObjectContainer3D):void
 		{
-			_pParent = value;
+			this._pParent = value;
 
-			pUpdateMouseChildren();
+			this.pUpdateMouseChildren();
 			
 			if( value == null ) {
-				scene = null;
+				this.scene = null;
 				return;
 			}
 			
-			notifySceneTransformChange();
-			notifySceneChange();
+			this.notifySceneTransformChange();
+			this.notifySceneChange();
 		}
 		
 		private function notifySceneTransformChange():void
 		{
-			if ( _pSceneTransformDirty || _pIgnoreTransform )
+			if ( this._pSceneTransformDirty || this._pIgnoreTransform )
 			{
 				return;
 			}
 			
-			pInvalidateSceneTransform();
+			this.pInvalidateSceneTransform();
 			
 			var i:Number = 0;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			
 			while( i < len )
 			{
-				_children[i++].notifySceneTransformChange();
+				this._children[i++].notifySceneTransformChange();
 			}
 			
-			if( _listenToSceneTransformChanged )
+			if( this._listenToSceneTransformChanged )
 			{
-				if( !_sceneTransformChanged )
+				if( !this._sceneTransformChanged )
 				{
-					_sceneTransformChanged = new Object3DEvent( Object3DEvent.SCENETRANSFORM_CHANGED, this );
+					this._sceneTransformChanged = new Object3DEvent( Object3DEvent.SCENETRANSFORM_CHANGED, this );
 				}
-				dispatchEvent( _sceneTransformChanged );
+				this.dispatchEvent( this._sceneTransformChanged );
 			}
 		}
 		
 		private function notifySceneChange():void
 		{
-			notifySceneTransformChange();
+			this.notifySceneTransformChange();
 			
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			
 			while(i < len)
 			{
-				_children[i++].notifySceneChange();
+				this._children[i++].notifySceneChange();
 			}
 			
-			if( _listenToSceneChanged )
+			if( this._listenToSceneChanged )
 			{
-				if( !_scenechanged )
+				if( !this._scenechanged )
 				{
-					_scenechanged = new Object3DEvent( Object3DEvent.SCENE_CHANGED, this );
+					this._scenechanged = new Object3DEvent( Object3DEvent.SCENE_CHANGED, this );
 				}
-				dispatchEvent( _scenechanged );
+				this.dispatchEvent( this._scenechanged );
 			}
 		}
 		
 		public function pUpdateMouseChildren():void
 		{
 
-			if( _pParent && !_pParent._iIsRoot )
+			if( this._pParent && !this._pParent._iIsRoot )
 			{
-				_iAncestorsAllowMouseEnabled = _pParent._iAncestorsAllowMouseEnabled && _pParent.mouseChildren;
+				this._iAncestorsAllowMouseEnabled = this._pParent._iAncestorsAllowMouseEnabled && this._pParent.mouseChildren;
 			}
 			else
 			{
-				_iAncestorsAllowMouseEnabled = mouseChildren;
+				this._iAncestorsAllowMouseEnabled = this.mouseChildren;
 			}
 			
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			for( var i:Number = 0; i < len; ++i )
 			{
-				_children[i].pUpdateMouseChildren();
+				this._children[i].pUpdateMouseChildren();
 			}
 		}
 		
 		public function get mouseEnabled():Boolean
 		{
-			return _pMouseEnabled;
+			return this._pMouseEnabled;
 		}
 		
 		public function set mouseEnabled(value:Boolean):void
 		{
-			_pMouseEnabled = value;
-			pUpdateMouseChildren();
+			this._pMouseEnabled = value;
+			this.pUpdateMouseChildren();
 		}
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iInvalidateTransform():void
         {
             super.iInvalidateTransform();
 
-            notifySceneTransformChange();
+            this.notifySceneTransformChange();
         }
 
 
         public function pInvalidateSceneTransform():void
 		{
-			_pSceneTransformDirty = !_pIgnoreTransform;
-			_inverseSceneTransformDirty = !_pIgnoreTransform;
-			_scenePositionDirty = !_pIgnoreTransform;
+			this._pSceneTransformDirty = !this._pIgnoreTransform;
+			this._inverseSceneTransformDirty = !this._pIgnoreTransform;
+			this._scenePositionDirty = !this._pIgnoreTransform;
 		}
 		
 		public function pUpdateSceneTransform():void
 		{
-			if ( _pParent && !_pParent._iIsRoot )
+			if ( this._pParent && !this._pParent._iIsRoot )
 			{
-				_pSceneTransform.copyFrom( _pParent.sceneTransform );
-				_pSceneTransform.prepend( transform );
+				this._pSceneTransform.copyFrom( this._pParent.sceneTransform );
+				this._pSceneTransform.prepend( this.transform );
 			}
 			else
 			{
-				_pSceneTransform.copyFrom( transform );
+				this._pSceneTransform.copyFrom( this.transform );
 			}
-			_pSceneTransformDirty = false;
+			this._pSceneTransformDirty = false;
 		}
 		
 		public function get mouseChildren():Boolean
 		{
-			return _mouseChildren;
+			return this._mouseChildren;
 		}
 		
 		public function set mouseChildren(value:Boolean):void
 		{
-			_mouseChildren = value;
-			pUpdateMouseChildren();
+			this._mouseChildren = value;
+			this.pUpdateMouseChildren();
 		}
 		
 		public function get visible():Boolean
 		{
-			return _explicitVisibility;
+			return this._explicitVisibility;
 		}
 		
 		public function set visible(value:Boolean):void
 		{
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			
-			_explicitVisibility = value;
+			this._explicitVisibility = value;
 			
 			for( var i:Number = 0; i < len; ++i )
 			{
-				_children[i].updateImplicitVisibility();
+				this._children[i].updateImplicitVisibility();
 			}
 		}
 		
@@ -299,23 +262,23 @@ package away.containers
 		
 		public function get scenePosition():Vector3D
 		{
-			if ( _scenePositionDirty )
+			if ( this._scenePositionDirty )
 			{
-				sceneTransform.copyColumnTo( 3, _scenePosition );
-				_scenePositionDirty = false;
+				this.sceneTransform.copyColumnTo( 3, this._scenePosition );
+				this._scenePositionDirty = false;
 			}
-			return _scenePosition;
+			return this._scenePosition;
 		}
 		
 		public function get minX():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var min:Number = Number.POSITIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len ) {
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.minX + child.x;
 				if( m < min )
 				{
@@ -328,13 +291,13 @@ package away.containers
 		public function get minY():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var min:Number = Number.POSITIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len )
 			{
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.minY + child.y;
 				if( m < min )
 				{
@@ -347,13 +310,13 @@ package away.containers
 		public function get minZ():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var min:Number = Number.POSITIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len )
 			{
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.minZ + child.z;
 				if( m < min )
 				{
@@ -366,12 +329,12 @@ package away.containers
 		public function get maxX():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var max:Number = Number.NEGATIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len ) {
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.maxX + child.x;
 				if( m > max )
 				{
@@ -384,13 +347,13 @@ package away.containers
 		public function get maxY():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var max:Number = Number.NEGATIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len )
 			{
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.maxY + child.y;
 				if( m > max )
 				{
@@ -403,12 +366,12 @@ package away.containers
 		public function get maxZ():Number
 		{
 			var i:Number;
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			var max:Number = Number.NEGATIVE_INFINITY;
 			var m:Number;
 			
 			while( i < len ) {
-				var child:ObjectContainer3D = _children[i++];
+				var child:ObjectContainer3D = this._children[i++];
 				m = child.maxZ + child.z;
 				if( m > max )
 				{
@@ -420,33 +383,33 @@ package away.containers
 		
 		public function get partition():Partition3D
 		{
-			return _pExplicitPartition;
+			return this._pExplicitPartition;
 		}
 		
 		public function set partition(value:Partition3D):void
 		{
-			_pExplicitPartition = value;
-			iSetImplicitPartition( value ? value : ( _pParent ? _pParent.iGetImplicitPartition() : null) );
+			this._pExplicitPartition = value;
+			this.iSetImplicitPartition( value ? value : ( this._pParent ? this._pParent.iGetImplicitPartition() : null) );
 		}
 		
 		public function get sceneTransform():Matrix3D
 		{
-			if( _pSceneTransformDirty )
+			if( this._pSceneTransformDirty )
 			{
-				pUpdateSceneTransform();
+				this.pUpdateSceneTransform();
 			}
-			return _pSceneTransform;
+			return this._pSceneTransform;
 		}
 
         public function get scene():Scene3D
         {
-            return _pScene;
+            return this._pScene;
         }
 
         public function set scene(value:Scene3D):void
         {
 
-            setScene( value );
+            this.setScene( value );
 
         }
 
@@ -456,61 +419,61 @@ package away.containers
             //console.log( 'ObjectContainer3D' , 'setScene' , value );
 
             var i:Number = 0;
-            var len:Number = _children.length;
+            var len:Number = this._children.length;
 
             while (i < len)
             {
-                _children[i++].scene = value;
+                this._children[i++].scene = value;
             }
 
-            if (_pScene == value)
+            if (this._pScene == value)
                 return;
 
             // test to see if we're switching roots while we're already using a scene partition
             if (value == null)
-                _oldScene = _pScene;
+                this._oldScene = this._pScene;
 
-            if (_pExplicitPartition && _oldScene && _oldScene != _pScene)
-                partition = null;
+            if (this._pExplicitPartition && this._oldScene && this._oldScene != this._pScene)
+                this.partition = null;
 
             if (value)
             {
-                _oldScene = null;
+                this._oldScene = null;
             }
             // end of stupid partition test code
 
-            _pScene = value;
+            this._pScene = value;
 
-            if (_pScene)
+            if (this._pScene)
             {
-                _pScene.dispatchEvent(new Scene3DEvent(Scene3DEvent.ADDED_TO_SCENE, this));
+                this._pScene.dispatchEvent(new Scene3DEvent(Scene3DEvent.ADDED_TO_SCENE, this));
             }
-            else if (_oldScene)
+            else if (this._oldScene)
             {
-                _oldScene.dispatchEvent(new Scene3DEvent(Scene3DEvent.REMOVED_FROM_SCENE, this));
+                this._oldScene.dispatchEvent(new Scene3DEvent(Scene3DEvent.REMOVED_FROM_SCENE, this));
             }
 
         }
 		
 		public function get inverseSceneTransform():Matrix3D
 		{
-			if ( _inverseSceneTransformDirty )
+			if ( this._inverseSceneTransformDirty )
 			{
-				_inverseSceneTransform.copyFrom( sceneTransform );
-				_inverseSceneTransform.invert();
-				_inverseSceneTransformDirty = false;
+				this._inverseSceneTransform.copyFrom( this.sceneTransform );
+				this._inverseSceneTransform.invert();
+				this._inverseSceneTransformDirty = false;
 			}
-			return _inverseSceneTransform;
+			return this._inverseSceneTransform;
 		}
 		
 		public function get parent():ObjectContainer3D
 		{
-			return _pParent;
+			return this._pParent;
 		}
 		
 		public function contains(child:ObjectContainer3D):Boolean
 		{
-			return _children.indexOf( child ) >= 0;
+			return this._children.indexOf( child ) >= 0;
 		}
 		
 		public function addChild(child:ObjectContainer3D):ObjectContainer3D
@@ -532,17 +495,17 @@ package away.containers
 
                 //console.log( 'ObjectContainer3D' , 'addChild' , 'set iImplicitPartition' ,  this._pImplicitPartition);
 
-                child.iSetImplicitPartition( _pImplicitPartition );
+                child.iSetImplicitPartition( this._pImplicitPartition );
 				//child.iImplicitPartition = this._pImplicitPartition;
 			}
 			
 			child.iSetParent( this );
-			child.scene = _pScene;
+			child.scene = this._pScene;
 			child.notifySceneTransformChange();
 			child.pUpdateMouseChildren();
 			child.updateImplicitVisibility();
 			
-			_children.push(child);
+			this._children.push(child);
 			
 			return child;
 		}
@@ -551,7 +514,7 @@ package away.containers
 		{
 			for(var child in childarray )
 			{
-				addChild( child );
+				this.addChild( child );
 			}
 		}
 		
@@ -562,25 +525,25 @@ package away.containers
 				throw new away.errors.Error("Parameter child cannot be null");
 			}
 			
-			var childIndex:Number = _children.indexOf(child);
+			var childIndex:Number = this._children.indexOf(child);
 			
 			if ( childIndex == -1 )
 			{
 				throw new away.errors.Error("Parameter is not a child of the caller");
 			}
 			
-			removeChildInternal( childIndex, child );
+			this.removeChildInternal( childIndex, child );
 		}
 		
 		public function removeChildAt(index:Number):void
 		{
-			var child:ObjectContainer3D = _children[index];
-			removeChildInternal( index, child );
+			var child:ObjectContainer3D = this._children[index];
+			this.removeChildInternal( index, child );
 		}
 		
 		private function removeChildInternal(childIndex:Number, child:ObjectContainer3D):void
 		{
-			_children.splice( childIndex, 1 );
+			this._children.splice( childIndex, 1 );
 			child.iSetParent( null );
 			
 			if ( !child._pExplicitPartition )
@@ -591,12 +554,12 @@ package away.containers
 		
 		public function getChildAt(index:Number):ObjectContainer3D
 		{
-			return _children[index];
+			return this._children[index];
 		}
 		
 		public function get numChildren():Number
 		{
-			return _children.length;
+			return this._children.length;
 		}
 		
 		//@override 
@@ -604,31 +567,31 @@ package away.containers
 		{
 
 			super.lookAt( target, upAxis );
-			notifySceneTransformChange();
+			this.notifySceneTransformChange();
 		}
 		
 		//@override
 		override public function translateLocal(axis:Vector3D, distance:Number):void
 		{
     		super.translateLocal( axis, distance );
-			notifySceneTransformChange();
+			this.notifySceneTransformChange();
 		}
 		
 		//@override
 		override public function dispose():void
 		{
-			if( parent )
+			if( this.parent )
 			{
-				parent.removeChild( this );
+				this.parent.removeChild( this );
 			}
 		}
 		
 		public function disposeWithChildren():void
 		{
-			dispose();
-			while( numChildren > 0 )
+			this.dispose();
+			while( this.numChildren > 0 )
 			{
-				getChildAt(0).dispose();
+				this.getChildAt(0).dispose();
 			}
 		}
 		
@@ -637,16 +600,16 @@ package away.containers
 		override public function clone():Object3D
 		{
 			var clone:ObjectContainer3D = new ObjectContainer3D();
-			clone.pivotPoint = pivotPoint;
-			clone.transform = transform;
-			clone.partition = partition;
+			clone.pivotPoint = this.pivotPoint;
+			clone.transform = this.transform;
+			clone.partition = this.partition;
 			clone.name = name;
 			
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			
 			for(var i:Number = 0; i < len; ++i)
 			{
-				clone.addChild( (_children[i].clone() as ObjectContainer3D));
+				clone.addChild( (this._children[i].clone( ) as ObjectContainer3D) );
 			}
 			// todo: implement for all subtypes
 			return clone;
@@ -657,20 +620,20 @@ package away.containers
 		override public function rotate(axis:Vector3D, angle:Number):void
 		{
 			super.rotate(axis, angle);
-			notifySceneTransformChange();
+			this.notifySceneTransformChange();
 		}
 		
 		//TODO override public function dispatchEvent(event:Event):Boolean
 		
 		public function updateImplicitVisibility():void
 		{
-			var len:Number = _children.length;
+			var len:Number = this._children.length;
 			
-			_implicitVisibility = _pParent._explicitVisibility && _pParent._implicitVisibility;
+			this._implicitVisibility = this._pParent._explicitVisibility && this._pParent._implicitVisibility;
 			
 			for (var i:Number = 0; i < len; ++i)
 			{
-				_children[i].updateImplicitVisibility();
+				this._children[i].updateImplicitVisibility();
 			}
 		}
 		

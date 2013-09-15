@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
  
 package away.display3D
@@ -20,39 +18,39 @@ package away.display3D
 		
 		public function Program3D(gl:WebGLRenderingContext):void
 		{
-			_gl = gl;
-			_program = _gl.createProgram();
+			this._gl = gl;
+			this._program = _gl.createProgram();
 		}
 		
 		public function upload(vertexProgram:String, fragmentProgram:String):void
 		{
 			
-			_vertexShader = _gl.createShader( Number(WebGLRenderingContext.VERTEX_SHADER) );
-			_fragmentShader = _gl.createShader( Number(WebGLRenderingContext.FRAGMENT_SHADER) );
+			this._vertexShader = _gl.createShader( Number(WebGLRenderingContext.VERTEX_SHADER) );
+			this._fragmentShader = _gl.createShader( Number(WebGLRenderingContext.FRAGMENT_SHADER) );
 			
-			_gl.shaderSource( _vertexShader, vertexProgram );
-			_gl.compileShader( _vertexShader );
+			_gl.shaderSource( this._vertexShader, vertexProgram );
+			_gl.compileShader( this._vertexShader );
 			
-			if ( !_gl.getShaderParameter( _vertexShader, Number(WebGLRenderingContext.COMPILE_STATUS) ) )
+			if ( !_gl.getShaderParameter( this._vertexShader, Number(WebGLRenderingContext.COMPILE_STATUS) ) )
 			{
-				Window.console.log( _gl.getShaderInfoLog( _vertexShader ) );
+				Window.console.log( _gl.getShaderInfoLog( this._vertexShader ) );
 				return; //TODO throw errors
 			}
 			
-			_gl.shaderSource( _fragmentShader, fragmentProgram );
-			_gl.compileShader( _fragmentShader );
+			_gl.shaderSource( this._fragmentShader, fragmentProgram );
+			_gl.compileShader( this._fragmentShader );
 			
-			if ( !_gl.getShaderParameter( _fragmentShader, Number(WebGLRenderingContext.COMPILE_STATUS) ) )
+			if ( !_gl.getShaderParameter( this._fragmentShader, Number(WebGLRenderingContext.COMPILE_STATUS) ) )
 			{
-				Window.console.log( _gl.getShaderInfoLog( _fragmentShader ) );
+				Window.console.log( _gl.getShaderInfoLog( this._fragmentShader ) );
 				return; //TODO throw errors
 			}
 			
-			_gl.attachShader( _program, _vertexShader );
-			_gl.attachShader( _program, _fragmentShader );
-			_gl.linkProgram( _program );
+			_gl.attachShader( this._program, this._vertexShader );
+			_gl.attachShader( this._program, this._fragmentShader );
+			_gl.linkProgram( this._program );
 			
-			if ( !_gl.getProgramParameter( _program, Number(WebGLRenderingContext.LINK_STATUS) ) )
+			if ( !_gl.getProgramParameter( this._program, Number(WebGLRenderingContext.LINK_STATUS) ) )
 			{
 				Window.console.log("Could not link the program."); //TODO throw errors
 			}
@@ -60,17 +58,17 @@ package away.display3D
 		
 		public function dispose():void
 		{
-			_gl.deleteProgram( _program );
+			_gl.deleteProgram( this._program );
 		}
 		
 		public function focusProgram():void
 		{
-			_gl.useProgram( _program );
+			_gl.useProgram( this._program );
 		}
 		
 		public function get glProgram():WebGLProgram
 		{
-			return _program;
+			return this._program;
 		}
 	}
 }

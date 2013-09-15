@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.utils
@@ -30,7 +28,7 @@ package away.utils
 		public function readUnsignedInt():Number{ throw 		"Virtual method"; }
 		public function writeFloat(b:Number):void{ throw 		"Virtual method"; }
 		public function toFloatBits(x:Number):Number{ throw 		"Virtual method"; }
-		public function readFloat(b:Number):Number{ throw 		"Virtual method"; }
+		public function readFloat():Number{ throw 		"Virtual method"; }
 		public function fromFloatBits(x:Number):Number{ throw 		"Virtual method"; }
 
         public function getBytesAvailable():Number
@@ -40,27 +38,27 @@ package away.utils
 
 		public function toString():String
 		{
-			return "[ByteArray] ( " + _mode + " ) position=" + position + " length=" + length; 
+			return "[ByteArray] ( " + this._mode + " ) position=" + this.position + " length=" + this.length; 
 		}
 		
 		public function compareEqual(other, count):Boolean
 		{
-			if ( count == undefined || count > length - position ) 
-				count = length - position;
+			if ( count == undefined || count > this.length - this.position ) 
+				count = this.length - this.position;
 			if ( count > other.length - other.position )     
 				count = other.length - other.position;
 			var co0 = count; 
 			var r = true; 
 			while ( r && count >= 4 ) {
 				count-=4; 
-				if ( readUnsignedInt() != other.readUnsignedInt() ) r = false; 
+				if ( this.readUnsignedInt() != other.readUnsignedInt() ) r = false; 
 			}
 			while ( r && count >= 1 ) {       
 				count--; 
-				if ( readUnsignedByte() != other.readUnsignedByte() ) r = false; 
+				if ( this.readUnsignedByte() != other.readUnsignedByte() ) r = false; 
 			}
 			var c0;
-			position-=(c0-count); 
+			this.position-=(c0-count); 
 			other.position-=(c0-count); 
 			return r;         
 		}
@@ -75,8 +73,8 @@ package away.utils
 		
 		public function dumpToConsole():void
 		{
-			var oldpos = position;     
-			position = 0;
+			var oldpos = this.position;     
+			this.position = 0;
 			var nstep:Number = 8;     
 			function asHexString ( x, digits ) {
 				var lut:Array = [ "0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f" ]; 
@@ -88,23 +86,22 @@ package away.utils
 				return sh;
 			}
 			
-			for ( var i=0; i < length; i += nstep )
+			for ( var i=0; i < this.length; i += nstep )
 			{
 				var s:String = asHexString(i,4)+":"; 
-				for ( var j:Number = 0; j < nstep && i+j < length; j++ )
+				for ( var j:Number = 0; j < nstep && i+j < this.length; j++ )
 				{
-					s += " " + asHexString( readUnsignedByte(), 2 );
+					s += " " + asHexString( this.readUnsignedByte(), 2 );
 				}
 				Window.console.log ( s );
 			}
-			position = oldpos;
+			this.position = oldpos;
 		}
 		
-		public function internalGetBase64String(count, getUnsignedByteFunc, self):String  // return base64 string of the next count bytes
-		{
+		public function internalGetBase64String(count, getUnsignedByteFunc, self):String  // return base64 string of the next count bytes		{
 			var r = "";
 			var b0, b1, b2, enc1, enc2, enc3, enc4;
-			var base64Key = Base64Key;
+			var base64Key = this.Base64Key;
 			while( count>=3 )
 			{                    
 				b0 = getUnsignedByteFunc.apply(self);

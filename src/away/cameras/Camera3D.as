@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.cameras
@@ -32,17 +30,17 @@ package away.cameras
 		{
 			super();
 			
-			_lens = lens || new PerspectiveLens();
-			_lens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
+			this._lens = lens || new PerspectiveLens();
+			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
 			
-			_frustumPlanes = new <Plane3D>[];
+			this._frustumPlanes = new <Plane3D>[];
 			
 			for( var i:Number = 0; i < 6; ++i )
 			{
-				_frustumPlanes[i] = new Plane3D();
+				this._frustumPlanes[i] = new Plane3D();
 			}
 
-            z = -1000;
+            this.z = -1000;
 
 		}
 		
@@ -59,18 +57,18 @@ package away.cameras
 		
 		private function onLensMatrixChanged(event:LensEvent):void
 		{
-			_viewProjectionDirty = true;
-			_frustumPlanesDirty = true;
-			dispatchEvent(event);
+			this._viewProjectionDirty = true;
+			this._frustumPlanesDirty = true;
+			this.dispatchEvent(event);
 		}
 		
 		public function get frustumPlanes():Vector.<Plane3D>
 		{
-			if( _frustumPlanesDirty )
+			if( this._frustumPlanesDirty )
 			{
-				updateFrustum();
+				this.updateFrustum();
 			}
-			return _frustumPlanes;
+			return this._frustumPlanes;
 		}
 		
 		private function updateFrustum():void
@@ -84,7 +82,7 @@ package away.cameras
 			var p:Plane3D;
 			var raw:Vector.<Number> = new Vector.<Number>(16);;//new Array(16 );away.utils.Matrix3DUtils.RAW_DATA_CONTAINER;//[];
 			var invLen:Number;
-            viewProjection.copyRawDataTo( raw );
+            this.viewProjection.copyRawDataTo( raw );
 
 			c11 = raw[0];
 			c12 = raw[4];
@@ -104,7 +102,7 @@ package away.cameras
 			c44 = raw[15];
 			
 			// left plane
-			p = _frustumPlanes[0];
+			p = this._frustumPlanes[0];
 			a = c41 + c11;
 			b = c42 + c12;
 			c = c43 + c13;
@@ -115,7 +113,7 @@ package away.cameras
 			p.d = -(c44 + c14)*invLen;
 			
 			// right plane
-			p = _frustumPlanes[1];
+			p = this._frustumPlanes[1];
 			a = c41 - c11;
 			b = c42 - c12;
 			c = c43 - c13;
@@ -126,7 +124,7 @@ package away.cameras
 			p.d = (c14 - c44)*invLen;
 			
 			// bottom
-			p = _frustumPlanes[2];
+			p = this._frustumPlanes[2];
 			a = c41 + c21;
 			b = c42 + c22;
 			c = c43 + c23;
@@ -137,7 +135,7 @@ package away.cameras
 			p.d = -(c44 + c24)*invLen;
 			
 			// top
-			p = _frustumPlanes[3];
+			p = this._frustumPlanes[3];
 			a = c41 - c21;
 			b = c42 - c22;
 			c = c43 - c23;
@@ -148,7 +146,7 @@ package away.cameras
 			p.d = (c24 - c44)*invLen;
 			
 			// near
-			p = _frustumPlanes[4];
+			p = this._frustumPlanes[4];
 			a = c31;
 			b = c32;
 			c = c33;
@@ -159,7 +157,7 @@ package away.cameras
 			p.d = -c34*invLen;
 			
 			// far
-			p = _frustumPlanes[5];
+			p = this._frustumPlanes[5];
 			a = c41 - c31;
 			b = c42 - c32;
 			c = c43 - c33;
@@ -169,7 +167,7 @@ package away.cameras
 			p.c = c*invLen;
 			p.d = (c34 - c44)*invLen;
 			
-			_frustumPlanesDirty = false;
+			this._frustumPlanesDirty = false;
 
 		}
 		
@@ -178,15 +176,15 @@ package away.cameras
 		{
 			super.pInvalidateSceneTransform();
 			
-			_viewProjectionDirty = true;
-			_frustumPlanesDirty = true;
+			this._viewProjectionDirty = true;
+			this._frustumPlanesDirty = true;
 		}
 		
 		//@override
 		override public function pUpdateBounds():void
 		{
-			_pBounds.nullify();
-			_pBoundsInvalid = false;
+			this._pBounds.nullify();
+			this._pBoundsInvalid = false;
 		}
 		
 		//@override
@@ -197,12 +195,12 @@ package away.cameras
 		
 		public function get lens():LensBase
 		{
-			return _lens;
+			return this._lens;
 		}
 		
 		public function set lens(value:LensBase):void
 		{
-			if( _lens == value )
+			if( this._lens == value )
 			{
 				return;
 			}
@@ -210,60 +208,41 @@ package away.cameras
 			{
 				throw new Error("Lens cannot be null!");
 			}
-			_lens.removeEventListener(LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
-			_lens = value;
-			_lens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
-			dispatchEvent( new CameraEvent( CameraEvent.LENS_CHANGED, this ));
+			this._lens.removeEventListener(LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+			this._lens = value;
+			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+			this.dispatchEvent( new CameraEvent( CameraEvent.LENS_CHANGED, this ));
 		}
 		
 		public function get viewProjection():Matrix3D
 		{
-			if( _viewProjectionDirty)
+			if( this._viewProjectionDirty)
 			{
 
-				_viewProjection.copyFrom( inverseSceneTransform );
-				_viewProjection.append( _lens.matrix );
-				_viewProjectionDirty = false;
+				this._viewProjection.copyFrom( this.inverseSceneTransform );
+				this._viewProjection.append( this._lens.matrix );
+				this._viewProjectionDirty = false;
 
 			}
-			return _viewProjection;
+			return this._viewProjection;
 		}
 
-        /**
-         * Calculates the ray in scene space from the camera to the given normalized coordinates in screen space.
-         *
-         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.
-         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.
-         * @param sZ The z coordinate in screen space, representing the distance into the screen.
-         * @return The ray from the camera to the scene space position of the given screen coordinates.
-         */
+        /**         * Calculates the ray in scene space from the camera to the given normalized coordinates in screen space.         *         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.         * @param sZ The z coordinate in screen space, representing the distance into the screen.         * @return The ray from the camera to the scene space position of the given screen coordinates.         */
         public function getRay(nX:Number, nY:Number, sZ:Number):Vector3D
         {
-            return sceneTransform.deltaTransformVector(_lens.unproject(nX, nY, sZ));
+            return this.sceneTransform.deltaTransformVector(this._lens.unproject(nX, nY, sZ));
         }
 
-        /**
-         * Calculates the normalised position in screen space of the given scene position.
-         *
-         * @param point3d the position vector of the scene coordinates to be projected.
-         * @return The normalised screen position of the given scene coordinates.
-         */
+        /**         * Calculates the normalised position in screen space of the given scene position.         *         * @param point3d the position vector of the scene coordinates to be projected.         * @return The normalised screen position of the given scene coordinates.         */
         public function project(point3d:Vector3D):Vector3D
         {
-            return _lens.project( inverseSceneTransform.transformVector(point3d));
+            return this._lens.project( this.inverseSceneTransform.transformVector(point3d));
         }
 
-        /**
-         * Calculates the scene position of the given normalized coordinates in screen space.
-         *
-         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.
-         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.
-         * @param sZ The z coordinate in screen space, representing the distance into the screen.
-         * @return The scene position of the given screen coordinates.
-         */
+        /**         * Calculates the scene position of the given normalized coordinates in screen space.         *         * @param nX The normalised x coordinate in screen space, -1 corresponds to the left edge of the viewport, 1 to the right.         * @param nY The normalised y coordinate in screen space, -1 corresponds to the top edge of the viewport, 1 to the bottom.         * @param sZ The z coordinate in screen space, representing the distance into the screen.         * @return The scene position of the given screen coordinates.         */
         public function unproject(nX:Number, nY:Number, sZ:Number):Vector3D
         {
-            return sceneTransform.transformVector(_lens.unproject(nX, nY, sZ));
+            return this.sceneTransform.transformVector(this._lens.unproject(nX, nY, sZ));
         }
 
 	}

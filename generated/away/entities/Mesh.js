@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:23:06 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,14 +15,14 @@ away.entities.Mesh = function(geometry, material) {
 	away.entities.Entity.call(this);
 	this._subMeshes = [];
 	if (geometry == null) {
-		geometry = new away.base.Geometry();
+		this.set_geometry(new away.base.Geometry());
 	} else {
-		geometry = geometry;
+		this.set_geometry(geometry);
 	}
 	if (material == null) {
-		material = away.materials.utils.DefaultMaterialManager.getDefaultMaterial(this);
+		this.set_material(away.materials.utils.DefaultMaterialManager.getDefaultMaterial(this));
 	} else {
-		material = material;
+		this.set_material(material);
 	}
 };
 
@@ -133,21 +133,21 @@ away.entities.Mesh.prototype.disposeWithAnimatorAndChildren = function() {
 
 away.entities.Mesh.prototype.clone = function() {
 	var clone = new away.entities.Mesh(this._geometry, this._material);
-	clone.set_transform($createStaticDelegate(this, this.get_transform));
-	clone.set_pivotPoint($createStaticDelegate(this, this.get_pivotPoint));
-	clone.set_partition($createStaticDelegate(this, this.get_partition));
+	clone.set_transform(this.get_transform());
+	clone.set_pivotPoint(this.get_pivotPoint());
+	clone.set_partition(this.get_partition());
 	clone.set_bounds(this._pBounds.clone());
-	clone.set_name($createStaticDelegate(this, this.get_name));
-	clone.set_castsShadows($createStaticDelegate(this, this.get_castsShadows));
-	clone.set_shareAnimationGeometry($createStaticDelegate(this, this.get_shareAnimationGeometry));
-	clone.set_mouseEnabled($createStaticDelegate(this, this.get_mouseEnabled));
-	clone.set_mouseChildren($createStaticDelegate(this, this.get_mouseChildren));
+	clone.set_name(this.get_name());
+	clone.set_castsShadows(this.get_castsShadows());
+	clone.set_shareAnimationGeometry(this.get_shareAnimationGeometry());
+	clone.set_mouseEnabled(this.get_mouseEnabled());
+	clone.set_mouseChildren(this.get_mouseChildren());
 	clone.extra = this.extra;
 	var len = this._subMeshes.length;
 	for (var i = 0; i < len; ++i) {
 		clone._subMeshes[i].material = this._subMeshes[i].material;
 	}
-	len = $createStaticDelegate(this, this.get_numChildren);
+	len = this.get_numChildren();
 	var obj;
 	for (i = 0; i < len; ++i) {
 		obj = this.getChildAt(i).clone();

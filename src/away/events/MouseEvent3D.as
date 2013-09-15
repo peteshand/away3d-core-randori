@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+/** * @module away.events */
 package away.events
 {
 	import away.containers.View3D;
@@ -110,8 +111,8 @@ package away.events
 		/**		 * @inheritDoc		 */
 		public function get bubbles():Boolean
 		{
-			var doesBubble:Boolean = _iAllowedToPropagate ;
-            _iAllowedToPropagate = true;
+			var doesBubble:Boolean = this._iAllowedToPropagate ;
+            this._iAllowedToPropagate = true;
 			// Don't bubble if propagation has been stopped.
 			return doesBubble;
 		}
@@ -119,11 +120,11 @@ package away.events
 		/**		 * @inheritDoc		 */
 		public function stopPropagation():void
 		{
-            _iAllowedToPropagate = false;
+            this._iAllowedToPropagate = false;
 
-			if (_iParentEvent){
+			if (this._iParentEvent){
 
-                _iParentEvent.stopPropagation();
+                this._iParentEvent.stopPropagation();
 
             }
 
@@ -132,12 +133,12 @@ package away.events
 		/**		 * @inheritDoc		 */
 		public function stopImmediatePropagation():void
 		{
-			_iAllowedToPropagate = false;
+			this._iAllowedToPropagate = false;
 
-			if ( _iParentEvent )
+			if ( this._iParentEvent )
             {
 
-                _iParentEvent.stopImmediatePropagation();
+                this._iParentEvent.stopImmediatePropagation();
 
             }
 
@@ -146,29 +147,29 @@ package away.events
 		/**		 * Creates a copy of the MouseEvent3D object and sets the value of each property to match that of the original.		 */
 		override public function clone():Event
 		{
-			var result:MouseEvent3D = new MouseEvent3D( type );
+			var result:MouseEvent3D = new MouseEvent3D( this.type );
 
             /* TODO: Debug / test - look into isDefaultPrevented			if (isDefaultPrevented())				result.preventDefault();			*/
 
-			result.screenX = screenX;
-			result.screenY = screenY;
+			result.screenX = this.screenX;
+			result.screenY = this.screenY;
 			
-			result.view = view;
-			result.object = object;
-			result.renderable = renderable;
-			result.material = material;
-			result.uv = uv;
-			result.localPosition = localPosition;
-			result.localNormal = localNormal;
-			result.index = index;
-			result.subGeometryIndex = subGeometryIndex;
-			result.delta = delta;
+			result.view = this.view;
+			result.object = this.object;
+			result.renderable = this.renderable;
+			result.material = this.material;
+			result.uv = this.uv;
+			result.localPosition = this.localPosition;
+			result.localNormal = this.localNormal;
+			result.index = this.index;
+			result.subGeometryIndex = this.subGeometryIndex;
+			result.delta = this.delta;
 			
-			result.ctrlKey = ctrlKey;
-			result.shiftKey = shiftKey;
+			result.ctrlKey = this.ctrlKey;
+			result.shiftKey = this.shiftKey;
 			
 			result._iParentEvent = this;
-			result._iAllowedToPropagate = _iAllowedToPropagate;
+			result._iAllowedToPropagate = this._iAllowedToPropagate;
 			
 			return result;
 		}
@@ -176,17 +177,17 @@ package away.events
 		/**		 * The position in scene space where the event took place		 */
 		public function get scenePosition():Vector3D
 		{
-            if ( object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
+            if ( this.object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
             {
 
-                var objContainer : ObjectContainer3D = (object as ObjectContainer3D);
-                return objContainer.sceneTransform.transformVector( localPosition );
+                var objContainer : ObjectContainer3D = (this.object as ObjectContainer3D);
+                return objContainer.sceneTransform.transformVector( this.localPosition );
 
             }
 			else
             {
 
-                return localPosition;
+                return this.localPosition;
 
             }
 
@@ -196,10 +197,10 @@ package away.events
 		public function get sceneNormal():Vector3D
 		{
 
-            if ( object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
+            if ( this.object instanceof ObjectContainer3D ) //if (this.object is ObjectContainer3D)
             {
-                var objContainer : ObjectContainer3D = (object as ObjectContainer3D);
-                var sceneNormal  : Vector3D = objContainer.sceneTransform.deltaTransformVector( localNormal );
+                var objContainer : ObjectContainer3D = (this.object as ObjectContainer3D);
+                var sceneNormal  : Vector3D = objContainer.sceneTransform.deltaTransformVector( this.localNormal );
 
                     sceneNormal.normalize();
 
@@ -209,7 +210,7 @@ package away.events
             else
             {
 
-                return localNormal;
+                return this.localNormal;
             }
 
             /*			if (object is ObjectContainer3D) {				var sceneNormal:Vector3D = ObjectContainer3D(object)				sceneNormal.normalize();				return sceneNormal;			} else				return localNormal;				*/

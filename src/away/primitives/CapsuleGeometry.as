@@ -1,11 +1,10 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
 
-	/**
-	 * A Capsule primitive mesh.
-	 */
+	/**	 * A Capsule primitive mesh.	 */
 	public class CapsuleGeometry extends PrimitiveBase
 	{
 		private var _radius:Number;
@@ -14,28 +13,19 @@ package away.primitives
 		private var _segmentsH:Number;
 		private var _yUp:Boolean;
 		
-		/**
-		 * Creates a new Capsule object.
-		 * @param radius The radius of the capsule.
-		 * @param height The height of the capsule.
-		 * @param segmentsW Defines the number of horizontal segments that make up the capsule. Defaults to 16.
-		 * @param segmentsH Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven value.
-		 * @param yUp Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Creates a new Capsule object.		 * @param radius The radius of the capsule.		 * @param height The height of the capsule.		 * @param segmentsW Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven value.		 * @param yUp Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function CapsuleGeometry(radius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 15, yUp:Boolean = true):void
 		{
 			super();
 			
-			_radius = radius;
-            _height = height;
-            _segmentsW = segmentsW;
-            _segmentsH = (segmentsH%2 == 0)? segmentsH + 1 : segmentsH;
-            _yUp = yUp;
+			this._radius = radius;
+            this._height = height;
+            this._segmentsW = segmentsW;
+            this._segmentsH = (segmentsH%2 == 0)? segmentsH + 1 : segmentsH;
+            this._yUp = yUp;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -43,7 +33,7 @@ package away.primitives
 			var i:Number;
             var j:Number;
             var triIndex:Number = 0;
-			var numVerts:Number = (_segmentsH + 1)*(_segmentsW + 1);
+			var numVerts:Number = (this._segmentsH + 1)*(this._segmentsW + 1);
 			var stride:Number = target.vertexStride;
 			var skip:Number = stride - 9;
 			var index:Number = 0;
@@ -63,7 +53,7 @@ package away.primitives
                 }
                 else
                 {
-                    indices = new Vector.<Number>((_segmentsH - 1)*_segmentsW*6 );
+                    indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6 );
                 }
 
 				
@@ -72,30 +62,30 @@ package away.primitives
             {
 
 				data = new Vector.<Number>(numVerts*stride);
-				indices = new Vector.<Number>((_segmentsH - 1)*_segmentsW*6);
-				pInvalidateUVs();
+				indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6);
+				this.pInvalidateUVs();
 
 			}
 			
-			for (j = 0; j <= _segmentsH; ++j)
+			for (j = 0; j <= this._segmentsH; ++j)
             {
 				
-				var horangle:Number = Math.PI*j/_segmentsH;
-				var z:Number = -_radius*Math.cos(horangle);
-				var ringradius:Number = _radius*Math.sin(horangle);
+				var horangle:Number = Math.PI*j/this._segmentsH;
+				var z:Number = -this._radius*Math.cos(horangle);
+				var ringradius:Number = this._radius*Math.sin(horangle);
 
 				startIndex = index;
 				
-				for (i = 0; i <= _segmentsW; ++i)
+				for (i = 0; i <= this._segmentsW; ++i)
                 {
-					var verangle:Number = 2*Math.PI*i/_segmentsW;
+					var verangle:Number = 2*Math.PI*i/this._segmentsW;
 					var x:Number = ringradius*Math.cos(verangle);
-					var offset:Number = j > _segmentsH/2? _height/2 : -_height/2;
+					var offset:Number = j > this._segmentsH/2? this._height/2 : -this._height/2;
 					var y:Number = ringradius*Math.sin(verangle);
 					var normLen:Number = 1/Math.sqrt(x*x + y*y + z*z);
 					var tanLen:Number = Math.sqrt(y*y + x*x);
 					
-					if (_yUp) {
+					if (this._yUp) {
 						t1 = 0;
 						t2 = tanLen > .007? x/tanLen : 0;
 						comp1 = -z;
@@ -108,7 +98,7 @@ package away.primitives
 						comp2 = z;
 					}
 					
-					if (i == _segmentsW) {
+					if (i == this._segmentsW) {
 						
 						data[index++] = data[startIndex];
 						data[index++] = data[startIndex + 1];
@@ -123,8 +113,8 @@ package away.primitives
 					} else {
 						// vertex
 						data[index++] = x;
-						data[index++] = (_yUp)? comp1 - offset : comp1;
-						data[index++] = (_yUp)? comp2 : comp2 + offset;
+						data[index++] = (this._yUp)? comp1 - offset : comp1;
+						data[index++] = (this._yUp)? comp2 : comp2 + offset;
 						// normal
 						data[index++] = x*normLen;
 						data[index++] = comp1*normLen;
@@ -136,12 +126,12 @@ package away.primitives
 					}
 					
 					if (i > 0 && j > 0) {
-						var a:Number = (_segmentsW + 1)*j + i;
-						var b:Number = (_segmentsW + 1)*j + i - 1;
-						var c:Number = (_segmentsW + 1)*(j - 1) + i - 1;
-						var d:Number = (_segmentsW + 1)*(j - 1) + i;
+						var a:Number = (this._segmentsW + 1)*j + i;
+						var b:Number = (this._segmentsW + 1)*j + i - 1;
+						var c:Number = (this._segmentsW + 1)*(j - 1) + i - 1;
+						var d:Number = (this._segmentsW + 1)*(j - 1) + i;
 						
-						if (j == _segmentsH) {
+						if (j == this._segmentsH) {
 							data[index - 9] = data[startIndex];
 							data[index - 8] = data[startIndex + 1];
 							data[index - 7] = data[startIndex + 2];
@@ -173,9 +163,7 @@ package away.primitives
 			target.updateIndexData(indices);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number;
@@ -183,7 +171,7 @@ package away.primitives
 			var index:Number;
 			var data:Vector.<Number>;
 			var stride:Number = target.UVStride;
-			var UVlen:Number = (_segmentsH + 1)*(_segmentsW + 1)*stride;
+			var UVlen:Number = (this._segmentsH + 1)*(this._segmentsW + 1)*stride;
 			var skip:Number = stride - 2;
 			
 			if (target.UVData && UVlen == target.UVData.length)
@@ -193,17 +181,17 @@ package away.primitives
 			else
             {
 				data = new Vector.<Number>( UVlen );
-				pInvalidateGeometry();
+				this.pInvalidateGeometry();
 			}
 			
 			index = target.UVOffset;
 
-			for (j = 0; j <= _segmentsH; ++j)
+			for (j = 0; j <= this._segmentsH; ++j)
             {
-				for (i = 0; i <= _segmentsW; ++i)
+				for (i = 0; i <= this._segmentsW; ++i)
                 {
-					data[index++] = 1 - ( ( i/_segmentsW )*target.scaleU ) ;
-					data[index++] = ( j/_segmentsH )*target.scaleV;
+					data[index++] = ( i/this._segmentsW )*target.scaleU;
+					data[index++] = ( j/this._segmentsH )*target.scaleV;
 					index += skip;
 				}
 			}
@@ -211,76 +199,66 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**
-		 * The radius of the capsule.
-		 */
+		/**		 * The radius of the capsule.		 */
 		public function get radius():Number
 		{
-			return _radius;
+			return this._radius;
 		}
 		
 		public function set radius(value:Number):void
 		{
-            _radius = value;
-            pInvalidateGeometry();
+            this._radius = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * The height of the capsule.
-		 */
+		/**		 * The height of the capsule.		 */
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
 		
 		public function set height(value:Number):void
 		{
-            _height = value;
-            pInvalidateGeometry();
+            this._height = value;
+            this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * Defines the number of horizontal segments that make up the capsule. Defaults to 16.
-		 */
+		/**		 * Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 */
 		public function get segmentsW():Number
 		{
-			return _segmentsW;
+			return this._segmentsW;
 		}
 		
 		public function set segmentsW(value:Number):void
 		{
-            _segmentsW = value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsW = value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven.
-		 */
+		/**		 * Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven.		 */
 		public function get segmentsH():Number
 		{
-			return _segmentsH;
+			return this._segmentsH;
 		}
 		
 		public function set segmentsH(value:Number):void
 		{
-            _segmentsH = (value%2 == 0)? value + 1 : value;
-            pInvalidateGeometry();
-            pInvalidateUVs();
+            this._segmentsH = (value%2 == 0)? value + 1 : value;
+            this.pInvalidateGeometry();
+            this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function get yUp():Boolean
 		{
-			return _yUp;
+			return this._yUp;
 		}
 		
 		public function set yUp(value:Boolean):void
 		{
-            _yUp = value;
-            pInvalidateGeometry();
+            this._yUp = value;
+            this.pInvalidateGeometry();
 		}
 	}
 }

@@ -6,7 +6,7 @@ if (typeof examples == "undefined")
 examples.ImageLoadTest = function() {
 	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
 	var imgLoader = new away.net.IMGLoader("");
-	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(, this.imageCompleteHandler), this);
+	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,9 +6,9 @@ if (typeof away.utils == "undefined")
 	away.utils = {};
 
 away.utils.ByteArray = function() {
+	this.maxlength = 0;
 	this.unalignedarraybytestemp = undefined;
 	this.arraybytes = undefined;
-	this.maxlength = 0;
 	away.utils.ByteArrayBase.call(this);
 	this._mode = "Typed array";
 	this.maxlength = 4;
@@ -21,12 +21,16 @@ away.utils.ByteArray.prototype.ensureWriteableSpace = function(n) {
 };
 
 away.utils.ByteArray.prototype.setArrayBuffer = function(aBuffer) {
-	this.maxlength = this.length = aBuffer.byteLength;
-	this.arraybytes = aBuffer;
+	this.ensureSpace(aBuffer.byteLength);
+	this.length = aBuffer.byteLength;
+	var inInt8AView = new Int8Array(aBuffer);
+	var localInt8View = new Int8Array(this.arraybytes, 0, this.length);
+	localInt8View.set(inInt8AView);
+	this.position = 0;
 };
 
 away.utils.ByteArray.prototype.getBytesAvailable = function() {
-	return this.arraybytes.byteLength - this.position;
+	return this.length - this.position;
 };
 
 away.utils.ByteArray.prototype.ensureSpace = function(n) {
@@ -58,17 +62,17 @@ away.utils.ByteArray.prototype.readByte = function() {
 	return view[this.position++];
 };
 
-away.utils.ByteArray.prototype.readBytes = function(bytes, start, end) {
-	var uintArr = new Uint8Array(this.arraybytes);
-	if (end == start || end <= start) {
-		end = uintArr.length;
+away.utils.ByteArray.prototype.readBytes = function(bytes, offset, length) {
+	var localInt8A = new Int8Array(this.arraybytes);
+	if (length == 0) {
+		length = bytes.length;
 	}
-	var result = new ArrayBuffer();
-	var resultArray = new Uint8Array(result);
-	for (var i = 0; i < resultArray.length; i++) {
-		resultArray[i] = uintArr[i + start];
+	var originalPosition = bytes.position;
+	bytes.position = offset;
+	for (var i = 0; i < length; i++) {
+		bytes.writeByte(localInt8A[this.position++]);
 	}
-	bytes.setArrayBuffer(result);
+	bytes.position = originalPosition;
 };
 
 away.utils.ByteArray.prototype.writeUnsignedByte = function(b) {
@@ -106,9 +110,54 @@ away.utils.ByteArray.prototype.writeUnsignedShort = function(b) {
 	}
 };
 
+away.utils.ByteArray.prototype.readUTFBytes = function(len) {
+	var value = "";
+	var max = this.position + len;
+	var data = this.arraybytes;
+	while (this.position < max) {
+		var c = data.getUint16(this.position++);
+		if (c < 0x80) {
+			if (c == 0)
+				break;
+			value += String.fromCharCode(c);
+		} else if (c < 0xE0) {
+			value += String.fromCharCode(((c & 0x3F) << 6) | (data.getUint16(this.position++) & 0x7F));
+		} else if (c < 0xF0) {
+			var c2 = data.getUint16(this.position++);
+			value += String.fromCharCode(((c & 0x1F) << 12) | ((c2 & 0x7F) << 6) | (data.getUint16(this.position++) & 0x7F));
+		} else {
+			var c2 = data.getUint16(this.position++);
+			var c3 = data.getUint16(this.position++);
+			value += String.fromCharCode(((c & 0x0F) << 18) | ((c2 & 0x7F) << 12) | ((c3 << 6) & 0x7F) | (data.getUint16(this.position++) & 0x7F));
+		}
+	}
+	return value;
+};
+
+away.utils.ByteArray.prototype.readInt = function() {
+	var data = this.arraybytes;
+	var int = data.getInt32(this.position);
+	this.position += 4;
+	return int;
+};
+
+away.utils.ByteArray.prototype.readShort = function() {
+	var data = this.arraybytes;
+	var short = data.getInt16(this.position);
+	this.position += 2;
+	return short;
+};
+
+away.utils.ByteArray.prototype.readDouble = function() {
+	var data = this.arraybytes;
+	var double = data.getFloat64(this.position);
+	this.position += 8;
+	return double;
+};
+
 away.utils.ByteArray.prototype.readUnsignedShort = function() {
 	if (this.position > this.length + 2) {
-		throw "ByteArray out of bounds read. Positon=" + this.position + ", Length=" + this.length;
+		throw "ByteArray out of bounds read. Position=" + this.position + ", Length=" + this.length;
 	}
 	if ((this.position & 1) == 0) {
 		var view = new Uint16Array(this.arraybytes);
@@ -192,7 +241,7 @@ away.utils.ByteArray.prototype.writeFloat = function(b) {
 	}
 };
 
-away.utils.ByteArray.prototype.readFloat = function(b) {
+away.utils.ByteArray.prototype.readFloat = function() {
 	if (this.position > this.length + 4) {
 		throw "ByteArray out of bounds read. Positon=" + this.position + ", Length=" + this.length;
 	}

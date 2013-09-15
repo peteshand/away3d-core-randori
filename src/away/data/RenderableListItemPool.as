@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 package away.data
 {
 	public class RenderableListItemPool
@@ -13,31 +11,31 @@ package away.data
 		
 		public function RenderableListItemPool():void
 		{
-			_pool = new <RenderableListItem>[];
+			this._pool = new <RenderableListItem>[];
 		}
 		
 		public function getItem():RenderableListItem
 		{
-			if( _index == _poolSize )
+			if( this._index == this._poolSize )
 			{
 				var item:RenderableListItem = new RenderableListItem();
-				_pool[_index++] = item;
-				++_poolSize;
+				this._pool[this._index++] = item;
+				++this._poolSize;
 				return item;
 			} else
 			{
-				return _pool[_index++];
+				return this._pool[this._index++];
 			}
 		}
 		
 		public function freeAll():void
 		{
-			_index = 0;
+			this._index = 0;
 		}
 		
 		public function dispose():void
 		{
-			_pool.length = 0;
+			this._pool.length = 0;
 		}
 	}
 }

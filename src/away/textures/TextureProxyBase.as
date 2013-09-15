@@ -1,4 +1,5 @@
 
+
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -28,81 +29,62 @@ package away.textures
 
             super();
 
-            _textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
-            _dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
+            this._textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
+            this._dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
 
 		}
 
-        /**
-         *
-         * @returns {boolean}
-         */
+        /**         *         * @returns {boolean}         */
 		public function get hasMipMaps():Boolean
 		{
-			return _hasMipmaps;
+			return this._hasMipmaps;
 		}
 
-        /**
-         *
-         * @returns {string}
-         */
+        /**         *         * @returns {string}         */
 		public function get format():String
 		{
-			return _format;
+			return this._format;
 		}
 
-        /**
-         *
-         * @returns {string}
-         */
+        /**         *         * @returns {string}         */
 		override public function get assetType():String
 		{
 			return AssetType.TEXTURE;
 		}
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get width():Number
 		{
-			return _pWidth;
+			return this._pWidth;
 		}
 
-        /**
-         *
-         * @returns {number}
-         */
+        /**         *         * @returns {number}         */
 		public function get height():Number
 		{
-			return _pHeight;
+			return this._pHeight;
 		}
 
 		public function getTextureForStage3D(stage3DProxy:Stage3DProxy):TextureBase
 		{
 			var contextIndex : Number = stage3DProxy._iStage3DIndex;
 
-			var tex : TextureBase = _textures[contextIndex];
+			var tex : TextureBase = this._textures[contextIndex];
 
 			var context : Context3D = stage3DProxy._iContext3D;//_context3D;
 
-			if (!tex || _dirty[contextIndex] != context)
+			if (!tex || this._dirty[contextIndex] != context)
             {
 
-				_textures[contextIndex] = tex = pCreateTexture(context);
-				_dirty[contextIndex] = context;
-				pUploadContent(tex);//_pUploadContent
+				this._textures[contextIndex] = tex = this.pCreateTexture(context);
+				this._dirty[contextIndex] = context;
+				this.pUploadContent(tex);//_pUploadContent
 
 			}
 
 			return tex;
 		}
 
-        /**
-         *
-         * @param texture
-         * @private
-         */
+        /**         *         * @param texture         * @private         */
 		public function pUploadContent(texture:TextureBase):void
 		{
 
@@ -110,60 +92,50 @@ package away.textures
 
 		}
 
-        /**
-         *
-         * @param width
-         * @param height
-         * @private
-         */
+        /**         *         * @param width         * @param height         * @private         */
 		public function pSetSize(width:Number, height:Number):void
 		{
 
-			if (_pWidth != width || _pHeight != height)
+			if (this._pWidth != width || this._pHeight != height)
             {
 
-                pInvalidateSize();
+                this.pInvalidateSize();
 
             }
 
-            _pWidth     = width;
-            _pHeight    = height;
+            this._pWidth     = width;
+            this._pHeight    = height;
 
 		}
 
-        /**
-         *
-         */
+        /**         *         */
 		public function invalidateContent():void
 		{
 
 			for (var i : Number = 0; i < 8; ++i)
             {
 
-				_dirty[i] = null;
+				this._dirty[i] = null;
 
 			}
 
 		}
 
-        /**
-         *
-         * @private
-         */
+        /**         *         * @private         */
 		public function pInvalidateSize():void
 		{
 			var tex : TextureBase;
 			for (var i : Number = 0; i < 8; ++i)
             {
 
-				tex = _textures[i];
+				tex = this._textures[i];
 
 				if (tex)
                 {
 					tex.dispose();
 
-					_textures[i]   = null;
-					_dirty[i]      = null;
+					this._textures[i]   = null;
+					this._dirty[i]      = null;
 
 				}
 
@@ -171,28 +143,22 @@ package away.textures
 
 		}
 
-        /**
-         *
-         * @param context
-         * @private
-         */
+        /**         *         * @param context         * @private         */
 		public function pCreateTexture(context:Context3D):TextureBase
 		{
             throw new AbstractMethodError();
 		}
 
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function dispose():void
 		{
 			for (var i : Number = 0; i < 8; ++i)
             {
 
-                if (_textures[i])
+                if (this._textures[i])
                 {
 
-                    _textures[i].dispose();
+                    this._textures[i].dispose();
                 }
 
             }

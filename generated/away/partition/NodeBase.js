@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:44:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -110,7 +110,7 @@ away.partition.NodeBase.prototype.set__pNumEntities = function(value) {
 };
 
 away.partition.NodeBase.prototype._pUpdateNumEntities = function(value) {
-	var diff = value - $createStaticDelegate(this, this.get__pNumEntities);
+	var diff = value - this.get__pNumEntities();
 	var node = this;
 	do {
 		node.set__pNumEntities(node.get__pNumEntities() + diff);

@@ -1,6 +1,8 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.events
-{	
+{
+    /**     * @class away.events.HTTPStatusEvent     */
 	public class HTTPStatusEvent extends Event
 	{
 

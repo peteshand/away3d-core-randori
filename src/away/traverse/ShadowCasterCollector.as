@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.traverse
@@ -29,17 +27,17 @@ package away.traverse
 			var entity:Entity = renderable.sourceEntity;
 			if( renderable.castsShadows && material )
 			{
-				var item:RenderableListItem = _pRenderableListItemPool.getItem();
+				var item:RenderableListItem = this._pRenderableListItemPool.getItem();
 				item.renderable = renderable;
-				item.next = _pOpaqueRenderableHead;
+				item.next = this._pOpaqueRenderableHead;
 				item.cascaded = false;
-				var dx:Number = _iEntryPoint.x - entity.x;
-				var dy:Number = _iEntryPoint.y - entity.y;
-				var dz:Number = _iEntryPoint.z - entity.z;
-				item.zIndex = dx * _pCameraForward.x + dy * _pCameraForward.y + dz * _pCameraForward.z;
-				item.renderSceneTransform = renderable.getRenderSceneTransform( _pCamera );
+				var dx:Number = this._iEntryPoint.x - entity.x;
+				var dy:Number = this._iEntryPoint.y - entity.y;
+				var dz:Number = this._iEntryPoint.z - entity.z;
+				item.zIndex = dx * this._pCameraForward.x + dy * this._pCameraForward.y + dz * this._pCameraForward.z;
+				item.renderSceneTransform = renderable.getRenderSceneTransform( this._pCamera );
 				item.renderOrderId = material._iDepthPassId;
-				_pOpaqueRenderableHead = item;
+				this._pOpaqueRenderableHead = item;
 			}
 		}
 		

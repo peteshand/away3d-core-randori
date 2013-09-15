@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts"/>
 
 package away.partition
@@ -15,12 +13,12 @@ package away.partition
 		public function LightProbeNode(light:LightProbe):void
 		{
 			super( light );
-			_light = light;
+			this._light = light;
 		}
 		
 		public function get light():LightProbe
 		{
-			return _light;
+			return this._light;
 		}
 		
 		//@override
@@ -29,7 +27,7 @@ package away.partition
 			if( traverser.enterNode(this))
 			{
 				super.acceptTraverser( traverser );
-				traverser.applyLightProbe( _light );
+				traverser.applyLightProbe( this._light );
 			}
 		}
 	}

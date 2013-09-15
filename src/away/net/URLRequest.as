@@ -1,10 +1,9 @@
+
 ///<reference path="../_definitions.ts"/>
 
 package away.net {
 
-    /**
-     *
-     */
+    /**     *     */
     public class URLRequest
     {
 
@@ -14,81 +13,53 @@ package away.net {
         //public requestHeader    : Array;
         //public userAgent        : string;
 
-        /*
-         * The MIME content type of the content in the the data property.
-         * @type {string}
-         */
+        /*         * The MIME content type of the content in the the data property.         * @type {string}         */
         //public contentType      : string = 'application/x-www-form-urlencoded'; //Note: Not used for now.
 
-        /**
-         * Object containing data to be transmited with URL Request ( URL Variables / binary / string )
-         *
-         */
+        /**         * Object containing data to be transmited with URL Request ( URL Variables / binary / string )         *         */
         public var data:*;
 
-        /**
-         *
-         * away.net.URLRequestMethod.GET
-         * away.net.URLRequestMethod.POST
-         *
-         * @type {string}
-         */
+        /**         *         * away.net.URLRequestMethod.GET         * away.net.URLRequestMethod.POST         *         * @type {string}         */
         public var method:String = URLRequestMethod.GET;
 
-        /**
-         * Use asynchronous XMLHttpRequest
-         * @type {boolean}
-         */
+        /**         * Use asynchronous XMLHttpRequest         * @type {boolean}         */
         public var async:Boolean = true;
 
-        /**
-         *
-         */
+        /**         *         */
         private var _url:String;
 
-        /**
-
-         * @param url
-         */
+        /**         * @param url         */
         public function URLRequest(url:String = null):void
         {
 
-            _url = url;
+            this._url = url;
 
         }
 
-        /**
-         *
-         * @returns {string}
-         */
+        /**         *         * @returns {string}         */
         public function get url():String
         {
 
-            return _url;
+            return this._url;
 
         }
 
-        /**
-         *
-         * @param value
-         */
+        /**         *         * @param value         */
         public function set url(value:String):void
         {
 
-            _url = value;
+            this._url = value;
 
         }
 
-        /**
-         * dispose
-         */
+        /**         * dispose         */
         public function dispose():void
         {
 
-            data   = null;
-            _url   = null;
-            method = null;
-            async  = null;
+            this.data   = null;
+            this._url   = null;
+            this.method = null;
+            this.async  = null;
 
         }
     }

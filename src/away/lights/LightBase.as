@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.lights
@@ -50,35 +48,35 @@ package away.lights
 		
 		public function get castsShadows():Boolean
 		{
-			return _castsShadows;
+			return this._castsShadows;
 		}
 		
 		public function set castsShadows(value:Boolean):void
 		{
-			if( _castsShadows == value )
+			if( this._castsShadows == value )
 			{
 				return;
 			}
 			
-			_castsShadows = value;
+			this._castsShadows = value;
 			
 			if( value )
 			{
 
-                if ( _shadowMapper == null )
+                if ( this._shadowMapper == null )
                 {
 
-                    _shadowMapper = pCreateShadowMapper();
+                    this._shadowMapper = this.pCreateShadowMapper();
 
                 }
 
-				_shadowMapper.light = this;
+				this._shadowMapper.light = this;
 			} else {
-                _shadowMapper.dispose();
-                _shadowMapper = null;
+                this._shadowMapper.dispose();
+                this._shadowMapper = null;
 			}
 			//*/
-			dispatchEvent(new LightEvent( LightEvent.CASTS_SHADOW_CHANGE) );
+			this.dispatchEvent(new LightEvent( LightEvent.CASTS_SHADOW_CHANGE) );
 		}
 		
 		public function pCreateShadowMapper():ShadowMapperBase
@@ -88,7 +86,7 @@ package away.lights
 
 		public function get specular():Number
 		{
-			return _specular;
+			return this._specular;
 		}
 		
 		public function set specular(value:Number):void
@@ -97,13 +95,13 @@ package away.lights
 			{
 				value = 0;
 			}
-			_specular = value;
-			updateSpecular();
+			this._specular = value;
+			this.updateSpecular();
 		}
 		
 		public function get diffuse():Number
 		{
-			return _diffuse;
+			return this._diffuse;
 		}
 		
 		public function set diffuse(value:Number):void
@@ -112,28 +110,28 @@ package away.lights
 			{
 				value = 0;
 			}
-			_diffuse = value;
-			updateDiffuse();
+			this._diffuse = value;
+			this.updateDiffuse();
 		}
 		
 		public function get color():Number
 		{
-			return _color;
+			return this._color;
 		}
 		
 		public function set color(value:Number):void
 		{
-			_color = value;
-			_colorR = ((_color >> 16) & 0xff)/0xff;
-			_colorG = ((_color >> 8) & 0xff)/0xff;
-			_colorB = (_color & 0xff)/0xff;
-			updateDiffuse();
-			updateSpecular();
+			this._color = value;
+			this._colorR = ((this._color >> 16) & 0xff)/0xff;
+			this._colorG = ((this._color >> 8) & 0xff)/0xff;
+			this._colorB = (this._color & 0xff)/0xff;
+			this.updateDiffuse();
+			this.updateSpecular();
 		}
 		
 		public function get ambient():Number
 		{
-			return _ambient;
+			return this._ambient;
 		}
 		
 		public function set ambient(value:Number):void
@@ -146,26 +144,26 @@ package away.lights
 			{
 				value = 1;
 			}
-			_ambient = value;
-			updateAmbient();
+			this._ambient = value;
+			this.updateAmbient();
 		}
 		
 		public function get ambientColor():Number
 		{
-			return _ambientColor;
+			return this._ambientColor;
 		}
 		
 		public function set ambientColor(value:Number):void
 		{
-			_ambientColor = value;
-			updateAmbient();
+			this._ambientColor = value;
+			this.updateAmbient();
 		}
 		
 		private function updateAmbient():void
 		{
-			_iAmbientR = ((_ambientColor >> 16) & 0xff)/0xff*_ambient;
-			_iAmbientG = ((_ambientColor >> 8) & 0xff)/0xff*_ambient;
-			_iAmbientB = (_ambientColor & 0xff)/0xff*_ambient;
+			this._iAmbientR = ((this._ambientColor >> 16) & 0xff)/0xff*this._ambient;
+			this._iAmbientG = ((this._ambientColor >> 8) & 0xff)/0xff*this._ambient;
+			this._iAmbientB = (this._ambientColor & 0xff)/0xff*this._ambient;
 		}
 		
 		public function iGetObjectProjectionMatrix(renderable:IRenderable, target:Matrix3D = null):Matrix3D
@@ -187,27 +185,27 @@ package away.lights
 		
 		private function updateSpecular():void
 		{
-			_iSpecularR = _colorR*_specular;
-			_iSpecularG = _colorG*_specular;
-			_iSpecularB = _colorB*_specular;
+			this._iSpecularR = this._colorR*this._specular;
+			this._iSpecularG = this._colorG*this._specular;
+			this._iSpecularB = this._colorB*this._specular;
 		}
 		
 		private function updateDiffuse():void
 		{
-			_iDiffuseR = _colorR*_diffuse;
-			_iDiffuseG = _colorG*_diffuse;
-			_iDiffuseB = _colorB*_diffuse;
+			this._iDiffuseR = this._colorR*this._diffuse;
+			this._iDiffuseG = this._colorG*this._diffuse;
+			this._iDiffuseB = this._colorB*this._diffuse;
 		}
 		
 		public function get shadowMapper():ShadowMapperBase
 		{
-			return _shadowMapper;
+			return this._shadowMapper;
 		}
 
 		public function set shadowMapper(value:ShadowMapperBase):void
 		{
-			_shadowMapper = value;
-			_shadowMapper.light = this;
+			this._shadowMapper = value;
+			this._shadowMapper.light = this;
 		}
 	}
 }

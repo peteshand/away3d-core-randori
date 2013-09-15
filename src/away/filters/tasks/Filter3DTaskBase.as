@@ -1,3 +1,4 @@
+
 ///<reference path="../../_definitions.ts"/>
 
 package away.filters.tasks
@@ -29,126 +30,124 @@ package away.filters.tasks
 		public function Filter3DTaskBase(requireDepthRender:Boolean = false):void
 		{
 
-			_requireDepthRender = requireDepthRender;
+			this._requireDepthRender = requireDepthRender;
 
 		}
 		
-		/**
-		 * The texture scale for the input of this texture. This will define the output of the previous entry in the chain
-		 */
+		/**		 * The texture scale for the input of this texture. This will define the output of the previous entry in the chain		 */
 		public function get textureScale():Number
 		{
 
-			return _textureScale;
+			return this._textureScale;
 
 		}
 		
 		public function set textureScale(value:Number):void
 		{
 
-			if (_textureScale == value)
+			if (this._textureScale == value)
             {
 
                 return;
 
             }
 
-			_textureScale = value;
-            _scaledTextureWidth = _textureWidth >> _textureScale;
-            _scaledTextureHeight = _textureHeight >> _textureScale;
-            _textureDimensionsInvalid = true;
+			this._textureScale = value;
+            this._scaledTextureWidth = this._textureWidth >> this._textureScale;
+            this._scaledTextureHeight = this._textureHeight >> this._textureScale;
+            this._textureDimensionsInvalid = true;
 
 		}
 		
 		public function get target():Texture
 		{
 
-			return _target;
+			return this._target;
 
 		}
 		
 		public function set target(value:Texture):void
 		{
 
-			_target = value;
+			this._target = value;
 
 		}
 		
 		public function get textureWidth():Number
 		{
 
-			return _textureWidth;
+			return this._textureWidth;
 
 		}
 		
 		public function set textureWidth(value:Number):void
 		{
 
-			if (_textureWidth == value)
+			if (this._textureWidth == value)
             {
 
                 return;
 
             }
 
-			_textureWidth = value;
-            _scaledTextureWidth = _textureWidth >> _textureScale;
-            _textureDimensionsInvalid = true;
+			this._textureWidth = value;
+            this._scaledTextureWidth = this._textureWidth >> this._textureScale;
+            this._textureDimensionsInvalid = true;
 
 		}
 		
 		public function get textureHeight():Number
 		{
 
-			return _textureHeight;
+			return this._textureHeight;
 
 		}
 		
 		public function set textureHeight(value:Number):void
 		{
 
-			if (_textureHeight == value)
+			if (this._textureHeight == value)
             {
 
                 return;
 
             }
 
-            _textureHeight = value;
-            _scaledTextureHeight = _textureHeight >> _textureScale;
-            _textureDimensionsInvalid = true;
+            this._textureHeight = value;
+            this._scaledTextureHeight = this._textureHeight >> this._textureScale;
+            this._textureDimensionsInvalid = true;
 
 		}
 		
 		public function getMainInputTexture(stage:Stage3DProxy):Texture
 		{
 
-			if (_textureDimensionsInvalid)
+			if (this._textureDimensionsInvalid)
             {
 
-                pUpdateTextures(stage);
+                this.pUpdateTextures(stage);
 
             }
 
 			
-			return _mainInputTexture;
+			return this._mainInputTexture;
 
 		}
 		
 		public function dispose():void
 		{
 
-			if (_mainInputTexture)
+			if (this._mainInputTexture)
             {
 
-                _mainInputTexture.dispose();
+                this._mainInputTexture.dispose();
 
             }
 
-			if (_program3D)
+			if (this._program3D)
             {
 
-                _program3D.dispose();
+                this._program3D.dispose();
 
             }
 
@@ -156,19 +155,19 @@ package away.filters.tasks
 		
 		public function pInvalidateProgram3D():void
 		{
-			_program3DInvalid = true;
+			this._program3DInvalid = true;
 		}
 		
 		public function pUpdateProgram3D(stage:Stage3DProxy):void
 		{
-			if (_program3D)
+			if (this._program3D)
             {
 
-                _program3D.dispose();
+                this._program3D.dispose();
 
             }
 
-			_program3D = stage._iContext3D.createProgram();
+			this._program3D = stage._iContext3D.createProgram();
 
             //away.Debug.log( 'Filder3DTaskBase' , 'pUpdateProgram3D' , 'Program3D.upload / AGAL <> GLSL implementation' );
 
@@ -181,11 +180,11 @@ package away.filters.tasks
             var vertCompiler:AGLSLCompiler = new AGLSLCompiler();
             var fragCompiler:AGLSLCompiler = new AGLSLCompiler();
 
-            var vertString : String = vertCompiler.compile( Context3DProgramType.VERTEX, pGetVertexCode() );
-            var fragString : String = fragCompiler.compile( Context3DProgramType.FRAGMENT, pGetFragmentCode() );
+            var vertString : String = vertCompiler.compile( Context3DProgramType.VERTEX, this.pGetVertexCode() );
+            var fragString : String = fragCompiler.compile( Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );
 
-            _program3D.upload( vertString , fragString );
-            _program3DInvalid = false;
+            this._program3D.upload( vertString , fragString );
+            this._program3DInvalid = false;
 		}
 		
 		public function pGetVertexCode():String
@@ -209,30 +208,30 @@ package away.filters.tasks
 		public function pUpdateTextures(stage:Stage3DProxy):void
 		{
 
-			if (_mainInputTexture)
+			if (this._mainInputTexture)
             {
 
-                _mainInputTexture.dispose();
+                this._mainInputTexture.dispose();
 
             }
 
 			
-			_mainInputTexture = stage._iContext3D.createTexture(_scaledTextureWidth, _scaledTextureHeight, Context3DTextureFormat.BGRA, true);
+			this._mainInputTexture = stage._iContext3D.createTexture(this._scaledTextureWidth, this._scaledTextureHeight, Context3DTextureFormat.BGRA, true);
 			
-			_textureDimensionsInvalid = false;
+			this._textureDimensionsInvalid = false;
 
 		}
 		
 		public function getProgram3D(stage3DProxy:Stage3DProxy):Program3D
 		{
-			if (_program3DInvalid)
+			if (this._program3DInvalid)
             {
 
-                pUpdateProgram3D( stage3DProxy );
+                this.pUpdateProgram3D( stage3DProxy );
 
             }
 
-			return _program3D;
+			return this._program3D;
 		}
 		
 		public function activate(stage3DProxy:Stage3DProxy, camera:Camera3D, depthTexture:Texture):void
@@ -245,7 +244,7 @@ package away.filters.tasks
 		
 		public function get requireDepthRender():Boolean
 		{
-			return _requireDepthRender;
+			return this._requireDepthRender;
 		}
 
 	}

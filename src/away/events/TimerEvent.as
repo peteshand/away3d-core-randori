@@ -1,4 +1,6 @@
 ///<reference path="../_definitions.ts"/>
+
+/** * @module away.events */
 package away.events
 {	
 	public class TimerEvent extends Event

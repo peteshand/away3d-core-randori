@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../away/_definitions.ts" />
 
 package aglsl.assembler
@@ -15,8 +13,8 @@ package aglsl.assembler
 		
 		public function AGALMiniAssembler():void
 		{
-			r = {};
-			cur = new Part();
+			this.r = {};
+			this.cur = new Part();
 		}
 		
 		public function assemble(source:String, ext_part:String = null, ext_version:Number = 1):Object
@@ -28,17 +26,17 @@ package aglsl.assembler
 			
 			if( ext_part )
 			{
-				addHeader( ext_part, ext_version );
+				this.addHeader( ext_part, ext_version );
 			}
 			
 			var lines = source.replace( /[\f\n\r\v]+/g, "\n" ).split( "\n" ); // handle breaks, then split into lines        
 			
 			for( var i in lines )
 			{
-				processLine( lines[i], i );
+				this.processLine( lines[i], i );
 			}
 			
-			return r;
+			return this.r;
 		}
 		
 		private function processLine(line:String, linenr:Number):void
@@ -76,23 +74,23 @@ package aglsl.assembler
 			switch ( tokens[0] )
 			{
 				case "part":
-					addHeader( tokens[1], Number(tokens[2]) ); 
+					this.addHeader( tokens[1], Number(tokens[2]) ); 
 					break;                
 				case "endpart":
-					if ( !cur )
+					if ( !this.cur )
 					{
 						throw "Unexpected endpart";
 					}
-					cur.data.position = 0;
-					cur = null; 
+					this.cur.data.position = 0;
+					this.cur = null; 
 					return; 
 				default: 
-					if( !cur )
+					if( !this.cur )
 					{
 						Window.console.log( "Warning: bad line "+linenr+": "+line+" (Outside of any part definition)" );
 						return; 
 					}
-					if ( cur.name == "comment" )
+					if ( this.cur.name == "comment" )
 					{
 						return;
 					}
@@ -103,41 +101,41 @@ package aglsl.assembler
 					}
                     // console.log( 'AGALMiniAssembler' , 'op' , op );
 					
-					emitOpcode ( cur, op.opcode );
+					this.emitOpcode ( this.cur, op.opcode );
 					var ti:Number = 1; 
 					if ( op.dest && op.dest!="none" )
 					{
-						if ( !emitDest ( cur, tokens[ti++], op.dest ) )
+						if ( !this.emitDest ( this.cur, tokens[ti++], op.dest ) )
 						{
 							throw "Bad destination register "+tokens[ti-1]+" "+linenr+": "+line;
 						}
 					}
 					else 
 					{
-						emitZeroDword( cur );
+						this.emitZeroDword( this.cur );
 					}
 					
 					if ( op.a && op.a.format!="none" )
 					{
-						if ( !emitSource( cur, tokens[ti++], op.a ) ) throw "Bad source register "+tokens[ti-1]+" "+linenr+": "+line; 
+						if ( !this.emitSource( this.cur, tokens[ti++], op.a ) ) throw "Bad source register "+tokens[ti-1]+" "+linenr+": "+line; 
 					}
 					else
 					{
-						emitZeroQword( cur ); 
+						this.emitZeroQword( this.cur ); 
 					}
 					
 					if ( op.b && op.b.format!="none" )
 					{
 						if ( op.b.format == "sampler" )
 						{
-							if( !emitSampler( cur, tokens[ti++], op.b, opts ) )
+							if( !this.emitSampler( this.cur, tokens[ti++], op.b, opts ) )
 							{
 								throw "Bad sampler register "+tokens[ti-1]+" "+linenr+": "+line;
 							}
 						}
 						else
 						{
-							if ( !emitSource( cur, tokens[ti++], op.b ) )
+							if ( !this.emitSource( this.cur, tokens[ti++], op.b ) )
 							{
 								throw "Bad source register " + tokens[ti-1] + " " + linenr + ": " + line;
 							}
@@ -145,7 +143,7 @@ package aglsl.assembler
 					}
 					else
 					{
-						emitZeroQword( cur ); 
+						this.emitZeroQword( this.cur ); 
 					}
 					break;
 			}                			                                             
@@ -196,7 +194,7 @@ package aglsl.assembler
 			// console.log( 'aglsl.assembler.AGALMiniAssembler' , 'emitDest' , 'RegMap.map[reg[1]]' , RegMap.map[reg[1]] , 'bool' , !RegMap.map[reg[1]] ) ;
             
 			if ( !RegMap.map[reg[1]] ) return false;
-			var em = { num:reg[2]?reg[2]:0, code:RegMap.map[reg[1]].code, mask:stringToMask(reg[3]) };
+			var em = { num:reg[2]?reg[2]:0, code:RegMap.map[reg[1]].code, mask:this.stringToMask(reg[3]) };
 			pr.data.writeUnsignedShort ( em.num );
 			pr.data.writeUnsignedByte ( em.mask );
 			pr.data.writeUnsignedByte ( em.code );
@@ -274,17 +272,12 @@ package aglsl.assembler
 			pr.data.writeUnsignedShort ( reg[1] ); 
 			pr.data.writeUnsignedByte ( 0 );   // bias
 			pr.data.writeUnsignedByte ( 0 );         
-			/*
-			pr.data.writeUnsignedByte ( 0x5 ); 
-			pr.data.writeUnsignedByte ( 0 );   // readmode, dim
-			pr.data.writeUnsignedByte ( 0 );   // special, wrap        
-			pr.data.writeUnsignedByte ( 0 );   // mip, filter                            
-			*/
+			/*			pr.data.writeUnsignedByte ( 0x5 ); 			pr.data.writeUnsignedByte ( 0 );   // readmode, dim			pr.data.writeUnsignedByte ( 0 );   // special, wrap        			pr.data.writeUnsignedByte ( 0 );   // mip, filter                            			*/
 			var samplerbits:Number = 0x5; 
 			var sampleroptset:Number = 0; 
 			for ( var i:Number = 0; i < opts.length; i++ )
 			{
-				var o:Sampler = (SamplerMap.map[opts[i].toLowerCase()] as Sampler);
+				var o:Sampler = (SamplerMap.map[opts[i].toLowerCase( )] as Sampler);
 				
                 //console.log( 'AGALMiniAssembler' , 'emitSampler' , 'SampleMap opt:' , o , '<-------- WATCH FOR THIS');
 				
@@ -319,7 +312,7 @@ package aglsl.assembler
 					return false;
 				}
 				var selindex = { x:0, y:1, z:2, w:3 };
-				var em:* = { num:indexed[2]|0, code:RegMap.map[indexed[1]].code, swizzle:stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4]|0 };
+				var em:* = { num:indexed[2]|0, code:RegMap.map[indexed[1]].code, swizzle:this.stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4]|0 };
 				pr.data.writeUnsignedShort( em.num );
 				pr.data.writeByte( em.offset );
 				pr.data.writeUnsignedByte( em.swizzle );
@@ -335,7 +328,7 @@ package aglsl.assembler
 				{
 					return false;
 				}
-				var em : * = { num:reg[2]|0, code:RegMap.map[reg[1]].code, swizzle:stringToSwizzle(reg[3]) };
+				var em : * = { num:reg[2]|0, code:RegMap.map[reg[1]].code, swizzle:this.stringToSwizzle(reg[3]) };
 				pr.data.writeUnsignedShort ( em.num );
 				pr.data.writeUnsignedByte ( 0 );
 				pr.data.writeUnsignedByte ( em.swizzle );
@@ -354,16 +347,16 @@ package aglsl.assembler
 			{
 				version = 1;
 			}
-			if ( r[partname] == undefined )
+			if ( this.r[partname] == undefined )
 			{
-				r[partname] = new Part( partname, version );
-				emitHeader( r[ partname ] ); 
+				this.r[partname] = new Part( partname, version );
+				this.emitHeader( this.r[ partname ] ); 
 			} 
-			else if ( r[partname].version != version )
+			else if ( this.r[partname].version != version )
 			{
 				throw "Multiple versions for part " + partname;
 			}
-			cur = r[partname]; 
+			this.cur = this.r[partname]; 
 		}
 	}
 }

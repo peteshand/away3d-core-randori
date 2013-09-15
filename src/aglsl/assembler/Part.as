@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../away/_definitions.ts" />
 
 package aglsl.assembler
@@ -15,9 +13,9 @@ package aglsl.assembler
 		
 		public function Part(name:String = null, version:Number = null):void
 		{
-			name = name;
-			version = version;
-			data = new ByteArray();
+			this.name = name;
+			this.version = version;
+			this.data = new ByteArray();
 		}
 	}
 }

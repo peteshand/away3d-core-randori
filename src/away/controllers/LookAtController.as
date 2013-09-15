@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.controllers
@@ -21,60 +19,60 @@ package away.controllers
 			super( targetObject );
 			if( lookAtObject )
 			{
-				lookAtObject = lookAtObject;
+				this.lookAtObject = lookAtObject;
 			}
 			else
 			{
-				lookAtPosition = new Vector3D();
+				this.lookAtPosition = new Vector3D();
 			}
 		}
 		
 		public function get lookAtPosition():Vector3D
 		{
-			return _pLookAtPosition;
+			return this._pLookAtPosition;
 		}
 		
 		public function set lookAtPosition(val:Vector3D):void
 		{
-			if( _pLookAtObject )
+			if( this._pLookAtObject )
 			{
-				_pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
-				_pLookAtObject = null;
+				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				this._pLookAtObject = null;
 			}
 			
-			_pLookAtPosition = val;
-			pNotifyUpdate();
+			this._pLookAtPosition = val;
+			this.pNotifyUpdate();
 		}
 		
 		public function get lookAtObject():ObjectContainer3D
 		{
-			return _pLookAtObject;
+			return this._pLookAtObject;
 		}
 		
 		public function set lookAtObject(val:ObjectContainer3D):void
 		{
-			if( _pLookAtPosition )
+			if( this._pLookAtPosition )
 			{
-				_pLookAtPosition = null;
+				this._pLookAtPosition = null;
 			}
 			
-			if( _pLookAtObject == val )
+			if( this._pLookAtObject == val )
 			{
 				return;
 			}
 			
-			if( _pLookAtObject )
+			if( this._pLookAtObject )
 			{
-				_pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
+				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
 			}
-			_pLookAtObject = val;
+			this._pLookAtObject = val;
 			
-			if( _pLookAtObject )
+			if( this._pLookAtObject )
 			{
-				_pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
+				this._pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
 			}
 			
-			pNotifyUpdate();
+			this.pNotifyUpdate();
 		}
 		
 		//@override
@@ -82,22 +80,22 @@ package away.controllers
 		{
 			interpolate = interpolate; // prevents unused warning
 			
-			if( _pTargetObject )
+			if( this._pTargetObject )
 			{
-				if( _pLookAtPosition )
+				if( this._pLookAtPosition )
 				{
-					_pTargetObject.lookAt( _pLookAtPosition );
+					this._pTargetObject.lookAt( this._pLookAtPosition );
 				}
-				else if( _pLookAtObject )
+				else if( this._pLookAtObject )
 				{
-					_pTargetObject.lookAt( _pLookAtObject.scene? _pLookAtObject.scenePosition : _pLookAtObject.position );
+					this._pTargetObject.lookAt( this._pLookAtObject.scene? this._pLookAtObject.scenePosition : this._pLookAtObject.position );
 				}
 			}
 		}
 		
 		private function onLookAtObjectChanged(event:Object3DEvent):void
 		{
-			pNotifyUpdate();
+			this.pNotifyUpdate();
 		}
 		
 	}

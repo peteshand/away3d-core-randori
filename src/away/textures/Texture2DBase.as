@@ -1,4 +1,5 @@
 
+
 ///<reference path="../_definitions.ts"/>
 
 package away.textures
@@ -19,7 +20,7 @@ package away.textures
 		
 		override public function pCreateTexture(context:Context3D):TextureBase
 		{
-			return context.createTexture(width, height, Context3DTextureFormat.BGRA, false);
+			return context.createTexture(this.width, this.height, Context3DTextureFormat.BGRA, false);
 		}
 	}
 }

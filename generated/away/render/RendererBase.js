@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:53:33 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};

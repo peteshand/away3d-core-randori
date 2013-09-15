@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
 package away.controllers
@@ -16,64 +14,64 @@ package away.controllers
 		
 		public function ControllerBase(targetObject:Entity = null):void
 		{
-			targetObject = targetObject;
+			this.targetObject = targetObject;
 		}
 		
 		public function pNotifyUpdate():void
 		{
-			if( _pTargetObject && _pTargetObject.iGetImplicitPartition() && _pAutoUpdate )
+			if( this._pTargetObject && this._pTargetObject.iGetImplicitPartition() && this._pAutoUpdate )
 			{
-				_pTargetObject.iGetImplicitPartition().iMarkForUpdate( _pTargetObject );
+				this._pTargetObject.iGetImplicitPartition().iMarkForUpdate( this._pTargetObject );
 			}
 		}
 		
 		public function get targetObject():Entity
 		{
-			return _pTargetObject;
+			return this._pTargetObject;
 		}
 		
 		public function set targetObject(val:Entity):void
 		{
-			if( _pTargetObject == val )
+			if( this._pTargetObject == val )
 			{
 				return;
 			}
 			
-			if( _pTargetObject && _pAutoUpdate )
+			if( this._pTargetObject && this._pAutoUpdate )
 			{
-				_pTargetObject._iController = null;
+				this._pTargetObject._iController = null;
 			}
-			_pTargetObject = val;
+			this._pTargetObject = val;
 			
-			if( _pTargetObject && _pAutoUpdate )
+			if( this._pTargetObject && this._pAutoUpdate )
 			{
-				_pTargetObject._iController = this;
+				this._pTargetObject._iController = this;
 			}
-			pNotifyUpdate();
+			this.pNotifyUpdate();
 		}
 		
 		public function get autoUpdate():Boolean
 		{
-			return _pAutoUpdate;
+			return this._pAutoUpdate;
 		}
 		
 		public function set autoUpdate(val:Boolean):void
 		{
-			if( _pAutoUpdate == val )
+			if( this._pAutoUpdate == val )
 			{
 				return;
 			}
-			_pAutoUpdate = val;
+			this._pAutoUpdate = val;
 			
-			if( _pTargetObject ) 
+			if( this._pTargetObject ) 
 			{
-				if ( _pTargetObject )
+				if ( this._pTargetObject )
 				{
-					_pTargetObject._iController = this;
+					this._pTargetObject._iController = this;
 				}
 				else
 				{
-					_pTargetObject._iController = null;
+					this._pTargetObject._iController = null;
 				}
 			}
 		}

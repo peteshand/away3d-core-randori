@@ -14,5 +14,17 @@ package
         {
 
         }
+
+        public function set(value:Int8Array, offset:Number = -1):void
+        {
+
+        }
+
+        public function subarray(position:Number, positionOffset:Number):Int8Array
+        {
+
+        }
+
+
     }
 }

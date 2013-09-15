@@ -44,7 +44,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._iPasses = null;
 	this._pSpecularLightSources = 0x01;
 	this._sceneNormalMatrixIndex = 0;
-	away.materials.passes.MaterialPassBase.call(thisfalse);
+	away.materials.passes.MaterialPassBase.call(this, false);
 	this._pMaterial = material;
 	this.init();
 };

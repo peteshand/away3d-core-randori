@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../_definitions.ts"/>
 
 package away.primitives.data
@@ -31,138 +29,138 @@ package away.primitives.data
 			// TODO: not yet used: for CurveSegment support
 			anchor = null;
 			
-			_pThickness = thickness * 0.5;
+			this._pThickness = thickness * 0.5;
 			// TODO: add support for curve using anchor v1
 			// Prefer removing v1 from this, and make Curve a separate class extending Segment? (- David)
-			_pStart = start;
-			_pEnd = end;
-			startColor = colorStart;
-			endColor = colorEnd;
+			this._pStart = start;
+			this._pEnd = end;
+			this.startColor = colorStart;
+			this.endColor = colorEnd;
 		}
 		
 		public function updateSegment(start:Vector3D, end:Vector3D, anchor:Vector3D, colorStart:Number = 0x333333, colorEnd:Number = 0x333333, thickness:Number = 1):void
 		{
 			// TODO: not yet used: for CurveSegment support
 			anchor = null;
-			_pStart = start;
-			_pEnd = end;
+			this._pStart = start;
+			this._pEnd = end;
 			
-			if( _startColor != colorStart )
+			if( this._startColor != colorStart )
 			{
-				startColor = colorStart;
+				this.startColor = colorStart;
 			}
-			if( _endColor != colorEnd )
+			if( this._endColor != colorEnd )
 			{
-				endColor = colorEnd;
+				this.endColor = colorEnd;
 			}
-			_pThickness = thickness * 0.5;
-			update();
+			this._pThickness = thickness * 0.5;
+			this.update();
 		}
 		
 		public function get start():Vector3D
 		{
-			return _pStart;
+			return this._pStart;
 		}
 		
 		
 		public function set start(value:Vector3D):void
 		{
-			_pStart = value;
-			update();
+			this._pStart = value;
+			this.update();
 		}
 		
 		public function get end():Vector3D
 		{
-			return _pEnd;
+			return this._pEnd;
 		}
 		
 		public function set end(value:Vector3D):void
 		{
-			_pEnd = value;
-			update();
+			this._pEnd = value;
+			this.update();
 		}
 		
 		public function get thickness():Number
 		{
-			return _pThickness * 2;
+			return this._pThickness * 2;
 		}
 		
 		public function set thickness(value:Number):void
 		{
-			_pThickness = value * 0.5;
-			update();
+			this._pThickness = value * 0.5;
+			this.update();
 		}
 		
 		public function get startColor():Number
 		{
-			return _startColor;
+			return this._startColor;
 		}
 		
 		public function set startColor(color:Number):void
 		{
-			_pStartR = ( ( color >> 16 ) & 0xff )/255;
-			_pStartG = ( ( color >> 8 ) & 0xff )/255;
-			_pStartB = ( color & 0xff )/255;
+			this._pStartR = ( ( color >> 16 ) & 0xff )/255;
+			this._pStartG = ( ( color >> 8 ) & 0xff )/255;
+			this._pStartB = ( color & 0xff )/255;
 			
-			_startColor = color;
+			this._startColor = color;
 			
-			update();
+			this.update();
 		}
 		
 		public function get endColor():Number
 		{
-			return _endColor;
+			return this._endColor;
 		}
 		
 		public function set endColor(color:Number):void
 		{
-			_pEndR = ( ( color >> 16 ) & 0xff )/255;
-			_pEndG = ( ( color >> 8 ) & 0xff )/255;
-			_pEndB = ( color & 0xff )/255;
+			this._pEndR = ( ( color >> 16 ) & 0xff )/255;
+			this._pEndG = ( ( color >> 8 ) & 0xff )/255;
+			this._pEndB = ( color & 0xff )/255;
 			
-			_endColor = color;
+			this._endColor = color;
 			
-			update();
+			this.update();
 		}
 		
 		public function dispose():void
 		{
-			_pStart = null;
-			_pEnd = null;
+			this._pStart = null;
+			this._pEnd = null;
 		}
 		
 		public function get iIndex():Number
 		{
-			return _index;
+			return this._index;
 		}
 		
 		public function set iIndex(ind:Number):void
 		{
-			_index = ind;
+			this._index = ind;
 		}
 		
 		public function get iSubSetIndex():Number
 		{
-			return _subSetIndex;
+			return this._subSetIndex;
 		}
 		
 		public function set iSubSetIndex(ind:Number):void
 		{
-			_subSetIndex = ind;
+			this._subSetIndex = ind;
 		}
 		
 		public function set iSegmentsBase(segBase:SegmentSet):void
 		{
-			_pSegmentsBase = segBase;
+			this._pSegmentsBase = segBase;
 		}
 		
 		private function update():void
 		{
-			if( !_pSegmentsBase )
+			if( !this._pSegmentsBase )
 			{
 				return;
 			}
-			_pSegmentsBase.iUpdateSegment( this );
+			this._pSegmentsBase.iUpdateSegment( this );
 		}
 	}
 }

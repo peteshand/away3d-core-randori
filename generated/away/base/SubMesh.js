@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:23:06 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,7 @@ away.base.SubMesh = function(subGeometry, parentMesh, material) {
 	this._iMaterial = null;
 	this._parentMesh = parentMesh;
 	this._subGeometry = subGeometry;
-	material = material;
+	this.set_material(material);
 };
 
 away.base.SubMesh.prototype.get_shaderPickingDetails = function() {

@@ -1,9 +1,8 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../_definitions.ts" />
 
+/** * @module away.events */
 package away.events
 {
 	public class LightEvent extends Event
@@ -19,7 +18,7 @@ package away.events
 		//@override
 		override public function clone():Event
 		{
-			return new LightEvent( type );
+			return new LightEvent( this.type );
 		}
 	}
 }

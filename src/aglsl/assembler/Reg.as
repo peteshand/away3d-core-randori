@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../away/_definitions.ts" />
 
 package aglsl.assembler
@@ -15,8 +13,8 @@ package aglsl.assembler
 		
 		public function Reg(code:Number, desc:String):void
 		{
-			code = code;
-			desc = desc;
+			this.code = code;
+			this.desc = desc;
 		}
 	}
 }

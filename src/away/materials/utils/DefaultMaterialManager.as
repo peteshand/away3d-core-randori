@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.utils
 {
 	import away.display.BitmapData;
@@ -43,24 +44,35 @@ package away.materials.utils
 		
 		private static function createDefaultTexture():void
 		{
-            DefaultMaterialManager._defaultTextureBitmapData = new BitmapData(8, 8, false, 0x000000);
+            DefaultMaterialManager._defaultTextureBitmapData = DefaultMaterialManager.createCheckeredBitmapData();//new away.display.BitmapData(8, 8, false, 0x000000);
 			
 			//create chekerboard
-			var i:Number, j:Number;
-			for (i = 0; i < 8; i++)
-            {
-				for (j = 0; j < 8; j++)
-                {
-					if ((j & 1) ^ (i & 1))
-                    {
-                        DefaultMaterialManager._defaultTextureBitmapData.setPixel(i, j, 0XFFFFFF);
-                    }
-				}
-			}
+            /*			var i:number, j:number;			for (i = 0; i < 8; i++)            {				for (j = 0; j < 8; j++)                {					if ((j & 1) ^ (i & 1))                    {                        DefaultMaterialManager._defaultTextureBitmapData.setPixel(i, j, 0XFFFFFF);                    }				}			}            */
 
             DefaultMaterialManager._defaultTexture = new BitmapTexture( DefaultMaterialManager._defaultTextureBitmapData , false );
             DefaultMaterialManager._defaultTexture.name = "defaultTexture";
 		}
+
+        public static function createCheckeredBitmapData():BitmapData
+        {
+            var b : BitmapData = new BitmapData(8, 8, false, 0x000000);
+
+            //create chekerboard
+            var i:Number, j:Number;
+            for (i = 0; i < 8; i++)
+            {
+                for (j = 0; j < 8; j++)
+                {
+                    if ((j & 1) ^ (i & 1))
+                    {
+                        b.setPixel(i, j, 0XFFFFFF);
+                    }
+                }
+            }
+
+            return b;
+
+        }
 		
 		private static function createDefaultMaterial():void
 		{

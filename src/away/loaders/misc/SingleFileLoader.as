@@ -1,4 +1,3 @@
-
 ///<reference path="../../_definitions.ts"/>
 package away.loaders.misc
 {
@@ -15,17 +14,7 @@ package away.loaders.misc
 	import away.events.ParserEvent;
 	import away.events.AssetEvent;
 
-	/**
-	 * The SingleFileLoader is used to load a single file, as part of a resource.
-	 *
-	 * While SingleFileLoader can be used directly, e.g. to create a third-party asset 
-	 * management system, it's recommended to use any of the classes Loader3D, AssetLoader
-	 * and AssetLibrary instead in most cases.
-	 *
-	 * @see away3d.loading.Loader3D
-	 * @see away3d.loading.AssetLoader
-	 * @see away3d.loading.AssetLibrary
-	 */
+	/**	 * The SingleFileLoader is used to load a single file, as part of a resource.	 *	 * While SingleFileLoader can be used directly, e.g. to create a third-party asset 	 * management system, it's recommended to use any of the classes Loader3D, AssetLoader	 * and AssetLibrary instead in most cases.	 *	 * @see away3d.loading.Loader3D	 * @see away3d.loading.AssetLoader	 * @see away3d.loading.AssetLibrary	 */
 	public class SingleFileLoader extends EventDispatcher
 	{
 		private var _parser:ParserBase;
@@ -66,15 +55,13 @@ package away.loaders.misc
 
         // Constructor
 
-		/**
-		 * Creates a new SingleFileLoader object.
-		 */
+		/**		 * Creates a new SingleFileLoader object.		 */
 		public function SingleFileLoader(materialMode:Number = 0):void
 		{
 
             super();
 			_parsers.push(ImageParser);
-			_materialMode=materialMode;
+			this._materialMode=materialMode;
 		}
 
         // Get / Set
@@ -82,39 +69,34 @@ package away.loaders.misc
 		public function get url():String
 		{
 
-			return _req ? _req.url : '';
+			return this._req ? this._req.url : '';
 		}
 		
 		public function get data():*
 		{
-			return _data;
+			return this._data;
 		}
 		
 		public function get loadAsRawData():Boolean
 		{
-			return _loadAsRawData;
+			return this._loadAsRawData;
 		}
 
         // Public
 
-		/**
-		 * Load a resource from a file.
-		 * 
-		 * @param urlRequest The URLRequest object containing the URL of the object to be loaded.
-		 * @param parser An optional parser object that will translate the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
-		 */
+		/**		 * Load a resource from a file.		 * 		 * @param urlRequest The URLRequest object containing the URL of the object to be loaded.		 * @param parser An optional parser object that will translate the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function load(urlRequest:URLRequest, parser:ParserBase = null, loadAsRawData:Boolean = false):void
 		{
 			//var urlLoader   : away.net.URLLoader;
 			var dataFormat  : String;
             var loaderType  : String    = ParserLoaderType.URL_LOADER;// Default to URLLoader;
 
-			_loadAsRawData         = loadAsRawData;
-			_req                   = urlRequest;
+			this._loadAsRawData         = loadAsRawData;
+			this._req                   = urlRequest;
 
-			decomposeFilename( _req.url );
+			this.decomposeFilename( this._req.url );
 
-			if ( _loadAsRawData ) {
+			if ( this._loadAsRawData ) {
 
 				// Always use binary for raw data loading
 				dataFormat = URLLoaderDataFormat.BINARY;
@@ -125,25 +107,28 @@ package away.loaders.misc
 
 				if (parser)
                 {
-                    _parser = parser;
+                    this._parser = parser;
                 }
 				
-				if ( ! _parser )
+				if ( ! this._parser )
                 {
-                    _parser = getParserFromSuffix();
+                    this._parser = this.getParserFromSuffix();
                 }
 
-				if (_parser)
+				if (this._parser)
                 {
 
                     //--------------------------------------------
                     // Data Format
 
-                    switch ( _parser.dataFormat )
+                    switch ( this._parser.dataFormat )
                     {
 
                         case ParserDataFormat.BINARY:
-                            dataFormat = URLLoaderDataFormat.BINARY;
+                            dataFormat = URLLoaderDataFormat.ARRAY_BUFFER;
+
+                            //dataFormat = away.net.URLLoaderDataFormat.BINARY;
+
                             break;
 
                         case ParserDataFormat.PLAIN_TEXT:
@@ -155,7 +140,7 @@ package away.loaders.misc
                     //--------------------------------------------
                     // Loader Type
 
-                    switch ( _parser.loaderType )
+                    switch ( this._parser.loaderType )
                     {
 
                         case ParserLoaderType.IMG_LOADER:
@@ -179,20 +164,15 @@ package away.loaders.misc
 				}
 			}
 
-            var loader : ISingleFileTSLoader = getLoader( loaderType );
+            var loader : ISingleFileTSLoader = this.getLoader( loaderType );
                 loader.dataFormat = dataFormat;
-                loader.addEventListener(Event.COMPLETE, handleUrlLoaderComplete , this );
-                loader.addEventListener(IOErrorEvent.IO_ERROR, handleUrlLoaderError , this );
+                loader.addEventListener(Event.COMPLETE, this.handleUrlLoaderComplete , this );
+                loader.addEventListener(IOErrorEvent.IO_ERROR, this.handleUrlLoaderError , this );
                 loader.load( urlRequest );
 
 		}
 		
-		/**
-		 * Loads a resource from already loaded data.
-		 * @param data The data to be parsed. Depending on the parser type, this can be a ByteArray, String or XML.
-		 * @param uri The identifier (url or id) of the object to be loaded, mainly used for resource management.
-		 * @param parser An optional parser object that will translate the data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
-		 */
+		/**		 * Loads a resource from already loaded data.		 * @param data The data to be parsed. Depending on the parser type, this can be a ByteArray, String or XML.		 * @param uri The identifier (url or id) of the object to be loaded, mainly used for resource management.		 * @param parser An optional parser object that will translate the data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		
 		public function parseData(data:*, parser:ParserBase = null, req:URLRequest = null):void
 		{
@@ -203,37 +183,30 @@ package away.loaders.misc
 
 			if (parser)
             {
-                _parser = parser;
+                this._parser = parser;
             }
 
-			_req = req;
-			parse(data);
+			this._req = req;
+			this.parse(data);
 
 		}
 		
-		/**
-		 * A reference to the parser that will translate the loaded data into a usable resource.
-		 */
+		/**		 * A reference to the parser that will translate the loaded data into a usable resource.		 */
 		public function get parser():ParserBase
 		{
-			return _parser;
+			return this._parser;
 		}
 		
-		/**
-		 * A list of dependencies that need to be loaded and resolved for the loaded object.
-		 */
+		/**		 * A list of dependencies that need to be loaded and resolved for the loaded object.		 */
 
 		public function get dependencies():Vector.<ResourceDependency>
 		{
-			return _parser? _parser.dependencies : new Vector.<ResourceDependency>();
+			return this._parser? this._parser.dependencies : new Vector.<ResourceDependency>();
 		}
 
         // Private
 
-        /**
-         *
-         * @param loaderType
-         */
+        /**         *         * @param loaderType         */
         private function getLoader(loaderType:String):ISingleFileTSLoader
         {
 
@@ -256,25 +229,19 @@ package away.loaders.misc
 
         }
 
-		/**
-		 * Splits a url string into base and extension.
-		 * @param url The url to be decomposed.
-		 */
+		/**		 * Splits a url string into base and extension.		 * @param url The url to be decomposed.		 */
 		private function decomposeFilename(url:String):void
 		{
 			
 			// Get rid of query string if any and extract suffix
 			var base    : String    = (url.indexOf('?')>0)? url.split('?')[0] : url;
 			var i       : Number    = base.lastIndexOf('.');
-			_fileExtension     = base.substr(i + 1).toLowerCase();
-			_fileName          = base.substr(0, i);
+			this._fileExtension     = base.substr(i + 1).toLowerCase();
+			this._fileName          = base.substr(0, i);
 
 		}
 		
-		/**
-		 * Guesses the parser to be used based on the file extension.
-		 * @return An instance of the guessed parser.
-		 */
+		/**		 * Guesses the parser to be used based on the file extension.		 * @return An instance of the guessed parser.		 */
 		private function getParserFromSuffix():ParserBase
 		{
 			var len : Number = SingleFileLoader._parsers.length;
@@ -286,9 +253,9 @@ package away.loaders.misc
             {
 
                 var currentParser : ParserBase = SingleFileLoader._parsers[i];
-                var supportstype : Boolean                  = SingleFileLoader._parsers[i].supportsType(_fileExtension);
+                var supportstype : Boolean                  = SingleFileLoader._parsers[i].supportsType(this._fileExtension);
 
-                if (SingleFileLoader._parsers[i]['supportsType'](_fileExtension)){
+                if (SingleFileLoader._parsers[i]['supportsType'](this._fileExtension)){
 
                     return new SingleFileLoader._parsers[i]();
 
@@ -300,12 +267,7 @@ package away.loaders.misc
 			return null;
 
 		}
-		/**
-		 * Guesses the parser to be used based on the file contents.
-		 * @param data The data to be parsed.
-		 * @param uri The url or id of the object to be parsed.
-		 * @return An instance of the guessed parser.
-		 */
+		/**		 * Guesses the parser to be used based on the file contents.		 * @param data The data to be parsed.		 * @param uri The url or id of the object to be parsed.		 * @return An instance of the guessed parser.		 */
 		private function getParserFromData(data:*):ParserBase
 		{
 			var len : Number = SingleFileLoader._parsers.length;
@@ -318,95 +280,86 @@ package away.loaders.misc
 			return null;
 		}
 		
-		/**
-		 * Cleanups
-		 */
+		/**		 * Cleanups		 */
 		private function removeListeners(urlLoader:ISingleFileTSLoader):void
 		{
-			urlLoader.removeEventListener(Event.COMPLETE, handleUrlLoaderComplete , this );
-			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, handleUrlLoaderError , this );
+			urlLoader.removeEventListener(Event.COMPLETE, this.handleUrlLoaderComplete , this );
+			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, this.handleUrlLoaderError , this );
 		}
 
         // Events
 		
-		/**
-		 * Called when loading of a file has failed
-		 */
+		/**		 * Called when loading of a file has failed		 */
 		private function handleUrlLoaderError(event:IOErrorEvent):void
 		{
 			var urlLoader : ISingleFileTSLoader = (event.target as ISingleFileTSLoader);
-			removeListeners(urlLoader);
+			this.removeListeners(urlLoader);
 			
 			//if(this.hasEventListener(away.events.LoaderEvent.LOAD_ERROR , this.handleUrlLoaderError , this ))
-				dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_ERROR, _req.url, true ) ) ;//, event.text));
+				this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_ERROR, this._req.url, true ) ) ;//, event.text));
 		}
 		
-		/**
-		 * Called when loading of a file is complete
-		 */
+		/**		 * Called when loading of a file is complete		 */
 		private function handleUrlLoaderComplete(event:Event):void
 		{
 
 			var urlLoader : ISingleFileTSLoader = (event.target as ISingleFileTSLoader);
-			removeListeners( urlLoader );
+			this.removeListeners( urlLoader );
 			
-			_data = urlLoader.data;
+			this._data = urlLoader.data;
 
-			if (_loadAsRawData)
+			if (this._loadAsRawData)
             {
                 // No need to parse this data, which should be returned as is
-				dispatchEvent(new LoaderEvent(LoaderEvent.DEPENDENCY_COMPLETE));
+				this.dispatchEvent(new LoaderEvent(LoaderEvent.DEPENDENCY_COMPLETE));
             }
 			else
             {
-                parse(_data);
+                this.parse(this._data);
 			}
 		}
 		
-		/**
-		 * Initiates parsing of the loaded data.
-		 * @param data The data to be parsed.
-		 */
+		/**		 * Initiates parsing of the loaded data.		 * @param data The data to be parsed.		 */
 		private function parse(data:*):void
 		{
 
 			// If no parser has been defined, try to find one by letting
 			// all plugged in parsers inspect the actual data.
-			if ( ! _parser )
+			if ( ! this._parser )
             {
 
-				_parser = getParserFromData(data);
+				this._parser = this.getParserFromData(data);
 
 			}
 			
-			if( _parser )
+			if( this._parser )
             {
 
-				_parser.addEventListener(ParserEvent.READY_FOR_DEPENDENCIES, onReadyForDependencies , this);
-                _parser.addEventListener(ParserEvent.PARSE_ERROR, onParseError, this);
-                _parser.addEventListener(ParserEvent.PARSE_COMPLETE, onParseComplete, this);
-                _parser.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this);
-                _parser.addEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.MESH_COMPLETE,onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this);
-                _parser.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete, this);
+				this._parser.addEventListener(ParserEvent.READY_FOR_DEPENDENCIES, this.onReadyForDependencies , this);
+                this._parser.addEventListener(ParserEvent.PARSE_ERROR, this.onParseError, this);
+                this._parser.addEventListener(ParserEvent.PARSE_COMPLETE, this.onParseComplete, this);
+                this._parser.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this);
+                this._parser.addEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.MESH_COMPLETE,this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete, this);
 				
-				if (_req && _req.url)
+				if (this._req && this._req.url)
                 {
-                    _parser._iFileName = _req.url;
+                    this._parser._iFileName = this._req.url;
                 }
 
-				_parser.materialMode=_materialMode;
-                _parser.parseAsync(data);
+				this._parser.materialMode=this._materialMode;
+                this._parser.parseAsync(data);
 
 			}
             else
@@ -415,7 +368,7 @@ package away.loaders.misc
 				var msg:String = "No parser defined. To enable all parsers for auto-detection, use Parsers.enableAllBundled()";
 
 				//if(hasEventListener(LoaderEvent.LOAD_ERROR)){
-					dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_ERROR, "", true, msg) );
+					this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_ERROR, "", true, msg) );
 				//} else{
 				//	throw new Error(msg);
 				//}
@@ -424,49 +377,47 @@ package away.loaders.misc
 		
 		private function onParseError(event:ParserEvent):void
 		{
-			dispatchEvent( event.clone() );
+			this.dispatchEvent( event.clone() );
 		}
 		
 		private function onReadyForDependencies(event:ParserEvent):void
 		{
-			dispatchEvent( event.clone() );
+			this.dispatchEvent( event.clone() );
 		}
 		
 		private function onAssetComplete(event:AssetEvent):void
 		{
-			dispatchEvent( event.clone() ) ;
+			this.dispatchEvent( event.clone() ) ;
 		}
 
 		private function onTextureSizeError(event:AssetEvent):void
 		{
-			dispatchEvent( event.clone() );
+			this.dispatchEvent( event.clone() );
 		}
 		
-		/**
-		 * Called when parsing is complete.
-		 */
+		/**		 * Called when parsing is complete.		 */
 		private function onParseComplete(event:ParserEvent):void
 		{
 
-			dispatchEvent( new LoaderEvent( LoaderEvent.DEPENDENCY_COMPLETE , url ) );//dispatch in front of removing listeners to allow any remaining asset events to propagate
+			this.dispatchEvent( new LoaderEvent( LoaderEvent.DEPENDENCY_COMPLETE , this.url ) );//dispatch in front of removing listeners to allow any remaining asset events to propagate
 			
-			_parser.removeEventListener(ParserEvent.READY_FOR_DEPENDENCIES, onReadyForDependencies , this );
-            _parser.removeEventListener(ParserEvent.PARSE_COMPLETE, onParseComplete, this );
-            _parser.removeEventListener(ParserEvent.PARSE_ERROR, onParseError, this );
-            _parser.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this );
-            _parser.removeEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.MESH_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this );
-            _parser.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete , this );
+			this._parser.removeEventListener(ParserEvent.READY_FOR_DEPENDENCIES, this.onReadyForDependencies , this );
+            this._parser.removeEventListener(ParserEvent.PARSE_COMPLETE, this.onParseComplete, this );
+            this._parser.removeEventListener(ParserEvent.PARSE_ERROR, this.onParseError, this );
+            this._parser.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this );
+            this._parser.removeEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.MESH_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete , this );
 
 		}
 

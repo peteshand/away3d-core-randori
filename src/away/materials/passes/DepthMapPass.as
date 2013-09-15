@@ -1,4 +1,5 @@
 ///<reference path="../../_definitions.ts"/>
+
 package away.materials.passes
 {
 	import away.textures.Texture2DBase;
@@ -13,38 +14,29 @@ package away.materials.passes
 
 	//use namespace arcane;
 
-	/**
-	 * DepthMapPass is a pass that writes depth values to a depth map as a 32-bit value exploded over the 4 texture channels.
-	 * This is used to render shadow maps, depth maps, etc.
-	 */
+	/**	 * DepthMapPass is a pass that writes depth values to a depth map as a 32-bit value exploded over the 4 texture channels.	 * This is used to render shadow maps, depth maps, etc.	 */
 	public class DepthMapPass extends MaterialPassBase
 	{
 		private var _data:Vector.<Number>;
 		private var _alphaThreshold:Number = 0;
 		private var _alphaMask:Texture2DBase;
 
-		/**
-		 * Creates a new DepthMapPass object.
-		 */
+		/**		 * Creates a new DepthMapPass object.		 */
 		public function DepthMapPass():void
 		{
 			super();
 
 
-			_data = new Vector.<Number>(     1.0, 255.0, 65025.0, 16581375.0,
+			this._data = new Vector.<Number>(     1.0, 255.0, 65025.0, 16581375.0,
 			                	                1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0,
 				                                0.0, 0.0, 0.0, 0.0);
 
 		}
 		
-		/**
-		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either
-		 * invisible or entirely opaque, often used with textures for foliage, etc.
-		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).
-		 */
+		/**		 * The minimum alpha value for which pixels should be drawn. This is used for transparency that is either		 * invisible or entirely opaque, often used with textures for foliage, etc.		 * Recommended values are 0 to disable alpha, or 0.5 to create smooth edges. Default value is 0 (disabled).		 */
 		public function get alphaThreshold():Number
 		{
-			return _alphaThreshold;
+			return this._alphaThreshold;
 		}
 		
 		public function set alphaThreshold(value:Number):void
@@ -62,7 +54,7 @@ package away.materials.passes
 
             }
 
-			if (value == _alphaThreshold)
+			if (value == this._alphaThreshold)
             {
 
                 return;
@@ -70,36 +62,31 @@ package away.materials.passes
             }
 
 			
-			if (value == 0 || _alphaThreshold == 0)
+			if (value == 0 || this._alphaThreshold == 0)
             {
 
-                iInvalidateShaderProgram();
+                this.iInvalidateShaderProgram();
 
             }
 
 			
-			_alphaThreshold = value;
-            _data[8] = _alphaThreshold;
+			this._alphaThreshold = value;
+            this._data[8] = this._alphaThreshold;
 
 		}
 
-		/**
-		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.
-		 * Usually the diffuse texture when alphaThreshold is used.
-		 */
+		/**		 * A texture providing alpha data to be able to prevent semi-transparent pixels to write to the alpha mask.		 * Usually the diffuse texture when alphaThreshold is used.		 */
 		public function get alphaMask():Texture2DBase
 		{
-			return _alphaMask;
+			return this._alphaMask;
 		}
 		
 		public function set alphaMask(value:Texture2DBase):void
 		{
-			_alphaMask = value;
+			this._alphaMask = value;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetVertexCode():String
 		{
 			var code:String = "";
@@ -110,10 +97,10 @@ package away.materials.passes
 			code = "m44 vt1, vt0, vc0		\n" +
 				"mov op, vt1	\n";
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
-                _pNumUsedTextures = 1;
-                _pNumUsedStreams = 2;
+                this._pNumUsedTextures = 1;
+                this._pNumUsedStreams = 2;
 				code += "mov v0, vt1\n" +
 					"mov v1, va1\n";
 				
@@ -121,8 +108,8 @@ package away.materials.passes
             else
             {
 
-                _pNumUsedTextures = 0;
-                _pNumUsedStreams = 1;
+                this._pNumUsedTextures = 0;
+                this._pNumUsedStreams = 1;
 				code += "mov v0, vt1\n";
 
 			}
@@ -130,24 +117,22 @@ package away.materials.passes
 			return code;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iGetFragmentCode(code:String):String
 		{
 			
-			var wrap:String = _pRepeat? "wrap" : "clamp";
+			var wrap:String = this._pRepeat? "wrap" : "clamp";
 			var filter:String;
 			
-			if (_pSmooth){
+			if (this._pSmooth){
 
-                filter = _pMipmap? "linear,miplinear" : "linear";
+                filter = this._pMipmap? "linear,miplinear" : "linear";
 
             }
 			else
             {
 
-                filter = _pMipmap? "nearest,mipnearest" : "nearest";
+                filter = this._pMipmap? "nearest,mipnearest" : "nearest";
 
             }
 
@@ -159,12 +144,12 @@ package away.materials.passes
 				"frc ft0, ft0			\n" +
 				"mul ft1, ft0.yzww, fc1	\n";
 			
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
 				var format:String;
 
-				switch (_alphaMask.format)
+				switch (this._alphaMask.format)
                 {
 
 					case Context3DTextureFormat.COMPRESSED:
@@ -190,12 +175,10 @@ package away.materials.passes
 			return codeF;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
-			if (_alphaThreshold > 0)
+			if (this._alphaThreshold > 0)
             {
 
                 renderable.activateUVBuffer(1, stage3DProxy);
@@ -214,9 +197,7 @@ package away.materials.passes
 
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 
@@ -224,17 +205,17 @@ package away.materials.passes
 
 			super.iActivate(stage3DProxy, camera);
 			
-			if ( _alphaThreshold > 0)
+			if ( this._alphaThreshold > 0)
             {
 
-                context.setTextureAt(0, _alphaMask.getTextureForStage3D(stage3DProxy));
-                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, _data, 3);
+                context.setTextureAt(0, this._alphaMask.getTextureForStage3D(stage3DProxy));
+                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, this._data, 3);
 
 			}
             else
             {
 
-                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, _data, 2);
+                context.setProgramConstantsFromArray(Context3DProgramType.FRAGMENT, 0, this._data, 2);
             }
 
 		}

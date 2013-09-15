@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../../_definitions.ts"/>
 
 package away.lights.shadowmaps
@@ -26,22 +24,22 @@ package away.lights.shadowmaps
 		{
 			super();
 			
-			_pDepthMapSize = 512;
-			_needsRender = new Vector.<Boolean>;
-			initCameras();
+			this._pDepthMapSize = 512;
+			this._needsRender = new Vector.<Boolean>;
+			this.initCameras();
 		}
 		
 		private function initCameras():void
 		{
-			_depthCameras = new Vector.<Camera3D>;
-			_lenses = new Vector.<PerspectiveLens>;
+			this._depthCameras = new Vector.<Camera3D>;
+			this._lenses = new Vector.<PerspectiveLens>;
 			// posX, negX, posY, negY, posZ, negZ
-			addCamera(0, 90, 0);
-			addCamera(0, -90, 0);
-			addCamera(-90, 0, 0);
-			addCamera(90, 0, 0);
-			addCamera(0, 0, 0);
-			addCamera(0, 180, 0);
+			this.addCamera(0, 90, 0);
+			this.addCamera(0, -90, 0);
+			this.addCamera(-90, 0, 0);
+			this.addCamera(90, 0, 0);
+			this.addCamera(0, 0, 0);
+			this.addCamera(0, 180, 0);
 		}
 		
 		private function addCamera(rotationX:Number, rotationY:Number, rotationZ:Number):void
@@ -54,32 +52,30 @@ package away.lights.shadowmaps
 			
 			var lens: PerspectiveLens = (cam.lens as PerspectiveLens);
 			lens.fieldOfView = 90;
-			_lenses.push(lens);
+			this._lenses.push(lens);
 			cam.lens.iAspectRatio = 1;
-			_depthCameras.push( cam );
+			this._depthCameras.push( cam );
 		}
 		
 		//@override
 		override public function pCreateDepthTexture():TextureProxyBase
 		{
 			throw new PartialImplementationError();
-			/*
-			return new away.textures.RenderCubeTexture( this._depthMapSize );
-			*/
+			/*			return new away.textures.RenderCubeTexture( this._depthMapSize );			*/
 		}
 		
 		//@override
 		override public function pUpdateDepthProjection(viewCamera:Camera3D):void
 		{
-			var light:PointLight =  ((_pLight) as PointLight);
+			var light:PointLight =  ((this._pLight) as PointLight);
 			var maxDistance:Number = light._pFallOff;
-			var pos:Vector3D = _pLight.scenePosition;
+			var pos:Vector3D = this._pLight.scenePosition;
 			
 			// todo: faces outside frustum which are pointing away from camera need not be rendered!
 			for( var i:Number = 0; i < 6; ++i ) {
-				_lenses[i].far = maxDistance;
-				_depthCameras[i].position = pos;
-				_needsRender[i] = true;
+				this._lenses[i].far = maxDistance;
+				this._depthCameras[i].position = pos;
+				this._needsRender[i] = true;
 			}
 		}
 		
@@ -88,14 +84,14 @@ package away.lights.shadowmaps
 		{
 			for( var i:Number = 0; i < 6; ++i )
 			{
-				if( _needsRender[i] )
+				if( this._needsRender[i] )
 				{
 
-					_pCasterCollector.camera = _depthCameras[i];
-					_pCasterCollector.clear();
-					scene.traversePartitions(_pCasterCollector );
-					renderer.iRender( _pCasterCollector, target, null, i );
-					_pCasterCollector.cleanUp();
+					this._pCasterCollector.camera = this._depthCameras[i];
+					this._pCasterCollector.clear();
+					scene.traversePartitions(this._pCasterCollector );
+					renderer.iRender( this._pCasterCollector, target, null, i );
+					this._pCasterCollector.cleanUp();
 				}
 			}
 		}

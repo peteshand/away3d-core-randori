@@ -1,4 +1,5 @@
 ///<reference path="../_definitions.ts"/>
+
 package away.entities
 {
 	import away.base.IRenderable;
@@ -19,12 +20,7 @@ package away.entities
 	import away.math.Matrix3DUtils;
 	import away.geom.Vector3D;
 
-	/**
-	 * Sprite3D is a 3D billboard, a renderable rectangular area that is always aligned with the projection plane.
-	 * As a result, no perspective transformation occurs on a Sprite3D object.
-	 *
-	 * todo: mvp generation or vertex shader code can be optimized
-	 */
+	/**	 * Sprite3D is a 3D billboard, a renderable rectangular area that is always aligned with the projection plane.	 * As a result, no perspective transformation occurs on a Sprite3D object.	 *	 * todo: mvp generation or vertex shader code can be optimized	 */
 	public class Sprite3D extends Entity implements IRenderable
 	{
 		// TODO: Replace with CompactSubGeometry
@@ -46,10 +42,10 @@ package away.entities
 		public function Sprite3D(material:MaterialBase, width:Number, height:Number):void
 		{
 			super();
-			material = material;
-			_width = width;
-            _height = height;
-            _spriteMatrix = new Matrix3D();
+			this.material = material;
+			this._width = width;
+            this._height = height;
+            this._spriteMatrix = new Matrix3D();
 			if (!Sprite3D._geometry) {
                 Sprite3D._geometry = new SubGeometry();
                 Sprite3D._geometry.updateVertexData(Vector.<Number>(-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0));
@@ -66,35 +62,35 @@ package away.entities
 
 			if (value)
             { // bounds collider is the only null value
-				_pickingSubMesh = new SubMesh(Sprite3D._geometry, null);
-                _pickingTransform = new Matrix3D();
+				this._pickingSubMesh = new SubMesh(Sprite3D._geometry, null);
+                this._pickingTransform = new Matrix3D();
 			}
 		}
 		
 		public function get width():Number
 		{
-			return _width;
+			return this._width;
 		}
 		
 		public function set width(value:Number):void
 		{
-			if (_width == value)
+			if (this._width == value)
 				return;
-            _width = value;
-            iInvalidateTransform();
+            this._width = value;
+            this.iInvalidateTransform();
 		}
 		
 		public function get height():Number
 		{
-			return _height;
+			return this._height;
 		}
 		
 		public function set height(value:Number):void
 		{
-			if (_height == value)
+			if (this._height == value)
 				return;
-            _height = value;
-            iInvalidateTransform();
+            this._height = value;
+            this.iInvalidateTransform();
 		}
 		
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
@@ -139,31 +135,29 @@ package away.entities
 		
 		public function get material():MaterialBase
 		{
-			return _material;
+			return this._material;
 		}
 		
 		public function set material(value:MaterialBase):void
 		{
-			if (value == _material)
+			if (value == this._material)
 				return;
-			if (_material)
-                _material.iRemoveOwner(this);
-            _material = value;
-			if (_material)
-                _material.iAddOwner(this);
+			if (this._material)
+                this._material.iRemoveOwner(this);
+            this._material = value;
+			if (this._material)
+                this._material.iAddOwner(this);
 		}
 		
-		/**
-		 * Defines the animator of the mesh. Act on the mesh's geometry. Defaults to null
-		 */
+		/**		 * Defines the animator of the mesh. Act on the mesh's geometry. Defaults to null		 */
 		public function get animator():IAnimator
 		{
-			return _animator;
+			return this._animator;
 		}
 		
 		public function get castsShadows():Boolean
 		{
-			return _shadowCaster;
+			return this._shadowCaster;
 		}
 		
 		override public function pGetDefaultBoundingVolume():BoundingVolumeBase
@@ -173,8 +167,8 @@ package away.entities
 		
 		override public function pUpdateBounds():void
 		{
-			_pBounds.fromExtremes(-.5*_pScaleX, -.5*_pScaleY, -.5*_pScaleZ, .5*_pScaleX, .5*_pScaleY, .5*_pScaleZ);
-			_pBoundsInvalid = false;
+			this._pBounds.fromExtremes(-.5*this._pScaleX, -.5*this._pScaleY, -.5*this._pScaleZ, .5*this._pScaleX, .5*this._pScaleY, .5*this._pScaleZ);
+			this._pBoundsInvalid = false;
 		}
 		
 		override public function pCreateEntityPartitionNode():EntityNode
@@ -185,7 +179,7 @@ package away.entities
 		override public function pUpdateTransform():void
 		{
 			super.pUpdateTransform();
-			_pTransform.prependScale(_width, _height, Math.max(_width, _height));
+			this._pTransform.prependScale(this._width, this._height, Math.max(this._width, this._height));
 		}
 		
 		public function get uvTransform():Matrix
@@ -246,7 +240,7 @@ package away.entities
 		{
 			findClosest = findClosest;
 
-			var viewTransform:Matrix3D = _camera.inverseSceneTransform.clone();
+			var viewTransform:Matrix3D = this._camera.inverseSceneTransform.clone();
 			viewTransform.transpose();
 			var rawViewTransform:Vector.<Number> = Matrix3DUtils.RAW_DATA_CONTAINER;
 			viewTransform.copyRawDataTo(rawViewTransform);
@@ -257,33 +251,33 @@ package away.entities
 			rawViewTransform[ 13 ] = 0;
 			rawViewTransform[ 14 ] = 0;
 			
-			_pickingTransform.copyRawDataFrom(rawViewTransform);
-            _pickingTransform.prependScale(_width, _height, Math.max(_width, _height));
-            _pickingTransform.appendTranslation(scenePosition.x, scenePosition.y, scenePosition.z);
-            _pickingTransform.invert();
+			this._pickingTransform.copyRawDataFrom(rawViewTransform);
+            this._pickingTransform.prependScale(this._width, this._height, Math.max(this._width, this._height));
+            this._pickingTransform.appendTranslation(this.scenePosition.x, this.scenePosition.y, this.scenePosition.z);
+            this._pickingTransform.invert();
 			
-			var localRayPosition:Vector3D = _pickingTransform.transformVector(_iPickingCollisionVO.rayPosition);
-			var localRayDirection:Vector3D = _pickingTransform.deltaTransformVector(_iPickingCollisionVO.rayDirection);
+			var localRayPosition:Vector3D = this._pickingTransform.transformVector(this._iPickingCollisionVO.rayPosition);
+			var localRayDirection:Vector3D = this._pickingTransform.deltaTransformVector(this._iPickingCollisionVO.rayDirection);
 			
-			_iPickingCollider.setLocalRay(localRayPosition, localRayDirection);
+			this._iPickingCollider.setLocalRay(localRayPosition, localRayDirection);
 			
-			_iPickingCollisionVO.renderable = null;
+			this._iPickingCollisionVO.renderable = null;
 
-			if (_iPickingCollider.testSubMeshCollision(_pickingSubMesh, _iPickingCollisionVO, shortestCollisionDistance))
-				_iPickingCollisionVO.renderable = _pickingSubMesh;
+			if (this._iPickingCollider.testSubMeshCollision(this._pickingSubMesh, this._iPickingCollisionVO, shortestCollisionDistance))
+				this._iPickingCollisionVO.renderable = this._pickingSubMesh;
 			
-			return _iPickingCollisionVO.renderable != null;
+			return this._iPickingCollisionVO.renderable != null;
 		}
 		
 		public function getRenderSceneTransform(camera:Camera3D):Matrix3D
 		{
 			var comps:Vector.<Vector3D> = camera.sceneTransform.decompose();
 			var scale:Vector3D = comps[2];
-			comps[0] = scenePosition;
-			scale.x = _width*_pScaleX;
-			scale.y = _height*_pScaleY;
-			_spriteMatrix.recompose(comps);
-			return _spriteMatrix;
+			comps[0] = this.scenePosition;
+			scale.x = this._width*this._pScaleX;
+			scale.y = this._height*this._pScaleY;
+			this._spriteMatrix.recompose(comps);
+			return this._spriteMatrix;
 		}
 	}
 }

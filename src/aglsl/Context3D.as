@@ -1,7 +1,5 @@
-/**
- * ...
- * @author Gary Paluk - http://www.plugin.io
- */
+/** * ... * @author Gary Paluk - http://www.plugin.io */
+
 ///<reference path="../away/_definitions.ts" />
 
 package aglsl
@@ -10,7 +8,7 @@ package aglsl
 	{
 		
 		public var enableErrorChecking:Boolean = false;    
-		public var resources:Array = new Array(); 
+		public var resources:Vector.<*> = new Vector.<*>();
 		public var driverInfo:String = "Call getter function instead";
 		
 		public static var maxvertexconstants:Number = 128; 
