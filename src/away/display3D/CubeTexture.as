@@ -20,7 +20,7 @@ package away.display3D
 			
 			textureType = "textureCube";
 			
-			this._texturesVector.(= new <WebGLTexture>( ) as WebGLTexture);
+			this._textures = new Vector.<WebGLTexture>();
 			for( var i:Number = 0; i < 6; ++i )
 			{
 				this._textures[i] = _gl.createTexture();

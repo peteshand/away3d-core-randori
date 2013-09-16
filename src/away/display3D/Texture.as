@@ -44,14 +44,14 @@ package away.display3D
 		public function uploadFromHTMLImageElement(image:HTMLImageElement, miplevel:Number = 0):void
 		{
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), _glTexture );
-			_gl.texImage2D( Number(WebGLRenderingContext.TEXTURE_2D), miplevel, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), image );
+			_gl.texImage2D3( Number(WebGLRenderingContext.TEXTURE_2D), miplevel, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), image );
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
 		}
 		
 		public function uploadFromBitmapData(data:BitmapData, miplevel:Number = 0):void
 		{
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), _glTexture );
-			_gl.texImage2D( Number(WebGLRenderingContext.TEXTURE_2D), miplevel, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), data.imageData );
+			_gl.texImage2D2( Number(WebGLRenderingContext.TEXTURE_2D), miplevel, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), data.imageData );
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
 		}
 		

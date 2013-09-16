@@ -22,7 +22,7 @@ package
 
         public function subarray(position:Number, positionOffset:Number):Int8Array
         {
-
+            return new Int8Array(0,0,0,0);
         }
 
 

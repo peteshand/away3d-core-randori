@@ -132,7 +132,7 @@ package away.textures
                 else
                 {
 
-                    var tx : CubeTexture =  texture;
+                    var tx : CubeTexture = (texture as CubeTexture);
                         tx.uploadFromHTMLImageElement( this._bitmapDatas[i] , i , 0 );
 
                 }

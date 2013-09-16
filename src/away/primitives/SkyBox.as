@@ -130,21 +130,8 @@ package away.primitives
 		/**		 * Builds the geometry that forms the SkyBox		 */
 		private function buildGeometry(target:SubGeometry):void
 		{
-			var vertices:Vector.<Number> = [
-				-1, 1, -1, 1, 1, -1,
-				1, 1, 1, -1, 1, 1,
-				-1, -1, -1, 1, -1, -1,
-				1, -1, 1, -1, -1, 1
-				];
-
-			var indices:Vector.<Number> = [
-				0, 1, 2, 2, 3, 0,
-				6, 5, 4, 4, 7, 6,
-				2, 6, 7, 7, 3, 2,
-				4, 5, 1, 1, 0, 4,
-				4, 0, 3, 3, 7, 4,
-				2, 1, 5, 5, 6, 2
-				];
+			var vertices:Vector.<Number> = new <Number>[-1, 1, -1, 1, 1, -1,1, 1, 1, -1, 1, 1,-1, -1, -1, 1, -1, -1,1, -1, 1, -1, -1, 1];
+			var indices:Vector.<Number> = new <Number>[0, 1, 2, 2, 3, 0,6, 5, 4, 4, 7, 6,2, 6, 7, 7, 3, 2,4, 5, 1, 1, 0, 4,4, 0, 3, 3, 7, 4,2, 1, 5, 5, 6, 2];
 			
 			target.updateVertexData(vertices);
 			target.updateIndexData(indices);
