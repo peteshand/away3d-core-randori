@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -137,7 +137,11 @@ away.materials.methods.BasicSpecularMethod.prototype.iGetFragmentCodePerLight = 
 		code += "mul " + t.toString() + ".w, " + t.toString() + ".w, " + lightDirReg.toString() + ".w\n";
 	}
 	if (this._iModulateMethod != null) {
-		code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);
+		if (this._iModulateMethodScope != null) {
+			code += this._iModulateMethod.apply(this._iModulateMethodScope, [vo, t, regCache, this._sharedRegisters]);
+		} else {
+			throw "Modulated methods needs a scope";
+		}
 	}
 	code += "mul " + t.toString() + ".xyz, " + lightColReg.toString() + ", " + t.toString() + ".w\n";
 	if (!this._isFirstLight) {
@@ -161,7 +165,11 @@ away.materials.methods.BasicSpecularMethod.prototype.iGetFragmentCodePerProbe = 
 	var viewDirReg = this._sharedRegisters.viewDirFragment;
 	code += "dp3 " + t.toString() + ".w, " + normalReg.toString() + ", " + viewDirReg.toString() + "\n" + "add " + t.toString() + ".w, " + t.toString() + ".w, " + t.toString() + ".w\n" + "mul " + t.toString() + ", " + t.toString() + ".w, " + normalReg.toString() + "\n" + "sub " + t.toString() + ", " + t.toString() + ", " + viewDirReg.toString() + "\n" + "tex " + t.toString() + ", " + t.toString() + ", " + cubeMapReg.toString() + " <cube," + vo.useSmoothTextures ? "linear" : "nearest" + ",miplinear>\n" + "mul " + t.toString() + ".xyz, " + t.toString() + ", " + weightRegister.toString() + "\n";
 	if (this._iModulateMethod != null) {
-		code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);
+		if (this._iModulateMethodScope != null) {
+			code += this._iModulateMethod.apply(this._iModulateMethodScope, [vo, t, regCache, this._sharedRegisters]);
+		} else {
+			throw "Modulated methods needs a scope";
+		}
 	}
 	if (!this._isFirstLight) {
 		code += "add " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + t.toString() + "\n";
@@ -209,6 +217,10 @@ away.materials.methods.BasicSpecularMethod.prototype.updateSpecular = function()
 };
 
 away.materials.methods.BasicSpecularMethod.prototype.set_iShadowRegister = function(shadowReg) {
+	this._shadowRegister = shadowReg;
+};
+
+away.materials.methods.BasicSpecularMethod.prototype.setIShadowRegister = function(shadowReg) {
 	this._shadowRegister = shadowReg;
 };
 

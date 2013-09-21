@@ -36,7 +36,7 @@ package away.controllers
 		{
 			if( this._pLookAtObject )
 			{
-				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
 				this._pLookAtObject = null;
 			}
 			
@@ -63,13 +63,13 @@ package away.controllers
 			
 			if( this._pLookAtObject )
 			{
-				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				this._pLookAtObject.removeEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
 			}
 			this._pLookAtObject = val;
 			
 			if( this._pLookAtObject )
 			{
-				this._pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, this.onLookAtObjectChanged, this );
+				this._pLookAtObject.addEventListener( Object3DEvent.SCENETRANSFORM_CHANGED, onLookAtObjectChanged, this );
 			}
 			
 			this.pNotifyUpdate();

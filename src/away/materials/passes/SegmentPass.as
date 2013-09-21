@@ -13,8 +13,8 @@ package away.materials.passes
 	/**	 * SegmentPass is a material pass that draws wireframe segments.	 */
 	public class SegmentPass extends MaterialPassBase
 	{
-		public static var pONE_VECTOR:Vector.<Number> = Vector.<Number>( 1, 1, 1, 1 );
-		public static var pFRONT_VECTOR:Vector.<Number> = Vector.<Number>( 0, 0, -1, 0 );
+		public static var pONE_VECTOR:Vector.<Number> = new <Number>[1, 1, 1, 1];
+		public static var pFRONT_VECTOR:Vector.<Number> = new <Number>[0, 0, -1, 0];
 		
 		private var _constants:Vector.<Number> = new Vector.<Number>(4);
 		private var _calcMatrix:Matrix3D;
@@ -24,7 +24,7 @@ package away.materials.passes
 		public function SegmentPass(thickness:Number):void
 		{
 
-            super();
+            super(false);
 
 			this._calcMatrix = new Matrix3D();
 			

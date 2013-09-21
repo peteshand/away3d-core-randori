@@ -143,7 +143,9 @@ package away.traverse
 		{
 			this._cullPlanes = this._customCullPlanes ? this._customCullPlanes : ( this._pCamera ? this._pCamera.frustumPlanes : null );
 			this._numCullPlanes = this._cullPlanes ? this._cullPlanes.length : 0;
-			this._pNumTriangles = this._pNumMouseEnableds = 0;
+			this._pNumTriangles = 0;
+			this._pNumMouseEnableds = 0;
+
 			this._pBlendedRenderableHead = null;
 			this._pOpaqueRenderableHead = null;
 			this._entityHead = null;
@@ -152,19 +154,27 @@ package away.traverse
 			this._pSkyBox = null;
 			if( this._pNumLights > 0 )
 			{
-				this._pLights.length = this._pNumLights = 0;
+				this._pLights.length = 0;
+				this._pNumLights = 0;
+
 			}
 			if( this._numDirectionalLights > 0 )
 			{
-				this._directionalLights.length = this._numDirectionalLights = 0;
+				this._directionalLights.length = 0;
+				this._numDirectionalLights = 0;
+
 			}
 			if( this._numPointLights > 0 )
 			{
-				this._pointLights.length = this._numPointLights = 0;
+				this._pointLights.length = 0;
+				this._numPointLights = 0;
+
 			}
 			if( this._numLightProbes > 0 )
 			{
-				this._lightProbes.length = this._numLightProbes = 0;
+				this._lightProbes.length = 0;
+				this._numLightProbes = 0;
+
 			}
 		}
 		

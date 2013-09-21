@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,8 +11,12 @@ away.bounds.NullBounds = function(alwaysIn, renderable) {
 	away.bounds.BoundingVolumeBase.call(this);
 	this._alwaysIn = alwaysIn;
 	this._renderable = renderable;
-	this._pMax.x = this._pMax.y = this._pMax.z = Infinity;
-	this._pMin.x = this._pMin.y = this._pMin.z = this._alwaysIn ? -Infinity : Infinity;
+	this._pMax.x = Infinity;
+	this._pMax.y = Infinity;
+	this._pMax.z = Infinity;
+	this._pMin.x = this._alwaysIn ? -Infinity : Infinity;
+	this._pMin.y = this._alwaysIn ? -Infinity : Infinity;
+	this._pMin.z = this._alwaysIn ? -Infinity : Infinity;
 };
 
 away.bounds.NullBounds.prototype.clone = function() {

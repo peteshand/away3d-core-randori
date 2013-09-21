@@ -166,8 +166,8 @@ package away.loaders.misc
 
             var loader : ISingleFileTSLoader = this.getLoader( loaderType );
                 loader.dataFormat = dataFormat;
-                loader.addEventListener(Event.COMPLETE, this.handleUrlLoaderComplete , this );
-                loader.addEventListener(IOErrorEvent.IO_ERROR, this.handleUrlLoaderError , this );
+                loader.addEventListener(Event.COMPLETE, handleUrlLoaderComplete , this );
+                loader.addEventListener(IOErrorEvent.IO_ERROR, handleUrlLoaderError , this );
                 loader.load( urlRequest );
 
 		}
@@ -283,8 +283,8 @@ package away.loaders.misc
 		/**		 * Cleanups		 */
 		private function removeListeners(urlLoader:ISingleFileTSLoader):void
 		{
-			urlLoader.removeEventListener(Event.COMPLETE, this.handleUrlLoaderComplete , this );
-			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, this.handleUrlLoaderError , this );
+			urlLoader.removeEventListener(Event.COMPLETE, handleUrlLoaderComplete , this );
+			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, handleUrlLoaderError , this );
 		}
 
         // Events
@@ -335,23 +335,23 @@ package away.loaders.misc
 			if( this._parser )
             {
 
-				this._parser.addEventListener(ParserEvent.READY_FOR_DEPENDENCIES, this.onReadyForDependencies , this);
-                this._parser.addEventListener(ParserEvent.PARSE_ERROR, this.onParseError, this);
-                this._parser.addEventListener(ParserEvent.PARSE_COMPLETE, this.onParseComplete, this);
-                this._parser.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this);
-                this._parser.addEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.MESH_COMPLETE,this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this);
-                this._parser.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete, this);
+				this._parser.addEventListener(ParserEvent.READY_FOR_DEPENDENCIES, onReadyForDependencies , this);
+                this._parser.addEventListener(ParserEvent.PARSE_ERROR, onParseError, this);
+                this._parser.addEventListener(ParserEvent.PARSE_COMPLETE, onParseComplete, this);
+                this._parser.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this);
+                this._parser.addEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.MESH_COMPLETE,onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this);
+                this._parser.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete, this);
 				
 				if (this._req && this._req.url)
                 {
@@ -401,23 +401,23 @@ package away.loaders.misc
 
 			this.dispatchEvent( new LoaderEvent( LoaderEvent.DEPENDENCY_COMPLETE , this.url ) );//dispatch in front of removing listeners to allow any remaining asset events to propagate
 			
-			this._parser.removeEventListener(ParserEvent.READY_FOR_DEPENDENCIES, this.onReadyForDependencies , this );
-            this._parser.removeEventListener(ParserEvent.PARSE_COMPLETE, this.onParseComplete, this );
-            this._parser.removeEventListener(ParserEvent.PARSE_ERROR, this.onParseError, this );
-            this._parser.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this );
-            this._parser.removeEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.MESH_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this );
-            this._parser.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete , this );
+			this._parser.removeEventListener(ParserEvent.READY_FOR_DEPENDENCIES, onReadyForDependencies , this );
+            this._parser.removeEventListener(ParserEvent.PARSE_COMPLETE, onParseComplete, this );
+            this._parser.removeEventListener(ParserEvent.PARSE_ERROR, onParseError, this );
+            this._parser.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this );
+            this._parser.removeEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.MESH_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this );
+            this._parser.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete , this );
 
 		}
 

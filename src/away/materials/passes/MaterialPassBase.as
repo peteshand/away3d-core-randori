@@ -55,7 +55,7 @@ package away.materials.passes
 		private var _animationSet:IAnimationSet;
 
         public var _iProgram3Ds:Vector.<Program3D> = new Vector.<Program3D>( 8 );
-        public var _iProgram3Dids:Vector.<Number> = new Vector.<Number>(-1, -1, -1, -1, -1, -1, -1, -1);//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]);		private var _context3Ds:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		
+        public var _iProgram3Dids:Vector.<Number> = new <Number>[-1, -1, -1, -1, -1, -1, -1, -1];//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]);		private var _context3Ds:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		
 		// agal props. these NEED to be set by subclasses!
 		// todo: can we perhaps figure these out manually by checking read operations in the bytecode, so other sources can be safely updated?
         public var _pNumUsedStreams:Number;
@@ -88,7 +88,7 @@ package away.materials.passes
         public var _pShadedTarget:String = "ft0";
 		
 		// keep track of previously rendered usage for faster cleanup of old vertex buffer streams and textures
-		private static var _previousUsedStreams:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private static var _previousUsedTexs:Vector.<Number> = new Vector.<Number>(0, 0, 0, 0, 0, 0, 0, 0);//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private var _defaultCulling:String = Context3DTriangleFace.BACK;
+		private static var _previousUsedStreams:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private static var _previousUsedTexs:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private var _defaultCulling:String = Context3DTriangleFace.BACK;
 		
 		private var _renderToTexture:Boolean;
 		
@@ -109,7 +109,7 @@ package away.materials.passes
 		//public animationRegisterCache:AnimationRegisterCache; TODO: implement dependency AnimationRegisterCache
 		
 		/**		 * Creates a new MaterialPassBase object.		 *		 * @param renderToTexture Indicates whether this pass is a render-to-texture pass.		 */
-		public function MaterialPassBase(renderToTexture:Boolean = false):void
+		public function MaterialPassBase(renderToTexture:Boolean):void
 		{
 
             super();
@@ -265,7 +265,7 @@ package away.materials.passes
 			if (this._pLightPicker)
             {
 
-                this._pLightPicker.removeEventListener(Event.CHANGE, this.onLightsChange , this );
+                this._pLightPicker.removeEventListener(Event.CHANGE, onLightsChange , this );
 
             }
 
@@ -586,7 +586,7 @@ package away.materials.passes
 			if ( this._pLightPicker)
             {
 
-                this._pLightPicker.removeEventListener(Event.CHANGE, this.onLightsChange , this );
+                this._pLightPicker.removeEventListener(Event.CHANGE, onLightsChange , this );
 
             }
 
@@ -595,7 +595,7 @@ package away.materials.passes
 			if (this._pLightPicker)
             {
 
-                this._pLightPicker.addEventListener(Event.CHANGE, this.onLightsChange , this );
+                this._pLightPicker.addEventListener(Event.CHANGE, onLightsChange , this );
 
             }
 

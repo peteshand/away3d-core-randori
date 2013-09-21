@@ -266,10 +266,16 @@ package away.math
 			target[8] = xz2 - yw2;
 			target[9] = yz2 + xw2;
 			target[10] = -xx - yy + zz + ww;
-			target[3] = target[7] = target[11] = 0;
+			target[3] = 0;
+			target[7] = 0;
+			target[11] = 0;
+
 			
 			if (!exclude4thRow) {
-				target[12] = target[13] = target[14] = 0;
+				target[12] = 0;
+				target[13] = 0;
+				target[14] = 0;
+
 				target[15] = 1;
 			}
 		}

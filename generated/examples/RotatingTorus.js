@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:31:26 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -65,7 +65,7 @@ examples.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
 	this._context3D.setProgram(this._program);
 	this._pMatrix = new away.utils.PerspectiveMatrix3D();
 	this._pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
-	this._mvMatrix = new away.geom.Matrix3D();
+	this._mvMatrix = new away.geom.Matrix3D([]);
 	this._mvMatrix.appendTranslation(0, 0, 5);
 	this._context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
 	this._context3D.setGLSLVertexBufferAt("aTextureCoord", vBuffer, 9, away.display3D.Context3DVertexBufferFormat.FLOAT_2);

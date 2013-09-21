@@ -23,10 +23,10 @@ package away.materials.passes
 		/**		 * Creates a new SkyBoxPass object.		 */
 		public function SkyBoxPass():void
 		{
-			super();
+			super(false);
 			this.mipmap = false;
 			this._pNumUsedTextures = 1;
-            this._vertexData = new Vector.<Number>( 0, 0, 0, 0, 1, 1, 1, 1 );
+            this._vertexData = new <Number>[ 0, 0, 0, 0, 1, 1, 1, 1 ];
 		}
 		
 		/**		 * The cube texture to use as the skybox.		 */
@@ -82,7 +82,10 @@ package away.materials.passes
 			this._vertexData[0] = pos.x;
             this._vertexData[1] = pos.y;
             this._vertexData[2] = pos.z;
-            this._vertexData[4] = this._vertexData[5] = this._vertexData[6] = camera.lens.far/Math.sqrt(3);
+            this._vertexData[4] = camera.lens.far/Math.sqrt(3);
+            this._vertexData[5] = camera.lens.far/Math.sqrt(3);
+            this._vertexData[6] = camera.lens.far/Math.sqrt(3);
+
 			context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 0, viewProjection, true);
 			context.setProgramConstantsFromArray(Context3DProgramType.VERTEX, 4, this._vertexData, 2);
 			renderable.activateVertexBuffer(0, stage3DProxy);

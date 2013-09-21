@@ -18,7 +18,7 @@ package away.library.assets
 
 		public static var DEFAULT_NAMESPACE:String = 'default';
 		
-		public function NamedAssetBase(name:String = null):void
+		public function NamedAssetBase(name:String):void
 		{
             super();
 
@@ -124,7 +124,7 @@ package away.library.assets
 		private function updateFullPath():void
 		{
 
-            this._full_path = new <String>[ this._namespace, this._name ];
+            this._full_path = new <String>[this._namespace, this._name];
 
 		}
 		

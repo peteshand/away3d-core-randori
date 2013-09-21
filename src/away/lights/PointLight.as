@@ -119,12 +119,23 @@ package away.lights
 			zMin = z - d;
 			zMax = z + d;
 			
-			raw[5] = raw[0] = zMin/d;
+			raw[5] = zMin/d;
+			raw[0] = zMin/d;
+
 			raw[10] = zMax/(zMax - zMin);
 			raw[11] = 1;
-			raw[1] = raw[2] = raw[3] = raw[4] =
-				raw[6] = raw[7] = raw[8] = raw[9] =
-				raw[12] = raw[13] = raw[15] = 0;
+			raw[1] = 0;
+			raw[2] = 0;
+			raw[3] = 0;
+			raw[4] = 0;
+			raw[6] = 0;
+			raw[7] = 0;
+			raw[8] = 0;
+			raw[9] = 0;
+			raw[12] = 0;
+			raw[13] = 0;
+			raw[15] = 0;
+
 			raw[14] = -zMin*raw[10];
 			
 			if(!target)

@@ -94,7 +94,9 @@ package away.base
 		{
 			if (this._animatedData) {
                 this._pActiveBuffer.uploadFromArray(this._animatedData, 0, this._pNumVertices);
-                this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = false;
+                this._pVertexDataInvalid[contextIndex] = false;
+                this._pActiveDataInvalid = false;
+
 			}
             else
             {

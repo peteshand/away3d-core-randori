@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.controllers.LookAtController = function(targetObject, lookAtObject) {
 	this._pLookAtPosition = null;
 	away.controllers.ControllerBase.call(this, targetObject);
 	if (lookAtObject) {
-		lookAtObject = lookAtObject;
+		this.set_lookAtObject(lookAtObject);
 	} else {
 		this.set_lookAtPosition(new away.geom.Vector3D(0, 0, 0, 0));
 	}

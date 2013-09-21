@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -51,7 +51,6 @@ away.materials.methods.BasicAmbientMethod.prototype.get_texture = function() {
 };
 
 away.materials.methods.BasicAmbientMethod.prototype.set_texture = function(value) {
-	away.utils.Debug.throwPIR("BasicAmbientMethod", "set texture", "TRICKY - Odd boolean assignment - needs testing");
 	var b = (value != null);
 	if (b != this._useTexture || (value && this._texture && (value.get_hasMipMaps() != this._texture.get_hasMipMaps() || value.get_format() != this._texture.get_format()))) {
 		this.iInvalidateShaderProgram();
@@ -61,7 +60,6 @@ away.materials.methods.BasicAmbientMethod.prototype.set_texture = function(value
 };
 
 away.materials.methods.BasicAmbientMethod.prototype.copyFrom = function(method) {
-	away.utils.Debug.throwPIR("BasicAmbientMethod", "copyFrom", "TRICKY - Odd case assignment - needs testing");
 	var m = method;
 	var b = m;
 	var diff = b;
@@ -119,7 +117,6 @@ away.materials.methods.BasicAmbientMethod.className = "away.materials.methods.Ba
 away.materials.methods.BasicAmbientMethod.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.Debug');
 	p.push('away.display3D.Context3DMipFilter');
 	p.push('away.display3D.Context3DWrapMode');
 	p.push('away.display3D.Context3DTextureFilter');

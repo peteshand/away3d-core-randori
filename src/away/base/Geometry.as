@@ -33,7 +33,7 @@ package away.base
         /**		 * Creates a new Geometry object.		 */
 		public function Geometry():void
 		{
-            super();
+            super(null);
 
             this._subGeometries = new Vector.<ISubGeometry>();//Vector.<ISubGeometry>();
 

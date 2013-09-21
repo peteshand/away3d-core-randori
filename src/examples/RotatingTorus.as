@@ -141,7 +141,7 @@ import randori.webkit.page.Window;
             _pMatrix = new PerspectiveMatrix3D();
             _pMatrix.perspectiveFieldOfViewLH( 45, 800/600, 0.1, 1000 );
 
-            _mvMatrix = new Matrix3D();
+            _mvMatrix = new Matrix3D(new <Number>[]);
             _mvMatrix.appendTranslation( 0, 0, 5 );
 
             _context3D.setGLSLVertexBufferAt( "aVertexPosition", vBuffer, 0, Context3DVertexBufferFormat.FLOAT_3 );

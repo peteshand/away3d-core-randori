@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:44:24 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -187,8 +187,10 @@ away.managers.RTTBufferManager.prototype.updateRTTBuffers = function() {
 		this._indexBuffer = context.createIndexBuffer(6);
 		this._indexBuffer.uploadFromArray([2, 1, 0, 3, 2, 0], 0, 6);
 	}
-	this._textureRatioX = x = Math.min(this._viewWidth / this._textureWidth, 1);
-	this._textureRatioY = y = Math.min(this._viewHeight / this._textureHeight, 1);
+	this._textureRatioX = Math.min(this._viewWidth / this._textureWidth, 1);
+	x = Math.min(this._viewWidth / this._textureWidth, 1);
+	this._textureRatioY = Math.min(this._viewHeight / this._textureHeight, 1);
+	y = Math.min(this._viewHeight / this._textureHeight, 1);
 	var u1 = (1 - x) * .5;
 	var u2 = (x + 1) * .5;
 	var v1 = (y + 1) * .5;

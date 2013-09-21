@@ -28,7 +28,7 @@ package away.materials.lightpickers
 		public function LightPickerBase():void
 		{
 
-            super();
+            super(null);
 
 		}
 

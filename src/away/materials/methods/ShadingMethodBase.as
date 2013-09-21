@@ -33,7 +33,7 @@ package away.materials.methods
 		public var _sharedRegisters:ShaderRegisterData; // should be protected		private var _passes:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>;		
 		/**		 * Create a new ShadingMethodBase object.		 * @param needsNormals Defines whether or not the method requires normals.		 * @param needsView Defines whether or not the method requires the view direction.		 */
 		public function ShadingMethodBase():void // needsNormals : boolean, needsView : boolean, needsGlobalPos : boolean		{
-            super();
+            super(null);
 		}
 
 		/**		 * Initializes the properties for a MethodVO, including register and texture indices.		 * @param vo The MethodVO object linking this method with the pass currently being compiled.		 */

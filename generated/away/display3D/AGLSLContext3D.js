@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -34,13 +34,21 @@ away.display3D.AGLSLContext3D.prototype.drawTriangles = function(indexBuffer, fi
 away.display3D.AGLSLContext3D.prototype.setCulling = function(triangleFaceToCull) {
 	switch (triangleFaceToCull) {
 		case away.display3D.Context3DTriangleFace.FRONT:
-			this._yFlip = 1;
-			break;
-		case away.display3D.Context3DTriangleFace.BACK:
 			this._yFlip = -1;
 			break;
+		case away.display3D.Context3DTriangleFace.BACK:
+			this._yFlip = 1;
+			break;
+		case away.display3D.Context3DTriangleFace.FRONT_AND_BACK:
+			this._yFlip = 1;
+			break;
+		case away.display3D.Context3DTriangleFace.NONE:
+			this._yFlip = 1;
+			break;
+		default:
+			throw "Unknown culling mode " + triangleFaceToCull + ".";
+			break;
 	}
-	away.display3D.Context3D.prototype.setCulling.call(this,triangleFaceToCull);
 };
 
 $inherit(away.display3D.AGLSLContext3D, away.display3D.Context3D);

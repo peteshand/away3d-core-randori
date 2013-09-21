@@ -86,7 +86,7 @@ package away.containers
 
 			this._profile = profile;
 			this._pScene = scene || new Scene3D();
-			this._pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged, this );
+			this._pScene.addEventListener( Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged, this );
 			this._pCamera = camera || new Camera3D();
 			this._pRenderer = renderer || new DefaultRenderer();
 			this._depthRenderer = new DepthRenderer();
@@ -94,7 +94,7 @@ package away.containers
 			this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
 			this._pEntityCollector.camera = this._pCamera;
 			this._pScissorRect = new Rectangle();
-			this._pCamera.addEventListener( CameraEvent.LENS_CHANGED, this.onLensChanged, this );
+			this._pCamera.addEventListener( CameraEvent.LENS_CHANGED, onLensChanged, this );
 			this._pCamera.partition = this._pScene.partition;
             this.stage = View3D.sStage;
 
@@ -121,12 +121,14 @@ package away.containers
 
 			if (this._pStage3DProxy)
 			{
-				this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
+				this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
 			}
 			
 			this._pStage3DProxy = stage3DProxy;
-			this._pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated, this );
-			this._pRenderer.iStage3DProxy = this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
+			this._pStage3DProxy.addEventListener( Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated, this );
+			this._pRenderer.iStage3DProxy = this._pStage3DProxy;
+			this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
+
 			this._globalPosDirty = true;
 			this._pBackBufferInvalid = true;
 
@@ -245,7 +247,7 @@ package away.containers
         /**         * Set camera that's used to render the scene for this viewport         */
         public function set camera(camera:Camera3D):void
         {
-            this._pCamera.removeEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this );
+            this._pCamera.removeEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this );
             this._pCamera = camera;
 
             this._pEntityCollector.camera = this._pCamera;
@@ -255,7 +257,7 @@ package away.containers
                 this._pCamera.partition = this._pScene.partition;
             }
 
-            this._pCamera.addEventListener(CameraEvent.LENS_CHANGED, this.onLensChanged , this);
+            this._pCamera.addEventListener(CameraEvent.LENS_CHANGED, onLensChanged , this);
             this._scissorRectDirty = true;
             this._viewportDirty = true;
 
@@ -268,9 +270,9 @@ package away.containers
         /**         * Set the scene that's used to render for this viewport         */
         public function set scene(scene:Scene3D):void
         {
-            this._pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
+            this._pScene.removeEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
             this._pScene = scene;
-            this._pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, this.onScenePartitionChanged , this );
+            this._pScene.addEventListener(Scene3DEvent.PARTITION_CHANGED, onScenePartitionChanged , this );
 
             if (this._pCamera)
             {
@@ -346,7 +348,9 @@ package away.containers
             if (this.x == value)
                 return;
 
-            this._globalPos.x = this._localPos.x = value;
+            this._globalPos.x = value;
+            this._localPos.x = value;
+
             this._globalPosDirty = true;
         }
         /**         *         * @param value         */
@@ -355,7 +359,9 @@ package away.containers
             if (this.y == value)
                 return;
 
-            this._globalPos.y = this._localPos.y = value;
+            this._globalPos.y = value;
+            this._localPos.y = value;
+
             this._globalPosDirty = true;
         }
         /**         *         * @returns {number}         */
@@ -640,7 +646,7 @@ package away.containers
         /**         *         */
         public function dispose():void
         {
-            this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated , this );
+            this._pStage3DProxy.removeEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated , this );
 
             if (!this.shareContext)
             {
@@ -716,13 +722,15 @@ package away.containers
             {
 
                 this._pStage3DProxy= Stage3DManager.getInstance( this.stage ).getFreeStage3DProxy(this._forceSoftware, this._profile);
-                this._pStage3DProxy.addEventListener(Stage3DEvent.VIEWPORT_UPDATED, this.onViewportUpdated , this );
+                this._pStage3DProxy.addEventListener(Stage3DEvent.VIEWPORT_UPDATED, onViewportUpdated , this );
 
             }
 
             this._globalPosDirty = true;
             this._pRttBufferManager = RTTBufferManager.getInstance(this._pStage3DProxy);
-            this._pRenderer.iStage3DProxy = this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
+            this._pRenderer.iStage3DProxy = this._pStage3DProxy;
+            this._depthRenderer.iStage3DProxy = this._pStage3DProxy;
+
 
             if (this._width == 0)
             {

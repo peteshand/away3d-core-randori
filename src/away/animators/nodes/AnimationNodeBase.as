@@ -19,7 +19,7 @@ package away.animators.nodes
 		public function AnimationNodeBase():void
 		{
 
-            super();
+            super(null);
 
 		}
 		

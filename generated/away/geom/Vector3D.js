@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:02 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:01 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,10 +6,10 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Vector3D = function(x, y, z, w) {
-	x = x;
-	y = y;
-	z = z;
-	w = w;
+	this.x = x;
+	this.y = y;
+	this.z = z;
+	this.w = w;
 };
 
 away.geom.Vector3D.X_AXIS = new away.geom.Vector3D(1, 0, 0, 0);
@@ -87,7 +87,7 @@ away.geom.Vector3D.prototype.negate = function() {
 };
 
 away.geom.Vector3D.prototype.normalize = function() {
-	var invLength = 1 / $createStaticDelegate(this, this.get_length);
+	var invLength = 1 / this.get_length();
 	if (invLength != 0) {
 		this.x *= invLength;
 		this.y *= invLength;

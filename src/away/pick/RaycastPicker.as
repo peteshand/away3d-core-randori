@@ -209,7 +209,7 @@ package away.pick
 			this._entities.length = this._numEntities;
 			
 			// Sort entities from closest to furthest.
-			this._entities = this._entities.sort(this.sortOnNearT); // TODO - test sort filter in JS
+			this._entities = this._entities.sort(sortOnNearT); // TODO - test sort filter in JS
 			
 			// ---------------------------------------------------------------------
 			// Evaluate triangle collisions when needed.

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:02 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,7 +18,7 @@ away.display3D.VertexBuffer3D = function(gl, numVertices, data32PerVertex) {
 
 away.display3D.VertexBuffer3D.prototype.uploadFromArray = function(vertices, startVertex, numVertices) {
 	this._gl.bindBuffer(34962, this._buffer);
-	console.log("** WARNING upload not fully implemented, startVertex & numVertices not considered.");
+	//console.log("** WARNING upload not fully implemented, startVertex & numVertices not considered.");
 	this._gl.bufferData(34962, new Float32Array(vertices), 35044);
 };
 
@@ -42,9 +42,7 @@ away.display3D.VertexBuffer3D.className = "away.display3D.VertexBuffer3D";
 
 away.display3D.VertexBuffer3D.getRuntimeDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('Float32Array');
-	return p;
+	return [];
 };
 
 away.display3D.VertexBuffer3D.getStaticDependencies = function(t) {

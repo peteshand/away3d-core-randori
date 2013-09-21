@@ -9,7 +9,7 @@ package away.base
     /**     * @class away.base.Geometry     */
 	public class CompactSubGeometry extends SubGeometryBase implements ISubGeometry
 	{
-		public var _pVertexDataInvalid:Vector.<Boolean> = Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		public var _pNumVertices:Number;
+		public var _pVertexDataInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		public var _pNumVertices:Number;
 		private var _contextIndex:Number;
 		public var _pActiveBuffer:VertexBuffer3D;
 		private var _activeContext:Context3D;
@@ -149,7 +149,9 @@ package away.base
 		public function pUploadData(contextIndex:Number):void
 		{
 			this._pActiveBuffer.uploadFromArray(this._vertexData, 0, this._pNumVertices);
-			this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = false;
+			this._pVertexDataInvalid[contextIndex] = false;
+			this._pActiveDataInvalid = false;
+
 		}
 		
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
@@ -203,9 +205,15 @@ package away.base
 		
 		public function pCreateBuffer(contextIndex:Number, context:Context3D):void
 		{
-			this._vertexBuffer[contextIndex] = this._pActiveBuffer = context.createVertexBuffer(this._pNumVertices, 13);
-			this._bufferContext[contextIndex] = this._activeContext = context;
-			this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = true;
+			this._vertexBuffer[contextIndex] = context.createVertexBuffer(this._pNumVertices, 13);
+			this._pActiveBuffer = context.createVertexBuffer(this._pNumVertices, 13);
+
+			this._bufferContext[contextIndex] = context;
+			this._activeContext = context;
+
+			this._pVertexDataInvalid[contextIndex] = true;
+			this._pActiveDataInvalid = true;
+
 		}
 		
 		public function pUpdateActiveBuffer(contextIndex:Number):void

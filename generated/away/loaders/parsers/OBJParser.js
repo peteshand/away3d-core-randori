@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:23:06 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -415,7 +415,9 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 		lines = materialDefinitions[i].split("\r").join("").split("\n");
 		if (lines.length == 1)
 			lines = materialDefinitions[i].split(String.fromCharCode(13));
-		diffuseColor = ambientColor = specularColor = 0xFFFFFF;
+		diffuseColor = 0xFFFFFF;
+		ambientColor = 0xFFFFFF;
+		specularColor = 0xFFFFFF;
 		specular = 0;
 		useSpecular = false;
 		useColor = false;

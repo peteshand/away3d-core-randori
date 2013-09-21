@@ -124,7 +124,13 @@ package away.managers
 				//var fragmentByteCode:ByteArray = new AGALMiniAssembler(Debug.active).assemble(Context3DProgramType.FRAGMENT, fragmentCode);
 				//program.upload(vertexByteCode, fragmentByteCode);
 
-                /*                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );                 program.uploadGLSL(vertexByteCode, fragmentByteCode);                 */
+                /*
+                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );
+                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );
+
+                 program.uploadGLSL(vertexByteCode, fragmentByteCode);
+
+                 */
 
                 var vertCompiler:AGLSLCompiler = new AGLSLCompiler();
                 var fragCompiler:AGLSLCompiler = new AGLSLCompiler();
@@ -147,7 +153,17 @@ package away.managers
                 
 
                 program.upload(vertString, fragString);
-                /*                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );                 this._program3D.upload( vertString , fragString );                 */
+                /*
+
+                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
+                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
+
+                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );
+                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );
+
+                 this._program3D.upload( vertString , fragString );
+
+                 */
 
 				this._program3Ds[key] = program;
 			}
@@ -197,15 +213,4 @@ package away.managers
 			return vertexCode + "---" + fragmentCode;
 		}
 	}
-}
-
-import away.events.Stage3DEvent;
-import away.materials.passes.MaterialPassBase;
-import away.display3D.Program3D;
-import aglsl.AGLSLCompiler;
-import away.display3D.Context3DProgramType;
-	import randori.webkit.page.Window;
-
-class AGALProgram3DCacheSingletonEnforcer
-{
 }

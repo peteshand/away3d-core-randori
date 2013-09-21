@@ -21,8 +21,14 @@ package away.bounds
 			super();
 			this._alwaysIn = alwaysIn;
 			this._renderable = renderable;
-			this._pMax.x = this._pMax.y = this._pMax.z = Number.POSITIVE_INFINITY;
-			this._pMin.x = this._pMin.y = this._pMin.z = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			this._pMax.x = Number.POSITIVE_INFINITY;
+			this._pMax.y = Number.POSITIVE_INFINITY;
+			this._pMax.z = Number.POSITIVE_INFINITY;
+
+			this._pMin.x = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			this._pMin.y = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			this._pMin.z = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+
 		}
 		
 		//@override

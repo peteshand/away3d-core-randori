@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,7 +20,7 @@ away.materials.lightpickers.LightPickerBase = function() {
 	this._pDirectionalLights = null;
 	this._pPointLights = null;
 	this._pNumCastingDirectionalLights = 0;
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 };
 
 away.materials.lightpickers.LightPickerBase.prototype.dispose = function() {

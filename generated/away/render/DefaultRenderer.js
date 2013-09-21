@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -26,7 +26,8 @@ away.render.DefaultRenderer.ALL_PASSES = 3;
 
 away.render.DefaultRenderer.prototype.set_iStage3DProxy = function(value) {
 	away.render.RendererBase.prototype.iSetStage3DProxy.call(this,value);
-	this._pDistanceRenderer.set_iStage3DProxy(this._pDepthRenderer.set_iStage3DProxy(value));
+	this._pDistanceRenderer.set_iStage3DProxy(value);
+	this._pDepthRenderer.set_iStage3DProxy(value);
 };
 
 away.render.DefaultRenderer.prototype.pExecuteRender = function(entityCollector, target, scissorRect, surfaceSelector) {

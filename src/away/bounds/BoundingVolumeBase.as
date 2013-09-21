@@ -57,8 +57,14 @@ package away.bounds
 		
 		public function nullify():void
 		{
-			this._pMin.x = this._pMin.y = this._pMin.z = 0;
-			this._pMax.x = this._pMax.y = this._pMax.z = 0;
+			this._pMin.x = 0;
+			this._pMin.y = 0;
+			this._pMin.z = 0;
+
+			this._pMax.x = 0;
+			this._pMax.y = 0;
+			this._pMax.z = 0;
+
 			this._pAabbPointsDirty = true;
 			
 			if( this._pBoundingRenderable )
@@ -91,9 +97,15 @@ package away.bounds
 			
 			var v:Number;
 			
-			minX = maxX = vertices[i++];
-			minY = maxY = vertices[i++];
-			minZ = maxZ = vertices[i++];
+			minX = vertices[i++];
+			maxX = vertices[i++];
+
+			minY = vertices[i++];
+			maxY = vertices[i++];
+
+			minZ = vertices[i++];
+			maxZ = vertices[i++];
+
 			
 			while( i < len )
 			{
@@ -130,8 +142,14 @@ package away.bounds
 
 				var j:Number = 0;
 
-				minX = minY = minZ = Number.POSITIVE_INFINITY;
-				maxX = maxY = maxZ = Number.NEGATIVE_INFINITY;
+				minX = Number.POSITIVE_INFINITY;
+				minY = Number.POSITIVE_INFINITY;
+				minZ = Number.POSITIVE_INFINITY;
+
+				maxX = Number.NEGATIVE_INFINITY;
+				maxY = Number.NEGATIVE_INFINITY;
+				maxZ = Number.NEGATIVE_INFINITY;
+
 				
 				while (j < numSubGeoms)
                 {

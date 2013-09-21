@@ -132,7 +132,7 @@ package away.managers
             this._enableDepthAndStencil = true;
 			
 			// whatever happens, be sure this has highest priority
-			this._stage3D.addEventListener(Event.CONTEXT3D_CREATE, this.onContext3DUpdate, this ) ;//, false, 1000, false);
+			this._stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContext3DUpdate, this ) ;//, false, 1000, false);
 			this.requestContext( forceSoftware , this.profile);
 
 
@@ -147,7 +147,7 @@ package away.managers
 		public function dispose():void
 		{
 			this._stage3DManager.iRemoveStage3DProxy(this);
-			this._stage3D.removeEventListener(Event.CONTEXT3D_CREATE, this.onContext3DUpdate , this );
+			this._stage3D.removeEventListener(Event.CONTEXT3D_CREATE, onContext3DUpdate , this );
 			this.freeContext3D();
             this._stage3D = null;
             this._stage3DManager = null;
@@ -160,8 +160,12 @@ package away.managers
 			var oldWidth:Number = this._backBufferWidth;
 			var oldHeight:Number = this._backBufferHeight;
 
-            this._backBufferWidth = this._viewPort.width = backBufferWidth;
-            this._backBufferHeight = this._viewPort.height = backBufferHeight;
+            this._backBufferWidth = backBufferWidth;
+            this._viewPort.width = backBufferWidth;
+
+            this._backBufferHeight = backBufferHeight;
+            this._viewPort.height = backBufferHeight;
+
 			
 			if (oldWidth != this._backBufferWidth || oldHeight != this._backBufferHeight)
                 this.notifyViewportUpdated();
@@ -321,7 +325,9 @@ package away.managers
 			if (this._viewPort.x == value)
 				return;
 			
-			this._stage3D.x = this._viewPort.x = value;
+			this._stage3D.x = value;
+			this._viewPort.x = value;
+
 			
 			this.notifyViewportUpdated();
 		}
@@ -336,7 +342,9 @@ package away.managers
 			if (this._viewPort.y == value)
 				return;
 			
-			this._stage3D.y = this._viewPort.y = value;
+			this._stage3D.y = value;
+			this._viewPort.y = value;
+
 
             this.notifyViewportUpdated();
 		}
@@ -357,7 +365,10 @@ package away.managers
 			if (this._viewPort.width == width)
 				return;
 
-            this._stage3D.width = this._backBufferWidth = this._viewPort.width = width;
+            this._stage3D.width = width;
+            this._backBufferWidth = width;
+            this._viewPort.width = width;
+
 			this._backBufferDirty = true;
 			
 			this.notifyViewportUpdated();
@@ -373,7 +384,10 @@ package away.managers
 			if (this._viewPort.height == height)
 				return;
 
-            this._stage3D.height = this._backBufferHeight = this._viewPort.height = height;
+            this._stage3D.height = height;
+            this._backBufferHeight = height;
+            this._viewPort.height = height;
+
 			this._backBufferDirty = true;
 			
 			this.notifyViewportUpdated();

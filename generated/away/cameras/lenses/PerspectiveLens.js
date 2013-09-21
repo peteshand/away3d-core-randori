@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:09 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:18 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,7 +14,7 @@ away.cameras.lenses.PerspectiveLens = function(fieldOfView) {
 	this._yMax = 0;
 	this._focalLength = 0;
 	away.cameras.lenses.LensBase.call(this);
-	fieldOfView = fieldOfView;
+	this.set_fieldOfView(fieldOfView);
 };
 
 away.cameras.lenses.PerspectiveLens.prototype.get_fieldOfView = function() {
@@ -76,7 +76,17 @@ away.cameras.lenses.PerspectiveLens.prototype.pUpdateMatrix = function() {
 		raw[5] = this._pNear / this._yMax;
 		raw[10] = this._pFar / (this._pFar - this._pNear);
 		raw[11] = 1;
-		raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[12] = raw[13] = raw[15] = 0;
+		raw[1] = 0;
+		raw[2] = 0;
+		raw[3] = 0;
+		raw[4] = 0;
+		raw[6] = 0;
+		raw[7] = 0;
+		raw[8] = 0;
+		raw[9] = 0;
+		raw[12] = 0;
+		raw[13] = 0;
+		raw[15] = 0;
 		raw[14] = -this._pNear * raw[10];
 	} else {
 		var xWidth = this._xMax * (this._pViewPort.width / this._pScissorRect.width);
@@ -93,23 +103,44 @@ away.cameras.lenses.PerspectiveLens.prototype.pUpdateMatrix = function() {
 		raw[9] = (bottom + top) / (bottom - top);
 		raw[10] = (this._pFar + this._pNear) / (this._pFar - this._pNear);
 		raw[11] = 1;
-		raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[12] = raw[13] = raw[15] = 0;
+		raw[1] = 0;
+		raw[2] = 0;
+		raw[3] = 0;
+		raw[4] = 0;
+		raw[6] = 0;
+		raw[7] = 0;
+		raw[12] = 0;
+		raw[13] = 0;
+		raw[15] = 0;
 		raw[14] = -2 * this._pFar * this._pNear / (this._pFar - this._pNear);
 	}
 	this._pMatrix.copyRawDataFrom(raw, 0, false);
-	this._pMatrix.appendRotation(180, new away.geom.Vector3D(0, 0, 1, 0));
 	var yMaxFar = this._pFar * this._focalLengthInv;
 	var xMaxFar = yMaxFar * this._pAspectRatio;
-	this._pFrustumCorners[0] = this._pFrustumCorners[9] = left;
-	this._pFrustumCorners[3] = this._pFrustumCorners[6] = right;
-	this._pFrustumCorners[1] = this._pFrustumCorners[4] = top;
-	this._pFrustumCorners[7] = this._pFrustumCorners[10] = bottom;
-	this._pFrustumCorners[12] = this._pFrustumCorners[21] = -xMaxFar;
-	this._pFrustumCorners[15] = this._pFrustumCorners[18] = xMaxFar;
-	this._pFrustumCorners[13] = this._pFrustumCorners[16] = -yMaxFar;
-	this._pFrustumCorners[19] = this._pFrustumCorners[22] = yMaxFar;
-	this._pFrustumCorners[2] = this._pFrustumCorners[5] = this._pFrustumCorners[8] = this._pFrustumCorners[11] = this._pNear;
-	this._pFrustumCorners[14] = this._pFrustumCorners[17] = this._pFrustumCorners[20] = this._pFrustumCorners[23] = this._pFar;
+	this._pFrustumCorners[0] = left;
+	this._pFrustumCorners[9] = left;
+	this._pFrustumCorners[3] = right;
+	this._pFrustumCorners[6] = right;
+	this._pFrustumCorners[1] = top;
+	this._pFrustumCorners[4] = top;
+	this._pFrustumCorners[7] = bottom;
+	this._pFrustumCorners[10] = bottom;
+	this._pFrustumCorners[12] = -xMaxFar;
+	this._pFrustumCorners[21] = -xMaxFar;
+	this._pFrustumCorners[15] = xMaxFar;
+	this._pFrustumCorners[18] = xMaxFar;
+	this._pFrustumCorners[13] = -yMaxFar;
+	this._pFrustumCorners[16] = -yMaxFar;
+	this._pFrustumCorners[19] = yMaxFar;
+	this._pFrustumCorners[22] = yMaxFar;
+	this._pFrustumCorners[2] = this._pNear;
+	this._pFrustumCorners[5] = this._pNear;
+	this._pFrustumCorners[8] = this._pNear;
+	this._pFrustumCorners[11] = this._pNear;
+	this._pFrustumCorners[14] = this._pFar;
+	this._pFrustumCorners[17] = this._pFar;
+	this._pFrustumCorners[20] = this._pFar;
+	this._pFrustumCorners[23] = this._pFar;
 	this._pMatrixInvalid = false;
 };
 

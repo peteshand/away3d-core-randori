@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:29:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:01 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -6,9 +6,9 @@ if (typeof aglsl.assembler == "undefined")
 	aglsl.assembler = {};
 
 aglsl.assembler.Sampler = function(shift, mask, value) {
-	shift = shift;
-	mask = mask;
-	value = value;
+	this.shift = shift;
+	this.mask = mask;
+	this.value = value;
 };
 
 aglsl.assembler.Sampler.className = "aglsl.assembler.Sampler";

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:32 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,7 +16,7 @@ away.loaders.parsers.utils.ParserUtil = function() {
 away.loaders.parsers.utils.ParserUtil.byteArrayToImage = function(data) {
 	var byteStr = "";
 	var bytes = new Uint8Array(data.arraybytes);
-	var len = bytes.get_byteLength();
+	var len = bytes.byteLength;
 	for (var i = 0; i < len; i++) {
 		byteStr += String.fromCharCode(bytes[i]);
 	}
@@ -37,7 +37,14 @@ away.loaders.parsers.utils.ParserUtil.toString = function(data, length) {
 	if (typeof(data) === "string")
 	
 	var s = data;
-	return s.substr(0, s.length);
+	if (s["substr"] != null) {
+		return s.substr(0, s.length);
+	}
+	if (data instanceof away.utils.ByteArray) {
+		var ba = data;
+		ba.position = 0;
+		return ba.readUTFBytes(Math.min(ba.getBytesAvailable(), length));
+	}
 	return null;
 };
 
@@ -47,7 +54,6 @@ away.loaders.parsers.utils.ParserUtil.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.utils.ByteArray');
-	p.push('Uint8Array');
 	return p;
 };
 

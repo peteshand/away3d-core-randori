@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:53:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -124,7 +124,7 @@ away.display3D.Context3D.prototype.drawToBitmapData = function(destination) {
 };
 
 away.display3D.Context3D.prototype.drawTriangles = function(indexBuffer, firstIndex, numTriangles) {
-	if (!this._drawing) {
+    if (!this._drawing) {
 		throw "Need to clear before drawing if the buffer has not been cleared since the last present() call.";
 	}
 	var numIndices = 0;
@@ -341,9 +341,9 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 	if (!texture) {
 		this._gl.activeTexture(33984 + textureIndex);
 		this._gl.bindTexture(3553, null);
+		this._gl.bindTexture(34067, null);
 		return;
 	}
-	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
 	switch (textureIndex) {
 		case 0:
 			this._gl.activeTexture(33984);
@@ -372,17 +372,37 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 		default:
 			throw "Texture " + textureIndex + " is out of bounds.";
 	}
-	this._gl.bindTexture(3553, texture.get_glTexture());
-	this._gl.uniform1i(location, textureIndex);
-	var samplerState = this._samplerStates[textureIndex];
-	if (samplerState.wrap != this._currentWrap) {
-		this._currentWrap = samplerState.wrap;
-		this._gl.texParameteri(3553, 10242, samplerState.wrap);
-		this._gl.texParameteri(3553, 10243, samplerState.wrap);
-	}
-	if (samplerState.filter != this._currentFilter) {
-		this._gl.texParameteri(3553, 10241, samplerState.filter);
-		this._gl.texParameteri(3553, 10240, samplerState.filter);
+	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
+	if (texture.textureType == "texture2d") {
+		this._gl.bindTexture(3553, texture.get_glTexture());
+		this._gl.uniform1i(location, textureIndex);
+		var samplerState = this._samplerStates[textureIndex];
+		if (samplerState.wrap != this._currentWrap) {
+			this._currentWrap = samplerState.wrap;
+			this._gl.texParameteri(3553, 10242, samplerState.wrap);
+			this._gl.texParameteri(3553, 10243, samplerState.wrap);
+		}
+		if (samplerState.filter != this._currentFilter) {
+			this._gl.texParameteri(3553, 10241, samplerState.filter);
+			this._gl.texParameteri(3553, 10240, samplerState.filter);
+		}
+		this._gl.bindTexture(3553, null);
+	} else if (texture.textureType == "textureCube") {
+		for (var i = 0; i < 6; ++i) {
+			this._gl.bindTexture(34067, texture.glTextureAt(i));
+			this._gl.uniform1i(location, textureIndex);
+			var samplerState = this._samplerStates[textureIndex];
+			if (samplerState.wrap != this._currentWrap) {
+				this._currentWrap = samplerState.wrap;
+				this._gl.texParameteri(34067, 10242, samplerState.wrap);
+				this._gl.texParameteri(34067, 10243, samplerState.wrap);
+			}
+			if (samplerState.filter != this._currentFilter) {
+				this._gl.texParameteri(34067, 10241, samplerState.filter);
+				this._gl.texParameteri(34067, 10240, samplerState.filter);
+			}
+			this._gl.bindTexture(34067, null);
+		}
 	}
 };
 
@@ -487,7 +507,6 @@ away.display3D.Context3D.className = "away.display3D.Context3D";
 away.display3D.Context3D.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.TextureBase');
 	p.push('away.display3D.Program3D');
 	p.push('away.display3D.SamplerState');
 	p.push('away.display3D.IndexBuffer3D');
@@ -503,7 +522,6 @@ away.display3D.Context3D.getRuntimeDependencies = function(t) {
 	p.push('away.display3D.Context3DMipFilter');
 	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.geom.Matrix3D');
-	p.push('Float32Array');
 	p.push('away.geom.Rectangle');
 	p.push('away.display3D.VertexBuffer3D');
 	return p;

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -8,10 +8,6 @@ if (typeof aglsl.assembler == "undefined")
 aglsl.assembler.AGALMiniAssembler = function() {
 	this.r = null;
 	this.cur = null;
-	
-};
-
-aglsl.assembler.AGALMiniAssembler.prototype.AGALMiniAssemblerAGALMiniAssembler = function() {
 	this.r = {};
 	this.cur = new aglsl.assembler.Part();
 };

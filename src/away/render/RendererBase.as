@@ -172,8 +172,8 @@ package away.render
                 if (this._pStage3DProxy)
                 {
 
-                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate , this );
-                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate , this );
+                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate , this );
+                    this._pStage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate , this );
 
                 }
 
@@ -186,8 +186,8 @@ package away.render
             //else if (_pStage3DProxy) throw new Error("A Stage3D instance was already assigned!");
 
             this._pStage3DProxy = value;
-            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate , this );
-            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate , this );
+            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate , this );
+            this._pStage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate , this );
 
             /*             if (_backgroundImageRenderer)             _backgroundImageRenderer.stage3DProxy = value;             */
             if (value.context3D)

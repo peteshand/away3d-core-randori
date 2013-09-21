@@ -24,12 +24,10 @@ package away.materials.passes
 		/**		 * Creates a new DepthMapPass object.		 */
 		public function DepthMapPass():void
 		{
-			super();
+			super(false);
 
 
-			this._data = new Vector.<Number>(     1.0, 255.0, 65025.0, 16581375.0,
-			                	                1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0,
-				                                0.0, 0.0, 0.0, 0.0);
+			this._data = new <Number>[1, 255.0, 65025.0, 16581375.0, 1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0, 0.0, 0.0, 0, 0];
 
 		}
 		

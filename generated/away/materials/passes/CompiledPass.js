@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,7 +20,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._vertexCode = null;
 	this._pLightFragmentConstantIndex = 0;
 	this._uvBufferIndex = 0;
-	this._pVertexConstantData = [false];
+	this._pVertexConstantData = [];
 	this._secondaryUVBufferIndex = 0;
 	this._tangentBufferIndex = 0;
 	this._pNumDirectionalLights = 0;
@@ -31,7 +31,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._pLightProbeDiffuseIndices = null;
 	this._pNumLightProbes = 0;
 	this._pDiffuseLightSources = 0x03;
-	this._pFragmentConstantData = [false];
+	this._pFragmentConstantData = [];
 	this._pMethodSetup = null;
 	this._preserveAlpha = true;
 	this._animateUVs = false;
@@ -259,7 +259,7 @@ away.materials.passes.CompiledPass.prototype.dispose = function() {
 
 away.materials.passes.CompiledPass.prototype.iInvalidateShaderProgram = function(updateMaterial) {
 	var oldPasses = this._iPasses;
-	this._iPasses = [false];
+	this._iPasses = [];
 	if (this._pMethodSetup) {
 		this.pAddPassesFromMethods();
 	}
@@ -295,7 +295,7 @@ away.materials.passes.CompiledPass.prototype.pAddPasses = function(passes) {
 	}
 	var len = passes.length;
 	for (var i = 0; i < len; ++i) {
-		passes[i].material = $createStaticDelegate(this, this.get_material);
+		passes[i].material = this.get_material();
 		passes[i].lightPicker = this._pLightPicker;
 		this._iPasses.push(passes[i]);
 	}
@@ -399,7 +399,9 @@ away.materials.passes.CompiledPass.prototype.iRender = function(renderable, stag
 			this._pVertexConstantData[this._uvTransformIndex + 7] = 0;
 		}
 	}
-	this._pAmbientLightR = this._pAmbientLightG = this._pAmbientLightB = 0;
+	this._pAmbientLightR = 0;
+	this._pAmbientLightG = 0;
+	this._pAmbientLightB = 0;
 	if (this.pUsesLights()) {
 		this.pUpdateLightConstants();
 	}

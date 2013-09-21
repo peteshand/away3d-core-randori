@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -38,7 +38,7 @@ away.base.Object3D = function() {
 	this._listenToPositionChanged = null;
 	this._pivotZero = true;
 	this._flipY = new away.geom.Matrix3D();
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 	this._transformComponents = [null, null, null];
 	this._transformComponents[0] = this._pPos;
 	this._transformComponents[1] = this._rot;
@@ -78,7 +78,7 @@ away.base.Object3D.prototype.addEventListener = function(type, listener, target)
 			this._listenToRotationChanged = true;
 			break;
 		case away.events.Object3DEvent.SCALE_CHANGED:
-			this._listenToRotationChanged = true;
+			this._listenToScaleChanged = true;
 			break;
 	}
 };
@@ -429,7 +429,7 @@ away.base.Object3D.prototype.roll = function(angle) {
 
 away.base.Object3D.prototype.clone = function() {
 	var clone = new away.base.Object3D();
-	clone.set_pivotPoint($createStaticDelegate(this, this.get_pivotPoint));
+	clone.set_pivotPoint(this.get_pivotPoint());
 	clone.set_transform(this._pTransform);
 	clone.set_name($createStaticDelegate(this, this.get_name));
 	return clone;
@@ -482,7 +482,7 @@ away.base.Object3D.prototype.lookAt = function(target, upAxis) {
 	this._pTransform.copyRawDataFrom(raw, 0, false);
 	this.set_transform(this._pTransform);
 	if (zAxis.z < 0) {
-		this.set_rotationY((180 - $createStaticDelegate(this, this.get_rotationY)));
+		this.set_rotationY((180 - this.get_rotationY()));
 		this.set_rotationX(this.get_rotationX() - 180);
 		this.set_rotationZ(this.get_rotationZ() - 180);
 	}

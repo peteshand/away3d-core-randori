@@ -75,7 +75,7 @@ package away.materials.passes
             public function CompiledPass(material:MaterialBase):void
         {
 
-            super();
+            super(false);
             //away.Debug.throwPIR( "away.materials.CompiledaPass" , 'normalMethod' , 'implement dependency: BasicNormalMethod, BasicAmbientMethod, BasicDiffuseMethod, BasicSpecularMethod');
 
             this._pMaterial = material;
@@ -373,14 +373,14 @@ package away.materials.passes
         {
             this._pMethodSetup = new ShaderMethodSetup();
 
-            this._pMethodSetup.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this._pMethodSetup.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
         }
 
         /**         * @inheritDoc         */
         override public function dispose():void
         {
             super.dispose();
-            this._pMethodSetup.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this._pMethodSetup.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
             this._pMethodSetup.dispose();
             this._pMethodSetup = null;
         }
@@ -619,7 +619,10 @@ package away.materials.passes
                 }
             }
 
-            this._pAmbientLightR = this._pAmbientLightG = this._pAmbientLightB = 0;
+            this._pAmbientLightR = 0;
+            this._pAmbientLightG = 0;
+            this._pAmbientLightB = 0;
+
 
             if (this.pUsesLights())
             {

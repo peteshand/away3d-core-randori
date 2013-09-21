@@ -102,16 +102,48 @@ package away.cameras.lenses
 			raw[13] = -(this._maxY + this._minY)*h;
 			raw[14] = -this._pNear*d;
 			raw[15] = 1;
-			raw[1] = raw[2] = raw[3] = raw[4] =
-				raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
+			raw[1] = 0;
+			raw[2] = 0;
+			raw[3] = 0;
+			raw[4] = 0;
+			raw[6] = 0;
+			raw[7] = 0;
+			raw[8] = 0;
+			raw[9] = 0;
+			raw[11] = 0;
+
 			this._pMatrix.copyRawDataFrom(raw);
 			
-			this._pFrustumCorners[0] = this._pFrustumCorners[9] = this._pFrustumCorners[12] = this._pFrustumCorners[21] = this._minX;
-			this._pFrustumCorners[3] = this._pFrustumCorners[6] = this._pFrustumCorners[15] = this._pFrustumCorners[18] = this._maxX;
-			this._pFrustumCorners[1] = this._pFrustumCorners[4] = this._pFrustumCorners[13] = this._pFrustumCorners[16] = this._minY;
-			this._pFrustumCorners[7] = this._pFrustumCorners[10] = this._pFrustumCorners[19] = this._pFrustumCorners[22] = this._maxY;
-			this._pFrustumCorners[2] = this._pFrustumCorners[5] = this._pFrustumCorners[8] = this._pFrustumCorners[11] = this._pNear;
-			this._pFrustumCorners[14] = this._pFrustumCorners[17] = this._pFrustumCorners[20] = this._pFrustumCorners[23] = this._pFar;
+			this._pFrustumCorners[0] = this._minX;
+			this._pFrustumCorners[9] = this._minX;
+			this._pFrustumCorners[12] = this._minX;
+			this._pFrustumCorners[21] = this._minX;
+
+			this._pFrustumCorners[3] = this._maxX;
+			this._pFrustumCorners[6] = this._maxX;
+			this._pFrustumCorners[15] = this._maxX;
+			this._pFrustumCorners[18] = this._maxX;
+
+			this._pFrustumCorners[1] = this._minY;
+			this._pFrustumCorners[4] = this._minY;
+			this._pFrustumCorners[13] = this._minY;
+			this._pFrustumCorners[16] = this._minY;
+
+			this._pFrustumCorners[7] = this._maxY;
+			this._pFrustumCorners[10] = this._maxY;
+			this._pFrustumCorners[19] = this._maxY;
+			this._pFrustumCorners[22] = this._maxY;
+
+			this._pFrustumCorners[2] = this._pNear;
+			this._pFrustumCorners[5] = this._pNear;
+			this._pFrustumCorners[8] = this._pNear;
+			this._pFrustumCorners[11] = this._pNear;
+
+			this._pFrustumCorners[14] = this._pFar;
+			this._pFrustumCorners[17] = this._pFar;
+			this._pFrustumCorners[20] = this._pFar;
+			this._pFrustumCorners[23] = this._pFar;
+
 			
 			this._pMatrixInvalid = false;
 		}

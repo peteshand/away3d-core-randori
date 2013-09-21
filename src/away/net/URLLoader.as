@@ -292,8 +292,8 @@ package away.net {
                 this._XHR.onloadstart = this.onLoadStart;                 // loadstart	        - When the request starts.
                 this._XHR.onprogress = this.onProgress;	                // progress	            - While loading and sending data.
                 this._XHR.onabort = this.onAbort;	                        // abort	            - When the request has been aborted, either by invoking the abort() method or navigating away from the page.
-                this._XHR.onerror = this.onLoadError;                     // error	            - When the request has failed.
-                this._XHR.onload = this.onLoadComplete;                   // load	                - When the request has successfully completed.
+                this._XHR.onerror = onLoadError;                     // error	            - When the request has failed.
+                this._XHR.onload = onLoadComplete;                   // load	                - When the request has successfully completed.
                 this._XHR.ontimeout	= this.onTimeOut;                     // timeout	            - When the author specified timeout has passed before the request could complete.
                 this._XHR.onloadend	= this.onLoadEnd;                     // loadend	            - When the request has completed, regardless of whether or not it was successful.
                 this._XHR.onreadystatechange = this.onReadyStateChange;   // onreadystatechange   - When XHR state changes

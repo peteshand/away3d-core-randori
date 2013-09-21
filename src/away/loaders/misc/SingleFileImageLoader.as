@@ -63,8 +63,8 @@ package away.loaders.misc
             if ( ! this._loader )
             {
                 this._loader = new IMGLoader();
-                this._loader.addEventListener( Event.COMPLETE , this.onLoadComplete , this );
-                this._loader.addEventListener( IOErrorEvent.IO_ERROR, this.onLoadError , this );
+                this._loader.addEventListener( Event.COMPLETE , onLoadComplete , this );
+                this._loader.addEventListener( IOErrorEvent.IO_ERROR, onLoadError , this );
             }
         }
 
@@ -74,8 +74,8 @@ package away.loaders.misc
             if ( this._loader )
             {
                 this._loader.dispose();
-                this._loader.removeEventListener( Event.COMPLETE , this.onLoadComplete , this );
-                this._loader.removeEventListener( IOErrorEvent.IO_ERROR, this.onLoadError , this );
+                this._loader.removeEventListener( Event.COMPLETE , onLoadComplete , this );
+                this._loader.removeEventListener( IOErrorEvent.IO_ERROR, onLoadError , this );
                 this._loader = null
             }
         }

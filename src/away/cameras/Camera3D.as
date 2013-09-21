@@ -31,7 +31,7 @@ package away.cameras
 			super();
 			
 			this._lens = lens || new PerspectiveLens();
-			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			
 			this._frustumPlanes = new <Plane3D>[];
 			
@@ -208,9 +208,9 @@ package away.cameras
 			{
 				throw new Error("Lens cannot be null!");
 			}
-			this._lens.removeEventListener(LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+			this._lens.removeEventListener(LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			this._lens = value;
-			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+			this._lens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			this.dispatchEvent( new CameraEvent( CameraEvent.LENS_CHANGED, this ));
 		}
 		

@@ -30,7 +30,7 @@ package away.render
 
 			this._stage3DProxy = stage3DProxy;
             this._rttManager = RTTBufferManager.getInstance(stage3DProxy);
-            this._rttManager.addEventListener(Event.RESIZE, this.onRTTResize , this );
+            this._rttManager.addEventListener(Event.RESIZE, onRTTResize , this );
 
 		}
 		
@@ -224,7 +224,7 @@ package away.render
 		
 		public function dispose():void
 		{
-            this._rttManager.removeEventListener(Event.RESIZE, this.onRTTResize , this );
+            this._rttManager.removeEventListener(Event.RESIZE, onRTTResize , this );
             this._rttManager = null;
             this._stage3DProxy = null;
 		}

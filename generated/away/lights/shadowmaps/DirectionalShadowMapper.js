@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:41:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:31 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -105,8 +105,10 @@ away.lights.shadowmaps.DirectionalShadowMapper.prototype.pUpdateProjectionFromFr
 	this._pMatrix.copyFrom(this._pOverallDepthCamera.get_inverseSceneTransform());
 	this._pMatrix.prepend(viewCamera.get_sceneTransform());
 	this._pMatrix.transformVectors(corners, this._pLocalFrustum);
-	minX = maxX = this._pLocalFrustum[0];
-	minY = maxY = this._pLocalFrustum[1];
+	minX = this._pLocalFrustum[0];
+	maxX = this._pLocalFrustum[0];
+	minY = this._pLocalFrustum[1];
+	maxY = this._pLocalFrustum[1];
 	this._pMaxZ = this._pLocalFrustum[2];
 	i = 3;
 	while (i < 24) {
@@ -151,7 +153,15 @@ away.lights.shadowmaps.DirectionalShadowMapper.prototype.pUpdateProjectionFromFr
 	raw[13] = -(maxY + minY) * h;
 	raw[14] = -this._pMinZ * d;
 	raw[15] = 1;
-	raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
+	raw[1] = 0;
+	raw[2] = 0;
+	raw[3] = 0;
+	raw[4] = 0;
+	raw[6] = 0;
+	raw[7] = 0;
+	raw[8] = 0;
+	raw[9] = 0;
+	raw[11] = 0;
 	matrix.copyRawDataFrom(raw, 0, false);
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:00 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -35,9 +35,7 @@ away.display3D.IndexBuffer3D.className = "away.display3D.IndexBuffer3D";
 
 away.display3D.IndexBuffer3D.getRuntimeDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('Uint16Array');
-	return p;
+	return [];
 };
 
 away.display3D.IndexBuffer3D.getStaticDependencies = function(t) {

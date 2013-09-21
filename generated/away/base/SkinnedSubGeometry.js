@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -75,7 +75,8 @@ away.base.SkinnedSubGeometry.prototype.activateJointIndexBuffer = function(index
 away.base.SkinnedSubGeometry.prototype.pUploadData = function(contextIndex) {
 	if (this._animatedData) {
 		this._pActiveBuffer.uploadFromArray(this._animatedData, 0, this._pNumVertices);
-		this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = false;
+		this._pVertexDataInvalid[contextIndex] = false;
+		this._pActiveDataInvalid = false;
 	} else {
 		away.base.CompactSubGeometry.prototype.pUploadData.call(this,contextIndex);
 	}

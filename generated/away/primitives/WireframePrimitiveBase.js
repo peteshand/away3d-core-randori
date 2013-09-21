@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,7 +15,8 @@ away.primitives.WireframePrimitiveBase = function(color, thickness) {
 	}
 	this._color = color;
 	this._thickness = thickness;
-	this.set_mouseEnabled(this.set_mouseChildren(false));
+	this.set_mouseEnabled(false);
+	this.set_mouseChildren(false);
 };
 
 away.primitives.WireframePrimitiveBase.prototype.get_color = function() {
@@ -25,7 +26,8 @@ away.primitives.WireframePrimitiveBase.prototype.get_color = function() {
 away.primitives.WireframePrimitiveBase.prototype.set_color = function(value) {
 	this._color = value;
 	for (var segRef in this._pSegments) {
-		segRef.segment.startColor = segRef.segment.endColor = value;
+		segRef.segment.startColor = value;
+		segRef.segment.endColor = value;
 	}
 };
 
@@ -36,7 +38,8 @@ away.primitives.WireframePrimitiveBase.prototype.get_thickness = function() {
 away.primitives.WireframePrimitiveBase.prototype.set_thickness = function(value) {
 	this._thickness = value;
 	for (var segRef in this._pSegments) {
-		segRef.segment.thickness = segRef.segment.thickness = value;
+		segRef.segment.thickness = value;
+		segRef.segment.thickness = value;
 	}
 };
 

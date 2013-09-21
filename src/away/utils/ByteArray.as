@@ -4,8 +4,6 @@
 
 package away.utils
 {
-	import randori.webkit.html.canvas.ArrayBuffer;
-	import randori.webkit.html.canvas.DataView;
 	public class ByteArray extends ByteArrayBase
 	{
 		
@@ -16,8 +14,8 @@ package away.utils
 			super();
 			this._mode = "Typed array";
 			this.maxlength = 4;
-			this.arraybytes = new ArrayBuffer();// this.maxlength );
-			this.unalignedarraybytestemp = new ArrayBuffer();
+			this.arraybytes = new ArrayBuffer( this.maxlength );
+			this.unalignedarraybytestemp = new ArrayBuffer( 16 );
 		}
 		
 		public function ensureWriteableSpace(n:Number):void
@@ -51,7 +49,7 @@ package away.utils
 			if ( n > this.maxlength )
 			{
 				var newmaxlength:Number = (n+255)&(~255); 
-				var newarraybuffer = new ArrayBuffer();                              
+				var newarraybuffer = new ArrayBuffer(newmaxlength);                              
 				var view = new Uint8Array( this.arraybytes, 0, this.length ); 
 				var newview = new Uint8Array( newarraybuffer, 0, this.length ); 
 				newview.set( view );      // memcpy                        
@@ -153,12 +151,12 @@ package away.utils
         
             var value   : String    = "";
             var max     : Number    = this.position + len;
-            var data    : DataView  = DataView( this.arraybytes );
+            var data    : DataView  = new DataView( this.arraybytes );
 
             // utf8-encode
             while (this.position < max) {
 
-                var c : Number = data.getUint16(this.position++);
+                var c : Number = data.getUint8(this.position++);
 
                 if (c < 0x80) {
 
@@ -167,19 +165,19 @@ package away.utils
 
                 } else if (c < 0xE0) {
 
-                    value += String.fromCharCode(((c & 0x3F) << 6) |(data.getUint16(this.position++) & 0x7F));
+                    value += String.fromCharCode(((c & 0x3F) << 6) |(data.getUint8(this.position++) & 0x7F));
 
                 } else if (c < 0xF0) {
 
-                    var c2 = data.getUint16(this.position++);
-                    value += String.fromCharCode(((c & 0x1F) << 12) |((c2 & 0x7F) << 6) |(data.getUint16(this.position++) & 0x7F));
+                    var c2 = data.getUint8(this.position++);
+                    value += String.fromCharCode(((c & 0x1F) << 12) |((c2 & 0x7F) << 6) |(data.getUint8(this.position++) & 0x7F));
 
                 } else {
 
-                    var c2 = data.getUint16(this.position++);
-                    var c3 = data.getUint16(this.position++);
+                    var c2 = data.getUint8(this.position++);
+                    var c3 = data.getUint8(this.position++);
 
-                    value += String.fromCharCode(((c & 0x0F) << 18) |((c2 & 0x7F) << 12) |((c3 << 6) & 0x7F) |(data.getUint16(this.position++) & 0x7F));
+                    value += String.fromCharCode(((c & 0x0F) << 18) |((c2 & 0x7F) << 12) |((c3 << 6) & 0x7F) |(data.getUint8(this.position++) & 0x7F));
 
                 }
 
@@ -192,7 +190,7 @@ package away.utils
         public function readInt():Number
         {
 
-            var data    : DataView      = DataView( this.arraybytes );
+            var data    : DataView      = new DataView( this.arraybytes );
             var int     : Number        = data.getInt32( this.position );
 
             this.position += 4;
@@ -204,7 +202,7 @@ package away.utils
         public function readShort():Number
         {
 
-            var data    : DataView      = DataView( this.arraybytes );
+            var data    : DataView      = new DataView( this.arraybytes );
             var short   : Number        = data.getInt16(this.position );
 
             this.position += 2;
@@ -214,7 +212,7 @@ package away.utils
 
         public function readDouble():Number
         {
-            var data    : DataView      = DataView( this.arraybytes );
+            var data    : DataView      = new DataView( this.arraybytes );
             var double  : Number        = data.getFloat64( this.position );
 
             this.position += 8;

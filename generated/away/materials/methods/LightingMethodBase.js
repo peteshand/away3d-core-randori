@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,7 @@ if (typeof away.materials.methods == "undefined")
 	away.materials.methods = {};
 
 away.materials.methods.LightingMethodBase = function() {
+	this._iModulateMethodScope = null;
 	this._iModulateMethod = undefined;
 	away.materials.methods.ShadingMethodBase.call(this);
 };

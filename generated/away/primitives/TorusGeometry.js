@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -141,7 +141,7 @@ away.primitives.TorusGeometry.prototype.pBuildUVs = function(target) {
 	var currentUvCompIndex = offset;
 	for (j = 0; j <= this._segmentsT; ++j) {
 		for (i = 0; i <= this._segmentsR; ++i) {
-			data[currentUvCompIndex++] = 1 - (i / this._segmentsR) * target.get_scaleU();
+			data[currentUvCompIndex++] = (i / this._segmentsR) * target.get_scaleU();
 			data[currentUvCompIndex++] = (j / this._segmentsT) * target.get_scaleV();
 			currentUvCompIndex += skip;
 		}

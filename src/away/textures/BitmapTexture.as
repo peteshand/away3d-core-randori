@@ -118,7 +118,9 @@ package away.textures
 			if (!BitmapTexture._mipMaps[newW][newH])
             {
 
-                this._mipMapHolder = BitmapTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+                this._mipMapHolder = new BitmapData(newW, newH, true);
+                BitmapTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+
                 BitmapTexture._mipMapUses[newW][newH] = 1;
 
 			}

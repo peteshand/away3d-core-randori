@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,7 +7,7 @@ if (typeof away.base == "undefined")
 
 away.base.CompactSubGeometry = function() {
 	this._pActiveBuffer = null;
-	this._pVertexDataInvalid = 8;
+	this._pVertexDataInvalid = [null, null, null, null, null, null, null, null];
 	this._activeContext = null;
 	this._pActiveDataInvalid = null;
 	this._bufferContext = [null, null, null, null, null, null, null, null];
@@ -99,7 +99,8 @@ away.base.CompactSubGeometry.prototype.activateSecondaryUVBuffer = function(inde
 
 away.base.CompactSubGeometry.prototype.pUploadData = function(contextIndex) {
 	this._pActiveBuffer.uploadFromArray(this._vertexData, 0, this._pNumVertices);
-	this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = false;
+	this._pVertexDataInvalid[contextIndex] = false;
+	this._pActiveDataInvalid = false;
 };
 
 away.base.CompactSubGeometry.prototype.activateVertexNormalBuffer = function(index, stage3DProxy) {
@@ -133,9 +134,12 @@ away.base.CompactSubGeometry.prototype.activateVertexTangentBuffer = function(in
 };
 
 away.base.CompactSubGeometry.prototype.pCreateBuffer = function(contextIndex, context) {
-	this._vertexBuffer[contextIndex] = this._pActiveBuffer = context.createVertexBuffer(this._pNumVertices, 13);
-	this._bufferContext[contextIndex] = this._activeContext = context;
-	this._pVertexDataInvalid[contextIndex] = this._pActiveDataInvalid = true;
+	this._vertexBuffer[contextIndex] = context.createVertexBuffer(this._pNumVertices, 13);
+	this._pActiveBuffer = context.createVertexBuffer(this._pNumVertices, 13);
+	this._bufferContext[contextIndex] = context;
+	this._activeContext = context;
+	this._pVertexDataInvalid[contextIndex] = true;
+	this._pActiveDataInvalid = true;
 };
 
 away.base.CompactSubGeometry.prototype.pUpdateActiveBuffer = function(contextIndex) {

@@ -41,8 +41,14 @@ package away.bounds
 		{
 			super.nullify();
 
-			this._centerX = this._centerY = this._centerZ = 0;
-            this._halfExtentsX = this._halfExtentsY = this._halfExtentsZ = 0;
+			this._centerX = 0;
+			this._centerY = 0;
+			this._centerZ = 0;
+
+            this._halfExtentsX = 0;
+            this._halfExtentsY = 0;
+            this._halfExtentsZ = 0;
+
 		}
 		
 		/**		 * @inheritDoc		 */

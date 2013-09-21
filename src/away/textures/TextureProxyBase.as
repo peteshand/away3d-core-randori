@@ -27,7 +27,7 @@ package away.textures
 		public function TextureProxyBase():void
 		{
 
-            super();
+            super(null);
 
             this._textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
             this._dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
@@ -75,7 +75,9 @@ package away.textures
 			if (!tex || this._dirty[contextIndex] != context)
             {
 
-				this._textures[contextIndex] = tex = this.pCreateTexture(context);
+				this._textures[contextIndex] = this.pCreateTexture(context);
+				tex = this.pCreateTexture(context);
+
 				this._dirty[contextIndex] = context;
 				this.pUploadContent(tex);//_pUploadContent
 

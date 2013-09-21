@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,12 +6,12 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Matrix = function(a, b, c, d, tx, ty) {
-	a = a;
-	b = b;
-	c = c;
-	d = d;
-	tx = tx;
-	ty = ty;
+	this.a = a;
+	this.b = b;
+	this.c = c;
+	this.d = d;
+	this.tx = tx;
+	this.ty = ty;
 };
 
 away.geom.Matrix.prototype.clone = function() {
@@ -107,8 +107,8 @@ away.geom.Matrix.prototype.createBox = function(scaleX, scaleY, rotation, tx, ty
 	this.a = scaleX;
 	this.d = scaleY;
 	this.b = rotation;
-	tx = tx;
-	ty = ty;
+	this.tx = tx;
+	this.ty = ty;
 };
 
 away.geom.Matrix.prototype.createGradientBox = function(width, height, rotation, tx, ty) {
@@ -122,10 +122,11 @@ away.geom.Matrix.prototype.createGradientBox = function(width, height, rotation,
 		this.a *= cos;
 		this.d *= cos;
 	} else {
-		this.b = this.c = 0;
+		this.b = 0;
+		this.c = 0;
 	}
-	tx = tx + width / 2;
-	ty = ty + height / 2;
+	this.tx = tx + width / 2;
+	this.ty = ty + height / 2;
 };
 
 away.geom.Matrix.prototype.deltaTransformPoint = function(point) {
@@ -144,7 +145,10 @@ away.geom.Matrix.prototype.identity = function() {
 away.geom.Matrix.prototype.invert = function() {
 	var norm = this.a * this.d - this.b * this.c;
 	if (norm == 0) {
-		this.a = this.b = this.c = this.d = 0;
+		this.a = 0;
+		this.b = 0;
+		this.c = 0;
+		this.d = 0;
 		this.tx = -this.tx;
 		this.ty = -this.ty;
 	} else {
@@ -203,12 +207,12 @@ away.geom.Matrix.prototype.setRotation = function(angle, scale) {
 };
 
 away.geom.Matrix.prototype.setTo = function(a, b, c, d, tx, ty) {
-	a = a;
-	b = b;
-	c = c;
-	d = d;
-	tx = tx;
-	ty = ty;
+	this.a = a;
+	this.b = b;
+	this.c = c;
+	this.d = d;
+	this.tx = tx;
+	this.ty = ty;
 };
 
 away.geom.Matrix.prototype.toString = function() {

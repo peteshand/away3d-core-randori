@@ -24,7 +24,9 @@ package away.primitives
 			}
 			this._color = color;
 			this._thickness = thickness;
-			this.mouseEnabled = this.mouseChildren = false;
+			this.mouseEnabled = false;
+			this.mouseChildren = false;
+
 		}
 		
 		public function get color():Number
@@ -38,7 +40,9 @@ package away.primitives
 			
 			for( var segRef in this._pSegments )
 			{
-				segRef.segment.startColor = segRef.segment.endColor = value;
+				segRef.segment.startColor = value;
+				segRef.segment.endColor = value;
+
 			}
 		}
 		
@@ -53,7 +57,9 @@ package away.primitives
 			
 			for( var segRef in this._pSegments)
 			{
-				segRef.segment.thickness = segRef.segment.thickness = value;
+				segRef.segment.thickness = value;
+				segRef.segment.thickness = value;
+
 			}
 		}
 		

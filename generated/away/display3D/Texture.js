@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:53:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:31 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,11 +8,16 @@ if (typeof away.display3D == "undefined")
 away.display3D.Texture = function(gl, width, height) {
 	this._height = 0;
 	this._width = 0;
+	this._glTexture = null;
 	away.display3D.TextureBase.call(this, gl);
+	this.textureType = "texture2d";
 	this._width = width;
 	this._height = height;
-	this._gl.bindTexture(3553, this.get_glTexture());
-	this._gl.texImage2D(3553, 0, 6408, width, height, 0, 6408, 5121, null);
+	this._glTexture = this._gl.createTexture();
+};
+
+away.display3D.Texture.prototype.dispose = function() {
+	this._gl.deleteTexture(this._glTexture);
 };
 
 away.display3D.Texture.prototype.get_width = function() {
@@ -24,11 +29,19 @@ away.display3D.Texture.prototype.get_height = function() {
 };
 
 away.display3D.Texture.prototype.uploadFromHTMLImageElement = function(image, miplevel) {
+	this._gl.bindTexture(3553, this._glTexture);
 	this._gl.texImage2D(3553, miplevel, 6408, 6408, 5121, image);
+	this._gl.bindTexture(3553, null);
 };
 
 away.display3D.Texture.prototype.uploadFromBitmapData = function(data, miplevel) {
+	this._gl.bindTexture(3553, this._glTexture);
 	this._gl.texImage2D(3553, miplevel, 6408, 6408, 5121, data.get_imageData());
+	this._gl.bindTexture(3553, null);
+};
+
+away.display3D.Texture.prototype.get_glTexture = function() {
+	return this._glTexture;
 };
 
 $inherit(away.display3D.Texture, away.display3D.TextureBase);

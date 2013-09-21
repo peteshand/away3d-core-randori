@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -98,7 +98,15 @@ away.lights.DirectionalLight.prototype.iGetObjectProjectionMatrix = function(ren
 	raw[12] = -(xMax + xMin) * invXRange;
 	raw[13] = -(yMax + yMin) * invYRange;
 	raw[14] = -zMin * invZRange;
-	raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
+	raw[1] = 0;
+	raw[2] = 0;
+	raw[3] = 0;
+	raw[4] = 0;
+	raw[6] = 0;
+	raw[7] = 0;
+	raw[8] = 0;
+	raw[9] = 0;
+	raw[11] = 0;
 	raw[15] = 1;
 	if (!target) {
 		target = new away.geom.Matrix3D();

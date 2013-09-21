@@ -340,8 +340,12 @@ package away.managers
                 this._indexBuffer.uploadFromArray( new <Number>[2, 1, 0, 3, 2, 0], 0, 6);
 			}
 			
-			this._textureRatioX = x = Math.min(this._viewWidth/this._textureWidth, 1);
-            this._textureRatioY = y = Math.min(this._viewHeight/this._textureHeight, 1);
+			this._textureRatioX = Math.min(this._viewWidth/this._textureWidth, 1);
+			x = Math.min(this._viewWidth/this._textureWidth, 1);
+
+            this._textureRatioY = Math.min(this._viewHeight/this._textureHeight, 1);
+            y = Math.min(this._viewHeight/this._textureHeight, 1);
+
 			
 			var u1:Number = (1 - x)*.5;
 			var u2:Number = (x + 1)*.5;

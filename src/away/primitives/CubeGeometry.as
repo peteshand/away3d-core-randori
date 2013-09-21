@@ -353,11 +353,19 @@ package away.primitives
 			}
 			
 			if (this._tile6) {
-				u_tile_dim = u_tile_step = 1/3;
-				v_tile_dim = v_tile_step = 1/2;
+				u_tile_dim = 1/3;
+				u_tile_step = 1/3;
+
+				v_tile_dim = 1/2;
+				v_tile_step = 1/2;
+
 			} else {
-				u_tile_dim = v_tile_dim = 1;
-				u_tile_step = v_tile_step = 0;
+				u_tile_dim = 1;
+				v_tile_dim = 1;
+
+				u_tile_step = 0;
+				v_tile_step = 0;
+
 			}
 			
 			// Create planes two and two, the same way that they were

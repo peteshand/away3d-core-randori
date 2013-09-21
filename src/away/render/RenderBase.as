@@ -171,8 +171,8 @@ package away.render
 			{
 				if( this._pStage3DProxy )
 				{
-					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
-					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
+					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
+					this._pStage3DProxy.removeEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
 				}
 				this._pStage3DProxy = null;
 				this._pContext = null;
@@ -180,8 +180,8 @@ package away.render
 			}
 			
 			this._pStage3DProxy = value;
-			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, this.onContextUpdate, this );
-			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, this.onContextUpdate, this );
+			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_CREATED, onContextUpdate, this );
+			this._pStage3DProxy.addEventListener( Stage3DEvent.CONTEXT3D_RECREATED, onContextUpdate, this );
 			
 			/*if( this._pBackgroundImageRenderer )			{				this._pBackgroundImageRenderer.stage3DProxy = value;			}*/
 			

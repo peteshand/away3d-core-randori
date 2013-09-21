@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -27,7 +27,7 @@ away.materials.MaterialBase = function() {
 	this._passes = null;
 	this._iRenderOrderId = 0;
 	this.MATERIAL_ID_COUNT = 0;
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 	this._owners = [];
 	this._passes = [];
 	this._pDepthPass = new away.materials.passes.DepthMapPass();

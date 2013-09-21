@@ -86,7 +86,9 @@ package away.materials.passes
 
                 }
 
-				this.colorTransformMethod = this._pMethodSetup._iColorTransformMethod = null;
+				this.colorTransformMethod = null;
+				this._pMethodSetup._iColorTransformMethod = null;
+
 			}
 		}
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -24,7 +24,10 @@ away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, ta
 	if (jointIndices && !jointIndices.length)
 		jointIndices = null;
 	if ((indices.length >= LIMIT_INDICES) || (verts.length >= LIMIT_VERTS)) {
-		var i, len, outIndex, j;
+		var i;
+		var len;
+		var outIndex;
+		var j;
 		var splitVerts = [];
 		var splitIndices = [];
 		var splitUvs = (uvs != null) ? [] : null;
@@ -39,7 +42,16 @@ away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, ta
 		}
 		var originalIndex;
 		var splitIndex;
-		var o0, o1, o2, s0, s1, s2, su, ou, sv, ov;
+		var o0;
+		var o1;
+		var o2;
+		var s0;
+		var s1;
+		var s2;
+		var su;
+		var ou;
+		var sv;
+		var ov;
 		outIndex = 0;
 		len = indices.length;
 		for (i = 0; i < len; i += 3) {
@@ -62,8 +74,9 @@ away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, ta
 			}
 			for (j = 0; j < 3; j++) {
 				originalIndex = indices[i + j];
-				if (mappings[originalIndex] >= 0)
-					splitIndex = mappings[originalIndex]; else {
+				if (mappings[originalIndex] >= 0) {
+					splitIndex = mappings[originalIndex];
+				} else {
 					o0 = originalIndex * 3 + 0;
 					o1 = originalIndex * 3 + 1;
 					o2 = originalIndex * 3 + 2;
@@ -121,6 +134,8 @@ away.utils.GeometryUtils.constructSubGeometry = function(verts, indices, uvs, no
 	var sub;
 	if (weights && jointIndices) {
 		away.utils.Debug.throwPIR("GeometryUtils", "constructSubGeometry", "Dependency: SkinnedSubGeometry");
+		sub = new away.base.SkinnedSubGeometry(weights.length / (verts.length / 3));
+		var ssg = sub;
 	} else {
 		sub = new away.base.CompactSubGeometry();
 	}
@@ -184,6 +199,7 @@ away.utils.GeometryUtils.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.utils.Debug');
+	p.push('away.base.SkinnedSubGeometry');
 	p.push('away.base.CompactSubGeometry');
 	return p;
 };

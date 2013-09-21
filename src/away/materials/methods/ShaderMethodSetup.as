@@ -31,10 +31,10 @@ package away.materials.methods
             this._iAmbientMethod = new BasicAmbientMethod();
             this._iDiffuseMethod = new BasicDiffuseMethod();
             this._iSpecularMethod = new BasicSpecularMethod();
-            this._iNormalMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
-            this._iDiffuseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
-            this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
-            this._iAmbientMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this);
+            this._iNormalMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
+            this._iDiffuseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
+            this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
+            this._iAmbientMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this);
             this._iNormalMethodVO = this._iNormalMethod.iCreateMethodVO();
             this._iAmbientMethodVO = this._iAmbientMethod.iCreateMethodVO();
             this._iDiffuseMethodVO = this._iDiffuseMethod.iCreateMethodVO();
@@ -66,7 +66,7 @@ package away.materials.methods
 			if (this._iNormalMethod)
             {
 
-                this._iNormalMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+                this._iNormalMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
             }
 
@@ -83,7 +83,7 @@ package away.materials.methods
 
 
 				this._iNormalMethodVO = value.iCreateMethodVO();
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 			}
 			
 			this._iNormalMethod = value;
@@ -101,7 +101,7 @@ package away.materials.methods
 		public function set ambientMethod(value:BasicAmbientMethod):void
 		{
 			if (this._iAmbientMethod)
-				this._iAmbientMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iAmbientMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 			if (value)
             {
@@ -109,7 +109,7 @@ package away.materials.methods
 				if (this._iAmbientMethod)
 					value.copyFrom(this._iAmbientMethod);
 
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 				this._iAmbientMethodVO = value.iCreateMethodVO();
 
 			}
@@ -130,7 +130,7 @@ package away.materials.methods
 			if (this._iShadowMethod)
             {
 
-                this._iShadowMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+                this._iShadowMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
             }
 
@@ -139,7 +139,7 @@ package away.materials.methods
 			if ( this._iShadowMethod)
             {
 
-				this._iShadowMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iShadowMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 				this._iShadowMethodVO = this._iShadowMethod.iCreateMethodVO();
 
 			}
@@ -163,7 +163,7 @@ package away.materials.methods
 		public function set diffuseMethod(value:BasicDiffuseMethod):void
 		{
 			if (this._iDiffuseMethod)
-				this._iDiffuseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iDiffuseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 			
 			if (value)
             {
@@ -171,7 +171,7 @@ package away.materials.methods
 				if (this._iDiffuseMethod)
 					value.copyFrom( this._iDiffuseMethod);
 
-				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				value.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 				this._iDiffuseMethodVO = value.iCreateMethodVO();
 			}
@@ -193,7 +193,7 @@ package away.materials.methods
 		{
 			if (this._iSpecularMethod)
             {
-				this._iSpecularMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iSpecularMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 				if (value)
 					value.copyFrom(this._iSpecularMethod);
@@ -204,7 +204,7 @@ package away.materials.methods
 			if (this._iSpecularMethod)
             {
 
-				this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iSpecularMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 				this._iSpecularMethodVO = this._iSpecularMethod.iCreateMethodVO();
 
 			}
@@ -231,7 +231,7 @@ package away.materials.methods
 				return;
 
 			if (this._iColorTransformMethod)
-				this._iColorTransformMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iColorTransformMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 			if (!this._iColorTransformMethod || !value)
             {
@@ -245,7 +245,7 @@ package away.materials.methods
 
 			if (this._iColorTransformMethod)
             {
-				this._iColorTransformMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				this._iColorTransformMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 				this._iColorTransformMethodVO = this._iColorTransformMethod.iCreateMethodVO();
 
 			}
@@ -283,7 +283,7 @@ package away.materials.methods
 		private function clearListeners(method:ShadingMethodBase):void
 		{
 			if (method)
-				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 		}
 		
 		/**		 * Adds a method to change the material after all lighting is performed.		 * @param method The method to be added.		 */
@@ -291,7 +291,7 @@ package away.materials.methods
 		{
 			this._iMethods.push(new MethodVOSet(method));
 
-			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 			this.invalidateShaderProgram();
 
@@ -310,7 +310,7 @@ package away.materials.methods
 		{
 			this._iMethods.splice(index, 0, new MethodVOSet(method));
 
-			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+			method.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 			this.invalidateShaderProgram();
 
@@ -345,7 +345,7 @@ package away.materials.methods
 
 				this._iMethods.splice(index, 1);
 
-				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+				method.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
 				this.invalidateShaderProgram();
 

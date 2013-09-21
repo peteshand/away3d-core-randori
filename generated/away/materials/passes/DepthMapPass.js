@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.materials.passes.DepthMapPass = function() {
 	this._data = null;
 	this._alphaThreshold = 0;
 	away.materials.passes.MaterialPassBase.call(this, false);
-	this._data = [1.0, 255.0, 65025.0, 16581375.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+	this._data = [1, 255.0, 65025.0, 16581375.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0, 0.0, 0.0, 0, 0];
 };
 
 away.materials.passes.DepthMapPass.prototype.get_alphaThreshold = function() {

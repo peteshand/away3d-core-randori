@@ -58,7 +58,7 @@ package away.materials.lightpickers
 			for (var i:Number = 0; i < len; ++i)
             {
 				light = value[i];
-				light.addEventListener(LightEvent.CASTS_SHADOW_CHANGE, this.onCastShadowChange , this );
+				light.addEventListener(LightEvent.CASTS_SHADOW_CHANGE, onCastShadowChange , this );
 
 				if (light instanceof PointLight)
                 {
@@ -107,7 +107,7 @@ package away.materials.lightpickers
 		{
 			var len:Number = this._lights.length;
 			for (var i:Number = 0; i < len; ++i)
-				this._lights[i].removeEventListener(LightEvent.CASTS_SHADOW_CHANGE, this.onCastShadowChange , this );
+				this._lights[i].removeEventListener(LightEvent.CASTS_SHADOW_CHANGE, onCastShadowChange , this );
 		}
 
 		/**		 * Notifies the material of a configuration change.		 */

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:44:24 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -40,7 +40,7 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._viewPort = new away.geom.Rectangle(0, 0, 0, 0);
 	this._enableDepthAndStencil = true;
 	this._stage3D.addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DUpdate), this);
-	this.requestContext(forceSoftware, profile);
+	this.requestContext(forceSoftware, this.get_profile());
 };
 
 away.managers.Stage3DProxy.prototype.notifyViewportUpdated = function() {
@@ -81,8 +81,10 @@ away.managers.Stage3DProxy.prototype.dispose = function() {
 away.managers.Stage3DProxy.prototype.configureBackBuffer = function(backBufferWidth, backBufferHeight, antiAlias, enableDepthAndStencil) {
 	var oldWidth = this._backBufferWidth;
 	var oldHeight = this._backBufferHeight;
-	this._backBufferWidth = this._viewPort.width = backBufferWidth;
-	this._backBufferHeight = this._viewPort.height = backBufferHeight;
+	this._backBufferWidth = backBufferWidth;
+	this._viewPort.width = backBufferWidth;
+	this._backBufferHeight = backBufferHeight;
+	this._viewPort.height = backBufferHeight;
 	if (oldWidth != this._backBufferWidth || oldHeight != this._backBufferHeight)
 		this.notifyViewportUpdated();
 	this._antiAlias = antiAlias;
@@ -180,7 +182,8 @@ away.managers.Stage3DProxy.prototype.get_x = function() {
 away.managers.Stage3DProxy.prototype.set_x = function(value) {
 	if (this._viewPort.x == value)
 		return;
-	this._stage3D.set_x(this._viewPort.x = value);
+	this._stage3D.set_x(value);
+	this._viewPort.x = value;
 	this.notifyViewportUpdated();
 };
 
@@ -191,7 +194,8 @@ away.managers.Stage3DProxy.prototype.get_y = function() {
 away.managers.Stage3DProxy.prototype.set_y = function(value) {
 	if (this._viewPort.y == value)
 		return;
-	this._stage3D.set_y(this._viewPort.y = value);
+	this._stage3D.set_y(value);
+	this._viewPort.y = value;
 	this.notifyViewportUpdated();
 };
 
@@ -206,7 +210,9 @@ away.managers.Stage3DProxy.prototype.get_width = function() {
 away.managers.Stage3DProxy.prototype.set_width = function(width) {
 	if (this._viewPort.width == width)
 		return;
-	this._stage3D.set_width(this._backBufferWidth = this._viewPort.width = width);
+	this._stage3D.set_width(width);
+	this._backBufferWidth = width;
+	this._viewPort.width = width;
 	this._backBufferDirty = true;
 	this.notifyViewportUpdated();
 };
@@ -218,7 +224,9 @@ away.managers.Stage3DProxy.prototype.get_height = function() {
 away.managers.Stage3DProxy.prototype.set_height = function(height) {
 	if (this._viewPort.height == height)
 		return;
-	this._stage3D.set_height(this._backBufferHeight = this._viewPort.height = height);
+	this._stage3D.set_height(height);
+	this._backBufferHeight = height;
+	this._viewPort.height = height;
 	this._backBufferDirty = true;
 	this.notifyViewportUpdated();
 };

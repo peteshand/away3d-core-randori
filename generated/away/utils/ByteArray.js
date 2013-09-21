@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:20:09 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:34 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,8 +12,8 @@ away.utils.ByteArray = function() {
 	away.utils.ByteArrayBase.call(this);
 	this._mode = "Typed array";
 	this.maxlength = 4;
-	this.arraybytes = new ArrayBuffer();
-	this.unalignedarraybytestemp = new ArrayBuffer();
+	this.arraybytes = new ArrayBuffer(this.maxlength);
+	this.unalignedarraybytestemp = new ArrayBuffer(16);
 };
 
 away.utils.ByteArray.prototype.ensureWriteableSpace = function(n) {
@@ -25,7 +25,7 @@ away.utils.ByteArray.prototype.setArrayBuffer = function(aBuffer) {
 	this.length = aBuffer.byteLength;
 	var inInt8AView = new Int8Array(aBuffer);
 	var localInt8View = new Int8Array(this.arraybytes, 0, this.length);
-	localInt8View.set(inInt8AView);
+	localInt8View.set(inInt8AView, -1);
 	this.position = 0;
 };
 
@@ -36,7 +36,7 @@ away.utils.ByteArray.prototype.getBytesAvailable = function() {
 away.utils.ByteArray.prototype.ensureSpace = function(n) {
 	if (n > this.maxlength) {
 		var newmaxlength = (n + 255) & ~255;
-		var newarraybuffer = new ArrayBuffer();
+		var newarraybuffer = new ArrayBuffer(newmaxlength);
 		var view = new Uint8Array(this.arraybytes, 0, this.length);
 		var newview = new Uint8Array(newarraybuffer, 0, this.length);
 		newview.set(view);
@@ -63,16 +63,17 @@ away.utils.ByteArray.prototype.readByte = function() {
 };
 
 away.utils.ByteArray.prototype.readBytes = function(bytes, offset, length) {
-	var localInt8A = new Int8Array(this.arraybytes);
 	if (length == 0) {
 		length = bytes.length;
 	}
-	var originalPosition = bytes.position;
-	bytes.position = offset;
-	for (var i = 0; i < length; i++) {
-		bytes.writeByte(localInt8A[this.position++]);
+	bytes.ensureWriteableSpace(offset + length);
+	var byteView = new Int8Array(bytes.arraybytes);
+	var localByteView = new Int8Array(this.arraybytes);
+	byteView.set(localByteView.subarray(this.position, this.position + length), offset);
+	this.position += length;
+	if (length + offset > bytes.length) {
+		bytes.length += (length + offset) - bytes.length;
 	}
-	bytes.position = originalPosition;
 };
 
 away.utils.ByteArray.prototype.writeUnsignedByte = function(b) {
@@ -113,43 +114,43 @@ away.utils.ByteArray.prototype.writeUnsignedShort = function(b) {
 away.utils.ByteArray.prototype.readUTFBytes = function(len) {
 	var value = "";
 	var max = this.position + len;
-	var data = this.arraybytes;
+	var data = new DataView(this.arraybytes, 0, 0);
 	while (this.position < max) {
-		var c = data.getUint16(this.position++);
+		var c = data.getUint8(this.position++);
 		if (c < 0x80) {
 			if (c == 0)
 				break;
 			value += String.fromCharCode(c);
 		} else if (c < 0xE0) {
-			value += String.fromCharCode(((c & 0x3F) << 6) | (data.getUint16(this.position++) & 0x7F));
+			value += String.fromCharCode(((c & 0x3F) << 6) | (data.getUint8(this.position++) & 0x7F));
 		} else if (c < 0xF0) {
-			var c2 = data.getUint16(this.position++);
-			value += String.fromCharCode(((c & 0x1F) << 12) | ((c2 & 0x7F) << 6) | (data.getUint16(this.position++) & 0x7F));
+			var c2 = data.getUint8(this.position++);
+			value += String.fromCharCode(((c & 0x1F) << 12) | ((c2 & 0x7F) << 6) | (data.getUint8(this.position++) & 0x7F));
 		} else {
-			var c2 = data.getUint16(this.position++);
-			var c3 = data.getUint16(this.position++);
-			value += String.fromCharCode(((c & 0x0F) << 18) | ((c2 & 0x7F) << 12) | ((c3 << 6) & 0x7F) | (data.getUint16(this.position++) & 0x7F));
+			var c2 = data.getUint8(this.position++);
+			var c3 = data.getUint8(this.position++);
+			value += String.fromCharCode(((c & 0x0F) << 18) | ((c2 & 0x7F) << 12) | ((c3 << 6) & 0x7F) | (data.getUint8(this.position++) & 0x7F));
 		}
 	}
 	return value;
 };
 
 away.utils.ByteArray.prototype.readInt = function() {
-	var data = this.arraybytes;
+	var data = new DataView(this.arraybytes, 0, 0);
 	var int = data.getInt32(this.position);
 	this.position += 4;
 	return int;
 };
 
 away.utils.ByteArray.prototype.readShort = function() {
-	var data = this.arraybytes;
+	var data = new DataView(this.arraybytes, 0, 0);
 	var short = data.getInt16(this.position);
 	this.position += 2;
 	return short;
 };
 
 away.utils.ByteArray.prototype.readDouble = function() {
-	var data = this.arraybytes;
+	var data = new DataView(this.arraybytes, 0, 0);
 	var double = data.getFloat64(this.position);
 	this.position += 8;
 	return double;
@@ -266,13 +267,7 @@ away.utils.ByteArray.className = "away.utils.ByteArray";
 
 away.utils.ByteArray.getRuntimeDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('Int8Array');
-	p.push('Uint32Array');
-	p.push('Float32Array');
-	p.push('Uint8Array');
-	p.push('Uint16Array');
-	return p;
+	return [];
 };
 
 away.utils.ByteArray.getStaticDependencies = function(t) {

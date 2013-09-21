@@ -31,7 +31,10 @@ package away.bounds
 		override public function nullify():void
 		{
 			super.nullify();
-			this._centerX = this._centerY = this._centerZ = 0;
+			this._centerX = 0;
+			this._centerY = 0;
+			this._centerZ = 0;
+
 			this._radius = 0;
 		}
 		

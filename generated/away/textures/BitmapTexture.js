@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:53:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.textures.BitmapTexture = function(bitmapData, generateMipmaps) {
 	this._generateMipmaps = null;
 	this._mipMapUses = [];
 	away.textures.Texture2DBase.call(this);
-	bitmapData = bitmapData;
+	this.set_bitmapData(bitmapData);
 	this._generateMipmaps = generateMipmaps;
 };
 
@@ -63,7 +63,8 @@ away.textures.BitmapTexture.prototype.getMipMapHolder = function() {
 		away.textures.BitmapTexture._mipMapUses[newW] = [];
 	}
 	if (!away.textures.BitmapTexture._mipMaps[newW][newH]) {
-		this._mipMapHolder = away.textures.BitmapTexture._mipMaps[newW][newH] = new away.display.BitmapData(newW, newH, true, -1);
+		this._mipMapHolder = new away.display.BitmapData(newW, newH, true, -1);
+		away.textures.BitmapTexture._mipMaps[newW][newH] = new away.display.BitmapData(newW, newH, true, -1);
 		away.textures.BitmapTexture._mipMapUses[newW][newH] = 1;
 	} else {
 		away.textures.BitmapTexture._mipMapUses[newW][newH] = away.textures.BitmapTexture._mipMapUses[newW][newH] + 1;

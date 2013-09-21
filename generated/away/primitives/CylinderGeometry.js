@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -248,10 +248,10 @@ away.primitives.CylinderGeometry.prototype.pBuildUVs = function(target) {
 			revolutionAngle = i * revolutionAngleDelta;
 			x = 0.5 + 0.5 * -Math.cos(revolutionAngle);
 			y = 0.5 + 0.5 * Math.sin(revolutionAngle);
-			UVData[currentUvCompIndex++] = 1 - (0.5 * target.get_scaleU());
+			UVData[currentUvCompIndex++] = 0.5 * target.get_scaleU();
 			UVData[currentUvCompIndex++] = 0.5 * target.get_scaleV();
 			currentUvCompIndex += skip;
-			UVData[currentUvCompIndex++] = 1 - (x * target.get_scaleU());
+			UVData[currentUvCompIndex++] = x * target.get_scaleU();
 			UVData[currentUvCompIndex++] = y * target.get_scaleV();
 			currentUvCompIndex += skip;
 		}
@@ -261,10 +261,10 @@ away.primitives.CylinderGeometry.prototype.pBuildUVs = function(target) {
 			revolutionAngle = i * revolutionAngleDelta;
 			x = 0.5 + 0.5 * Math.cos(revolutionAngle);
 			y = 0.5 + 0.5 * Math.sin(revolutionAngle);
-			UVData[currentUvCompIndex++] = 1 - (0.5 * target.get_scaleU());
+			UVData[currentUvCompIndex++] = 0.5 * target.get_scaleU();
 			UVData[currentUvCompIndex++] = 0.5 * target.get_scaleV();
 			currentUvCompIndex += skip;
-			UVData[currentUvCompIndex++] = 1 - (x * target.get_scaleU());
+			UVData[currentUvCompIndex++] = x * target.get_scaleU();
 			UVData[currentUvCompIndex++] = y * target.get_scaleV();
 			currentUvCompIndex += skip;
 		}
@@ -272,7 +272,7 @@ away.primitives.CylinderGeometry.prototype.pBuildUVs = function(target) {
 	if (this._surfaceClosed) {
 		for (j = 0; j <= this._pSegmentsH; ++j) {
 			for (i = 0; i <= this._pSegmentsW; ++i) {
-				UVData[currentUvCompIndex++] = 1 - ((i / this._pSegmentsW) * target.get_scaleU());
+				UVData[currentUvCompIndex++] = (i / this._pSegmentsW) * target.get_scaleU();
 				UVData[currentUvCompIndex++] = (j / this._pSegmentsH) * target.get_scaleV();
 				currentUvCompIndex += skip;
 			}

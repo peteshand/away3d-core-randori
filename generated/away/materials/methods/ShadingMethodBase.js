@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.materials.methods == "undefined")
 away.materials.methods.ShadingMethodBase = function() {
 	this._sharedRegisters = null;
 	this._passes = null;
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 };
 
 away.materials.methods.ShadingMethodBase.prototype.iInitVO = function(vo) {
@@ -24,6 +24,10 @@ away.materials.methods.ShadingMethodBase.prototype.get_iSharedRegisters = functi
 };
 
 away.materials.methods.ShadingMethodBase.prototype.set_iSharedRegisters = function(value) {
+	this._sharedRegisters = value;
+};
+
+away.materials.methods.ShadingMethodBase.prototype.setISharedRegisters = function(value) {
 	this._sharedRegisters = value;
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.materials.methods.BasicDiffuseMethod = function() {
 	this._useTexture = null;
 	this._shadowRegister = null;
 	this._alphaThreshold = 0;
-	this._totalLightColorReg = null;
+	this.pTotalLightColorReg = null;
 	this._diffuseA = 1;
 	this._useAmbientTexture = null;
 	this._diffuseB = 1;
@@ -67,7 +67,6 @@ away.materials.methods.BasicDiffuseMethod.prototype.get_texture = function() {
 };
 
 away.materials.methods.BasicDiffuseMethod.prototype.set_texture = function(value) {
-	away.utils.Debug.throwPIR("BasicDiffuseMethod", "set texture", "TRICKY - Odd boolean assignment - needs testing");
 	var b = (value != null);
 	if (b != this._useTexture || (value && this._texture && (value.get_hasMipMaps() != this._texture.get_hasMipMaps() || value.get_format() != this._texture.get_format()))) {
 		this.iInvalidateShaderProgram();
@@ -109,7 +108,7 @@ away.materials.methods.BasicDiffuseMethod.prototype.copyFrom = function(method) 
 away.materials.methods.BasicDiffuseMethod.prototype.iCleanCompilationData = function() {
 	away.materials.methods.LightingMethodBase.prototype.iCleanCompilationData.call(this);
 	this._shadowRegister = null;
-	this._totalLightColorReg = null;
+	this.pTotalLightColorReg = null;
 	this._diffuseInputRegister = null;
 };
 
@@ -117,8 +116,8 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentPreLightingCode 
 	var code = "";
 	this._isFirstLight = true;
 	if (vo.numLights > 0) {
-		this._totalLightColorReg = regCache.getFreeFragmentVectorTemp();
-		regCache.addFragmentTempUsages(this._totalLightColorReg, 1);
+		this.pTotalLightColorReg = regCache.getFreeFragmentVectorTemp();
+		regCache.addFragmentTempUsages(this.pTotalLightColorReg, 1);
 	}
 	return code;
 };
@@ -127,7 +126,7 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentCodePerLight = f
 	var code = "";
 	var t;
 	if (this._isFirstLight) {
-		t = this._totalLightColorReg;
+		t = this.pTotalLightColorReg;
 	} else {
 		t = regCache.getFreeFragmentVectorTemp();
 		regCache.addFragmentTempUsages(t, 1);
@@ -141,7 +140,7 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentCodePerLight = f
 	}
 	code += "mul " + t.toString() + ", " + t.toString() + ".w, " + lightColReg.toString() + "\n";
 	if (!this._isFirstLight) {
-		code += "add " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + t.toString() + "\n";
+		code += "add " + this.pTotalLightColorReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + t.toString() + "\n";
 		regCache.removeFragmentTempUsage(t);
 	}
 	this._isFirstLight = false;
@@ -152,7 +151,7 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentCodePerProbe = f
 	var code = "";
 	var t;
 	if (this._isFirstLight) {
-		t = this._totalLightColorReg;
+		t = this.pTotalLightColorReg;
 	} else {
 		t = regCache.getFreeFragmentVectorTemp();
 		regCache.addFragmentTempUsages(t, 1);
@@ -162,7 +161,7 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentCodePerProbe = f
 		code += this._iModulateMethod(vo, t, regCache, this._sharedRegisters);
 	}
 	if (!this._isFirstLight) {
-		code += "add " + this._totalLightColorReg + ".xyz, " + this._totalLightColorReg + ", " + t.toString() + "\n";
+		code += "add " + this.pTotalLightColorReg + ".xyz, " + this.pTotalLightColorReg + ", " + t.toString() + "\n";
 		regCache.removeFragmentTempUsage(t);
 	}
 	this._isFirstLight = false;
@@ -197,24 +196,24 @@ away.materials.methods.BasicDiffuseMethod.prototype.iGetFragmentPostLightingCode
 	}
 	if (vo.numLights == 0)
 		return code;
-	code += "sat " + this._totalLightColorReg.toString() + ", " + this._totalLightColorReg.toString() + "\n";
+	code += "sat " + this.pTotalLightColorReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n";
 	if (this._useAmbientTexture) {
-		code += "mul " + albedo.toString() + ".xyz, " + albedo.toString() + ", " + this._totalLightColorReg.toString() + "\n" + "mul " + this._totalLightColorReg.toString() + ".xyz, " + targetReg.toString() + ", " + this._totalLightColorReg.toString() + "\n" + "sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + this._totalLightColorReg.toString() + "\n" + "add " + targetReg.toString() + ".xyz, " + albedo.toString() + ", " + targetReg.toString() + "\n";
+		code += "mul " + albedo.toString() + ".xyz, " + albedo.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" + "mul " + this.pTotalLightColorReg.toString() + ".xyz, " + targetReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" + "sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ", " + this.pTotalLightColorReg.toString() + "\n" + "add " + targetReg.toString() + ".xyz, " + albedo.toString() + ", " + targetReg.toString() + "\n";
 	} else {
-		code += "add " + targetReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + targetReg.toString() + "\n";
+		code += "add " + targetReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + targetReg.toString() + "\n";
 		if (this._useTexture) {
 			code += "mul " + targetReg.toString() + ".xyz, " + albedo.toString() + ", " + targetReg.toString() + "\n" + "mov " + targetReg + ".w, " + albedo + ".w\n";
 		} else {
 			code += "mul " + targetReg.toString() + ".xyz, " + this._diffuseInputRegister.toString() + ", " + targetReg.toString() + "\n" + "mov " + targetReg.toString() + ".w, " + this._diffuseInputRegister.toString() + ".w\n";
 		}
 	}
-	regCache.removeFragmentTempUsage(this._totalLightColorReg);
+	regCache.removeFragmentTempUsage(this.pTotalLightColorReg);
 	regCache.removeFragmentTempUsage(albedo);
 	return code;
 };
 
 away.materials.methods.BasicDiffuseMethod.prototype.pApplyShadow = function(vo, regCache) {
-	return "mul " + this._totalLightColorReg.toString() + ".xyz, " + this._totalLightColorReg.toString() + ", " + this._shadowRegister.toString() + ".w\n";
+	return "mul " + this.pTotalLightColorReg.toString() + ".xyz, " + this.pTotalLightColorReg.toString() + ", " + this._shadowRegister.toString() + ".w\n";
 };
 
 away.materials.methods.BasicDiffuseMethod.prototype.iActivate = function(vo, stage3DProxy) {
@@ -243,6 +242,10 @@ away.materials.methods.BasicDiffuseMethod.prototype.set_iShadowRegister = functi
 	this._shadowRegister = value;
 };
 
+away.materials.methods.BasicDiffuseMethod.prototype.setIShadowRegister = function(value) {
+	this._shadowRegister = value;
+};
+
 $inherit(away.materials.methods.BasicDiffuseMethod, away.materials.methods.LightingMethodBase);
 
 away.materials.methods.BasicDiffuseMethod.className = "away.materials.methods.BasicDiffuseMethod";
@@ -250,7 +253,6 @@ away.materials.methods.BasicDiffuseMethod.className = "away.materials.methods.Ba
 away.materials.methods.BasicDiffuseMethod.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.Debug');
 	p.push('away.display3D.Context3DMipFilter');
 	p.push('away.display3D.Context3DWrapMode');
 	p.push('away.display3D.Context3DTextureFilter');

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,7 +17,7 @@ away.entities.Sprite3D = function(material, width, height) {
 	this._width = 0;
 	this._material = null;
 	away.entities.Entity.call(this);
-	material = material;
+	this.set_material(material);
 	this._width = width;
 	this._height = height;
 	this._spriteMatrix = new away.geom.Matrix3D();
@@ -207,7 +207,7 @@ away.entities.Sprite3D.prototype.iCollidesBefore = function(shortestCollisionDis
 away.entities.Sprite3D.prototype.getRenderSceneTransform = function(camera) {
 	var comps = camera.get_sceneTransform().decompose();
 	var scale = comps[2];
-	comps[0] = $createStaticDelegate(this, this.get_scenePosition);
+	comps[0] = this.get_scenePosition();
 	scale.x = this._width * this._pScaleX;
 	scale.y = this._height * this._pScaleY;
 	this._spriteMatrix.recompose(comps);

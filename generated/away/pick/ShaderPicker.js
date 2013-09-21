@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:41:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -58,8 +58,10 @@ away.pick.ShaderPicker.prototype.getViewCollision = function(x, y, view) {
 	this._context = this._stage3DProxy._iContext3D;
 	this._viewportData[0] = view.get_width();
 	this._viewportData[1] = view.get_height();
-	this._viewportData[2] = -(this._projX = 2 * x / view.get_width() - 1);
-	this._viewportData[3] = this._projY = 2 * y / view.get_height() - 1;
+	this._projX = 2 * x / view.get_width() - 1;
+	this._viewportData[2] = -this._projX;
+	this._viewportData[3] = 2 * y / view.get_height() - 1;
+	this._projY = 2 * y / view.get_height() - 1;
 	this._potentialFound = false;
 	this.pDraw(collector, null);
 	this._context.setVertexBufferAt(0, null, 0);
@@ -105,7 +107,8 @@ away.pick.ShaderPicker.prototype.pDraw = function(entityCollector, target) {
 	var camera = entityCollector.get_camera();
 	this._context.clear(0, 0, 0, 1, 1, 0, 0);
 	this._stage3DProxy.set_scissorRect(away.pick.ShaderPicker.MOUSE_SCISSOR_RECT);
-	this._interactives.length = this._interactiveId = 0;
+	this._interactives.length = 0;
+	this._interactiveId = 0;
 	if (!this._objectProgram3D) {
 		this.initObjectProgram3D();
 	}
@@ -187,12 +190,18 @@ away.pick.ShaderPicker.prototype.getApproximatePosition = function(camera) {
 	if (!this._triangleProgram3D) {
 		this.initTriangleProgram3D();
 	}
-	this._boundOffsetScale[4] = 1 / (scX = entity.get_maxX() - entity.get_minX());
-	this._boundOffsetScale[5] = 1 / (scY = entity.get_maxY() - entity.get_minY());
-	this._boundOffsetScale[6] = 1 / (scZ = entity.get_maxZ() - entity.get_minZ());
-	this._boundOffsetScale[0] = offsX = -entity.get_minX();
-	this._boundOffsetScale[1] = offsY = -entity.get_minY();
-	this._boundOffsetScale[2] = offsZ = -entity.get_minZ();
+	scX = entity.get_maxX() - entity.get_minX();
+	scY = entity.get_maxY() - entity.get_minY();
+	scZ = entity.get_maxZ() - entity.get_minZ();
+	this._boundOffsetScale[4] = 1 / scX;
+	this._boundOffsetScale[5] = 1 / scY;
+	this._boundOffsetScale[6] = 1 / scZ;
+	this._boundOffsetScale[0] = -entity.get_minX();
+	offsX = -entity.get_minX();
+	this._boundOffsetScale[1] = -entity.get_minY();
+	offsY = -entity.get_minY();
+	this._boundOffsetScale[2] = -entity.get_minZ();
+	offsZ = -entity.get_minZ();
 	this._context.setProgram(this._triangleProgram3D);
 	this._context.clear(0, 0, 0, 0, 1, 0, away.display3D.Context3DClearMask.DEPTH);
 	this._context.setScissorRectangle(away.pick.ShaderPicker.MOUSE_SCISSOR_RECT);

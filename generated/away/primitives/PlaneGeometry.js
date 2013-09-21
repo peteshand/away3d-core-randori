@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -186,11 +186,11 @@ away.primitives.PlaneGeometry.prototype.pBuildUVs = function(target) {
 	var index = target.get_UVOffset();
 	for (var yi = 0; yi <= this._segmentsH; ++yi) {
 		for (var xi = 0; xi <= this._segmentsW; ++xi) {
-			data[index++] = (1 - (xi / this._segmentsW) * target.get_scaleU());
+			data[index++] = (xi / this._segmentsW) * target.get_scaleU();
 			data[index++] = (1 - yi / this._segmentsH) * target.get_scaleV();
 			index += skip;
 			if (this._doubleSided) {
-				data[index++] = (1 - (xi / this._segmentsW) * target.get_scaleU());
+				data[index++] = (xi / this._segmentsW) * target.get_scaleU();
 				data[index++] = (1 - yi / this._segmentsH) * target.get_scaleV();
 				index += skip;
 			}

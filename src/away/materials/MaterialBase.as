@@ -66,15 +66,15 @@ package away.materials
             public function MaterialBase():void
         {
 
-            super();
+            super(null);
 
             this._owners = new Vector.< IMaterialOwner>();
             this._passes = new Vector.<MaterialPassBase>();
             this._pDepthPass= new DepthMapPass();
             this._pDistancePass = new DistanceMapPass();
 
-            this._pDepthPass.addEventListener(Event.CHANGE, this.onDepthPassChange, this );
-            this._pDistancePass.addEventListener(Event.CHANGE, this.onDistancePassChange , this);
+            this._pDepthPass.addEventListener(Event.CHANGE, onDepthPassChange, this );
+            this._pDistancePass.addEventListener(Event.CHANGE, onDistancePassChange , this);
 
             this.alphaPremultiplied= true;
 
@@ -218,8 +218,8 @@ package away.materials
             this._pDepthPass.dispose();
             this._pDistancePass.dispose();
 
-            this._pDepthPass.removeEventListener(Event.CHANGE, this.onDepthPassChange , this );
-            this._pDistancePass.removeEventListener(Event.CHANGE, this.onDistancePassChange , this );
+            this._pDepthPass.removeEventListener(Event.CHANGE, onDepthPassChange , this );
+            this._pDistancePass.removeEventListener(Event.CHANGE, onDistancePassChange , this );
 
         }
 
@@ -613,7 +613,7 @@ package away.materials
             for (var i:Number = 0; i < this._numPasses; ++i)
             {
 
-                this._passes[i].removeEventListener(Event.CHANGE, this.onPassChange , this );
+                this._passes[i].removeEventListener(Event.CHANGE, onPassChange , this );
 
             }
 
@@ -634,7 +634,7 @@ package away.materials
             pass.repeat = this._repeat;
             pass.lightPicker = this._pLightPicker;
             pass.bothSides = this._bothSides;
-            pass.addEventListener(Event.CHANGE, this.onPassChange , this );
+            pass.addEventListener(Event.CHANGE, onPassChange , this );
             this.iInvalidatePasses(null);
 
         }

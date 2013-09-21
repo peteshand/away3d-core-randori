@@ -21,7 +21,7 @@ package away.materials.methods
 			// may want to offer diff speculars
 			super();
 
-            this.initCompositeSpecularMethod( this , this.modulateSpecular, baseSpecularMethod);
+            this.initCompositeSpecularMethod( this , modulateSpecular, baseSpecularMethod);
 			this._incidentLight = !basedOnSurface;
 		}
 

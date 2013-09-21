@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,7 +18,7 @@ away.pick.PickingCollisionVO = function(entity) {
 	this.localRayPosition = null;
 	this.localNormal = null;
 	this.rayDirection = null;
-	entity = entity;
+	this.entity = entity;
 };
 
 away.pick.PickingCollisionVO.className = "away.pick.PickingCollisionVO";

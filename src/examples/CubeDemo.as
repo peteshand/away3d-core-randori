@@ -33,8 +33,8 @@ import randori.webkit.page.Window;
         private var _view			: View3D;
 
         private var _cube      		: CubeGeometry;
-        private var _torus       	: TorusGeometry;
-        private var _mesh  			: Mesh;
+        //private var _torus       	: TorusGeometry;
+        //private var _mesh  			: Mesh;
         private var _mesh2  		: Mesh;
 
         private var _raf			:RequestAnimationFrame;
@@ -56,7 +56,7 @@ import randori.webkit.page.Window;
             this._view.camera.lens = new PerspectiveLens( 120 );
 
             this._cube              = new CubeGeometry( 20.0, 20.0, 20.0 );
-            this._torus             = new TorusGeometry( 150, 80, 32, 16, true );
+            //this._torus             = new TorusGeometry( 150, 80, 32, 16, true );
 
             //this.loadResources();
         //}
@@ -84,24 +84,24 @@ import randori.webkit.page.Window;
             var colourMaterial:ColorMaterial = new ColorMaterial(0xFF0000)
             colourMaterial.bothSides = true;
 
-            this._mesh              = new Mesh( this._torus, colourMaterial );
+            //this._mesh              = new Mesh( this._torus, colourMaterial );
             this._mesh2              = new Mesh( this._cube, colourMaterial );
             this._mesh2.x = 130;
             this._mesh2.z = 40;
 
-            this._view.scene.addChild( this._mesh );
+            //this._view.scene.addChild( this._mesh );
             this._view.scene.addChild( this._mesh2 );
 
             this._raf = new RequestAnimationFrame( render , this );
             this._raf.start();
 
-            this.resize( null );
+            //this.resize( null );
         }
 
         private function render( dt:Number = null ):void
         {
             this._view.camera.rotate( this._cameraAxis, 1 );
-            this._mesh.rotationY += 1;
+            //this._mesh.rotationY += 1;
             this._mesh2.rotationX += 0.4;
             this._mesh2.rotationY += 0.4;
             this._view.render();

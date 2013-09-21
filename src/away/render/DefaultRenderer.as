@@ -45,7 +45,9 @@ package away.render
 		{
 
 			super.iSetStage3DProxy(value );
-			this._pDistanceRenderer.iStage3DProxy = this._pDepthRenderer.iStage3DProxy = value;
+			this._pDistanceRenderer.iStage3DProxy = value;
+			this._pDepthRenderer.iStage3DProxy = value;
+
 
 		}
 

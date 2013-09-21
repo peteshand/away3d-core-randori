@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,9 +17,9 @@ away.materials.passes.SegmentPass = function(thickness) {
 	this._constants[1] = 1 / 255;
 };
 
-away.materials.passes.SegmentPass.pONE_VECTOR = 1, 1, 1, 1;
+away.materials.passes.SegmentPass.pONE_VECTOR = [1, 1, 1, 1];
 
-away.materials.passes.SegmentPass.pFRONT_VECTOR = 0, 0, -1, 0;
+away.materials.passes.SegmentPass.pFRONT_VECTOR = [0, 0, -1, 0];
 
 away.materials.passes.SegmentPass.prototype.iGetVertexCode = function() {
 	return "m44 vt0, va0, vc8\t\t\t\n" + "m44 vt1, va1, vc8\t\t\t\n" + "sub vt2, vt1, vt0 \t\t\t\n" + "slt vt5.x, vt0.z, vc7.z\t\t\t\n" + "sub vt5.y, vc5.x, vt5.x\t\t\t\n" + "add vt4.x, vt0.z, vc7.z\t\t\t\n" + "sub vt4.y, vt0.z, vt1.z\t\t\t\n" + "seq vt4.z, vt4.y vc6.x\t\t\t\n" + "add vt4.y, vt4.y, vt4.z\t\t\t\n" + "div vt4.z, vt4.x, vt4.y\t\t\t\n" + "mul vt4.xyz, vt4.zzz, vt2.xyz\t\n" + "add vt3.xyz, vt0.xyz, vt4.xyz\t\n" + "mov vt3.w, vc5.x\t\t\t\n" + "mul vt0, vt0, vt5.yyyy\t\t\t\n" + "mul vt3, vt3, vt5.xxxx\t\t\t\n" + "add vt0, vt0, vt3\t\t\t\t\n" + "sub vt2, vt1, vt0 \t\t\t\n" + "nrm vt2.xyz, vt2.xyz\t\t\t\n" + "nrm vt5.xyz, vt0.xyz\t\t\t\n" + "mov vt5.w, vc5.x\t\t\t\t\n" + "crs vt3.xyz, vt2, vt5\t\t\t\n" + "nrm vt3.xyz, vt3.xyz\t\t\t\n" + "mul vt3.xyz, vt3.xyz, va2.xxx\t\n" + "mov vt3.w, vc5.x\t\t\t\n" + "dp3 vt4.x, vt0, vc6\t\t\t\n" + "mul vt4.x, vt4.x, vc7.x\t\t\t\n" + "mul vt3.xyz, vt3.xyz, vt4.xxx\t\n" + "add vt0.xyz, vt0.xyz, vt3.xyz\t\n" + "m44 op, vt0, vc0\t\t\t\n" + "mov v0, va3\t\t\t\t\n";

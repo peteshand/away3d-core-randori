@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:53:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -92,7 +92,7 @@ away.display.BitmapData.prototype.setPixel = function(x, y, color) {
 		this._imageData.data[index + 3] = 255;
 	}
 	if (!this._locked) {
-		console.log(this._imageData);
+		this._context.putImageData(this._imageData, 0, 0, 0);
 		this._imageData = null;
 	}
 };

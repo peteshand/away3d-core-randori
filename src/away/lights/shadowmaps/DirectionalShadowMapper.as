@@ -140,8 +140,12 @@ package away.lights.shadowmaps
 			this._pMatrix.prepend( viewCamera.sceneTransform );
 			this._pMatrix.transformVectors( corners, this._pLocalFrustum );
 			
-			minX = maxX = this._pLocalFrustum[0];
-			minY = maxY = this._pLocalFrustum[1];
+			minX = this._pLocalFrustum[0];
+			maxX = this._pLocalFrustum[0];
+
+			minY = this._pLocalFrustum[1];
+			maxY = this._pLocalFrustum[1];
+
 			this._pMaxZ = this._pLocalFrustum[2];
 			
 			i = 3;
@@ -195,7 +199,16 @@ package away.lights.shadowmaps
 			raw[13] = -(maxY + minY)*h;
 			raw[14] = -this._pMinZ*d;
 			raw[15] = 1;
-			raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
+			raw[1] = 0;
+			raw[2] = 0;
+			raw[3] = 0;
+			raw[4] = 0;
+			raw[6] = 0;
+			raw[7] = 0;
+			raw[8] = 0;
+			raw[9] = 0;
+			raw[11] = 0;
+
 			
 			matrix.copyRawDataFrom(raw);
 		}

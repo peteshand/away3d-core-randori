@@ -30,7 +30,7 @@ package away.materials.methods
             this._baseMethod = baseSpecularMethod || new BasicSpecularMethod();
             this._baseMethod._iModulateMethod = modulateMethod;
             this._baseMethod._iModulateMethodScope = scope;
-            this._baseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this._baseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 
         }
 
@@ -56,9 +56,9 @@ package away.materials.methods
 		{
 			if (this._baseMethod == value)
 				return;
-            this._baseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this._baseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
             this._baseMethod = value;
-            this._baseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this);
+            this._baseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this);
             this.iInvalidateShaderProgram();
 		}
 		
@@ -93,7 +93,7 @@ package away.materials.methods
 		/**		 * @inheritDoc		 */
 		override public function dispose():void
 		{
-			this._baseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+			this._baseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 			this._baseMethod.dispose();
 		}
 		

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:32 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.materials.lightpickers == "undefined")
 away.materials.lightpickers.StaticLightPicker = function(lights) {
 	this._lights = null;
 	away.materials.lightpickers.LightPickerBase.call(this);
-	lights = lights;
+	this.set_lights(lights);
 };
 
 away.materials.lightpickers.StaticLightPicker.prototype.get_lights = function() {

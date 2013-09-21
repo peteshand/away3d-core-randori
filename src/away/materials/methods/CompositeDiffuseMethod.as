@@ -21,7 +21,7 @@ package away.materials.methods
 
 			this.pBaseMethod = baseDiffuseMethod || new BasicDiffuseMethod();
             this.pBaseMethod._iModulateMethod = modulateMethod;
-            this.pBaseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this.pBaseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
 		}
 
 		/**		 * The base diffuse method on which this method's shading is based.		 */
@@ -34,9 +34,9 @@ package away.materials.methods
 		{
 			if (this.pBaseMethod == value)
 				return;
-            this.pBaseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this.pBaseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
             this.pBaseMethod = value;
-            this.pBaseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated, this );
+            this.pBaseMethod.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated, this );
 			this.iInvalidateShaderProgram();//invalidateShaderProgram();
 		}
 
@@ -55,7 +55,7 @@ package away.materials.methods
 		/**		 * @inheritDoc		 */
 		override public function dispose():void
 		{
-            this.pBaseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, this.onShaderInvalidated , this );
+            this.pBaseMethod.removeEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
             this.pBaseMethod.dispose();
 		}
 

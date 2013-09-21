@@ -113,7 +113,9 @@ package away.primitives
 				
 				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.x = v1.x = (ws/this._segmentsW - .5)*this._width;
+					v0.x = (ws/this._segmentsW - .5)*this._width;
+					v1.x = (ws/this._segmentsW - .5)*this._width;
+
                     this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
@@ -122,7 +124,9 @@ package away.primitives
 				
 				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.y = v1.y = (hs/this._segmentsH - .5)*this._height;
+					v0.y = (hs/this._segmentsH - .5)*this._height;
+					v1.y = (hs/this._segmentsH - .5)*this._height;
+
 					this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}
@@ -135,7 +139,9 @@ package away.primitives
 				
 				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.x = v1.x = (ws/this._segmentsW - .5)*this._width;
+					v0.x = (ws/this._segmentsW - .5)*this._width;
+					v1.x = (ws/this._segmentsW - .5)*this._width;
+
                     this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
@@ -144,7 +150,9 @@ package away.primitives
 				
 				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.z = v1.z = (hs/this._segmentsH - .5)*this._height;
+					v0.z = (hs/this._segmentsH - .5)*this._height;
+					v1.z = (hs/this._segmentsH - .5)*this._height;
+
                     this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}
@@ -157,7 +165,9 @@ package away.primitives
 				
 				for (ws = 0; ws <= this._segmentsW; ++ws)
                 {
-					v0.z = v1.z = (ws/this._segmentsW - .5)*this._width;
+					v0.z = (ws/this._segmentsW - .5)*this._width;
+					v1.z = (ws/this._segmentsW - .5)*this._width;
+
                     this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 				
@@ -166,7 +176,9 @@ package away.primitives
 				
 				for (hs = 0; hs <= this._segmentsH; ++hs)
                 {
-					v0.y = v1.y = (hs/this._segmentsH - .5)*this._height;
+					v0.y = (hs/this._segmentsH - .5)*this._height;
+					v1.y = (hs/this._segmentsH - .5)*this._height;
+
                     this.pUpdateOrAddSegment(index++, v0, v1);
 				}
 			}

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -39,8 +39,12 @@ away.bounds.BoundingVolumeBase.prototype.get_boundingRenderable = function() {
 };
 
 away.bounds.BoundingVolumeBase.prototype.nullify = function() {
-	this._pMin.x = this._pMin.y = this._pMin.z = 0;
-	this._pMax.x = this._pMax.y = this._pMax.z = 0;
+	this._pMin.x = 0;
+	this._pMin.y = 0;
+	this._pMin.z = 0;
+	this._pMax.x = 0;
+	this._pMax.y = 0;
+	this._pMax.z = 0;
 	this._pAabbPointsDirty = true;
 	if (this._pBoundingRenderable) {
 		this.pUpdateBoundingRenderable();
@@ -64,9 +68,12 @@ away.bounds.BoundingVolumeBase.prototype.fromVertices = function(vertices) {
 		return;
 	}
 	var v;
-	minX = maxX = vertices[i++];
-	minY = maxY = vertices[i++];
-	minZ = maxZ = vertices[i++];
+	minX = vertices[i++];
+	maxX = vertices[i++];
+	minY = vertices[i++];
+	maxY = vertices[i++];
+	minZ = vertices[i++];
+	maxZ = vertices[i++];
 	while (i < len) {
 		v = vertices[i++];
 		if (v < minX)
@@ -94,8 +101,12 @@ away.bounds.BoundingVolumeBase.prototype.fromGeometry = function(geometry) {
 	var maxX, maxY, maxZ;
 	if (numSubGeoms > 0) {
 		var j = 0;
-		minX = minY = minZ = Infinity;
-		maxX = maxY = maxZ = -Infinity;
+		minX = Infinity;
+		minY = Infinity;
+		minZ = Infinity;
+		maxX = -Infinity;
+		maxY = -Infinity;
+		maxZ = -Infinity;
 		while (j < numSubGeoms) {
 			var subGeom = subGeoms[j++];
 			var vertices = subGeom.get_vertexData();

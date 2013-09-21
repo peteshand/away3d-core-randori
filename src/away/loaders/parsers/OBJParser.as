@@ -639,7 +639,10 @@ package away.loaders.parsers
 				if (lines.length == 1)
 					lines = materialDefinitions[i].split(String.fromCharCode(13));
 				
-				diffuseColor = ambientColor = specularColor = 0xFFFFFF;
+				diffuseColor = 0xFFFFFF;
+				ambientColor = 0xFFFFFF;
+				specularColor = 0xFFFFFF;
+
 				specular = 0;
 				useSpecular = false;
 				useColor = false;

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -566,12 +566,12 @@ away.base.SubGeometryBase.prototype.pUpdateDummyUVs = function(target) {
 	var uvIdx;
 	var stride = this.get_UVStride();
 	var skip = stride - 2;
-	var len = this._vertexData.length / $createStaticDelegate(this, this.get_vertexStride) * stride;
+	var len = this._vertexData.length / this.get_vertexStride() * stride;
 	if (!target) {
 		target = [];
 	}
 	target.length = len;
-	idx = $createStaticDelegate(this, this.get_UVOffset);
+	idx = this.get_UVOffset();
 	uvIdx = 0;
 	while (idx < len) {
 		target[idx++] = uvIdx * .5;

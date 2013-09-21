@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.textures.TextureProxyBase = function() {
 	this._dirty = null;
 	this._pWidth = 0;
 	this._pHeight = 0;
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 	this._textures = [null, null, null, null, null, null, null, null];
 	this._dirty = [null, null, null, null, null, null, null, null];
 };
@@ -42,7 +42,8 @@ away.textures.TextureProxyBase.prototype.getTextureForStage3D = function(stage3D
 	var tex = this._textures[contextIndex];
 	var context = stage3DProxy._iContext3D;
 	if (!tex || this._dirty[contextIndex] != context) {
-		this._textures[contextIndex] = tex = this.pCreateTexture(context);
+		this._textures[contextIndex] = this.pCreateTexture(context);
+		tex = this.pCreateTexture(context);
 		this._dirty[contextIndex] = context;
 		this.pUploadContent(tex);
 	}

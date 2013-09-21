@@ -550,7 +550,7 @@ package away.base
 		public function Object3D():void
 		{
 
-            super();
+            super(null);
 
 			// Cached vector of transformation components used when
 			// recomposing the transform matrix in updateTransform()

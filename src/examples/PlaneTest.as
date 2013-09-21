@@ -110,7 +110,7 @@ public class PlaneTest
             pMatrix = new PerspectiveMatrix3D();
             pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
 
-            mvMatrix = new Matrix3D();
+            mvMatrix = new Matrix3D(new <Number>[]);
             mvMatrix.appendTranslation(0, 0, 4);
 
             context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);

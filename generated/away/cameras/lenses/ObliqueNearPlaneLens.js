@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:13 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:34 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,8 +11,8 @@ away.cameras.lenses.ObliqueNearPlaneLens = function(baseLens, plane) {
 	this._plane = null;
 	this._baseLens = null;
 	away.cameras.lenses.LensBase.call(this);
-	baseLens = baseLens;
-	plane = plane;
+	this.set_baseLens(baseLens);
+	this.set_plane(plane);
 };
 
 away.cameras.lenses.ObliqueNearPlaneLens.prototype.get_frustumCorners = function() {

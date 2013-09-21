@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,9 @@ away.bounds.BoundingSphere.prototype.get_radius = function() {
 
 away.bounds.BoundingSphere.prototype.nullify = function() {
 	away.bounds.BoundingVolumeBase.prototype.nullify.call(this);
-	this._centerX = this._centerY = this._centerZ = 0;
+	this._centerX = 0;
+	this._centerY = 0;
+	this._centerZ = 0;
 	this._radius = 0;
 };
 

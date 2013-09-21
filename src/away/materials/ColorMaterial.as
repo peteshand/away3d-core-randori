@@ -40,7 +40,9 @@ package away.materials
                 value = 0;
             }
 
-			this._pScreenPass.diffuseMethod.diffuseAlpha = this._diffuseAlpha = value;
+			this._pScreenPass.diffuseMethod.diffuseAlpha = value;
+			this._diffuseAlpha = value;
+
             this._pScreenPass.preserveAlpha = this.requiresBlending;
             this._pScreenPass.setBlendMode( this.getBlendMode() == BlendMode.NORMAL && this.requiresBlending? BlendMode.LAYER : this.getBlendMode());
 		}

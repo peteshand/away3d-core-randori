@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -140,8 +140,8 @@ away.materials.compilation.ShaderCompiler.prototype.set_methodSetup = function(v
 away.materials.compilation.ShaderCompiler.prototype.compile = function() {
 	this.pInitRegisterIndices();
 	this.pInitLightData();
-	this._pAnimatableAttributes = [];
-	this._pAnimationTargetRegisters = [];
+	this._pAnimatableAttributes = ["va0"];
+	this._pAnimationTargetRegisters = ["vt0"];
 	this._pVertexCode = "";
 	this._pFragmentCode = "";
 	this._pSharedRegisters.localPosition = this._pRegisterCache.getFreeVertexVectorTemp();
@@ -157,7 +157,7 @@ away.materials.compilation.ShaderCompiler.prototype.compile = function() {
 	this.compileProjectionCode();
 	this.pCompileMethodsCode();
 	this.compileFragmentOutput();
-	this._fragmentPostLightCode = $createStaticDelegate(this, this.get_fragmentCode);
+	this._fragmentPostLightCode = this.get_fragmentCode();
 };
 
 away.materials.compilation.ShaderCompiler.prototype.pCreateNormalRegisters = function() {

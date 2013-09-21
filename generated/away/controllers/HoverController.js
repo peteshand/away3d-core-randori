@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:24 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,16 +19,16 @@ away.controllers.HoverController = function(targetObject, lookAtObject, panAngle
 	this._tiltAngle = 90;
 	this._yFactor = 2;
 	away.controllers.LookAtController.call(this, targetObject, lookAtObject);
-	distance = distance;
-	panAngle = panAngle;
-	tiltAngle = tiltAngle;
-	minPanAngle = minPanAngle || -Infinity;
-	maxPanAngle = maxPanAngle || Infinity;
-	minTiltAngle = minTiltAngle;
-	maxTiltAngle = maxTiltAngle;
-	steps = steps;
-	yFactor = yFactor;
-	wrapPanAngle = wrapPanAngle;
+	this.set_distance(distance);
+	this.set_panAngle(panAngle);
+	this.set_tiltAngle(tiltAngle);
+	this.set_minPanAngle(minPanAngle || -Infinity);
+	this.set_maxPanAngle(maxPanAngle || Infinity);
+	this.set_minTiltAngle(minTiltAngle);
+	this.set_maxTiltAngle(maxTiltAngle);
+	this.set_steps(steps);
+	this.set_yFactor(yFactor);
+	this.set_wrapPanAngle(wrapPanAngle);
 	this._iCurrentPanAngle = this._panAngle;
 	this._iCurrentTiltAngle = this._tiltAngle;
 };
@@ -177,7 +177,7 @@ away.controllers.HoverController.prototype.update = function(interpolate) {
 	var pos = this.get_lookAtObject() ? this.get_lookAtObject().get_position() : this.get_lookAtPosition() ? this.get_lookAtPosition() : this._pOrigin;
 	this.get_targetObject().set_x(pos.x + this.get_distance() * Math.sin(this._iCurrentPanAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
 	this.get_targetObject().set_z(pos.z + this.get_distance() * Math.cos(this._iCurrentPanAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
-	this.get_targetObject().set_y(pos.y + this.get_distance() * Math.sin(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * $createStaticDelegate(this, this.get_yFactor));
+	this.get_targetObject().set_y(pos.y + this.get_distance() * Math.sin(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * this.get_yFactor());
 	away.controllers.LookAtController.prototype.update.call(thistrue);
 };
 

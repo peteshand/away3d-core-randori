@@ -129,8 +129,11 @@ package away.pick
 			
 			this._viewportData[0] = view.width;
             this._viewportData[1] = view.height;
-            this._viewportData[2] = -(this._projX = 2*x/view.width - 1);
-            this._viewportData[3] = this._projY = 2*y/view.height - 1;
+			this._projX = 2*x/view.width - 1;
+            this._viewportData[2] = -this._projX;
+            this._viewportData[3] = 2*y/view.height - 1;
+            this._projY = 2*y/view.height - 1;
+
 			
 			// _potentialFound will be set to true if any object is actually rendered
 			this._potentialFound = false;
@@ -200,7 +203,9 @@ package away.pick
 			this._context.clear(0, 0, 0, 1);
 			this._stage3DProxy.scissorRect = ShaderPicker.MOUSE_SCISSOR_RECT;
 			
-			this._interactives.length = this._interactiveId = 0;
+			this._interactives.length = 0;
+			this._interactiveId = 0;
+
 			
 			if (!this._objectProgram3D)
             {
@@ -344,13 +349,23 @@ package away.pick
             {
 				this.initTriangleProgram3D();
             }
+			
+			scX = entity.maxX - entity.minX;
+			scY = entity.maxY - entity.minY;
+			scZ = entity.maxZ - entity.minZ;
+			
+			this._boundOffsetScale[4] = 1/scX;
+            this._boundOffsetScale[5] = 1/scY;
+            this._boundOffsetScale[6] = 1/scZ;
+            this._boundOffsetScale[0] = -entity.minX;
+            offsX = -entity.minX;
 
-			this._boundOffsetScale[4] = 1/(scX = entity.maxX - entity.minX);
-            this._boundOffsetScale[5] = 1/(scY = entity.maxY - entity.minY);
-            this._boundOffsetScale[6] = 1/(scZ = entity.maxZ - entity.minZ);
-            this._boundOffsetScale[0] = offsX = -entity.minX;
-            this._boundOffsetScale[1] = offsY = -entity.minY;
-            this._boundOffsetScale[2] = offsZ = -entity.minZ;
+            this._boundOffsetScale[1] = -entity.minY;
+            offsY = -entity.minY;
+
+            this._boundOffsetScale[2] = -entity.minZ;
+            offsZ = -entity.minZ;
+
 
             this._context.setProgram(this._triangleProgram3D);
             this._context.clear(0, 0, 0, 0, 1, 0, Context3DClearMask.DEPTH);

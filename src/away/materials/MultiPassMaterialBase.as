@@ -134,12 +134,12 @@ package away.materials
 		override public function set lightPicker(value:LightPickerBase):void
 		{
 			if (this._pLightPicker)
-				this._pLightPicker.removeEventListener(Event.CHANGE, this.onLightsChange , this );
+				this._pLightPicker.removeEventListener(Event.CHANGE, onLightsChange , this );
 
             super.setLightPicker( value );
 
 			if (this._pLightPicker)
-				this._pLightPicker.addEventListener(Event.CHANGE, this.onLightsChange , this );
+				this._pLightPicker.addEventListener(Event.CHANGE, onLightsChange , this );
 			this.pInvalidateScreenPasses();
 		}
 		

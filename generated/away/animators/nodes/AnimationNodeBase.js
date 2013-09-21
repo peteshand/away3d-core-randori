@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.animators.nodes == "undefined")
 
 away.animators.nodes.AnimationNodeBase = function() {
 	this._stateClass = null;
-	away.library.assets.NamedAssetBase.call(this);
+	away.library.assets.NamedAssetBase.call(this, null);
 };
 
 away.animators.nodes.AnimationNodeBase.prototype.get_stateClass = function() {

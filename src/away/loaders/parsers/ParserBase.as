@@ -314,7 +314,7 @@ package away.loaders.parsers {
 		{
             if(this._timer)
             {
-			    this._timer.removeEventListener(TimerEvent.TIMER, this._pOnInterval , this );
+			    this._timer.removeEventListener(TimerEvent.TIMER, _pOnInterval , this );
                 this._timer.stop();
                 this._timer = null;
             }
@@ -365,7 +365,7 @@ package away.loaders.parsers {
 
 			this._frameLimit = frameLimit;
 			this._timer = new Timer(this._frameLimit, 0);
-			this._timer.addEventListener(TimerEvent.TIMER, this._pOnInterval , this );
+			this._timer.addEventListener(TimerEvent.TIMER, _pOnInterval , this );
 			this._timer.start();
 
 		}
@@ -378,7 +378,7 @@ package away.loaders.parsers {
 
             if(this._timer)
             {
-			    this._timer.removeEventListener(TimerEvent.TIMER, this._pOnInterval , this );
+			    this._timer.removeEventListener(TimerEvent.TIMER, _pOnInterval , this );
 			    this._timer.stop();
             }
 

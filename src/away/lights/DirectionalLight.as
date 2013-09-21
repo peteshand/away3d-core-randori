@@ -135,7 +135,16 @@ package away.lights
 			raw[12] = -(xMax + xMin)*invXRange;
 			raw[13] = -(yMax + yMin)*invYRange;
 			raw[14] = -zMin*invZRange;
-			raw[1] = raw[2] = raw[3] = raw[4] = raw[6] = raw[7] = raw[8] = raw[9] = raw[11] = 0;
+			raw[1] = 0;
+			raw[2] = 0;
+			raw[3] = 0;
+			raw[4] = 0;
+			raw[6] = 0;
+			raw[7] = 0;
+			raw[8] = 0;
+			raw[9] = 0;
+			raw[11] = 0;
+
 			raw[15] = 1;
 			
 			if( !target )

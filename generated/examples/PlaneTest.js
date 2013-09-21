@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:31:26 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -57,7 +57,7 @@ examples.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 	this.context3D.setProgram(this.program);
 	this.pMatrix = new away.utils.PerspectiveMatrix3D();
 	this.pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
-	this.mvMatrix = new away.geom.Matrix3D();
+	this.mvMatrix = new away.geom.Matrix3D([]);
 	this.mvMatrix.appendTranslation(0, 0, 4);
 	this.context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
 	this.context3D.setGLSLVertexBufferAt("aTextureCoord", tCoordBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_2);

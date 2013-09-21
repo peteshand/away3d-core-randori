@@ -121,9 +121,9 @@ package away.entities
 			if (this._geometry)
             {
 
-                this._geometry.removeEventListener(GeometryEvent.BOUNDS_INVALID, this.onGeometryBoundsInvalid , this);
-                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, this.onSubGeometryAdded, this);
-                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, this.onSubGeometryRemoved, this);
+                this._geometry.removeEventListener(GeometryEvent.BOUNDS_INVALID, onGeometryBoundsInvalid , this);
+                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, onSubGeometryAdded, this);
+                this._geometry.removeEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, onSubGeometryRemoved, this);
 				
 				for (i = 0; i < this._subMeshes.length; ++i)
                 {
@@ -140,9 +140,9 @@ package away.entities
 			if (this._geometry)
             {
 
-				this._geometry.addEventListener(GeometryEvent.BOUNDS_INVALID, this.onGeometryBoundsInvalid , this );
-                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, this.onSubGeometryAdded , this );
-                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, this.onSubGeometryRemoved , this );
+				this._geometry.addEventListener(GeometryEvent.BOUNDS_INVALID, onGeometryBoundsInvalid , this );
+                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_ADDED, onSubGeometryAdded , this );
+                this._geometry.addEventListener(GeometryEvent.SUB_GEOMETRY_REMOVED, onSubGeometryRemoved , this );
 
                 //var subGeoms:Vector.<ISubGeometry> = _geometry.subGeometries;
                 var subGeoms:Vector.<ISubGeometry> = this._geometry.subGeometries;//

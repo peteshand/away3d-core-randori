@@ -205,8 +205,8 @@ package away.library
 
 			this._assetDictionary[ns][asset.name] = asset;
 			
-			asset.addEventListener(AssetEvent.ASSET_RENAME, this.onAssetRename , this );
-			asset.addEventListener(AssetEvent.ASSET_CONFLICT_RESOLVED, this.onAssetConflictResolved , this );
+			asset.addEventListener(AssetEvent.ASSET_RENAME, onAssetRename , this );
+			asset.addEventListener(AssetEvent.ASSET_CONFLICT_RESOLVED, onAssetConflictResolved , this );
 		}
 		
 		/**		 * Removes an asset from the library, and optionally disposes that asset by calling		 * it's disposeAsset() method (which for most assets is implemented as a default		 * version of that type's dispose() method.		 *		 * @param asset The asset which should be removed from this library.		 * @param dispose Defines whether the assets should also be disposed.		 */
@@ -216,8 +216,8 @@ package away.library
 			
 			this.removeAssetFromDict(asset);
 			
-			asset.removeEventListener(AssetEvent.ASSET_RENAME, this.onAssetRename , this );
-			asset.removeEventListener(AssetEvent.ASSET_CONFLICT_RESOLVED, this.onAssetConflictResolved , this );
+			asset.removeEventListener(AssetEvent.ASSET_RENAME, onAssetRename , this );
+			asset.removeEventListener(AssetEvent.ASSET_CONFLICT_RESOLVED, onAssetConflictResolved , this );
 			
 			idx = this._assets.indexOf(asset);
 			if (idx >= 0)
@@ -385,26 +385,26 @@ package away.library
 
 			this._loadingSessions.push(loader);
 
-			loader.addEventListener(LoaderEvent.RESOURCE_COMPLETE, this.onResourceRetrieved , this);
-			loader.addEventListener(LoaderEvent.DEPENDENCY_COMPLETE, this.onDependencyRetrieved, this);
-			loader.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this);
-			loader.addEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.MESH_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete, this);
+			loader.addEventListener(LoaderEvent.RESOURCE_COMPLETE, onResourceRetrieved , this);
+			loader.addEventListener(LoaderEvent.DEPENDENCY_COMPLETE, onDependencyRetrieved, this);
+			loader.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this);
+			loader.addEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.MESH_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete, this);
 
 			// Error are handled separately (see documentation for addErrorHandler)
-			loader._iAddErrorHandler(this.onDependencyRetrievingError);
-			loader._iAddParseErrorHandler(this.onDependencyRetrievingParseError);
+			loader._iAddErrorHandler(onDependencyRetrievingError);
+			loader._iAddParseErrorHandler(onDependencyRetrievingParseError);
 			
 			return loader.load(req, context, ns, parser);
 		}
@@ -446,26 +446,26 @@ package away.library
 
 			this._loadingSessions.push(loader);
 
-			loader.addEventListener(LoaderEvent.RESOURCE_COMPLETE, this.onResourceRetrieved , this);
-			loader.addEventListener(LoaderEvent.DEPENDENCY_COMPLETE, this.onDependencyRetrieved, this);
-			loader.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this);
-			loader.addEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.MESH_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this);
-			loader.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete, this);
+			loader.addEventListener(LoaderEvent.RESOURCE_COMPLETE, onResourceRetrieved , this);
+			loader.addEventListener(LoaderEvent.DEPENDENCY_COMPLETE, onDependencyRetrieved, this);
+			loader.addEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this);
+			loader.addEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.MESH_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this);
+			loader.addEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete, this);
 			
 			// Error are handled separately (see documentation for addErrorHandler)
-			loader._iAddErrorHandler(this.onDependencyRetrievingError);
-			loader._iAddParseErrorHandler(this.onDependencyRetrievingParseError);
+			loader._iAddErrorHandler(onDependencyRetrievingError);
+			loader._iAddParseErrorHandler(onDependencyRetrievingParseError);
 			
 			return loader.loadData(data, '', context, ns, parser);
 		}
@@ -509,7 +509,7 @@ package away.library
 		/**		 * Called when a an error occurs during dependency retrieving.		 */
 		private function onDependencyRetrievingError(event:LoaderEvent):Boolean
 		{
-			if (this.hasEventListener(LoaderEvent.LOAD_ERROR , this.onDependencyRetrievingError , this ) )
+			if (this.hasEventListener(LoaderEvent.LOAD_ERROR , onDependencyRetrievingError , this ) )
             {
 
 				this.dispatchEvent(event);
@@ -528,7 +528,7 @@ package away.library
 		/**		 * Called when a an error occurs during parsing.		 */
 		private function onDependencyRetrievingParseError(event:ParserEvent):Boolean
 		{
-			if (this.hasEventListener(ParserEvent.PARSE_ERROR, this.onDependencyRetrievingParseError, this ))
+			if (this.hasEventListener(ParserEvent.PARSE_ERROR, onDependencyRetrievingParseError, this ))
             {
 
 				this.dispatchEvent(event);
@@ -604,23 +604,23 @@ package away.library
 		private function killLoadingSession(loader:AssetLoader):void
 		{
 			
-			loader.removeEventListener(LoaderEvent.LOAD_ERROR, this.onDependencyRetrievingError , this);
-			loader.removeEventListener(LoaderEvent.RESOURCE_COMPLETE, this.onResourceRetrieved, this);
-			loader.removeEventListener(LoaderEvent.DEPENDENCY_COMPLETE, this.onDependencyRetrieved, this);
-			loader.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, this.onTextureSizeError, this);
-			loader.removeEventListener(AssetEvent.ASSET_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.TEXTURE_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.CONTAINER_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.MATERIAL_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.MESH_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.ENTITY_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.SKELETON_COMPLETE, this.onAssetComplete, this);
-			loader.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, this.onAssetComplete, this);
+			loader.removeEventListener(LoaderEvent.LOAD_ERROR, onDependencyRetrievingError , this);
+			loader.removeEventListener(LoaderEvent.RESOURCE_COMPLETE, onResourceRetrieved, this);
+			loader.removeEventListener(LoaderEvent.DEPENDENCY_COMPLETE, onDependencyRetrieved, this);
+			loader.removeEventListener(AssetEvent.TEXTURE_SIZE_ERROR, onTextureSizeError, this);
+			loader.removeEventListener(AssetEvent.ASSET_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.ANIMATION_SET_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.ANIMATION_STATE_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.ANIMATION_NODE_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.STATE_TRANSITION_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.TEXTURE_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.CONTAINER_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.GEOMETRY_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.MATERIAL_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.MESH_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.ENTITY_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.SKELETON_COMPLETE, onAssetComplete, this);
+			loader.removeEventListener(AssetEvent.SKELETON_POSE_COMPLETE, onAssetComplete, this);
 			loader.stop();
 		
 		}

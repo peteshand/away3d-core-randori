@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.materials.methods == "undefined")
 
 away.materials.methods.BasicNormalMethod = function() {
 	this._useTexture = null;
-	this._normalTextureRegister = null;
+	this._pNormalTextureRegister = null;
 	this._texture = null;
 	away.materials.methods.ShadingMethodBase.call(this);
 };
@@ -41,6 +41,10 @@ away.materials.methods.BasicNormalMethod.prototype.get_normalMap = function() {
 };
 
 away.materials.methods.BasicNormalMethod.prototype.set_normalMap = function(value) {
+	this.setNormalMap(value);
+};
+
+away.materials.methods.BasicNormalMethod.prototype.setNormalMap = function(value) {
 	var b = (value != null);
 	if (b != this._useTexture || (value && this._texture && (value.get_hasMipMaps() != this._texture.get_hasMipMaps() || value.get_format() != this._texture.get_format()))) {
 		this.iInvalidateShaderProgram();
@@ -51,7 +55,7 @@ away.materials.methods.BasicNormalMethod.prototype.set_normalMap = function(valu
 
 away.materials.methods.BasicNormalMethod.prototype.iCleanCompilationData = function() {
 	away.materials.methods.ShadingMethodBase.prototype.iCleanCompilationData.call(this);
-	this._normalTextureRegister = null;
+	this._pNormalTextureRegister = null;
 };
 
 away.materials.methods.BasicNormalMethod.prototype.dispose = function() {
@@ -68,9 +72,9 @@ away.materials.methods.BasicNormalMethod.prototype.iActivate = function(vo, stag
 };
 
 away.materials.methods.BasicNormalMethod.prototype.iGetFragmentCode = function(vo, regCache, targetReg) {
-	this._normalTextureRegister = regCache.getFreeTextureReg();
-	vo.texturesIndex = this._normalTextureRegister.get_index();
-	return this.pGetTex2DSampleCode(vo, targetReg, this._normalTextureRegister, this._texture) + "sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ".xyz, " + this._sharedRegisters.commons.toString() + ".xxx\t\n" + "nrm " + targetReg.toString() + ".xyz, " + targetReg.toString() + ".xyz\t\t\t\t\t\t\t\n";
+	this._pNormalTextureRegister = regCache.getFreeTextureReg();
+	vo.texturesIndex = this._pNormalTextureRegister.get_index();
+	return this.pGetTex2DSampleCode(vo, targetReg, this._pNormalTextureRegister, this._texture) + "sub " + targetReg.toString() + ".xyz, " + targetReg.toString() + ".xyz, " + this._sharedRegisters.commons.toString() + ".xxx\t\n" + "nrm " + targetReg.toString() + ".xyz, " + targetReg.toString() + ".xyz\t\t\t\t\t\t\t\n";
 };
 
 $inherit(away.materials.methods.BasicNormalMethod, away.materials.methods.ShadingMethodBase);

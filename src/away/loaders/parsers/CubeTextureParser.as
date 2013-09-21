@@ -120,7 +120,7 @@ package away.loaders.parsers
 
                             imgLoader.name                  = rec.id;
                             imgLoader.load( rq );
-                            imgLoader.addEventListener( Event.COMPLETE , this.onIMGLoadComplete , this );
+                            imgLoader.addEventListener( Event.COMPLETE , onIMGLoadComplete , this );
 
                         this._imgLoaderDictionary[ imgLoader.name ] = imgLoader;
 

@@ -47,7 +47,13 @@ package away.math
 			raw[8] = 2*(xz + yw);
 			raw[9] = 2*(yz - xw);
 			raw[10] = 1 - 2*(xx + yy);
-			raw[3] = raw[7] = raw[11] = raw[12] = raw[13] = raw[14] = 0;
+			raw[3] = 0;
+			raw[7] = 0;
+			raw[11] = 0;
+			raw[12] = 0;
+			raw[13] = 0;
+			raw[14] = 0;
+
 			raw[15] = 1;
 			
 			if (m) {

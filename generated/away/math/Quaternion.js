@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:12 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,10 +6,10 @@ if (typeof away.math == "undefined")
 	away.math = {};
 
 away.math.Quaternion = function(x, y, z, w) {
-	x = x;
-	y = y;
-	z = z;
-	w = w;
+	this.x = x;
+	this.y = y;
+	this.z = z;
+	this.w = w;
 };
 
 away.math.Quaternion.prototype.get_magnitude = function() {
@@ -184,9 +184,13 @@ away.math.Quaternion.prototype.toRawData = function(target, exclude4thRow) {
 	target[8] = xz2 - yw2;
 	target[9] = yz2 + xw2;
 	target[10] = -xx - yy + zz + ww;
-	target[3] = target[7] = target[11] = 0;
+	target[3] = 0;
+	target[7] = 0;
+	target[11] = 0;
 	if (!exclude4thRow) {
-		target[12] = target[13] = target[14] = 0;
+		target[12] = 0;
+		target[13] = 0;
+		target[14] = 0;
 		target[15] = 1;
 	}
 };

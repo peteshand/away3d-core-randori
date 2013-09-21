@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:44:02 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -107,7 +107,8 @@ away.traverse.EntityCollector.prototype.get_lightProbes = function() {
 away.traverse.EntityCollector.prototype.clear = function() {
 	this._cullPlanes = this._customCullPlanes ? this._customCullPlanes : this._pCamera ? this._pCamera.get_frustumPlanes() : null;
 	this._numCullPlanes = this._cullPlanes ? this._cullPlanes.length : 0;
-	this._pNumTriangles = this._pNumMouseEnableds = 0;
+	this._pNumTriangles = 0;
+	this._pNumMouseEnableds = 0;
 	this._pBlendedRenderableHead = null;
 	this._pOpaqueRenderableHead = null;
 	this._entityHead = null;
@@ -115,16 +116,20 @@ away.traverse.EntityCollector.prototype.clear = function() {
 	this._pEntityListItemPool.freeAll();
 	this._pSkyBox = null;
 	if (this._pNumLights > 0) {
-		this._pLights.length = this._pNumLights = 0;
+		this._pLights.length = 0;
+		this._pNumLights = 0;
 	}
 	if (this._numDirectionalLights > 0) {
-		this._directionalLights.length = this._numDirectionalLights = 0;
+		this._directionalLights.length = 0;
+		this._numDirectionalLights = 0;
 	}
 	if (this._numPointLights > 0) {
-		this._pointLights.length = this._numPointLights = 0;
+		this._pointLights.length = 0;
+		this._numPointLights = 0;
 	}
 	if (this._numLightProbes > 0) {
-		this._lightProbes.length = this._numLightProbes = 0;
+		this._lightProbes.length = 0;
+		this._numLightProbes = 0;
 	}
 };
 

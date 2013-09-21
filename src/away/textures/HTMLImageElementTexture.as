@@ -113,7 +113,9 @@ package away.textures
 			if (!HTMLImageElementTexture._mipMaps[newW][newH])
             {
 
-                this._mipMapHolder = HTMLImageElementTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+                this._mipMapHolder = new BitmapData(newW, newH, true);
+                HTMLImageElementTexture._mipMaps[newW][newH] = new BitmapData(newW, newH, true);
+
                 HTMLImageElementTexture._mipMapUses[newW][newH] = 1;
 
 			}

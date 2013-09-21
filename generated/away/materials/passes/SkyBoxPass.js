@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:14 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -53,7 +53,9 @@ away.materials.passes.SkyBoxPass.prototype.iRender = function(renderable, stage3
 	this._vertexData[0] = pos.x;
 	this._vertexData[1] = pos.y;
 	this._vertexData[2] = pos.z;
-	this._vertexData[4] = this._vertexData[5] = this._vertexData[6] = camera.get_lens().get_far() / Math.sqrt(3);
+	this._vertexData[4] = camera.get_lens().get_far() / Math.sqrt(3);
+	this._vertexData[5] = camera.get_lens().get_far() / Math.sqrt(3);
+	this._vertexData[6] = camera.get_lens().get_far() / Math.sqrt(3);
 	context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 0, viewProjection, true);
 	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 4, this._vertexData, 2);
 	renderable.activateVertexBuffer(0, stage3DProxy);

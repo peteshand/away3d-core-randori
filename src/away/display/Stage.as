@@ -76,7 +76,7 @@ package away.display
 
 				var canvas  : HTMLCanvasElement     = this.createHTMLCanvasElement();
                 var stage3D : Stage3D  = new Stage3D( canvas );
-                    stage3D.addEventListener( Event.CONTEXT3D_CREATE , this.onContextCreated , this );
+                    stage3D.addEventListener( Event.CONTEXT3D_CREATE , onContextCreated , this );
 
 				this.stage3Ds.push( stage3D );
 

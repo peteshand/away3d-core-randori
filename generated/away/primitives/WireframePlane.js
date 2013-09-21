@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -87,13 +87,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.y = -hh;
 		v1.z = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.x = v1.x = (ws / this._segmentsW - .5) * this._width;
+			v0.x = (ws / this._segmentsW - .5) * this._width;
+			v1.x = (ws / this._segmentsW - .5) * this._width;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.x = -hw;
 		v1.x = hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.y = v1.y = (hs / this._segmentsH - .5) * this._height;
+			v0.y = (hs / this._segmentsH - .5) * this._height;
+			v1.y = (hs / this._segmentsH - .5) * this._height;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	} else if (this._orientation == away.primitives.WireframePlane.ORIENTATION_XZ) {
@@ -102,13 +104,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.z = -hh;
 		v1.y = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.x = v1.x = (ws / this._segmentsW - .5) * this._width;
+			v0.x = (ws / this._segmentsW - .5) * this._width;
+			v1.x = (ws / this._segmentsW - .5) * this._width;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.x = -hw;
 		v1.x = hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.z = v1.z = (hs / this._segmentsH - .5) * this._height;
+			v0.z = (hs / this._segmentsH - .5) * this._height;
+			v1.z = (hs / this._segmentsH - .5) * this._height;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	} else if (this._orientation == away.primitives.WireframePlane.ORIENTATION_YZ) {
@@ -117,13 +121,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.y = -hh;
 		v1.x = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.z = v1.z = (ws / this._segmentsW - .5) * this._width;
+			v0.z = (ws / this._segmentsW - .5) * this._width;
+			v1.z = (ws / this._segmentsW - .5) * this._width;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.z = hw;
 		v1.z = -hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.y = v1.y = (hs / this._segmentsH - .5) * this._height;
+			v0.y = (hs / this._segmentsH - .5) * this._height;
+			v1.y = (hs / this._segmentsH - .5) * this._height;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	}

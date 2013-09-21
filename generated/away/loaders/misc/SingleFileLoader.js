@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:44:24 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -66,7 +66,7 @@ away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser,
 		if (this._parser) {
 			switch (this._parser.get_dataFormat()) {
 				case away.loaders.parsers.ParserDataFormat.BINARY:
-					dataFormat = away.net.URLLoaderDataFormat.BINARY;
+					dataFormat = away.net.URLLoaderDataFormat.ARRAY_BUFFER;
 					break;
 				case away.loaders.parsers.ParserDataFormat.PLAIN_TEXT:
 					dataFormat = away.net.URLLoaderDataFormat.TEXT;

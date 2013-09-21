@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:13:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:01:54 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -6,8 +6,8 @@ if (typeof aglsl.assembler == "undefined")
 	aglsl.assembler = {};
 
 aglsl.assembler.Reg = function(code, desc) {
-	code = code;
-	desc = desc;
+	this.code = code;
+	this.desc = desc;
 };
 
 aglsl.assembler.Reg.className = "aglsl.assembler.Reg";

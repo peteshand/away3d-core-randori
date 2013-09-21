@@ -5,6 +5,11 @@ import examples.PlaneTest;
 import examples.RotatingTorus;
 import examples.ObjChiefTestDay;
 
+import test.DoubleTest;
+import test.StaticTest;
+import test.SuperTest;
+import test.VectorTest;
+
 public class Main
     {
         public function main()
@@ -17,7 +22,13 @@ public class Main
 
             //var planeTest:PlaneTest = new PlaneTest();
             //var objChiefTestDay2:ObjChiefTestDay = new ObjChiefTestDay();
+
             var cubeDemo:CubeDemo = new CubeDemo();
+            //var staticTest:StaticTest = new StaticTest();
+
+            //var doubleTest:DoubleTest = new DoubleTest();
+            //var vectorTest:VectorTest = new VectorTest();
+            //var superTest:SuperTest = new SuperTest();
         }
     }
 }

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -269,11 +269,15 @@ away.primitives.CubeGeometry.prototype.pBuildUVs = function(target) {
 		this.pInvalidateGeometry();
 	}
 	if (this._tile6) {
-		u_tile_dim = u_tile_step = 1 / 3;
-		v_tile_dim = v_tile_step = 1 / 2;
+		u_tile_dim = 1 / 3;
+		u_tile_step = 1 / 3;
+		v_tile_dim = 1 / 2;
+		v_tile_step = 1 / 2;
 	} else {
-		u_tile_dim = v_tile_dim = 1;
-		u_tile_step = v_tile_step = 0;
+		u_tile_dim = 1;
+		v_tile_dim = 1;
+		u_tile_step = 0;
+		v_tile_step = 0;
 	}
 	uidx = target.get_UVOffset();
 	tl0u = 1 * u_tile_step;
@@ -284,10 +288,10 @@ away.primitives.CubeGeometry.prototype.pBuildUVs = function(target) {
 	dv = v_tile_dim / this._segmentsH;
 	for (i = 0; i <= this._segmentsW; i++) {
 		for (j = 0; j <= this._segmentsH; j++) {
-			data[uidx++] = 1 - ((tl0u + i * du) * target.get_scaleU());
+			data[uidx++] = (tl0u + i * du) * target.get_scaleU();
 			data[uidx++] = (tl0v + (v_tile_dim - j * dv)) * target.get_scaleV();
 			uidx += skip;
-			data[uidx++] = 1 - ((tl1u + (u_tile_dim - i * du)) * target.get_scaleU());
+			data[uidx++] = (tl1u + (u_tile_dim - i * du)) * target.get_scaleU();
 			data[uidx++] = (tl1v + (v_tile_dim - j * dv)) * target.get_scaleV();
 			uidx += skip;
 		}

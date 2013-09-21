@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Fri Sep 13 21:41:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -77,7 +77,8 @@ away.containers.View3D.prototype.set_stage3DProxy = function(stage3DProxy) {
 	}
 	this._pStage3DProxy = stage3DProxy;
 	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(this, this.onViewportUpdated), this);
-	this._pRenderer.set_iStage3DProxy(this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy));
+	this._pRenderer.set_iStage3DProxy(this._pStage3DProxy);
+	this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy);
 	this._globalPosDirty = true;
 	this._pBackBufferInvalid = true;
 };
@@ -239,14 +240,16 @@ away.containers.View3D.prototype.set_height = function(value) {
 away.containers.View3D.prototype.set_x = function(value) {
 	if (this.get_x() == value)
 		return;
-	this._globalPos.x = this._localPos.x = value;
+	this._globalPos.x = value;
+	this._localPos.x = value;
 	this._globalPosDirty = true;
 };
 
 away.containers.View3D.prototype.set_y = function(value) {
 	if (this.get_y() == value)
 		return;
-	this._globalPos.y = this._localPos.y = value;
+	this._globalPos.y = value;
+	this._localPos.y = value;
 	this._globalPosDirty = true;
 };
 
@@ -477,7 +480,8 @@ away.containers.View3D.prototype.onAddedToStage = function() {
 	}
 	this._globalPosDirty = true;
 	this._pRttBufferManager = away.managers.RTTBufferManager.getInstance(this._pStage3DProxy);
-	this._pRenderer.set_iStage3DProxy(this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy));
+	this._pRenderer.set_iStage3DProxy(this._pStage3DProxy);
+	this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy);
 	if (this._width == 0) {
 		this.set_width(this.stage.get_stageWidth());
 	} else {

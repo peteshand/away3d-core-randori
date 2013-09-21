@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:10 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -136,7 +136,7 @@ away.primitives.CapsuleGeometry.prototype.pBuildUVs = function(target) {
 	index = target.get_UVOffset();
 	for (j = 0; j <= this._segmentsH; ++j) {
 		for (i = 0; i <= this._segmentsW; ++i) {
-			data[index++] = 1 - ((i / this._segmentsW) * target.get_scaleU());
+			data[index++] = (i / this._segmentsW) * target.get_scaleU();
 			data[index++] = (j / this._segmentsH) * target.get_scaleV();
 			index += skip;
 		}

@@ -239,7 +239,9 @@ package away.geom
             else
             {
 
-                this.b = this.c = 0;
+                this.b = 0;
+                this.c = 0;
+
 
             }
 
@@ -277,7 +279,11 @@ package away.geom
             if (norm == 0)
             {
 
-                this.a = this.b = this.c = this.d = 0;
+                this.a = 0;
+                this.b = 0;
+                this.c = 0;
+                this.d = 0;
+
                 this.tx = -this.tx;
                 this.ty = -this.ty;
 

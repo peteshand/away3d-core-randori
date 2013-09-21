@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 10 22:28:01 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:00 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,9 +14,9 @@ away.controllers.SpringController = function(targetObject, lookAtObject, stiffne
 	this._stretch = null;
 	this._acceleration = null;
 	away.controllers.LookAtController.call(this, targetObject, lookAtObject);
-	stiffness = stiffness;
-	damping = damping;
-	mass = mass;
+	this.stiffness = stiffness;
+	this.damping = damping;
+	this.mass = mass;
 	this._velocity = new away.geom.Vector3D(0, 0, 0, 0);
 	this._dv = new away.geom.Vector3D(0, 0, 0, 0);
 	this._stretch = new away.geom.Vector3D(0, 0, 0, 0);

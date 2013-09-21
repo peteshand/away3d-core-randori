@@ -78,13 +78,13 @@ package away.cameras.lenses
 		{
 			if (this._baseLens)
 			{
-				this._baseLens.removeEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+				this._baseLens.removeEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			}
 			this._baseLens = value;
 			
 			if (this._baseLens)
 			{
-				this._baseLens.addEventListener( LensEvent.MATRIX_CHANGED, this.onLensMatrixChanged, this );
+				this._baseLens.addEventListener( LensEvent.MATRIX_CHANGED, onLensMatrixChanged, this );
 			}
 			this.pInvalidateMatrix();
 		}
