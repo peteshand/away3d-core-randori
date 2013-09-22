@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:01:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:22 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,6 +15,8 @@ away.loaders.misc.AssetLoaderContext = function(includeDependencies, dependencyB
 	this._dependencyBaseUrl = null;
 	this._overrideFullUrls = null;
 	this._embeddedDataByUrl = null;
+	includeDependencies = includeDependencies || true;
+	dependencyBaseUrl = dependencyBaseUrl || null;
 	this._includeDependencies = includeDependencies;
 	this._dependencyBaseUrl = dependencyBaseUrl || "";
 	this._embeddedDataByUrl = {};

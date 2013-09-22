@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,11 +9,12 @@ away.math.Matrix3DUtils = function() {
 	
 };
 
-away.math.Matrix3DUtils.RAW_DATA_CONTAINER = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+away.math.Matrix3DUtils.RAW_DATA_CONTAINER = away.utils.VectorNumber.init(16, 0);
 
 away.math.Matrix3DUtils.CALCULATION_MATRIX = new away.geom.Matrix3D();
 
 away.math.Matrix3DUtils.quaternion2matrix = function(quarternion, m) {
+	m = m || null;
 	var x = quarternion.x;
 	var y = quarternion.y;
 	var z = quarternion.z;
@@ -53,6 +54,7 @@ away.math.Matrix3DUtils.quaternion2matrix = function(quarternion, m) {
 };
 
 away.math.Matrix3DUtils.getForward = function(m, v) {
+	v = v || null;
 	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
@@ -62,6 +64,7 @@ away.math.Matrix3DUtils.getForward = function(m, v) {
 };
 
 away.math.Matrix3DUtils.getUp = function(m, v) {
+	v = v || null;
 	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
@@ -71,6 +74,7 @@ away.math.Matrix3DUtils.getUp = function(m, v) {
 };
 
 away.math.Matrix3DUtils.getRight = function(m, v) {
+	v = v || null;
 	if (v === null || v == undefined) {
 		v = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	}
@@ -121,6 +125,7 @@ away.math.Matrix3DUtils.lookAt = function(matrix, pos, dir, up) {
 };
 
 away.math.Matrix3DUtils.reflection = function(plane, target) {
+	target = target || null;
 	if (target === null || target == undefined) {
 		target = new away.geom.Matrix3D();
 	}
@@ -163,6 +168,7 @@ away.math.Matrix3DUtils.getStaticDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Matrix3D');
+	p.push('away.utils.VectorNumber');
 	return p;
 };
 

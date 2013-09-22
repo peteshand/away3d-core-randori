@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,8 @@ away.display.Stage = function(width, height) {
 	this._stageWidth = 0;
 	this.STAGE3D_MAX_QUANTITY = 8;
 	this._stageHeight = 0;
+	width = width || 640;
+	height = height || 480;
 	away.events.EventDispatcher.call(this);
 	if (!document) {
 		throw new away.errors.DocumentError("A root document object does not exist.", 0);

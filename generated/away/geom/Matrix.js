@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,12 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Matrix = function(a, b, c, d, tx, ty) {
+	a = a || 1;
+	b = b || 0;
+	c = c || 0;
+	d = d || 1;
+	tx = tx || 0;
+	ty = ty || 0;
 	this.a = a;
 	this.b = b;
 	this.c = c;
@@ -104,6 +110,9 @@ away.geom.Matrix.prototype.copyRowTo = function(row, vector3D) {
 };
 
 away.geom.Matrix.prototype.createBox = function(scaleX, scaleY, rotation, tx, ty) {
+	rotation = rotation || 0;
+	tx = tx || 0;
+	ty = ty || 0;
 	this.a = scaleX;
 	this.d = scaleY;
 	this.b = rotation;
@@ -112,6 +121,9 @@ away.geom.Matrix.prototype.createBox = function(scaleX, scaleY, rotation, tx, ty
 };
 
 away.geom.Matrix.prototype.createGradientBox = function(width, height, rotation, tx, ty) {
+	rotation = rotation || 0;
+	tx = tx || 0;
+	ty = ty || 0;
 	this.a = width / 1638.4;
 	this.d = height / 1638.4;
 	if (rotation != 0.0) {
@@ -200,6 +212,7 @@ away.geom.Matrix.prototype.scale = function(x, y) {
 };
 
 away.geom.Matrix.prototype.setRotation = function(angle, scale) {
+	scale = scale || 1;
 	this.a = Math.cos(angle) * scale;
 	this.c = Math.sin(angle) * scale;
 	this.b = -this.c;

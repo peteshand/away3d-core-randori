@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -107,8 +107,8 @@ away.base.SkinnedSubGeometry.prototype.iCondenseIndexData = function() {
 	var oldIndex;
 	var newIndex = 0;
 	var dic = {};
-	this._condensedJointIndexData = [];
-	this._condensedIndexLookUp = [];
+	this._condensedJointIndexData = away.utils.VectorNumber.init(len, 0);
+	this._condensedIndexLookUp = away.utils.VectorNumber.init(0, 0);
 	for (var i = 0; i < len; ++i) {
 		oldIndex = this._jointIndexData[i];
 		if (dic[oldIndex] == undefined) {
@@ -150,7 +150,9 @@ away.base.SkinnedSubGeometry.className = "away.base.SkinnedSubGeometry";
 
 away.base.SkinnedSubGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.base.SkinnedSubGeometry.getStaticDependencies = function(t) {

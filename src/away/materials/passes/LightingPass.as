@@ -2,6 +2,7 @@
 
 package away.materials.passes
 {
+	import away.utils.VectorNumber;
 	import away.materials.MaterialBase;
 	import away.materials.compilation.ShaderCompiler;
 	import away.materials.compilation.LightingShaderCompiler;
@@ -40,7 +41,7 @@ package away.materials.passes
 		private var _includeCasters:Boolean = true;
 		private var _tangentSpace:Boolean;
 		private var _lightVertexConstantIndex:Number;
-		private var _inverseSceneMatrix:Vector.<Number> = new Vector.<Number>();
+		private var _inverseSceneMatrix:Vector.<Number> = VectorNumber.init();
 		
 		private var _directionalLightsOffset:Number;
 		private var _pointLightsOffset:Number;

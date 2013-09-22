@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,8 @@ if (typeof away.bounds == "undefined")
 away.bounds.NullBounds = function(alwaysIn, renderable) {
 	this._alwaysIn = null;
 	this._renderable = null;
+	alwaysIn = alwaysIn || true;
+	renderable = renderable || null;
 	away.bounds.BoundingVolumeBase.call(this);
 	this._alwaysIn = alwaysIn;
 	this._renderable = renderable;

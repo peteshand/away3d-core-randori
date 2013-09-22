@@ -20,6 +20,8 @@ package away.display3D
 		//@override
 		override public function setProgramConstantsFromMatrix(programType:String, firstRegister:Number, matrix:Matrix3D, transposedMatrix:Boolean = false):void
 		{
+			transposedMatrix = transposedMatrix || false;
+
             /*			console.log( "======== setProgramConstantsFromMatrix ========" );			console.log( "programType       >>> " + programType );			console.log( "firstRegister     >>> " + firstRegister );			console.log( "matrix            >>> " + matrix.rawData );			console.log( "transposedMatrix  >>> " + transposedMatrix );			*/
 
 			var d:Vector.<Number> = matrix.rawData;
@@ -42,6 +44,9 @@ package away.display3D
 		//@override
 		override public function drawTriangles(indexBuffer:IndexBuffer3D, firstIndex:Number = 0, numTriangles:Number = -1):void
 		{
+			firstIndex = firstIndex || 0;
+			numTriangles = numTriangles || -1;
+
             /*			console.log( "======= drawTriangles ========" );			console.log( indexBuffer );			console.log( "firstIndex: " +  firstIndex );			console.log( "numTriangles:" + numTriangles );			*/
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, "yflip" );
 			_gl.uniform1f( location, this._yFlip );

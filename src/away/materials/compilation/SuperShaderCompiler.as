@@ -2,12 +2,13 @@
 
 package away.materials.compilation
 {
+	import away.utils.VectorNumber;
 	//import away3d.arcane;
 
 	/**	 * SuperShaderCompiler is a compiler that generates shaders that perform both lighting and "effects" through methods.	 * This is used by the single-pass materials.	 */
 	public class SuperShaderCompiler extends ShaderCompiler
 	{
-		public var _pointLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;		public var _dirLightRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;
+		public var _pointLightRegisters:Vector.<ShaderRegisterElement>//Vector.<ShaderRegisterElement>;		public var _dirLightRegisters:Vector.<ShaderRegisterElement>//Vector.<ShaderRegisterElement>;
 		/**		 * Creates a new SuperShaderCompiler object.		 * @param profile The compatibility profile used by the renderer.		 */
 		public function SuperShaderCompiler(profile:String):void
 		{
@@ -548,14 +549,14 @@ package away.materials.compilation
 			if (addDiff)
             {
 
-                this._pLightProbeDiffuseIndices = new Vector.<Number>();//Vector.<uint>();
+                this._pLightProbeDiffuseIndices = VectorNumber.init();//Vector.<uint>();
 
             }
 
 			if (addSpec)
             {
 
-                this._pLightProbeSpecularIndices = new Vector.<Number>();//Vector.<uint>();
+                this._pLightProbeSpecularIndices = VectorNumber.init();//Vector.<uint>();
 
             }
 

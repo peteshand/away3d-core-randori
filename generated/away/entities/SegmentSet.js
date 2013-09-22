@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -50,6 +50,7 @@ away.entities.SegmentSet.prototype.addSegment = function(segment) {
 };
 
 away.entities.SegmentSet.prototype.removeSegmentByIndex = function(index, dispose) {
+	dispose = dispose || false;
 	var segRef;
 	if (index >= this._indexSegments) {
 		return;
@@ -101,6 +102,7 @@ away.entities.SegmentSet.prototype.removeSegmentByIndex = function(index, dispos
 };
 
 away.entities.SegmentSet.prototype.removeSegment = function(segment, dispose) {
+	dispose = dispose || false;
 	if (segment.get_iIndex() == -1) {
 		return;
 	}

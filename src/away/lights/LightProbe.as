@@ -19,6 +19,8 @@ package away.lights
 		
 		public function LightProbe(diffuseMap:CubeTextureBase, specularMap:CubeTextureBase = null):void
 		{
+			specularMap = specularMap || null;
+
 			super();
 			this._diffuseMap = diffuseMap;
 			this._specularMap = specularMap;
@@ -65,6 +67,8 @@ package away.lights
 		//@override
 		override public function iGetObjectProjectionMatrix(renderable:IRenderable, target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
 			// TODO: not used
 			renderable = renderable;
 			target = target;

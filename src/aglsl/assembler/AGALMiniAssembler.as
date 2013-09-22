@@ -19,6 +19,9 @@ package aglsl.assembler
 		
 		public function assemble(source:String, ext_part:String = null, ext_version:Number = 1):Object
 		{
+			ext_part = ext_part || null;
+			ext_version = ext_version || 1;
+
 			if( !ext_version )
 			{
 				ext_version = 1;

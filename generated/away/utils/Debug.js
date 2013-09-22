@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:08 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,6 +23,7 @@ away.utils.Debug.breakpoint = function() {
 };
 
 away.utils.Debug.throwPIROnKeyWordOnly = function(str, enable) {
+	enable = enable || true;
 	if (!enable) {
 		away.utils.Debug.keyword = null;
 	} else {
@@ -44,6 +45,7 @@ away.utils.Debug.throwPIR = function(clss, fnc, msg) {
 };
 
 away.utils.Debug.logPIR = function(clss, fnc, msg) {
+	msg = msg || "";
 	if (away.utils.Debug.LOG_PI_ERRORS) {
 		console.log(clss + "." + fnc + ": " + msg);
 	}

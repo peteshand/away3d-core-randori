@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,9 @@ away.primitives.WireframeRegularPolygon = function(radius, sides, color, thickne
 	this._sides = 0;
 	this._orientation = null;
 	this._radius = 0;
+	color = color || 0xFFFFFF;
+	thickness = thickness || 1;
+	orientation = orientation || "yz";
 	away.primitives.WireframePrimitiveBase.call(this, color, thickness);
 	this._radius = radius;
 	this._sides = sides;

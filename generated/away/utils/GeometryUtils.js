@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,7 @@ away.utils.GeometryUtils = function() {
 };
 
 away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, tangents, weights, jointIndices, triangleOffset) {
+	triangleOffset = triangleOffset || 0;
 	var LIMIT_VERTS = 3 * 0xffff;
 	var LIMIT_INDICES = 15 * 0xffff;
 	var subs = [];
@@ -28,14 +29,14 @@ away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, ta
 		var len;
 		var outIndex;
 		var j;
-		var splitVerts = [];
-		var splitIndices = [];
-		var splitUvs = (uvs != null) ? [] : null;
-		var splitNormals = (normals != null) ? [] : null;
-		var splitTangents = (tangents != null) ? [] : null;
-		var splitWeights = (weights != null) ? [] : null;
-		var splitJointIndices = (jointIndices != null) ? [] : null;
-		var mappings = [];
+		var splitVerts = away.utils.VectorNumber.init(0, 0);
+		var splitIndices = away.utils.VectorNumber.init(0, 0);
+		var splitUvs = (uvs != null) ? away.utils.VectorNumber.init(0, 0) : null;
+		var splitNormals = (normals != null) ? away.utils.VectorNumber.init(0, 0) : null;
+		var splitTangents = (tangents != null) ? away.utils.VectorNumber.init(0, 0) : null;
+		var splitWeights = (weights != null) ? away.utils.VectorNumber.init(0, 0) : null;
+		var splitJointIndices = (jointIndices != null) ? away.utils.VectorNumber.init(0, 0) : null;
+		var mappings = away.utils.VectorNumber.init(verts.length / 3, 0);
 		i = mappings.length;
 		while (i-- > 0) {
 			mappings[i] = -1;
@@ -58,13 +59,13 @@ away.utils.GeometryUtils.fromVectors = function(verts, indices, uvs, normals, ta
 			splitIndex = splitVerts.length + 6;
 			if (((outIndex + 2) >= LIMIT_INDICES) || (splitIndex >= LIMIT_VERTS)) {
 				subs.push(away.utils.GeometryUtils.constructSubGeometry(splitVerts, splitIndices, splitUvs, splitNormals, splitTangents, splitWeights, splitJointIndices, triangleOffset));
-				splitVerts = [];
-				splitIndices = [];
-				splitUvs = (uvs != null) ? [] : null;
-				splitNormals = (normals != null) ? [] : null;
-				splitTangents = (tangents != null) ? [] : null;
-				splitWeights = (weights != null) ? [] : null;
-				splitJointIndices = (jointIndices != null) ? [] : null;
+				splitVerts = away.utils.VectorNumber.init(0, 0);
+				splitIndices = away.utils.VectorNumber.init(0, 0);
+				splitUvs = (uvs != null) ? away.utils.VectorNumber.init(0, 0) : null;
+				splitNormals = (normals != null) ? away.utils.VectorNumber.init(0, 0) : null;
+				splitTangents = (tangents != null) ? away.utils.VectorNumber.init(0, 0) : null;
+				splitWeights = (weights != null) ? away.utils.VectorNumber.init(0, 0) : null;
+				splitJointIndices = (jointIndices != null) ? away.utils.VectorNumber.init(0, 0) : null;
 				splitIndex = 0;
 				j = mappings.length;
 				while (j-- > 0) {
@@ -145,9 +146,14 @@ away.utils.GeometryUtils.constructSubGeometry = function(verts, indices, uvs, no
 };
 
 away.utils.GeometryUtils.interleaveBuffers = function(numVertices, vertices, normals, tangents, uvs, suvs) {
+	vertices = vertices || null;
+	normals = normals || null;
+	tangents = tangents || null;
+	uvs = uvs || null;
+	suvs = suvs || null;
 	var i, compIndex, uvCompIndex, interleavedCompIndex;
 	var interleavedBuffer;
-	interleavedBuffer = [];
+	interleavedBuffer = away.utils.VectorNumber.init(0, 0);
 	for (i = 0; i < numVertices; ++i) {
 		uvCompIndex = i * 2;
 		compIndex = i * 3;
@@ -200,6 +206,7 @@ away.utils.GeometryUtils.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.utils.Debug');
 	p.push('away.base.SkinnedSubGeometry');
+	p.push('away.utils.VectorNumber');
 	p.push('away.base.CompactSubGeometry');
 	return p;
 };

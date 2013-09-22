@@ -14,6 +14,8 @@ package away.controllers
 		
 		public function ControllerBase(targetObject:Entity = null):void
 		{
+			targetObject = targetObject || null;
+
 			this.targetObject = targetObject;
 		}
 		
@@ -78,6 +80,8 @@ package away.controllers
 		
 		public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			throw new AbstractMethodError();
 		}
 	}

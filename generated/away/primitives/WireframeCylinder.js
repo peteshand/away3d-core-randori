@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,6 +12,13 @@ away.primitives.WireframeCylinder = function(topRadius, bottomRadius, height, se
 	this.TWO_PI = 2 * 3.141592653589793;
 	this._segmentsH = 0;
 	this._segmentsW = 0;
+	topRadius = topRadius || 50;
+	bottomRadius = bottomRadius || 50;
+	height = height || 100;
+	segmentsW = segmentsW || 16;
+	segmentsH = segmentsH || 1;
+	color = color || 0xFFFFFF;
+	thickness = thickness || 1;
 	away.primitives.WireframePrimitiveBase.call(this, color, thickness);
 	this._topRadius = topRadius;
 	this._bottomRadius = bottomRadius;

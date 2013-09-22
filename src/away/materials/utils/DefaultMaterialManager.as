@@ -15,6 +15,8 @@ package away.materials.utils
 
 		public static function getDefaultMaterial(renderable:IMaterialOwner = null):TextureMaterial
 		{
+			renderable = renderable || null;
+
 			if (!DefaultMaterialManager._defaultTexture)
             {
                 DefaultMaterialManager.createDefaultTexture();
@@ -32,6 +34,8 @@ package away.materials.utils
 		
 		public static function getDefaultTexture(renderable:IMaterialOwner = null):BitmapTexture
 		{
+			renderable = renderable || null;
+
 			if (!DefaultMaterialManager._defaultTexture)
             {
                 DefaultMaterialManager.createDefaultTexture();

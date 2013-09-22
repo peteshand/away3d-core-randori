@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:59 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,6 +11,7 @@ away.net.IMGLoader = function(imageName) {
 	this._request = null;
 	this._loaded = false;
 	this._image = null;
+	imageName = imageName || "";
 	away.events.EventDispatcher.call(this);
 	this._name = imageName;
 	this.initImage();

@@ -16,12 +16,13 @@ package away.net
 
         private var _image:HTMLImageElement;
         private var _request:URLRequest;
-        private var _name:String = '';
-        private var _loaded:Boolean = false;
+        private var _name:String = '';        private var _loaded:Boolean = false;
         private var _crossOrigin:String;
 
         public function IMGLoader(imageName:String = ''):void
         {
+			imageName = imageName || '';
+
 
             super();
             this._name = imageName;

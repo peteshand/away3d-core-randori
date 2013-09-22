@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:21 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -306,10 +306,10 @@ away.materials.compilation.LightingShaderCompiler.prototype.compileLightProbeCod
 		return;
 	}
 	if (addDiff) {
-		this._pLightProbeDiffuseIndices = [];
+		this._pLightProbeDiffuseIndices = away.utils.VectorNumber.init(0, 0);
 	}
 	if (addSpec) {
-		this._pLightProbeSpecularIndices = [];
+		this._pLightProbeSpecularIndices = away.utils.VectorNumber.init(0, 0);
 	}
 	for (i = 0; i < this._pNumProbeRegisters; ++i) {
 		weightRegisters[i] = this._pRegisterCache.getFreeFragmentConstant();
@@ -341,6 +341,7 @@ away.materials.compilation.LightingShaderCompiler.getRuntimeDependencies = funct
 	p = [];
 	p.push('away.materials.compilation.ShaderRegisterData');
 	p.push('away.materials.compilation.MethodDependencyCounter');
+	p.push('away.utils.VectorNumber');
 	p.push('away.materials.methods.ShaderMethodSetup');
 	return p;
 };

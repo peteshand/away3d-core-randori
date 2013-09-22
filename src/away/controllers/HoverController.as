@@ -193,6 +193,19 @@ package away.controllers
 		/**		 * Creates a new <code>HoverController</code> object.		 */
 		public function HoverController(targetObject:Entity = null, lookAtObject:ObjectContainer3D = null, panAngle:Number = 0, tiltAngle:Number = 90, distance:Number = 1000, minTiltAngle:Number = -90, maxTiltAngle:Number = 90, minPanAngle:Number = NaN, maxPanAngle:Number = NaN, steps:Number = 8, yFactor:Number = 2, wrapPanAngle:Boolean = false):void
 		{
+			targetObject = targetObject || null;
+			lookAtObject = lookAtObject || null;
+			panAngle = panAngle || 0;
+			tiltAngle = tiltAngle || 90;
+			distance = distance || 1000;
+			minTiltAngle = minTiltAngle || -90;
+			maxTiltAngle = maxTiltAngle || 90;
+			minPanAngle = minPanAngle || NaN;
+			maxPanAngle = maxPanAngle || NaN;
+			steps = steps || 8;
+			yFactor = yFactor || 2;
+			wrapPanAngle = wrapPanAngle || false;
+
 			super(targetObject, lookAtObject);
 			
 			this.distance = distance;
@@ -214,6 +227,8 @@ package away.controllers
 		/**		 * Updates the current tilt angle and pan angle values.		 *		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.		 *		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 * @see    #steps		 */
 		override public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle)
             {
 

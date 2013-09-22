@@ -565,6 +565,8 @@ package away.containers
 		//@override 
 		override public function lookAt(target:Vector3D, upAxis:Vector3D = null):void
 		{
+			upAxis = upAxis || null;
+
 
 			super.lookAt( target, upAxis );
 			this.notifySceneTransformChange();

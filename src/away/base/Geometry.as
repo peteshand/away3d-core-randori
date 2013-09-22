@@ -10,7 +10,7 @@ package away.base
     /**     *	 * Geometry is a collection of SubGeometries, each of which contain the actual geometrical data such as vertices,	 * normals, uvs, etc. It also contains a reference to an animation class, which defines how the geometry moves.	 * A Geometry object is assigned to a Mesh, a scene graph occurence of the geometry, which in turn assigns	 * the SubGeometries to its respective SubMesh objects.	 *	 *	 *	 * @see away3d.core.base.SubGeometry	 * @see away3d.scenegraph.Mesh     *     * @class away.base.Geometry	 */
 	public class Geometry extends NamedAssetBase implements IAsset
 	{
-        private var _subGeometries:Vector.<ISubGeometry>;//Vector.<ISubGeometry>;//private var _subGeometries:Vector.<ISubGeometry>;		
+        private var _subGeometries:Vector.<ISubGeometry>//Vector.<ISubGeometry>;//private var _subGeometries:Vector.<ISubGeometry>;		
 		override public function get assetType():String
 		{
 
@@ -127,6 +127,9 @@ package away.base
 		/**		 * Scales the uv coordinates (tiling)		 * @param scaleU The amount by which to scale on the u axis. Default is 1;		 * @param scaleV The amount by which to scale on the v axis. Default is 1;		 */
 		public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
+			scaleU = scaleU || 1;
+			scaleV = scaleV || 1;
+
 			var numSubGeoms:Number = this._subGeometries.length;
 
 			for (var i:Number = 0; i < numSubGeoms; ++i)

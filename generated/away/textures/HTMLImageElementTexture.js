@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,6 +11,7 @@ away.textures.HTMLImageElementTexture = function(htmlImageElement, generateMipma
 	this._htmlImageElement = null;
 	this._mipMaps = [];
 	this._mipMapUses = [];
+	generateMipmaps = generateMipmaps || true;
 	away.textures.Texture2DBase.call(this);
 	this._htmlImageElement = htmlImageElement;
 	this._generateMipmaps = generateMipmaps;

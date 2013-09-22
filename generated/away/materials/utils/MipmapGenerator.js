@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -21,6 +21,9 @@ away.materials.utils.MipmapGenerator._rect = new away.geom.Rectangle(0, 0, 0, 0)
 away.materials.utils.MipmapGenerator._source;
 
 away.materials.utils.MipmapGenerator.generateHTMLImageElementMipMaps = function(source, target, mipmap, alpha, side) {
+	mipmap = mipmap || null;
+	alpha = alpha || false;
+	side = side || -1;
 	away.materials.utils.MipmapGenerator._rect.width = source.width;
 	away.materials.utils.MipmapGenerator._rect.height = source.height;
 	away.materials.utils.MipmapGenerator._source = new away.display.BitmapData(source.width, source.height, alpha, -1);
@@ -31,6 +34,9 @@ away.materials.utils.MipmapGenerator.generateHTMLImageElementMipMaps = function(
 };
 
 away.materials.utils.MipmapGenerator.generateMipMaps = function(source, target, mipmap, alpha, side) {
+	mipmap = mipmap || null;
+	alpha = alpha || false;
+	side = side || -1;
 	var w = source.get_width();
 	var h = source.get_height();
 	var regen = mipmap != null;

@@ -10,13 +10,15 @@ package away.materials.compilation
 		private var _index:Number;
 		private var _toStr:String;
 		
-		private static var COMPONENTS = "x";
+		private static var COMPONENTS:Vector.<String> = new <String>['x','y','z','w'];
 		
 		public var _component:Number;
 		
 		/**		 * Creates a new ShaderRegisterElement object.		 * @param regName The name of the register.		 * @param index The index of the register.		 * @param component The register's component, if not the entire register is represented.		 */
 		public function ShaderRegisterElement(regName:String, index:Number, component:Number = -1):void
 		{
+			component = component || -1;
+
 			this._component = component;
 			this._regName = regName;
             this._index = index;

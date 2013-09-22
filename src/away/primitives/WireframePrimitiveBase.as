@@ -17,6 +17,9 @@ package away.primitives
 		
 		public function WireframePrimitiveBase(color:Number = 0xffffff, thickness:Number = 1):void
 		{
+			color = color || 0xffffff;
+			thickness = thickness || 1;
+
 			super();
 			if( thickness <= 0 )
 			{

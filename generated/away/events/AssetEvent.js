@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,8 @@ if (typeof away.events == "undefined")
 away.events.AssetEvent = function(type, asset, prevName) {
 	this._prevName = null;
 	this._asset = null;
+	asset = asset || null;
+	prevName = prevName || null;
 	away.events.Event.call(this, type);
 	this._asset = asset;
 	this._prevName = prevName || this._asset ? this._asset.get_name() : null;

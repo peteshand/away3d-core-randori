@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:52 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,6 +7,9 @@ if (typeof away.primitives == "undefined")
 
 away.primitives.LineSegment = function(v0, v1, color0, color1, thickness) {
 	this.TYPE = "line";
+	color0 = color0 || 0x333333;
+	color1 = color1 || 0x333333;
+	thickness = thickness || 1;
 	away.primitives.data.Segment.call(this, v0, v1, null, color0, color1, thickness);
 };
 

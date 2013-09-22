@@ -20,7 +20,7 @@ package away.partition
 		public var _pDebugPrimitive:WireframePrimitiveBase;
 		
 		public var _iNumEntities:Number = 0;
-		public var _iCollectionMark:Number;// = 0;		
+		public var _iCollectionMark:Number// = 0;		
 		public function NodeBase():void
 		{
 			this._pChildNodes = new <NodeBase>[];

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,11 +23,11 @@ away.entities.Sprite3D = function(material, width, height) {
 	this._spriteMatrix = new away.geom.Matrix3D();
 	if (!away.entities.Sprite3D._geometry) {
 		away.entities.Sprite3D._geometry = new away.base.SubGeometry();
-		away.entities.Sprite3D._geometry.updateVertexData(-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0);
-		away.entities.Sprite3D._geometry.updateUVData(.0, .0, 1.0, .0, 1.0, 1.0, .0, 1.0);
-		away.entities.Sprite3D._geometry.updateIndexData(0, 1, 2, 0, 2, 3);
-		away.entities.Sprite3D._geometry.updateVertexTangentData(1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-		away.entities.Sprite3D._geometry.updateVertexNormalData(.0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0);
+		away.entities.Sprite3D._geometry.updateVertexData([-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0]);
+		away.entities.Sprite3D._geometry.updateUVData([.0, .0, 1.0, .0, 1.0, 1.0, .0, 1.0]);
+		away.entities.Sprite3D._geometry.updateIndexData([0, 1, 2, 0, 2, 3]);
+		away.entities.Sprite3D._geometry.updateVertexTangentData([1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0]);
+		away.entities.Sprite3D._geometry.updateVertexNormalData([.0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0]);
 	}
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,7 @@ away.net.URLRequest = function(url) {
 	this.data = null;
 	this.method = away.net.URLRequestMethod.GET;
 	this.async = true;
+	url = url || null;
 	this._url = url;
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:11 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,6 +7,8 @@ if (typeof away.materials == "undefined")
 
 away.materials.ColorMaterial = function(color, alpha) {
 	this._diffuseAlpha = 1;
+	color = color || 0xcccccc;
+	alpha = alpha || 1;
 	away.materials.SinglePassMaterialBase.call(this);
 	this.set_color(color);
 	this.set_alpha(alpha);

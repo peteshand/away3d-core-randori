@@ -21,7 +21,7 @@ package away.loaders.misc
 	{
 		private var _id:String;
 		private var _req:URLRequest;
-		private var _assets:Vector.<IAsset>;//Vector.<IAsset>;		private var _parentParser:ParserBase;
+		private var _assets:Vector.<IAsset>//Vector.<IAsset>;		private var _parentParser:ParserBase;
 		private var _data:*;
 		private var _retrieveAsRawData:Boolean;
 		private var _suppressAssetEvents:Boolean;
@@ -33,6 +33,9 @@ package away.loaders.misc
 		
 		public function ResourceDependency(id:String, req:URLRequest, data:*, parentParser:ParserBase, retrieveAsRawData:Boolean = false, suppressAssetEvents:Boolean = false):void
 		{
+			retrieveAsRawData = retrieveAsRawData || false;
+			suppressAssetEvents = suppressAssetEvents || false;
+
 
 			this._id = id;
             this._req = req;

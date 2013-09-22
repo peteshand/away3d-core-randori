@@ -33,28 +33,31 @@ package away.materials
         public var extra:Object;
 
         /**         * A value that can be used by materials that only work with a given type of renderer. The renderer can test the         * classification to choose which render path to use. For example, a deferred material could set this value so         * that the deferred renderer knows not to take the forward rendering path.         *         * @private         */
-        public var _iClassification:String;//Arcane
+        public var _iClassification:String//Arcane
         /**         * An id for this material used to sort the renderables by material, which reduces render state changes across         * materials using the same Program3D.         *         * @private         */
-        public var _iUniqueId:Number;//Arcane
+        public var _iUniqueId:Number//Arcane
         /**         * An id for this material used to sort the renderables by shader program, which reduces Program3D state changes.         *         * @private         */
-        public var _iRenderOrderId:Number = 0;//Arcane
+        public var _iRenderOrderId:Number//Arcane = 0
+
         /**         * The same as _renderOrderId, but applied to the depth shader passes.         *         * @private         */
-        public var _iDepthPassId:Number;//Arcane
-        private var _bothSides:Boolean = false; // update        private var _animationSet:IAnimationSet;
+        public var _iDepthPassId:Number//Arcane
+        private var _bothSides:Boolean// update = false
+        private var _animationSet:IAnimationSet;
 
         /**         * A list of material owners, renderables or custom Entities.         */
 
 
-        private var _owners:Vector.<IMaterialOwner>;//:Vector.<IMaterialOwner>;
+        private var _owners:Vector.<IMaterialOwner>//:Vector.<IMaterialOwner>;
         private var _alphaPremultiplied:Boolean;
 
         public var _pBlendMode:String = BlendMode.NORMAL;
 
         private var _numPasses:Number = 0;
-        private var _passes:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>;
+        private var _passes:Vector.<MaterialPassBase>//Vector.<MaterialPassBase>;
         public var _pMipmap:Boolean = true;
         private var _smooth:Boolean = true;
-        private var _repeat:Boolean = false; // Update
+        private var _repeat:Boolean// Update = false
+
         public var _pDepthPass:DepthMapPass;
         public var _pDistancePass:DistanceMapPass;
         public var _pLightPicker:LightPickerBase;
@@ -323,6 +326,8 @@ package away.materials
 
         /**         * Sets the render state for the depth pass that is independent of the rendered object. Used when rendering         * depth or distances (fe: shadow maps, depth pre-pass).         *         * @param stage3DProxy The Stage3DProxy used for rendering.         * @param camera The camera from which the scene is viewed.         * @param distanceBased Whether or not the depth pass or distance pass should be activated. The distance pass         * is required for shadow cube maps.         *         * @private         */
         public function iActivateForDepth(stage3DProxy:Stage3DProxy, camera:Camera3D, distanceBased:Boolean = false):void // ARCANE        {
+			distanceBased = distanceBased || false;
+
 
 
             this._distanceBasedDepthRender = distanceBased;

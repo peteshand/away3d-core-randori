@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -63,6 +63,8 @@ away.materials.methods.ShadingMethodBase.prototype.iDeactivate = function(vo, st
 };
 
 away.materials.methods.ShadingMethodBase.prototype.pGetTex2DSampleCode = function(vo, targetReg, inputReg, texture, uvReg, forceWrap) {
+	uvReg = uvReg || null;
+	forceWrap = forceWrap || null;
 	var wrap = forceWrap || vo.repeatTextures ? "wrap" : "clamp";
 	var filter;
 	var format = this.getFormatStringForTexture(texture);

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -31,6 +31,9 @@ away.render.DefaultRenderer.prototype.set_iStage3DProxy = function(value) {
 };
 
 away.render.DefaultRenderer.prototype.pExecuteRender = function(entityCollector, target, scissorRect, surfaceSelector) {
+	target = target || null;
+	scissorRect = scissorRect || null;
+	surfaceSelector = surfaceSelector || 0;
 	this.updateLights(entityCollector);
 	if (target) {
 		this.drawRenderables(entityCollector.get_opaqueRenderableHead(), entityCollector, away.render.DefaultRenderer.RTT_PASSES);

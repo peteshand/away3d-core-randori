@@ -6,9 +6,7 @@ package away.net
     {
 
         public static var ANONYMOUS:String = 'anonymous';
-
         public static var USE_CREDENTIALS:String = 'use-credentials';
-
 
     }
 

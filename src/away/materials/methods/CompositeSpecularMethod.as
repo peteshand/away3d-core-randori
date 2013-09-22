@@ -26,6 +26,8 @@ package away.materials.methods
 
         public function initCompositeSpecularMethod(scope:Object, modulateMethod:Function, baseSpecularMethod:BasicSpecularMethod = null):void
         {
+			baseSpecularMethod = baseSpecularMethod || null;
+
 
             this._baseMethod = baseSpecularMethod || new BasicSpecularMethod();
             this._baseMethod._iModulateMethod = modulateMethod;

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:01 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,8 @@ if (typeof away.events == "undefined")
 away.events.ResizeEvent = function(type, oldHeight, oldWidth) {
 	this._oldHeight = 0;
 	this._oldWidth = 0;
+	oldHeight = oldHeight || NaN;
+	oldWidth = oldWidth || NaN;
 	away.events.Event.call(this, type);
 	this._oldHeight = oldHeight;
 	this._oldWidth = oldWidth;

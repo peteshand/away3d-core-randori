@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -95,6 +95,7 @@ away.managers.Mouse3DManager.prototype.dispose = function() {
 };
 
 away.managers.Mouse3DManager.prototype.queueDispatch = function(event, sourceEvent, collider) {
+	collider = collider || null;
 	throw new away.errors.PartialImplementationError("MouseEvent ( as3 \/ native ) as3 <> JS Conversion", 0);
 };
 

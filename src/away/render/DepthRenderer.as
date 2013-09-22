@@ -25,6 +25,9 @@ package away.render
 		/**		 * Creates a new DepthRenderer object.		 * @param renderBlended Indicates whether semi-transparent objects should be rendered.		 * @param distanceBased Indicates whether the written depth value is distance-based or projected depth-based		 */
 		public function DepthRenderer(renderBlended:Boolean = false, distanceBased:Boolean = false):void
 		{
+			renderBlended = renderBlended || false;
+			distanceBased = distanceBased || false;
+
 			super(false);
 			
 			this._renderBlended = renderBlended;

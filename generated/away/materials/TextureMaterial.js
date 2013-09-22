@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,10 @@ if (typeof away.materials == "undefined")
 	away.materials = {};
 
 away.materials.TextureMaterial = function(texture, smooth, repeat, mipmap) {
+	texture = texture || null;
+	smooth = smooth || true;
+	repeat = repeat || false;
+	mipmap = mipmap || false;
 	away.materials.SinglePassMaterialBase.call(this);
 	this.set_texture(texture);
 	this.set_smooth(smooth);

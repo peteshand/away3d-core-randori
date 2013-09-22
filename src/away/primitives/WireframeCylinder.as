@@ -19,6 +19,14 @@ package away.primitives
 		/**		 * Creates a new WireframeCylinder instance		 * @param topRadius Top radius of the cylinder		 * @param bottomRadius Bottom radius of the cylinder		 * @param height The height of the cylinder		 * @param segmentsW Number of radial segments		 * @param segmentsH Number of vertical segments		 * @param color The color of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeCylinder(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
+			topRadius = topRadius || 50;
+			bottomRadius = bottomRadius || 50;
+			height = height || 100;
+			segmentsW = segmentsW || 16;
+			segmentsH = segmentsH || 1;
+			color = color || 0xFFFFFF;
+			thickness = thickness || 1;
+
 			super(color, thickness);
 			this._topRadius = topRadius;
             this._bottomRadius = bottomRadius;

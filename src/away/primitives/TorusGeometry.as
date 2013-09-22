@@ -3,6 +3,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 	
@@ -74,7 +75,7 @@ package away.primitives
 
                 if ( target.indexData == null )
                 {
-                    this._rawIndices = new Vector.<Number>( numTriangles * 3 );
+                    this._rawIndices = VectorNumber.init( numTriangles * 3 );
                 }
                 else
                 {
@@ -85,8 +86,8 @@ package away.primitives
             else
             {
 				var numVertComponents:Number = this._numVertices*this._vertexStride;
-                this._rawVertexData = new Vector.<Number>(numVertComponents);
-                this._rawIndices = new Vector.<Number>(numTriangles*3);
+                this._rawVertexData = VectorNumber.init(numVertComponents);
+                this._rawIndices = VectorNumber.init(numTriangles*3);
                 this.pInvalidateUVs();
 
 			}
@@ -195,7 +196,7 @@ package away.primitives
             }
 			else
             {
-				data = new Vector.<Number>( numUvs );
+				data = VectorNumber.init( numUvs );
 				this.pInvalidateGeometry();//invalidateGeometry();
 			}
 			
@@ -285,6 +286,12 @@ package away.primitives
 		/**		 * Creates a new <code>Torus</code> object.		 * @param radius The radius of the torus.		 * @param tuebRadius The radius of the inner tube of the torus.		 * @param segmentsR Defines the number of horizontal segments that make up the torus.		 * @param segmentsT Defines the number of vertical segments that make up the torus.		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function TorusGeometry(radius:Number = 50, tubeRadius:Number = 50, segmentsR:Number = 16, segmentsT:Number = 8, yUp:Boolean = true):void
 		{
+			radius = radius || 50;
+			tubeRadius = tubeRadius || 50;
+			segmentsR = segmentsR || 16;
+			segmentsT = segmentsT || 8;
+			yUp = yUp || true;
+
 			super();
 
             this._radius = radius;

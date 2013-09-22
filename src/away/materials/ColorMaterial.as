@@ -12,6 +12,9 @@ package away.materials
 		/**		 * Creates a new ColorMaterial object.		 * @param color The material's diffuse surface color.		 * @param alpha The material's surface alpha.		 */
 		public function ColorMaterial(color:Number = 0xcccccc, alpha:Number = 1):void
 		{
+			color = color || 0xcccccc;
+			alpha = alpha || 1;
+
 
 			super();
 

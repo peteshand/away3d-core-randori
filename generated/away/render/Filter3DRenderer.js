@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -109,7 +109,7 @@ away.render.Filter3DRenderer.prototype.render = function(stage3DProxy, camera3D,
 		}
 		context.setTextureAt(0, task.getMainInputTexture(stage3DProxy));
 		context.setProgram(task.getProgram3D(stage3DProxy));
-		context.clear(0.0, 0.0, 0.0, 0.0, 1, 0, 0);
+		context.clear(0.0, 0.0, 0.0, 0.0, 1, 0, 17664);
 		task.activate(stage3DProxy, camera3D, depthTexture);
 		context.setBlendFactors(away.display3D.Context3DBlendFactor.ONE, away.display3D.Context3DBlendFactor.ZERO);
 		context.drawTriangles(indexBuffer, 0, 2);

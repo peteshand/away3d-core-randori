@@ -3,6 +3,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 
 	/**	 * A Cylinder primitive mesh.	 */
 	public class CylinderGeometry extends PrimitiveBase
@@ -110,15 +111,15 @@ package away.primitives
                 }
                 else
                 {
-                    this._rawIndices =  new Vector.<Number>(numTriangles*3);
+                    this._rawIndices =  VectorNumber.init(numTriangles*3);
                 }
 
 			}
             else
             {
 				var numVertComponents:Number = this._numVertices*this._stride;
-                this._rawData = new Vector.<Number>(numVertComponents);
-                this._rawIndices = new Vector.<Number>(numTriangles*3);
+                this._rawData = VectorNumber.init(numVertComponents);
+                this._rawIndices = VectorNumber.init(numTriangles*3);
 			}
 			
 			// evaluate revolution steps
@@ -328,7 +329,7 @@ package away.primitives
             }
 			else
             {
-				UVData = new Vector.<Number>(numUvs);
+				UVData = VectorNumber.init(numUvs);
 				this.pInvalidateGeometry();
 			}
 			
@@ -509,6 +510,16 @@ package away.primitives
 		/**		 * Creates a new Cylinder object.		 * @param topRadius The radius of the top end of the cylinder.		 * @param bottomRadius The radius of the bottom end of the cylinder		 * @param height The radius of the bottom end of the cylinder		 * @param segmentsW Defines the number of horizontal segments that make up the cylinder. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the cylinder. Defaults to 1.		 * @param topClosed Defines whether the top end of the cylinder is closed (true) or open.		 * @param bottomClosed Defines whether the bottom end of the cylinder is closed (true) or open.		 * @param yUp Defines whether the cone poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function CylinderGeometry(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, topClosed:Boolean = true, bottomClosed:Boolean = true, surfaceClosed:Boolean = true, yUp:Boolean = true):void
 		{
+			topRadius = topRadius || 50;
+			bottomRadius = bottomRadius || 50;
+			height = height || 100;
+			segmentsW = segmentsW || 16;
+			segmentsH = segmentsH || 1;
+			topClosed = topClosed || true;
+			bottomClosed = bottomClosed || true;
+			surfaceClosed = surfaceClosed || true;
+			yUp = yUp || true;
+
 			super();
 
             this._topRadius = topRadius;

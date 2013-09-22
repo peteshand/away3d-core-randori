@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,8 @@ if (typeof away.errors == "undefined")
 	away.errors = {};
 
 away.errors.AbstractMethodError = function(message, id) {
+	message = message || null;
+	id = id || 0;
 	away.errors.Error.call(this, message || "An abstract method was called! Either an instance of an abstract class was created, or an abstract method was not overridden by the subclass.", id, "");
 };
 

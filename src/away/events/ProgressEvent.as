@@ -7,7 +7,6 @@ package away.events
 	{
 
         public static var PROGRESS:String = "ProgressEvent_progress";
-
         public var bytesLoaded:Number;
         public var bytesTotal:Number;
 

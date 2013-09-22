@@ -227,6 +227,8 @@ package away.bounds
 		/**		 * Finds the closest point on the bounding volume to another given point. This can be used for maximum error calculations for content within a given bound.		 * @param point The point for which to find the closest point on the bounding volume		 * @param target An optional Vector3D to store the result to prevent creating a new object.		 * @return		 */
 		public function closestPointToPoint(point:Vector3D, target:Vector3D = null):Vector3D
 		{
+			target = target || null;
+
 			var p:Number;
 
             if ( target == null )

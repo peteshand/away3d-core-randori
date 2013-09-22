@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,6 +18,8 @@ away.loaders.misc.ResourceDependency = function(id, req, data, parentParser, ret
 	this._iLoader = null;
 	this._assets = null;
 	this._retrieveAsRawData = null;
+	retrieveAsRawData = retrieveAsRawData || false;
+	suppressAssetEvents = suppressAssetEvents || false;
 	this._id = id;
 	this._req = req;
 	this._parentParser = parentParser;

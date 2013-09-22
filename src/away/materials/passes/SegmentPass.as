@@ -2,6 +2,7 @@
 
 package away.materials.passes
 {
+	import away.utils.VectorNumber;
 	import away.geom.Matrix3D;
 	import away.base.IRenderable;
 	import away.managers.Stage3DProxy;
@@ -16,7 +17,7 @@ package away.materials.passes
 		public static var pONE_VECTOR:Vector.<Number> = new <Number>[1, 1, 1, 1];
 		public static var pFRONT_VECTOR:Vector.<Number> = new <Number>[0, 0, -1, 0];
 		
-		private var _constants:Vector.<Number> = new Vector.<Number>(4);
+		private var _constants:Vector.<Number> = VectorNumber.init(4);
 		private var _calcMatrix:Matrix3D;
 		private var _thickness:Number;
 		

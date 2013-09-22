@@ -3,6 +3,7 @@
 
 package away.primitives
 {
+	import away.utils.VectorNumber;
 	import away.geom.Vector3D;
 
 	/**	 * A WireframeSphere primitive mesh	 */
@@ -15,6 +16,12 @@ package away.primitives
 		/**		 * Creates a new WireframeSphere object.		 * @param radius The radius of the sphere.		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.		 * @param segmentsH Defines the number of vertical segments that make up the sphere.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeSphere(radius:Number = 50, segmentsW:Number = 16, segmentsH:Number = 12, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
+			radius = radius || 50;
+			segmentsW = segmentsW || 16;
+			segmentsH = segmentsH || 12;
+			color = color || 0xFFFFFF;
+			thickness = thickness || 1;
+
 			super(color, thickness);
 			
 			this._radius = radius;
@@ -25,7 +32,7 @@ package away.primitives
 		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry():void
 		{
-			var vertices:Vector.<Number> = new Vector.<Number>();
+			var vertices:Vector.<Number> = VectorNumber.init();
 			var v0:Vector3D = new Vector3D();
 			var v1:Vector3D = new Vector3D();
 			var i:Number, j:Number;

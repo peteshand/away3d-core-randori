@@ -19,6 +19,15 @@ package away.geom
 
         public function ColorTransform(inRedMultiplier:Number = 1.0, inGreenMultiplier:Number = 1.0, inBlueMultiplier:Number = 1.0, inAlphaMultiplier:Number = 1.0, inRedOffset:Number = 0.0, inGreenOffset:Number = 0.0, inBlueOffset:Number = 0.0, inAlphaOffset:Number = 0.0):void
         {
+			inRedMultiplier = inRedMultiplier || 1.0;
+			inGreenMultiplier = inGreenMultiplier || 1.0;
+			inBlueMultiplier = inBlueMultiplier || 1.0;
+			inAlphaMultiplier = inAlphaMultiplier || 1.0;
+			inRedOffset = inRedOffset || 0.0;
+			inGreenOffset = inGreenOffset || 0.0;
+			inBlueOffset = inBlueOffset || 0.0;
+			inAlphaOffset = inAlphaOffset || 0.0;
+
 
             this.redMultiplier      = inRedMultiplier;
             this.greenMultiplier    = inGreenMultiplier;

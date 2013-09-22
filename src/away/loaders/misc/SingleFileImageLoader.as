@@ -16,7 +16,7 @@ package away.loaders.misc
 
         private var _loader:IMGLoader;
         private var _data:*;
-        private var _dataFormat:String; // Not used in this implementation
+        private var _dataFormat:String// Not used in this implementation
         public function SingleFileImageLoader():void
         {
             super();

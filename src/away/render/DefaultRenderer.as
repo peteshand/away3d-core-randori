@@ -53,6 +53,10 @@ package away.render
 
         override public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
+			target = target || null;
+			scissorRect = scissorRect || null;
+			surfaceSelector = surfaceSelector || 0;
+
 
 			this.updateLights(entityCollector);
 			

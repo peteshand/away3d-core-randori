@@ -55,7 +55,9 @@ package away.materials.passes
 		private var _animationSet:IAnimationSet;
 
         public var _iProgram3Ds:Vector.<Program3D> = new Vector.<Program3D>( 8 );
-        public var _iProgram3Dids:Vector.<Number> = new <Number>[-1, -1, -1, -1, -1, -1, -1, -1];//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]);		private var _context3Ds:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		
+        public var _iProgram3Dids:Vector.<Number>//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]); = new <Number>[-1, -1, -1, -1, -1, -1, -1, -1]
+		private var _context3Ds:Vector.<Context3D>//Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		
 		// agal props. these NEED to be set by subclasses!
 		// todo: can we perhaps figure these out manually by checking read operations in the bytecode, so other sources can be safely updated?
         public var _pNumUsedStreams:Number;
@@ -85,10 +87,11 @@ package away.materials.passes
         public var _pAnimationTargetRegisters:Vector.<String> = new Vector.<String>();
 
         // TODO: AGAL conversion
-        public var _pShadedTarget:String = "ft0";
-		
+        public var _pShadedTarget:String = "ft0";		
 		// keep track of previously rendered usage for faster cleanup of old vertex buffer streams and textures
-		private static var _previousUsedStreams:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private static var _previousUsedTexs:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]);		private var _defaultCulling:String = Context3DTriangleFace.BACK;
+		private static var _previousUsedStreams:Vector.<Number>//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]); = new <Number>[0, 0, 0, 0, 0, 0, 0, 0]
+		private static var _previousUsedTexs:Vector.<Number>//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]); = new <Number>[0, 0, 0, 0, 0, 0, 0, 0]
+		private var _defaultCulling:String = Context3DTriangleFace.BACK;
 		
 		private var _renderToTexture:Boolean;
 		
@@ -493,6 +496,8 @@ package away.materials.passes
 		/**		 * Marks the shader program as invalid, so it will be recompiled before the next render.		 *		 * @param updateMaterial Indicates whether the invalidation should be performed on the entire material. Should always pass "true" unless it's called from the material itself.		 */
 		public function iInvalidateShaderProgram(updateMaterial:Boolean = true):void
 		{
+			updateMaterial = updateMaterial || true;
+
 			for (var i:Number = 0; i < 8; ++i)
             {
 

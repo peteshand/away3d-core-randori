@@ -17,7 +17,7 @@ package away.managers
 	{
         //private static _instances:Object;
         private static var _instances:Vector.<Stage3DManagerInstanceData>;
-		private static var _stageProxies:Vector.<Stage3DProxy>;//.<Stage3DProxy>;		private static var _numStageProxies:Number = 0;
+		private static var _stageProxies:Vector.<Stage3DProxy>//.<Stage3DProxy>;		private static var _numStageProxies:Number = 0;
 		
 		private var _stage:Stage;
 		
@@ -97,6 +97,9 @@ package away.managers
 		/**		 * Requests the Stage3DProxy for the given index.		 * @param index The index of the requested Stage3D.		 * @param forceSoftware Whether to force software mode even if hardware acceleration is available.		 * @param profile The compatibility profile, an enumeration of Context3DProfile		 * @return The Stage3DProxy for the given index.		 */
 		public function getStage3DProxy(index:Number, forceSoftware:Boolean = false, profile:String = "baseline"):Stage3DProxy
 		{
+			forceSoftware = forceSoftware || false;
+			profile = profile || "baseline";
+
 			if (!Stage3DManager._stageProxies[index])
             {
 
@@ -118,6 +121,9 @@ package away.managers
 		/**		 * Get the next available stage3DProxy. An error is thrown if there are no Stage3DProxies available		 * @param forceSoftware Whether to force software mode even if hardware acceleration is available.		 * @param profile The compatibility profile, an enumeration of Context3DProfile		 * @return The allocated stage3DProxy		 */
 		public function getFreeStage3DProxy(forceSoftware:Boolean = false, profile:String = "baseline"):Stage3DProxy
 		{
+			forceSoftware = forceSoftware || false;
+			profile = profile || "baseline";
+
 			var i:Number = 0;
 			var len:Number = Stage3DManager._stageProxies.length;
 

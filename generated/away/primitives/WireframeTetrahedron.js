@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,9 @@ away.primitives.WireframeTetrahedron = function(width, height, color, thickness,
 	this._width = 0;
 	this._height = 0;
 	this._orientation = null;
+	color = color || 0xffffff;
+	thickness = thickness || 1;
+	orientation = orientation || "yz";
 	away.primitives.WireframePrimitiveBase.call(this, color, thickness);
 	this._width = width;
 	this._height = height;

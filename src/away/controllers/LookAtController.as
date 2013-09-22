@@ -16,6 +16,9 @@ package away.controllers
 		
 		public function LookAtController(targetObject:Entity = null, lookAtObject:ObjectContainer3D = null):void
 		{
+			targetObject = targetObject || null;
+			lookAtObject = lookAtObject || null;
+
 			super( targetObject );
 			if( lookAtObject )
 			{
@@ -78,6 +81,8 @@ package away.controllers
 		//@override
 		override public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			interpolate = interpolate; // prevents unused warning
 			
 			if( this._pTargetObject )

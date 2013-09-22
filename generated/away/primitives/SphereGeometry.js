@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:43 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,10 @@ away.primitives.SphereGeometry = function(radius, segmentsW, segmentsH, yUp) {
 	this._radius = 0;
 	this._segmentsH = 0;
 	this._segmentsW = 0;
+	radius = radius || 50;
+	segmentsW = segmentsW || 16;
+	segmentsH = segmentsH || 12;
+	yUp = yUp || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._radius = radius;
 	this._segmentsW = segmentsW;
@@ -31,11 +35,11 @@ away.primitives.SphereGeometry.prototype.pBuildGeometry = function(target) {
 		if (target.get_indexData()) {
 			indices = target.get_indexData();
 		} else {
-			indices = [];
+			indices = away.utils.VectorNumber.init((this._segmentsH - 1) * this._segmentsW * 6, 0);
 		}
 	} else {
-		vertices = [];
-		indices = [];
+		vertices = away.utils.VectorNumber.init(numVerts * stride, 0);
+		indices = away.utils.VectorNumber.init((this._segmentsH - 1) * this._segmentsW * 6, 0);
 		this.pInvalidateGeometry();
 	}
 	var startIndex;
@@ -127,7 +131,7 @@ away.primitives.SphereGeometry.prototype.pBuildUVs = function(target) {
 	var skip = stride - 2;
 	if (target.get_UVData() && numUvs == target.get_UVData().length)
 		data = target.get_UVData(); else {
-		data = [];
+		data = away.utils.VectorNumber.init(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var index = target.get_UVOffset();
@@ -185,7 +189,9 @@ away.primitives.SphereGeometry.className = "away.primitives.SphereGeometry";
 
 away.primitives.SphereGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.primitives.SphereGeometry.getStaticDependencies = function(t) {

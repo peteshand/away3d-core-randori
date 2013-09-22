@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,8 @@ away.render.DepthRenderer = function(renderBlended, distanceBased) {
 	this._distanceBased = null;
 	this._renderBlended = null;
 	this._disableColor = null;
+	renderBlended = renderBlended || false;
+	distanceBased = distanceBased || false;
 	away.render.RendererBase.call(this, false);
 	this._renderBlended = renderBlended;
 	this._distanceBased = distanceBased;
@@ -40,7 +42,7 @@ away.render.DepthRenderer.prototype.iRenderCascades = function(entityCollector, 
 	this._pRenderTargetSurface = 0;
 	this._pRenderableSorter.sort(entityCollector);
 	this._pStage3DProxy.setRenderTarget(target, true, 0);
-	this._pContext.clear(1, 1, 1, 1, 1, 0, 0);
+	this._pContext.clear(1, 1, 1, 1, 1, 0, 17664);
 	this._pContext.setBlendFactors(away.display3D.Context3DBlendFactor.ONE, away.display3D.Context3DBlendFactor.ZERO);
 	this._pContext.setDepthTest(true, away.display3D.Context3DCompareMode.LESS);
 	var head = entityCollector.get_opaqueRenderableHead();

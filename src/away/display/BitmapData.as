@@ -26,6 +26,9 @@ package away.display {
         /**         *         * @param width         * @param height         * @param transparent         * @param fillColor         */
         public function BitmapData(width:Number, height:Number, transparent:Boolean = true, fillColor:Number = -1):void
         {
+			transparent = transparent || true;
+			fillColor = fillColor || -1;
+
 
             this._transparent           = transparent;
             this._imageCanvas           = HTMLCanvasElement(Window.document.createElement("canvas") );

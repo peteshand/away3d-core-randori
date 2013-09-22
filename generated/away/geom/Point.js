@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,8 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Point = function(x, y) {
+	x = x || 0;
+	y = y || 0;
 	this.x = x;
 	this.y = y;
 };

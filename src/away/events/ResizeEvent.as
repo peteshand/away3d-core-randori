@@ -7,13 +7,15 @@ package away.events
 	public class ResizeEvent extends Event
 	{
 		
-		public static var RESIZE:String = "resize";
-		
+		public static var RESIZE:String = "resize";		
 		private var _oldHeight:Number;
 		private var _oldWidth:Number;
 		
 		public function ResizeEvent(type:String, oldHeight:Number = NaN, oldWidth:Number = NaN):void
 		{
+			oldHeight = oldHeight || NaN;
+			oldWidth = oldWidth || NaN;
+
 			super( type );
 			this._oldHeight = oldHeight;
 			this._oldWidth = oldWidth;

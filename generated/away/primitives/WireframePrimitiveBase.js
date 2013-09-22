@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,8 @@ away.primitives.WireframePrimitiveBase = function(color, thickness) {
 	this._thickness = 0;
 	this._color = 0;
 	this._geomDirty = true;
+	color = color || 0xffffff;
+	thickness = thickness || 1;
 	away.entities.SegmentSet.call(this);
 	if (thickness <= 0) {
 		thickness = 1;

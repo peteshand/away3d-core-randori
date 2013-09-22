@@ -9,10 +9,13 @@ package away.primitives
 	import away.geom.Vector3D;
 	public class LineSegment extends Segment
 	{
-		public var TYPE:String = "line";
-		
+		public var TYPE:String = "line";		
 		public function LineSegment(v0:Vector3D, v1:Vector3D, color0:Number = 0x333333, color1:Number = 0x333333, thickness:Number = 1):void
 		{
+			color0 = color0 || 0x333333;
+			color1 = color1 || 0x333333;
+			thickness = thickness || 1;
+
 			super( v0, v1, null, color0, color1, thickness );
 		}
 	}

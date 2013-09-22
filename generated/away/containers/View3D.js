@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -40,6 +40,11 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._pRequireDepthRender = null;
 	this._profile = null;
 	this._pEntityCollector = null;
+	scene = scene || null;
+	camera = camera || null;
+	renderer = renderer || null;
+	forceSoftware = forceSoftware || false;
+	profile = profile || "baseline";
 	if (away.containers.View3D.sStage == null) {
 		away.containers.View3D.sStage = new away.display.Stage(640, 480);
 	}

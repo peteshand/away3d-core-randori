@@ -13,6 +13,8 @@ package away.net {
         /**         *         * @param source         */
         public function URLVariables(source:String = null):void
         {
+			source = source || null;
+
 
             if ( source !== null )
             {

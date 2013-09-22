@@ -27,6 +27,11 @@ package away.math
 		/**		 * Creates a new Quaternion object.		 * @param x The x value of the quaternion.		 * @param y The y value of the quaternion.		 * @param z The z value of the quaternion.		 * @param w The w value of the quaternion.		 */
 		public function Quaternion(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 1):void
 		{
+			x = x || 0;
+			y = y || 0;
+			z = z || 0;
+			w = w || 1;
+
 			this.x = x;
 			this.y = y;
 			this.z = z;
@@ -53,6 +58,8 @@ package away.math
 		
 		public function multiplyVector(vector:Vector3D, target:Quaternion = null):Quaternion
 		{
+			target = target || null;
+
             //target ||= new Quaternion();
             if ( target === null )
             {
@@ -171,6 +178,8 @@ package away.math
 		/**		 * Fills a target Vector3D object with the Euler angles that form the rotation represented by this quaternion.		 * @param target An optional Vector3D object to contain the Euler angles. If not provided, a new object is created.		 * @return The Vector3D containing the Euler angles.		 */
 		public function toEulerAngles(target:Vector3D = null):Vector3D
 		{
+			target = target || null;
+
 
 			//target ||= new away.geom.Vector3D();
             if ( target === null )
@@ -190,6 +199,8 @@ package away.math
 		/**		 * Normalises the quaternion object.		 */
 		public function normalize(val:Number = 1):void
 		{
+			val = val || 1;
+
 			var mag:Number = val/Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z + this.w*this.w);
 
             this.x *= mag;
@@ -207,6 +218,8 @@ package away.math
 		/**		 * Converts the quaternion to a Matrix3D object representing an equivalent rotation.		 * @param target An optional Matrix3D container to store the transformation in. If not provided, a new object is created.		 * @return A Matrix3D object representing an equivalent rotation.		 */
 		public function toMatrix3D(target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
 			var rawData:Vector.<Number> = Matrix3DUtils.RAW_DATA_CONTAINER;
 			var xy2:Number = 2.0*this.x*this.y, xz2:Number = 2.0*this.x*this.z, xw2:Number = 2.0*this.x*this.w;
 			var yz2:Number = 2.0*this.y*this.z, yw2:Number = 2.0*this.y*this.w, zw2:Number = 2.0*this.z*this.w;
@@ -253,6 +266,8 @@ package away.math
 		/**		 * Converts the quaternion to a Vector.&lt;Number&gt; matrix representation of a rotation equivalent to this quaternion.		 * @param target The Vector.&lt;Number&gt; to contain the raw matrix data.		 * @param exclude4thRow If true, the last row will be omitted, and a 4x3 matrix will be generated instead of a 4x4.		 */
 		public function toRawData(target:Vector.<Number>, exclude4thRow:Boolean = false):void
 		{
+			exclude4thRow = exclude4thRow || false;
+
 			var xy2:Number = 2.0*this.x*this.y, xz2:Number = 2.0*this.x*this.z, xw2:Number = 2.0*this.x*this.w;
 			var yz2:Number = 2.0*this.y*this.z, yw2:Number = 2.0*this.y*this.w, zw2:Number = 2.0*this.z*this.w;
 			var xx:Number = this.x*this.x, yy:Number = this.y*this.y, zz:Number = this.z*this.z, ww:Number = this.w*this.w;
@@ -289,6 +304,8 @@ package away.math
 		/**		 * Rotates a point.		 * @param vector The Vector3D object to be rotated.		 * @param target An optional Vector3D object that will contain the rotated coordinates. If not provided, a new object will be created.		 * @return A Vector3D object containing the rotated point.		 */
 		public function rotatePoint(vector:Vector3D, target:Vector3D = null):Vector3D
 		{
+			target = target || null;
+
 			var x1:Number, y1:Number, z1:Number, w1:Number;
 			var x2:Number = vector.x, y2:Number = vector.y, z2:Number = vector.z;
 			

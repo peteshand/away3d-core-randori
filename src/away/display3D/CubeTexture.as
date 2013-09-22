@@ -37,6 +37,8 @@ package away.display3D
 		
 		public function uploadFromHTMLImageElement(image:HTMLImageElement, side:Number, miplevel:Number = 0):void
 		{
+			miplevel = miplevel || 0;
+
 			switch( side )
 			{
 				case 0:
@@ -76,6 +78,8 @@ package away.display3D
 		
 		public function uploadFromBitmapData(data:BitmapData, side:Number, miplevel:Number = 0):void
 		{
+			miplevel = miplevel || 0;
+
 			switch( side )
 			{
 				case 0:

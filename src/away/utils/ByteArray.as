@@ -8,7 +8,7 @@ package away.utils
 	{
 		
 		public var maxlength:Number = 0;
-		public var arraybytes; //ArrayBuffer  		public var unalignedarraybytestemp; //ArrayBuffer		
+		public var arraybytes//ArrayBuffer  		public var unalignedarraybytestemp//ArrayBuffer		
 		public function ByteArray():void
 		{
 			super();
@@ -82,6 +82,9 @@ package away.utils
 
         public function readBytes(bytes:ByteArray, offset:Number = 0, length:Number = 0):void
         {
+			offset = offset || 0;
+			length = length || 0;
+
 
             if (length == 0)
             {

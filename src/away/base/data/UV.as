@@ -13,6 +13,9 @@ package away.base.data
         /**         * Creates a new <code>UV</code> object.         *         * @param    u        [optional]    The horizontal coordinate of the texture value. Defaults to 0.         * @param    v        [optional]    The vertical coordinate of the texture value. Defaults to 0.         */
         public function UV(u:Number = 0, v:Number = 0):void
         {
+			u = u || 0;
+			v = v || 0;
+
             this._u = u;
             this._v = v;
         }

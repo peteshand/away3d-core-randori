@@ -7,6 +7,7 @@ package away.loaders.parsers
 	import away.materials.TextureMaterial;
 	import away.textures.BitmapCubeTexture;
 	import away.display.BlendMode;
+	import away.utils.VectorNumber;
 	import away.loaders.parsers.utils.ParserUtil;
 	import away.loaders.misc.ResourceDependency;
 	import away.textures.TextureProxyBase;
@@ -79,12 +80,11 @@ package away.loaders.parsers
 		private var _texture_users:Object = {};
 		private var _parsed_header:Boolean = false;
 		private var _body:ByteArray;
-		private var _defaultTexture:BitmapTexture;     // HTML IMAGE TEXTURE >? !		private var _cubeTextures:Array;
+		private var _defaultTexture:BitmapTexture// HTML IMAGE TEXTURE >? !		private var _cubeTextures:Array;
 		private var _defaultBitmapMaterial:TextureMaterial;
 		private var _defaultCubeTexture:BitmapCubeTexture;
 
-		public static var COMPRESSIONMODE_LZMA:String = "lzma";
-		public static var UNCOMPRESSED:Number = 0;
+		public static var COMPRESSIONMODE_LZMA:String = "lzma";		public static var UNCOMPRESSED:Number = 0;
 		public static var DEFLATE:Number = 1;
 		public static var LZMA:Number = 2;
 		public static var INT8:Number = 1;
@@ -138,12 +138,12 @@ package away.loaders.parsers
             this.blendModeDic.push(BlendMode.SHADER);
             this.blendModeDic.push(BlendMode.OVERLAY);
 			
-			this._depthSizeDic = new Vector.<Number>(); // used to translate ints to depthSize-values
+			this._depthSizeDic = VectorNumber.init(); // used to translate ints to depthSize-values
             this._depthSizeDic.push(256);
             this._depthSizeDic.push(512);
             this._depthSizeDic.push(2048);
             this._depthSizeDic.push(1024);
-            this._version = new Vector.<Number>();//[]; // will contain 2 int (major-version, minor-version) for awd-version-check
+            this._version = VectorNumber.init();//[]; // will contain 2 int (major-version, minor-version) for awd-version-check
 		}
 		
 		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
@@ -733,7 +733,7 @@ package away.loaders.parsers
 
                     if (str_type == 1)
                     {
-                        var verts:Vector.<Number> = new Vector.<Number>();
+                        var verts:Vector.<Number> = VectorNumber.init();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -749,7 +749,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 2)
                     {
-                        var indices:Vector.<Number> = new Vector.<Number>();
+                        var indices:Vector.<Number> = VectorNumber.init();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -760,7 +760,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 3)
                     {
-                        var uvs:Vector.<Number> = new Vector.<Number>();
+                        var uvs:Vector.<Number> = VectorNumber.init();
                         while (this._newBlockBytes.position < str_end)
                         {
                             uvs[idx++] = this.readNumber(this._accuracyGeo);
@@ -770,7 +770,7 @@ package away.loaders.parsers
                     else if (str_type == 4)
                     {
 
-                        var normals:Vector.<Number> = new Vector.<Number>();
+                        var normals:Vector.<Number> = VectorNumber.init();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -780,7 +780,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 6)
                     {
-                        w_indices = new Vector.<Number>();
+                        w_indices = VectorNumber.init();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -791,7 +791,7 @@ package away.loaders.parsers
                     else if (str_type == 7)
                     {
 
-                        weights = new Vector.<Number>();
+                        weights = VectorNumber.init();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -2495,6 +2495,8 @@ package away.loaders.parsers
 
         private function getAssetByID(assetID:Number, assetTypesToGet:Vector.<String>, extraTypeInfo:String = "SingleTexture"):Array
         {
+			extraTypeInfo = extraTypeInfo || "SingleTexture";
+
             var returnArray:Array = new Array();
             var typeCnt:Number = 0;
             if (assetID > 0)
@@ -2618,6 +2620,8 @@ package away.loaders.parsers
 
         private function readNumber(precision:Boolean = false):Number
         {
+			precision = precision || false;
+
             if (precision)
                 return this._newBlockBytes.readDouble();
             return this._newBlockBytes.readFloat();
@@ -2632,7 +2636,7 @@ package away.loaders.parsers
         private function parseMatrix32RawData():Vector.<Number>
         {
             var i:Number;
-            var mtx_raw:Vector.<Number> = new Vector.<Number>(6);
+            var mtx_raw:Vector.<Number> = VectorNumber.init(6);
             for (i = 0; i < 6; i++)
             {
                 mtx_raw[i] = this._newBlockBytes.readFloat();
@@ -2643,7 +2647,7 @@ package away.loaders.parsers
 
         private function parseMatrix43RawData():Vector.<Number>
         {
-            var mtx_raw:Vector.<Number> = new Vector.<Number>(16);
+            var mtx_raw:Vector.<Number> = VectorNumber.init(16);
 
             mtx_raw[0] = this.readNumber(this._accuracyMatrix);
             mtx_raw[1] = this.readNumber(this._accuracyMatrix);
@@ -2693,6 +2697,7 @@ import away.textures.BitmapTexture;
 import away.materials.TextureMaterial;
 import away.textures.BitmapCubeTexture;
 import away.display.BlendMode;
+import away.utils.VectorNumber;
 import away.loaders.parsers.utils.ParserUtil;
 import away.loaders.misc.ResourceDependency;
 import away.textures.TextureProxyBase;

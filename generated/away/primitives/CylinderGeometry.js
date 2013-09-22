@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,6 +23,15 @@ away.primitives.CylinderGeometry = function(topRadius, bottomRadius, height, seg
 	this._pBottomRadius = 0;
 	this._topClosed = null;
 	this._pSegmentsW = 0;
+	topRadius = topRadius || 50;
+	bottomRadius = bottomRadius || 50;
+	height = height || 100;
+	segmentsW = segmentsW || 16;
+	segmentsH = segmentsH || 1;
+	topClosed = topClosed || true;
+	bottomClosed = bottomClosed || true;
+	surfaceClosed = surfaceClosed || true;
+	yUp = yUp || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._topRadius = topRadius;
 	this._pBottomRadius = bottomRadius;
@@ -96,12 +105,12 @@ away.primitives.CylinderGeometry.prototype.pBuildGeometry = function(target) {
 		if (target.get_indexData()) {
 			this._rawIndices = target.get_indexData();
 		} else {
-			this._rawIndices = [];
+			this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
 		}
 	} else {
 		var numVertComponents = this._numVertices * this._stride;
-		this._rawData = [];
-		this._rawIndices = [];
+		this._rawData = away.utils.VectorNumber.init(numVertComponents, 0);
+		this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
 	}
 	var revolutionAngleDelta = 2 * 3.141592653589793 / this._pSegmentsW;
 	if (this._topClosed && this._topRadius > 0) {
@@ -238,7 +247,7 @@ away.primitives.CylinderGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && numUvs == target.get_UVData().length) {
 		UVData = target.get_UVData();
 	} else {
-		UVData = [];
+		UVData = away.utils.VectorNumber.init(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var revolutionAngleDelta = 2 * 3.141592653589793 / this._pSegmentsW;
@@ -369,7 +378,9 @@ away.primitives.CylinderGeometry.className = "away.primitives.CylinderGeometry";
 
 away.primitives.CylinderGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.primitives.CylinderGeometry.getStaticDependencies = function(t) {

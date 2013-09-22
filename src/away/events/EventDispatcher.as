@@ -97,7 +97,10 @@ package away.events {
         //todo: hasEventListener - relax check by not requiring target in param
 
         public function hasEventListener(type:String, listener:Function = null, target:Object = null):Boolean {
-        
+        			listener = listener || null;
+			target = target || null;
+
+
             if ( this.listeners != null && target != null )
             {
 

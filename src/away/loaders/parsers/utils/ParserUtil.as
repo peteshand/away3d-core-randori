@@ -39,6 +39,8 @@ package away.loaders.parsers.utils
 		/**		 * Returns a object as String, if possible.		 * 		 * @param data The object to return as String		 * @param length The length of the returned String		 * 		 * @return The String or null		 *		 */
 		public static function toString(data:*, length:Number = 0):String
 		{
+			length = length || 0;
+
 
             if ( typeof data === 'string' );
             {

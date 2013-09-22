@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -80,7 +80,7 @@ examples.RotatingTorus.prototype.tick = function(dt) {
 	this._context3D.setGLSLProgramConstantsFromMatrix("pMatrix", this._pMatrix, true);
 	this._context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", this._mvMatrix, true);
 	this._context3D.setGLSLTextureAt("uSampler", this._texture, 0);
-	this._context3D.clear(0.16, 0.16, 0.16, 1, 1, 0, 0);
+	this._context3D.clear(0.16, 0.16, 0.16, 1, 1, 0, 17664);
 	this._context3D.drawTriangles(this._iBuffer, 0, this._iBuffer.get_numIndices() / 3);
 	this._context3D.present();
 };

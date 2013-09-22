@@ -10,10 +10,7 @@ package away.primitives
 	public class WireframeTetrahedron extends WireframePrimitiveBase
 	{
 		
-		public static var ORIENTATION_YZ:String = "yz";
-		public static var ORIENTATION_XY:String = "xy";
-		public static var ORIENTATION_XZ:String = "xz";
-		
+		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
 		private var _width:Number;
 		private var _height:Number;
 		private var _orientation:String;
@@ -21,6 +18,10 @@ package away.primitives
 		/**		 * Creates a new WireframeTetrahedron object.		 * @param width The size of the tetrahedron buttom size.		 * @param height The size of the tetranhedron height.		 * @param color The color of the wireframe lines.		 * @param thickness The thickness of the wireframe lines.		 */
 		public function WireframeTetrahedron(width:Number, height:Number, color:Number = 0xffffff, thickness:Number = 1, orientation:String = "yz"):void
 		{
+			color = color || 0xffffff;
+			thickness = thickness || 1;
+			orientation = orientation || "yz";
+
 			super(color, thickness);
 			
 			this._width = width;

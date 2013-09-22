@@ -7,6 +7,7 @@ package away.materials.lightpickers
 	import away.lights.DirectionalLight;
 	import away.lights.LightProbe;
 	import away.events.LightEvent;
+	import away.utils.VectorNumber;
 	import away.events.Event;
 	//import flash.events.Event;
 	
@@ -19,7 +20,7 @@ package away.materials.lightpickers
 	/**	 * StaticLightPicker is a light picker that provides a static set of lights. The lights can be reassigned, but	 * if the configuration changes (number of directional lights, point lights, etc), a material recompilation may	 * occur.	 */
 	public class StaticLightPicker extends LightPickerBase
 	{
-		private var _lights:Vector.<LightBase>; // not typed in AS3 - should it be lightbase ?
+		private var _lights:Vector.<LightBase>// not typed in AS3 - should it be lightbase ?
 		/**		 * Creates a new StaticLightPicker object.		 * @param lights The lights to be used for shading.		 */
 		public function StaticLightPicker(lights):void
 		{
@@ -95,7 +96,7 @@ package away.materials.lightpickers
 			this._pNumLightProbes = numLightProbes;
 			
 			// MUST HAVE MULTIPLE OF 4 ELEMENTS!
-			this._pLightProbeWeights = new Vector.<Number>(Math.ceil(numLightProbes/4)*4 );
+			this._pLightProbeWeights = VectorNumber.init(Math.ceil(numLightProbes/4)*4 );
 			
 			// notify material lights have changed
 			this.dispatchEvent(new Event(Event.CHANGE));

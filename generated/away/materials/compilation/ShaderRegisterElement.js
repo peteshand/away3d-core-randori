@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:01:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,11 +8,12 @@ if (typeof away.materials.compilation == "undefined")
 	away.materials.compilation = {};
 
 away.materials.compilation.ShaderRegisterElement = function(regName, index, component) {
-	this.COMPONENTS = "x";
+	this.COMPONENTS = ["x", "y", "z", "w"];
 	this._component = 0;
 	this._index = 0;
 	this._regName = null;
 	this._toStr = null;
+	component = component || -1;
 	this._component = component;
 	this._regName = regName;
 	this._index = index;
@@ -25,7 +26,7 @@ away.materials.compilation.ShaderRegisterElement = function(regName, index, comp
 	}
 };
 
-away.materials.compilation.ShaderRegisterElement.COMPONENTS = "x";
+away.materials.compilation.ShaderRegisterElement.COMPONENTS = ["x", "y", "z", "w"];
 
 away.materials.compilation.ShaderRegisterElement.prototype.toString = function() {
 	return this._toStr;

@@ -30,7 +30,7 @@ package away.materials.methods
 	/**	 * ShadingMethodBase provides an abstract base method for shading methods, used by compiled passes to compile	 * the final shading program.	 */
 	public class ShadingMethodBase extends NamedAssetBase
 	{
-		public var _sharedRegisters:ShaderRegisterData; // should be protected		private var _passes:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>;		
+		public var _sharedRegisters:ShaderRegisterData// should be protected		private var _passes:Vector.<MaterialPassBase>//Vector.<MaterialPassBase>;		
 		/**		 * Create a new ShadingMethodBase object.		 * @param needsNormals Defines whether or not the method requires normals.		 * @param needsView Defines whether or not the method requires the view direction.		 */
 		public function ShadingMethodBase():void // needsNormals : boolean, needsView : boolean, needsGlobalPos : boolean		{
             super(null);
@@ -121,6 +121,9 @@ package away.materials.methods
 		/**		 * A helper method that generates standard code for sampling from a texture using the normal uv coordinates.		 * @param vo The MethodVO object linking this method with the pass currently being compiled.		 * @param targetReg The register in which to store the sampled colour.		 * @param inputReg The texture stream register.		 * @param texture The texture which will be assigned to the given slot.		 * @param uvReg An optional uv register if coordinates different from the primary uv coordinates are to be used.		 * @param forceWrap If true, texture wrapping is enabled regardless of the material setting.		 * @return The fragment code that performs the sampling.		 */
 		public function pGetTex2DSampleCode(vo:MethodVO, targetReg:ShaderRegisterElement, inputReg:ShaderRegisterElement, texture:TextureProxyBase, uvReg:ShaderRegisterElement = null, forceWrap:String = null):String
 		{
+			uvReg = uvReg || null;
+			forceWrap = forceWrap || null;
+
 			var wrap:String = forceWrap || (vo.repeatTextures? "wrap" : "clamp");
 			var filter:String;
 

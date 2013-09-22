@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -105,7 +105,7 @@ away.base.SubGeometryBase.prototype.pUpdateFaceTangents = function() {
 	var texStride = this.get_UVStride();
 	var texOffset = this.get_UVOffset();
 	if (this._faceTangents == null) {
-		this._faceTangents = [];
+		this._faceTangents = away.utils.VectorNumber.init(this._indices.length, 0);
 	}
 	while (i < len) {
 		index1 = this._indices[i];
@@ -157,11 +157,11 @@ away.base.SubGeometryBase.prototype.updateFaceNormals = function() {
 	var posStride = this.get_vertexStride();
 	var posOffset = this.get_vertexOffset();
 	if (this._faceNormals == null) {
-		this._faceNormals = [];
+		this._faceNormals = away.utils.VectorNumber.init(len, 0);
 	}
 	if (this._useFaceWeights) {
 		if (this._faceWeights == null) {
-			this._faceWeights = [];
+			this._faceWeights = away.utils.VectorNumber.init(len / 3, 0);
 		}
 	}
 	while (i < len) {
@@ -214,7 +214,7 @@ away.base.SubGeometryBase.prototype.pUpdateVertexNormals = function(target) {
 	var normalStride = this.get_vertexNormalStride();
 	var normalOffset = this.get_vertexNormalOffset();
 	if (target == null) {
-		target = [];
+		target = away.utils.VectorNumber.init(lenV, 0);
 	}
 	v1 = normalOffset;
 	while (v1 < lenV) {
@@ -270,7 +270,7 @@ away.base.SubGeometryBase.prototype.pUpdateVertexTangents = function(target) {
 	var tangentStride = this.get_vertexTangentStride();
 	var tangentOffset = this.get_vertexTangentOffset();
 	if (target == null) {
-		target = [];
+		target = away.utils.VectorNumber.init(lenV, 0);
 	}
 	i = tangentOffset;
 	while (i < lenV) {
@@ -468,6 +468,8 @@ away.base.SubGeometryBase.prototype.get_scaleV = function() {
 };
 
 away.base.SubGeometryBase.prototype.scaleUV = function(scaleU, scaleV) {
+	scaleU = scaleU || 1;
+	scaleV = scaleV || 1;
 	var offset = this.get_UVOffset();
 	var stride = this.get_UVStride();
 	var uvs = this.get_UVData();
@@ -568,7 +570,7 @@ away.base.SubGeometryBase.prototype.pUpdateDummyUVs = function(target) {
 	var skip = stride - 2;
 	var len = this._vertexData.length / this.get_vertexStride() * stride;
 	if (!target) {
-		target = [];
+		target = away.utils.VectorNumber.init(0, 0);
 	}
 	target.length = len;
 	idx = this.get_UVOffset();
@@ -591,6 +593,7 @@ away.base.SubGeometryBase.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.geom.Vector3D');
 	p.push('away.errors.AbstractMethodError');
+	p.push('away.utils.VectorNumber');
 	return p;
 };
 

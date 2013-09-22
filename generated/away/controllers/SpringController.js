@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:00 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,6 +13,11 @@ away.controllers.SpringController = function(targetObject, lookAtObject, stiffne
 	this._dv = null;
 	this._stretch = null;
 	this._acceleration = null;
+	targetObject = targetObject || null;
+	lookAtObject = lookAtObject || null;
+	stiffness = stiffness || 1;
+	mass = mass || 40;
+	damping = damping || 4;
 	away.controllers.LookAtController.call(this, targetObject, lookAtObject);
 	this.stiffness = stiffness;
 	this.damping = damping;
@@ -26,6 +31,7 @@ away.controllers.SpringController = function(targetObject, lookAtObject, stiffne
 };
 
 away.controllers.SpringController.prototype.update = function(interpolate) {
+	interpolate = interpolate || true;
 	interpolate = interpolate;
 	var offs;
 	if (!this._pLookAtObject || !this._pTargetObject)

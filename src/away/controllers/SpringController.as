@@ -30,6 +30,12 @@ package away.controllers
 		
 		public function SpringController(targetObject:Entity = null, lookAtObject:ObjectContainer3D = null, stiffness:Number = 1, mass:Number = 40, damping:Number = 4):void
 		{
+			targetObject = targetObject || null;
+			lookAtObject = lookAtObject || null;
+			stiffness = stiffness || 1;
+			mass = mass || 40;
+			damping = damping || 4;
+
 			super(targetObject, lookAtObject);
 			
 			this.stiffness = stiffness;
@@ -47,6 +53,8 @@ package away.controllers
 		
 		override public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			interpolate = interpolate; // prevents unused warning
 			
 			var offs:Vector3D;

@@ -7,7 +7,6 @@ package away.events
 	{
 
         public static var IO_ERROR:String = "IOErrorEvent_IO_ERROR";
-
 		public function IOErrorEvent(type:String):void
 		{
 			super(type);

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -31,9 +31,9 @@ away.pick.ShaderPicker = function() {
 	this._projX = 0;
 	this._localHitPosition = new away.geom.Vector3D(0, 0, 0, 0);
 	this._boundOffsetScale = null;
-	this._id = [0, 0, 0, 0];
-	this._viewportData = [0, 0, 0, 0];
-	this._boundOffsetScale = [0, 0, 0, 0, 0, 0, 0, 0];
+	this._id = away.utils.VectorNumber.init(4, 0);
+	this._viewportData = away.utils.VectorNumber.init(4, 0);
+	this._boundOffsetScale = away.utils.VectorNumber.init(8, 0);
 	this._boundOffsetScale[3] = 0;
 	this._boundOffsetScale[7] = 1;
 };
@@ -105,7 +105,7 @@ away.pick.ShaderPicker.prototype.getSceneCollision = function(position, directio
 
 away.pick.ShaderPicker.prototype.pDraw = function(entityCollector, target) {
 	var camera = entityCollector.get_camera();
-	this._context.clear(0, 0, 0, 1, 1, 0, 0);
+	this._context.clear(0, 0, 0, 1, 1, 0, 17664);
 	this._stage3DProxy.set_scissorRect(away.pick.ShaderPicker.MOUSE_SCISSOR_RECT);
 	this._interactives.length = 0;
 	this._interactiveId = 0;
@@ -371,6 +371,7 @@ away.pick.ShaderPicker.getRuntimeDependencies = function(t) {
 	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.display3D.Context3DClearMask');
 	p.push('away.display.BitmapData');
+	p.push('away.utils.VectorNumber');
 	return p;
 };
 

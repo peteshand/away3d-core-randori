@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,7 @@ if (typeof away.events == "undefined")
 	away.events = {};
 
 away.events.HTTPStatusEvent = function(type, status) {
+	status = status || null;
 	away.events.Event.call(this, type);
 	this.status = status;
 };

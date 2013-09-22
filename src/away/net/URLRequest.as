@@ -31,6 +31,8 @@ package away.net {
         /**         * @param url         */
         public function URLRequest(url:String = null):void
         {
+			url = url || null;
+
 
             this._url = url;
 

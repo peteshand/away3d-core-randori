@@ -16,8 +16,7 @@ package away.library.assets
 		private var _full_path:Vector.<String>;
         private var _assetType:String;
 
-		public static var DEFAULT_NAMESPACE:String = 'default';
-		
+		public static var DEFAULT_NAMESPACE:String = 'default';		
 		public function NamedAssetBase(name:String):void
 		{
             super();
@@ -106,6 +105,9 @@ package away.library.assets
 		
 		public function resetAssetPath(name:String, ns:String = null, overrideOriginal:Boolean = true):void
 		{
+			ns = ns || null;
+			overrideOriginal = overrideOriginal || true;
+
 
             this._name = name? name : 'null';
             this._namespace = ns? ns: NamedAssetBase.DEFAULT_NAMESPACE;

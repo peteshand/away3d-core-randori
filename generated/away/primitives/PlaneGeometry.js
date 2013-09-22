@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:43 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,6 +12,12 @@ away.primitives.PlaneGeometry = function(width, height, segmentsW, segmentsH, yU
 	this._height = 0;
 	this._doubleSided = null;
 	this._segmentsW = 0;
+	width = width || 100;
+	height = height || 100;
+	segmentsW = segmentsW || 1;
+	segmentsH = segmentsH || 1;
+	yUp = yUp || true;
+	doubleSided = doubleSided || false;
 	away.primitives.PrimitiveBase.call(this);
 	this._segmentsW = segmentsW;
 	this._segmentsH = segmentsH;
@@ -95,13 +101,13 @@ away.primitives.PlaneGeometry.prototype.pBuildGeometry = function(target) {
 	if (numVertices == target.get_numVertices()) {
 		data = target.get_vertexData();
 		if (indices == null) {
-			indices = [];
+			indices = away.utils.VectorNumber.init(numIndices, 0);
 		} else {
 			indices = target.get_indexData();
 		}
 	} else {
-		data = [];
-		indices = [];
+		data = away.utils.VectorNumber.init(numVertices * stride, 0);
+		indices = away.utils.VectorNumber.init(numIndices, 0);
 		this.pInvalidateUVs();
 	}
 	numIndices = 0;
@@ -180,7 +186,7 @@ away.primitives.PlaneGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && numUvs == target.get_UVData().length) {
 		data = target.get_UVData();
 	} else {
-		data = [];
+		data = away.utils.VectorNumber.init(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var index = target.get_UVOffset();
@@ -205,7 +211,9 @@ away.primitives.PlaneGeometry.className = "away.primitives.PlaneGeometry";
 
 away.primitives.PlaneGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.primitives.PlaneGeometry.getStaticDependencies = function(t) {

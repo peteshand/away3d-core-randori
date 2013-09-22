@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -147,6 +147,8 @@ away.base.SubGeometry.prototype.scale = function(scale) {
 };
 
 away.base.SubGeometry.prototype.scaleUV = function(scaleU, scaleV) {
+	scaleU = scaleU || 1;
+	scaleV = scaleV || 1;
 	away.base.SubGeometryBase.prototype.scaleUV.call(this,scaleU, scaleV);
 	this.pInvalidateBuffers(this._uvsInvalid);
 };

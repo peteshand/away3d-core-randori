@@ -53,7 +53,7 @@ package away.render
 
 		
 		/**		 * Creates a new RendererBase object.		 */
-		public function RendererBase(renderToTexture:Boolean = false):void
+		public function RendererBase(renderToTexture:Boolean):void
 		{
 			this._pRenderableSorter = new RenderableMergeSort();
 			this._renderToTexture = renderToTexture;
@@ -217,6 +217,10 @@ package away.render
 		/**		 * Renders the potentially visible geometry to the back buffer or texture.		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.		 * @param target An option target texture to render to.		 * @param surfaceSelector The index of a CubeTexture's face to render to.		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.		 */
 		public function iRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
+			target = target || null;
+			scissorRect = scissorRect || null;
+			surfaceSelector = surfaceSelector || 0;
+
 			if (!this._pStage3DProxy || !this._pContext)
             {
 
@@ -245,6 +249,10 @@ package away.render
 		/**		 * Renders the potentially visible geometry to the back buffer or texture. Only executed if everything is set up.		 * @param entityCollector The EntityCollector object containing the potentially visible geometry.		 * @param target An option target texture to render to.		 * @param surfaceSelector The index of a CubeTexture's face to render to.		 * @param additionalClearMask Additional clear mask information, in case extra clear channels are to be omitted.		 */
 		public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
+			target = target || null;
+			scissorRect = scissorRect || null;
+			surfaceSelector = surfaceSelector || 0;
+
 			this._pRenderTarget = target;
 			this._pRenderTargetSurface = surfaceSelector;
 			

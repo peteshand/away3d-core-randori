@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,11 +23,12 @@ away.library.AssetLibraryBundle = function(me) {
 };
 
 away.library.AssetLibraryBundle.getInstance = function(key) {
+	key = key || "default";
 	if (!key) {
 		key = "default";
 	}
 	if (!away.library.AssetLibrary._iInstances.hasOwnProperty(key)) {
-		away.library.AssetLibrary._iInstances[key] = new away.library.AssetLibraryBundle(new away.library.AssetLibraryBundle$AssetLibraryBundleSingletonEnforcer());
+		away.library.AssetLibrary._iInstances[key] = new away.library.AssetLibraryBundle(new away.library.AssetLibraryBundleSingletonEnforcer());
 	}
 	return away.library.AssetLibrary._iInstances[key];
 };
@@ -60,18 +61,28 @@ away.library.AssetLibraryBundle.prototype.set_conflictPrecedence = function(val)
 };
 
 away.library.AssetLibraryBundle.prototype.createIterator = function(assetTypeFilter, namespaceFilter, filterFunc) {
+	assetTypeFilter = assetTypeFilter || null;
+	namespaceFilter = namespaceFilter || null;
+	filterFunc = filterFunc || null;
 	return new away.library.utils.AssetLibraryIterator(this._assets, assetTypeFilter, namespaceFilter, filterFunc);
 };
 
 away.library.AssetLibraryBundle.prototype.load = function(req, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	return this.loadResource(req, context, ns, parser);
 };
 
 away.library.AssetLibraryBundle.prototype.loadData = function(data, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	return this.parseResource(data, context, ns, parser);
 };
 
 away.library.AssetLibraryBundle.prototype.getAsset = function(name, ns) {
+	ns = ns || null;
 	if (this._assetDictDirty) {
 		this.rehashAssetDict();
 	}
@@ -106,6 +117,7 @@ away.library.AssetLibraryBundle.prototype.addAsset = function(asset) {
 };
 
 away.library.AssetLibraryBundle.prototype.removeAsset = function(asset, dispose) {
+	dispose = dispose || true;
 	var idx;
 	this.removeAssetFromDict(asset, true);
 	asset.removeEventListener(away.events.AssetEvent.ASSET_RENAME, $createStaticDelegate(this, this.onAssetRename), this);
@@ -120,6 +132,8 @@ away.library.AssetLibraryBundle.prototype.removeAsset = function(asset, dispose)
 };
 
 away.library.AssetLibraryBundle.prototype.removeAssetByName = function(name, ns, dispose) {
+	ns = ns || null;
+	dispose = dispose || true;
 	var asset = this.getAsset(name, ns);
 	if (asset) {
 		this.removeAsset(asset, dispose);
@@ -128,6 +142,7 @@ away.library.AssetLibraryBundle.prototype.removeAssetByName = function(name, ns,
 };
 
 away.library.AssetLibraryBundle.prototype.removeAllAssets = function(dispose) {
+	dispose = dispose || true;
 	if (dispose) {
 		var asset;
 		for (var c = 0; c < this._assets.length; c++) {
@@ -140,6 +155,8 @@ away.library.AssetLibraryBundle.prototype.removeAllAssets = function(dispose) {
 };
 
 away.library.AssetLibraryBundle.prototype.removeNamespaceAssets = function(ns, dispose) {
+	ns = ns || null;
+	dispose = dispose || true;
 	var idx = 0;
 	var asset;
 	var old_assets;
@@ -165,6 +182,7 @@ away.library.AssetLibraryBundle.prototype.removeNamespaceAssets = function(ns, d
 };
 
 away.library.AssetLibraryBundle.prototype.removeAssetFromDict = function(asset, autoRemoveEmptyNamespace) {
+	autoRemoveEmptyNamespace = autoRemoveEmptyNamespace || true;
 	if (this._assetDictDirty) {
 		this.rehashAssetDict();
 	}
@@ -187,6 +205,9 @@ away.library.AssetLibraryBundle.prototype.removeAssetFromDict = function(asset, 
 };
 
 away.library.AssetLibraryBundle.prototype.loadResource = function(req, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	var loader = new away.loaders.AssetLoader();
 	if (!this._loadingSessions) {
 		this._loadingSessions = [];
@@ -226,6 +247,9 @@ away.library.AssetLibraryBundle.prototype.stopAllLoadingSessions = function() {
 };
 
 away.library.AssetLibraryBundle.prototype.parseResource = function(data, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	var loader = new away.loaders.AssetLoader();
 	if (!this._loadingSessions) {
 		this._loadingSessions = [];
@@ -365,18 +389,19 @@ away.library.AssetLibraryBundle.className = "away.library.AssetLibraryBundle";
 away.library.AssetLibraryBundle.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.library.AssetLibrary');
 	p.push('away.library.naming.ConflictPrecedence');
-	p.push('away.loaders.AssetLoader');
+	p.push('away.library.AssetLibrary');
 	p.push('away.events.ParserEvent');
 	p.push('away.events.LoaderEvent');
-	p.push('*away.library.assets.IAsset');
 	p.push('away.library.utils.AssetLibraryIterator');
 	p.push('away.library.utils.IDUtil');
-	p.push('away.loaders.misc.SingleFileLoader');
-	p.push('away.events.AssetEvent');
 	p.push('away.library.assets.NamedAssetBase');
+	p.push('away.events.AssetEvent');
 	p.push('away.library.naming.ConflictStrategy');
+	p.push('away.loaders.AssetLoader');
+	p.push('*away.library.assets.IAsset');
+	p.push('away.library.AssetLibraryBundleSingletonEnforcer');
+	p.push('away.loaders.misc.SingleFileLoader');
 	return p;
 };
 
@@ -390,7 +415,7 @@ away.library.AssetLibraryBundle.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'me', t:'away.library.AssetLibraryBundle$AssetLibraryBundleSingletonEnforcer'});
+			p.push({n:'me', t:'away.library.AssetLibraryBundleSingletonEnforcer'});
 			break;
 		case 1:
 			p = away.events.EventDispatcher.injectionPoints(t);

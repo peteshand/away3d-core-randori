@@ -14,6 +14,8 @@ package away.cameras.lenses
 
 		public function OrthographicLens(projectionHeight:Number = 500):void
 		{
+			projectionHeight = projectionHeight || 500;
+
 			super();
 			this._projectionHeight = projectionHeight;
 		}

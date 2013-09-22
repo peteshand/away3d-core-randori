@@ -94,6 +94,8 @@ package away.lights
 		
 		override public function iGetObjectProjectionMatrix(renderable:IRenderable, target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
 			var raw:Vector.<Number> = new Vector.<Number>();
 			var bounds:BoundingVolumeBase = renderable.sourceEntity.bounds;
 			var m:Matrix3D = new Matrix3D();

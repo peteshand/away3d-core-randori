@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -76,6 +76,8 @@ away.library.assets.NamedAssetBase.prototype.assetPathEquals = function(name, ns
 };
 
 away.library.assets.NamedAssetBase.prototype.resetAssetPath = function(name, ns, overrideOriginal) {
+	ns = ns || null;
+	overrideOriginal = overrideOriginal || true;
 	this._name = name ? name : "null";
 	this._namespace = ns ? ns : away.library.assets.NamedAssetBase.DEFAULT_NAMESPACE;
 	if (overrideOriginal) {

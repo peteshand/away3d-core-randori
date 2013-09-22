@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:18 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,12 @@ if (typeof away.primitives == "undefined")
 	away.primitives = {};
 
 away.primitives.ConeGeometry = function(radius, height, segmentsW, segmentsH, closed, yUp) {
+	radius = radius || 50;
+	height = height || 100;
+	segmentsW = segmentsW || 16;
+	segmentsH = segmentsH || 1;
+	closed = closed || true;
+	yUp = yUp || true;
 	away.primitives.CylinderGeometry.call(this, 0, radius, height, segmentsW, segmentsH, false, closed, true, yUp);
 };
 

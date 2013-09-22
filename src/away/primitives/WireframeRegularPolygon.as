@@ -8,10 +8,7 @@ package away.primitives
 	/**	 * A WireframeRegularPolygon primitive mesh.	 */
 	public class WireframeRegularPolygon extends WireframePrimitiveBase
 	{
-		public static var ORIENTATION_YZ:String = "yz";
-		public static var ORIENTATION_XY:String = "xy";
-		public static var ORIENTATION_XZ:String = "xz";
-		
+		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
 		private var _radius:Number;
 		private var _sides:Number;
 		private var _orientation:String;
@@ -19,6 +16,10 @@ package away.primitives
 		/**		 * Creates a new WireframeRegularPolygon object.		 * @param radius The radius of the polygon.		 * @param sides The number of sides on the polygon.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
 		public function WireframeRegularPolygon(radius:Number, sides:Number, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void
 		{
+			color = color || 0xFFFFFF;
+			thickness = thickness || 1;
+			orientation = orientation || "yz";
+
 			super(color, thickness);
 			
 			this._radius = radius;

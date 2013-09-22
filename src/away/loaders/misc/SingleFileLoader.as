@@ -58,6 +58,8 @@ package away.loaders.misc
 		/**		 * Creates a new SingleFileLoader object.		 */
 		public function SingleFileLoader(materialMode:Number = 0):void
 		{
+			materialMode = materialMode || 0;
+
 
             super();
 			_parsers.push(ImageParser);
@@ -87,6 +89,9 @@ package away.loaders.misc
 		/**		 * Load a resource from a file.		 * 		 * @param urlRequest The URLRequest object containing the URL of the object to be loaded.		 * @param parser An optional parser object that will translate the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function load(urlRequest:URLRequest, parser:ParserBase = null, loadAsRawData:Boolean = false):void
 		{
+			parser = parser || null;
+			loadAsRawData = loadAsRawData || false;
+
 			//var urlLoader   : away.net.URLLoader;
 			var dataFormat  : String;
             var loaderType  : String    = ParserLoaderType.URL_LOADER;// Default to URLLoader;
@@ -176,6 +181,9 @@ package away.loaders.misc
 		
 		public function parseData(data:*, parser:ParserBase = null, req:URLRequest = null):void
 		{
+			parser = parser || null;
+			req = req || null;
+
             if ( data.constructor === Function ) // TODO: Validate
             {
                 data = new data();

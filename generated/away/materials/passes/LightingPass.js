@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.materials.passes.LightingPass = function(material) {
 	this._includeCasters = true;
 	this._pointLightsOffset = 0;
 	this._lightProbesOffset = 0;
-	this._inverseSceneMatrix = [];
+	this._inverseSceneMatrix = away.utils.VectorNumber.init(0, 0);
 	this._directionalLightsOffset = 0;
 	this._lightVertexConstantIndex = 0;
 	this._maxLights = 3;
@@ -313,7 +313,9 @@ away.materials.passes.LightingPass.getRuntimeDependencies = function(t) {
 
 away.materials.passes.LightingPass.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.materials.passes.LightingPass.injectionPoints = function(t) {

@@ -14,6 +14,11 @@ package away.geom
 		
 		public function Rectangle(x:Number = 0, y:Number = 0, width:Number = 0, height:Number = 0):void
 		{
+			x = x || 0;
+			y = y || 0;
+			width = width || 0;
+			height = height || 0;
+
 			this.x = x;
 			this.y = y;
 			this.width = width;

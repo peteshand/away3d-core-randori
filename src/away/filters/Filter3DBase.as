@@ -9,7 +9,7 @@ package away.filters
 
 	public class Filter3DBase
 	{
-		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>;		private var _requireDepthRender:Boolean;
+		private var _tasks:Vector.<Filter3DTaskBase>//Vector.<Filter3DTaskBase>;		private var _requireDepthRender:Boolean;
 		private var _textureWidth:Number;
 		private var _textureHeight:Number;
 		

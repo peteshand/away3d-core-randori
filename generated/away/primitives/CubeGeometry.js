@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:18 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,6 +13,13 @@ away.primitives.CubeGeometry = function(width, height, depth, segmentsW, segment
 	this._height = 0;
 	this._tile6 = null;
 	this._segmentsW = 0;
+	width = width || 100;
+	height = height || 100;
+	depth = depth || 100;
+	segmentsW = segmentsW || 1;
+	segmentsH = segmentsH || 1;
+	segmentsD = segmentsD || 1;
+	tile6 = tile6 || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._width = width;
 	this._height = height;
@@ -103,10 +110,10 @@ away.primitives.CubeGeometry.prototype.pBuildGeometry = function(target) {
 	var skip = stride - 9;
 	if (numVerts == target.get_numVertices()) {
 		data = target.get_vertexData();
-		indices = target.get_indexData() ? target.get_indexData() : [];
+		indices = target.get_indexData() ? target.get_indexData() : away.utils.VectorNumber.init((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
 	} else {
-		data = [];
-		indices = [];
+		data = away.utils.VectorNumber.init(numVerts * stride, 0);
+		indices = away.utils.VectorNumber.init((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
 		this.pInvalidateUVs();
 	}
 	vidx = target.get_vertexOffset();
@@ -265,7 +272,7 @@ away.primitives.CubeGeometry.prototype.pBuildUVs = function(target) {
 	var skip = stride - 2;
 	if (target.get_UVData() && numUvs == target.get_UVData().length)
 		data = target.get_UVData(); else {
-		data = [];
+		data = away.utils.VectorNumber.init(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	if (this._tile6) {
@@ -337,7 +344,9 @@ away.primitives.CubeGeometry.className = "away.primitives.CubeGeometry";
 
 away.primitives.CubeGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.primitives.CubeGeometry.getStaticDependencies = function(t) {

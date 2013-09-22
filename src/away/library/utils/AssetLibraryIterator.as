@@ -9,7 +9,7 @@ package away.library.utils
 	public class AssetLibraryIterator
 	{
 
-        private var _assets:Vector.<IAsset>;//private  _assets:Vector.<IAsset>;        private var _filtered:Vector.<IAsset>;//Vector.<IAsset>;		
+        private var _assets:Vector.<IAsset>//private  _assets:Vector.<IAsset>;        private var _filtered:Vector.<IAsset>//Vector.<IAsset>;		
 		private var _idx:Number;
 		
 		public function AssetLibraryIterator(assets:Vector.<IAsset>, assetTypeFilter:String, namespaceFilter:String, filterFunc):void

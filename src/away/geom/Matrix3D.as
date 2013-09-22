@@ -198,6 +198,9 @@ package away.geom
 		
 		public function copyRawDataFrom(vector:Vector.<Number>, index:Number = 0, transposeThis:Boolean = false):void
 		{
+			index = index || 0;
+			transposeThis = transposeThis || false;
+
 			// Initial Tests - OK
 			if ( transposeThis )
             {
@@ -218,6 +221,9 @@ package away.geom
 		
 		public function copyRawDataTo(vector:Vector.<Number>, index:Number = 0, transposeThis:Boolean = false):void
 		{
+			index = index || 0;
+			transposeThis = transposeThis || false;
+
 
             // Initial Tests - OK
 

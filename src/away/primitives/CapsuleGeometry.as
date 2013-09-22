@@ -3,6 +3,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 
 	/**	 * A Capsule primitive mesh.	 */
 	public class CapsuleGeometry extends PrimitiveBase
@@ -16,6 +17,12 @@ package away.primitives
 		/**		 * Creates a new Capsule object.		 * @param radius The radius of the capsule.		 * @param height The height of the capsule.		 * @param segmentsW Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven value.		 * @param yUp Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function CapsuleGeometry(radius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 15, yUp:Boolean = true):void
 		{
+			radius = radius || 50;
+			height = height || 100;
+			segmentsW = segmentsW || 16;
+			segmentsH = segmentsH || 15;
+			yUp = yUp || true;
+
 			super();
 			
 			this._radius = radius;
@@ -53,7 +60,7 @@ package away.primitives
                 }
                 else
                 {
-                    indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6 );
+                    indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6 );
                 }
 
 				
@@ -61,8 +68,8 @@ package away.primitives
             else
             {
 
-				data = new Vector.<Number>(numVerts*stride);
-				indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6);
+				data = VectorNumber.init(numVerts*stride);
+				indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6);
 				this.pInvalidateUVs();
 
 			}
@@ -180,7 +187,7 @@ package away.primitives
             }
 			else
             {
-				data = new Vector.<Number>( UVlen );
+				data = VectorNumber.init( UVlen );
 				this.pInvalidateGeometry();
 			}
 			

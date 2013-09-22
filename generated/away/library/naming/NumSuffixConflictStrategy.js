@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,7 @@ if (typeof away.library.naming == "undefined")
 away.library.naming.NumSuffixConflictStrategy = function(separator) {
 	this._separator = null;
 	this._next_suffix = null;
+	separator = separator || ".";
 	away.library.naming.ConflictStrategyBase.call(this);
 	this._separator = separator;
 	this._next_suffix = {};

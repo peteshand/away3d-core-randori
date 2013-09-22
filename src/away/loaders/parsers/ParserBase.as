@@ -23,7 +23,7 @@ package away.loaders.parsers {
 	/**	 * <code>ParserBase</code> provides an abstract base class for objects that convert blocks of data to data structures	 * supported by Away3D.	 *	 * If used by <code>AssetLoader</code> to automatically determine the parser type, two public static methods should	 * be implemented, with the following signatures:	 *	 * <code>public static supportsType(extension : string) : boolean</code>	 * Indicates whether or not a given file extension is supported by the parser.	 *	 * <code>public static supportsData(data : *) : boolean</code>	 * Tests whether a data block can be parsed by the parser.	 *	 * Furthermore, for any concrete subtype, the method <code>initHandle</code> should be overridden to immediately	 * create the object that will contain the parsed data. This allows <code>ResourceManager</code> to return an object	 * handle regardless of whether the object was loaded or not.	 *	 * @see away3d.loading.parsers.AssetLoader	 * @see away3d.loading.ResourceManager	 */
 	public class ParserBase extends EventDispatcher
 	{
-		public var _iFileName:String; // ARCANE		private var _dataFormat:String;
+		public var _iFileName:String// ARCANE		private var _dataFormat:String;
 		private var _data:*;
 		private var _frameLimit:Number;
 		private var _lastFrameTime:Number;
@@ -45,20 +45,25 @@ package away.loaders.parsers {
         }
 
         /* TODO: Implement ParserUtil;		public _pGetTextData():string		{			return ParserUtil.toString(_data);		}				public _pGetByteData():ByteArray		{			return ParserUtil.toByteArray(_data);		}		*/
-		private var _dependencies:Vector.<ResourceDependency>;//Vector.<ResourceDependency>;        private var _loaderType:String = ParserLoaderType.URL_LOADER; // Default loader is URLLoader		private var _parsingPaused:Boolean;
+		private var _dependencies:Vector.<ResourceDependency>//Vector.<ResourceDependency>;        private var _loaderType:String// Default loader is URLLoader = ParserLoaderType.URL_LOADER
+		private var _parsingPaused:Boolean;
 		private var _parsingComplete:Boolean;
 		private var _parsingFailure:Boolean;
 		private var _timer:Timer;
 		private var _materialMode:Number;
 		
 		/**		 * Returned by <code>proceedParsing</code> to indicate no more parsing is needed.		 */
-		public static var PARSING_DONE:Boolean = true; /* Protected */		
+		public static var PARSING_DONE:Boolean/* Protected */ = true
+		
 		/**		 * Returned by <code>proceedParsing</code> to indicate more parsing is needed, allowing asynchronous parsing.		 */
-        public static var MORE_TO_PARSE:Boolean = false; /* Protected */		
+        public static var MORE_TO_PARSE:Boolean/* Protected */ = false
+		
 		
 		/**		 * Creates a new ParserBase object		 * @param format The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>, and should be provided by the concrete subtype.         * @param loaderType The type of loader required by the parser		 *		 * @see away3d.loading.parsers.ParserDataFormat		 */
 		public function ParserBase(format:String, loaderType:String = null):void
 		{
+			loaderType = loaderType || null;
+
 
             super();
 
@@ -149,6 +154,8 @@ package away.loaders.parsers {
 		/**		 * Parse data (possibly containing bytearry, plain text or BitmapAsset) asynchronously, meaning that		 * the parser will periodically stop parsing so that the AVM may proceed to the		 * next frame.		 *		 * @param data The untyped data object in which the loaded data resides.		 * @param frameLimit number of milliseconds of parsing allowed per frame. The		 * actual time spent on a frame can exceed this number since time-checks can		 * only be performed between logical sections of the parsing procedure.		 */
 		public function parseAsync(data:*, frameLimit:Number = 30):void
 		{
+			frameLimit = frameLimit || 30;
+
             this._data = data;
             this.startParsing(frameLimit);
 		}
@@ -192,6 +199,8 @@ package away.loaders.parsers {
 		
 		public function _pFinalizeAsset(asset:IAsset, name:String = null):void
 		{
+			name = name || null;
+
 			var type_event : String;
 			var type_name : String;
 			
@@ -312,6 +321,8 @@ package away.loaders.parsers {
 
 		public function _pDieWithError(message:String = 'Unknown parsing error'):void
 		{
+			message = message || 'Unknown parsing error';
+
             if(this._timer)
             {
 			    this._timer.removeEventListener(TimerEvent.TIMER, _pOnInterval , this );
@@ -324,6 +335,10 @@ package away.loaders.parsers {
 
 		public function _pAddDependency(id:String, req:URLRequest, retrieveAsRawData:Boolean = false, data:* = null, suppressErrorEvents:Boolean = false):void
 		{
+			retrieveAsRawData = retrieveAsRawData || false;
+			data = data || null;
+			suppressErrorEvents = suppressErrorEvents || false;
+
 
 			this._dependencies.push(new ResourceDependency(id, req, data, this, retrieveAsRawData, suppressErrorEvents));
 		}
@@ -350,6 +365,8 @@ package away.loaders.parsers {
 		/**		 * Called when the parsing pause interval has passed and parsing can proceed.		 */
 		public function _pOnInterval(event:TimerEvent = null):void
 		{
+			event = event || null;
+
 			this._lastFrameTime = new Date().getTime();
 
 			if (this._pProceedParsing() && !this._parsingFailure){

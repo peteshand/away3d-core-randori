@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -24,6 +24,7 @@ away.display3D.CubeTexture.prototype.dispose = function() {
 };
 
 away.display3D.CubeTexture.prototype.uploadFromHTMLImageElement = function(image, side, miplevel) {
+	miplevel = miplevel || 0;
 	switch (side) {
 		case 0:
 			this._gl.bindTexture(34067, this._textures[0]);
@@ -61,6 +62,7 @@ away.display3D.CubeTexture.prototype.uploadFromHTMLImageElement = function(image
 };
 
 away.display3D.CubeTexture.prototype.uploadFromBitmapData = function(data, side, miplevel) {
+	miplevel = miplevel || 0;
 	switch (side) {
 		case 0:
 			this._gl.bindTexture(34067, this._textures[0]);

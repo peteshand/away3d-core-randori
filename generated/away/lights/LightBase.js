@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:57 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -120,6 +120,7 @@ away.lights.LightBase.prototype.updateAmbient = function() {
 };
 
 away.lights.LightBase.prototype.iGetObjectProjectionMatrix = function(renderable, target) {
+	target = target || null;
 	throw new away.errors.AbstractMethodError(null, 0);
 };
 

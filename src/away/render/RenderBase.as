@@ -56,6 +56,8 @@ package away.render
 		
 		public function RenderBase(renderToTexture:Boolean = false):void
 		{
+			renderToTexture = renderToTexture || false;
+
 			this._pRenderableSorter = new RenderableMergeSort();
 			this._pRenderToTexture = renderToTexture;
 		}
@@ -213,6 +215,10 @@ package away.render
 		//@arcane
 		public function iRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
+			target = target || null;
+			scissorRect = scissorRect || null;
+			surfaceSelector = surfaceSelector || 0;
+
 			if( !this._pStage3DProxy || !this._pContext )
 			{
 				return;
@@ -233,6 +239,10 @@ package away.render
 		
 		public function pExecuteRender(entityCollector:EntityCollector, target:TextureBase = null, scissorRect:Rectangle = null, surfaceSelector:Number = 0):void
 		{
+			target = target || null;
+			scissorRect = scissorRect || null;
+			surfaceSelector = surfaceSelector || 0;
+
 			this._pRenderTarget = target;
 			this._pRenderTargetSurface = surfaceSelector;
 			

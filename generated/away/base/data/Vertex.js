@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:35 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,6 +12,10 @@ away.base.data.Vertex = function(x, y, z, index) {
 	this._y = 0;
 	this._z = 0;
 	this._index = 0;
+	x = x || 0;
+	y = y || 0;
+	z = z || 0;
+	index = index || 0;
 	this._x = x;
 	this._y = y;
 	this._z = z;

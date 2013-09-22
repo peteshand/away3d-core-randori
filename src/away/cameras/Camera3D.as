@@ -13,6 +13,7 @@ package away.cameras
 	import away.bounds.BoundingVolumeBase;
 	import away.bounds.NullBounds;
 	import away.library.assets.AssetType;
+	import away.utils.VectorNumber;
 	import away.partition.EntityNode;
 	import away.partition.CameraNode;
 	import away.events.CameraEvent;
@@ -28,6 +29,8 @@ package away.cameras
 		
 		public function Camera3D(lens:LensBase = null):void
 		{
+			lens = lens || null;
+
 			super();
 			
 			this._lens = lens || new PerspectiveLens();
@@ -80,7 +83,7 @@ package away.cameras
 			var c31:Number, c32:Number, c33:Number, c34:Number;
 			var c41:Number, c42:Number, c43:Number, c44:Number;
 			var p:Plane3D;
-			var raw:Vector.<Number> = new Vector.<Number>(16);;//new Array(16 );away.utils.Matrix3DUtils.RAW_DATA_CONTAINER;//[];
+			var raw:Vector.<Number> = VectorNumber.init(16);;//new Array(16 );away.utils.Matrix3DUtils.RAW_DATA_CONTAINER;//[];
 			var invLen:Number;
             this.viewProjection.copyRawDataTo( raw );
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:16 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -22,6 +22,9 @@ away.primitives.data.Segment = function(start, end, anchor, colorStart, colorEnd
 	this._pEndG = 0;
 	this._pStartR = 0;
 	this._pThickness = 0;
+	colorStart = colorStart || 0x333333;
+	colorEnd = colorEnd || 0x333333;
+	thickness = thickness || 1;
 	anchor = null;
 	this._pThickness = thickness * 0.5;
 	this._pStart = start;
@@ -31,6 +34,9 @@ away.primitives.data.Segment = function(start, end, anchor, colorStart, colorEnd
 };
 
 away.primitives.data.Segment.prototype.updateSegment = function(start, end, anchor, colorStart, colorEnd, thickness) {
+	colorStart = colorStart || 0x333333;
+	colorEnd = colorEnd || 0x333333;
+	thickness = thickness || 1;
 	anchor = null;
 	this._pStart = start;
 	this._pEnd = end;

@@ -2,6 +2,7 @@
 package away.materials.passes
 {
 	import away.textures.Texture2DBase;
+	import away.utils.VectorNumber;
 	import away.display3D.Context3DTextureFormat;
 	import away.base.IRenderable;
 	import away.managers.Stage3DProxy;
@@ -40,7 +41,7 @@ package away.materials.passes
 			super(false);
 
 			this._fragmentData = new <Number>[1, 255.0, 65025.0, 16581375.0, 1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0, 0.0, 0.0, 0, 0];
-			this._vertexData = new Vector.<Number>(4);
+			this._vertexData = VectorNumber.init(4);
 			this._vertexData[3] = 1;
 			this._pNumUsedVertexConstants = 9;
 		}

@@ -31,7 +31,7 @@ package away.containers
         /*         *************************************************************************************************************************         * Development Notes         *************************************************************************************************************************         *         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment         *         * Background         *                  - this is currently not being included in our tests and is currently disabled         *         **************************************************************************************************************************         */
 
         // Static
-        private static var sStage:Stage; // View3D's share the same stage
+        private static var sStage:Stage// View3D's share the same stage
         // Public
         public var stage:Stage;
 
@@ -77,6 +77,12 @@ package away.containers
         /*         ***********************************************************************         * Disabled / Not yet implemented         ***********************************************************************         *         * private _background:away.textures.Texture2DBase;         *		 * public _pMouse3DManager:away.managers.Mouse3DManager;		 * public _pTouch3DManager:away.managers.Touch3DManager;		 *         */
 		public function View3D(scene:Scene3D = null, camera:Camera3D = null, renderer:RendererBase = null, forceSoftware:Boolean = false, profile:String = "baseline"):void
 		{
+			scene = scene || null;
+			camera = camera || null;
+			renderer = renderer || null;
+			forceSoftware = forceSoftware || false;
+			profile = profile || "baseline";
+
 
 
             if ( View3D.sStage == null )

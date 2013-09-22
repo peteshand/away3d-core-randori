@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,6 +11,7 @@ away.utils.Timer = function(delay, repeatCount) {
 	this._repeatCount = 0;
 	this._currentCount = 0;
 	this._delay = 0;
+	repeatCount = repeatCount || 0;
 	away.events.EventDispatcher.call(this);
 	this._delay = delay;
 	this._repeatCount = repeatCount;

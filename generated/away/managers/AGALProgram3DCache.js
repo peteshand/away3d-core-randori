@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:54:25 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -53,9 +53,9 @@ away.managers.AGALProgram3DCache.onContext3DDisposed = function(event) {
 	var index = stage3DProxy._iStage3DIndex;
 	away.managers.AGALProgram3DCache._instances[index].dispose();
 	away.managers.AGALProgram3DCache._instances[index] = null;
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
 };
 
 away.managers.AGALProgram3DCache.prototype.dispose = function() {

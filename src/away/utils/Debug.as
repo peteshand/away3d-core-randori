@@ -22,6 +22,8 @@ package away.utils
 
         public static function throwPIROnKeyWordOnly(str:String, enable:Boolean = true):void
         {
+			enable = enable || true;
+
 
             if ( ! enable )
             {
@@ -62,6 +64,8 @@ package away.utils
 
         private static function logPIR(clss:String, fnc:String, msg:String = ''):void
         {
+			msg = msg || '';
+
 
             if ( Debug.LOG_PI_ERRORS )
             {

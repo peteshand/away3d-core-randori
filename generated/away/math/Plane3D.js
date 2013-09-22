@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:13 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,6 +7,10 @@ if (typeof away.math == "undefined")
 
 away.math.Plane3D = function(a, b, c, d) {
 	this._iAlignment = 0;
+	a = a || 0;
+	b = b || 0;
+	c = c || 0;
+	d = d || 0;
 	this.a = a;
 	this.b = b;
 	this.c = c;
@@ -90,6 +94,7 @@ away.math.Plane3D.prototype.distance = function(p) {
 };
 
 away.math.Plane3D.prototype.classifyPoint = function(p, epsilon) {
+	epsilon = epsilon || 0.01;
 	if (this.d != this.d)
 		return away.math.PlaneClassification.FRONT;
 	var len;

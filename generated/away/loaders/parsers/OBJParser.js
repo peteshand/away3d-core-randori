@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,6 +32,7 @@ away.loaders.parsers.OBJParser = function(scale) {
 	this._objectIndex = 0;
 	this._oldIndex = 0;
 	this._mtlLib = null;
+	scale = scale || 1;
 	away.loaders.parsers.ParserBase.call(this, away.loaders.parsers.ParserDataFormat.PLAIN_TEXT);
 	this._scale = scale;
 };
@@ -229,10 +230,10 @@ away.loaders.parsers.OBJParser.prototype.translateMaterialGroup = function(mater
 	var numFaces = faces.length;
 	var numVerts;
 	var subs;
-	var vertices = [];
-	var uvs = [];
-	var normals = [];
-	var indices = [];
+	var vertices = away.utils.VectorNumber.init(0, 0);
+	var uvs = away.utils.VectorNumber.init(0, 0);
+	var normals = away.utils.VectorNumber.init(0, 0);
+	var indices = away.utils.VectorNumber.init(0, 0);
 	this._realIndices = [];
 	this._vertexIndex = 0;
 	var j;
@@ -661,6 +662,7 @@ away.loaders.parsers.OBJParser.getRuntimeDependencies = function(t) {
 	p.push('away.materials.methods.BasicSpecularMethod');
 	p.push('away.loaders.parsers.utils.ParserUtil');
 	p.push('away.materials.TextureMultiPassMaterial');
+	p.push('away.utils.VectorNumber');
 	p.push('away.materials.ColorMaterial');
 	p.push('away.library.assets.AssetType');
 	p.push('away.materials.utils.DefaultMaterialManager');
@@ -728,9 +730,9 @@ this.specularMethod = null;
 };
 
 away.loaders.parsers.OBJParser$FaceData = function() {
-this.vertexIndices = [];
-this.uvIndices = [];
-this.normalIndices = [];
+this.vertexIndices = away.utils.VectorNumber.init(0, 0);
+this.uvIndices = away.utils.VectorNumber.init(0, 0);
+this.normalIndices = away.utils.VectorNumber.init(0, 0);
 this.indexIds = [];
 };
 

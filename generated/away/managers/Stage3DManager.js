@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -54,6 +54,8 @@ away.managers.Stage3DManager.getStage3DManagerByStageRef = function(stage) {
 };
 
 away.managers.Stage3DManager.prototype.getStage3DProxy = function(index, forceSoftware, profile) {
+	forceSoftware = forceSoftware || false;
+	profile = profile || "baseline";
 	if (!away.managers.Stage3DManager._stageProxies[index]) {
 		away.managers.Stage3DManager._numStageProxies++;
 		away.managers.Stage3DManager._stageProxies[index] = new away.managers.Stage3DProxy(index, this._stage.stage3Ds[index], this, forceSoftware, profile);
@@ -67,6 +69,8 @@ away.managers.Stage3DManager.prototype.iRemoveStage3DProxy = function(stage3DPro
 };
 
 away.managers.Stage3DManager.prototype.getFreeStage3DProxy = function(forceSoftware, profile) {
+	forceSoftware = forceSoftware || false;
+	profile = profile || "baseline";
 	var i = 0;
 	var len = away.managers.Stage3DManager._stageProxies.length;
 	while (i < len) {

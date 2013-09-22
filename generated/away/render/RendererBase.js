@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -135,6 +135,9 @@ away.render.RendererBase.prototype.iDispose = function() {
 };
 
 away.render.RendererBase.prototype.iRender = function(entityCollector, target, scissorRect, surfaceSelector) {
+	target = target || null;
+	scissorRect = scissorRect || null;
+	surfaceSelector = surfaceSelector || 0;
 	if (!this._pStage3DProxy || !this._pContext) {
 		return;
 	}
@@ -148,6 +151,9 @@ away.render.RendererBase.prototype.iRender = function(entityCollector, target, s
 };
 
 away.render.RendererBase.prototype.pExecuteRender = function(entityCollector, target, scissorRect, surfaceSelector) {
+	target = target || null;
+	scissorRect = scissorRect || null;
+	surfaceSelector = surfaceSelector || 0;
 	this._pRenderTarget = target;
 	this._pRenderTargetSurface = surfaceSelector;
 	if (this._pRenderableSorter) {
@@ -158,7 +164,7 @@ away.render.RendererBase.prototype.pExecuteRender = function(entityCollector, ta
 	}
 	this._pStage3DProxy.setRenderTarget(target, true, surfaceSelector);
 	if ((target || !this._shareContext) && this._clearOnRender) {
-		this._pContext.clear(this._backgroundR, this._backgroundG, this._backgroundB, this._backgroundAlpha, 1, 0, 0);
+		this._pContext.clear(this._backgroundR, this._backgroundG, this._backgroundB, this._backgroundAlpha, 1, 0, 17664);
 	}
 	this._pContext.setDepthTest(false, away.display3D.Context3DCompareMode.ALWAYS);
 	this._pStage3DProxy.set_scissorRect(scissorRect);

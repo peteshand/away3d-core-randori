@@ -33,7 +33,7 @@ package away.base
 	public class Object3D extends NamedAssetBase
 	{
 		/** @private */
-		public var _iController:ControllerBase; // Arcane		
+		public var _iController:ControllerBase// Arcane		
 		private var _smallestNumber:Number = 0.0000000000000000000001;
 		private var _transformDirty:Boolean = true;
 		
@@ -714,6 +714,8 @@ package away.base
 		/**		 * Rotates the 3d object around to face a point defined relative to the local coordinates of the parent <code>ObjectContainer3D</code>.		 *		 * @param    target        The vector defining the point to be looked at		 * @param    upAxis        An optional vector used to define the desired up orientation of the 3d object after rotation has occurred		 */
 		public function lookAt(target:Vector3D, upAxis:Vector3D = null):void
 		{
+			upAxis = upAxis || null;
+
 
 			var yAxis:Vector3D;
             var zAxis:Vector3D;

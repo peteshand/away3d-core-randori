@@ -9,6 +9,8 @@ package away.materials
 		/**		 * Creates a new ColorMultiPassMaterial object.		 *		 * @param color The material's diffuse surface color.		 */
 		public function ColorMultiPassMaterial(color:Number = 0xcccccc):void
 		{
+			color = color || 0xcccccc;
+
 			super();
 			this.color = color;
 		}

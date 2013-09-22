@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,10 @@ if (typeof away.math == "undefined")
 	away.math = {};
 
 away.math.Quaternion = function(x, y, z, w) {
+	x = x || 0;
+	y = y || 0;
+	z = z || 0;
+	w = w || 1;
 	this.x = x;
 	this.y = y;
 	this.z = z;
@@ -26,6 +30,7 @@ away.math.Quaternion.prototype.multiply = function(qa, qb) {
 };
 
 away.math.Quaternion.prototype.multiplyVector = function(vector, target) {
+	target = target || null;
 	if (target === null) {
 		target = new away.math.Quaternion(0, 0, 0, 1);
 	}
@@ -115,6 +120,7 @@ away.math.Quaternion.prototype.fromEulerAngles = function(ax, ay, az) {
 };
 
 away.math.Quaternion.prototype.toEulerAngles = function(target) {
+	target = target || null;
 	if (target === null) {
 		target = new away.geom.Vector3D(0, 0, 0, 0);
 	}
@@ -125,6 +131,7 @@ away.math.Quaternion.prototype.toEulerAngles = function(target) {
 };
 
 away.math.Quaternion.prototype.normalize = function(val) {
+	val = val || 1;
 	var mag = val / Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
 	this.x *= mag;
 	this.y *= mag;
@@ -137,6 +144,7 @@ away.math.Quaternion.prototype.toString = function() {
 };
 
 away.math.Quaternion.prototype.toMatrix3D = function(target) {
+	target = target || null;
 	var rawData = away.math.Matrix3DUtils.RAW_DATA_CONTAINER;
 	var xy2 = 2.0 * this.x * this.y, xz2 = 2.0 * this.x * this.z, xw2 = 2.0 * this.x * this.w;
 	var yz2 = 2.0 * this.y * this.z, yw2 = 2.0 * this.y * this.w, zw2 = 2.0 * this.z * this.w;
@@ -172,6 +180,7 @@ away.math.Quaternion.prototype.fromMatrix = function(matrix) {
 };
 
 away.math.Quaternion.prototype.toRawData = function(target, exclude4thRow) {
+	exclude4thRow = exclude4thRow || false;
 	var xy2 = 2.0 * this.x * this.y, xz2 = 2.0 * this.x * this.z, xw2 = 2.0 * this.x * this.w;
 	var yz2 = 2.0 * this.y * this.z, yw2 = 2.0 * this.y * this.w, zw2 = 2.0 * this.z * this.w;
 	var xx = this.x * this.x, yy = this.y * this.y, zz = this.z * this.z, ww = this.w * this.w;
@@ -200,6 +209,7 @@ away.math.Quaternion.prototype.clone = function() {
 };
 
 away.math.Quaternion.prototype.rotatePoint = function(vector, target) {
+	target = target || null;
 	var x1, y1, z1, w1;
 	var x2 = vector.x, y2 = vector.y, z2 = vector.z;
 	if (target === null) {

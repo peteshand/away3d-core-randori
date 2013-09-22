@@ -2,6 +2,7 @@
 
 package away.materials.compilation
 {
+	import away.utils.VectorNumber;
 	//import away3d.arcane;
 
 	/**	 * LightingShaderCompiler is a ShaderCompiler that generates code for passes performing shading only (no effect passes)	 */
@@ -502,12 +503,12 @@ package away.materials.compilation
 
 			if (addDiff)
             {
-				this._pLightProbeDiffuseIndices = new Vector.<Number>();
+				this._pLightProbeDiffuseIndices = VectorNumber.init();
 
             }
 			if (addSpec)
             {
-				this._pLightProbeSpecularIndices = new Vector.<Number>();
+				this._pLightProbeSpecularIndices = VectorNumber.init();
             }
 
 			for (i = 0; i < this._pNumProbeRegisters; ++i)

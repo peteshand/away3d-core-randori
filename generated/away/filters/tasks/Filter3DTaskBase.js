@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,6 +19,7 @@ away.filters.tasks.Filter3DTaskBase = function(requireDepthRender) {
 	this._scaledTextureWidth = -1;
 	this._mainInputTexture = null;
 	this._target = null;
+	requireDepthRender = requireDepthRender || false;
 	this._requireDepthRender = requireDepthRender;
 };
 

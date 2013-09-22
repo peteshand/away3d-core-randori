@@ -31,7 +31,7 @@ package away.entities
 	/**	 * Mesh is an instance of a Geometry, augmenting it with a presence in the scene graph, a material, and an animation	 * state. It consists out of SubMeshes, which in turn correspond to SubGeometries. SubMeshes allow different parts	 * of the geometry to be assigned different materials.	 */
 	public class Mesh extends Entity implements IMaterialOwner
 	{
-		private var _subMeshes:Vector.<SubMesh>;//:Vector.<SubMesh>;		private var _geometry:Geometry;//Geometry;		private var _material:MaterialBase;
+		private var _subMeshes:Vector.<SubMesh>//:Vector.<SubMesh>;		private var _geometry:Geometry//Geometry;		private var _material:MaterialBase;
 		private var _animator:IAnimator;
 		private var _castsShadows:Boolean = true;
 		private var _shareAnimationGeometry:Boolean = true;
@@ -39,6 +39,8 @@ package away.entities
 		/**		 * Create a new Mesh object.		 *		 * @param geometry                    The geometry used by the mesh that provides it with its shape.		 * @param material    [optional]        The material with which to render the Mesh.		 */
 		public function Mesh(geometry:Geometry, material:MaterialBase = null):void
 		{
+			material = material || null;
+
 			super();
 
 			this._subMeshes = new Vector.<SubMesh>();//Vector.<SubMesh>();

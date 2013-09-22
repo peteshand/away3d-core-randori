@@ -29,6 +29,8 @@ package away.filters.tasks
 		
 		public function Filter3DTaskBase(requireDepthRender:Boolean = false):void
 		{
+			requireDepthRender = requireDepthRender || false;
+
 
 			this._requireDepthRender = requireDepthRender;
 

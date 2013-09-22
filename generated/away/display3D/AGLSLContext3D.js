@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,6 +11,7 @@ away.display3D.AGLSLContext3D = function(canvas) {
 };
 
 away.display3D.AGLSLContext3D.prototype.setProgramConstantsFromMatrix = function(programType, firstRegister, matrix, transposedMatrix) {
+	transposedMatrix = transposedMatrix || false;
 	var d = matrix.rawData;
 	if (transposedMatrix) {
 		this.setProgramConstantsFromArray(programType, firstRegister, [d[0], d[4], d[8], d[12]], 1);
@@ -26,6 +27,8 @@ away.display3D.AGLSLContext3D.prototype.setProgramConstantsFromMatrix = function
 };
 
 away.display3D.AGLSLContext3D.prototype.drawTriangles = function(indexBuffer, firstIndex, numTriangles) {
+	firstIndex = firstIndex || 0;
+	numTriangles = numTriangles || -1;
 	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), "yflip");
 	this._gl.uniform1f(location, this._yFlip);
 	away.display3D.Context3D.prototype.drawTriangles.call(this,indexBuffer, firstIndex, numTriangles);

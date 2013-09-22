@@ -4,6 +4,7 @@
 
 package away.math
 {
+	import away.utils.VectorNumber;
 	import away.geom.Matrix3D;
 	import away.geom.Vector3D;
 	//import flash.geom.*;
@@ -12,7 +13,7 @@ package away.math
 	public class Matrix3DUtils
 	{
 		/**		 * A reference to a Vector to be used as a temporary raw data container, to prevent object creation.		 */
-        public static var RAW_DATA_CONTAINER:Vector.<Number> = new Vector.<Number>(16);
+        public static var RAW_DATA_CONTAINER:Vector.<Number> = VectorNumber.init(16);
 		//public static RAW_DATA_CONTAINER:number[] = new Vector.<Number>(16);
 		
 		public static var CALCULATION_MATRIX:Matrix3D = new Matrix3D();
@@ -20,6 +21,8 @@ package away.math
 		/**		 * Fills the 3d matrix object with values representing the transformation made by the given quaternion.		 *		 * @param    quarternion    The quarterion object to convert.		 */
 		public static function quaternion2matrix(quarternion:Quaternion, m:Matrix3D = null):Matrix3D
 		{
+			m = m || null;
+
 			var x:Number = quarternion.x;
 			var y:Number = quarternion.y;
 			var z:Number = quarternion.z;
@@ -66,6 +69,8 @@ package away.math
 		/**		 * Returns a normalised <code>Vector3D</code> object representing the forward vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the forward vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The forward vector		 */
 		public static function getForward(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
+			v = v || null;
+
             //v ||= new away.geom.Vector3D(0.0, 0.0, 0.0);
             if ( v === null || v == undefined )
             {
@@ -83,6 +88,8 @@ package away.math
 		/**		 * Returns a normalised <code>Vector3D</code> object representing the up vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the up vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The up vector		 */
 		public static function getUp(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
+			v = v || null;
+
 			//v ||= new away.geom.Vector3D(0.0, 0.0, 0.0);
 
             if ( v === null || v == undefined )
@@ -101,6 +108,8 @@ package away.math
 		/**		 * Returns a normalised <code>Vector3D</code> object representing the right vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the right vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The right vector		 */
 		public static function getRight(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
+			v = v || null;
+
 			//v ||= new Vector3D(0.0, 0.0, 0.0);
             if ( v === null || v == undefined )
             {
@@ -170,6 +179,8 @@ package away.math
 		
 		public static function reflection(plane:Plane3D, target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
             //target ||= new Matrix3D();
             if ( target === null || target == undefined )
             {

@@ -23,6 +23,7 @@ public class Main
             //var planeTest:PlaneTest = new PlaneTest();
             //var objChiefTestDay2:ObjChiefTestDay = new ObjChiefTestDay();
 
+
             var cubeDemo:CubeDemo = new CubeDemo();
             //var staticTest:StaticTest = new StaticTest();
 

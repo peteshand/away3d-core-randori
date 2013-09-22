@@ -16,13 +16,7 @@ package away.loaders.parsers
 	public class CubeTextureParser extends ParserBase
 	{
 
-        private static var posX:String = 'posX';
-        private static var negX:String = 'negX';
-        private static var posY:String = 'posY';
-        private static var negY:String = 'negY';
-        private static var posZ:String = 'posZ';
-        private static var negZ:String = 'negZ';
-
+        private static var posX:String = 'posX';        private static var negX:String = 'negX';        private static var posY:String = 'posY';        private static var negY:String = 'negY';        private static var posZ:String = 'posZ';        private static var negZ:String = 'negZ';
         private var STATE_PARSE_DATA:Number = 0;
         private var STATE_LOAD_IMAGES:Number = 1;
         private var STATE_COMPLETE:Number = 2;

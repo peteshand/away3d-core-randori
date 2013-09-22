@@ -12,6 +12,8 @@ package away.utils
 		/**		 * Build a list of sub-geometries from raw data vectors, splitting them up in		 * such a way that they won't exceed buffer length limits.		 */
 		public static function fromVectors(verts:Vector.<Number>, indices:Vector.<Number>/*uint*/, uvs:Vector.<Number>, normals:Vector.<Number>, tangents:Vector.<Number>, weights:Vector.<Number>, jointIndices:Vector.<Number>, triangleOffset:Number = 0):Vector.<ISubGeometry>
 		{
+			triangleOffset = triangleOffset || 0;
+
 			var LIMIT_VERTS     : Number = 3*0xffff;
             var LIMIT_INDICES   : Number = 15*0xffff;
 			
@@ -39,15 +41,15 @@ package away.utils
                 var len:Number;
                 var outIndex:Number;
                 var j:Number;
-				var splitVerts:Vector.<Number> = new Vector.<Number>();
-				var splitIndices:Vector.<Number> /*uint*/ = new Vector.<Number>();
-				var splitUvs:Vector.<Number> = (uvs != null)? new Vector.<Number>() : null;
-				var splitNormals:Vector.<Number> = (normals != null)? new Vector.<Number>() : null;
-				var splitTangents:Vector.<Number> = (tangents != null)? new Vector.<Number>() : null;
-				var splitWeights:Vector.<Number> = (weights != null)? new Vector.<Number>() : null;
-				var splitJointIndices:Vector.<Number> = (jointIndices != null)? new Vector.<Number>() : null;
+				var splitVerts:Vector.<Number> = VectorNumber.init();
+				var splitIndices:Vector.<Number> /*uint*/ = VectorNumber.init();
+				var splitUvs:Vector.<Number> = (uvs != null)? VectorNumber.init() : null;
+				var splitNormals:Vector.<Number> = (normals != null)? VectorNumber.init() : null;
+				var splitTangents:Vector.<Number> = (tangents != null)? VectorNumber.init() : null;
+				var splitWeights:Vector.<Number> = (weights != null)? VectorNumber.init() : null;
+				var splitJointIndices:Vector.<Number> = (jointIndices != null)? VectorNumber.init() : null;
 				
-				var mappings:Vector.<Number> = new Vector.<Number>( verts.length/3 );
+				var mappings:Vector.<Number> = VectorNumber.init( verts.length/3 );
 
 				i = mappings.length;
 
@@ -80,13 +82,13 @@ package away.utils
 					if (( (outIndex + 2) >= LIMIT_INDICES) || (splitIndex >= LIMIT_VERTS))
                     {
 						subs.push(GeometryUtils.constructSubGeometry(splitVerts, splitIndices, splitUvs, splitNormals, splitTangents, splitWeights, splitJointIndices, triangleOffset));
-						splitVerts = new Vector.<Number>();
-						splitIndices = new Vector.<Number>();
-						splitUvs = (uvs != null) ? new Vector.<Number>() : null;
-						splitNormals = (normals != null)? new Vector.<Number>() : null;
-						splitTangents = (tangents != null)? new Vector.<Number>() : null;
-						splitWeights = (weights != null)? new Vector.<Number>() : null;
-						splitJointIndices = (jointIndices != null)? new Vector.<Number>() : null;
+						splitVerts = VectorNumber.init();
+						splitIndices = VectorNumber.init();
+						splitUvs = (uvs != null) ? VectorNumber.init() : null;
+						splitNormals = (normals != null)? VectorNumber.init() : null;
+						splitTangents = (tangents != null)? VectorNumber.init() : null;
+						splitWeights = (weights != null)? VectorNumber.init() : null;
+						splitJointIndices = (jointIndices != null)? VectorNumber.init() : null;
 						splitIndex = 0;
 						j = mappings.length;
 
@@ -230,7 +232,7 @@ package away.utils
 			var i:Number, compIndex:Number, uvCompIndex:Number, interleavedCompIndex:Number;
 			var interleavedBuffer:Vector.<Number>;
 			
-			interleavedBuffer = new Vector.<Number>();
+			interleavedBuffer = VectorNumber.init();
 			
 			/**			 * 0 - 2: vertex position X, Y, Z			 * 3 - 5: normal X, Y, Z			 * 6 - 8: tangent X, Y, Z			 * 9 - 10: U V			 * 11 - 12: Secondary U V			 */
 			for (i = 0; i < numVertices; ++i)

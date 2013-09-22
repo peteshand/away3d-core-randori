@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,6 +14,14 @@ away.geom.ColorTransform = function(inRedMultiplier, inGreenMultiplier, inBlueMu
 	this.blueOffset = 0;
 	this.alphaOffset = 0;
 	this.greenOffset = 0;
+	inRedMultiplier = inRedMultiplier || 1.0;
+	inGreenMultiplier = inGreenMultiplier || 1.0;
+	inBlueMultiplier = inBlueMultiplier || 1.0;
+	inAlphaMultiplier = inAlphaMultiplier || 1.0;
+	inRedOffset = inRedOffset || 0.0;
+	inGreenOffset = inGreenOffset || 0.0;
+	inBlueOffset = inBlueOffset || 0.0;
+	inAlphaOffset = inAlphaOffset || 0.0;
 	this.redMultiplier = inRedMultiplier;
 	this.greenMultiplier = inGreenMultiplier;
 	this.blueMultiplier = inBlueMultiplier;

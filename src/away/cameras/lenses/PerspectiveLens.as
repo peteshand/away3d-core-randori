@@ -16,6 +16,8 @@ package away.cameras.lenses
 		
 		public function PerspectiveLens(fieldOfView:Number = 60):void
 		{
+			fieldOfView = fieldOfView || 60;
+
 			super();
 			this.fieldOfView = fieldOfView;
 		}

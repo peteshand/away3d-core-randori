@@ -89,6 +89,9 @@ package away.primitives
 		/**		 * @inheritDoc		 */
 		override public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
+			scaleU = scaleU || 1;
+			scaleV = scaleV || 1;
+
 			if (this._uvDirty)
             {
 

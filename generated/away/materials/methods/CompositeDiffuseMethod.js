@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,8 @@ if (typeof away.materials.methods == "undefined")
 
 away.materials.methods.CompositeDiffuseMethod = function(modulateMethod, baseDiffuseMethod) {
 	this.pBaseMethod = null;
+	modulateMethod = modulateMethod || null;
+	baseDiffuseMethod = baseDiffuseMethod || null;
 	away.materials.methods.BasicDiffuseMethod.call(this);
 	this.pBaseMethod = baseDiffuseMethod || new away.materials.methods.BasicDiffuseMethod();
 	this.pBaseMethod._iModulateMethod = modulateMethod;

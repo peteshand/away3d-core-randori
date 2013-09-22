@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:35 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -67,13 +67,11 @@ examples.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 };
 
 examples.PlaneTest.prototype.tick = function(dt) {
-	console.log("_tick");
-	this.mvMatrix.appendRotation(dt * 0.1, new away.geom.Vector3D(0, 1, 0, 0));
 	this.context3D.setProgram(this.program);
 	this.context3D.setGLSLProgramConstantsFromMatrix("pMatrix", this.pMatrix, true);
 	this.context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", this.mvMatrix, true);
 	this.context3D.setGLSLTextureAt("uSampler", this.texture, 0);
-	this.context3D.clear(0.1, 0.2, 0.3, 1, 1, 0, 0);
+	this.context3D.clear(1.0, 1.0, 0.0, 1, 1, 0, 17664);
 	this.context3D.drawTriangles(this.iBuffer, 0, 2);
 	this.context3D.present();
 };
@@ -86,7 +84,6 @@ examples.PlaneTest.getRuntimeDependencies = function(t) {
 	p.push('away.utils.RequestAnimationFrame');
 	p.push('away.net.URLRequest');
 	p.push('away.events.Stage3DEvent');
-	p.push('away.geom.Vector3D');
 	p.push('away.events.Event');
 	p.push('away.display3D.Context3DVertexBufferFormat');
 	p.push('away.utils.PerspectiveMatrix3D');

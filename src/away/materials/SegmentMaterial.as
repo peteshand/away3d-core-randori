@@ -12,6 +12,8 @@ package away.materials
 		/**		 * Creates a new SegmentMaterial object.		 *		 * @param thickness The thickness of the wireframe lines.		 */
 		public function SegmentMaterial(thickness:Number = 1.25):void
 		{
+			thickness = thickness || 1.25;
+
 			super();
 			
 			this.bothSides = true;

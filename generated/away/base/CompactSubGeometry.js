@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -217,6 +217,8 @@ away.base.CompactSubGeometry.prototype.clone = function() {
 };
 
 away.base.CompactSubGeometry.prototype.scaleUV = function(scaleU, scaleV) {
+	scaleU = scaleU || 1;
+	scaleV = scaleV || 1;
 	away.base.SubGeometryBase.prototype.scaleUV.call(this,scaleU, scaleV);
 	this.pInvalidateBuffers(this._pVertexDataInvalid);
 };
@@ -307,7 +309,7 @@ away.base.CompactSubGeometry.prototype.get_strippedUVData = function() {
 };
 
 away.base.CompactSubGeometry.prototype.stripBuffer = function(offset, numEntries) {
-	var data = [];
+	var data = away.utils.VectorNumber.init(this._pNumVertices * numEntries, 0);
 	var i = 0;
 	var j = offset;
 	var skip = 13 - numEntries;
@@ -327,7 +329,7 @@ away.base.CompactSubGeometry.prototype.fromVectors = function(verts, uvs, normal
 	var n = 0;
 	var t = 0;
 	var u = 0;
-	var data = [];
+	var data = away.utils.VectorNumber.init(vertLen, 0);
 	while (index < vertLen) {
 		data[index++] = verts[v++];
 		data[index++] = verts[v++];
@@ -377,6 +379,7 @@ away.base.CompactSubGeometry.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.base.SubGeometry');
 	p.push('away.display3D.Context3DVertexBufferFormat');
+	p.push('away.utils.VectorNumber');
 	return p;
 };
 

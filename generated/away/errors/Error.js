@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 00:01:31 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,9 @@ if (typeof away.errors == "undefined")
 away.errors.Error = function(message, id, _name) {
 	this._messsage = "";
 	this._errorID = 0;
+	message = message || "";
+	id = id || 0;
+	_name = _name || "";
 	this._messsage = message;
 	this._name = $createStaticDelegate(this, this.get_name);
 	this._errorID = id;

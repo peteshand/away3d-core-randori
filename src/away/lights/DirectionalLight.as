@@ -23,6 +23,10 @@ package away.lights
 		
 		public function DirectionalLight(xDir:Number = 0, yDir:Number = -1, zDir:Number = 1):void
 		{
+			xDir = xDir || 0;
+			yDir = yDir || -1;
+			zDir = zDir || 1;
+
 			super();
 			this.direction = new Vector3D( xDir, yDir, zDir );
 			this._sceneDirection = new Vector3D();
@@ -91,6 +95,8 @@ package away.lights
 		//override
 		override public function iGetObjectProjectionMatrix(renderable:IRenderable, target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
 			var raw:Vector.<Number> = new Vector.<Number>();
 			var bounds:BoundingVolumeBase = renderable.sourceEntity.bounds;
 			var m:Matrix3D = new Matrix3D();

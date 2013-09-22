@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,6 +12,7 @@ away.library.AssetLibrary = function(se) {
 away.library.AssetLibrary._iInstances = {};
 
 away.library.AssetLibrary.getBundle = function(key) {
+	key = key || "default";
 	return away.library.AssetLibraryBundle.getInstance(key);
 };
 
@@ -40,14 +41,23 @@ away.library.AssetLibrary.set_conflictPrecedence = function(val) {
 };
 
 away.library.AssetLibrary.createIterator = function(assetTypeFilter, namespaceFilter, filterFunc) {
+	assetTypeFilter = assetTypeFilter || null;
+	namespaceFilter = namespaceFilter || null;
+	filterFunc = filterFunc || null;
 	return away.library.AssetLibrary.getBundle("default").createIterator(assetTypeFilter, namespaceFilter, filterFunc);
 };
 
 away.library.AssetLibrary.load = function(req, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	return away.library.AssetLibrary.getBundle("default").load(req, context, ns, parser);
 };
 
 away.library.AssetLibrary.loadData = function(data, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	return away.library.AssetLibrary.getBundle("default").loadData(data, context, ns, parser);
 };
 
@@ -56,6 +66,7 @@ away.library.AssetLibrary.stopLoad = function() {
 };
 
 away.library.AssetLibrary.getAsset = function(name, ns) {
+	ns = ns || null;
 	return away.library.AssetLibrary.getBundle("default").getAsset(name, ns);
 };
 
@@ -72,18 +83,24 @@ away.library.AssetLibrary.addAsset = function(asset) {
 };
 
 away.library.AssetLibrary.removeAsset = function(asset, dispose) {
+	dispose = dispose || true;
 	away.library.AssetLibrary.getBundle("default").removeAsset(asset, dispose);
 };
 
 away.library.AssetLibrary.removeAssetByName = function(name, ns, dispose) {
+	ns = ns || null;
+	dispose = dispose || true;
 	return away.library.AssetLibrary.getBundle("default").removeAssetByName(name, ns, dispose);
 };
 
 away.library.AssetLibrary.removeAllAssets = function(dispose) {
+	dispose = dispose || true;
 	away.library.AssetLibrary.getBundle("default").removeAllAssets(dispose);
 };
 
 away.library.AssetLibrary.removeNamespaceAssets = function(ns, dispose) {
+	ns = ns || null;
+	dispose = dispose || true;
 	away.library.AssetLibrary.getBundle("default").removeNamespaceAssets(ns, dispose);
 };
 

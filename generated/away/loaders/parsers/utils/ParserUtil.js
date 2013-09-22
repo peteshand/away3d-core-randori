@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -34,6 +34,7 @@ away.loaders.parsers.utils.ParserUtil.toByteArray = function(data) {
 };
 
 away.loaders.parsers.utils.ParserUtil.toString = function(data, length) {
+	length = length || 0;
 	if (typeof(data) === "string")
 	
 	var s = data;

@@ -28,6 +28,8 @@ package away.display
 		
 		public function requestContext(aglslContext:Boolean = false):void
 		{
+			aglslContext = aglslContext || false;
+
 			try
 			{
 				if( aglslContext )

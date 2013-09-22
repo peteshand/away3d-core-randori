@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -277,6 +277,7 @@ away.materials.passes.MaterialPassBase.prototype.iDeactivate = function(stage3DP
 };
 
 away.materials.passes.MaterialPassBase.prototype.iInvalidateShaderProgram = function(updateMaterial) {
+	updateMaterial = updateMaterial || true;
 	for (var i = 0; i < 8; ++i) {
 		this._iProgram3Ds[i] = null;
 	}

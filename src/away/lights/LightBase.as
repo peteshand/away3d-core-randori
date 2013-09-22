@@ -168,6 +168,8 @@ package away.lights
 		
 		public function iGetObjectProjectionMatrix(renderable:IRenderable, target:Matrix3D = null):Matrix3D
 		{
+			target = target || null;
+
 			throw new AbstractMethodError();
 		}
 		

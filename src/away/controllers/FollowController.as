@@ -10,11 +10,18 @@ package away.controllers
 	{
 		public function FollowController(targetObject:Entity = null, lookAtObject:ObjectContainer3D = null, tiltAngle:Number = 45, distance:Number = 700):void
 		{
+			targetObject = targetObject || null;
+			lookAtObject = lookAtObject || null;
+			tiltAngle = tiltAngle || 45;
+			distance = distance || 700;
+
 			super(targetObject, lookAtObject, 0, tiltAngle, distance);
 		}
 		
 		override public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			interpolate = interpolate; // unused: prevents warning
 			
 			if (!this.lookAtObject)

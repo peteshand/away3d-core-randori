@@ -19,6 +19,9 @@ package away.loaders.misc
 		/**		 * AssetLoaderContext provides configuration for the AssetLoader load() and parse() operations.		 * Use it to configure how (and if) dependencies are loaded, or to map dependency URLs to		 * embedded data.		 *		 * @see away3d.loading.AssetLoader		 */
 		public function AssetLoaderContext(includeDependencies:Boolean = true, dependencyBaseUrl:String = null):void
 		{
+			includeDependencies = includeDependencies || true;
+			dependencyBaseUrl = dependencyBaseUrl || null;
+
 			this._includeDependencies   = includeDependencies;
             this._dependencyBaseUrl     = dependencyBaseUrl || '';
             this._embeddedDataByUrl     = {};

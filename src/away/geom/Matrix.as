@@ -16,6 +16,13 @@ package away.geom
 
         public function Matrix(a:Number = 1, b:Number = 0, c:Number = 0, d:Number = 1, tx:Number = 0, ty:Number = 0):void
         {
+			a = a || 1;
+			b = b || 0;
+			c = c || 0;
+			d = d || 1;
+			tx = tx || 0;
+			ty = ty || 0;
+
 
             this.a      = a;
             this.b      = b;
@@ -208,6 +215,10 @@ package away.geom
         /**         *         * @param scaleX         * @param scaleY         * @param rotation         * @param tx         * @param ty         */
         public function createBox(scaleX:Number, scaleY:Number, rotation:Number = 0, tx:Number = 0, ty:Number = 0):void
         {
+			rotation = rotation || 0;
+			tx = tx || 0;
+			ty = ty || 0;
+
 
             this.a = scaleX;
             this.d = scaleY;
@@ -220,6 +231,10 @@ package away.geom
         /**         *         * @param width         * @param height         * @param rotation         * @param tx         * @param ty         */
         public function createGradientBox(width:Number, height:Number, rotation:Number = 0, tx:Number = 0, ty:Number = 0):void
         {
+			rotation = rotation || 0;
+			tx = tx || 0;
+			ty = ty || 0;
+
 
             this.a = width / 1638.4;
             this.d = height / 1638.4;
@@ -365,6 +380,8 @@ package away.geom
         /**         *         * @param angle         * @param scale         */
         public function setRotation(angle:Number, scale:Number = 1):void
         {
+			scale = scale || 1;
+
 
             this.a = Math.cos (angle) * scale;
             this.c = Math.sin (angle) * scale;

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,10 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Rectangle = function(x, y, width, height) {
+	x = x || 0;
+	y = y || 0;
+	width = width || 0;
+	height = height || 0;
 	this.x = x;
 	this.y = y;
 	this.width = width;

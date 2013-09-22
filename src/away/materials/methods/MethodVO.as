@@ -10,9 +10,9 @@ package away.materials.methods
 		
 		// public register indices
 		public var texturesIndex:Number;
-		public var secondaryTexturesIndex:Number; // sometimes needed for composites		public var vertexConstantsIndex:Number;
-		public var secondaryVertexConstantsIndex:Number; // sometimes needed for composites		public var fragmentConstantsIndex:Number;
-		public var secondaryFragmentConstantsIndex:Number; // sometimes needed for composites		
+		public var secondaryTexturesIndex:Number// sometimes needed for composites		public var vertexConstantsIndex:Number;
+		public var secondaryVertexConstantsIndex:Number// sometimes needed for composites		public var fragmentConstantsIndex:Number;
+		public var secondaryFragmentConstantsIndex:Number// sometimes needed for composites		
 		public var useMipmapping:Boolean;
 		public var useSmoothTextures:Boolean;
 		public var repeatTextures:Boolean;

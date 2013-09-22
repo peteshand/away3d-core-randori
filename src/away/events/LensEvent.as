@@ -7,8 +7,7 @@ package away.events
 	import away.cameras.lenses.LensBase;
 	public class LensEvent extends Event
 	{
-		public static var MATRIX_CHANGED:String = "matrixChanged";
-		
+		public static var MATRIX_CHANGED:String = "matrixChanged";		
 		private var _lens:LensBase;
 		
 		public function LensEvent(type:String, lens:LensBase):void

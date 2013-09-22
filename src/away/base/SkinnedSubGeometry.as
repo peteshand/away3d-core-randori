@@ -5,6 +5,7 @@ package away.base
 	import away.display3D.VertexBuffer3D;
 	import away.display3D.Context3D;
 	import away.managers.Stage3DProxy;
+	import away.utils.VectorNumber;
 
     /**     *	 * SkinnedSubGeometry provides a SubGeometry extension that contains data needed to skin vertices. In particular,	 * it provides joint indices and weights.	 * Important! Joint indices need to be pre-multiplied by 3, since they index the matrix array (and each matrix has 3 float4 elements)     *     * @class away.base.SkinnedSubGeometry     *	 */
 	public class SkinnedSubGeometry extends CompactSubGeometry
@@ -12,7 +13,7 @@ package away.base
 		private var _bufferFormat:String;
 		private var _jointWeightsData:Vector.<Number>;
 		private var _jointIndexData:Vector.<Number>;
-		private var _animatedData:Vector.<Number>; // used for cpu fallback		private var _jointWeightsBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
+		private var _animatedData:Vector.<Number>// used for cpu fallback		private var _jointWeightsBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
 		private var _jointIndexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
 		private var _jointWeightsInvalid:Vector.<Boolean> = new Vector.<Boolean>(8);
 		private var _jointIndicesInvalid:Vector.<Boolean> = new Vector.<Boolean>(8);
@@ -21,7 +22,7 @@ package away.base
 		private var _jointsPerVertex:Number;
 		
 		private var _condensedJointIndexData:Vector.<Number>;
-		private var _condensedIndexLookUp:Vector.<Number>/*uint*/; // used for linking condensed indices to the real ones		private var _numCondensedJoints:Number;
+		private var _condensedIndexLookUp:Vector.<Number>/*uint*/// used for linking condensed indices to the real ones		private var _numCondensedJoints:Number;
 		
 		/**		 * Creates a new SkinnedSubGeometry object.		 * @param jointsPerVertex The amount of joints that can be assigned per vertex.		 */
 		public function SkinnedSubGeometry(jointsPerVertex:Number):void
@@ -138,8 +139,8 @@ package away.base
 			var newIndex:Number = 0;
 			var dic:Object = new Object();
 
-            this._condensedJointIndexData = new Vector.<Number>(len);
-            this._condensedIndexLookUp = new Vector.<Number>();
+            this._condensedJointIndexData = VectorNumber.init(len);
+            this._condensedIndexLookUp = VectorNumber.init();
 			
 			for (var i:Number = 0; i < len; ++i) {
 				oldIndex = this._jointIndexData[i];

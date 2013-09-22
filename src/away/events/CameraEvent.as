@@ -9,8 +9,7 @@ package away.events
     /**     * @class away.events.CameraEvent     */
 	public class CameraEvent extends Event
 	{
-		public static var LENS_CHANGED:String = "lensChanged";
-		
+		public static var LENS_CHANGED:String = "lensChanged";		
 		private var _camera:Camera3D;
 		
 		public function CameraEvent(type:String, camera:Camera3D):void

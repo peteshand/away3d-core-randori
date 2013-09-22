@@ -8,8 +8,7 @@ package aglsl
 	{
 		public var progid:Number = 0;
 		public var version:Number = 0;
-		public var type:String = "";
-		
+		public var type:String = "";		
 		public function Header():void
 		{
 		}

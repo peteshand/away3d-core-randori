@@ -26,11 +26,26 @@ package away.base
 		private var _vertexNormals:Vector.<Number>;
 		private var _vertexTangents:Vector.<Number>;
 		
-		private var _verticesInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//= new Vector.<Boolean>(8, true);		private var _uvsInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _secondaryUvsInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//= new Vector.<Boolean>(8, true);		private var _normalsInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//= new Vector.<Boolean>(8, true);		private var _tangentsInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//= new Vector.<Boolean>(8, true);		
+		private var _verticesInvalid:Vector.<Boolean>//= new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		private var _uvsInvalid:Vector.<Boolean>//new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		private var _secondaryUvsInvalid:Vector.<Boolean>//= new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		private var _normalsInvalid:Vector.<Boolean>//= new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		private var _tangentsInvalid:Vector.<Boolean>//= new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		
 		// buffers:
-		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _uvBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _secondaryUvBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _vertexNormalBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _vertexTangentBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);
+		private var _vertexBuffer:Vector.<VertexBuffer3D>//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+		private var _uvBuffer:Vector.<VertexBuffer3D>//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+		private var _secondaryUvBuffer:Vector.<VertexBuffer3D>//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+		private var _vertexNormalBuffer:Vector.<VertexBuffer3D>//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+		private var _vertexTangentBuffer:Vector.<VertexBuffer3D>//:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+
 		// buffer dirty flags, per context:
-		private var _vertexBufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//:Vector.<Context3D> = new Vector.<Context3D>(8);		private var _uvBufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//:Vector.<Context3D> = new Vector.<Context3D>(8);		private var _secondaryUvBufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//:Vector.<Context3D> = new Vector.<Context3D>(8);		private var _vertexNormalBufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//:Vector.<Context3D> = new Vector.<Context3D>(8);		private var _vertexTangentBufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//:Vector.<Context3D> = new Vector.<Context3D>(8);		
+		private var _vertexBufferContext:Vector.<Context3D>//:Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		private var _uvBufferContext:Vector.<Context3D>//:Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		private var _secondaryUvBufferContext:Vector.<Context3D>//:Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		private var _vertexNormalBufferContext:Vector.<Context3D>//:Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		private var _vertexTangentBufferContext:Vector.<Context3D>//:Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		
 		private var _numVertices:Number;
 		
 		/**		 * Creates a new SubGeometry object.		 */
@@ -216,6 +231,9 @@ package away.base
 		/**		 * @inheritDoc		 */
 		override public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
+			scaleU = scaleU || 1;
+			scaleV = scaleV || 1;
+
 			super.scaleUV(scaleU, scaleV);
 			this.pInvalidateBuffers(this._uvsInvalid);
 		}

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -30,6 +30,8 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._backBufferHeight = 0;
 	this._backBufferWidth = 0;
 	this._usesSoftwareRendering = null;
+	forceSoftware = forceSoftware || false;
+	profile = profile || "baseline";
 	away.events.EventDispatcher.call(this);
 	this._iStage3DIndex = stage3DIndex;
 	this._stage3D = stage3D;
@@ -113,6 +115,8 @@ away.managers.Stage3DProxy.prototype.get_renderSurfaceSelector = function() {
 };
 
 away.managers.Stage3DProxy.prototype.setRenderTarget = function(target, enableDepthAndStencil, surfaceSelector) {
+	enableDepthAndStencil = enableDepthAndStencil || false;
+	surfaceSelector = surfaceSelector || 0;
 	if (this._renderTarget === target && surfaceSelector == this._renderSurfaceSelector && this._enableDepthAndStencil == enableDepthAndStencil) {
 		return;
 	}
@@ -129,7 +133,7 @@ away.managers.Stage3DProxy.prototype.clear = function() {
 		this.configureBackBuffer(this._backBufferWidth, this._backBufferHeight, this._antiAlias, this._enableDepthAndStencil);
 		this._backBufferDirty = false;
 	}
-	this._iContext3D.clear((this._color & 0xff000000) >>> 24, (this._color & 0xff0000) >>> 16, (this._color & 0xff00) >>> 8, this._color & 0xff, 1, 0, 0);
+	this._iContext3D.clear((this._color & 0xff000000) >>> 24, (this._color & 0xff0000) >>> 16, (this._color & 0xff00) >>> 8, this._color & 0xff, 1, 0, 17664);
 	this._bufferClear = true;
 };
 
@@ -299,6 +303,8 @@ away.managers.Stage3DProxy.prototype.onContext3DUpdate = function(event) {
 };
 
 away.managers.Stage3DProxy.prototype.requestContext = function(forceSoftware, profile) {
+	forceSoftware = forceSoftware || false;
+	profile = profile || "baseline";
 	if (this._usesSoftwareRendering != null) {
 		this._usesSoftwareRendering = forceSoftware;
 	}

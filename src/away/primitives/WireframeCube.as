@@ -15,6 +15,12 @@ package away.primitives
 		/**		 * Creates a new WireframeCube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeCube(width:Number = 100, height:Number = 100, depth:Number = 100, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
+			width = width || 100;
+			height = height || 100;
+			depth = depth || 100;
+			color = color || 0xFFFFFF;
+			thickness = thickness || 1;
+
 			super(color, thickness);
 			
 			this._width = width;

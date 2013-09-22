@@ -23,6 +23,9 @@ package away.display
 		
 		public function Stage(width:Number = 640, height:Number = 480):void
 		{
+			width = width || 640;
+			height = height || 480;
+
 			super();
 
             // Move ( to Sprite ) / possibly remove:

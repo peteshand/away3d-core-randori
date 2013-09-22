@@ -14,6 +14,11 @@ package away.base.data
 		/**		 * Creates a new <code>Vertex</code> value object.		 *		 * @param    x            [optional]    The x value. Defaults to 0.		 * @param    y            [optional]    The y value. Defaults to 0.		 * @param    z            [optional]    The z value. Defaults to 0.		 * @param    index        [optional]    The index value. Defaults is NaN.		 */
 		public function Vertex(x:Number = 0, y:Number = 0, z:Number = 0, index:Number = 0):void
 		{
+			x = x || 0;
+			y = y || 0;
+			z = z || 0;
+			index = index || 0;
+
 			this._x = x;
             this._y = y;
             this._z = z;

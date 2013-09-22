@@ -7,10 +7,7 @@ package away.primitives
 	/**	 * A WireframePlane primitive mesh.	 */
 	public class WireframePlane extends WireframePrimitiveBase
 	{
-		public static var ORIENTATION_YZ:String = "yz";
-		public static var ORIENTATION_XY:String = "xy";
-		public static var ORIENTATION_XZ:String = "xz";
-		
+		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
 		private var _width:Number;
 		private var _height:Number;
 		private var _segmentsW:Number;
@@ -20,6 +17,12 @@ package away.primitives
 		/**		 * Creates a new WireframePlane object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
 		public function WireframePlane(width:Number, height:Number, segmentsW:Number = 10, segmentsH:Number = 10, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void
 		{
+			segmentsW = segmentsW || 10;
+			segmentsH = segmentsH || 10;
+			color = color || 0xFFFFFF;
+			thickness = thickness || 1;
+			orientation = orientation || "yz";
+
 			super(color, thickness);
 			
 			this._width = width;

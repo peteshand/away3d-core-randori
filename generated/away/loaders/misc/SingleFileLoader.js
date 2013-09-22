@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,6 +16,7 @@ away.loaders.misc.SingleFileLoader = function(materialMode) {
 	this._fileName = null;
 	this._fileExtension = null;
 	this._parser = null;
+	materialMode = materialMode || 0;
 	away.events.EventDispatcher.call(this);
 	away.loaders.misc.SingleFileLoader._parsers.push(away.loaders.parsers.ImageParser);
 	this._materialMode = materialMode;
@@ -49,6 +50,8 @@ away.loaders.misc.SingleFileLoader.prototype.get_loadAsRawData = function() {
 };
 
 away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser, loadAsRawData) {
+	parser = parser || null;
+	loadAsRawData = loadAsRawData || false;
 	var dataFormat;
 	var loaderType = away.loaders.parsers.ParserLoaderType.URL_LOADER;
 	this._loadAsRawData = loadAsRawData;
@@ -92,6 +95,8 @@ away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser,
 };
 
 away.loaders.misc.SingleFileLoader.prototype.parseData = function(data, parser, req) {
+	parser = parser || null;
+	req = req || null;
 	if (data.constructor === Function) {
 		data = new data();
 	}

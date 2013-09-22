@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:31 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:57 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -29,12 +29,14 @@ away.display3D.Texture.prototype.get_height = function() {
 };
 
 away.display3D.Texture.prototype.uploadFromHTMLImageElement = function(image, miplevel) {
+	miplevel = miplevel || 0;
 	this._gl.bindTexture(3553, this._glTexture);
 	this._gl.texImage2D(3553, miplevel, 6408, 6408, 5121, image);
 	this._gl.bindTexture(3553, null);
 };
 
 away.display3D.Texture.prototype.uploadFromBitmapData = function(data, miplevel) {
+	miplevel = miplevel || 0;
 	this._gl.bindTexture(3553, this._glTexture);
 	this._gl.texImage2D(3553, miplevel, 6408, 6408, 5121, data.get_imageData());
 	this._gl.bindTexture(3553, null);

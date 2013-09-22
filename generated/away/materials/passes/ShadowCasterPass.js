@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.materials.passes == "undefined")
 	away.materials.passes = {};
 
 away.materials.passes.ShadowCasterPass = function(material) {
-	this._inverseSceneMatrix = [];
+	this._inverseSceneMatrix = away.utils.VectorNumber.init(0, 0);
 	this._lightVertexConstantIndex = 0;
 	this._tangentSpace = null;
 	away.materials.passes.CompiledPass.call(this, material);
@@ -168,7 +168,9 @@ away.materials.passes.ShadowCasterPass.getRuntimeDependencies = function(t) {
 
 away.materials.passes.ShadowCasterPass.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.materials.passes.ShadowCasterPass.injectionPoints = function(t) {

@@ -34,6 +34,8 @@ package away.base
 		/**		 * Creates a new SubMesh object		 * @param subGeometry The SubGeometry object which provides the geometry data for this SubMesh.		 * @param parentMesh The Mesh object to which this SubMesh belongs.		 * @param material An optional material used to render this SubMesh.		 */
 		public function SubMesh(subGeometry:ISubGeometry, parentMesh:Mesh, material:MaterialBase = null):void
 		{
+			material = material || null;
+
 			this._parentMesh = parentMesh;
             this._subGeometry = subGeometry;
 			this.material = material;

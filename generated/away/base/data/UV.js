@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:03 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:34 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,8 @@ if (typeof away.base.data == "undefined")
 away.base.data.UV = function(u, v) {
 	this._u = 0;
 	this._v = 0;
+	u = u || 0;
+	v = v || 0;
 	this._u = u;
 	this._v = v;
 };

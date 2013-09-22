@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,6 +7,7 @@ if (typeof away.events == "undefined")
 
 away.events.ParserEvent = function(type, message) {
 	this._message = null;
+	message = message || "";
 	away.events.Event.call(this, type);
 	this._message = message;
 };

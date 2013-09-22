@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:15 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,6 +11,7 @@ away.cameras.lenses.OrthographicLens = function(projectionHeight) {
 	this._yMax = 0;
 	this._projectionHeight = 0;
 	this._xMax = 0;
+	projectionHeight = projectionHeight || 500;
 	away.cameras.lenses.LensBase.call(this);
 	this._projectionHeight = projectionHeight;
 };

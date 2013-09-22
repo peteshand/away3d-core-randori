@@ -7,18 +7,17 @@ package away.events
 	public class GeometryEvent extends Event
 	{
 		/**		 * Dispatched when a SubGeometry was added from the dispatching Geometry.		 */
-		public static var SUB_GEOMETRY_ADDED:String = "SubGeometryAdded";
-		
+		public static var SUB_GEOMETRY_ADDED:String = "SubGeometryAdded";		
 		/**		 * Dispatched when a SubGeometry was removed from the dispatching Geometry.		 */
-		public static var SUB_GEOMETRY_REMOVED:String = "SubGeometryRemoved";
-		
-		public static var BOUNDS_INVALID:String = "BoundsInvalid";
-		
+		public static var SUB_GEOMETRY_REMOVED:String = "SubGeometryRemoved";		
+		public static var BOUNDS_INVALID:String = "BoundsInvalid";		
 		private var _subGeometry:ISubGeometry;
 		
 		/**		 * Create a new GeometryEvent		 * @param type The event type.		 * @param subGeometry An optional SubGeometry object that is the subject of this event.		 */
 		public function GeometryEvent(type:String, subGeometry:ISubGeometry = null):void
 		{
+			subGeometry = subGeometry || null;
+
 			super( type ) //, false, false);
 			this._subGeometry = subGeometry;
 		}

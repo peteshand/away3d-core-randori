@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:59 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -34,6 +34,9 @@ away.loaders.AssetLoader.enableParsers = function(parserClasses) {
 };
 
 away.loaders.AssetLoader.prototype.load = function(req, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	if (!this._token) {
 		this._token = new away.loaders.misc.AssetLoaderToken(this);
 		req.set_url(req.get_url().replace(/\\/g, "\/"));
@@ -48,6 +51,9 @@ away.loaders.AssetLoader.prototype.load = function(req, context, ns, parser) {
 };
 
 away.loaders.AssetLoader.prototype.loadData = function(data, id, context, ns, parser) {
+	context = context || null;
+	ns = ns || null;
+	parser = parser || null;
 	if (!this._token) {
 		this._token = new away.loaders.misc.AssetLoaderToken(this);
 		this._uri = id;
@@ -61,6 +67,7 @@ away.loaders.AssetLoader.prototype.loadData = function(data, id, context, ns, pa
 };
 
 away.loaders.AssetLoader.prototype.retrieveNext = function(parser) {
+	parser = parser || null;
 	if (this._loadingDependency.get_dependencies().length) {
 		var dep = this._loadingDependency.get_dependencies().pop();
 		this._stack.push(this._loadingDependency);
@@ -81,6 +88,7 @@ away.loaders.AssetLoader.prototype.retrieveNext = function(parser) {
 };
 
 away.loaders.AssetLoader.prototype.retrieveDependency = function(dependency, parser) {
+	parser = parser || null;
 	var data;
 	var matMode = 0;
 	if (this._context && this._context.get_materialMode() != 0) {

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,7 +20,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._vertexCode = null;
 	this._pLightFragmentConstantIndex = 0;
 	this._uvBufferIndex = 0;
-	this._pVertexConstantData = [];
+	this._pVertexConstantData = away.utils.VectorNumber.init(0, 0);
 	this._secondaryUVBufferIndex = 0;
 	this._tangentBufferIndex = 0;
 	this._pNumDirectionalLights = 0;
@@ -31,7 +31,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._pLightProbeDiffuseIndices = null;
 	this._pNumLightProbes = 0;
 	this._pDiffuseLightSources = 0x03;
-	this._pFragmentConstantData = [];
+	this._pFragmentConstantData = away.utils.VectorNumber.init(0, 0);
 	this._pMethodSetup = null;
 	this._preserveAlpha = true;
 	this._animateUVs = false;
@@ -258,6 +258,7 @@ away.materials.passes.CompiledPass.prototype.dispose = function() {
 };
 
 away.materials.passes.CompiledPass.prototype.iInvalidateShaderProgram = function(updateMaterial) {
+	updateMaterial = updateMaterial || true;
 	var oldPasses = this._iPasses;
 	this._iPasses = [];
 	if (this._pMethodSetup) {
@@ -512,7 +513,9 @@ away.materials.passes.CompiledPass.getRuntimeDependencies = function(t) {
 
 away.materials.passes.CompiledPass.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.materials.passes.CompiledPass.injectionPoints = function(t) {

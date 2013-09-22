@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,6 +20,7 @@ away.loaders.parsers.ParserBase = function(format, loaderType) {
 	this._loaderType = away.loaders.parsers.ParserLoaderType.URL_LOADER;
 	this._parsingFailure = null;
 	this._parsingComplete = null;
+	loaderType = loaderType || null;
 	away.events.EventDispatcher.call(this);
 	if (loaderType) {
 		this._loaderType = loaderType;
@@ -87,6 +88,7 @@ away.loaders.parsers.ParserBase.prototype.get_dataFormat = function() {
 };
 
 away.loaders.parsers.ParserBase.prototype.parseAsync = function(data, frameLimit) {
+	frameLimit = frameLimit || 30;
 	this._data = data;
 	this.startParsing(frameLimit);
 };
@@ -115,6 +117,7 @@ away.loaders.parsers.ParserBase.prototype._iResumeParsingAfterDependencies = fun
 };
 
 away.loaders.parsers.ParserBase.prototype._pFinalizeAsset = function(asset, name) {
+	name = name || null;
 	var type_event;
 	var type_name;
 	if (name != null) {
@@ -221,6 +224,7 @@ away.loaders.parsers.ParserBase.prototype._pProceedParsing = function() {
 };
 
 away.loaders.parsers.ParserBase.prototype._pDieWithError = function(message) {
+	message = message || "Unknown parsing error";
 	if (this._timer) {
 		this._timer.removeEventListener(away.events.TimerEvent.TIMER, $createStaticDelegate(this, this._pOnInterval), this);
 		this._timer.stop();
@@ -230,6 +234,9 @@ away.loaders.parsers.ParserBase.prototype._pDieWithError = function(message) {
 };
 
 away.loaders.parsers.ParserBase.prototype._pAddDependency = function(id, req, retrieveAsRawData, data, suppressErrorEvents) {
+	retrieveAsRawData = retrieveAsRawData || false;
+	data = data || null;
+	suppressErrorEvents = suppressErrorEvents || false;
 	this._dependencies.push(new away.loaders.misc.ResourceDependency(id, req, data, this, retrieveAsRawData, suppressErrorEvents));
 };
 
@@ -246,6 +253,7 @@ away.loaders.parsers.ParserBase.prototype._pHasTime = function() {
 };
 
 away.loaders.parsers.ParserBase.prototype._pOnInterval = function(event) {
+	event = event || null;
 	this._lastFrameTime = new Date().getTime();
 	if (this._pProceedParsing() && !this._parsingFailure) {
 		this._pFinishParsing();

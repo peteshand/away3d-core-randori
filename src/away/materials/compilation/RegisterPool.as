@@ -2,16 +2,19 @@
 
 package away.materials.compilation
 {
+	import away.utils.VectorNumber;
 	//import flash.utils.Dictionary;
 	
 	/**	 * RegisterPool is used by the shader compilation process to keep track of which registers of a certain type are	 * currently used and should not be allowed to be written to. Either entire registers can be requested and locked,	 * or single components (x, y, z, w) of a single register.	 * It is used by ShaderRegisterCache to track usages of individual register types.	 *	 * @see away3d.materials.compilation.ShaderRegisterCache	 */
 	public class RegisterPool
 	{
-		private static var _regPool:Object = new Object();//= new Dictionary();		private static var _regCompsPool:Object = new Object();//new Dictionary();		
-		private var _vectorRegisters:Vector.<ShaderRegisterElement>;//Vector.<ShaderRegisterElement>;		private var _registerComponents;
+		private static var _regPool:Object//= new Dictionary(); = new Object()
+		private static var _regCompsPool:Object//new Dictionary(); = new Object()
+		
+		private var _vectorRegisters:Vector.<ShaderRegisterElement>//Vector.<ShaderRegisterElement>;		private var _registerComponents;
 		
 		private var _regName:String;
-		private var _usedSingleCount:Vector.<Vector.<Number>>;//Vector.<Vector.<uint>>;		private var _usedVectorCount:Vector.<Number>/*uint*/;
+		private var _usedSingleCount:Vector.<Vector.<Number>>//Vector.<Vector.<uint>>;		private var _usedVectorCount:Vector.<Number>/*uint*/;
 		private var _regCount:Number;
 		
 		private var _persistent:Boolean;
@@ -19,6 +22,8 @@ package away.materials.compilation
 		/**		 * Creates a new RegisterPool object.		 * @param regName The base name of the register type ("ft" for fragment temporaries, "vc" for vertex constants, etc)		 * @param regCount The amount of available registers of this type.		 * @param persistent Whether or not registers, once reserved, can be freed again. For example, temporaries are not persistent, but constants are.		 */
 		public function RegisterPool(regName:String, regCount:Number, persistent:Boolean = true):void
 		{
+			persistent = persistent || true;
+
 			this._regName = regName;
             this._regCount = regCount;
             this._persistent = persistent;
@@ -160,10 +165,10 @@ package away.materials.compilation
 			this._usedVectorCount = this._initArray( Vector.<Number>(regCount) , 0 ) ;//new Vector.<uint>(regCount, true);
 
             this._usedSingleCount = new Vector.<Vector.<Number>>( 4 ); //this._usedSingleCount = new Vector.<Vector.<uint>>(4, true);
-			this._usedSingleCount[0] = this._initArray( new Vector.<Number>(regCount ) , 0 );//new Array<number>(regCount ) ;//, true);
-            this._usedSingleCount[1] = this._initArray( new Vector.<Number>(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
-            this._usedSingleCount[2] = this._initArray( new Vector.<Number>(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
-            this._usedSingleCount[3] = this._initArray( new Vector.<Number>(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
+			this._usedSingleCount[0] = this._initArray( VectorNumber.init(regCount ) , 0 );//new Array<number>(regCount ) ;//, true);
+            this._usedSingleCount[1] = this._initArray( VectorNumber.init(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
+            this._usedSingleCount[2] = this._initArray( VectorNumber.init(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
+            this._usedSingleCount[3] = this._initArray( VectorNumber.init(regCount ) , 0 );//new Array<number>(regCount ) ;//new Vector.<uint>(regCount, true);
 
             //console.log( 'this._usedVectorCount: ' , this._usedVectorCount );
             //console.log( 'this._usedSingleCount: ' , this._usedSingleCount );

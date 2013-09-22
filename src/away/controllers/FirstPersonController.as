@@ -126,6 +126,14 @@ package away.controllers
 		/**		 * Creates a new <code>HoverController</code> object.		 */
 		public function FirstPersonController(targetObject:Entity = null, panAngle:Number = 0, tiltAngle:Number = 90, minTiltAngle:Number = -90, maxTiltAngle:Number = 90, steps:Number = 8, wrapPanAngle:Boolean = false):void
 		{
+			targetObject = targetObject || null;
+			panAngle = panAngle || 0;
+			tiltAngle = tiltAngle || 90;
+			minTiltAngle = minTiltAngle || -90;
+			maxTiltAngle = maxTiltAngle || 90;
+			steps = steps || 8;
+			wrapPanAngle = wrapPanAngle || false;
+
 			super(targetObject);
 			
 			this.panAngle = panAngle;
@@ -143,6 +151,8 @@ package away.controllers
 		/**		 * Updates the current tilt angle and pan angle values.		 *		 * Values are calculated using the defined <code>tiltAngle</code>, <code>panAngle</code> and <code>steps</code> variables.		 *		 * @param interpolate   If the update to a target pan- or tiltAngle is interpolated. Default is true.		 *		 * @see    #tiltAngle		 * @see    #panAngle		 * @see    #steps		 */
 		override public function update(interpolate:Boolean = true):void
 		{
+			interpolate = interpolate || true;
+
 			if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle) {
 				
 				this.pNotifyUpdate();

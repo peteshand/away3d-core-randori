@@ -6,10 +6,14 @@ package away.base
 	import away.managers.Stage3DProxy;
 	import away.display3D.Context3DVertexBufferFormat;
 	import away.geom.Matrix3D;
+	import away.utils.VectorNumber;
     /**     * @class away.base.Geometry     */
 	public class CompactSubGeometry extends SubGeometryBase implements ISubGeometry
 	{
-		public var _pVertexDataInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);		private var _vertexBuffer:Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>( 8 );//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8);		private var _bufferContext:Vector.<Context3D> = new Vector.<Context3D>( 8 );//Vector.<Context3D> = new Vector.<Context3D>(8);		public var _pNumVertices:Number;
+		public var _pVertexDataInvalid:Vector.<Boolean>//new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+		private var _vertexBuffer:Vector.<VertexBuffer3D>//Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8); = new Vector.<VertexBuffer3D>( 8 )
+		private var _bufferContext:Vector.<Context3D>//Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+		public var _pNumVertices:Number;
 		private var _contextIndex:Number;
 		public var _pActiveBuffer:VertexBuffer3D;
 		private var _activeContext:Context3D;
@@ -322,6 +326,9 @@ package away.base
 		
 		override public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
+			scaleU = scaleU || 1;
+			scaleV = scaleV || 1;
+
 
 			super.scaleUV(scaleU, scaleV);
 
@@ -446,7 +453,7 @@ package away.base
 		/**		 * Isolate and returns a Vector.Number of a specific buffer type		 *		 * - stripBuffer(0, 3), return only the vertices		 * - stripBuffer(3, 3): return only the normals		 * - stripBuffer(6, 3): return only the tangents		 * - stripBuffer(9, 2): return only the uv's		 * - stripBuffer(11, 2): return only the secondary uv's		 */
 		public function stripBuffer(offset:Number, numEntries:Number):Vector.<Number>
 		{
-			var data:Vector.<Number> = new Vector.<Number>( this._pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);
+			var data:Vector.<Number> = VectorNumber.init( this._pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);
 			var i:Number = 0;
             var j:Number = offset;
 			var skip:Number = 13 - numEntries;
@@ -476,7 +483,7 @@ package away.base
 			var t:Number = 0;
 			var u:Number = 0;
 			
-			var data:Vector.<Number> = new Vector.<Number>( vertLen );//Vector.<Number>(vertLen, true);
+			var data:Vector.<Number> = VectorNumber.init( vertLen );//Vector.<Number>(vertLen, true);
 			
 			while (index < vertLen)
             {

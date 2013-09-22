@@ -23,6 +23,8 @@ package away.textures
 		
 		public function HTMLImageElementTexture(htmlImageElement:HTMLImageElement, generateMipmaps:Boolean = true):void
 		{
+			generateMipmaps = generateMipmaps || true;
+
 			super();
 			
 			this._htmlImageElement= htmlImageElement;

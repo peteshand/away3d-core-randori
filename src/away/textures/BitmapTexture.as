@@ -20,6 +20,8 @@ package away.textures
 		
 		public function BitmapTexture(bitmapData:BitmapData, generateMipmaps:Boolean = true):void
 		{
+			generateMipmaps = generateMipmaps || true;
+
 			super();
 			
 			this.bitmapData         = bitmapData;

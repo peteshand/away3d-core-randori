@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -123,6 +123,8 @@ away.geom.Matrix3D.prototype.copyFrom = function(sourceMatrix3D) {
 };
 
 away.geom.Matrix3D.prototype.copyRawDataFrom = function(vector, index, transposeThis) {
+	index = index || 0;
+	transposeThis = transposeThis || false;
 	if (transposeThis) {
 		this.transpose();
 	}
@@ -136,6 +138,8 @@ away.geom.Matrix3D.prototype.copyRawDataFrom = function(vector, index, transpose
 };
 
 away.geom.Matrix3D.prototype.copyRawDataTo = function(vector, index, transposeThis) {
+	index = index || 0;
+	transposeThis = transposeThis || false;
 	if (transposeThis) {
 		this.transpose();
 	}

@@ -36,7 +36,7 @@ package away.entities
 		private var _animator:IAnimator;
 		private var _hasData:Boolean;
 		
-		public var _pSegments:Object; //Dictionary		private var _indexSegments:Number = 0;
+		public var _pSegments:Object//Dictionary		private var _indexSegments:Number = 0;
 		
 		public function SegmentSet():void
 		{
@@ -90,6 +90,8 @@ package away.entities
 		
 		public function removeSegmentByIndex(index:Number, dispose:Boolean = false):void
 		{
+			dispose = dispose || false;
+
 			var segRef:SegRef;
 			if (index >= this._indexSegments)
 			{
@@ -164,6 +166,8 @@ package away.entities
 		
 		public function removeSegment(segment:Segment, dispose:Boolean = false):void
 		{
+			dispose = dispose || false;
+
 			if( segment.iIndex == -1 )
 			{
 				return;

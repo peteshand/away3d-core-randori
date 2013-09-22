@@ -10,10 +10,8 @@ package away.utils
 	{
 		public var position:Number = 0;
 		public var length:Number = 0;
-		public var _mode:String = "";
-		
-		public var Base64Key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-		
+		public var _mode:String = "";		
+		public var Base64Key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";		
 		public function ByteArrayBase():void
 		{
 		}

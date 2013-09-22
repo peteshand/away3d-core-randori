@@ -5,6 +5,7 @@ package away.base
 	import away.display3D.IndexBuffer3D;
 	import away.display3D.Context3D;
 	import away.managers.Stage3DProxy;
+	import away.utils.VectorNumber;
 	import away.display3D.VertexBuffer3D;
 	import away.errors.AbstractMethodError;
 	import away.geom.Matrix3D;
@@ -19,8 +20,11 @@ package away.base
         public var _faceTangentsDirty:Boolean = true;
         public var _faceTangents:Vector.<Number>;
         public var _indices:Vector.<Number>/*uint*/;
-        public var _indexBuffer:Vector.<IndexBuffer3D> = new Vector.<IndexBuffer3D>(8);//Vector.<IndexBuffer3D> = new Vector.<IndexBuffer3D>(8);        public var _numIndices:Number;
-        public var _indexBufferContext:Vector.<Context3D> = new Vector.<Context3D>(8);//Vector.<Context3D> = new Vector.<Context3D>(8);        public var _indicesInvalid:Vector.<Boolean> = new Vector.<Boolean>( 8 );//new Vector.<Boolean>(8, true);        public var _numTriangles:Number;
+        public var _indexBuffer:Vector.<IndexBuffer3D>//Vector.<IndexBuffer3D> = new Vector.<IndexBuffer3D>(8); = new Vector.<IndexBuffer3D>(8)
+        public var _numIndices:Number;
+        public var _indexBufferContext:Vector.<Context3D>//Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>(8)
+        public var _indicesInvalid:Vector.<Boolean>//new Vector.<Boolean>(8, true); = new Vector.<Boolean>( 8 )
+        public var _numTriangles:Number;
 
         public var _autoDeriveVertexNormals:Boolean = true;
         public var _autoDeriveVertexTangents:Boolean = true;
@@ -143,7 +147,7 @@ package away.base
 
             if ( this._faceTangents == null)
             {
-                this._faceTangents = new Vector.<Number>( this._indices.length ); //||= new Vector.<Number>(_indices.length, true);
+                this._faceTangents = VectorNumber.init( this._indices.length ); //||= new Vector.<Number>(_indices.length, true);
             }
 
 			while (i < len)
@@ -208,14 +212,14 @@ package away.base
 
             if ( this._faceNormals == null )
             {
-                this._faceNormals = new Vector.<Number>( len );//_faceNormals ||= new Vector.<Number>(len, true);
+                this._faceNormals = VectorNumber.init( len );//_faceNormals ||= new Vector.<Number>(len, true);
             }
 
 			if ( this._useFaceWeights )
             {
                 if ( this._faceWeights == null )
                 {
-                    this._faceWeights = new Vector.<Number>( len / 3 );//_faceWeights ||= new Vector.<Number>(len/3, true);
+                    this._faceWeights = VectorNumber.init( len / 3 );//_faceWeights ||= new Vector.<Number>(len/3, true);
                 }
             }
 
@@ -287,7 +291,7 @@ package away.base
             if ( target == null )
             {
 
-                target = new Vector.<Number>( lenV );//target ||= new Vector.<Number>(lenV, true);
+                target = VectorNumber.init( lenV );//target ||= new Vector.<Number>(lenV, true);
 
             }
 
@@ -361,7 +365,7 @@ package away.base
             if ( target == null )
             {
 
-                target = new Vector.<Number>( lenV ); //target ||= new Vector.<Number>(lenV, true);
+                target = VectorNumber.init( lenV ); //target ||= new Vector.<Number>(lenV, true);
             }
 
 			
@@ -626,6 +630,9 @@ package away.base
 		
 		public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
+			scaleU = scaleU || 1;
+			scaleV = scaleV || 1;
+
 			var offset:Number = this.UVOffset;
 			var stride:Number = this.UVStride;
 			var uvs:Vector.<Number> = this.UVData;
@@ -751,7 +758,7 @@ package away.base
 			
 			if (!target)
             {
-                target = new Vector.<Number>();
+                target = VectorNumber.init();
             }
 
 			target.length = len;

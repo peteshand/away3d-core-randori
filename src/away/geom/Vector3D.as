@@ -20,7 +20,12 @@ package away.geom {
 
         /**         * Creates an instance of a Vector3D object.         */
         public function Vector3D(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0):void {
-                    this.x = x;
+        			x = x || 0;
+			y = y || 0;
+			z = z || 0;
+			w = w || 0;
+
+            this.x = x;
             this.y = y;
             this.z = z;
             this.w = w;
@@ -94,7 +99,9 @@ package away.geom {
 
         /**         * Determines whether two Vector3D objects are equal by comparing the x, y, and z elements of the current         * Vector3D object with a specified Vector3D object.         */
         public function equals(cmp:Vector3D, allFour:Boolean = false):Boolean {
-                    return (this.x == cmp.x && this.y == cmp.y && this.z == cmp.z && (!allFour || this.w == cmp.w ));
+        			allFour = allFour || false;
+
+            return (this.x == cmp.x && this.y == cmp.y && this.z == cmp.z && (!allFour || this.w == cmp.w ));
         }
 
         /**         * Increments the value of the x, y, and z elements of the current Vector3D object by the values of the x, y,         * and z elements of a specified Vector3D object.         */
@@ -106,7 +113,9 @@ package away.geom {
 
         /**         * Compares the elements of the current Vector3D object with the elements of a specified Vector3D object to         * determine whether they are nearly equal.         */
         public function nearEquals(cmp:Vector3D, epsilon:Number, allFour:Boolean = true):Boolean {
-                    return ((Math.abs(this.x - cmp.x) < epsilon)
+        			allFour = allFour || true;
+
+            return ((Math.abs(this.x - cmp.x) < epsilon)
                  && (Math.abs(this.y - cmp.y) < epsilon)
                  && (Math.abs(this.z - cmp.z) < epsilon)
                  && (!allFour || Math.abs(this.w - cmp.w) < epsilon));

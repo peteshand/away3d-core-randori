@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,8 @@ away.controllers.LookAtController = function(targetObject, lookAtObject) {
 	this._pOrigin = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	this._pLookAtObject = null;
 	this._pLookAtPosition = null;
+	targetObject = targetObject || null;
+	lookAtObject = lookAtObject || null;
 	away.controllers.ControllerBase.call(this, targetObject);
 	if (lookAtObject) {
 		this.set_lookAtObject(lookAtObject);
@@ -52,6 +54,7 @@ away.controllers.LookAtController.prototype.set_lookAtObject = function(val) {
 };
 
 away.controllers.LookAtController.prototype.update = function(interpolate) {
+	interpolate = interpolate || true;
 	interpolate = interpolate;
 	if (this._pTargetObject) {
 		if (this._pLookAtPosition) {

@@ -118,6 +118,9 @@ package away.managers
 		/**		 * Creates a Stage3DProxy object. This method should not be called directly. Creation of Stage3DProxy objects should		 * be handled by Stage3DManager.		 * @param stage3DIndex The index of the Stage3D to be proxied.		 * @param stage3D The Stage3D to be proxied.		 * @param stage3DManager		 * @param forceSoftware Whether to force software mode even if hardware acceleration is available.		 */
 		public function Stage3DProxy(stage3DIndex:Number, stage3D:Stage3D, stage3DManager:Stage3DManager, forceSoftware:Boolean = false, profile:String = "baseline"):void
 		{
+			forceSoftware = forceSoftware || false;
+			profile = profile || "baseline";
+
 
             super();
 
@@ -205,6 +208,9 @@ package away.managers
 		
 		public function setRenderTarget(target:TextureBase, enableDepthAndStencil:Boolean = false, surfaceSelector:Number = 0):void
 		{
+			enableDepthAndStencil = enableDepthAndStencil || false;
+			surfaceSelector = surfaceSelector || 0;
+
 			if (this._renderTarget === target && surfaceSelector == this._renderSurfaceSelector && this._enableDepthAndStencil == enableDepthAndStencil)
             {
                 return;
@@ -500,6 +506,9 @@ package away.managers
 		/**		 * Requests a Context3D object to attach to the managed Stage3D.		 */
 		private function requestContext(forceSoftware:Boolean = false, profile:String = "baseline"):void
 		{
+			forceSoftware = forceSoftware || false;
+			profile = profile || "baseline";
+
 			// If forcing software, we can be certain that the
 			// returned Context3D will be running software mode.
 			// If not, we can't be sure and should stick to the

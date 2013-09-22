@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -170,6 +170,7 @@ away.bounds.AxisAlignedBoundingBox.prototype.get_halfExtentsZ = function() {
 };
 
 away.bounds.AxisAlignedBoundingBox.prototype.closestPointToPoint = function(point, target) {
+	target = target || null;
 	var p;
 	if (target == null) {
 		target = new away.geom.Vector3D(0, 0, 0, 0);

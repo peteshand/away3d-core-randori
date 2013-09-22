@@ -39,8 +39,9 @@ package away.managers
 		private var _activeView:View3D;
 		private var _updateDirty:Boolean = true;
 		private var _nullVector:Vector3D = new Vector3D();
-		public static var _pCollidingObject:PickingCollisionVO;//Protected		private static var _previousCollidingObject:PickingCollisionVO;
-		private static var _collidingViewObjects:Vector.<PickingCollisionVO>;//Vector.<PickingCollisionVO>;		private static var _queuedEvents:Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>();//Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>();
+		public static var _pCollidingObject:PickingCollisionVO//Protected		private static var _previousCollidingObject:PickingCollisionVO;
+		private static var _collidingViewObjects:Vector.<PickingCollisionVO>//Vector.<PickingCollisionVO>;		private static var _queuedEvents:Vector.<MouseEvent3D>//Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>(); = new Vector.<MouseEvent3D>()
+
         // TODO: AS3 <> Conversion
 		//private _mouseMoveEvent:away.events.MouseEvent = new away.events.MouseEvent(away.events.MouseEvent.MOUSE_MOVE);
 		
@@ -126,6 +127,8 @@ package away.managers
 		
 		private function queueDispatch(event:MouseEvent3D, sourceEvent:MouseEvent, collider:PickingCollisionVO = null):void
 		{
+			collider = collider || null;
+
             throw new PartialImplementationError( 'MouseEvent ( as3 / native ) as3 <> JS Conversion' );
 
             /*			// 2D properties.			event.ctrlKey = sourceEvent.ctrlKey;			event.altKey = sourceEvent.altKey;			event.shiftKey = sourceEvent.shiftKey;			event.delta = sourceEvent.delta;			event.screenX = sourceEvent.localX;			event.screenY = sourceEvent.localY;						collider ||= _collidingObject;						// 3D properties.			if (collider) {				// Object.				event.object = collider.entity;				event.renderable = collider.renderable;				// UV.				event.uv = collider.uv;				// Position.				event.localPosition = collider.localPosition? collider.localPosition.clone() : null;				// Normal.				event.localNormal = collider.localNormal? collider.localNormal.clone() : null;				// Face index.				event.index = collider.index;				// SubGeometryIndex.				event.subGeometryIndex = collider.subGeometryIndex;							} else {				// Set all to null.				event.uv = null;				event.object = null;				event.localPosition = _nullVector;				event.localNormal = _nullVector;				event.index = 0;				event.subGeometryIndex = 0;			}						// Store event to be dispatched later.			_queuedEvents.push(event);			*/

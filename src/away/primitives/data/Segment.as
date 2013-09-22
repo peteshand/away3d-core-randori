@@ -26,6 +26,10 @@ package away.primitives.data
 		
 		public function Segment(start:Vector3D, end:Vector3D, anchor:Vector3D, colorStart:Number = 0x333333, colorEnd:Number = 0x333333, thickness:Number = 1):void
 		{
+			colorStart = colorStart || 0x333333;
+			colorEnd = colorEnd || 0x333333;
+			thickness = thickness || 1;
+
 			// TODO: not yet used: for CurveSegment support
 			anchor = null;
 			
@@ -40,6 +44,10 @@ package away.primitives.data
 		
 		public function updateSegment(start:Vector3D, end:Vector3D, anchor:Vector3D, colorStart:Number = 0x333333, colorEnd:Number = 0x333333, thickness:Number = 1):void
 		{
+			colorStart = colorStart || 0x333333;
+			colorEnd = colorEnd || 0x333333;
+			thickness = thickness || 1;
+
 			// TODO: not yet used: for CurveSegment support
 			anchor = null;
 			this._pStart = start;

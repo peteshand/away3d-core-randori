@@ -19,7 +19,7 @@ package away.pick
 		private var _ignoredEntities:Array = new Array();
 		private var _onlyMouseEnabled:Boolean = true;
 		
-		private var _entities:Vector.<Entity>;//Vector.<Entity>;		private var _numEntities:Number = 0;
+		private var _entities:Vector.<Entity>//Vector.<Entity>;		private var _numEntities:Number = 0;
 		private var _hasCollisions:Boolean;
 		
 		/**		 * @inheritDoc		 */

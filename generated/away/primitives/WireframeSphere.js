@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:18 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,6 +9,11 @@ away.primitives.WireframeSphere = function(radius, segmentsW, segmentsH, color, 
 	this._segmentsW = 0;
 	this._segmentsH = 0;
 	this._radius = 0;
+	radius = radius || 50;
+	segmentsW = segmentsW || 16;
+	segmentsH = segmentsH || 12;
+	color = color || 0xFFFFFF;
+	thickness = thickness || 1;
 	away.primitives.WireframePrimitiveBase.call(this, color, thickness);
 	this._radius = radius;
 	this._segmentsW = segmentsW;
@@ -16,7 +21,7 @@ away.primitives.WireframeSphere = function(radius, segmentsW, segmentsH, color, 
 };
 
 away.primitives.WireframeSphere.prototype.pBuildGeometry = function() {
-	var vertices = [16777215, 1];
+	var vertices = away.utils.VectorNumber.init(0, 0);
 	var v0 = new away.geom.Vector3D(0, 0, 0, 0);
 	var v1 = new away.geom.Vector3D(0, 0, 0, 0);
 	var i, j;
@@ -86,6 +91,7 @@ away.primitives.WireframeSphere.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Vector3D');
+	p.push('away.utils.VectorNumber');
 	return p;
 };
 

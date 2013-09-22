@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:34 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -63,6 +63,8 @@ away.utils.ByteArray.prototype.readByte = function() {
 };
 
 away.utils.ByteArray.prototype.readBytes = function(bytes, offset, length) {
+	offset = offset || 0;
+	length = length || 0;
 	if (length == 0) {
 		length = bytes.length;
 	}

@@ -12,6 +12,8 @@ package away.library.naming
 		
 		public function NumSuffixConflictStrategy(separator:String = '.'):void
 		{
+			separator = separator || '.';
+
 			super();
 			
 			this._separator = separator;

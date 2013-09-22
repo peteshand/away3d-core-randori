@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -400,6 +400,7 @@ away.containers.ObjectContainer3D.prototype.get_numChildren = function() {
 };
 
 away.containers.ObjectContainer3D.prototype.lookAt = function(target, upAxis) {
+	upAxis = upAxis || null;
 	away.base.Object3D.prototype.lookAt.call(this,target, upAxis);
 	this.notifySceneTransformChange();
 };

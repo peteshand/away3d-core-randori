@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:57 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,6 +17,13 @@ away.controllers.FirstPersonController = function(targetObject, panAngle, tiltAn
 	this._iCurrentTiltAngle = 90;
 	this._tiltAngle = 90;
 	this._strafeIncrement = 0;
+	targetObject = targetObject || null;
+	panAngle = panAngle || 0;
+	tiltAngle = tiltAngle || 90;
+	minTiltAngle = minTiltAngle || -90;
+	maxTiltAngle = maxTiltAngle || 90;
+	steps = steps || 8;
+	wrapPanAngle = wrapPanAngle || false;
 	away.controllers.ControllerBase.call(this, targetObject);
 	this.set_panAngle(panAngle);
 	this.set_tiltAngle(tiltAngle);
@@ -97,6 +104,7 @@ away.controllers.FirstPersonController.prototype.set_wrapPanAngle = function(val
 };
 
 away.controllers.FirstPersonController.prototype.update = function(interpolate) {
+	interpolate = interpolate || true;
 	if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle) {
 		this.pNotifyUpdate();
 		if (this._wrapPanAngle) {

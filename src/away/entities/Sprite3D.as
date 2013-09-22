@@ -48,11 +48,11 @@ package away.entities
             this._spriteMatrix = new Matrix3D();
 			if (!Sprite3D._geometry) {
                 Sprite3D._geometry = new SubGeometry();
-                Sprite3D._geometry.updateVertexData(Vector.<Number>(-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0));
-                Sprite3D._geometry.updateUVData(Vector.<Number>(.0, .0, 1.0, .0, 1.0, 1.0, .0, 1.0));
-                Sprite3D._geometry.updateIndexData(Vector.<Number>(0, 1, 2, 0, 2, 3));
-                Sprite3D._geometry.updateVertexTangentData(Vector.<Number>(1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0));
-                Sprite3D._geometry.updateVertexNormalData(Vector.<Number>(.0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0));
+                Sprite3D._geometry.updateVertexData(new <Number>[-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0]);
+                Sprite3D._geometry.updateUVData(new <Number>[.0, .0, 1.0, .0, 1.0, 1.0, .0, 1.0]);
+                Sprite3D._geometry.updateIndexData(new <Number>[0, 1, 2, 0, 2, 3]);
+                Sprite3D._geometry.updateVertexTangentData(new <Number>[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0]);
+                Sprite3D._geometry.updateVertexNormalData(new <Number>[.0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0, .0, .0, -1.0]);
 			}
 		}
 		

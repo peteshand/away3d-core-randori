@@ -19,6 +19,11 @@ package away.materials
 		/**		 * Creates a new TextureMaterial.		 * @param texture The texture used for the material's albedo color.		 * @param smooth Indicates whether the texture should be filtered when sampled. Defaults to true.		 * @param repeat Indicates whether the texture should be tiled when sampled. Defaults to true.		 * @param mipmap Indicates whether or not any used textures should use mipmapping. Defaults to true.		 */
 		public function TextureMaterial(texture:Texture2DBase = null, smooth:Boolean = true, repeat:Boolean = false, mipmap:Boolean = false):void
 		{
+			texture = texture || null;
+			smooth = smooth || true;
+			repeat = repeat || false;
+			mipmap = mipmap || false;
+
 			super();
 
 

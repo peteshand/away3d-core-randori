@@ -2,6 +2,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 
@@ -16,6 +17,11 @@ package away.primitives
 		/**		 * Creates a new Sphere object.		 * @param radius The radius of the sphere.		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.		 * @param segmentsH Defines the number of vertical segments that make up the sphere.		 * @param yUp Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function SphereGeometry(radius:Number = 50, segmentsW:Number = 16, segmentsH:Number = 12, yUp:Boolean = true):void
 		{
+			radius = radius || 50;
+			segmentsW = segmentsW || 16;
+			segmentsH = segmentsH || 12;
+			yUp = yUp || true;
+
 			super();
 			
 			this._radius = radius;
@@ -49,15 +55,15 @@ package away.primitives
                 }
                 else
                 {
-                    indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6 );
+                    indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6 );
                 }
 
 
 			}
             else
             {
-				vertices = new Vector.<Number>(numVerts*stride);
-				indices = new Vector.<Number>((this._segmentsH - 1)*this._segmentsW*6);
+				vertices = VectorNumber.init(numVerts*stride);
+				indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6);
 				this.pInvalidateGeometry();
 			}
 			
@@ -187,7 +193,7 @@ package away.primitives
 			if (target.UVData && numUvs == target.UVData.length)
 				data = target.UVData;
 			else {
-				data = new Vector.<Number>(numUvs);
+				data = VectorNumber.init(numUvs);
                 this.pInvalidateGeometry();
 			}
 			

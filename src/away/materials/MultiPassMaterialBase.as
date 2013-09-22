@@ -95,6 +95,8 @@ package away.materials
 		/**		 * @inheritDoc		 */
 		override public function iActivateForDepth(stage3DProxy:Stage3DProxy, camera:Camera3D, distanceBased:Boolean = false):void
 		{
+			distanceBased = distanceBased || false;
+
 			if (distanceBased)
             {
 				this._pDistancePass.alphaMask = this._diffuseMethod.texture;

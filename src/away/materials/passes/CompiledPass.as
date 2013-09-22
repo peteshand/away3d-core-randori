@@ -2,6 +2,7 @@
 
 package away.materials.passes
 {
+	import away.utils.VectorNumber;
 	import away.materials.compilation.ShaderCompiler;
 	import away.materials.methods.ShaderMethodSetup;
 	import away.materials.MaterialBase;
@@ -27,7 +28,7 @@ package away.materials.passes
     /**     * CompiledPass forms an abstract base class for the default compiled pass materials provided by Away3D,     * using material methods to define their appearance.     */
     public class CompiledPass extends MaterialPassBase
     {
-        public var _iPasses:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>;        public var _iPassesDirty:Boolean;
+        public var _iPasses:Vector.<MaterialPassBase>//Vector.<MaterialPassBase>;        public var _iPassesDirty:Boolean;
 
         public var _pSpecularLightSources:Number = 0x01;
         public var _pDiffuseLightSources:Number = 0x03;
@@ -36,7 +37,9 @@ package away.materials.passes
         private var _fragmentLightCode:String;
         private var _framentPostLightCode:String;
 
-        public var _pVertexConstantData:Vector.<Number> = new Vector.<Number>();//Vector.<Number>();        public var _pFragmentConstantData:Vector.<Number> = new Vector.<Number>();//new Vector.<Number>();        private var _commonsDataIndex:Number;
+        public var _pVertexConstantData:Vector.<Number>//Vector.<Number>(); = VectorNumber.init()
+        public var _pFragmentConstantData:Vector.<Number>//new Vector.<Number>(); = VectorNumber.init()
+        private var _commonsDataIndex:Number;
         public var _pProbeWeightsIndex:Number;
         private var _uvBufferIndex:Number;
         private var _secondaryUVBufferIndex:Number;
@@ -388,6 +391,8 @@ package away.materials.passes
         /**         * @inheritDoc         */
         override public function iInvalidateShaderProgram(updateMaterial:Boolean = true):void
         {
+			updateMaterial = updateMaterial || true;
+
             var oldPasses : Vector.<MaterialPassBase> = this._iPasses;//:Vector.<MaterialPassBase> = _passes;
             this._iPasses = new Vector.<MaterialPassBase>();//= new Vector.<MaterialPassBase>();
 

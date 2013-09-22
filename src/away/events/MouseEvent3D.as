@@ -28,20 +28,15 @@ package away.events
 		public var _iParentEvent:MouseEvent3D;
 		
 		/**		 * Defines the value of the type property of a mouseOver3d event object.		 */
-		public static var MOUSE_OVER:String = "mouseOver3d";
-		
+		public static var MOUSE_OVER:String = "mouseOver3d";		
 		/**		 * Defines the value of the type property of a mouseOut3d event object.		 */
-		public static var MOUSE_OUT:String = "mouseOut3d";
-		
+		public static var MOUSE_OUT:String = "mouseOut3d";		
 		/**		 * Defines the value of the type property of a mouseUp3d event object.		 */
-		public static var MOUSE_UP:String = "mouseUp3d";
-		
+		public static var MOUSE_UP:String = "mouseUp3d";		
 		/**		 * Defines the value of the type property of a mouseDown3d event object.		 */
-		public static var MOUSE_DOWN:String = "mouseDown3d";
-		
+		public static var MOUSE_DOWN:String = "mouseDown3d";		
 		/**		 * Defines the value of the type property of a mouseMove3d event object.		 */
-		public static var MOUSE_MOVE:String = "mouseMove3d";
-		
+		public static var MOUSE_MOVE:String = "mouseMove3d";		
 		/**		 * Defines the value of the type property of a rollOver3d event object.		 */
 		//		public static ROLL_OVER : string = "rollOver3d";
 		
@@ -49,14 +44,11 @@ package away.events
 		//		public static ROLL_OUT : string = "rollOut3d";
 		
 		/**		 * Defines the value of the type property of a click3d event object.		 */
-		public static var CLICK:String = "click3d";
-		
+		public static var CLICK:String = "click3d";		
 		/**		 * Defines the value of the type property of a doubleClick3d event object.		 */
-		public static var DOUBLE_CLICK:String = "doubleClick3d";
-		
+		public static var DOUBLE_CLICK:String = "doubleClick3d";		
 		/**		 * Defines the value of the type property of a mouseWheel3d event object.		 */
-		public static var MOUSE_WHEEL:String = "mouseWheel3d";
-		
+		public static var MOUSE_WHEEL:String = "mouseWheel3d";		
 		/**		 * The horizontal coordinate at which the event occurred in view coordinates.		 */
 		public var screenX:Number;
 		

@@ -23,6 +23,11 @@ package away.cameras.lenses
 		
 		public function PerspectiveOffCenterLens(minAngleX:Number = -40, maxAngleX:Number = 40, minAngleY:Number = -40, maxAngleY:Number = 40):void
 		{
+			minAngleX = minAngleX || -40;
+			maxAngleX = maxAngleX || 40;
+			minAngleY = minAngleY || -40;
+			maxAngleY = maxAngleY || 40;
+
 			super();
 			
 			this.minAngleX = minAngleX;

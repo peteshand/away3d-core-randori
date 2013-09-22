@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:54 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,10 +6,15 @@ if (typeof away.controllers == "undefined")
 	away.controllers = {};
 
 away.controllers.FollowController = function(targetObject, lookAtObject, tiltAngle, distance) {
+	targetObject = targetObject || null;
+	lookAtObject = lookAtObject || null;
+	tiltAngle = tiltAngle || 45;
+	distance = distance || 700;
 	away.controllers.HoverController.call(this, targetObject, lookAtObject, 0, tiltAngle, distance, -90, 90, NaN, NaN, 8, 2, false);
 };
 
 away.controllers.FollowController.prototype.update = function(interpolate) {
+	interpolate = interpolate || true;
 	interpolate = interpolate;
 	if (!this.get_lookAtObject())
 		return;

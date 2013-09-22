@@ -3,6 +3,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 	/**	 * A Plane primitive mesh.	 */
 	public class PlaneGeometry extends PrimitiveBase
 	{
@@ -16,6 +17,13 @@ package away.primitives
 		/**		 * Creates a new Plane object.		 * @param width The width of the plane.		 * @param height The height of the plane.		 * @param segmentsW The number of segments that make up the plane along the X-axis.		 * @param segmentsH The number of segments that make up the plane along the Y or Z-axis.		 * @param yUp Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false).		 * @param doubleSided Defines whether the plane will be visible from both sides, with correct vertex normals.		 */
 		public function PlaneGeometry(width:Number = 100, height:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, yUp:Boolean = true, doubleSided:Boolean = false):void
 		{
+			width = width || 100;
+			height = height || 100;
+			segmentsW = segmentsW || 1;
+			segmentsH = segmentsH || 1;
+			yUp = yUp || true;
+			doubleSided = doubleSided || false;
+
 
 			super();
 			
@@ -136,7 +144,7 @@ package away.primitives
 
                 if ( indices == null )
                 {
-                    indices = new Vector.<Number>( numIndices );
+                    indices = VectorNumber.init( numIndices );
                 }
                 else
                 {
@@ -145,8 +153,8 @@ package away.primitives
 			}
             else
             {
-				data = new Vector.<Number>( numVertices*stride );//new Vector.<Number>(numVertices*stride, true);
-				indices = new Vector.<Number>( numIndices );//new Vector.<uint>(numIndices, true);
+				data = VectorNumber.init( numVertices*stride );//new Vector.<Number>(numVertices*stride, true);
+				indices = VectorNumber.init( numIndices );//new Vector.<uint>(numIndices, true);
 
                 this.pInvalidateUVs();//invalidateUVs();
 			}
@@ -273,7 +281,7 @@ package away.primitives
             }
 			else
             {
-				data = new Vector.<Number>( numUvs );//Vector.<Number>(numUvs, true);
+				data = VectorNumber.init( numUvs );//Vector.<Number>(numUvs, true);
                 this.pInvalidateGeometry()
 			}
 			

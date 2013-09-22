@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:25 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,6 +7,7 @@ if (typeof away.materials == "undefined")
 
 away.materials.SegmentMaterial = function(thickness) {
 	this._screenPass = null;
+	thickness = thickness || 1.25;
 	away.materials.MaterialBase.call(this);
 	this.set_bothSides(true);
 	this.pAddPass(this._screenPass = new away.materials.passes.SegmentPass(thickness));

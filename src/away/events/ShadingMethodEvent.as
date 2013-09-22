@@ -7,8 +7,7 @@ package away.events
 	
 	public class ShadingMethodEvent extends Event
 	{
-		public static var SHADER_INVALIDATED:String = "ShaderInvalidated";
-		
+		public static var SHADER_INVALIDATED:String = "ShaderInvalidated";		
 		public function ShadingMethodEvent(type:String):void
 		{
 

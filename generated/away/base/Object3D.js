@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -448,6 +448,7 @@ away.base.Object3D.prototype.rotate = function(axis, angle) {
 };
 
 away.base.Object3D.prototype.lookAt = function(target, upAxis) {
+	upAxis = upAxis || null;
 	var yAxis;
 	var zAxis;
 	var xAxis;

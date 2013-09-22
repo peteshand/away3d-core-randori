@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:29 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,6 +10,9 @@ away.lights.DirectionalLight = function(xDir, yDir, zDir) {
 	this._direction = null;
 	this._projAABBPoints = null;
 	this._sceneDirection = null;
+	xDir = xDir || 0;
+	yDir = yDir || -1;
+	zDir = zDir || 1;
 	away.lights.LightBase.call(this);
 	this.set_direction(new away.geom.Vector3D(xDir, yDir, zDir, 0));
 	this._sceneDirection = new away.geom.Vector3D(0, 0, 0, 0);
@@ -59,6 +62,7 @@ away.lights.DirectionalLight.prototype.pCreateShadowMapper = function() {
 };
 
 away.lights.DirectionalLight.prototype.iGetObjectProjectionMatrix = function(renderable, target) {
+	target = target || null;
 	var raw = [];
 	var bounds = renderable.get_sourceEntity().get_bounds();
 	var m = new away.geom.Matrix3D();

@@ -30,6 +30,11 @@ package away.math
 		/**		 * Create a Plane3D with ABCD coefficients		 */
 		public function Plane3D(a:Number = 0, b:Number = 0, c:Number = 0, d:Number = 0):void
 		{
+			a = a || 0;
+			b = b || 0;
+			c = c || 0;
+			d = d || 0;
+
 			this.a = a;
 			this.b = b;
 			this.c = c;
@@ -184,6 +189,8 @@ package away.math
 		/**		 * Classify a point against this Plane3D. (in front, back or intersecting)		 * @param p Vector3D		 * @return int Plane3.FRONT or Plane3D.BACK or Plane3D.INTERSECT		 */
 		public function classifyPoint(p:Vector3D, epsilon:Number = 0.01):Number
 		{
+			epsilon = epsilon || 0.01;
+
 			// check NaN
 			if (this.d != this.d)
 				return PlaneClassification.FRONT;

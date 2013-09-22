@@ -8,8 +8,7 @@ package away.display3D
 	public class TextureBase
 	{
 		
-		public var textureType:String = "";
-		public var _gl:WebGLRenderingContext;
+		public var textureType:String = "";		public var _gl:WebGLRenderingContext;
 		
 		public function TextureBase(gl:WebGLRenderingContext):void
 		{

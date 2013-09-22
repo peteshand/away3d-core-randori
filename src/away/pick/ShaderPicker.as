@@ -13,6 +13,7 @@ package away.pick
 	import away.geom.Vector3D;
 	import away.geom.Point;
 	import away.geom.Rectangle;
+	import away.utils.VectorNumber;
 	import away.containers.View3D;
 	import away.utils.Debug;
 	import away.traverse.EntityCollector;
@@ -67,7 +68,8 @@ package away.pick
 		private var _boundOffsetScale:Vector.<Number>;
 		private var _id:Vector.<Number>;
 		
-		private var _interactives:Vector.<IRenderable> = new Vector.<IRenderable>();//Vector.<IRenderable> = new Vector.<IRenderable>();		private var _interactiveId:Number;
+		private var _interactives:Vector.<IRenderable>//Vector.<IRenderable> = new Vector.<IRenderable>(); = new Vector.<IRenderable>()
+		private var _interactiveId:Number;
 		private var _hitColor:Number;
 		private var _projX:Number;
 		private var _projY:Number;
@@ -100,9 +102,9 @@ package away.pick
 		/**		 * Creates a new <code>ShaderPicker</code> object.		 */
 		public function ShaderPicker():void
 		{
-			this._id = new Vector.<Number>( 4 );//new Vector.<Number>(4, true);
-			this._viewportData = new Vector.<Number>( 4 );//new Vector.<Number>(4, true); // first 2 contain scale, last 2 translation
-			this._boundOffsetScale = new Vector.<Number>( 8 );//new Vector.<Number>(8, true); // first 2 contain scale, last 2 translation
+			this._id = VectorNumber.init( 4 );//new Vector.<Number>(4, true);
+			this._viewportData = VectorNumber.init( 4 );//new Vector.<Number>(4, true); // first 2 contain scale, last 2 translation
+			this._boundOffsetScale = VectorNumber.init( 8 );//new Vector.<Number>(8, true); // first 2 contain scale, last 2 translation
 			this._boundOffsetScale[3] = 0;
 			this._boundOffsetScale[7] = 1;
 		}

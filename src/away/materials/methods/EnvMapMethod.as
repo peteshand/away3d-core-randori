@@ -19,6 +19,8 @@ package away.materials.methods
 		/**		 * Creates an EnvMapMethod object.		 * @param envMap The environment map containing the reflected scene.		 * @param alpha The reflectivity of the surface.		 */
 		public function EnvMapMethod(envMap:CubeTextureBase, alpha:Number = 1):void
 		{
+			alpha = alpha || 1;
+
 			super();
 			this._cubeTexture = envMap;
             this._alpha = alpha;

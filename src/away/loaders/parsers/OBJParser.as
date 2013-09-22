@@ -16,6 +16,7 @@ package away.loaders.parsers
 	import away.materials.utils.DefaultMaterialManager;
 	import away.materials.TextureMultiPassMaterial;
 	import away.base.ISubGeometry;
+	import away.utils.VectorNumber;
 	import away.utils.GeometryUtils;
 	import away.materials.methods.BasicSpecularMethod;
 	import away.net.URLRequest;
@@ -49,11 +50,12 @@ package away.loaders.parsers
 		private var _scale:Number;
 		private var _mtlLib:Boolean;
 		private var _mtlLibLoaded:Boolean = true;
-		private var _activeMaterialID:String = "";
-		
+		private var _activeMaterialID:String = "";		
 		/**		 * Creates a new OBJParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
 		public function OBJParser(scale:Number = 1):void
 		{
+			scale = scale || 1;
+
 			super(ParserDataFormat.PLAIN_TEXT);
 			this._scale = scale;
 		}
@@ -371,10 +373,10 @@ package away.loaders.parsers
 			var numVerts:Number;
 			var subs:Vector.<ISubGeometry>;
 			
-			var vertices:Vector.<Number> = new Vector.<Number>();
-			var uvs:Vector.<Number> = new Vector.<Number>();
-			var normals:Vector.<Number> = new Vector.<Number>();
-			var indices:Vector.<Number> /*uint*/ = new Vector.<Number>();
+			var vertices:Vector.<Number> = VectorNumber.init();
+			var uvs:Vector.<Number> = VectorNumber.init();
+			var normals:Vector.<Number> = VectorNumber.init();
+			var indices:Vector.<Number> /*uint*/ = VectorNumber.init();
 			
 			this._realIndices = [];
             this._vertexIndex = 0;
@@ -981,6 +983,7 @@ import away.materials.TextureMaterial;
 import away.materials.utils.DefaultMaterialManager;
 import away.materials.TextureMultiPassMaterial;
 import away.base.ISubGeometry;
+import away.utils.VectorNumber;
 import away.utils.GeometryUtils;
 import away.materials.methods.BasicSpecularMethod;
 import away.net.URLRequest;
@@ -1044,10 +1047,11 @@ class LoadedMaterial
 }
 class FaceData
 {
-	public var vertexIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
-	public var uvIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
-	public var normalIndices:Vector.<Number>/*uint*/ = new Vector.<Number>();
-	public var indexIds:Vector.<String> = new Vector.<String>(); // used for real index lookups	
+	public var vertexIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
+	public var uvIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
+	public var normalIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
+	public var indexIds:Vector.<String>// used for real index lookups = new Vector.<String>()
+	
 	public function FaceData():void
 	{
 	}

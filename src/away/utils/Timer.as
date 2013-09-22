@@ -25,6 +25,8 @@ package away.utils
 
         public function Timer(delay:Number, repeatCount:Number = 0):void
         {
+			repeatCount = repeatCount || 0;
+
 
             super();
 

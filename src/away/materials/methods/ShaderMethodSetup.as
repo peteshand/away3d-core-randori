@@ -19,7 +19,7 @@ package away.materials.methods
         public var _iDiffuseMethodVO:MethodVO;
         public var _iSpecularMethod:BasicSpecularMethod;
         public var _iSpecularMethodVO:MethodVO;
-        public var _iMethods:Vector.<MethodVOSet>;//Vector.<MethodVOSet>;
+        public var _iMethods:Vector.<MethodVOSet>//Vector.<MethodVOSet>;
 		/**		 * Creates a new ShaderMethodSetup object.		 */
 		public function ShaderMethodSetup():void
 		{

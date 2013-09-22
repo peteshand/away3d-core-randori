@@ -14,10 +14,14 @@ package away.materials.methods
 		private var _dataReg:ShaderRegisterElement;
 		private var _incidentLight:Boolean;
 		private var _fresnelPower:Number = 5;
-		private var _normalReflectance:Number = 028; // default value for skin		
+		private var _normalReflectance:Number// default value for skin = 028
+		
 		/**		 * Creates a new FresnelSpecularMethod object.		 * @param basedOnSurface Defines whether the fresnel effect should be based on the view angle on the surface (if true), or on the angle between the light and the view.		 * @param baseSpecularMethod The specular method to which the fresnel equation. Defaults to BasicSpecularMethod.		 */
 		public function FresnelSpecularMethod(basedOnSurface:Boolean = true, baseSpecularMethod:BasicSpecularMethod = null):void
 		{
+			basedOnSurface = basedOnSurface || true;
+			baseSpecularMethod = baseSpecularMethod || null;
+
 			// may want to offer diff speculars
 			super();
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,6 +19,11 @@ away.primitives.TorusGeometry = function(radius, tubeRadius, segmentsR, segments
 	this._segmentsT = 0;
 	this._segmentsR = 0;
 	this._radius = 0;
+	radius = radius || 50;
+	tubeRadius = tubeRadius || 50;
+	segmentsR = segmentsR || 16;
+	segmentsT = segmentsT || 8;
+	yUp = yUp || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._radius = radius;
 	this._tubeRadius = tubeRadius;
@@ -63,14 +68,14 @@ away.primitives.TorusGeometry.prototype.pBuildGeometry = function(target) {
 	if (this._numVertices == target.get_numVertices()) {
 		this._rawVertexData = target.get_vertexData();
 		if (target.get_indexData() == null) {
-			this._rawIndices = [];
+			this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
 		} else {
 			this._rawIndices = target.get_indexData();
 		}
 	} else {
 		var numVertComponents = this._numVertices * this._vertexStride;
-		this._rawVertexData = [];
-		this._rawIndices = [];
+		this._rawVertexData = away.utils.VectorNumber.init(numVertComponents, 0);
+		this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
 		this.pInvalidateUVs();
 	}
 	var revolutionAngleDeltaR = 2 * 3.141592653589793 / this._segmentsR;
@@ -135,7 +140,7 @@ away.primitives.TorusGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && numUvs == target.get_UVData().length) {
 		data = target.get_UVData();
 	} else {
-		data = [];
+		data = away.utils.VectorNumber.init(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var currentUvCompIndex = offset;
@@ -202,7 +207,9 @@ away.primitives.TorusGeometry.className = "away.primitives.TorusGeometry";
 
 away.primitives.TorusGeometry.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorNumber');
+	return p;
 };
 
 away.primitives.TorusGeometry.getStaticDependencies = function(t) {

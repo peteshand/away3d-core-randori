@@ -2,6 +2,7 @@
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
+	import away.utils.VectorNumber;
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 	
@@ -22,6 +23,14 @@ package away.primitives
 		/**		 * Creates a new Cube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param segmentsD The number of segments that make up the cube along the Z-axis.		 * @param tile6 The type of uv mapping to use. When true, a texture will be subdivided in a 2x3 grid, each used for a single face. When false, the entire image is mapped on each face.		 */
 		public function CubeGeometry(width:Number = 100, height:Number = 100, depth:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, segmentsD:Number = 1, tile6:Boolean = true):void
 		{
+			width = width || 100;
+			height = height || 100;
+			depth = depth || 100;
+			segmentsW = segmentsW || 1;
+			segmentsH = segmentsH || 1;
+			segmentsD = segmentsD || 1;
+			tile6 = tile6 || true;
+
 			super();
 			
 			this._width = width;
@@ -147,12 +156,12 @@ package away.primitives
 
 				data = target.vertexData;
 
-                indices = ( target.indexData ) ? target.indexData : new Vector.<Number>((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
+                indices = ( target.indexData ) ? target.indexData : VectorNumber.init((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
                 //indices = target.indexData || new Vector.<uint>((_segmentsW*_segmentsH + _segmentsW*_segmentsD + _segmentsH*_segmentsD)*12, true);
 
 			} else {
-				data = new Vector.<Number>( numVerts*stride );
-				indices = new Vector.<Number>((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
+				data = VectorNumber.init( numVerts*stride );
+				indices = VectorNumber.init((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
                 this.pInvalidateUVs();
 			}
 			
@@ -348,7 +357,7 @@ package away.primitives
 			if (target.UVData && numUvs == target.UVData.length)
 				data = target.UVData;
 			else {
-				data = new Vector.<Number>( numUvs );
+				data = VectorNumber.init( numUvs );
                 this.pInvalidateGeometry();
 			}
 			

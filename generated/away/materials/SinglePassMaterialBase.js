@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -41,6 +41,7 @@ away.materials.SinglePassMaterialBase.prototype.set_depthCompareMode = function(
 };
 
 away.materials.SinglePassMaterialBase.prototype.iActivateForDepth = function(stage3DProxy, camera, distanceBased) {
+	distanceBased = distanceBased || false;
 	if (distanceBased) {
 		this._pDistancePass.set_alphaMask(this._pScreenPass.get_diffuseMethod().get_texture());
 	} else {

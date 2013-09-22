@@ -13,7 +13,7 @@ package away.materials.compilation
 		private var _vertexConstantsCache:RegisterPool;
 		private var _textureCache:RegisterPool;
 		private var _vertexAttributesCache:RegisterPool;
-		private var _vertexConstantOffset:Number; //TODO: check if this should be initialised to 0		private var _vertexAttributesOffset:Number;//TODO: check if this should be initialised to 0		private var _varyingsOffset:Number;//TODO: check if this should be initialised to 0		private var _fragmentConstantOffset:Number;//TODO: check if this should be initialised to 0		
+		private var _vertexConstantOffset:Number//TODO: check if this should be initialised to 0		private var _vertexAttributesOffset:Number//TODO: check if this should be initialised to 0		private var _varyingsOffset:Number//TODO: check if this should be initialised to 0		private var _fragmentConstantOffset:Number//TODO: check if this should be initialised to 0		
 		private var _fragmentOutputRegister:ShaderRegisterElement;
 		private var _vertexOutputRegister:ShaderRegisterElement;
 		private var _numUsedVertexConstants:Number = 0;

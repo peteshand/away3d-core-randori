@@ -122,8 +122,8 @@ package away.loaders
 		private var _token:AssetLoaderToken;
 		private var _uri:String;
 		
-		private var _errorHandlers:Vector.<Function>;//Vector.<Function>;		private var _parseErrorHandlers:Vector.<Function>;//Vector.<Function>;		
-		private var _stack:Vector.<ResourceDependency>;//Vector.<ResourceDependency>;		private var _baseDependency:ResourceDependency;
+		private var _errorHandlers:Vector.<Function>//Vector.<Function>;		private var _parseErrorHandlers:Vector.<Function>//Vector.<Function>;		
+		private var _stack:Vector.<ResourceDependency>//Vector.<ResourceDependency>;		private var _baseDependency:ResourceDependency;
 		private var _loadingDependency:ResourceDependency;
 		private var _namespace:String;
 		
@@ -161,6 +161,10 @@ package away.loaders
 		/**		 * Loads a file and (optionally) all of its dependencies.		 *		 * @param req The URLRequest object containing the URL of the file to be loaded.		 * @param context An optional context object providing additional parameters for loading		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function load(req:URLRequest, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
+			context = context || null;
+			ns = ns || null;
+			parser = parser || null;
+
 			if ( ! this._token ) {
 
 				this._token = new AssetLoaderToken(this);
@@ -183,6 +187,10 @@ package away.loaders
 		/**		 * Loads a resource from already loaded data.		 *		 * @param data The data object containing all resource information.		 * @param context An optional context object providing additional parameters for loading		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function loadData(data:*, id:String, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
+			context = context || null;
+			ns = ns || null;
+			parser = parser || null;
+
 			if (!this._token) {
 				this._token = new AssetLoaderToken(this);
 				
@@ -203,6 +211,8 @@ package away.loaders
 		/**		 * Recursively retrieves the next to-be-loaded and parsed dependency on the stack, or pops the list off the		 * stack when complete and continues on the top set.		 * @param parser The parser that will translate the data into a usable resource.		 */
 		private function retrieveNext(parser:ParserBase = null):void
 		{
+			parser = parser || null;
+
 			if (this._loadingDependency.dependencies.length) {
 
 				var dep:ResourceDependency = this._loadingDependency.dependencies.pop();
@@ -244,6 +254,8 @@ package away.loaders
 		/**		 * Retrieves a single dependency.		 * @param parser The parser that will translate the data into a usable resource.		 */
 		private function retrieveDependency(dependency:ResourceDependency, parser:ParserBase = null):void
 		{
+			parser = parser || null;
+
 			var data    : *;
 			var matMode : Number = 0;
 

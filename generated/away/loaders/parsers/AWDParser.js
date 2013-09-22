@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -54,12 +54,12 @@ away.loaders.parsers.AWDParser = function() {
 	this.blendModeDic.push(away.display.BlendMode.SCREEN);
 	this.blendModeDic.push(away.display.BlendMode.SHADER);
 	this.blendModeDic.push(away.display.BlendMode.OVERLAY);
-	this._depthSizeDic = [];
+	this._depthSizeDic = away.utils.VectorNumber.init(0, 0);
 	this._depthSizeDic.push(256);
 	this._depthSizeDic.push(512);
 	this._depthSizeDic.push(2048);
 	this._depthSizeDic.push(1024);
-	this._version = [];
+	this._version = away.utils.VectorNumber.init(0, 0);
 };
 
 away.loaders.parsers.AWDParser.COMPRESSIONMODE_LZMA = "lzma";
@@ -433,7 +433,7 @@ away.loaders.parsers.AWDParser.prototype.parseTriangleGeometrieBlock = function(
 			str_end = this._newBlockBytes.position + str_len;
 			var x, y, z;
 			if (str_type == 1) {
-				var verts = [];
+				var verts = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					x = this.readNumber(this._accuracyGeo);
 					y = this.readNumber(this._accuracyGeo);
@@ -443,27 +443,27 @@ away.loaders.parsers.AWDParser.prototype.parseTriangleGeometrieBlock = function(
 					verts[idx++] = z;
 				}
 			} else if (str_type == 2) {
-				var indices = [];
+				var indices = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					indices[idx++] = this._newBlockBytes.readUnsignedShort();
 				}
 			} else if (str_type == 3) {
-				var uvs = [];
+				var uvs = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					uvs[idx++] = this.readNumber(this._accuracyGeo);
 				}
 			} else if (str_type == 4) {
-				var normals = [];
+				var normals = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					normals[idx++] = this.readNumber(this._accuracyGeo);
 				}
 			} else if (str_type == 6) {
-				w_indices = [];
+				w_indices = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					w_indices[idx++] = this._newBlockBytes.readUnsignedShort() * 3;
 				}
 			} else if (str_type == 7) {
-				weights = [];
+				weights = away.utils.VectorNumber.init(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					weights[idx++] = this.readNumber(this._accuracyGeo);
 				}
@@ -1442,6 +1442,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.getAssetByID = function(assetID, assetTypesToGet, extraTypeInfo) {
+			extraTypeInfo = extraTypeInfo || "SingleTexture";
 			var returnArray = [];
 			var typeCnt = 0;
 			if (assetID > 0) {
@@ -1525,6 +1526,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.readNumber = function(precision) {
+			precision = precision || false;
 			if (precision)
 				return this._newBlockBytes.readDouble();
 			return this._newBlockBytes.readFloat();
@@ -1536,7 +1538,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix32RawData = function() {
 			var i;
-			var mtx_raw = [0, 0, 0, 0, 0, 0];
+			var mtx_raw = away.utils.VectorNumber.init(6, 0);
 			for (i = 0; i < 6; i++) {
 				mtx_raw[i] = this._newBlockBytes.readFloat();
 			}
@@ -1544,7 +1546,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix43RawData = function() {
-			var mtx_raw = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			var mtx_raw = away.utils.VectorNumber.init(16, 0);
 			mtx_raw[0] = this.readNumber(this._accuracyMatrix);
 			mtx_raw[1] = this.readNumber(this._accuracyMatrix);
 			mtx_raw[2] = this.readNumber(this._accuracyMatrix);
@@ -1608,6 +1610,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p.push('away.display.BlendMode');
 			p.push('away.materials.TextureMultiPassMaterial');
 			p.push('away.lights.shadowmaps.DirectionalShadowMapper');
+			p.push('away.utils.VectorNumber');
 			p.push('away.library.assets.AssetType');
 			p.push('away.lights.shadowmaps.CubeMapShadowMapper');
 			p.push('away.primitives.SphereGeometry');

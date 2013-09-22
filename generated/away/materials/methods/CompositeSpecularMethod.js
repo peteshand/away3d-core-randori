@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:36 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,6 +13,7 @@ away.materials.methods.CompositeSpecularMethod = function() {
 };
 
 away.materials.methods.CompositeSpecularMethod.prototype.initCompositeSpecularMethod = function(scope, modulateMethod, baseSpecularMethod) {
+	baseSpecularMethod = baseSpecularMethod || null;
 	this._baseMethod = baseSpecularMethod || new away.materials.methods.BasicSpecularMethod();
 	this._baseMethod._iModulateMethod = modulateMethod;
 	this._baseMethod._iModulateMethodScope = scope;

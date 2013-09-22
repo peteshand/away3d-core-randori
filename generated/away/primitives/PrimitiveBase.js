@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -43,6 +43,8 @@ away.primitives.PrimitiveBase.prototype.scale = function(scale) {
 };
 
 away.primitives.PrimitiveBase.prototype.scaleUV = function(scaleU, scaleV) {
+	scaleU = scaleU || 1;
+	scaleV = scaleV || 1;
 	if (this._uvDirty) {
 		this.updateUVs();
 	}

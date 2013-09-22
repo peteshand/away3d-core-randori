@@ -7,13 +7,10 @@ package away.events
 	{
         /**         * Dispatched when loading of a asset failed.         * Such as wrong parser type, unsupported extensions, parsing errors, malformated or unsupported 3d file etc..         */
         public static var LOAD_ERROR:String = "loadError";
-
         /**         * Dispatched when a resource and all of its dependencies is retrieved.         */
         public static var RESOURCE_COMPLETE:String = "resourceComplete";
-
         /**         * Dispatched when a resource's dependency is retrieved and resolved.         */
         public static var DEPENDENCY_COMPLETE:String = "dependencyComplete";
-
         private var _url:String;
         private var _message:String;
         private var _isDependency:Boolean;
@@ -22,6 +19,10 @@ package away.events
         /**         * Create a new LoaderEvent object.         * @param type The event type.         * @param resource The loaded or parsed resource.         * @param url The url of the loaded resource.         */
         public function LoaderEvent(type:String, url:String = null, isDependency:Boolean = false, errmsg:String = null):void
 		{
+			url = url || null;
+			isDependency = isDependency || false;
+			errmsg = errmsg || null;
+
 			super(type);
 
             this._url           = url;

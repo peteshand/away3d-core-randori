@@ -128,6 +128,9 @@ package away.loaders.misc
 		
 		override public function hasEventListener(type:String, listener:Function = null, target:Object = null):Boolean
 		{
+			listener = listener || null;
+			target = target || null;
+
 			return this._iLoader.hasEventListener(type , listener , target );
 		}
 

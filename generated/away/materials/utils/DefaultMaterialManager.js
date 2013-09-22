@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -21,6 +21,7 @@ away.materials.utils.DefaultMaterialManager._defaultMaterial;
 away.materials.utils.DefaultMaterialManager._defaultTexture;
 
 away.materials.utils.DefaultMaterialManager.getDefaultMaterial = function(renderable) {
+	renderable = renderable || null;
 	if (!away.materials.utils.DefaultMaterialManager._defaultTexture) {
 		away.materials.utils.DefaultMaterialManager.createDefaultTexture();
 	}
@@ -31,6 +32,7 @@ away.materials.utils.DefaultMaterialManager.getDefaultMaterial = function(render
 };
 
 away.materials.utils.DefaultMaterialManager.getDefaultTexture = function(renderable) {
+	renderable = renderable || null;
 	if (!away.materials.utils.DefaultMaterialManager._defaultTexture) {
 		away.materials.utils.DefaultMaterialManager.createDefaultTexture();
 	}

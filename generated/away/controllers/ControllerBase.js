@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:31 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:57 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,6 +8,7 @@ if (typeof away.controllers == "undefined")
 away.controllers.ControllerBase = function(targetObject) {
 	this._pTargetObject = null;
 	this._pAutoUpdate = true;
+	targetObject = targetObject || null;
 	this.set_targetObject(targetObject);
 };
 
@@ -54,6 +55,7 @@ away.controllers.ControllerBase.prototype.set_autoUpdate = function(val) {
 };
 
 away.controllers.ControllerBase.prototype.update = function(interpolate) {
+	interpolate = interpolate || true;
 	throw new away.errors.AbstractMethodError(null, 0);
 };
 

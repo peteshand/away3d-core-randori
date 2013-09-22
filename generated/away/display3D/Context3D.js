@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -46,6 +46,13 @@ away.display3D.Context3D.prototype.gl = function() {
 };
 
 away.display3D.Context3D.prototype.clear = function(red, green, blue, alpha, depth, stencil, mask) {
+	red = red || 0;
+	green = green || 0;
+	blue = blue || 0;
+	alpha = alpha || 1;
+	depth = depth || 1;
+	stencil = stencil || 0;
+	mask = mask || 8 << 11 | 8 << 5 | 8 << 7;
 	if (!this._drawing) {
 		this.updateBlendStatus();
 		this._drawing = true;
@@ -57,6 +64,7 @@ away.display3D.Context3D.prototype.clear = function(red, green, blue, alpha, dep
 };
 
 away.display3D.Context3D.prototype.configureBackBuffer = function(width, height, antiAlias, enableDepthAndStencil) {
+	enableDepthAndStencil = enableDepthAndStencil || true;
 	if (enableDepthAndStencil) {
 		this._gl.enable(2960);
 		this._gl.enable(2929);
@@ -67,6 +75,7 @@ away.display3D.Context3D.prototype.configureBackBuffer = function(width, height,
 };
 
 away.display3D.Context3D.prototype.createCubeTexture = function(size, format, optimizeForRenderToTexture, streamingLevels) {
+	streamingLevels = streamingLevels || 0;
 	var texture = new away.display3D.CubeTexture(this._gl, size);
 	this._textureList.push(texture);
 	return texture;
@@ -85,6 +94,7 @@ away.display3D.Context3D.prototype.createProgram = function() {
 };
 
 away.display3D.Context3D.prototype.createTexture = function(width, height, format, optimizeForRenderToTexture, streamingLevels) {
+	streamingLevels = streamingLevels || 0;
 	var texture = new away.display3D.Texture(this._gl, width, height);
 	this._textureList.push(texture);
 	return texture;
@@ -124,7 +134,9 @@ away.display3D.Context3D.prototype.drawToBitmapData = function(destination) {
 };
 
 away.display3D.Context3D.prototype.drawTriangles = function(indexBuffer, firstIndex, numTriangles) {
-    if (!this._drawing) {
+	firstIndex = firstIndex || 0;
+	numTriangles = numTriangles || -1;
+	if (!this._drawing) {
 		throw "Need to clear before drawing if the buffer has not been cleared since the last present() call.";
 	}
 	var numIndices = 0;
@@ -281,6 +293,7 @@ away.display3D.Context3D.prototype.setDepthTest = function(depthMask, passCompar
 };
 
 away.display3D.Context3D.prototype.setProgram = function(program3D) {
+	console.log("setProgram");
 	this._currentProgram = program3D;
 	program3D.focusProgram();
 };
@@ -299,6 +312,7 @@ away.display3D.Context3D.prototype.getUniformLocationNameFromAgalRegisterIndex =
 };
 
 away.display3D.Context3D.prototype.setProgramConstantsFromMatrix = function(programType, firstRegister, matrix, transposedMatrix) {
+	transposedMatrix = transposedMatrix || false;
 	var locationName = this.getUniformLocationNameFromAgalRegisterIndex(programType, firstRegister);
 	this.setGLSLProgramConstantsFromMatrix(locationName, matrix, transposedMatrix);
 };
@@ -306,6 +320,7 @@ away.display3D.Context3D.prototype.setProgramConstantsFromMatrix = function(prog
 away.display3D.Context3D.modulo = 0;
 
 away.display3D.Context3D.prototype.setProgramConstantsFromArray = function(programType, firstRegister, data, numRegisters) {
+	numRegisters = numRegisters || -1;
 	for (var i = 0; i < numRegisters; ++i) {
 		var currentIndex = i * 4;
 		var locationName = this.getUniformLocationNameFromAgalRegisterIndex(programType, firstRegister + i) + (i + firstRegister);
@@ -314,11 +329,13 @@ away.display3D.Context3D.prototype.setProgramConstantsFromArray = function(progr
 };
 
 away.display3D.Context3D.prototype.setGLSLProgramConstantsFromMatrix = function(locationName, matrix, transposedMatrix) {
+	transposedMatrix = transposedMatrix || false;
 	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
 	this._gl.uniformMatrix4fv(location, !transposedMatrix, new Float32Array(matrix.rawData));
 };
 
 away.display3D.Context3D.prototype.setGLSLProgramConstantsFromArray = function(locationName, data, startIndex) {
+	startIndex = startIndex || 0;
 	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
 	this._gl.uniform4f(location, data[startIndex], data[startIndex + 1], data[startIndex + 2], data[startIndex + 3]);
 };
@@ -453,11 +470,15 @@ away.display3D.Context3D.prototype.setSamplerStateAt = function(sampler, wrap, f
 };
 
 away.display3D.Context3D.prototype.setVertexBufferAt = function(index, buffer, bufferOffset, format) {
+	bufferOffset = bufferOffset || 0;
+	format = format || null;
 	var locationName = "va" + index;
 	this.setGLSLVertexBufferAt(locationName, buffer, bufferOffset, format);
 };
 
 away.display3D.Context3D.prototype.setGLSLVertexBufferAt = function(locationName, buffer, bufferOffset, format) {
+	bufferOffset = bufferOffset || 0;
+	format = format || null;
 	var location = this._gl.getAttribLocation(this._currentProgram.get_glProgram(), locationName);
 	if (!buffer) {
 		if (location > -1) {

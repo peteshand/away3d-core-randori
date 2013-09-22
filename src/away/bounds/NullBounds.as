@@ -18,6 +18,9 @@ package away.bounds
 		
 		public function NullBounds(alwaysIn:Boolean = true, renderable:WireframePrimitiveBase = null):void
 		{
+			alwaysIn = alwaysIn || true;
+			renderable = renderable || null;
+
 			super();
 			this._alwaysIn = alwaysIn;
 			this._renderable = renderable;

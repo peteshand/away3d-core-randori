@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 16:02:01 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:32 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,6 +6,10 @@ if (typeof away.geom == "undefined")
 	away.geom = {};
 
 away.geom.Vector3D = function(x, y, z, w) {
+	x = x || 0;
+	y = y || 0;
+	z = z || 0;
+	w = w || 0;
 	this.x = x;
 	this.y = y;
 	this.z = z;
@@ -67,6 +71,7 @@ away.geom.Vector3D.prototype.dotProduct = function(a) {
 };
 
 away.geom.Vector3D.prototype.equals = function(cmp, allFour) {
+	allFour = allFour || false;
 	return (this.x == cmp.x && this.y == cmp.y && this.z == cmp.z && (!allFour || this.w == cmp.w));
 };
 
@@ -77,6 +82,7 @@ away.geom.Vector3D.prototype.incrementBy = function(a) {
 };
 
 away.geom.Vector3D.prototype.nearEquals = function(cmp, epsilon, allFour) {
+	allFour = allFour || true;
 	return ((Math.abs(this.x - cmp.x) < epsilon) && (Math.abs(this.y - cmp.y) < epsilon) && (Math.abs(this.z - cmp.z) < epsilon) && (!allFour || Math.abs(this.w - cmp.w) < epsilon));
 };
 

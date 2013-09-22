@@ -58,6 +58,7 @@ public class PlaneTest
             image = imgLoader.image;
             stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreateHandler, this);
             stage.stage3Ds[0].requestContext();
+
         }
 
         private function onContext3DCreateHandler(event:Stage3DEvent):void
@@ -124,15 +125,14 @@ public class PlaneTest
 
         private function tick(dt:Number):void
         {
-            Window.console.log('_tick');
-            mvMatrix.appendRotation(dt * 0.1, new Vector3D(0, 1, 0));
+            //mvMatrix.appendRotation(dt * 0.1, new Vector3D(0, 1, 0));
             context3D.setProgram(program);
             context3D.setGLSLProgramConstantsFromMatrix("pMatrix", pMatrix, true);
             context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", mvMatrix, true);
 
             context3D.setGLSLTextureAt("uSampler", this.texture, 0);
 
-            context3D.clear(0.1, 0.2, 0.3, 1);
+            context3D.clear(1.0, 1.0, 0.0, 1);
             context3D.drawTriangles(iBuffer, 0, 2);
             context3D.present();
 
