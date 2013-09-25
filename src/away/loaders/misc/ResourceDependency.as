@@ -1,7 +1,10 @@
-
-
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.misc
 {
@@ -19,16 +22,17 @@ package away.loaders.misc
 	/**	 * ResourceDependency represents the data required to load, parse and resolve additional files ("dependencies")	 * required by a parser, used by ResourceLoadSession.	 *	 */
 	public class ResourceDependency
 	{
-		private var _id:String;
+		private var _id:String = null;
 		private var _req:URLRequest;
-		private var _assets:Vector.<IAsset>//Vector.<IAsset>;		private var _parentParser:ParserBase;
+		private var _assets:Vector.<IAsset>;//Vector.<IAsset>
+		private var _parentParser:ParserBase;
 		private var _data:*;
-		private var _retrieveAsRawData:Boolean;
-		private var _suppressAssetEvents:Boolean;
+		private var _retrieveAsRawData:Boolean = false;
+		private var _suppressAssetEvents:Boolean = false;
 		private var _dependencies:Vector.<ResourceDependency>;
 
 		public var _iLoader:SingleFileLoader;
-		public var _iSuccess:Boolean;
+		public var _iSuccess:Boolean = false;
 
 		
 		public function ResourceDependency(id:String, req:URLRequest, data:*, parentParser:ParserBase, retrieveAsRawData:Boolean = false, suppressAssetEvents:Boolean = false):void

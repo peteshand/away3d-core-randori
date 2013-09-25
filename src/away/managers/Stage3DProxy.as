@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.managers
 {
@@ -42,29 +47,29 @@ package away.managers
 		public var _iContext3D:Context3D;
 		public var _iStage3DIndex:Number = -1;
 		
-		private var _usesSoftwareRendering:Boolean;
-		private var _profile:String;
+		private var _usesSoftwareRendering:Boolean = false;
+		private var _profile:String = null;
 		private var _stage3D:Stage3D;
 		private var _activeProgram3D:Program3D;
 		private var _stage3DManager:Stage3DManager;
-		private var _backBufferWidth:Number;
-		private var _backBufferHeight:Number;
+		private var _backBufferWidth:Number = 0;
+		private var _backBufferHeight:Number = 0;
 		private var _antiAlias:Number = 0;
-		private var _enableDepthAndStencil:Boolean;
-		private var _contextRequested:Boolean;
+		private var _enableDepthAndStencil:Boolean = false;
+		private var _contextRequested:Boolean = false;
 		//private var _activeVertexBuffers : Vector.<VertexBuffer3D> = new Vector.<VertexBuffer3D>(8, true);
 		//private var _activeTextures : Vector.<TextureBase> = new Vector.<TextureBase>(8, true);
 		private var _renderTarget:TextureBase = null;
 		private var _renderSurfaceSelector:Number = 0;
         private var _scissorRect:Rectangle;
-		private var _color:Number;
-		private var _backBufferDirty:Boolean;
+		private var _color:Number = 0;
+		private var _backBufferDirty:Boolean = false;
 		private var _viewPort:Rectangle;
 		private var _enterFrame:Event;
 		private var _exitFrame:Event;
 		private var _viewportUpdated:Stage3DEvent;
-		private var _viewportDirty:Boolean;
-		private var _bufferClear:Boolean;
+		private var _viewportDirty:Boolean = false;
+		private var _bufferClear:Boolean = false;
 		private var _mouse3DManager:Mouse3DManager;
 		//private _touch3DManager:Touch3DManager; //TODO: imeplement dependency Touch3DManager
 		

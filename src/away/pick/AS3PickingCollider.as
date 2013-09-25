@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.pick
 {
@@ -9,7 +14,7 @@ package away.pick
 	/**	 * Pure AS3 picking collider for entity objects. Used with the <code>RaycastPicker</code> picking object.	 *	 * @see away3d.entities.Entity#pickingCollider	 * @see away3d.core.pick.RaycastPicker	 */
 	public class AS3PickingCollider extends PickingColliderBase implements IPickingCollider
 	{
-		private var _findClosestCollision:Boolean;
+		private var _findClosestCollision:Boolean = false;
 		
 		/**		 * Creates a new <code>AS3PickingCollider</code> object.		 *		 * @param findClosestCollision Determines whether the picking collider searches for the closest collision along the ray. Defaults to false.		 */
 		public function AS3PickingCollider(findClosestCollision:Boolean = false):void

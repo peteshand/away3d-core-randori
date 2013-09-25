@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.textures
 {
@@ -6,6 +12,7 @@ package away.textures
 	import away.utils.TextureUtils;
 	import away.display3D.TextureBase;
 	import away.display3D.CubeTexture;
+	import away.utils.VectorInit;
 	public class BitmapCubeTexture extends CubeTextureBase
 	{
 
@@ -16,7 +23,7 @@ package away.textures
 		{
 			super();
 			
-			this._bitmapDatas = new Vector.<BitmapData>(6);
+			this._bitmapDatas = VectorInit.AnyClass(BitmapData, 6);
 			this.testSize( this._bitmapDatas[0] = posX );
             this.testSize( this._bitmapDatas[1] = negX );
             this.testSize( this._bitmapDatas[2] = posY );

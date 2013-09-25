@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ this._faceTangentsDirty = true;
 this._uvsDirty = true;
 this._vertexTangentsDirty = true;
 this._faceNormalsDirty = true;
-this._indexBufferContext = [null, null, null, null, null, null, null, null];
+this._indexBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 this._scaleU = 1;
 this._indices = null;
 this._scaleV = 1;
@@ -25,8 +25,8 @@ this._autoDeriveVertexTangents = true;
 this._vertexNormalsDirty = true;
 this._faceWeights = null;
 this._faceTangents = null;
-this._indexBuffer = [null, null, null, null, null, null, null, null];
-this._indicesInvalid = [null, null, null, null, null, null, null, null];
+this._indexBuffer = away.utils.VectorInit.AnyClass(away.display3D.IndexBuffer3D, 8);
+this._indicesInvalid = away.utils.VectorInit.Bool(8, false);
 this._numIndices = 0;
 };
 
@@ -105,7 +105,7 @@ away.base.SubGeometryBase.prototype.pUpdateFaceTangents = function() {
 	var texStride = this.get_UVStride();
 	var texOffset = this.get_UVOffset();
 	if (this._faceTangents == null) {
-		this._faceTangents = away.utils.VectorNumber.init(this._indices.length, 0);
+		this._faceTangents = away.utils.VectorInit.Num(this._indices.length, 0);
 	}
 	while (i < len) {
 		index1 = this._indices[i];
@@ -157,11 +157,11 @@ away.base.SubGeometryBase.prototype.updateFaceNormals = function() {
 	var posStride = this.get_vertexStride();
 	var posOffset = this.get_vertexOffset();
 	if (this._faceNormals == null) {
-		this._faceNormals = away.utils.VectorNumber.init(len, 0);
+		this._faceNormals = away.utils.VectorInit.Num(len, 0);
 	}
 	if (this._useFaceWeights) {
 		if (this._faceWeights == null) {
-			this._faceWeights = away.utils.VectorNumber.init(len / 3, 0);
+			this._faceWeights = away.utils.VectorInit.Num(len / 3, 0);
 		}
 	}
 	while (i < len) {
@@ -214,7 +214,7 @@ away.base.SubGeometryBase.prototype.pUpdateVertexNormals = function(target) {
 	var normalStride = this.get_vertexNormalStride();
 	var normalOffset = this.get_vertexNormalOffset();
 	if (target == null) {
-		target = away.utils.VectorNumber.init(lenV, 0);
+		target = away.utils.VectorInit.Num(lenV, 0);
 	}
 	v1 = normalOffset;
 	while (v1 < lenV) {
@@ -270,7 +270,7 @@ away.base.SubGeometryBase.prototype.pUpdateVertexTangents = function(target) {
 	var tangentStride = this.get_vertexTangentStride();
 	var tangentOffset = this.get_vertexTangentOffset();
 	if (target == null) {
-		target = away.utils.VectorNumber.init(lenV, 0);
+		target = away.utils.VectorInit.Num(lenV, 0);
 	}
 	i = tangentOffset;
 	while (i < lenV) {
@@ -570,7 +570,7 @@ away.base.SubGeometryBase.prototype.pUpdateDummyUVs = function(target) {
 	var skip = stride - 2;
 	var len = this._vertexData.length / this.get_vertexStride() * stride;
 	if (!target) {
-		target = away.utils.VectorNumber.init(0, 0);
+		target = away.utils.VectorInit.Num(0, 0);
 	}
 	target.length = len;
 	idx = this.get_UVOffset();
@@ -593,13 +593,17 @@ away.base.SubGeometryBase.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.geom.Vector3D');
 	p.push('away.errors.AbstractMethodError');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 
 away.base.SubGeometryBase.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.display3D.IndexBuffer3D');
+	p.push('away.display3D.Context3D');
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.base.SubGeometryBase.injectionPoints = function(t) {

@@ -1,8 +1,15 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.passes
 {
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	import away.materials.MaterialBase;
 	import away.materials.compilation.ShaderCompiler;
 	import away.materials.compilation.LightingShaderCompiler;
@@ -34,27 +41,39 @@ package away.materials.passes
 	
 	//use namespace arcane;
 	
-	/**	 * LightingPass is a shader pass that uses shader methods to compile a complete program. It only includes the lighting	 * methods. It's used by multipass materials to accumulate lighting passes.	 *	 * @see away3d.materials.MultiPassMaterialBase	 */
+	/**
+	 * LightingPass is a shader pass that uses shader methods to compile a complete program. It only includes the lighting
+	 * methods. It's used by multipass materials to accumulate lighting passes.
+	 *
+	 * @see away3d.materials.MultiPassMaterialBase
+	 */
 	
 	public class LightingPass extends CompiledPass
 	{
 		private var _includeCasters:Boolean = true;
-		private var _tangentSpace:Boolean;
-		private var _lightVertexConstantIndex:Number;
-		private var _inverseSceneMatrix:Vector.<Number> = VectorNumber.init();
+		private var _tangentSpace:Boolean = false;
+		private var _lightVertexConstantIndex:Number = 0;
+		private var _inverseSceneMatrix:Vector.<Number> = VectorInit.Num();
 		
-		private var _directionalLightsOffset:Number;
-		private var _pointLightsOffset:Number;
-		private var _lightProbesOffset:Number;
+		private var _directionalLightsOffset:Number = 0;
+		private var _pointLightsOffset:Number = 0;
+		private var _lightProbesOffset:Number = 0;
 		private var _maxLights:Number = 3;
 		
-		/**		 * Creates a new LightingPass objects.		 *		 * @param material The material to which this pass belongs.		 */
+		/**
+		 * Creates a new LightingPass objects.
+		 *
+		 * @param material The material to which this pass belongs.
+		 */
 		public function LightingPass(material:MaterialBase):void
 		{
 			super(material);
 		}
 
-		/**		 * Indicates the offset in the light picker's directional light vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
+		/**
+		 * Indicates the offset in the light picker's directional light vector for which to start including lights.
+		 * This needs to be set before the light picker is assigned.
+		 */
 		public function get directionalLightsOffset():Number
 		{
 			return this._directionalLightsOffset;
@@ -65,7 +84,10 @@ package away.materials.passes
 			this._directionalLightsOffset = value;
 		}
 
-		/**		 * Indicates the offset in the light picker's point light vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
+		/**
+		 * Indicates the offset in the light picker's point light vector for which to start including lights.
+		 * This needs to be set before the light picker is assigned.
+		 */
 		public function get pointLightsOffset():Number
 		{
 			return this._pointLightsOffset;
@@ -76,7 +98,10 @@ package away.materials.passes
             this._pointLightsOffset = value;
 		}
 
-		/**		 * Indicates the offset in the light picker's light probes vector for which to start including lights.		 * This needs to be set before the light picker is assigned.		 */
+		/**
+		 * Indicates the offset in the light picker's light probes vector for which to start including lights.
+		 * This needs to be set before the light picker is assigned.
+		 */
 		public function get lightProbesOffset():Number
 		{
 			return this._lightProbesOffset;
@@ -87,14 +112,18 @@ package away.materials.passes
             this._lightProbesOffset = value;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateCompiler(profile:String):ShaderCompiler
 		{
 			this._maxLights = profile == "baselineConstrained"? 1 : 3;
 			return new LightingShaderCompiler(profile);
 		}
 
-		/**		 * Indicates whether or not shadow casting lights need to be included.		 */
+		/**
+		 * Indicates whether or not shadow casting lights need to be included.
+		 */
 		public function get includeCasters():Boolean
 		{
 			return this._includeCasters;
@@ -108,7 +137,9 @@ package away.materials.passes
             this.iInvalidateShaderProgram();
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLights():void
 		{
 			super.pUpdateLights();
@@ -148,20 +179,32 @@ package away.materials.passes
 		
 		}
 
-		/**		 * Calculates the amount of directional lights this material will support.		 * @param numDirectionalLights The maximum amount of directional lights to support.		 * @return The amount of directional lights this material will support, bounded by the amount necessary.		 */
+		/**
+		 * Calculates the amount of directional lights this material will support.
+		 * @param numDirectionalLights The maximum amount of directional lights to support.
+		 * @return The amount of directional lights this material will support, bounded by the amount necessary.
+		 */
 		private function calculateNumDirectionalLights(numDirectionalLights:Number):Number
 		{
 			return Math.min(numDirectionalLights - this._directionalLightsOffset, this._maxLights);
 		}
 
-		/**		 * Calculates the amount of point lights this material will support.		 * @param numDirectionalLights The maximum amount of point lights to support.		 * @return The amount of point lights this material will support, bounded by the amount necessary.		 */
+		/**
+		 * Calculates the amount of point lights this material will support.
+		 * @param numDirectionalLights The maximum amount of point lights to support.
+		 * @return The amount of point lights this material will support, bounded by the amount necessary.
+		 */
 		private function calculateNumPointLights(numPointLights:Number):Number
 		{
 			var numFree:Number = this._maxLights - this._pNumDirectionalLights;
 			return Math.min(numPointLights - this._pointLightsOffset, numFree);
 		}
 
-		/**		 * Calculates the amount of light probes this material will support.		 * @param numDirectionalLights The maximum amount of light probes to support.		 * @return The amount of light probes this material will support, bounded by the amount necessary.		 */
+		/**
+		 * Calculates the amount of light probes this material will support.
+		 * @param numDirectionalLights The maximum amount of light probes to support.
+		 * @return The amount of light probes this material will support, bounded by the amount necessary.
+		 */
 		private function calculateNumProbes(numLightProbes:Number):Number
 		{
 			var numChannels:Number = 0;
@@ -177,7 +220,9 @@ package away.materials.passes
 			return Math.min(numLightProbes - this._lightProbesOffset, (4/numChannels) | 0);
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateShaderProperties():void
 		{
 			super.pUpdateShaderProperties();
@@ -187,7 +232,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateRegisterIndices():void
 		{
 			super.pUpdateRegisterIndices();
@@ -197,7 +244,9 @@ package away.materials.passes
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			renderable.inverseSceneTransform.copyRawDataTo(this._inverseSceneMatrix);
@@ -217,7 +266,9 @@ package away.materials.passes
 			super.iRender(renderable, stage3DProxy, camera, viewProjection);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			super.iActivate(stage3DProxy, camera);
@@ -232,19 +283,25 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * Indicates whether any light probes are used to contribute to the specular shading.		 */
+		/**
+		 * Indicates whether any light probes are used to contribute to the specular shading.
+		 */
 		private function usesProbesForSpecular():Boolean
 		{
 			return this._pNumLightProbes > 0 && (this._pSpecularLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**		 * Indicates whether any light probes are used to contribute to the diffuse shading.		 */
+		/**
+		 * Indicates whether any light probes are used to contribute to the diffuse shading.
+		 */
 		private function usesProbesForDiffuse():Boolean
 		{
 			return this._pNumLightProbes > 0 && (this._pDiffuseLightSources & LightSources.PROBES) != 0;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateLightConstants():void
 		{
 			var dirLight:DirectionalLight;
@@ -425,7 +482,9 @@ package away.materials.passes
 			}
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;

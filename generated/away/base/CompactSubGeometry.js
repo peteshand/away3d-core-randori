@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,15 +7,15 @@ if (typeof away.base == "undefined")
 
 away.base.CompactSubGeometry = function() {
 	this._pActiveBuffer = null;
-	this._pVertexDataInvalid = [null, null, null, null, null, null, null, null];
+	this._pVertexDataInvalid = away.utils.VectorInit.Bool(8, false);
 	this._activeContext = null;
-	this._pActiveDataInvalid = null;
-	this._bufferContext = [null, null, null, null, null, null, null, null];
-	this._vertexBuffer = [null, null, null, null, null, null, null, null];
+	this._pActiveDataInvalid = false;
+	this._bufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._vertexBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
 	this._contextIndex = 0;
 	this._isolatedVertexPositionData = null;
 	this._pNumVertices = 0;
-	this._isolatedVertexPositionDataDirty = null;
+	this._isolatedVertexPositionDataDirty = false;
 	away.base.SubGeometryBase.call(this);
 	this._autoDeriveVertexNormals = false;
 	this._autoDeriveVertexTangents = false;
@@ -309,7 +309,7 @@ away.base.CompactSubGeometry.prototype.get_strippedUVData = function() {
 };
 
 away.base.CompactSubGeometry.prototype.stripBuffer = function(offset, numEntries) {
-	var data = away.utils.VectorNumber.init(this._pNumVertices * numEntries, 0);
+	var data = away.utils.VectorInit.Num(this._pNumVertices * numEntries, 0);
 	var i = 0;
 	var j = offset;
 	var skip = 13 - numEntries;
@@ -329,7 +329,7 @@ away.base.CompactSubGeometry.prototype.fromVectors = function(verts, uvs, normal
 	var n = 0;
 	var t = 0;
 	var u = 0;
-	var data = away.utils.VectorNumber.init(vertLen, 0);
+	var data = away.utils.VectorInit.Num(vertLen, 0);
 	while (index < vertLen) {
 		data[index++] = verts[v++];
 		data[index++] = verts[v++];
@@ -379,13 +379,17 @@ away.base.CompactSubGeometry.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.base.SubGeometry');
 	p.push('away.display3D.Context3DVertexBufferFormat');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 
 away.base.CompactSubGeometry.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.display3D.Context3D');
+	p.push('away.display3D.VertexBuffer3D');
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.base.CompactSubGeometry.injectionPoints = function(t) {

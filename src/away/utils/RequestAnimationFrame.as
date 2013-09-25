@@ -1,9 +1,14 @@
-///<reference path="../_definitions.ts"/>
-
-
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.utils
 {
+	import away.utils.VectorInit;
 
     public class RequestAnimationFrame
     {
@@ -12,10 +17,10 @@ package away.utils
         private var _callbackContext:Object;
         private var _active:Boolean = false;
         private var _rafUpdateFunction:*;
-        private var _prevTime:Number;
-        private var _dt:Number;
-        private var _currentTime:Number;
-        private var _argsArray:Vector.<*> = new Vector.<*>();
+        private var _prevTime:Number = 0;
+        private var _dt:Number = 0;
+        private var _currentTime:Number = 0;
+        private var _argsArray:Vector.<*> = VectorInit.StarVec();
         
         public function RequestAnimationFrame(callback:Function, callbackContext:Object):void
         {

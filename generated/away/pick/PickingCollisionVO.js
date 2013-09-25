@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:43 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.pick.PickingCollisionVO = function(entity) {
 	this.localPosition = null;
 	this.rayEntryDistance = 0;
 	this.renderable = null;
-	this.rayOriginIsInsideBounds = null;
+	this.rayOriginIsInsideBounds = false;
 	this.subGeometryIndex = 0;
 	this.uv = null;
 	this.localRayPosition = null;

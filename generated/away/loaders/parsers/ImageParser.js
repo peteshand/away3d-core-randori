@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:50 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,8 +8,8 @@ if (typeof away.loaders.parsers == "undefined")
 	away.loaders.parsers = {};
 
 away.loaders.parsers.ImageParser = function() {
-	this._startedParsing = null;
-	this._doneParsing = null;
+	this._startedParsing = false;
+	this._doneParsing = false;
 	away.loaders.parsers.ParserBase.call(this, away.loaders.parsers.ParserDataFormat.IMAGE, away.loaders.parsers.ParserLoaderType.IMG_LOADER);
 };
 

@@ -1,7 +1,10 @@
-
-
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.misc
 {
@@ -16,7 +19,8 @@ package away.loaders.misc
 
         private var _loader:IMGLoader;
         private var _data:*;
-        private var _dataFormat:String// Not used in this implementation
+        private var _dataFormat:String = null;// Not used in this implementation
+
         public function SingleFileImageLoader():void
         {
             super();

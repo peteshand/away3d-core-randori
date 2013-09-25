@@ -1,6 +1,10 @@
-
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.utils
 {
@@ -22,7 +26,8 @@ package away.materials.utils
 	{
 		private static var _matrix:Matrix = new Matrix();
         private static var _rect:Rectangle = new Rectangle();
-        private static var _source:BitmapData//= new away.display.BitmapData();
+        private static var _source:BitmapData;//= new away.display.BitmapData()
+
         /**         * Uploads a BitmapData with mip maps to a target Texture object.         * @param source         * @param target The target Texture to upload to.         * @param mipmap An optional mip map holder to avoids creating new instances for fe animated materials.         * @param alpha Indicate whether or not the uploaded bitmapData is transparent.         */
         public static function generateHTMLImageElementMipMaps(source:HTMLImageElement, target:TextureBase, mipmap:BitmapData = null, alpha:Boolean = false, side:Number = -1):void
         {

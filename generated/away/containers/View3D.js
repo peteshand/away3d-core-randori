@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._depthPrepass = false;
 	this._pStage3DProxy = null;
 	this._pDepthRender = null;
-	this._forceSoftware = null;
+	this._forceSoftware = false;
 	this._localPos = new away.geom.Point(0, 0);
 	this._aspectRatio = 0;
 	this._antiAlias = 0;
@@ -21,11 +21,11 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._globalPos = new away.geom.Point(0, 0);
 	this._backgroundColor = 0x000000;
 	this._width = 0;
-	this._addedToStage = null;
+	this._addedToStage = false;
 	this._pFilter3DRenderer = null;
 	this._layeredView = false;
 	this._viewportDirty = true;
-	this._globalPosDirty = null;
+	this._globalPosDirty = false;
 	this._pShareContext = false;
 	this._pScene = null;
 	this._depthTextureInvalid = true;
@@ -37,7 +37,7 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._pBackBufferInvalid = true;
 	this._pScissorRect = null;
 	this._pCamera = null;
-	this._pRequireDepthRender = null;
+	this._pRequireDepthRender = false;
 	this._profile = null;
 	this._pEntityCollector = null;
 	scene = scene || null;

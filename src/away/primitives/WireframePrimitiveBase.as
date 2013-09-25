@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
@@ -12,8 +16,8 @@ package away.primitives
 	public class WireframePrimitiveBase extends SegmentSet
 	{
 		private var _geomDirty:Boolean = true;
-		private var _color:Number;
-		private var _thickness:Number;
+		private var _color:Number = 0;
+		private var _thickness:Number = 0;
 		
 		public function WireframePrimitiveBase(color:Number = 0xffffff, thickness:Number = 1):void
 		{

@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.net
 {
@@ -16,8 +20,9 @@ package away.net
 
         private var _image:HTMLImageElement;
         private var _request:URLRequest;
-        private var _name:String = '';        private var _loaded:Boolean = false;
-        private var _crossOrigin:String;
+        private var _name:String = '';
+        private var _loaded:Boolean = false;
+        private var _crossOrigin:String = null;
 
         public function IMGLoader(imageName:String = ''):void
         {

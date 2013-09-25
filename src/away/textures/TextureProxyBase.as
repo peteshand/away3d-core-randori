@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.textures
 {
@@ -12,6 +16,7 @@ package away.textures
 	import away.library.assets.AssetType;
 	import away.managers.Stage3DProxy;
 	import away.errors.AbstractMethodError;
+	import away.utils.VectorInit;
 
 	public class TextureProxyBase extends NamedAssetBase implements IAsset
 	{
@@ -21,16 +26,16 @@ package away.textures
 		private var _textures:Vector.<TextureBase>;
 		private var _dirty:Vector.<Context3D>;
 
-		public var _pWidth:Number;
-        public var _pHeight:Number;
+		public var _pWidth:Number = 0;
+        public var _pHeight:Number = 0;
 
 		public function TextureProxyBase():void
 		{
 
             super(null);
 
-            this._textures      = new Vector.<TextureBase>( 8 );//_textures = new Vector.<TextureBase>(8);
-            this._dirty         = new Vector.<Context3D>( 8 );//_dirty = new Vector.<Context3D>(8);
+            this._textures      = VectorInit.AnyClass(TextureBase,  8 );//_textures = new Vector.<TextureBase>(8);
+            this._dirty         = VectorInit.AnyClass(Context3D,  8 );//_dirty = new Vector.<Context3D>(8);
 
 		}
 

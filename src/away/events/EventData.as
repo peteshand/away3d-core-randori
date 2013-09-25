@@ -1,8 +1,11 @@
-/* * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/ * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk ) */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
-///<reference path="../_definitions.ts"/>
-
-/** * @module kurst.events */
 package away.events {
 
     
@@ -11,7 +14,7 @@ package away.events {
 
         public var listener:Function;
         public var target:Object;
-        public var type:String;
+        public var type:String = null;
 
     }
 

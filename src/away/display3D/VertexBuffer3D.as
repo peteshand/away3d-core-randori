@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.display3D
 {
@@ -12,8 +16,8 @@ package away.display3D
 	{
 		
 		private var _gl:WebGLRenderingContext;
-		private var _numVertices:Number;
-		private var _data32PerVertex:Number;
+		private var _numVertices:Number = 0;
+		private var _data32PerVertex:Number = 0;
 		private var _buffer:WebGLBuffer;
 	
 		public function VertexBuffer3D(gl:WebGLRenderingContext, numVertices:Number, data32PerVertex:Number):void

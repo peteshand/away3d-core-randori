@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:02 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:50 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.events == "undefined")
 	away.events = {};
 
 away.events.MouseEvent3D = function(type) {
-	this.shiftKey = null;
+	this.shiftKey = false;
 	this.object = null;
 	this.subGeometryIndex = 0;
 	this.uv = null;
@@ -20,9 +20,9 @@ away.events.MouseEvent3D = function(type) {
 	this.material = null;
 	this._iParentEvent = null;
 	this.renderable = null;
-	this.altKey = null;
+	this.altKey = false;
 	this.view = null;
-	this.ctrlKey = null;
+	this.ctrlKey = false;
 	away.events.Event.call(this, type);
 };
 

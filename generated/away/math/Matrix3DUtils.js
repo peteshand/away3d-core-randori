@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.math.Matrix3DUtils = function() {
 	
 };
 
-away.math.Matrix3DUtils.RAW_DATA_CONTAINER = away.utils.VectorNumber.init(16, 0);
+away.math.Matrix3DUtils.RAW_DATA_CONTAINER = away.utils.VectorInit.Num(16, 0);
 
 away.math.Matrix3DUtils.CALCULATION_MATRIX = new away.geom.Matrix3D();
 
@@ -168,7 +168,7 @@ away.math.Matrix3DUtils.getStaticDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Matrix3D');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

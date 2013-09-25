@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.containers
 {
@@ -31,7 +35,8 @@ package away.containers
         /*         *************************************************************************************************************************         * Development Notes         *************************************************************************************************************************         *         * ShareContext     - this is not being used at the moment integration with other frameworks is not yet implemented or tested         *                    and ( _localPos / _globalPos ) position of viewport are the same for the moment         *         * Background         *                  - this is currently not being included in our tests and is currently disabled         *         **************************************************************************************************************************         */
 
         // Static
-        private static var sStage:Stage// View3D's share the same stage
+        private static var sStage:Stage;// View3D's share the same stage
+
         // Public
         public var stage:Stage;
 
@@ -40,7 +45,7 @@ package away.containers
 		public var _pCamera:Camera3D;
 		public var _pEntityCollector:EntityCollector;
         public var _pFilter3DRenderer:Filter3DRenderer;
-        public var _pRequireDepthRender:Boolean;
+        public var _pRequireDepthRender:Boolean = false;
         public var _pDepthRender:Texture;
         public var _pStage3DProxy:Stage3DProxy;
         public var _pBackBufferInvalid:Boolean = true;
@@ -51,27 +56,27 @@ package away.containers
         public var _pRenderer:RendererBase;
 
         // Private
-        private var _aspectRatio:Number;
+        private var _aspectRatio:Number = 0;
         private var _width:Number = 0;
         private var _height:Number = 0;
 
         private var _localPos:Point = new Point();
         private var _globalPos:Point = new Point();
-        private var _globalPosDirty:Boolean;
+        private var _globalPosDirty:Boolean = false;
 		private var _time:Number = 0;
 		private var _deltaTime:Number = 0;
 		private var _backgroundColor:Number = 0x000000;
 		private var _backgroundAlpha:Number = 1;
         private var _depthRenderer:DepthRenderer;
-        private var _addedToStage:Boolean;
-        private var _forceSoftware:Boolean;
+        private var _addedToStage:Boolean = false;
+        private var _forceSoftware:Boolean = false;
         private var _depthTextureInvalid:Boolean = true;
 
         private var _antiAlias:Number = 0;
         private var _scissorRectDirty:Boolean = true;
         private var _viewportDirty:Boolean = true;
         private var _depthPrepass:Boolean = false;
-        private var _profile:String;
+        private var _profile:String = null;
         private var _layeredView:Boolean = false;
 
         /*         ***********************************************************************         * Disabled / Not yet implemented         ***********************************************************************         *         * private _background:away.textures.Texture2DBase;         *		 * public _pMouse3DManager:away.managers.Mouse3DManager;		 * public _pTouch3DManager:away.managers.Touch3DManager;		 *         */

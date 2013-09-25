@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,18 +9,18 @@ if (typeof away.materials.methods == "undefined")
 
 away.materials.methods.BasicDiffuseMethod = function() {
 	this._diffuseColor = 0xffffff;
-	this._useTexture = null;
+	this._useTexture = false;
 	this._shadowRegister = null;
 	this._alphaThreshold = 0;
 	this.pTotalLightColorReg = null;
 	this._diffuseA = 1;
-	this._useAmbientTexture = null;
+	this._useAmbientTexture = false;
 	this._diffuseB = 1;
 	this._diffuseR = 1;
 	this._diffuseG = 1;
 	this._diffuseInputRegister = null;
 	this._texture = null;
-	this._isFirstLight = null;
+	this._isFirstLight = false;
 	away.materials.methods.LightingMethodBase.call(this);
 };
 

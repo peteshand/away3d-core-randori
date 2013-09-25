@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,11 +12,11 @@ away.entities.SubSet = function() {
 	this.lineCount = 0;
 	this.vertexContext3D = null;
 	this.indices = null;
-	this.indexBufferDirty = null;
+	this.indexBufferDirty = false;
 	this.vertexBuffer = null;
 	this.indexContext3D = null;
 	this.numVertices = 0;
-	this.vertexBufferDirty = null;
+	this.vertexBufferDirty = false;
 	
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.primitives.TorusGeometry = function(radius, tubeRadius, segmentsR, segments
 	this._vertexStride = 0;
 	this._tubeRadius = 0;
 	this._rawVertexData = null;
-	this._yUp = null;
+	this._yUp = false;
 	this._numVertices = 0;
 	this._rawIndices = null;
 	this._vertexOffset = 0;
@@ -68,14 +68,14 @@ away.primitives.TorusGeometry.prototype.pBuildGeometry = function(target) {
 	if (this._numVertices == target.get_numVertices()) {
 		this._rawVertexData = target.get_vertexData();
 		if (target.get_indexData() == null) {
-			this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
+			this._rawIndices = away.utils.VectorInit.Num(numTriangles * 3, 0);
 		} else {
 			this._rawIndices = target.get_indexData();
 		}
 	} else {
 		var numVertComponents = this._numVertices * this._vertexStride;
-		this._rawVertexData = away.utils.VectorNumber.init(numVertComponents, 0);
-		this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
+		this._rawVertexData = away.utils.VectorInit.Num(numVertComponents, 0);
+		this._rawIndices = away.utils.VectorInit.Num(numTriangles * 3, 0);
 		this.pInvalidateUVs();
 	}
 	var revolutionAngleDeltaR = 2 * 3.141592653589793 / this._segmentsR;
@@ -140,7 +140,7 @@ away.primitives.TorusGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && numUvs == target.get_UVData().length) {
 		data = target.get_UVData();
 	} else {
-		data = away.utils.VectorNumber.init(numUvs, 0);
+		data = away.utils.VectorInit.Num(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var currentUvCompIndex = offset;
@@ -208,7 +208,7 @@ away.primitives.TorusGeometry.className = "away.primitives.TorusGeometry";
 away.primitives.TorusGeometry.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

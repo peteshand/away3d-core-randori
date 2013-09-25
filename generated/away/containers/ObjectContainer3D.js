@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:54 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,17 +7,17 @@ if (typeof away.containers == "undefined")
 
 away.containers.ObjectContainer3D = function() {
 	this._pSceneTransform = new away.geom.Matrix3D();
-	this._listenToSceneTransformChanged = null;
+	this._listenToSceneTransformChanged = false;
 	this._pIgnoreTransform = false;
 	this._inverseSceneTransformDirty = true;
 	this._scenechanged = null;
-	this._iIsRoot = null;
-	this._iAncestorsAllowMouseEnabled = null;
+	this._iIsRoot = false;
+	this._iAncestorsAllowMouseEnabled = false;
 	this._pExplicitPartition = null;
 	this._inverseSceneTransform = new away.geom.Matrix3D();
 	this._pSceneTransformDirty = true;
 	this._implicitVisibility = true;
-	this._listenToSceneChanged = null;
+	this._listenToSceneChanged = false;
 	this._explicitVisibility = true;
 	this._pScene = null;
 	this._scenePosition = new away.geom.Vector3D(0, 0, 0, 0);
@@ -27,7 +27,7 @@ away.containers.ObjectContainer3D = function() {
 	this._children = [];
 	this._pParent = null;
 	this._mouseChildren = true;
-	this._pMouseEnabled = null;
+	this._pMouseEnabled = false;
 	this._pImplicitPartition = null;
 	away.base.Object3D.call(this);
 };

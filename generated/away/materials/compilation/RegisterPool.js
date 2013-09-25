@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:28 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.materials.compilation == "undefined")
 
 away.materials.compilation.RegisterPool = function(regName, regCount, persistent) {
 	this._usedVectorCount = null;
-	this._persistent = null;
+	this._persistent = false;
 	this._registerComponents = undefined;
 	this._regCompsPool = {};
 	this._regName = null;
@@ -94,12 +94,12 @@ away.materials.compilation.RegisterPool.prototype.initRegisters = function(regNa
 	var hash = away.materials.compilation.RegisterPool._initPool(regName, regCount);
 	this._vectorRegisters = away.materials.compilation.RegisterPool._regPool[hash];
 	this._registerComponents = away.materials.compilation.RegisterPool._regCompsPool[hash];
-	this._usedVectorCount = this._initArray(regCount, 0);
-	this._usedSingleCount = [0, 0, 0, 0];
-	this._usedSingleCount[0] = this._initArray(away.utils.VectorNumber.init(regCount, 0), 0);
-	this._usedSingleCount[1] = this._initArray(away.utils.VectorNumber.init(regCount, 0), 0);
-	this._usedSingleCount[2] = this._initArray(away.utils.VectorNumber.init(regCount, 0), 0);
-	this._usedSingleCount[3] = this._initArray(away.utils.VectorNumber.init(regCount, 0), 0);
+	this._usedVectorCount = away.utils.VectorInit.Num(regCount, 0);
+	this._usedSingleCount = away.utils.VectorInit.VecNum(4, 0);
+	this._usedSingleCount[0] = away.utils.VectorInit.Num(regCount, 0);
+	this._usedSingleCount[1] = away.utils.VectorInit.Num(regCount, 0);
+	this._usedSingleCount[2] = away.utils.VectorInit.Num(regCount, 0);
+	this._usedSingleCount[3] = away.utils.VectorInit.Num(regCount, 0);
 };
 
 away.materials.compilation.RegisterPool._initPool = function(regName, regCount) {
@@ -107,7 +107,7 @@ away.materials.compilation.RegisterPool._initPool = function(regName, regCount) 
 	if (away.materials.compilation.RegisterPool._regPool[hash] != undefined) {
 		return hash;
 	}
-	var vectorRegisters = [];
+	var vectorRegisters = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, regCount);
 	away.materials.compilation.RegisterPool._regPool[hash] = vectorRegisters;
 	var registerComponents = [[], [], [], []];
 	away.materials.compilation.RegisterPool._regCompsPool[hash] = registerComponents;
@@ -132,21 +132,13 @@ away.materials.compilation.RegisterPool.prototype.isRegisterUsed = function(inde
 	return false;
 };
 
-away.materials.compilation.RegisterPool.prototype._initArray = function(a, val) {
-	var l = a.length;
-	for (var c = 0; c < l; c++) {
-		a[c] = val;
-	}
-	return a;
-};
-
 away.materials.compilation.RegisterPool.className = "away.materials.compilation.RegisterPool";
 
 away.materials.compilation.RegisterPool.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.compilation.ShaderRegisterElement');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

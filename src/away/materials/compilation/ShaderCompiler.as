@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.compilation
 {
@@ -12,49 +18,63 @@ package away.materials.compilation
 	/**	 * ShaderCompiler is an abstract base class for shader compilers that use modular shader methods to assemble a	 * material. Concrete subclasses are used by the default materials.	 *	 * @see away3d.materials.methods.ShadingMethodBase	 */
 	public class ShaderCompiler
 	{
-        public var _pSharedRegisters:ShaderRegisterData// PROTECTED        public var _pRegisterCache:ShaderRegisterCache// PROTECTED		public var _pDependencyCounter:MethodDependencyCounter// PROTECTED        public var _pMethodSetup:ShaderMethodSetup// PROTECTED
-		private var _smooth:Boolean;
-		private var _repeat:Boolean;
-		private var _mipmap:Boolean;
-		public var _pEnableLightFallOff:Boolean;
+        public var _pSharedRegisters:ShaderRegisterData;// PROTECTED
+        public var _pRegisterCache:ShaderRegisterCache;// PROTECTED
+		public var _pDependencyCounter:MethodDependencyCounter;// PROTECTED
+        public var _pMethodSetup:ShaderMethodSetup;// PROTECTED
+
+		private var _smooth:Boolean = false;
+		private var _repeat:Boolean = false;
+		private var _mipmap:Boolean = false;
+		public var _pEnableLightFallOff:Boolean = false;
 		private var _preserveAlpha:Boolean = true;
-		private var _animateUVs:Boolean;
-		public var _pAlphaPremultiplied:Boolean// PROTECTED		private var _vertexConstantData:Vector.<Number>;
+		private var _animateUVs:Boolean = false;
+		public var _pAlphaPremultiplied:Boolean = false;// PROTECTED
+		private var _vertexConstantData:Vector.<Number>;
 		private var _fragmentConstantData:Vector.<Number>;
 
-		public var _pVertexCode:String = '';        public var _pFragmentCode:String = '';		private var _fragmentLightCode:String;
-		private var _fragmentPostLightCode:String;
+		public var _pVertexCode:String = '';
+        public var _pFragmentCode:String = '';
+		private var _fragmentLightCode:String = null;
+		private var _fragmentPostLightCode:String = null;
 		private var _commonsDataIndex:Number = -1;
 
-		public var _pAnimatableAttributes:Vector.<String>// PROTECTED		public var _pAnimationTargetRegisters:Vector.<String>// PROTECTED
-		public var _pLightProbeDiffuseIndices:Vector.<Number>/*uint*/;
-        public var _pLightProbeSpecularIndices:Vector.<Number>/*uint*/;
+		public var _pAnimatableAttributes:Vector.<String>;// PROTECTED
+		public var _pAnimationTargetRegisters:Vector.<String>;// PROTECTED
+
+		public var _pLightProbeDiffuseIndices:Vector.<Number>;/*uint*/
+        public var _pLightProbeSpecularIndices:Vector.<Number>;/*uint*/
 		private var _uvBufferIndex:Number = -1;
 		private var _uvTransformIndex:Number = -1;
 		private var _secondaryUVBufferIndex:Number = -1;
-		public var _pNormalBufferIndex:Number// PROTECTED = -1
-		public var _pTangentBufferIndex:Number// PROTECTED = -1
-		public var _pLightFragmentConstantIndex:Number//PROTECTED = -1
+		public var _pNormalBufferIndex:Number = -1;// PROTECTED
+		public var _pTangentBufferIndex:Number = -1;// PROTECTED
+		public var _pLightFragmentConstantIndex:Number = -1;//PROTECTED
 		private var _sceneMatrixIndex:Number = -1;
-		public var _pSceneNormalMatrixIndex:Number//PROTECTED = -1
-		public var _pCameraPositionIndex:Number// PROTECTED = -1
-		public var _pProbeWeightsIndex:Number// PROTECTED = -1
+		public var _pSceneNormalMatrixIndex:Number = -1;//PROTECTED
+		public var _pCameraPositionIndex:Number = -1;// PROTECTED
+		public var _pProbeWeightsIndex:Number = -1;// PROTECTED
 
-		private var _specularLightSources:Number;
-		private var _diffuseLightSources:Number;
+		private var _specularLightSources:Number = 0;
+		private var _diffuseLightSources:Number = 0;
 
-		public var _pNumLights:Number// PROTECTED		public var _pNumLightProbes:Number// PROTECTED		public var _pNumPointLights:Number// PROTECTED		public var _pNumDirectionalLights:Number// PROTECTED
-		public var _pNumProbeRegisters:Number// PROTECTED		private var _combinedLightSources:Number;
+		public var _pNumLights:Number = 0;// PROTECTED
+		public var _pNumLightProbes:Number = 0;// PROTECTED
+		public var _pNumPointLights:Number = 0;// PROTECTED
+		public var _pNumDirectionalLights:Number = 0;// PROTECTED
 
-		public var _usingSpecularMethod:Boolean;
+		public var _pNumProbeRegisters:Number = 0;// PROTECTED
+		private var _combinedLightSources:Number = 0;
 
-		private var _needUVAnimation:Boolean;
-		private var _UVTarget:String;
-		private var _UVSource:String;
+		public var _usingSpecularMethod:Boolean = false;
 
-		public var _pProfile:String;
+		private var _needUVAnimation:Boolean = false;
+		private var _UVTarget:String = null;
+		private var _UVSource:String = null;
 
-		private var _forceSeperateMVP:Boolean;
+		public var _pProfile:String = null;
+
+		private var _forceSeperateMVP:Boolean = false;
 
 		/**		 * Creates a new ShaderCompiler object.		 * @param profile The compatibility profile of the renderer.		 */
 		public function ShaderCompiler(profile:String):void

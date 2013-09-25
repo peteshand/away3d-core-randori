@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.materials.passes == "undefined")
 	away.materials.passes = {};
 
 away.materials.passes.MaterialPassBase = function(renderToTexture) {
-	this._iProgram3Ds = [null, null, null, null, null, null, null, null];
+	this._iProgram3Ds = away.utils.VectorInit.AnyClass(away.display3D.Program3D, 8);
 	this._pSmooth = true;
 	this._pMaterial = null;
 	this._pRepeat = false;
@@ -16,30 +16,30 @@ away.materials.passes.MaterialPassBase = function(renderToTexture) {
 	this._pAlphaPremultiplied = false;
 	this._pMipmap = true;
 	this._oldRect = null;
-	this._pBothSides = null;
+	this._pBothSides = false;
 	this._pUVTarget = null;
 	this._pNumUsedVaryings = 0;
 	this._pLightPicker = null;
-	this._pAnimationTargetRegisters = [];
+	this._pAnimationTargetRegisters = away.utils.VectorInit.Str(0, "");
 	this._oldSurface = 0;
-	this._pAnimatableAttributes = [];
+	this._pAnimatableAttributes = away.utils.VectorInit.Str(0, "");
 	this._pNumUsedFragmentConstants = 0;
 	this._previousUsedTexs = [0, 0, 0, 0, 0, 0, 0, 0];
 	this._blendFactorDest = away.display3D.Context3DBlendFactor.ZERO;
-	this._pNeedUVAnimation = null;
+	this._pNeedUVAnimation = false;
 	this._previousUsedStreams = [0, 0, 0, 0, 0, 0, 0, 0];
 	this._pNumUsedStreams = 0;
 	this._defaultCulling = away.display3D.Context3DTriangleFace.BACK;
-	this._pNeedFragmentAnimation = null;
+	this._pNeedFragmentAnimation = false;
 	this._pNumUsedTextures = 0;
-	this._context3Ds = [null, null, null, null, null, null, null, null];
+	this._context3Ds = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 	this._pUVSource = null;
 	this._blendFactorSource = away.display3D.Context3DBlendFactor.ONE;
 	this._writeDepth = true;
 	this._pNumUsedVertexConstants = 0;
-	this._renderToTexture = null;
+	this._renderToTexture = false;
 	this._depthCompareMode = away.display3D.Context3DCompareMode.LESS_EQUAL;
-	this._oldDepthStencil = null;
+	this._oldDepthStencil = false;
 	this._pShadedTarget = "ft0";
 	this._oldTarget = null;
 	this._pEnableBlending = false;
@@ -366,9 +366,12 @@ away.materials.passes.MaterialPassBase.getRuntimeDependencies = function(t) {
 away.materials.passes.MaterialPassBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.display3D.Program3D');
 	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.display3D.Context3DTriangleFace');
+	p.push('away.display3D.Context3D');
 	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

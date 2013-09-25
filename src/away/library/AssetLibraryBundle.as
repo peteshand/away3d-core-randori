@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.library
 {
@@ -25,27 +29,19 @@ package away.library
 	import randori.webkit.page.Window;
 
 	
-	/**
-	 * AssetLibraryBundle enforces a multiton pattern and is not intended to be instanced directly.
-	 * Its purpose is to create a container for 3D data management, both before and after parsing.
-	 * If you are interested in creating multiple library bundles, please use the <code>getInstance()</code> method.
-	 */
+	/**	 * AssetLibraryBundle enforces a multiton pattern and is not intended to be instanced directly.	 * Its purpose is to create a container for 3D data management, both before and after parsing.	 * If you are interested in creating multiple library bundles, please use the <code>getInstance()</code> method.	 */
 	public class AssetLibraryBundle extends EventDispatcher
 	{
-		private var _loadingSessions:Vector.<AssetLoader>//Vector.<AssetLoader>;
+		private var _loadingSessions:Vector.<AssetLoader>;//Vector.<AssetLoader>
 		private var _strategy:ConflictStrategyBase;
-		private var _strategyPreference:String;
-		private var _assets:Vector.<IAsset>//Vector.<IAsset>;
+		private var _strategyPreference:String = null;
+		private var _assets:Vector.<IAsset>;//Vector.<IAsset>
 		private var _assetDictionary:Object;
-		private var _assetDictDirty:Boolean;
+		private var _assetDictDirty:Boolean = false;
         private var _loadingSessionsGarbage:Vector.<AssetLoader> = new Vector.<AssetLoader>();
-        private var _gcTimeoutIID:Number;
+        private var _gcTimeoutIID:Number = 0;
 		
-		/**
-		 * Creates a new <code>AssetLibraryBundle</code> object.
-		 *
-		 * @param me A multiton enforcer for the AssetLibraryBundle ensuring it cannnot be instanced.
-		 */
+		/**		 * Creates a new <code>AssetLibraryBundle</code> object.		 *		 * @param me A multiton enforcer for the AssetLibraryBundle ensuring it cannnot be instanced.		 */
 		public function AssetLibraryBundle(me:AssetLibraryBundleSingletonEnforcer):void
 		{
             super();
@@ -60,15 +56,7 @@ package away.library
 			this.conflictPrecedence = ConflictPrecedence.FAVOR_NEW;
 		}
 		
-		/**
-		 * Returns an AssetLibraryBundle instance. If no key is given, returns the default bundle instance (which is
-		 * similar to using the AssetLibraryBundle as a singleton.) To keep several separated library bundles,
-		 * pass a string key to this method to define which bundle should be returned. This is
-		 * referred to as using the AssetLibrary as a multiton.
-		 *
-		 * @param key Defines which multiton instance should be returned.
-		 * @return An instance of the asset library
-		 */
+		/**		 * Returns an AssetLibraryBundle instance. If no key is given, returns the default bundle instance (which is		 * similar to using the AssetLibraryBundle as a singleton.) To keep several separated library bundles,		 * pass a string key to this method to define which bundle should be returned. This is		 * referred to as using the AssetLibrary as a multiton.		 *		 * @param key Defines which multiton instance should be returned.		 * @return An instance of the asset library		 */
 		public static function getInstance(key:String = 'default'):AssetLibraryBundle
 		{
 			key = key || 'default';
@@ -93,32 +81,19 @@ package away.library
 
 		}
 		
-		/**
-		 *
-		 */
+		/**		 *		 */
 		public function enableParser(parserClass:Object):void
 		{
 			SingleFileLoader.enableParser(parserClass);
 		}
 		
-		/**
-		 *
-		 */
+		/**		 *		 */
 		public function enableParsers(parserClasses:Vector.<Object>):void
 		{
 			SingleFileLoader.enableParsers(parserClasses);
 		}
 		
-		/**
-		 * Defines which strategy should be used for resolving naming conflicts, when two library
-		 * assets are given the same name. By default, <code>ConflictStrategy.APPEND_NUM_SUFFIX</code>
-		 * is used which means that a numeric suffix is appended to one of the assets. The
-		 * <code>conflictPrecedence</code> property defines which of the two conflicting assets will
-		 * be renamed.
-		 *
-		 * @see away3d.library.naming.ConflictStrategy
-		 * @see away3d.library.AssetLibrary.conflictPrecedence
-		 */
+		/**		 * Defines which strategy should be used for resolving naming conflicts, when two library		 * assets are given the same name. By default, <code>ConflictStrategy.APPEND_NUM_SUFFIX</code>		 * is used which means that a numeric suffix is appended to one of the assets. The		 * <code>conflictPrecedence</code> property defines which of the two conflicting assets will		 * be renamed.		 *		 * @see away3d.library.naming.ConflictStrategy		 * @see away3d.library.AssetLibrary.conflictPrecedence		 */
 		public function get conflictStrategy():ConflictStrategyBase
 		{
 			return this._strategy;
@@ -138,18 +113,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Defines which asset should have precedence when resolving a naming conflict between
-		 * two assets of which one has just been renamed by the user or by a parser. By default
-		 * <code>ConflictPrecedence.FAVOR_NEW</code> is used, meaning that the newly renamed
-		 * asset will keep it's new name while the older asset gets renamed to not conflict.
-		 *
-		 * This property is ignored for conflict strategies that do not actually rename an
-		 * asset automatically, such as ConflictStrategy.IGNORE and ConflictStrategy.THROW_ERROR.
-		 *
-		 * @see away3d.library.naming.ConflictPrecedence
-		 * @see away3d.library.naming.ConflictStrategy
-		 */
+		/**		 * Defines which asset should have precedence when resolving a naming conflict between		 * two assets of which one has just been renamed by the user or by a parser. By default		 * <code>ConflictPrecedence.FAVOR_NEW</code> is used, meaning that the newly renamed		 * asset will keep it's new name while the older asset gets renamed to not conflict.		 *		 * This property is ignored for conflict strategies that do not actually rename an		 * asset automatically, such as ConflictStrategy.IGNORE and ConflictStrategy.THROW_ERROR.		 *		 * @see away3d.library.naming.ConflictPrecedence		 * @see away3d.library.naming.ConflictStrategy		 */
 		public function get conflictPrecedence():String
 		{
 			return this._strategyPreference;
@@ -160,20 +124,7 @@ package away.library
 			this._strategyPreference = val;
 		}
 		
-		/**
-		 * Create an AssetLibraryIterator instance that can be used to iterate over the assets
-		 * in this asset library instance. The iterator can filter assets on asset type and/or
-		 * namespace. A "null" filter value means no filter of that type is used.
-		 *
-		 * @param assetTypeFilter Asset type to filter on (from the AssetType enum class.) Use
-		 * null to not filter on asset type.
-		 * @param namespaceFilter Namespace to filter on. Use null to not filter on namespace.
-		 * @param filterFunc Callback function to use when deciding whether an asset should be
-		 * included in the iteration or not. This needs to be a function that takes a single
-		 * parameter of type IAsset and returns a boolean where true means it should be included.
-		 *
-		 * @see away3d.library.assets.AssetType
-		 */
+		/**		 * Create an AssetLibraryIterator instance that can be used to iterate over the assets		 * in this asset library instance. The iterator can filter assets on asset type and/or		 * namespace. A "null" filter value means no filter of that type is used.		 *		 * @param assetTypeFilter Asset type to filter on (from the AssetType enum class.) Use		 * null to not filter on asset type.		 * @param namespaceFilter Namespace to filter on. Use null to not filter on namespace.		 * @param filterFunc Callback function to use when deciding whether an asset should be		 * included in the iteration or not. This needs to be a function that takes a single		 * parameter of type IAsset and returns a boolean where true means it should be included.		 *		 * @see away3d.library.assets.AssetType		 */
 		public function createIterator(assetTypeFilter:String = null, namespaceFilter:String = null, filterFunc = null):AssetLibraryIterator
 		{
 			assetTypeFilter = assetTypeFilter || null;
@@ -183,14 +134,7 @@ package away.library
 			return new AssetLibraryIterator(this._assets, assetTypeFilter, namespaceFilter, filterFunc);
 		}
 		
-		/**
-		 * Loads a file and (optionally) all of its dependencies.
-		 *
-		 * @param req The URLRequest object containing the URL of the file to be loaded.
-		 * @param context An optional context object providing additional parameters for loading
-		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets
-		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
-		 */
+		/**		 * Loads a file and (optionally) all of its dependencies.		 *		 * @param req The URLRequest object containing the URL of the file to be loaded.		 * @param context An optional context object providing additional parameters for loading		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function load(req:URLRequest, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
 			context = context || null;
@@ -200,14 +144,7 @@ package away.library
 			return this.loadResource(req, context, ns, parser);
 		}
 		
-		/**
-		 * Loads a resource from existing data in memory.
-		 *
-		 * @param data The data object containing all resource information.
-		 * @param context An optional context object providing additional parameters for loading
-		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets
-		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.
-		 */
+		/**		 * Loads a resource from existing data in memory.		 *		 * @param data The data object containing all resource information.		 * @param context An optional context object providing additional parameters for loading		 * @param ns An optional namespace string under which the file is to be loaded, allowing the differentiation of two resources with identical assets		 * @param parser An optional parser object for translating the loaded data into a usable resource. If not provided, AssetLoader will attempt to auto-detect the file type.		 */
 		public function loadData(data:*, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
 			context = context || null;
@@ -217,9 +154,7 @@ package away.library
 			return this.parseResource(data, context, ns, parser);
 		}
 		
-		/**
-		 *
-		 */
+		/**		 *		 */
 		public function getAsset(name:String, ns:String = null):IAsset
 		{
 			ns = ns || null;
@@ -253,11 +188,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Adds an asset to the asset library, first making sure that it's name is unique
-		 * using the method defined by the <code>conflictStrategy</code> and
-		 * <code>conflictPrecedence</code> properties.
-		 */
+		/**		 * Adds an asset to the asset library, first making sure that it's name is unique		 * using the method defined by the <code>conflictStrategy</code> and		 * <code>conflictPrecedence</code> properties.		 */
 		public function addAsset(asset:IAsset):void
 		{
 			var ns:String;
@@ -300,14 +231,7 @@ package away.library
 			asset.addEventListener(AssetEvent.ASSET_CONFLICT_RESOLVED, onAssetConflictResolved , this );
 		}
 		
-		/**
-		 * Removes an asset from the library, and optionally disposes that asset by calling
-		 * it's disposeAsset() method (which for most assets is implemented as a default
-		 * version of that type's dispose() method.
-		 *
-		 * @param asset The asset which should be removed from this library.
-		 * @param dispose Defines whether the assets should also be disposed.
-		 */
+		/**		 * Removes an asset from the library, and optionally disposes that asset by calling		 * it's disposeAsset() method (which for most assets is implemented as a default		 * version of that type's dispose() method.		 *		 * @param asset The asset which should be removed from this library.		 * @param dispose Defines whether the assets should also be disposed.		 */
 		public function removeAsset(asset:IAsset, dispose:Boolean = true):void
 		{
 			dispose = dispose || true;
@@ -336,15 +260,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Removes an asset which is specified using name and namespace.
-		 *
-		 * @param name The name of the asset to be removed.
-		 * @param ns The namespace to which the desired asset belongs.
-		 * @param dispose Defines whether the assets should also be disposed.
-		 *
-		 * @see away3d.library.AssetLibrary.removeAsset()
-		 */
+		/**		 * Removes an asset which is specified using name and namespace.		 *		 * @param name The name of the asset to be removed.		 * @param ns The namespace to which the desired asset belongs.		 * @param dispose Defines whether the assets should also be disposed.		 *		 * @see away3d.library.AssetLibrary.removeAsset()		 */
 		public function removeAssetByName(name:String, ns:String = null, dispose:Boolean = true):IAsset
 		{
 			ns = ns || null;
@@ -363,12 +279,7 @@ package away.library
 			return asset;
 		}
 		
-		/**
-		 * Removes all assets from the asset library, optionally disposing them as they
-		 * are removed.
-		 *
-		 * @param dispose Defines whether the assets should also be disposed.
-		 */
+		/**		 * Removes all assets from the asset library, optionally disposing them as they		 * are removed.		 *		 * @param dispose Defines whether the assets should also be disposed.		 */
 		public function removeAllAssets(dispose:Boolean = true):void
 		{
 			dispose = dispose || true;
@@ -383,26 +294,14 @@ package away.library
                     asset.dispose();
 
                 }
-                /*
-				for each (asset in _assets)
-					asset.dispose();
-		        */
+                /*				for each (asset in _assets)					asset.dispose();		        */
 			}
 			
 			this._assets.length = 0;
             this.rehashAssetDict();
 		}
 		
-		/**
-		 * Removes all assets belonging to a particular namespace (null for default)
-		 * from the asset library, and optionall disposes them by calling their
-		 * disposeAsset() method.
-		 *
-		 * @param ns The namespace from which all assets should be removed.
-		 * @param dispose Defines whether the assets should also be disposed.
-		 *
-		 * @see away3d.library.AssetLibrary.removeAsset()
-		 */
+		/**		 * Removes all assets belonging to a particular namespace (null for default)		 * from the asset library, and optionall disposes them by calling their		 * disposeAsset() method.		 *		 * @param ns The namespace from which all assets should be removed.		 * @param dispose Defines whether the assets should also be disposed.		 *		 * @see away3d.library.AssetLibrary.removeAsset()		 */
 		public function removeNamespaceAssets(ns:String = null, dispose:Boolean = true):void
 		{
 			ns = ns || null;
@@ -455,24 +354,7 @@ package away.library
 
             }
 
-            /*
-			for each (asset in old_assets) {
-				// Remove from dict if in the supplied namespace. If not,
-				// transfer over to the new vector.
-				if (asset.assetNamespace == ns) {
-					if (dispose)
-						asset.dispose();
-					
-					// Remove asset from dictionary, but don't try to auto-remove
-					// the namespace, which will trigger an unnecessarily expensive
-					// test that is not needed since we know that the namespace
-					// will be empty when loop finishes.
-					removeAssetFromDict(asset, false);
-				} else
-					_assets[idx++] = asset;
-
-			}
-             */
+            /*			for each (asset in old_assets) {				// Remove from dict if in the supplied namespace. If not,				// transfer over to the new vector.				if (asset.assetNamespace == ns) {					if (dispose)						asset.dispose();										// Remove asset from dictionary, but don't try to auto-remove					// the namespace, which will trigger an unnecessarily expensive					// test that is not needed since we know that the namespace					// will be empty when loop finishes.					removeAssetFromDict(asset, false);				} else					_assets[idx++] = asset;			}             */
 			
 			// Remove empty namespace
 			if (this._assetDictionary.hasOwnProperty(ns))
@@ -523,9 +405,7 @@ package away.library
 			}
 		}
 		
-		/**
-		 * Loads a yet unloaded resource file from the given url.
-		 */
+		/**		 * Loads a yet unloaded resource file from the given url.		 */
 		private function loadResource(req:URLRequest, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
 			context = context || null;
@@ -590,14 +470,7 @@ package away.library
 			this._loadingSessions = null;
 		}
 		
-		/**
-		 * Retrieves an unloaded resource parsed from the given data.
-		 * @param data The data to be parsed.
-		 * @param id The id that will be assigned to the resource. This can later also be used by the getResource method.
-		 * @param ignoreDependencies Indicates whether or not dependencies should be ignored or loaded.
-		 * @param parser An optional parser object that will translate the data into a usable resource.
-		 * @return A handle to the retrieved resource.
-		 */
+		/**		 * Retrieves an unloaded resource parsed from the given data.		 * @param data The data to be parsed.		 * @param id The id that will be assigned to the resource. This can later also be used by the getResource method.		 * @param ignoreDependencies Indicates whether or not dependencies should be ignored or loaded.		 * @param parser An optional parser object that will translate the data into a usable resource.		 * @return A handle to the retrieved resource.		 */
 		private function parseResource(data:*, context:AssetLoaderContext = null, ns:String = null, parser:ParserBase = null):AssetLoaderToken
 		{
 			context = context || null;
@@ -667,9 +540,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Called when a dependency was retrieved.
-		 */
+		/**		 * Called when a dependency was retrieved.		 */
 		private function onDependencyRetrieved(event:LoaderEvent):void
 		{
 			//if (hasEventListener(LoaderEvent.DEPENDENCY_COMPLETE))
@@ -677,9 +548,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Called when a an error occurs during dependency retrieving.
-		 */
+		/**		 * Called when a an error occurs during dependency retrieving.		 */
 		private function onDependencyRetrievingError(event:LoaderEvent):Boolean
 		{
 			if (this.hasEventListener(LoaderEvent.LOAD_ERROR , onDependencyRetrievingError , this ) )
@@ -698,9 +567,7 @@ package away.library
 
 		}
 		
-		/**
-		 * Called when a an error occurs during parsing.
-		 */
+		/**		 * Called when a an error occurs during parsing.		 */
 		private function onDependencyRetrievingParseError(event:ParserEvent):Boolean
 		{
 			if (this.hasEventListener(ParserEvent.PARSE_ERROR, onDependencyRetrievingParseError, this ))
@@ -741,9 +608,7 @@ package away.library
 			this.dispatchEvent(event.clone());
 		}
 		
-		/**
-		 * Called when the resource and all of its dependencies was retrieved.
-		 */
+		/**		 * Called when the resource and all of its dependencies was retrieved.		 */
 		private function onResourceRetrieved(event:LoaderEvent):void
 		{
 
@@ -802,21 +667,8 @@ package away.library
 		
 		}
 		
-		/**
-		 * Called when unespected error occurs
-		 */
-		/*
-		 private onResourceError() : void
-		 {
-		 var msg:string = "Unexpected parser error";
-		 if(hasEventListener(LoaderEvent.DEPENDENCY_ERROR)){
-		 var re:LoaderEvent = new LoaderEvent(LoaderEvent.DEPENDENCY_ERROR, "");
-		 dispatchEvent(re);
-		 } else{
-		 throw new Error(msg);
-		 }
-		 }
-		 */
+		/**		 * Called when unespected error occurs		 */
+		/*		 private onResourceError() : void		 {		 var msg:string = "Unexpected parser error";		 if(hasEventListener(LoaderEvent.DEPENDENCY_ERROR)){		 var re:LoaderEvent = new LoaderEvent(LoaderEvent.DEPENDENCY_ERROR, "");		 dispatchEvent(re);		 } else{		 throw new Error(msg);		 }		 }		 */
 		
 		private function onAssetRename(ev:AssetEvent):void
 		{
@@ -840,8 +692,10 @@ package away.library
 
                 }
 
+				
 				dict[ev.assetPrevName] = null;
 				dict[ev.asset.name] = ev.asset;
+
 			}
 		}
 		
@@ -849,5 +703,7 @@ package away.library
 		{
 			this.dispatchEvent(ev.clone());
 		}
+
 	}
 }
+// singleton enforcer

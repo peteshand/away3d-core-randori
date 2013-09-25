@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:45 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.materials.methods == "undefined")
 away.materials.methods.FresnelSpecularMethod = function(basedOnSurface, baseSpecularMethod) {
 	this._normalReflectance = 028;
 	this._fresnelPower = 5;
-	this._incidentLight = null;
+	this._incidentLight = false;
 	this._dataReg = null;
 	basedOnSurface = basedOnSurface || true;
 	baseSpecularMethod = baseSpecularMethod || null;

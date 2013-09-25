@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.utils
 {
@@ -8,7 +12,9 @@ package away.utils
 	{
 		
 		public var maxlength:Number = 0;
-		public var arraybytes//ArrayBuffer  		public var unalignedarraybytestemp//ArrayBuffer		
+		public var arraybytes;//ArrayBuffer  
+		public var unalignedarraybytestemp;//ArrayBuffer
+		
 		public function ByteArray():void
 		{
 			super();
@@ -154,7 +160,7 @@ package away.utils
         
             var value   : String    = "";
             var max     : Number    = this.position + len;
-            var data    : DataView  = new DataView( this.arraybytes );
+            var data    : DataView  = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
 
             // utf8-encode
             while (this.position < max) {
@@ -193,7 +199,7 @@ package away.utils
         public function readInt():Number
         {
 
-            var data    : DataView      = new DataView( this.arraybytes );
+            var data    : DataView      = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
             var int     : Number        = data.getInt32( this.position );
 
             this.position += 4;
@@ -205,7 +211,7 @@ package away.utils
         public function readShort():Number
         {
 
-            var data    : DataView      = new DataView( this.arraybytes );
+            var data    : DataView      = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
             var short   : Number        = data.getInt16(this.position );
 
             this.position += 2;
@@ -215,7 +221,7 @@ package away.utils
 
         public function readDouble():Number
         {
-            var data    : DataView      = new DataView( this.arraybytes );
+            var data    : DataView      = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
             var double  : Number        = data.getFloat64( this.position );
 
             this.position += 8;

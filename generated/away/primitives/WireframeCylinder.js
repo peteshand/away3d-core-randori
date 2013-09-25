@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:25 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -36,9 +36,9 @@ away.primitives.WireframeCylinder.prototype.pBuildGeometry = function() {
 	var revolutionAngleDelta = away.primitives.WireframeCylinder.TWO_PI / this._segmentsW;
 	var nextVertexIndex = 0;
 	var x, y, z;
-	var lastLayer = [];
+	var lastLayer = away.utils.VectorInit.AnyClass(__AS3__.vec.Vector.<away.geom.Vector3D>, this._segmentsH + 1);
 	for (j = 0; j <= this._segmentsH; ++j) {
-		lastLayer[j] = [];
+		lastLayer[j] = away.utils.VectorInit.AnyClass(away.geom.Vector3D, this._segmentsW + 1);
 		radius = this._topRadius - ((j / this._segmentsH) * (this._topRadius - this._bottomRadius));
 		z = -(this._height / 2) + (j / this._segmentsH * this._height);
 		var previousV = null;
@@ -99,6 +99,7 @@ away.primitives.WireframeCylinder.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Vector3D');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

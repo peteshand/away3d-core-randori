@@ -1,8 +1,15 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
 	import away.geom.Vector3D;
+	import away.utils.VectorInit;
 	//import flash.geom.Vector3D;
 	
 	/**	 * Generates a wireframd cylinder primitive.	 */
@@ -10,11 +17,11 @@ package away.primitives
 	{
 		private static var TWO_PI:Number = 2*Math.PI;
 		
-		private var _topRadius:Number;
-		private var _bottomRadius:Number;
-		private var _height:Number;
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
+		private var _topRadius:Number = 0;
+		private var _bottomRadius:Number = 0;
+		private var _height:Number = 0;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
 		
 		/**		 * Creates a new WireframeCylinder instance		 * @param topRadius Top radius of the cylinder		 * @param bottomRadius Bottom radius of the cylinder		 * @param height The height of the cylinder		 * @param segmentsW Number of radial segments		 * @param segmentsH Number of vertical segments		 * @param color The color of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeCylinder(topRadius:Number = 50, bottomRadius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 1, color:Number = 0xFFFFFF, thickness:Number = 1):void
@@ -45,11 +52,11 @@ package away.primitives
 			var nextVertexIndex:Number = 0;
 			var x:Number, y:Number, z:Number;
 
-            var lastLayer : Vector.<Vector.<Vector3D>> = new Vector.<Vector.<Vector3D>>( this._segmentsH + 1 );
+            var lastLayer : Vector.<Vector.<Vector3D>> = VectorInit.AnyClass(Vector.<Vector3D>,  this._segmentsH + 1 );
 
 			for (j = 0; j <= this._segmentsH; ++j)
             {
-                lastLayer[j] = new Vector.<Vector3D>( this._segmentsW + 1 );
+                lastLayer[j] = VectorInit.AnyClass(Vector3D,  this._segmentsW + 1 );
 				
 				radius = this._topRadius - ((j/this._segmentsH)*(this._topRadius - this._bottomRadius));
 				z = -(this._height/2) + (j/this._segmentsH*this._height);

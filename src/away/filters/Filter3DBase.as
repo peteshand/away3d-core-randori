@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.filters
 {
@@ -9,9 +15,10 @@ package away.filters
 
 	public class Filter3DBase
 	{
-		private var _tasks:Vector.<Filter3DTaskBase>//Vector.<Filter3DTaskBase>;		private var _requireDepthRender:Boolean;
-		private var _textureWidth:Number;
-		private var _textureHeight:Number;
+		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>
+		private var _requireDepthRender:Boolean = false;
+		private var _textureWidth:Number = 0;
+		private var _textureHeight:Number = 0;
 		
 		public function Filter3DBase():void
 		{

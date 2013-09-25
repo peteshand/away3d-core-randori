@@ -68,7 +68,7 @@ public class PlaneTest
             var stage3D:Stage3D = Stage3D(event.target);
             context3D = stage3D.context3D;
 
-            texture = context3D.createTexture(512, 512, Context3DTextureFormat.BGRA, true);
+            texture = context3D.createTexture(512, 512, Context3DTextureFormat.BGRA, false);
             texture.uploadFromHTMLImageElement(image);
 
             context3D.configureBackBuffer(800, 600, 0, true);
@@ -79,6 +79,7 @@ public class PlaneTest
                 1.0,-1.0,0.0,
                 1.0,1.0,0.0,
                 -1.0,1.0,0.0];
+
 
             uvCoords = new <Number>[0,0,
                 1,0,
@@ -106,7 +107,7 @@ public class PlaneTest
 
             program.upload(vProgram, fProgram);
             context3D.setProgram(program);
-
+            Window.console.log('-----------------------------------------------------------')
 
             pMatrix = new PerspectiveMatrix3D();
             pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
@@ -132,10 +133,11 @@ public class PlaneTest
 
             context3D.setGLSLTextureAt("uSampler", this.texture, 0);
 
-            context3D.clear(1.0, 1.0, 0.0, 1);
+            context3D.clear(0.1, 0.2, 0.3, 1);
             context3D.drawTriangles(iBuffer, 0, 2);
             context3D.present();
 
+            requestAnimationFrameTimer.stop();
         }
     }
 }

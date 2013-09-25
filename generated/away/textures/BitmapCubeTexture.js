@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:25 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.textures.BitmapCubeTexture = function(posX, negX, posY, negY, posZ, negZ) {
 	this._bitmapDatas = null;
 	this._useMipMaps = false;
 	away.textures.CubeTextureBase.call(this);
-	this._bitmapDatas = [null, null, null, null, null, null];
+	this._bitmapDatas = away.utils.VectorInit.AnyClass(away.display.BitmapData, 6);
 	this.testSize(this._bitmapDatas[0] = posX);
 	this.testSize(this._bitmapDatas[1] = negX);
 	this.testSize(this._bitmapDatas[2] = posY);
@@ -110,6 +110,7 @@ away.textures.BitmapCubeTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.display.BitmapData');
+	p.push('away.utils.VectorInit');
 	p.push('away.utils.TextureUtils');
 	return p;
 };

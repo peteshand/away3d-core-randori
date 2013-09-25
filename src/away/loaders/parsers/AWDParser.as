@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.parsers
 {
@@ -6,8 +13,8 @@ package away.loaders.parsers
 	import away.textures.BitmapTexture;
 	import away.materials.TextureMaterial;
 	import away.textures.BitmapCubeTexture;
+	import away.utils.VectorInit;
 	import away.display.BlendMode;
-	import away.utils.VectorNumber;
 	import away.loaders.parsers.utils.ParserUtil;
 	import away.loaders.misc.ResourceDependency;
 	import away.textures.TextureProxyBase;
@@ -57,34 +64,38 @@ package away.loaders.parsers
 	import away.display.BitmapData;
 	import randori.webkit.page.Window;
 
-	/**	 * AWDParser provides a parser for the AWD data type.	 */
+	/**
+	 * AWDParser provides a parser for the AWD data type.
+	 */
 	public class AWDParser extends ParserBase
 	{
 		//set to "true" to have some traces in the Console
 		private var _debug:Boolean = true;
 		private var _byteData:ByteArray;
 		private var _startedParsing:Boolean = false;
-		private var _cur_block_id:Number;
+		private var _cur_block_id:Number = 0;
 		private var _blocks:Vector.<AWDBlock>;
 		private var _newBlockBytes:ByteArray;
 		private var _version:Vector.<Number>;
-		private var _compression:Number;
-		private var _accuracyOnBlocks:Boolean;
-		private var _accuracyMatrix:Boolean;
-		private var _accuracyGeo:Boolean;
-		private var _accuracyProps:Boolean;
-		private var _matrixNrType:Number;
-		private var _geoNrType:Number;
-		private var _propsNrType:Number;
-		private var _streaming:Boolean;
+		private var _compression:Number = 0;
+		private var _accuracyOnBlocks:Boolean = false;
+		private var _accuracyMatrix:Boolean = false;
+		private var _accuracyGeo:Boolean = false;
+		private var _accuracyProps:Boolean = false;
+		private var _matrixNrType:Number = 0;
+		private var _geoNrType:Number = 0;
+		private var _propsNrType:Number = 0;
+		private var _streaming:Boolean = false;
 		private var _texture_users:Object = {};
 		private var _parsed_header:Boolean = false;
 		private var _body:ByteArray;
-		private var _defaultTexture:BitmapTexture// HTML IMAGE TEXTURE >? !		private var _cubeTextures:Array;
+		private var _defaultTexture:BitmapTexture;// HTML IMAGE TEXTURE >? !
+		private var _cubeTextures:Array;
 		private var _defaultBitmapMaterial:TextureMaterial;
 		private var _defaultCubeTexture:BitmapCubeTexture;
 
-		public static var COMPRESSIONMODE_LZMA:String = "lzma";		public static var UNCOMPRESSED:Number = 0;
+		public static var COMPRESSIONMODE_LZMA:String = "lzma";
+		public static var UNCOMPRESSED:Number = 0;
 		public static var DEFLATE:Number = 1;
 		public static var LZMA:Number = 2;
 		public static var INT8:Number = 1;
@@ -111,7 +122,11 @@ package away.loaders.parsers
 		private var blendModeDic:Vector.<String>;
 		private var _depthSizeDic:Vector.<Number>;
 		
-		/**		 * Creates a new AWDParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
+		/**
+		 * Creates a new AWDParser object.
+		 * @param uri The url or id of the data or file to be parsed.
+		 * @param extra The holder for extra contextual data that the parser might need.
+		 */
 		public function AWDParser():void
 		{
 			super( ParserDataFormat.BINARY );
@@ -120,7 +135,7 @@ package away.loaders.parsers
             this._blocks[0] = new AWDBlock();
             this._blocks[0].data = null; // Zero address means null in AWD
 			
-			this.blendModeDic = new Vector.<String>(); // used to translate ints to blendMode-strings
+			this.blendModeDic = VectorInit.Str(); // used to translate ints to blendMode-strings
             this.blendModeDic.push(BlendMode.NORMAL);
             this.blendModeDic.push(BlendMode.ADD);
             this.blendModeDic.push(BlendMode.ALPHA);
@@ -138,28 +153,38 @@ package away.loaders.parsers
             this.blendModeDic.push(BlendMode.SHADER);
             this.blendModeDic.push(BlendMode.OVERLAY);
 			
-			this._depthSizeDic = VectorNumber.init(); // used to translate ints to depthSize-values
+			this._depthSizeDic = VectorInit.Num(); // used to translate ints to depthSize-values
             this._depthSizeDic.push(256);
             this._depthSizeDic.push(512);
             this._depthSizeDic.push(2048);
             this._depthSizeDic.push(1024);
-            this._version = VectorNumber.init();//[]; // will contain 2 int (major-version, minor-version) for awd-version-check
+            this._version = VectorInit.Num();//[]; // will contain 2 int (major-version, minor-version) for awd-version-check
 		}
 		
-		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
+		/**
+		 * Indicates whether or not a given file extension is supported by the parser.
+		 * @param extension The file extension of a potential file to be parsed.
+		 * @return Whether or not the given file type is supported.
+		 */
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
 			return extension == "awd";
 		}
 		
-		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
+		/**
+		 * Tests whether a data block can be parsed by the parser.
+		 * @param data The data block to potentially be parsed.
+		 * @return Whether or not the given data is supported.
+		 */
 		public static function supportsData(data:*):Boolean
 		{
 			return (ParserUtil.toString(data, 3) == 'AWD');
 		}
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function _iResolveDependency(resourceDependency:ResourceDependency):void
         {
             // this function will be called when Dependency has finished loading.
@@ -245,14 +270,20 @@ package away.loaders.parsers
             }
         }
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
         {
             //not used - if a dependcy fails, the awaiting Texture or CubeTexture will never be finalized, and the default-bitmaps will be used.
             // this means, that if one Bitmap of a CubeTexture fails, the CubeTexture will have the DefaultTexture applied for all six Bitmaps.
         }
 
-        /**         * Resolve a dependency name         *         * @param resourceDependency The dependency to be resolved.         */
+        /**
+         * Resolve a dependency name
+         *
+         * @param resourceDependency The dependency to be resolved.
+         */
         override public function _iResolveDependencyName(resourceDependency:ResourceDependency, asset:IAsset):String
         {
             var oldName:String = asset.name;
@@ -273,7 +304,9 @@ package away.loaders.parsers
 
         }
 
-        /**         * @inheritDoc         */
+        /**
+         * @inheritDoc
+         */
         override public function _pProceedParsing():Boolean
         {
 
@@ -312,7 +345,22 @@ package away.loaders.parsers
                     // Compressed AWD Formats not yet supported
                     //----------------------------------------------------------------------------
 
-                    /*                    case AWDParser.DEFLATE:                        this._body = new away.utils.ByteArray();                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());                        this._body.uncompress();                        break;                    case AWDParser.LZMA:                        this._body = new away.utils.ByteArray();                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());                        this._body.uncompress(COMPRESSIONMODE_LZMA);                        break;                    //*/
+                    /*
+                    case AWDParser.DEFLATE:
+
+                        this._body = new away.utils.ByteArray();
+                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());
+                        this._body.uncompress();
+
+                        break;
+                    case AWDParser.LZMA:
+
+                        this._body = new away.utils.ByteArray();
+                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());
+                        this._body.uncompress(COMPRESSIONMODE_LZMA);
+
+                        break;
+                    //*/
 
                 }
 
@@ -451,7 +499,16 @@ package away.loaders.parsers
             {
                 this._pDieWithError( 'Compressed AWD formats not yet supported');
 
-                /*                 if (blockCompressionLZMA)                 {                 this._newBlockBytes.uncompress(AWDParser.COMPRESSIONMODE_LZMA);                 }                 else                 {                 this._newBlockBytes.uncompress();                 }                 */
+                /*
+                 if (blockCompressionLZMA)
+                 {
+                 this._newBlockBytes.uncompress(AWDParser.COMPRESSIONMODE_LZMA);
+                 }
+                 else
+                 {
+                 this._newBlockBytes.uncompress();
+                 }
+                 */
 
             }
 
@@ -733,7 +790,7 @@ package away.loaders.parsers
 
                     if (str_type == 1)
                     {
-                        var verts:Vector.<Number> = VectorNumber.init();
+                        var verts:Vector.<Number> = VectorInit.Num();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -749,7 +806,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 2)
                     {
-                        var indices:Vector.<Number> = VectorNumber.init();
+                        var indices:Vector.<Number> = VectorInit.Num();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -760,7 +817,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 3)
                     {
-                        var uvs:Vector.<Number> = VectorNumber.init();
+                        var uvs:Vector.<Number> = VectorInit.Num();
                         while (this._newBlockBytes.position < str_end)
                         {
                             uvs[idx++] = this.readNumber(this._accuracyGeo);
@@ -770,7 +827,7 @@ package away.loaders.parsers
                     else if (str_type == 4)
                     {
 
-                        var normals:Vector.<Number> = VectorNumber.init();
+                        var normals:Vector.<Number> = VectorInit.Num();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -780,7 +837,7 @@ package away.loaders.parsers
                     }
                     else if (str_type == 6)
                     {
-                        w_indices = VectorNumber.init();
+                        w_indices = VectorInit.Num();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -791,7 +848,7 @@ package away.loaders.parsers
                     else if (str_type == 7)
                     {
 
-                        weights = VectorNumber.init();
+                        weights = VectorInit.Num();
 
                         while (this._newBlockBytes.position < str_end)
                         {
@@ -1006,7 +1063,7 @@ package away.loaders.parsers
             var materials:Vector.<MaterialBase> = new Vector.<MaterialBase>();
             num_materials = this._newBlockBytes.readUnsignedShort();
 
-            var materialNames:Vector.<String> = new Vector.<String>();
+            var materialNames:Vector.<String> = VectorInit.Str();
             materials_parsed = 0;
 
             var returnedArrayMaterial:Array;
@@ -1269,7 +1326,7 @@ package away.loaders.parsers
             var lightID     : Number                            = 0;
 
             var returnedArrayLight  : Array;
-            var lightsArrayNames    : Vector.<String>             = new Vector.<String>();
+            var lightsArrayNames    : Vector.<String>             = VectorInit.Str();
 
             for (k = 0; k < numLights; k++)
             {
@@ -1396,7 +1453,7 @@ package away.loaders.parsers
 
 
             mat.repeat = props.get(13, false);
-            this._pFinalizeAsset( IAsset(mat), name);
+            this._pFinalizeAsset( (mat as IAsset), name );
             this._blocks[blockID].data = mat;
 
             if (this._debug)
@@ -1798,7 +1855,7 @@ package away.loaders.parsers
                 }
             }
             (MaterialBase(mat)).extra = this.parseUserAttributes();
-            this._pFinalizeAsset( IAsset(mat), name);
+            this._pFinalizeAsset( (mat as IAsset), name );
 
             this._blocks[blockID].data = mat;
             if (this._debug)
@@ -2636,7 +2693,7 @@ package away.loaders.parsers
         private function parseMatrix32RawData():Vector.<Number>
         {
             var i:Number;
-            var mtx_raw:Vector.<Number> = VectorNumber.init(6);
+            var mtx_raw:Vector.<Number> = VectorInit.Num(6);
             for (i = 0; i < 6; i++)
             {
                 mtx_raw[i] = this._newBlockBytes.readFloat();
@@ -2647,7 +2704,7 @@ package away.loaders.parsers
 
         private function parseMatrix43RawData():Vector.<Number>
         {
-            var mtx_raw:Vector.<Number> = VectorNumber.init(16);
+            var mtx_raw:Vector.<Number> = VectorInit.Num(16);
 
             mtx_raw[0] = this.readNumber(this._accuracyMatrix);
             mtx_raw[1] = this.readNumber(this._accuracyMatrix);
@@ -2690,141 +2747,6 @@ package away.loaders.parsers
 
     }
 
-}
-
-import away.utils.ByteArray;
-import away.textures.BitmapTexture;
-import away.materials.TextureMaterial;
-import away.textures.BitmapCubeTexture;
-import away.display.BlendMode;
-import away.utils.VectorNumber;
-import away.loaders.parsers.utils.ParserUtil;
-import away.loaders.misc.ResourceDependency;
-import away.textures.TextureProxyBase;
-import away.textures.Texture2DBase;
-import away.library.assets.IAsset;
-import away.textures.HTMLImageElementTexture;
-import away.textures.HTMLImageElementCubeTexture;
-import away.base.Geometry;
-import away.base.ISubGeometry;
-import away.utils.GeometryUtils;
-import away.geom.Matrix3D;
-import away.primitives.PlaneGeometry;
-import away.primitives.CubeGeometry;
-import away.primitives.SphereGeometry;
-import away.primitives.CylinderGeometry;
-import away.primitives.ConeGeometry;
-import away.primitives.CapsuleGeometry;
-import away.primitives.TorusGeometry;
-import away.containers.ObjectContainer3D;
-import away.library.assets.AssetType;
-import away.geom.Vector3D;
-import away.materials.MaterialBase;
-import away.entities.Mesh;
-import away.lights.LightBase;
-import away.lights.shadowmaps.ShadowMapperBase;
-import away.lights.PointLight;
-import away.lights.shadowmaps.CubeMapShadowMapper;
-import away.lights.DirectionalLight;
-import away.lights.shadowmaps.DirectionalShadowMapper;
-import away.cameras.lenses.LensBase;
-import away.cameras.lenses.PerspectiveLens;
-import away.cameras.lenses.OrthographicLens;
-import away.cameras.lenses.OrthographicOffCenterLens;
-import away.cameras.Camera3D;
-import away.materials.lightpickers.LightPickerBase;
-import away.materials.lightpickers.StaticLightPicker;
-import away.materials.ColorMaterial;
-import away.materials.ColorMultiPassMaterial;
-import away.materials.TextureMultiPassMaterial;
-import away.materials.SinglePassMaterialBase;
-import away.materials.MultiPassMaterialBase;
-import away.materials.methods.EffectMethodBase;
-import away.materials.methods.ShadowMapMethodBase;
-import away.net.URLRequest;
-import away.textures.CubeTextureBase;
-import away.materials.utils.DefaultMaterialManager;
-import away.display.BitmapData;
-	import randori.webkit.page.Window;
-
-class AWDBlock
-{
-	public var id:Number;
-	public var name:String;
-	public var data:*;
-	public var len:*;
-	public var geoID:Number;
-	public var extras:Object;
-	public var bytes:ByteArray;
-	public var errorMessages:Vector.<String>;
-	public var uvsForVertexAnimation:Vector.<Vector.<Number>>;
-
-	public function AWDBlock():void
-	{
-	}
-
-    public function dispose():void
-    {
-
-        this.id = null;
-        this.bytes = null;
-        this.errorMessages = null;
-        this.uvsForVertexAnimation = null;
-
-    }
-
-	public function addError(errorMsg:String):void
-	{
-		if (!this.errorMessages)
-			this.errorMessages = new Vector.<String>();
-		this.errorMessages.push(errorMsg);
-	}
-}
-class bitFlags
-{
-	public static var FLAG1:Number = 1;
-	public static var FLAG2:Number = 2;
-	public static var FLAG3:Number = 4;
-	public static var FLAG4:Number = 8;
-	public static var FLAG5:Number = 16;
-	public static var FLAG6:Number = 32;
-	public static var FLAG7:Number = 64;
-	public static var FLAG8:Number = 128;
-	public static var FLAG9:Number = 256;
-	public static var FLAG10:Number = 512;
-	public static var FLAG11:Number = 1024;
-	public static var FLAG12:Number = 2048;
-	public static var FLAG13:Number = 4096;
-	public static var FLAG14:Number = 8192;
-	public static var FLAG15:Number = 16384;
-	public static var FLAG16:Number = 32768;
-
-	public static function test(flags:Number, testFlag:Number):Boolean
-	{
-		return (flags & testFlag) == testFlag;
-	}
-}
-class AWDProperties
-{
-	public function set(key:Number, value:*):void
-	{
-		this[ key.toString() ] = value;
-	}
-
-	public function get(key:Number, fallback:*):*
-	{
-
-        Window.console.log ( 'this.hasOwnProperty(key.toString());' , key , fallback , this.hasOwnProperty(key.toString()) );
-
-		if ( this.hasOwnProperty(key.toString()))
-        {
-			return this[key.toString()];
-        }
-		else
-        {
-			return fallback;
-        }
-	}
 }
 
 

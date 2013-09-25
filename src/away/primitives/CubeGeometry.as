@@ -1,26 +1,45 @@
-///<reference path="../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 	
 	//use namespace arcane;
 	
-	/**	 * A Cube primitive mesh.	 */
+	/**
+	 * A Cube primitive mesh.
+	 */
 	public class CubeGeometry extends PrimitiveBase
 	{
-		private var _width:Number;
-		private var _height:Number;
-		private var _depth:Number;
-		private var _tile6:Boolean;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _depth:Number = 0;
+		private var _tile6:Boolean = false;
 		
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
-		private var _segmentsD:Number;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
+		private var _segmentsD:Number = 0;
 		
-		/**		 * Creates a new Cube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param segmentsD The number of segments that make up the cube along the Z-axis.		 * @param tile6 The type of uv mapping to use. When true, a texture will be subdivided in a 2x3 grid, each used for a single face. When false, the entire image is mapped on each face.		 */
+		/**
+		 * Creates a new Cube object.
+		 * @param width The size of the cube along its X-axis.
+		 * @param height The size of the cube along its Y-axis.
+		 * @param depth The size of the cube along its Z-axis.
+		 * @param segmentsW The number of segments that make up the cube along the X-axis.
+		 * @param segmentsH The number of segments that make up the cube along the Y-axis.
+		 * @param segmentsD The number of segments that make up the cube along the Z-axis.
+		 * @param tile6 The type of uv mapping to use. When true, a texture will be subdivided in a 2x3 grid, each used for a single face. When false, the entire image is mapped on each face.
+		 */
 		public function CubeGeometry(width:Number = 100, height:Number = 100, depth:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, segmentsD:Number = 1, tile6:Boolean = true):void
 		{
 			width = width || 100;
@@ -42,7 +61,9 @@ package away.primitives
             this._tile6 = tile6;
 		}
 		
-		/**		 * The size of the cube along its X-axis.		 */
+		/**
+		 * The size of the cube along its X-axis.
+		 */
 		public function get width():Number
 		{
 			return this._width;
@@ -54,7 +75,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its Y-axis.		 */
+		/**
+		 * The size of the cube along its Y-axis.
+		 */
 		public function get height():Number
 		{
 			return this._height;
@@ -66,7 +89,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The size of the cube along its Z-axis.		 */
+		/**
+		 * The size of the cube along its Z-axis.
+		 */
 		public function get depth():Number
 		{
 			return this._depth;
@@ -78,7 +103,14 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The type of uv mapping to use. When false, the entire image is mapped on each face.		 * When true, a texture will be subdivided in a 3x2 grid, each used for a single face.		 * Reading the tiles from left to right, top to bottom they represent the faces of the		 * cube in the following order: bottom, top, back, left, front, right. This creates		 * several shared edges (between the top, front, left and right faces) which simplifies		 * texture painting.		 */
+		/**
+		 * The type of uv mapping to use. When false, the entire image is mapped on each face.
+		 * When true, a texture will be subdivided in a 3x2 grid, each used for a single face.
+		 * Reading the tiles from left to right, top to bottom they represent the faces of the
+		 * cube in the following order: bottom, top, back, left, front, right. This creates
+		 * several shared edges (between the top, front, left and right faces) which simplifies
+		 * texture painting.
+		 */
 		public function get tile6():Boolean
 		{
 			return this._tile6;
@@ -90,7 +122,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The number of segments that make up the cube along the X-axis. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the cube along the X-axis. Defaults to 1.
+		 */
 		public function get segmentsW():Number
 		{
 			return this._segmentsW;
@@ -103,7 +137,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * The number of segments that make up the cube along the Y-axis. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the cube along the Y-axis. Defaults to 1.
+		 */
 		public function get segmentsH():Number
 		{
 			return this._segmentsH;
@@ -116,7 +152,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * The number of segments that make up the cube along the Z-axis. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the cube along the Z-axis. Defaults to 1.
+		 */
 		public function get segmentsD():Number
 		{
 			return this._segmentsD;
@@ -129,7 +167,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -156,12 +196,12 @@ package away.primitives
 
 				data = target.vertexData;
 
-                indices = ( target.indexData ) ? target.indexData : VectorNumber.init((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
+                indices = ( target.indexData ) ? target.indexData : VectorInit.Num((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
                 //indices = target.indexData || new Vector.<uint>((_segmentsW*_segmentsH + _segmentsW*_segmentsD + _segmentsH*_segmentsD)*12, true);
 
 			} else {
-				data = VectorNumber.init( numVerts*stride );
-				indices = VectorNumber.init((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
+				data = VectorInit.Num( numVerts*stride );
+				indices = VectorInit.Num((this._segmentsW*this._segmentsH + this._segmentsW*this._segmentsD + this._segmentsH*this._segmentsD)*12 );
                 this.pInvalidateUVs();
 			}
 			
@@ -337,7 +377,9 @@ package away.primitives
 			target.updateIndexData(indices);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number, uidx:Number;
@@ -357,7 +399,7 @@ package away.primitives
 			if (target.UVData && numUvs == target.UVData.length)
 				data = target.UVData;
 			else {
-				data = VectorNumber.init( numUvs );
+				data = VectorInit.Num( numUvs );
                 this.pInvalidateGeometry();
 			}
 			

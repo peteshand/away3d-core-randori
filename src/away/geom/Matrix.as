@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.geom
 {
@@ -7,12 +12,12 @@ package away.geom
 
     public class Matrix {
 
-        public var a:Number;
-        public var b:Number;
-        public var c:Number;
-        public var d:Number;
-        public var tx:Number;
-        public var ty:Number;
+        public var a:Number = 0;
+        public var b:Number = 0;
+        public var c:Number = 0;
+        public var d:Number = 0;
+        public var tx:Number = 0;
+        public var ty:Number = 0;
 
         public function Matrix(a:Number = 1, b:Number = 0, c:Number = 0, d:Number = 1, tx:Number = 0, ty:Number = 0):void
         {

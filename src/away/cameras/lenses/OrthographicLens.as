@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.cameras.lenses
 {
@@ -8,9 +12,9 @@ package away.cameras.lenses
 	public class OrthographicLens extends LensBase
 	{
 		
-		private var _projectionHeight:Number;
-		private var _xMax:Number;
-		private var _yMax:Number;
+		private var _projectionHeight:Number = 0;
+		private var _xMax:Number = 0;
+		private var _yMax:Number = 0;
 
 		public function OrthographicLens(projectionHeight:Number = 500):void
 		{

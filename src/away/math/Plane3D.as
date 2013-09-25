@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.math
 {
@@ -8,18 +13,18 @@ package away.math
 	public class Plane3D
 	{
 		/**		 * The A coefficient of this plane. (Also the x dimension of the plane normal)		 */
-		public var a:Number;
+		public var a:Number = 0;
 		
 		/**		 * The B coefficient of this plane. (Also the y dimension of the plane normal)		 */
-		public var b:Number;
+		public var b:Number = 0;
 		
 		/**		 * The C coefficient of this plane. (Also the z dimension of the plane normal)		 */
-		public var c:Number;
+		public var c:Number = 0;
 		
 		/**		 * The D coefficient of this plane. (Also the inverse dot product between normal and point)		 */
-		public var d:Number;
+		public var d:Number = 0;
 		
-		public var _iAlignment:Number;
+		public var _iAlignment:Number = 0;
 		
 		// indicates the alignment of the plane
 		public static var ALIGN_ANY:Number = 0;

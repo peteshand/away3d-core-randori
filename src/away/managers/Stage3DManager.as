@@ -1,10 +1,15 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.managers
 {
 	import away.display.Stage;
+	import away.utils.VectorInit;
 	//import away3d.arcane;
 	
 	//import flash.display.Stage;
@@ -17,7 +22,8 @@ package away.managers
 	{
         //private static _instances:Object;
         private static var _instances:Vector.<Stage3DManagerInstanceData>;
-		private static var _stageProxies:Vector.<Stage3DProxy>//.<Stage3DProxy>;		private static var _numStageProxies:Number = 0;
+		private static var _stageProxies:Vector.<Stage3DProxy>;//.<Stage3DProxy>
+		private static var _numStageProxies:Number = 0;
 		
 		private var _stage:Stage;
 		
@@ -33,7 +39,7 @@ package away.managers
 			
 			if (!Stage3DManager._stageProxies)
             {
-                Stage3DManager._stageProxies = new Vector.<Stage3DProxy>( _stage.stage3Ds.length ) ;
+                Stage3DManager._stageProxies = VectorInit.AnyClass(Stage3DProxy,  _stage.stage3Ds.length ) ;
 				Stage3DManager._stageProxies[_stage.stage3Ds.length-1] = undefined;//, true);
             }
 

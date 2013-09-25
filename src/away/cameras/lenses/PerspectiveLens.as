@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.cameras.lenses
 {
@@ -8,11 +12,11 @@ package away.cameras.lenses
 	public class PerspectiveLens extends LensBase
 	{
 		
-		private var _fieldOfView:Number;
-		private var _focalLength:Number;
-		private var _focalLengthInv:Number;
-		private var _yMax:Number;
-		private var _xMax:Number;
+		private var _fieldOfView:Number = 0;
+		private var _focalLength:Number = 0;
+		private var _focalLengthInv:Number = 0;
+		private var _yMax:Number = 0;
+		private var _xMax:Number = 0;
 		
 		public function PerspectiveLens(fieldOfView:Number = 60):void
 		{

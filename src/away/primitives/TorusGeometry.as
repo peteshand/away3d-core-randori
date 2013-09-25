@@ -1,30 +1,39 @@
-///<reference path="../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 	
 	//use namespace arcane;
 	
-	/**	 * A UV Cylinder primitive mesh.	 */
+	/**
+	 * A UV Cylinder primitive mesh.
+	 */
 	public class TorusGeometry extends PrimitiveBase
 	{
-		private var _radius:Number;
-		private var _tubeRadius:Number;
-		private var _segmentsR:Number;
-		private var _segmentsT:Number;
-		private var _yUp:Boolean;
+		private var _radius:Number = 0;
+		private var _tubeRadius:Number = 0;
+		private var _segmentsR:Number = 0;
+		private var _segmentsT:Number = 0;
+		private var _yUp:Boolean = false;
 		private var _rawVertexData:Vector.<Number>;
-		private var _rawIndices:Vector.<Number>/*uint*/;
+		private var _rawIndices:Vector.<Number>;/*uint*/
 		private var _nextVertexIndex:Number = 0;
 		private var _currentIndex:Number = 0;
 		private var _currentTriangleIndex:Number = 0;
 		private var _numVertices:Number = 0;
-		private var _vertexStride:Number;
-		private var _vertexOffset:Number;
+		private var _vertexStride:Number = 0;
+		private var _vertexOffset:Number = 0;
 		
 		private function addVertex(px:Number, py:Number, pz:Number, nx:Number, ny:Number, nz:Number, tx:Number, ty:Number, tz:Number):void
 		{
@@ -50,7 +59,9 @@ package away.primitives
             this._currentTriangleIndex++;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number;
@@ -75,7 +86,7 @@ package away.primitives
 
                 if ( target.indexData == null )
                 {
-                    this._rawIndices = VectorNumber.init( numTriangles * 3 );
+                    this._rawIndices = VectorInit.Num( numTriangles * 3 );
                 }
                 else
                 {
@@ -86,8 +97,8 @@ package away.primitives
             else
             {
 				var numVertComponents:Number = this._numVertices*this._vertexStride;
-                this._rawVertexData = VectorNumber.init(numVertComponents);
-                this._rawIndices = VectorNumber.init(numTriangles*3);
+                this._rawVertexData = VectorInit.Num(numVertComponents);
+                this._rawIndices = VectorInit.Num(numTriangles*3);
                 this.pInvalidateUVs();
 
 			}
@@ -176,7 +187,9 @@ package away.primitives
 			target.updateIndexData(this._rawIndices);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 
@@ -196,7 +209,7 @@ package away.primitives
             }
 			else
             {
-				data = VectorNumber.init( numUvs );
+				data = VectorInit.Num( numUvs );
 				this.pInvalidateGeometry();//invalidateGeometry();
 			}
 			
@@ -221,7 +234,9 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**		 * The radius of the torus.		 */
+		/**
+		 * The radius of the torus.
+		 */
 		public function get radius():Number
 		{
 			return this._radius;
@@ -233,7 +248,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The radius of the inner tube of the torus.		 */
+		/**
+		 * The radius of the inner tube of the torus.
+		 */
 		public function get tubeRadius():Number
 		{
 			return this._tubeRadius;
@@ -245,7 +262,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.		 */
+		/**
+		 * Defines the number of horizontal segments that make up the torus. Defaults to 16.
+		 */
 		public function get segmentsR():Number
 		{
 			return this._segmentsR;
@@ -258,7 +277,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * Defines the number of vertical segments that make up the torus. Defaults to 8.		 */
+		/**
+		 * Defines the number of vertical segments that make up the torus. Defaults to 8.
+		 */
 		public function get segmentsT():Number
 		{
 			return this._segmentsT;
@@ -271,7 +292,9 @@ package away.primitives
 			this.pInvalidateUVs();
 		}
 		
-		/**		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function get yUp():Boolean
 		{
 			return this._yUp;
@@ -283,7 +306,14 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * Creates a new <code>Torus</code> object.		 * @param radius The radius of the torus.		 * @param tuebRadius The radius of the inner tube of the torus.		 * @param segmentsR Defines the number of horizontal segments that make up the torus.		 * @param segmentsT Defines the number of vertical segments that make up the torus.		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Creates a new <code>Torus</code> object.
+		 * @param radius The radius of the torus.
+		 * @param tuebRadius The radius of the inner tube of the torus.
+		 * @param segmentsR Defines the number of horizontal segments that make up the torus.
+		 * @param segmentsT Defines the number of vertical segments that make up the torus.
+		 * @param yUp Defines whether the torus poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function TorusGeometry(radius:Number = 50, tubeRadius:Number = 50, segmentsR:Number = 16, segmentsT:Number = 8, yUp:Boolean = true):void
 		{
 			radius = radius || 50;

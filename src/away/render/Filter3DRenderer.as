@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.render
 {
@@ -18,9 +23,11 @@ package away.render
 
 	public class Filter3DRenderer
 	{
-		private var _filters:Vector.<Filter3DBase>// TODO: check / changed to strongly typed array		private var _tasks:Vector.<Filter3DTaskBase>//Vector.<Filter3DTaskBase>;		private var _filterTasksInvalid:Boolean;
+		private var _filters:Vector.<Filter3DBase>;// TODO: check / changed to strongly typed array
+		private var _tasks:Vector.<Filter3DTaskBase>;//Vector.<Filter3DTaskBase>
+		private var _filterTasksInvalid:Boolean = false;
 		private var _mainInputTexture:Texture;
-		private var _requireDepthRender:Boolean;
+		private var _requireDepthRender:Boolean = false;
 		private var _rttManager:RTTBufferManager;
 		private var _stage3DProxy:Stage3DProxy;
 		private var _filterSizesInvalid:Boolean = true;

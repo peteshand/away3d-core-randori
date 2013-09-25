@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.managers
 {
@@ -55,9 +61,9 @@ package away.managers
 
                 AGALProgram3DCache._instances[index] = new AGALProgram3DCache(stage3DProxy, new AGALProgram3DCacheSingletonEnforcer());
 
-				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_DISPOSED, AGALProgram3DCache.onContext3DDisposed, AGALProgram3DCache );
-				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, AGALProgram3DCache.onContext3DDisposed, AGALProgram3DCache );
-				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, AGALProgram3DCache.onContext3DDisposed, AGALProgram3DCache );
+				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_DISPOSED, onContext3DDisposed, AGALProgram3DCache );
+				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContext3DDisposed, AGALProgram3DCache );
+				stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContext3DDisposed, AGALProgram3DCache );
 			}
 			
 			return AGALProgram3DCache._instances[index];
@@ -82,9 +88,9 @@ package away.managers
             AGALProgram3DCache._instances[index].dispose();
             AGALProgram3DCache._instances[index] = null;
 
-			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_DISPOSED, AGALProgram3DCache.onContext3DDisposed , AGALProgram3DCache);
-			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, AGALProgram3DCache.onContext3DDisposed, AGALProgram3DCache);
-			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, AGALProgram3DCache.onContext3DDisposed , AGALProgram3DCache);
+			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_DISPOSED, onContext3DDisposed , AGALProgram3DCache);
+			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContext3DDisposed, AGALProgram3DCache);
+			stage3DProxy.removeEventListener(Stage3DEvent.CONTEXT3D_RECREATED, onContext3DDisposed , AGALProgram3DCache);
 
 		}
 		
@@ -124,13 +130,7 @@ package away.managers
 				//var fragmentByteCode:ByteArray = new AGALMiniAssembler(Debug.active).assemble(Context3DProgramType.FRAGMENT, fragmentCode);
 				//program.upload(vertexByteCode, fragmentByteCode);
 
-                /*
-                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );
-                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );
-
-                 program.uploadGLSL(vertexByteCode, fragmentByteCode);
-
-                 */
+                /*                 var vertexByteCode  : ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.VERTEX , vertexCode );                 var fragmentByteCode: ByteArray = new AGLSLCompiler().assemble( Context3DProgramType.FRAGMENT , fragmentCode );                 program.uploadGLSL(vertexByteCode, fragmentByteCode);                 */
 
                 var vertCompiler:AGLSLCompiler = new AGLSLCompiler();
                 var fragCompiler:AGLSLCompiler = new AGLSLCompiler();
@@ -153,17 +153,7 @@ package away.managers
                 
 
                 program.upload(vertString, fragString);
-                /*
-
-                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
-                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();
-
-                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );
-                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );
-
-                 this._program3D.upload( vertString , fragString );
-
-                 */
+                /*                 var vertCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var fragCompiler:aglsl.AGLSLCompiler = new aglsl.AGLSLCompiler();                 var vertString : string = vertCompiler.compile( away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode() );                 var fragString : string = fragCompiler.compile( away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode() );                 this._program3D.upload( vertString , fragString );                 */
 
 				this._program3Ds[key] = program;
 			}

@@ -1,7 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
-
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.entities
 {
@@ -30,13 +33,14 @@ package away.entities
 		private var LIMIT:Number = 3*0xFFFF;
 		private var _activeSubSet:SubSet;
 		private var _subSets:Vector.<SubSet>;
-		private var _subSetCount:Number;
-		private var _numIndices:Number;
+		private var _subSetCount:Number = 0;
+		private var _numIndices:Number = 0;
 		private var _material:MaterialBase;
 		private var _animator:IAnimator;
-		private var _hasData:Boolean;
+		private var _hasData:Boolean = false;
 		
-		public var _pSegments:Object//Dictionary		private var _indexSegments:Number = 0;
+		public var _pSegments:Object;//Dictionary
+		private var _indexSegments:Number = 0;
 		
 		public function SegmentSet():void
 		{

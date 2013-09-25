@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,9 +12,9 @@ away.display3D.Context3D = function(canvas) {
 	this._vertexBufferList = [];
 	this._currentFilter = 0;
 	this._samplerStates = [];
-	this._blendEnabled = null;
+	this._blendEnabled = false;
 	this._currentMipFilter = 0;
-	this._drawing = null;
+	this._drawing = false;
 	this._indexBufferList = [];
 	this._textureList = [];
 	this._programList = [];
@@ -293,7 +293,6 @@ away.display3D.Context3D.prototype.setDepthTest = function(depthMask, passCompar
 };
 
 away.display3D.Context3D.prototype.setProgram = function(program3D) {
-	console.log("setProgram");
 	this._currentProgram = program3D;
 	program3D.focusProgram();
 };
@@ -355,6 +354,9 @@ away.display3D.Context3D.prototype.setTextureAt = function(sampler, texture) {
 };
 
 away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, texture, textureIndex) {
+	console.log("locationName = " + locationName);
+	console.log(texture);
+	console.log("textureIndex = " + textureIndex);
 	if (!texture) {
 		this._gl.activeTexture(33984 + textureIndex);
 		this._gl.bindTexture(3553, null);
@@ -390,6 +392,7 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 			throw "Texture " + textureIndex + " is out of bounds.";
 	}
 	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
+	console.log(location);
 	if (texture.textureType == "texture2d") {
 		this._gl.bindTexture(3553, texture.get_glTexture());
 		this._gl.uniform1i(location, textureIndex);

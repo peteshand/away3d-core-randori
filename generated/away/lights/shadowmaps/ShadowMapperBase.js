@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,8 +10,8 @@ if (typeof away.lights.shadowmaps == "undefined")
 away.lights.shadowmaps.ShadowMapperBase = function() {
 	this._depthMap = null;
 	this._pDepthMapSize = 2048;
-	this._explicitDepthMap = null;
-	this._iShadowsInvalid = null;
+	this._explicitDepthMap = false;
+	this._iShadowsInvalid = false;
 	this._pCasterCollector = null;
 	this._pLight = null;
 	this._autoUpdateShadows = true;

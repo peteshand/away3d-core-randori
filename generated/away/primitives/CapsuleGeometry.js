@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,7 +7,7 @@ if (typeof away.primitives == "undefined")
 
 away.primitives.CapsuleGeometry = function(radius, height, segmentsW, segmentsH, yUp) {
 	this._height = 0;
-	this._yUp = null;
+	this._yUp = false;
 	this._radius = 0;
 	this._segmentsH = 0;
 	this._segmentsW = 0;
@@ -41,11 +41,11 @@ away.primitives.CapsuleGeometry.prototype.pBuildGeometry = function(target) {
 		if (target.get_indexData()) {
 			indices = target.get_indexData();
 		} else {
-			indices = away.utils.VectorNumber.init((this._segmentsH - 1) * this._segmentsW * 6, 0);
+			indices = away.utils.VectorInit.Num((this._segmentsH - 1) * this._segmentsW * 6, 0);
 		}
 	} else {
-		data = away.utils.VectorNumber.init(numVerts * stride, 0);
-		indices = away.utils.VectorNumber.init((this._segmentsH - 1) * this._segmentsW * 6, 0);
+		data = away.utils.VectorInit.Num(numVerts * stride, 0);
+		indices = away.utils.VectorInit.Num((this._segmentsH - 1) * this._segmentsW * 6, 0);
 		this.pInvalidateUVs();
 	}
 	for (j = 0; j <= this._segmentsH; ++j) {
@@ -135,7 +135,7 @@ away.primitives.CapsuleGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && UVlen == target.get_UVData().length) {
 		data = target.get_UVData();
 	} else {
-		data = away.utils.VectorNumber.init(UVlen, 0);
+		data = away.utils.VectorInit.Num(UVlen, 0);
 		this.pInvalidateGeometry();
 	}
 	index = target.get_UVOffset();
@@ -203,7 +203,7 @@ away.primitives.CapsuleGeometry.className = "away.primitives.CapsuleGeometry";
 away.primitives.CapsuleGeometry.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

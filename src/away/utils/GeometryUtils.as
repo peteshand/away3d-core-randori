@@ -1,4 +1,11 @@
-///<reference path="../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.utils
 {
@@ -9,7 +16,10 @@ package away.utils
 
 	public class GeometryUtils
 	{
-		/**		 * Build a list of sub-geometries from raw data vectors, splitting them up in		 * such a way that they won't exceed buffer length limits.		 */
+		/**
+		 * Build a list of sub-geometries from raw data vectors, splitting them up in
+		 * such a way that they won't exceed buffer length limits.
+		 */
 		public static function fromVectors(verts:Vector.<Number>, indices:Vector.<Number>/*uint*/, uvs:Vector.<Number>, normals:Vector.<Number>, tangents:Vector.<Number>, weights:Vector.<Number>, jointIndices:Vector.<Number>, triangleOffset:Number = 0):Vector.<ISubGeometry>
 		{
 			triangleOffset = triangleOffset || 0;
@@ -41,15 +51,15 @@ package away.utils
                 var len:Number;
                 var outIndex:Number;
                 var j:Number;
-				var splitVerts:Vector.<Number> = VectorNumber.init();
-				var splitIndices:Vector.<Number> /*uint*/ = VectorNumber.init();
-				var splitUvs:Vector.<Number> = (uvs != null)? VectorNumber.init() : null;
-				var splitNormals:Vector.<Number> = (normals != null)? VectorNumber.init() : null;
-				var splitTangents:Vector.<Number> = (tangents != null)? VectorNumber.init() : null;
-				var splitWeights:Vector.<Number> = (weights != null)? VectorNumber.init() : null;
-				var splitJointIndices:Vector.<Number> = (jointIndices != null)? VectorNumber.init() : null;
+				var splitVerts:Vector.<Number> = VectorInit.Num();
+				var splitIndices:Vector.<Number> /*uint*/ = VectorInit.Num();
+				var splitUvs:Vector.<Number> = (uvs != null)? VectorInit.Num() : null;
+				var splitNormals:Vector.<Number> = (normals != null)? VectorInit.Num() : null;
+				var splitTangents:Vector.<Number> = (tangents != null)? VectorInit.Num() : null;
+				var splitWeights:Vector.<Number> = (weights != null)? VectorInit.Num() : null;
+				var splitJointIndices:Vector.<Number> = (jointIndices != null)? VectorInit.Num() : null;
 				
-				var mappings:Vector.<Number> = VectorNumber.init( verts.length/3 );
+				var mappings:Vector.<Number> = VectorInit.Num( verts.length/3 );
 
 				i = mappings.length;
 
@@ -82,13 +92,13 @@ package away.utils
 					if (( (outIndex + 2) >= LIMIT_INDICES) || (splitIndex >= LIMIT_VERTS))
                     {
 						subs.push(GeometryUtils.constructSubGeometry(splitVerts, splitIndices, splitUvs, splitNormals, splitTangents, splitWeights, splitJointIndices, triangleOffset));
-						splitVerts = VectorNumber.init();
-						splitIndices = VectorNumber.init();
-						splitUvs = (uvs != null) ? VectorNumber.init() : null;
-						splitNormals = (normals != null)? VectorNumber.init() : null;
-						splitTangents = (tangents != null)? VectorNumber.init() : null;
-						splitWeights = (weights != null)? VectorNumber.init() : null;
-						splitJointIndices = (jointIndices != null)? VectorNumber.init() : null;
+						splitVerts = VectorInit.Num();
+						splitIndices = VectorInit.Num();
+						splitUvs = (uvs != null) ? VectorInit.Num() : null;
+						splitNormals = (normals != null)? VectorInit.Num() : null;
+						splitTangents = (tangents != null)? VectorInit.Num() : null;
+						splitWeights = (weights != null)? VectorInit.Num() : null;
+						splitJointIndices = (jointIndices != null)? VectorInit.Num() : null;
 						splitIndex = 0;
 						j = mappings.length;
 
@@ -188,7 +198,9 @@ package away.utils
 			return subs;
 		}
 		
-		/**		 * Build a sub-geometry from data vectors.		 */
+		/**
+		 * Build a sub-geometry from data vectors.
+		 */
 		public static function constructSubGeometry(verts:Vector.<Number>, indices:Vector.<Number>/*uint*/, uvs:Vector.<Number>, normals:Vector.<Number>, tangents:Vector.<Number>, weights:Vector.<Number>, jointIndices:Vector.<Number>, triangleOffset:Number):CompactSubGeometry
 		{
 			var sub:CompactSubGeometry;
@@ -225,16 +237,26 @@ package away.utils
 			return sub;
 		}
 		
-		/*		 * Combines a set of separate raw buffers into an interleaved one, compatible		 * with CompactSubGeometry. SubGeometry uses separate buffers, whereas CompactSubGeometry		 * uses a single, combined buffer.		 * */
+		/*
+		 * Combines a set of separate raw buffers into an interleaved one, compatible
+		 * with CompactSubGeometry. SubGeometry uses separate buffers, whereas CompactSubGeometry
+		 * uses a single, combined buffer.
+		 * */
 		public static function interleaveBuffers(numVertices:Number, vertices:Vector.<Number> = null, normals:Vector.<Number> = null, tangents:Vector.<Number> = null, uvs:Vector.<Number> = null, suvs:Vector.<Number> = null):Vector.<Number>
 		{
 			
 			var i:Number, compIndex:Number, uvCompIndex:Number, interleavedCompIndex:Number;
 			var interleavedBuffer:Vector.<Number>;
 			
-			interleavedBuffer = VectorNumber.init();
+			interleavedBuffer = VectorInit.Num();
 			
-			/**			 * 0 - 2: vertex position X, Y, Z			 * 3 - 5: normal X, Y, Z			 * 6 - 8: tangent X, Y, Z			 * 9 - 10: U V			 * 11 - 12: Secondary U V			 */
+			/**
+			 * 0 - 2: vertex position X, Y, Z
+			 * 3 - 5: normal X, Y, Z
+			 * 6 - 8: tangent X, Y, Z
+			 * 9 - 10: U V
+			 * 11 - 12: Secondary U V
+			 */
 			for (i = 0; i < numVertices; ++i)
             {
 				uvCompIndex = i*2;
@@ -260,7 +282,9 @@ package away.utils
 			return interleavedBuffer;
 		}
 		
-		/*		 * returns the subGeometry index in its parent mesh subgeometries vector		 */
+		/*
+		 * returns the subGeometry index in its parent mesh subgeometries vector
+		 */
 		public static function getMeshSubgeometryIndex(subGeometry:ISubGeometry):Number
 		{
 			var index:Number;
@@ -278,7 +302,9 @@ package away.utils
 			return index;
 		}
 		
-		/*		 * returns the subMesh index in its parent mesh subMeshes vector		 */
+		/*
+		 * returns the subMesh index in its parent mesh subMeshes vector
+		 */
 		public static function getMeshSubMeshIndex(subMesh:SubMesh):Number
 		{
 			var index:Number;

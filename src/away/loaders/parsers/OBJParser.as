@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.parsers
 {
@@ -10,13 +17,13 @@ package away.loaders.parsers
 	import away.library.assets.IAsset;
 	import away.library.assets.AssetType;
 	import away.textures.Texture2DBase;
+	import away.utils.VectorInit;
 	import away.base.Geometry;
 	import away.materials.MaterialBase;
 	import away.materials.TextureMaterial;
 	import away.materials.utils.DefaultMaterialManager;
 	import away.materials.TextureMultiPassMaterial;
 	import away.base.ISubGeometry;
-	import away.utils.VectorNumber;
 	import away.utils.GeometryUtils;
 	import away.materials.methods.BasicSpecularMethod;
 	import away.net.URLRequest;
@@ -24,14 +31,16 @@ package away.loaders.parsers
 	import away.materials.ColorMultiPassMaterial;
 	import randori.webkit.page.Window;
 
-	/**	 * OBJParser provides a parser for the OBJ data type.	 */
+	/**
+	 * OBJParser provides a parser for the OBJ data type.
+	 */
 	public class OBJParser extends ParserBase
 	{
-		private var _textData:String;
-		private var _startedParsing:Boolean;
-		private var _charIndex:Number;
-		private var _oldIndex:Number;
-		private var _stringLength:Number;
+		private var _textData:String = null;
+		private var _startedParsing:Boolean = false;
+		private var _charIndex:Number = 0;
+		private var _oldIndex:Number = 0;
+		private var _stringLength:Number = 0;
 		private var _currentObject:ObjectGroup;
 		private var _currentGroup:Group;
 		private var _currentMaterialGroup:MaterialGroup;
@@ -40,18 +49,23 @@ package away.loaders.parsers
 		private var _materialLoaded:Vector.<LoadedMaterial>;
 		private var _materialSpecularData:Vector.<SpecularData>;
 		private var _meshes:Vector.<Mesh>;
-		private var _lastMtlID:String;
-		private var _objectIndex:Number;
+		private var _lastMtlID:String = null;
+		private var _objectIndex:Number = 0;
 		private var _realIndices;
-		private var _vertexIndex:Number;
+		private var _vertexIndex:Number = 0;
 		private var _vertices:Vector.<Vertex>;
 		private var _vertexNormals:Vector.<Vertex>;
 		private var _uvs:Vector.<UV>;
-		private var _scale:Number;
-		private var _mtlLib:Boolean;
+		private var _scale:Number = 0;
+		private var _mtlLib:Boolean = false;
 		private var _mtlLibLoaded:Boolean = true;
-		private var _activeMaterialID:String = "";		
-		/**		 * Creates a new OBJParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
+		private var _activeMaterialID:String = "";
+		
+		/**
+		 * Creates a new OBJParser object.
+		 * @param uri The url or id of the data or file to be parsed.
+		 * @param extra The holder for extra contextual data that the parser might need.
+		 */
 		public function OBJParser(scale:Number = 1):void
 		{
 			scale = scale || 1;
@@ -60,20 +74,31 @@ package away.loaders.parsers
 			this._scale = scale;
 		}
 		
-		/**		 * Scaling factor applied directly to vertices data		 * @param value The scaling factor.		 */
+		/**
+		 * Scaling factor applied directly to vertices data
+		 * @param value The scaling factor.
+		 */
 		public function set scale(value:Number):void
 		{
 			this._scale = value;
 		}
 		
-		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
+		/**
+		 * Indicates whether or not a given file extension is supported by the parser.
+		 * @param extension The file extension of a potential file to be parsed.
+		 * @return Whether or not the given file type is supported.
+		 */
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
 			return extension == "obj";
 		}
 		
-		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
+		/**
+		 * Tests whether a data block can be parsed by the parser.
+		 * @param data The data block to potentially be parsed.
+		 * @return Whether or not the given data is supported.
+		 */
 		public static function supportsData(data:*):Boolean
 		{
 			var content:String = ParserUtil.toString(data);
@@ -89,7 +114,9 @@ package away.loaders.parsers
 			return hasV && hasF;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function _iResolveDependency(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == 'mtl')
@@ -126,7 +153,9 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == "mtl")
@@ -145,7 +174,9 @@ package away.loaders.parsers
 				this.applyMaterial(lm);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function _pProceedParsing():Boolean
 		{
 			var line:String;
@@ -168,7 +199,7 @@ package away.loaders.parsers
 				this._startedParsing = true;
                 this._vertices = new Vector.<Vertex>();
                 this._vertexNormals = new Vector.<Vertex>();
-                this._materialIDs = new Vector.<String>();
+                this._materialIDs = VectorInit.Str();
                 this._materialLoaded = new Vector.<LoadedMaterial>();
                 this._meshes = new Vector.<Mesh>();
                 this._uvs = new Vector.<UV>();
@@ -220,7 +251,9 @@ package away.loaders.parsers
 			return ParserBase.MORE_TO_PARSE;
 		}
 		
-		/**		 * Parses a single line in the OBJ file.		 */
+		/**
+		 * Parses a single line in the OBJ file.
+		 */
 		private function parseLine(trunk):void
 		{
 			switch (trunk[0])
@@ -288,7 +321,9 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**		 * Converts the parsed data into an Away3D scenegraph structure		 */
+		/**
+		 * Converts the parsed data into an Away3D scenegraph structure
+		 */
 		private function translate():void
 		{
 			for (var objIndex:Number = 0; objIndex < this._objects.length; ++objIndex)
@@ -364,7 +399,11 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**		 * Translates an obj's material group to a subgeometry.		 * @param materialGroup The material group data to convert.		 * @param geometry The Geometry to contain the converted SubGeometry.		 */
+		/**
+		 * Translates an obj's material group to a subgeometry.
+		 * @param materialGroup The material group data to convert.
+		 * @param geometry The Geometry to contain the converted SubGeometry.
+		 */
 		private function translateMaterialGroup(materialGroup:MaterialGroup, geometry:Geometry):void
 		{
 			var faces:Vector.<FaceData> = materialGroup.faces;
@@ -373,10 +412,10 @@ package away.loaders.parsers
 			var numVerts:Number;
 			var subs:Vector.<ISubGeometry>;
 			
-			var vertices:Vector.<Number> = VectorNumber.init();
-			var uvs:Vector.<Number> = VectorNumber.init();
-			var normals:Vector.<Number> = VectorNumber.init();
-			var indices:Vector.<Number> /*uint*/ = VectorNumber.init();
+			var vertices:Vector.<Number> = VectorInit.Num();
+			var uvs:Vector.<Number> = VectorInit.Num();
+			var normals:Vector.<Number> = VectorInit.Num();
+			var indices:Vector.<Number> /*uint*/ = VectorInit.Num();
 			
 			this._realIndices = [];
             this._vertexIndex = 0;
@@ -457,7 +496,10 @@ package away.loaders.parsers
 			indices.push(index);
 		}
 		
-		/**		 * Creates a new object group.		 * @param trunk The data block containing the object tag and its parameters		 */
+		/**
+		 * Creates a new object group.
+		 * @param trunk The data block containing the object tag and its parameters
+		 */
 		private function createObject(trunk):void
 		{
 			this._currentGroup = null;
@@ -468,7 +510,10 @@ package away.loaders.parsers
                 this._currentObject.name = trunk[1];
 		}
 		
-		/**		 * Creates a new group.		 * @param trunk The data block containing the group tag and its parameters		 */
+		/**
+		 * Creates a new group.
+		 * @param trunk The data block containing the group tag and its parameters
+		 */
 		private function createGroup(trunk):void
 		{
 			if (!this._currentObject)
@@ -484,7 +529,10 @@ package away.loaders.parsers
             this.createMaterialGroup(null);
 		}
 		
-		/**		 * Creates a new material group.		 * @param trunk The data block containing the material tag and its parameters		 */
+		/**
+		 * Creates a new material group.
+		 * @param trunk The data block containing the material tag and its parameters
+		 */
 		private function createMaterialGroup(trunk):void
 		{
             this._currentMaterialGroup = new MaterialGroup();
@@ -493,7 +541,10 @@ package away.loaders.parsers
             this._currentGroup.materialGroups.push(this._currentMaterialGroup);
 		}
 		
-		/**		 * Reads the next vertex coordinates.		 * @param trunk The data block containing the vertex tag and its parameters		 */
+		/**
+		 * Reads the next vertex coordinates.
+		 * @param trunk The data block containing the vertex tag and its parameters
+		 */
 		private function parseVertex(trunk):void
 		{
 			//for the very rare cases of other delimiters/charcodes seen in some obj files
@@ -528,7 +579,10 @@ package away.loaders.parsers
 
 		}
 		
-		/**		 * Reads the next uv coordinates.		 * @param trunk The data block containing the uv tag and its parameters		 */
+		/**
+		 * Reads the next uv coordinates.
+		 * @param trunk The data block containing the uv tag and its parameters
+		 */
 		private function parseUV(trunk):void
 		{
             if (trunk.length > 3)
@@ -551,7 +605,10 @@ package away.loaders.parsers
 
 		}
 		
-		/**		 * Reads the next vertex normal coordinates.		 * @param trunk The data block containing the vertex normal tag and its parameters		 */
+		/**
+		 * Reads the next vertex normal coordinates.
+		 * @param trunk The data block containing the vertex normal tag and its parameters
+		 */
 		private function parseVertexNormal(trunk):void
 		{
 			if (trunk.length > 4) {
@@ -571,7 +628,10 @@ package away.loaders.parsers
             }
 		}
 		
-		/**		 * Reads the next face's indices.		 * @param trunk The data block containing the face tag and its parameters		 */
+		/**
+		 * Reads the next face's indices.
+		 * @param trunk The data block containing the face tag and its parameters
+		 */
 		private function parseFace(trunk):void
 		{
 			var len:Number = trunk.length;
@@ -606,7 +666,9 @@ package away.loaders.parsers
 			this._currentMaterialGroup.faces.push(face);
 		}
 		
-		/**		 * This is a hack around negative face coords		 */
+		/**
+		 * This is a hack around negative face coords
+		 */
 		private function parseIndex(index:Number, length:Number):Number
 		{
 			if (index < 0)
@@ -966,94 +1028,6 @@ package away.loaders.parsers
 			for (var i:Number = 0; i < this._materialLoaded.length; ++i)
                 this.applyMaterial(this._materialLoaded[i]);
 		}
-	}
-}
-
-import away.entities.Mesh;
-import away.base.data.Vertex;
-import away.base.data.UV;
-import away.loaders.parsers.utils.ParserUtil;
-import away.loaders.misc.ResourceDependency;
-import away.library.assets.IAsset;
-import away.library.assets.AssetType;
-import away.textures.Texture2DBase;
-import away.base.Geometry;
-import away.materials.MaterialBase;
-import away.materials.TextureMaterial;
-import away.materials.utils.DefaultMaterialManager;
-import away.materials.TextureMultiPassMaterial;
-import away.base.ISubGeometry;
-import away.utils.VectorNumber;
-import away.utils.GeometryUtils;
-import away.materials.methods.BasicSpecularMethod;
-import away.net.URLRequest;
-import away.materials.ColorMaterial;
-import away.materials.ColorMultiPassMaterial;
-	import randori.webkit.page.Window;
-
-class ObjectGroup
-{
-	public var name:String;
-	public var groups:Vector.<Group> = new Vector.<Group>();
-
-    public function ObjectGroup():void
-	{
-	}
-}
-class Group
-{
-	public var name:String;
-	public var materialID:String;
-	public var materialGroups:Vector.<MaterialGroup> = new Vector.<MaterialGroup>();
-
-    public function Group():void
-	{
-	}
-}
-class MaterialGroup
-{
-	public var url:String;
-	public var faces:Vector.<FaceData> = new Vector.<FaceData>();
-	
-	public function MaterialGroup():void
-	{
-	}
-}
-class SpecularData
-{
-	public var materialID:String;
-	public var basicSpecularMethod:BasicSpecularMethod;
-	public var ambientColor:Number = 0xFFFFFF;
-	public var alpha:Number = 1;
-	
-	public function SpecularData():void
-	{
-	}
-}
-class LoadedMaterial
-{
-	//import away3d.materials.ColorMaterial;
-	
-	public var materialID:String;
-	public var texture:Texture2DBase;
-	public var cm:MaterialBase;
-	public var specularMethod:BasicSpecularMethod;
-	public var ambientColor:Number = 0xFFFFFF;
-	public var alpha:Number = 1;
-	
-	public function LoadedMaterial():void
-	{
-	}
-}
-class FaceData
-{
-	public var vertexIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
-	public var uvIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
-	public var normalIndices:Vector.<Number>/*uint*/ = VectorNumber.init();
-	public var indexIds:Vector.<String>// used for real index lookups = new Vector.<String>()
-	
-	public function FaceData():void
-	{
 	}
 }
 

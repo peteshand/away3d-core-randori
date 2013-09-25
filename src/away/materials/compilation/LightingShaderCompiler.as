@@ -1,42 +1,61 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.compilation
 {
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
+	import away.utils.VectorInit;
 	//import away3d.arcane;
 
-	/**	 * LightingShaderCompiler is a ShaderCompiler that generates code for passes performing shading only (no effect passes)	 */
+	/**
+	 * LightingShaderCompiler is a ShaderCompiler that generates code for passes performing shading only (no effect passes)
+	 */
 	public class LightingShaderCompiler extends ShaderCompiler
 	{
 		public var _pointLightFragmentConstants:Vector.<ShaderRegisterElement>;
 		public var _pointLightVertexConstants:Vector.<ShaderRegisterElement>;
 		public var _dirLightFragmentConstants:Vector.<ShaderRegisterElement>;
 		public var _dirLightVertexConstants:Vector.<ShaderRegisterElement>;
-		private var _lightVertexConstantIndex:Number;
+		private var _lightVertexConstantIndex:Number = 0;
 		private var _shadowRegister:ShaderRegisterElement;
 		
 		//use namespace arcane;
 
-		/**		 * Create a new LightingShaderCompiler object.		 * @param profile The compatibility profile of the renderer.		 */
+		/**
+		 * Create a new LightingShaderCompiler object.
+		 * @param profile The compatibility profile of the renderer.
+		 */
 		public function LightingShaderCompiler(profile:String):void
 		{
 			super(profile);
 		}
 
-		/**		 * The starting index if the vertex constant to which light data needs to be uploaded.		 */
+		/**
+		 * The starting index if the vertex constant to which light data needs to be uploaded.
+		 */
 		public function get lightVertexConstantIndex():Number
 		{
 			return this._lightVertexConstantIndex;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pInitRegisterIndices():void
 		{
 			super.pInitRegisterIndices();
             this._lightVertexConstantIndex = -1;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCreateNormalRegisters():void
 		{
 			// need to be created FIRST and in this order
@@ -65,32 +84,39 @@ package away.materials.compilation
 			this._pAnimationTargetRegisters.push(this._pSharedRegisters.animatedNormal.toString());
 		}
 
-		/**		 * Indicates whether or not lighting happens in tangent space. This is only the case if no world-space		 * dependencies exist.		 */
+		/**
+		 * Indicates whether or not lighting happens in tangent space. This is only the case if no world-space
+		 * dependencies exist.
+		 */
 		public function get tangentSpace():Boolean
 		{
 			return this._pNumLightProbes == 0 && this._pMethodSetup._iNormalMethod.iHasOutput && this._pMethodSetup._iNormalMethod.iTangentSpace;
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pInitLightData():void
 		{
 			super.pInitLightData();
 			
-			this._pointLightVertexConstants = new Vector.<ShaderRegisterElement>(this._pNumPointLights );
-			this._pointLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumPointLights*2 );
+			this._pointLightVertexConstants = VectorInit.AnyClass(ShaderRegisterElement, this._pNumPointLights );
+			this._pointLightFragmentConstants = VectorInit.AnyClass(ShaderRegisterElement, this._pNumPointLights*2 );
 
 			if ( this.tangentSpace )
             {
-				this._dirLightVertexConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights );
-				this._dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights*2 );
+				this._dirLightVertexConstants = VectorInit.AnyClass(ShaderRegisterElement, this._pNumDirectionalLights );
+				this._dirLightFragmentConstants = VectorInit.AnyClass(ShaderRegisterElement, this._pNumDirectionalLights*2 );
 			}
             else
             {
-				this._dirLightFragmentConstants = new Vector.<ShaderRegisterElement>(this._pNumDirectionalLights*3);
+				this._dirLightFragmentConstants = VectorInit.AnyClass(ShaderRegisterElement, this._pNumDirectionalLights*3);
             }
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCalculateDependencies():void
 		{
 			super.pCalculateDependencies();
@@ -101,7 +127,9 @@ package away.materials.compilation
             }
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileNormalCode():void
 		{
 			this._pSharedRegisters.normalFragment = this._pRegisterCache.getFreeFragmentVectorTemp();
@@ -123,7 +151,7 @@ package away.materials.compilation
             }
 			else
             {
-				var normalMatrix:Vector.<ShaderRegisterElement> = new Vector.<ShaderRegisterElement>( 3 );
+				var normalMatrix:Vector.<ShaderRegisterElement> = VectorInit.AnyClass(ShaderRegisterElement,  3 );
 			    	normalMatrix[0] = this._pRegisterCache.getFreeVertexConstant();
 				    normalMatrix[1] = this._pRegisterCache.getFreeVertexConstant();
 				    normalMatrix[2] = this._pRegisterCache.getFreeVertexConstant();
@@ -151,7 +179,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Generates code to retrieve the tangent space normal from the normal map		 */
+		/**
+		 * Generates code to retrieve the tangent space normal from the normal map
+		 */
 		private function compileTangentSpaceNormalMapCode():void
 		{
 			// normalize normal + tangent vector and generate (approximated) bitangent
@@ -173,7 +203,9 @@ package away.materials.compilation
 
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileViewDirCode():void
 		{
 			var cameraPositionReg:ShaderRegisterElement = this._pRegisterCache.getFreeVertexConstant();
@@ -200,7 +232,9 @@ package away.materials.compilation
 				"mov " + this._pSharedRegisters.viewDirFragment + ".w,   " + this._pSharedRegisters.viewDirVarying + ".w 		\n";
 		}
 
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pCompileLightingCode():void
 		{
 			if (this._pMethodSetup._iShadowMethod)
@@ -277,7 +311,9 @@ package away.materials.compilation
             }
 		}
 
-		/**		 * Provides the code to provide shadow mapping.		 */
+		/**
+		 * Provides the code to provide shadow mapping.
+		 */
 		private function compileShadowCode():void
 		{
 			if (this._pSharedRegisters.normalFragment)
@@ -291,7 +327,9 @@ package away.materials.compilation
 			this._pFragmentCode += this._pMethodSetup._iShadowMethod.iGetFragmentCode(this._pMethodSetup._iShadowMethodVO, this._pRegisterCache, this._shadowRegister);
 		}
 
-		/**		 * Initializes constant registers to contain light data.		 */
+		/**
+		 * Initializes constant registers to contain light data.
+		 */
 		private function initLightRegisters():void
 		{
 			// init these first so we're sure they're in sequence
@@ -348,7 +386,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Compiles the shading code for directional lights.		 */
+		/**
+		 * Compiles the shading code for directional lights.
+		 */
 		private function compileDirectionalLightCode():void
 		{
 			var diffuseColorReg:ShaderRegisterElement;
@@ -402,7 +442,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Compiles the shading code for point lights.		 */
+		/**
+		 * Compiles the shading code for point lights.
+		 */
 		private function compilePointLightCode():void
 		{
 			var diffuseColorReg:ShaderRegisterElement;
@@ -485,7 +527,9 @@ package away.materials.compilation
 			}
 		}
 
-		/**		 * Compiles shading code for light probes.		 */
+		/**
+		 * Compiles shading code for light probes.
+		 */
 		private function compileLightProbeCode():void
 		{
 			var weightReg:String;
@@ -503,12 +547,12 @@ package away.materials.compilation
 
 			if (addDiff)
             {
-				this._pLightProbeDiffuseIndices = VectorNumber.init();
+				this._pLightProbeDiffuseIndices = VectorInit.Num();
 
             }
 			if (addSpec)
             {
-				this._pLightProbeSpecularIndices = VectorNumber.init();
+				this._pLightProbeSpecularIndices = VectorInit.Num();
             }
 
 			for (i = 0; i < this._pNumProbeRegisters; ++i)

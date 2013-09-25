@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.controllers
 {
@@ -17,13 +23,13 @@ package away.controllers
 		private var _desiredPosition:Vector3D;
 		
 		/**		 * Stiffness of the spring, how hard is it to extend. The higher it is, the more "fixed" the cam will be.		 * A number between 1 and 20 is recommended.		 */
-		public var stiffness:Number;
+		public var stiffness:Number = 0;
 		
 		/**		 * Damping is the spring internal friction, or how much it resists the "boinggggg" effect. Too high and you'll lose it!		 * A number between 1 and 20 is recommended.		 */
-		public var damping:Number;
+		public var damping:Number = 0;
 		
 		/**		 * Mass of the camera, if over 120 and it'll be very heavy to move.		 */
-		public var mass:Number;
+		public var mass:Number = 0;
 		
 		/**		 * Offset of spring center from target in target object space, ie: Where the camera should ideally be in the target object space.		 */
 		public var positionOffset:Vector3D = new Vector3D(0, 500, -1000);

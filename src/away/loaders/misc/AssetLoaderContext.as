@@ -1,3 +1,11 @@
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.loaders.misc
 {
 
@@ -7,14 +15,14 @@ package away.loaders.misc
 		public static var SINGLEPASS_MATERIALS:Number = 1;
 		public static var MULTIPASS_MATERIALS:Number = 2;
 
-		private var _includeDependencies:Boolean;
-		private var _dependencyBaseUrl:String;
+		private var _includeDependencies:Boolean = false;
+		private var _dependencyBaseUrl:String = null;
 		private var _embeddedDataByUrl:Object;
 		private var _remappedUrls:Object;
-		private var _materialMode:Number;
+		private var _materialMode:Number = 0;
 		
-		private var _overrideAbsPath:Boolean;
-		private var _overrideFullUrls:Boolean;
+		private var _overrideAbsPath:Boolean = false;
+		private var _overrideFullUrls:Boolean = false;
 		
 		/**		 * AssetLoaderContext provides configuration for the AssetLoader load() and parse() operations.		 * Use it to configure how (and if) dependencies are loaded, or to map dependency URLs to		 * embedded data.		 *		 * @see away3d.loading.AssetLoader		 */
 		public function AssetLoaderContext(includeDependencies:Boolean = true, dependencyBaseUrl:String = null):void

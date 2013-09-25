@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.render
 {
@@ -33,23 +37,23 @@ package away.render
 		public var _pShareContext:Boolean = false;
 		
 		public var _pRenderTarget:TextureBase;
-		public var _pRenderTargetSurface:Number;
+		public var _pRenderTargetSurface:Number = 0;
 		
 		// only used by renderers that need to render geometry to textures
-		public var _pViewWidth:Number;
-		public var _pViewHeight:Number;
+		public var _pViewWidth:Number = 0;
+		public var _pViewHeight:Number = 0;
 		
 		public var _pRenderableSorter:IEntitySorter;
 		//private _backgroundImageRenderer:BackgroundImageRenderer;
 		private var _background:Texture2DBase;
 		
-		public var _pRenderToTexture:Boolean;
-		public var _pAntiAlias:Number;
+		public var _pRenderToTexture:Boolean = false;
+		public var _pAntiAlias:Number = 0;
 		public var _pTextureRatioX:Number = 1;
 		public var _pTextureRatioY:Number = 1;
 		
 		private var _snapshotBitmapData:BitmapData;
-		private var _snapshotRequired:Boolean;
+		private var _snapshotRequired:Boolean = false;
 		
 		private var _clearOnRender:Boolean = true;
 		public var _pRttViewProjectionMatrix:Matrix3D = new Matrix3D();

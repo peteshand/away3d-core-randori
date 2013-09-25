@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,17 +6,17 @@ if (typeof away.base == "undefined")
 	away.base = {};
 
 away.base.SkinnedSubGeometry = function(jointsPerVertex) {
-	this._jointWeightsBuffer = [null, null, null, null, null, null, null, null];
-	this._jointIndexBuffer = [null, null, null, null, null, null, null, null];
-	this._jointWeightContext = [null, null, null, null, null, null, null, null];
+	this._jointWeightsBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
+	this._jointIndexBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
+	this._jointWeightContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 	this._bufferFormat = null;
 	this._animatedData = null;
-	this._jointWeightsInvalid = [null, null, null, null, null, null, null, null];
-	this._jointIndicesInvalid = [null, null, null, null, null, null, null, null];
+	this._jointWeightsInvalid = away.utils.VectorInit.Bool(8, false);
+	this._jointIndicesInvalid = away.utils.VectorInit.Bool(8, false);
 	this._condensedIndexLookUp = null;
 	this._jointWeightsData = null;
 	this._jointIndexData = null;
-	this._jointIndexContext = [null, null, null, null, null, null, null, null];
+	this._jointIndexContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 	this._condensedJointIndexData = null;
 	this._numCondensedJoints = 0;
 	this._jointsPerVertex = 0;
@@ -107,8 +107,8 @@ away.base.SkinnedSubGeometry.prototype.iCondenseIndexData = function() {
 	var oldIndex;
 	var newIndex = 0;
 	var dic = {};
-	this._condensedJointIndexData = away.utils.VectorNumber.init(len, 0);
-	this._condensedIndexLookUp = away.utils.VectorNumber.init(0, 0);
+	this._condensedJointIndexData = away.utils.VectorInit.Num(len, 0);
+	this._condensedIndexLookUp = away.utils.VectorInit.Num(0, 0);
 	for (var i = 0; i < len; ++i) {
 		oldIndex = this._jointIndexData[i];
 		if (dic[oldIndex] == undefined) {
@@ -151,13 +151,17 @@ away.base.SkinnedSubGeometry.className = "away.base.SkinnedSubGeometry";
 away.base.SkinnedSubGeometry.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 
 away.base.SkinnedSubGeometry.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.display3D.Context3D');
+	p.push('away.display3D.VertexBuffer3D');
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.base.SkinnedSubGeometry.injectionPoints = function(t) {

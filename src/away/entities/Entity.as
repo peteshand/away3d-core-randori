@@ -1,7 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
-
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.entities
 {
@@ -20,14 +23,14 @@ package away.entities
 	public class Entity extends ObjectContainer3D
 	{
 		
-		private var _showBounds:Boolean;
+		private var _showBounds:Boolean = false;
 		private var _partitionNode:EntityNode;
-		private var _boundsIsShown:Boolean;
-		private var _shaderPickingDetails:Boolean;
+		private var _boundsIsShown:Boolean = false;
+		private var _shaderPickingDetails:Boolean = false;
 		
 		public var _iPickingCollisionVO:PickingCollisionVO;
 		public var _iPickingCollider:IPickingCollider;
-		public var _iStaticNode:Boolean;
+		public var _iStaticNode:Boolean = false;
 		
 		public var _pBounds:BoundingVolumeBase;
 		public var _pBoundsInvalid:Boolean = true;

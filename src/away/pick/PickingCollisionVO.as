@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.pick
 {
@@ -24,10 +29,10 @@ package away.pick
 		public var uv:Point;
 		
 		/**		 * The index of the face where the event took pl ace.		 */
-		public var index:Number;
+		public var index:Number = 0;
 		
 		/**		 * The index of the subGeometry where the event took place.		 */
-		public var subGeometryIndex:Number;
+		public var subGeometryIndex:Number = 0;
 		
 		/**		 * The starting position of the colliding ray in local coordinates.		 */
 		public var localRayPosition:Vector3D;
@@ -42,10 +47,10 @@ package away.pick
 		public var rayDirection:Vector3D;
 		
 		/**		 * Determines if the ray position is contained within the entity bounds.		 *		 * @see away3d.entities.Entity#bounds		 */
-		public var rayOriginIsInsideBounds:Boolean;
+		public var rayOriginIsInsideBounds:Boolean = false;
 		
 		/**		 * The distance along the ray from the starting position to the calculated intersection entry point with the entity.		 */
-		public var rayEntryDistance:Number;
+		public var rayEntryDistance:Number = 0;
 		
 		/**		 * The IRenderable associated with a collision.		 */
 		public var renderable:IRenderable;

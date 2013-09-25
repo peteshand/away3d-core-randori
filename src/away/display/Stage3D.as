@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.display
 {
@@ -15,10 +19,10 @@ package away.display
 	{
 		private var _context3D:Context3D;
 		private var _canvas:HTMLCanvasElement;
-        private var _width:Number;
-        private var _height:Number;
-        private var _x:Number;
-        private var _y:Number;
+        private var _width:Number = 0;
+        private var _height:Number = 0;
+        private var _x:Number = 0;
+        private var _y:Number = 0;
 		
 		public function Stage3D(canvas:HTMLCanvasElement):void
 		{

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -59,7 +59,7 @@ away.materials.lightpickers.StaticLightPicker.prototype.set_lights = function(va
 	this._pNumPointLights = numPointLights;
 	this._pNumCastingPointLights = numCastingPointLights;
 	this._pNumLightProbes = numLightProbes;
-	this._pLightProbeWeights = away.utils.VectorNumber.init(Math.ceil(numLightProbes / 4) * 4, 0);
+	this._pLightProbeWeights = away.utils.VectorInit.Num(Math.ceil(numLightProbes / 4) * 4, 0);
 	this.dispatchEvent(new away.events.Event(away.events.Event.CHANGE));
 };
 
@@ -123,7 +123,7 @@ away.materials.lightpickers.StaticLightPicker.getRuntimeDependencies = function(
 	p.push('away.lights.PointLight');
 	p.push('away.lights.DirectionalLight');
 	p.push('away.events.LightEvent');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

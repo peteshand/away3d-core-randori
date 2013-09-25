@@ -1,4 +1,11 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.events
 {
 	import away.base.ISubGeometry;
@@ -7,10 +14,13 @@ package away.events
 	public class GeometryEvent extends Event
 	{
 		/**		 * Dispatched when a SubGeometry was added from the dispatching Geometry.		 */
-		public static var SUB_GEOMETRY_ADDED:String = "SubGeometryAdded";		
+		public static var SUB_GEOMETRY_ADDED:String = "SubGeometryAdded";
+		
 		/**		 * Dispatched when a SubGeometry was removed from the dispatching Geometry.		 */
-		public static var SUB_GEOMETRY_REMOVED:String = "SubGeometryRemoved";		
-		public static var BOUNDS_INVALID:String = "BoundsInvalid";		
+		public static var SUB_GEOMETRY_REMOVED:String = "SubGeometryRemoved";
+		
+		public static var BOUNDS_INVALID:String = "BoundsInvalid";
+		
 		private var _subGeometry:ISubGeometry;
 		
 		/**		 * Create a new GeometryEvent		 * @param type The event type.		 * @param subGeometry An optional SubGeometry object that is the subject of this event.		 */

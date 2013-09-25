@@ -1,20 +1,36 @@
-///<reference path="../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 
-	/**	 * A Capsule primitive mesh.	 */
+	/**
+	 * A Capsule primitive mesh.
+	 */
 	public class CapsuleGeometry extends PrimitiveBase
 	{
-		private var _radius:Number;
-		private var _height:Number;
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
-		private var _yUp:Boolean;
+		private var _radius:Number = 0;
+		private var _height:Number = 0;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
+		private var _yUp:Boolean = false;
 		
-		/**		 * Creates a new Capsule object.		 * @param radius The radius of the capsule.		 * @param height The height of the capsule.		 * @param segmentsW Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 * @param segmentsH Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven value.		 * @param yUp Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Creates a new Capsule object.
+		 * @param radius The radius of the capsule.
+		 * @param height The height of the capsule.
+		 * @param segmentsW Defines the number of horizontal segments that make up the capsule. Defaults to 16.
+		 * @param segmentsH Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven value.
+		 * @param yUp Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function CapsuleGeometry(radius:Number = 50, height:Number = 100, segmentsW:Number = 16, segmentsH:Number = 15, yUp:Boolean = true):void
 		{
 			radius = radius || 50;
@@ -32,7 +48,9 @@ package away.primitives
             this._yUp = yUp;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -60,7 +78,7 @@ package away.primitives
                 }
                 else
                 {
-                    indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6 );
+                    indices = VectorInit.Num((this._segmentsH - 1)*this._segmentsW*6 );
                 }
 
 				
@@ -68,8 +86,8 @@ package away.primitives
             else
             {
 
-				data = VectorNumber.init(numVerts*stride);
-				indices = VectorNumber.init((this._segmentsH - 1)*this._segmentsW*6);
+				data = VectorInit.Num(numVerts*stride);
+				indices = VectorInit.Num((this._segmentsH - 1)*this._segmentsW*6);
 				this.pInvalidateUVs();
 
 			}
@@ -170,7 +188,9 @@ package away.primitives
 			target.updateIndexData(indices);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number;
@@ -187,7 +207,7 @@ package away.primitives
             }
 			else
             {
-				data = VectorNumber.init( UVlen );
+				data = VectorInit.Num( UVlen );
 				this.pInvalidateGeometry();
 			}
 			
@@ -206,7 +226,9 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**		 * The radius of the capsule.		 */
+		/**
+		 * The radius of the capsule.
+		 */
 		public function get radius():Number
 		{
 			return this._radius;
@@ -218,7 +240,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The height of the capsule.		 */
+		/**
+		 * The height of the capsule.
+		 */
 		public function get height():Number
 		{
 			return this._height;
@@ -230,7 +254,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * Defines the number of horizontal segments that make up the capsule. Defaults to 16.		 */
+		/**
+		 * Defines the number of horizontal segments that make up the capsule. Defaults to 16.
+		 */
 		public function get segmentsW():Number
 		{
 			return this._segmentsW;
@@ -243,7 +269,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven.		 */
+		/**
+		 * Defines the number of vertical segments that make up the capsule. Defaults to 15. Must be uneven.
+		 */
 		public function get segmentsH():Number
 		{
 			return this._segmentsH;
@@ -256,7 +284,9 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**		 * Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
+		/**
+		 * Defines whether the capsule poles should lay on the Y-axis (true) or on the Z-axis (false).
+		 */
 		public function get yUp():Boolean
 		{
 			return this._yUp;

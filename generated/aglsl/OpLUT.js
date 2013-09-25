@@ -1,10 +1,10 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 23:07:00 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
 
 aglsl.OpLUT = function(s, flags, dest, a, b, matrixwidth, matrixheight, ndwm, scaler, dm, lod) {
-	this.scalar = null;
+	this.scalar = false;
 	this.s = s;
 	this.flags = flags;
 	this.dest = dest;

@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -19,7 +25,7 @@ package away.materials.methods
 	/**	 * BasicSpecularMethod provides the default shading method for Blinn-Phong specular highlights (an optimized but approximated	 * version of Phong specularity).	 */
 	public class BasicSpecularMethod extends LightingMethodBase
 	{
-		private var _useTexture:Boolean;
+		private var _useTexture:Boolean = false;
 		private var _totalLightColorReg:ShaderRegisterElement;
 		private var _specularTextureRegister:ShaderRegisterElement;
 		private var _specularTexData:ShaderRegisterElement;
@@ -34,7 +40,7 @@ package away.materials.methods
         public var _iSpecularG:Number = 1;
         public var _iSpecularB:Number = 1;
 		private var _shadowRegister:ShaderRegisterElement;
-		private var _isFirstLight:Boolean;
+		private var _isFirstLight:Boolean = false;
 		
 		/**		 * Creates a new BasicSpecularMethod object.		 */
 		public function BasicSpecularMethod():void

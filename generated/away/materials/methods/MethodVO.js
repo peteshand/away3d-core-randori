@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 22:31:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,23 +9,23 @@ if (typeof away.materials.methods == "undefined")
 
 away.materials.methods.MethodVO = function() {
 this.fragmentConstantsIndex = 0;
-this.needsUV = null;
-this.needsTangents = null;
-this.useMipmapping = null;
+this.needsUV = false;
+this.needsTangents = false;
+this.useMipmapping = false;
 this.numLights = 0;
-this.repeatTextures = null;
+this.repeatTextures = false;
 this.fragmentData = null;
-this.needsNormals = null;
+this.needsNormals = false;
 this.vertexConstantsIndex = 0;
-this.needsGlobalFragmentPos = null;
+this.needsGlobalFragmentPos = false;
 this.secondaryTexturesIndex = 0;
-this.useSmoothTextures = null;
-this.needsGlobalVertexPos = null;
+this.useSmoothTextures = false;
+this.needsGlobalVertexPos = false;
 this.useLightFallOff = true;
 this.secondaryVertexConstantsIndex = 0;
-this.needsView = null;
-this.needsProjection = null;
-this.needsSecondaryUV = null;
+this.needsView = false;
+this.needsProjection = false;
+this.needsSecondaryUV = false;
 this.vertexData = null;
 this.secondaryFragmentConstantsIndex = 0;
 this.texturesIndex = 0;

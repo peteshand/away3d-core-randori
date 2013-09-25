@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:53 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,8 +10,8 @@ away.pick.RaycastPicker = function(findClosestCollision) {
 	this._onlyMouseEnabled = true;
 	this._entities = null;
 	this._ignoredEntities = [];
-	this._hasCollisions = null;
-	this._findClosestCollision = null;
+	this._hasCollisions = false;
+	this._findClosestCollision = false;
 	this._raycastCollector = new away.traverse.RaycastCollector();
 	this._findClosestCollision = findClosestCollision;
 	this._entities = [];

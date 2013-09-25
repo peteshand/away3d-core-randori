@@ -1,20 +1,37 @@
-///<reference path="../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
 	import away.base.CompactSubGeometry;
-	import away.utils.VectorNumber;
-	/**	 * A Plane primitive mesh.	 */
+	import away.utils.VectorInit;
+	/**
+	 * A Plane primitive mesh.
+	 */
 	public class PlaneGeometry extends PrimitiveBase
 	{
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
-		private var _yUp:Boolean;
-		private var _width:Number;
-		private var _height:Number;
-		private var _doubleSided:Boolean;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
+		private var _yUp:Boolean = false;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _doubleSided:Boolean = false;
 		
-		/**		 * Creates a new Plane object.		 * @param width The width of the plane.		 * @param height The height of the plane.		 * @param segmentsW The number of segments that make up the plane along the X-axis.		 * @param segmentsH The number of segments that make up the plane along the Y or Z-axis.		 * @param yUp Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false).		 * @param doubleSided Defines whether the plane will be visible from both sides, with correct vertex normals.		 */
+		/**
+		 * Creates a new Plane object.
+		 * @param width The width of the plane.
+		 * @param height The height of the plane.
+		 * @param segmentsW The number of segments that make up the plane along the X-axis.
+		 * @param segmentsH The number of segments that make up the plane along the Y or Z-axis.
+		 * @param yUp Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false).
+		 * @param doubleSided Defines whether the plane will be visible from both sides, with correct vertex normals.
+		 */
 		public function PlaneGeometry(width:Number = 100, height:Number = 100, segmentsW:Number = 1, segmentsH:Number = 1, yUp:Boolean = true, doubleSided:Boolean = false):void
 		{
 			width = width || 100;
@@ -36,7 +53,9 @@ package away.primitives
 
 		}
 		
-		/**		 * The number of segments that make up the plane along the X-axis. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the plane along the X-axis. Defaults to 1.
+		 */
 		public function get segmentsW():Number
 		{
 			return this._segmentsW;
@@ -52,7 +71,10 @@ package away.primitives
 
 		}
 		
-		/**		 * The number of segments that make up the plane along the Y or Z-axis, depending on whether yUp is true or		 * false, respectively. Defaults to 1.		 */
+		/**
+		 * The number of segments that make up the plane along the Y or Z-axis, depending on whether yUp is true or
+		 * false, respectively. Defaults to 1.
+		 */
 		public function get segmentsH():Number
 		{
 			return this._segmentsH;
@@ -68,7 +90,9 @@ package away.primitives
 
 		}
 		
-		/**		 *  Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false). Defaults to true.		 */
+		/**
+		 *  Defines whether the normal vector of the plane should point along the Y-axis (true) or Z-axis (false). Defaults to true.
+		 */
 		public function get yUp():Boolean
 		{
 			return this._yUp;
@@ -80,7 +104,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * Defines whether the plane will be visible from both sides, with correct vertex normals (as opposed to bothSides on Material). Defaults to false.		 */
+		/**
+		 * Defines whether the plane will be visible from both sides, with correct vertex normals (as opposed to bothSides on Material). Defaults to false.
+		 */
 		public function get doubleSided():Boolean
 		{
 			return this._doubleSided;
@@ -92,7 +118,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The width of the plane.		 */
+		/**
+		 * The width of the plane.
+		 */
 		public function get width():Number
 		{
 			return this._width;
@@ -104,7 +132,9 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**		 * The height of the plane.		 */
+		/**
+		 * The height of the plane.
+		 */
 		public function get height():Number
 		{
 			return this._height;
@@ -116,7 +146,9 @@ package away.primitives
             this.pInvalidateGeometry();//invalidateGeometry();
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -144,7 +176,7 @@ package away.primitives
 
                 if ( indices == null )
                 {
-                    indices = VectorNumber.init( numIndices );
+                    indices = VectorInit.Num( numIndices );
                 }
                 else
                 {
@@ -153,8 +185,8 @@ package away.primitives
 			}
             else
             {
-				data = VectorNumber.init( numVertices*stride );//new Vector.<Number>(numVertices*stride, true);
-				indices = VectorNumber.init( numIndices );//new Vector.<uint>(numIndices, true);
+				data = VectorInit.Num( numVertices*stride );//new Vector.<Number>(numVertices*stride, true);
+				indices = VectorInit.Num( numIndices );//new Vector.<uint>(numIndices, true);
 
                 this.pInvalidateUVs();//invalidateUVs();
 			}
@@ -261,7 +293,9 @@ package away.primitives
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var data:Vector.<Number>;
@@ -281,7 +315,7 @@ package away.primitives
             }
 			else
             {
-				data = VectorNumber.init( numUvs );//Vector.<Number>(numUvs, true);
+				data = VectorInit.Num( numUvs );//Vector.<Number>(numUvs, true);
                 this.pInvalidateGeometry()
 			}
 			

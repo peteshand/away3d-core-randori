@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:18 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -50,7 +50,7 @@ away.cameras.Camera3D.prototype.updateFrustum = function() {
 	var c31, c32, c33, c34;
 	var c41, c42, c43, c44;
 	var p;
-	var raw = away.utils.VectorNumber.init(16, 0);
+	var raw = away.utils.VectorInit.Num(16, 0);
 	var invLen;
 	this.get_viewProjection().copyRawDataTo(raw, 0, false);
 	c11 = raw[0];
@@ -192,7 +192,7 @@ away.cameras.Camera3D.getRuntimeDependencies = function(t) {
 	p.push('away.bounds.NullBounds');
 	p.push('away.cameras.lenses.PerspectiveLens');
 	p.push('away.events.LensEvent');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	p.push('away.cameras.lenses.LensBase');
 	p.push('away.library.assets.AssetType');
 	return p;

@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives.data
 {
@@ -9,20 +13,20 @@ package away.primitives.data
 	public class Segment
 	{
 		public var _pSegmentsBase:SegmentSet;
-		public var _pThickness:Number;
+		public var _pThickness:Number = 0;
 		public var _pStart:Vector3D;
 		public var _pEnd:Vector3D;
-		public var _pStartR:Number;
-		public var _pStartG:Number;
-		public var _pStartB:Number;
-		public var _pEndR:Number;
-		public var _pEndG:Number;
-		public var _pEndB:Number;
+		public var _pStartR:Number = 0;
+		public var _pStartG:Number = 0;
+		public var _pStartB:Number = 0;
+		public var _pEndR:Number = 0;
+		public var _pEndG:Number = 0;
+		public var _pEndB:Number = 0;
 		
 		private var _index:Number = -1;
 		private var _subSetIndex:Number = -1;
-		private var _startColor:Number;
-		private var _endColor:Number;
+		private var _startColor:Number = 0;
+		private var _endColor:Number = 0;
 		
 		public function Segment(start:Vector3D, end:Vector3D, anchor:Vector3D, colorStart:Number = 0x333333, colorEnd:Number = 0x333333, thickness:Number = 1):void
 		{

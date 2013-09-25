@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
@@ -8,10 +14,13 @@ package away.primitives
 	/**	 * A WireframeRegularPolygon primitive mesh.	 */
 	public class WireframeRegularPolygon extends WireframePrimitiveBase
 	{
-		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
-		private var _radius:Number;
-		private var _sides:Number;
-		private var _orientation:String;
+		public static var ORIENTATION_YZ:String = "yz";
+		public static var ORIENTATION_XY:String = "xy";
+		public static var ORIENTATION_XZ:String = "xz";
+		
+		private var _radius:Number = 0;
+		private var _sides:Number = 0;
+		private var _orientation:String = null;
 		
 		/**		 * Creates a new WireframeRegularPolygon object.		 * @param radius The radius of the polygon.		 * @param sides The number of sides on the polygon.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
 		public function WireframeRegularPolygon(radius:Number, sides:Number, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void

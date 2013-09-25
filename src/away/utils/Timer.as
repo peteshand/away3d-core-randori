@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.utils
 {
@@ -17,10 +21,10 @@ package away.utils
     public class Timer extends EventDispatcher
     {
 
-        private var _delay:Number;
+        private var _delay:Number = 0;
         private var _repeatCount:Number = 0;
         private var _currentCount:Number = 0;
-        private var _iid:Number;
+        private var _iid:Number = 0;
         private var _running:Boolean = false;
 
         public function Timer(delay:Number, repeatCount:Number = 0):void

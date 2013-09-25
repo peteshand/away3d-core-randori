@@ -1,17 +1,22 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../away/_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package aglsl
 {
+	import away.utils.VectorInit;
 	public class Description
 	{
-		public var regread:Vector.<*> = new Vector.<*>();
-        public var regwrite:Vector.<*> = new Vector.<*>();
+		public var regread:Vector.<*> = VectorInit.StarVec();
+        public var regwrite:Vector.<*> = VectorInit.StarVec();
         public var hasindirect:Boolean = false;
         public var writedepth:Boolean = false;
         public var hasmatrix:Boolean = false;
-        public var samplers:Vector.<*> = new Vector.<*>();
+        public var samplers:Vector.<*> = VectorInit.StarVec();
 		
 		// added due to dynamic assignment 3*0xFFFFFFuuuu
 		public var tokens:Vector.<Token> = new Vector.<Token>();

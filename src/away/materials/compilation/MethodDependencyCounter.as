@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.materials.compilation
 {
 	import away.materials.methods.MethodVO;
@@ -9,16 +16,16 @@ package away.materials.compilation
 	/**	 * MethodDependencyCounter keeps track of the number of dependencies for "named registers" used across methods.	 * Named registers are that are not necessarily limited to a single method. They are created by the compiler and	 * passed on to methods. The compiler uses the results to reserve usages through RegisterPool, which can be removed	 * each time a method has been compiled into the shader.	 *	 * @see RegisterPool.addUsage	 */
 	public class MethodDependencyCounter
 	{
-		private var _projectionDependencies:Number;
-		private var _normalDependencies:Number;
-		private var _viewDirDependencies:Number;
-		private var _uvDependencies:Number;
-		private var _secondaryUVDependencies:Number;
-		private var _globalPosDependencies:Number;
-		private var _tangentDependencies:Number;
+		private var _projectionDependencies:Number = 0;
+		private var _normalDependencies:Number = 0;
+		private var _viewDirDependencies:Number = 0;
+		private var _uvDependencies:Number = 0;
+		private var _secondaryUVDependencies:Number = 0;
+		private var _globalPosDependencies:Number = 0;
+		private var _tangentDependencies:Number = 0;
 		private var _usesGlobalPosFragment:Boolean = false;
-		private var _numPointLights:Number;
-		private var _lightSourceMask:Number;
+		private var _numPointLights:Number = 0;
+		private var _lightSourceMask:Number = 0;
 
 		/**		 * Creates a new MethodDependencyCounter object.		 */
 		public function MethodDependencyCounter():void

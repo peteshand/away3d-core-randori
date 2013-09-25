@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.lights
 {
@@ -18,7 +22,7 @@ package away.lights
 		
 		public var _pRadius:Number = 90000;
 		public var _pFallOff:Number = 100000;
-		public var _pFallOffFactor:Number;
+		public var _pFallOffFactor:Number = 0;
 		
 		public function PointLight():void
 		{

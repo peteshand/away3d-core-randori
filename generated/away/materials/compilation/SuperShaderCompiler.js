@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,8 +15,8 @@ away.materials.compilation.SuperShaderCompiler = function(profile) {
 
 away.materials.compilation.SuperShaderCompiler.prototype.pInitLightData = function() {
 	away.materials.compilation.ShaderCompiler.prototype.pInitLightData.call(this);
-	this._pointLightRegisters = [];
-	this._dirLightRegisters = [];
+	this._pointLightRegisters = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumPointLights * 3);
+	this._dirLightRegisters = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumDirectionalLights * 3);
 };
 
 away.materials.compilation.SuperShaderCompiler.prototype.pCalculateDependencies = function() {
@@ -25,7 +25,7 @@ away.materials.compilation.SuperShaderCompiler.prototype.pCalculateDependencies 
 };
 
 away.materials.compilation.SuperShaderCompiler.prototype.pCompileNormalCode = function() {
-	var normalMatrix = [null, null, null];
+	var normalMatrix = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, 3);
 	this._pSharedRegisters.normalFragment = this._pRegisterCache.getFreeFragmentVectorTemp();
 	this._pRegisterCache.addFragmentTempUsages(this._pSharedRegisters.normalFragment, this._pDependencyCounter.get_normalDependencies());
 	if (this._pMethodSetup._iNormalMethod.get_iHasOutput() && !this._pMethodSetup._iNormalMethod.get_iTangentSpace()) {
@@ -264,10 +264,10 @@ away.materials.compilation.SuperShaderCompiler.prototype.compileLightProbeCode =
 		return;
 	}
 	if (addDiff) {
-		this._pLightProbeDiffuseIndices = away.utils.VectorNumber.init(0, 0);
+		this._pLightProbeDiffuseIndices = away.utils.VectorInit.Num(0, 0);
 	}
 	if (addSpec) {
-		this._pLightProbeSpecularIndices = away.utils.VectorNumber.init(0, 0);
+		this._pLightProbeSpecularIndices = away.utils.VectorInit.Num(0, 0);
 	}
 	for (i = 0; i < this._pNumProbeRegisters; ++i) {
 		weightRegisters[i] = this._pRegisterCache.getFreeFragmentConstant();
@@ -299,7 +299,8 @@ away.materials.compilation.SuperShaderCompiler.getRuntimeDependencies = function
 	p = [];
 	p.push('away.materials.compilation.ShaderRegisterData');
 	p.push('away.materials.compilation.MethodDependencyCounter');
-	p.push('away.utils.VectorNumber');
+	p.push('away.materials.compilation.ShaderRegisterElement');
+	p.push('away.utils.VectorInit');
 	p.push('away.materials.methods.ShaderMethodSetup');
 	return p;
 };

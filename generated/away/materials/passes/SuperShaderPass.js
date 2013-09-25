@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.materials.passes == "undefined")
 
 away.materials.passes.SuperShaderPass = function(material) {
 	this._includeCasters = true;
-	this._ignoreLights = null;
+	this._ignoreLights = false;
 	away.materials.passes.CompiledPass.call(this, material);
 	this._pNeedFragmentAnimation = true;
 };

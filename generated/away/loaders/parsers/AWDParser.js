@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:28 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,30 +14,30 @@ away.loaders.parsers.AWDParser = function() {
 	this._texture_users = {};
 	this._startedParsing = false;
 	this._cur_block_id = 0;
-	this._accuracyOnBlocks = null;
+	this._accuracyOnBlocks = false;
 	this._byteData = null;
 	this._compression = 0;
-	this._accuracyGeo = null;
+	this._accuracyGeo = false;
 	this._cubeTextures = null;
 	this._blocks = null;
-	this._accuracyProps = null;
+	this._accuracyProps = false;
 	this._defaultCubeTexture = null;
 	this._newBlockBytes = null;
-	this._streaming = null;
+	this._streaming = false;
 	this._propsNrType = 0;
 	this._body = null;
 	this._defaultBitmapMaterial = null;
 	this._depthSizeDic = null;
 	this._defaultTexture = null;
 	this._version = null;
-	this._accuracyMatrix = null;
+	this._accuracyMatrix = false;
 	this._matrixNrType = 0;
 	this._parsed_header = false;
 	away.loaders.parsers.ParserBase.call(this, away.loaders.parsers.ParserDataFormat.BINARY);
 	this._blocks = [];
-	this._blocks[0] = new away.loaders.parsers.AWDParser$AWDBlock();
+	this._blocks[0] = new away.loaders.parsers.AWDBlock();
 	this._blocks[0].data = null;
-	this.blendModeDic = [];
+	this.blendModeDic = away.utils.VectorInit.Str(0, "");
 	this.blendModeDic.push(away.display.BlendMode.NORMAL);
 	this.blendModeDic.push(away.display.BlendMode.ADD);
 	this.blendModeDic.push(away.display.BlendMode.ALPHA);
@@ -54,12 +54,12 @@ away.loaders.parsers.AWDParser = function() {
 	this.blendModeDic.push(away.display.BlendMode.SCREEN);
 	this.blendModeDic.push(away.display.BlendMode.SHADER);
 	this.blendModeDic.push(away.display.BlendMode.OVERLAY);
-	this._depthSizeDic = away.utils.VectorNumber.init(0, 0);
+	this._depthSizeDic = away.utils.VectorInit.Num(0, 0);
 	this._depthSizeDic.push(256);
 	this._depthSizeDic.push(512);
 	this._depthSizeDic.push(2048);
 	this._depthSizeDic.push(1024);
-	this._version = away.utils.VectorNumber.init(0, 0);
+	this._version = away.utils.VectorInit.Num(0, 0);
 };
 
 away.loaders.parsers.AWDParser.COMPRESSIONMODE_LZMA = "lzma";
@@ -248,12 +248,12 @@ away.loaders.parsers.AWDParser.prototype.parseNextBlock = function() {
 	type = this._body.readUnsignedByte();
 	flags = this._body.readUnsignedByte();
 	len = this._body.readUnsignedInt();
-	var blockCompression = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG4);
-	var blockCompressionLZMA = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG5);
+	var blockCompression = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG4);
+	var blockCompressionLZMA = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG5);
 	if (this._accuracyOnBlocks) {
-		this._accuracyMatrix = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG1);
-		this._accuracyGeo = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG2);
-		this._accuracyProps = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG3);
+		this._accuracyMatrix = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG1);
+		this._accuracyGeo = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG2);
+		this._accuracyProps = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG3);
 		this._geoNrType = away.loaders.parsers.AWDParser.FLOAT32;
 		if (this._accuracyGeo) {
 			this._geoNrType = away.loaders.parsers.AWDParser.FLOAT64;
@@ -279,7 +279,7 @@ away.loaders.parsers.AWDParser.prototype.parseNextBlock = function() {
 		this._pDieWithError("Compressed AWD formats not yet supported");
 	}
 	this._newBlockBytes.position = 0;
-	block = new away.loaders.parsers.AWDParser$AWDBlock();
+	block = new away.loaders.parsers.AWDBlock();
 	block.len = this._newBlockBytes.position + len;
 	block.id = this._cur_block_id;
 	var blockEndBlock = this._newBlockBytes.position + len;
@@ -433,7 +433,7 @@ away.loaders.parsers.AWDParser.prototype.parseTriangleGeometrieBlock = function(
 			str_end = this._newBlockBytes.position + str_len;
 			var x, y, z;
 			if (str_type == 1) {
-				var verts = away.utils.VectorNumber.init(0, 0);
+				var verts = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					x = this.readNumber(this._accuracyGeo);
 					y = this.readNumber(this._accuracyGeo);
@@ -443,27 +443,27 @@ away.loaders.parsers.AWDParser.prototype.parseTriangleGeometrieBlock = function(
 					verts[idx++] = z;
 				}
 			} else if (str_type == 2) {
-				var indices = away.utils.VectorNumber.init(0, 0);
+				var indices = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					indices[idx++] = this._newBlockBytes.readUnsignedShort();
 				}
 			} else if (str_type == 3) {
-				var uvs = away.utils.VectorNumber.init(0, 0);
+				var uvs = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					uvs[idx++] = this.readNumber(this._accuracyGeo);
 				}
 			} else if (str_type == 4) {
-				var normals = away.utils.VectorNumber.init(0, 0);
+				var normals = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					normals[idx++] = this.readNumber(this._accuracyGeo);
 				}
 			} else if (str_type == 6) {
-				w_indices = away.utils.VectorNumber.init(0, 0);
+				w_indices = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					w_indices[idx++] = this._newBlockBytes.readUnsignedShort() * 3;
 				}
 			} else if (str_type == 7) {
-				weights = away.utils.VectorNumber.init(0, 0);
+				weights = away.utils.VectorInit.Num(0, 0);
 				while (this._newBlockBytes.position < str_end) {
 					weights[idx++] = this.readNumber(this._accuracyGeo);
 				}
@@ -611,7 +611,7 @@ away.loaders.parsers.AWDParser.prototype.parseMeshInstance = function(blockID) {
 	this._blocks[blockID].geoID = data_id;
 	var materials = [];
 	num_materials = this._newBlockBytes.readUnsignedShort();
-	var materialNames = [];
+	var materialNames = away.utils.VectorInit.Str(0, "");
 	materials_parsed = 0;
 	var returnedArrayMaterial;
 	while (materials_parsed < num_materials) {
@@ -776,7 +776,7 @@ away.loaders.parsers.AWDParser.prototype.parseLightPicker = function(blockID) {
 	var k = 0;
 	var lightID = 0;
 	var returnedArrayLight;
-	var lightsArrayNames = [];
+	var lightsArrayNames = away.utils.VectorInit.Str(0, "");
 	for (k = 0; k < numLights; k++) {
 		lightID = this._newBlockBytes.readUnsignedInt();
 		returnedArrayLight = this.getAssetByID(lightID, [away.library.assets.AssetType.LIGHT], "SingleTexture");
@@ -860,7 +860,7 @@ away.loaders.parsers.AWDParser.prototype.parseMaterial = function(blockID) {
 		mpmb.set_alphaThreshold(props.get(12, 0.0));
 	}
 	mat.set_repeat(props.get(13, false));
-	this._pFinalizeAsset(IAsset(mat), name);
+	this._pFinalizeAsset(mat, name);
 	this._blocks[blockID].data = mat;
 	if (this._debug) {
 		console.log(debugString);
@@ -1033,7 +1033,7 @@ away.loaders.parsers.AWDParser.prototype.parseMaterial_v1 = function(blockID) {
 		}
 	}
 	mat.extra = this.parseUserAttributes();
-	this._pFinalizeAsset(IAsset(mat), name);
+	this._pFinalizeAsset(mat, name);
 	this._blocks[blockID].data = mat;
 	if (this._debug) {
 		console.log(debugString);
@@ -1295,7 +1295,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			var list_end;
 			var list_len;
 			var propertyCnt = 0;
-			var props = new away.loaders.parsers.AWDParser$AWDProperties();
+			var props = new away.loaders.parsers.AWDProperties();
 			list_len = this._newBlockBytes.readUnsignedInt();
 			list_end = this._newBlockBytes.position + list_len;
 			if (expected) {
@@ -1407,11 +1407,11 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			this._version[0] = this._byteData.readUnsignedByte();
 			this._version[1] = this._byteData.readUnsignedByte();
 			flags = this._byteData.readUnsignedShort();
-			this._streaming = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG1);
+			this._streaming = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG1);
 			if ((this._version[0] == 2) && (this._version[1] == 1)) {
-				this._accuracyMatrix = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG2);
-				this._accuracyGeo = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG3);
-				this._accuracyProps = away.loaders.parsers.AWDParser$bitFlags.test(flags, bitFlags.FLAG4);
+				this._accuracyMatrix = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG2);
+				this._accuracyGeo = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG3);
+				this._accuracyProps = away.loaders.parsers.bitFlags.test(flags, away.loaders.parsers.bitFlags.FLAG4);
 			}
 			this._geoNrType = away.loaders.parsers.AWDParser.FLOAT32;
 			if (this._accuracyGeo) {
@@ -1538,7 +1538,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix32RawData = function() {
 			var i;
-			var mtx_raw = away.utils.VectorNumber.init(6, 0);
+			var mtx_raw = away.utils.VectorInit.Num(6, 0);
 			for (i = 0; i < 6; i++) {
 				mtx_raw[i] = this._newBlockBytes.readFloat();
 			}
@@ -1546,7 +1546,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix43RawData = function() {
-			var mtx_raw = away.utils.VectorNumber.init(16, 0);
+			var mtx_raw = away.utils.VectorInit.Num(16, 0);
 			mtx_raw[0] = this.readNumber(this._accuracyMatrix);
 			mtx_raw[1] = this.readNumber(this._accuracyMatrix);
 			mtx_raw[2] = this.readNumber(this._accuracyMatrix);
@@ -1594,13 +1594,13 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p.push('away.materials.TextureMaterial');
 			p.push('away.primitives.ConeGeometry');
 			p.push('away.cameras.Camera3D');
+			p.push('away.loaders.parsers.AWDBlock');
 			p.push('away.textures.HTMLImageElementTexture');
 			p.push('away.materials.ColorMultiPassMaterial');
 			p.push('away.net.URLRequest');
 			p.push('away.primitives.CubeGeometry');
 			p.push('away.utils.GeometryUtils');
 			p.push('away.cameras.lenses.PerspectiveLens');
-			p.push('away.loaders.parsers.AWDParser$bitFlags');
 			p.push('away.cameras.lenses.OrthographicOffCenterLens');
 			p.push('away.geom.Matrix3D');
 			p.push('away.materials.lightpickers.StaticLightPicker');
@@ -1610,7 +1610,7 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p.push('away.display.BlendMode');
 			p.push('away.materials.TextureMultiPassMaterial');
 			p.push('away.lights.shadowmaps.DirectionalShadowMapper');
-			p.push('away.utils.VectorNumber');
+			p.push('away.utils.VectorInit');
 			p.push('away.library.assets.AssetType');
 			p.push('away.lights.shadowmaps.CubeMapShadowMapper');
 			p.push('away.primitives.SphereGeometry');
@@ -1626,7 +1626,9 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p.push('away.textures.BitmapCubeTexture');
 			p.push('away.loaders.misc.ResourceDependency');
 			p.push('away.geom.Vector3D');
+			p.push('away.loaders.parsers.AWDProperties');
 			p.push('away.entities.Mesh');
+			p.push('away.loaders.parsers.bitFlags');
 			p.push('away.materials.ColorMaterial');
 			p.push('away.containers.ObjectContainer3D');
 			p.push('away.materials.utils.DefaultMaterialManager');
@@ -1655,88 +1657,6 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 					break;
 			}
 			return p;
-		};
-		
-		away.loaders.parsers.AWDParser$AWDBlock = function() {
-		this.bytes = null;
-		this.errorMessages = null;
-		this.data = null;
-		this.len = null;
-		this.extras = null;
-		this.id = 0;
-		this.geoID = 0;
-		this.name = null;
-		this.uvsForVertexAnimation = null;
-		};
-		
-		away.loaders.parsers.AWDParser$AWDBlock.prototype.dispose = function() {
-			this.id = null;
-			this.bytes = null;
-			this.errorMessages = null;
-			this.uvsForVertexAnimation = null;
-		};
-		
-		away.loaders.parsers.AWDParser$AWDBlock.prototype.addError = function(errorMsg) {
-			if (!this.errorMessages)
-				this.errorMessages = [];
-			this.errorMessages.push(errorMsg);
-		};
-		
-		away.loaders.parsers.AWDParser$bitFlags = function() {
-			
-		};
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG1 = 1;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG2 = 2;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG3 = 4;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG4 = 8;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG5 = 16;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG6 = 32;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG7 = 64;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG8 = 128;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG9 = 256;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG10 = 512;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG11 = 1024;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG12 = 2048;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG13 = 4096;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG14 = 8192;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG15 = 16384;
-		
-		away.loaders.parsers.AWDParser$bitFlags.FLAG16 = 32768;
-		
-		away.loaders.parsers.AWDParser$bitFlags.test = function(flags, testFlag) {
-			return (flags & testFlag) == testFlag;
-		};
-		
-		away.loaders.parsers.AWDParser$AWDProperties = function() {
-			
-		};
-		
-		away.loaders.parsers.AWDParser$AWDProperties.prototype.set = function(key, value) {
-			this[key.toString(10)] = value;
-		};
-		
-		away.loaders.parsers.AWDParser$AWDProperties.prototype.get = function(key, fallback) {
-			console.log("this.hasOwnProperty(key.toString());", key, fallback, this.hasOwnProperty(key.toString(10)));
-			if (this.hasOwnProperty(key.toString(10))) {
-				return this[key.toString(10)];
-			} else {
-				return fallback;
-			}
 		};
 		
 		

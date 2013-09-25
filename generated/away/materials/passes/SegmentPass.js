@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.materials.passes == "undefined")
 away.materials.passes.SegmentPass = function(thickness) {
 	this._thickness = 0;
 	this._calcMatrix = null;
-	this._constants = away.utils.VectorNumber.init(4, 0);
+	this._constants = away.utils.VectorInit.Num(4, 0);
 	away.materials.passes.MaterialPassBase.call(this, false);
 	this._calcMatrix = new away.geom.Matrix3D();
 	this._thickness = thickness;
@@ -88,7 +88,7 @@ away.materials.passes.SegmentPass.getRuntimeDependencies = function(t) {
 away.materials.passes.SegmentPass.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

@@ -1,6 +1,10 @@
-
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.parsers {
 	import away.events.EventDispatcher;
@@ -23,10 +27,11 @@ package away.loaders.parsers {
 	/**	 * <code>ParserBase</code> provides an abstract base class for objects that convert blocks of data to data structures	 * supported by Away3D.	 *	 * If used by <code>AssetLoader</code> to automatically determine the parser type, two public static methods should	 * be implemented, with the following signatures:	 *	 * <code>public static supportsType(extension : string) : boolean</code>	 * Indicates whether or not a given file extension is supported by the parser.	 *	 * <code>public static supportsData(data : *) : boolean</code>	 * Tests whether a data block can be parsed by the parser.	 *	 * Furthermore, for any concrete subtype, the method <code>initHandle</code> should be overridden to immediately	 * create the object that will contain the parsed data. This allows <code>ResourceManager</code> to return an object	 * handle regardless of whether the object was loaded or not.	 *	 * @see away3d.loading.parsers.AssetLoader	 * @see away3d.loading.ResourceManager	 */
 	public class ParserBase extends EventDispatcher
 	{
-		public var _iFileName:String// ARCANE		private var _dataFormat:String;
+		public var _iFileName:String = null;// ARCANE
+		private var _dataFormat:String = null;
 		private var _data:*;
-		private var _frameLimit:Number;
-		private var _lastFrameTime:Number;
+		private var _frameLimit:Number = 0;
+		private var _lastFrameTime:Number = 0;
 
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------
         // TODO: add error checking for the following ( could cause a problem if this function is not implemented )
@@ -45,18 +50,19 @@ package away.loaders.parsers {
         }
 
         /* TODO: Implement ParserUtil;		public _pGetTextData():string		{			return ParserUtil.toString(_data);		}				public _pGetByteData():ByteArray		{			return ParserUtil.toByteArray(_data);		}		*/
-		private var _dependencies:Vector.<ResourceDependency>//Vector.<ResourceDependency>;        private var _loaderType:String// Default loader is URLLoader = ParserLoaderType.URL_LOADER
-		private var _parsingPaused:Boolean;
-		private var _parsingComplete:Boolean;
-		private var _parsingFailure:Boolean;
+		private var _dependencies:Vector.<ResourceDependency>;//Vector.<ResourceDependency>
+        private var _loaderType:String = ParserLoaderType.URL_LOADER;// Default loader is URLLoader
+		private var _parsingPaused:Boolean = false;
+		private var _parsingComplete:Boolean = false;
+		private var _parsingFailure:Boolean = false;
 		private var _timer:Timer;
-		private var _materialMode:Number;
+		private var _materialMode:Number = 0;
 		
 		/**		 * Returned by <code>proceedParsing</code> to indicate no more parsing is needed.		 */
-		public static var PARSING_DONE:Boolean/* Protected */ = true
+		public static var PARSING_DONE:Boolean = true;/* Protected */
 		
 		/**		 * Returned by <code>proceedParsing</code> to indicate more parsing is needed, allowing asynchronous parsing.		 */
-        public static var MORE_TO_PARSE:Boolean/* Protected */ = false
+        public static var MORE_TO_PARSE:Boolean = false;/* Protected */
 		
 		
 		/**		 * Creates a new ParserBase object		 * @param format The data format of the file data to be parsed. Can be either <code>ParserDataFormat.BINARY</code> or <code>ParserDataFormat.PLAIN_TEXT</code>, and should be provided by the concrete subtype.         * @param loaderType The type of loader required by the parser		 *		 * @see away3d.loading.parsers.ParserDataFormat		 */

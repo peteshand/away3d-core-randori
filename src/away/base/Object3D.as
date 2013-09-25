@@ -1,5 +1,11 @@
-///<reference path="../_definitions.ts" />
-/** * @module away.base */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.base
 {
 	import away.library.assets.NamedAssetBase;
@@ -9,6 +15,7 @@ package away.base
 	import away.geom.Matrix3D;
 	import away.math.MathConsts;
 	import away.math.Matrix3DUtils;
+	import away.utils.VectorInit;
 	//import away3d.arcane;
 	//import away3d.controllers.*;
 	//import away3d.core.math.*;
@@ -33,7 +40,8 @@ package away.base
 	public class Object3D extends NamedAssetBase
 	{
 		/** @private */
-		public var _iController:ControllerBase// Arcane		
+		public var _iController:ControllerBase;// Arcane
+		
 		private var _smallestNumber:Number = 0.0000000000000000000001;
 		private var _transformDirty:Boolean = true;
 		
@@ -56,9 +64,9 @@ package away.base
 		private var _eulers:Vector3D = new Vector3D();
 		private var _flipY:Matrix3D = new Matrix3D();
 
-		private var _listenToPositionChanged:Boolean;
-		private var _listenToRotationChanged:Boolean;
-		private var _listenToScaleChanged:Boolean;
+		private var _listenToPositionChanged:Boolean = false;
+		private var _listenToRotationChanged:Boolean = false;
+		private var _listenToScaleChanged:Boolean = false;
 		private var _zOffset:Number = 0;
 		
 		private function invalidatePivot():void
@@ -555,7 +563,7 @@ package away.base
 			// Cached vector of transformation components used when
 			// recomposing the transform matrix in updateTransform()
 
-            this._transformComponents = new Vector.<Vector3D>(3);//_transformComponents = new Vector.<Vector3D>(3, true);
+            this._transformComponents = VectorInit.AnyClass(Vector3D, 3);//_transformComponents = new Vector.<Vector3D>(3, true);
 
 			this._transformComponents[0] = this._pPos;
             this._transformComponents[1] = this._rot;

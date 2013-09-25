@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -13,7 +19,7 @@ package away.materials.methods
 	public class EnvMapMethod extends EffectMethodBase
 	{
 		private var _cubeTexture:CubeTextureBase;
-		private var _alpha:Number;
+		private var _alpha:Number = 0;
 		private var _mask:Texture2DBase;
 
 		/**		 * Creates an EnvMapMethod object.		 * @param envMap The environment map containing the reflected scene.		 * @param alpha The reflectivity of the surface.		 */

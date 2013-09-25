@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.lightpickers
 {
@@ -22,7 +28,13 @@ package away.materials.lightpickers
         public var _pNumCastingDirectionalLights:Number = 0;
 		public var _pNumLightProbes:Number = 0;
 
-		public var _pAllPickedLights:Vector.<LightBase>//Vector.<LightBase>;        public var _pPointLights:Vector.<PointLight>//Vector.<PointLight>;        public var _pCastingPointLights:Vector.<PointLight>//Vector.<PointLight>;        public var _pDirectionalLights:Vector.<DirectionalLight>//Vector.<DirectionalLight>;        public var _pCastingDirectionalLights:Vector.<DirectionalLight>//Vector.<DirectionalLight>;        public var _pLightProbes:Vector.<LightProbe>//Vector.<LightProbe>;        public var _pLightProbeWeights:Vector.<Number>;
+		public var _pAllPickedLights:Vector.<LightBase>;//Vector.<LightBase>
+        public var _pPointLights:Vector.<PointLight>;//Vector.<PointLight>
+        public var _pCastingPointLights:Vector.<PointLight>;//Vector.<PointLight>
+        public var _pDirectionalLights:Vector.<DirectionalLight>;//Vector.<DirectionalLight>
+        public var _pCastingDirectionalLights:Vector.<DirectionalLight>;//Vector.<DirectionalLight>
+        public var _pLightProbes:Vector.<LightProbe>;//Vector.<LightProbe>
+        public var _pLightProbeWeights:Vector.<Number>;
 
 		/**		 * Creates a new LightPickerBase object.		 */
 		public function LightPickerBase():void

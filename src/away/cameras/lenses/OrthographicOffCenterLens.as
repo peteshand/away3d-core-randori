@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.cameras.lenses
 {
@@ -8,10 +12,10 @@ package away.cameras.lenses
 	public class OrthographicOffCenterLens extends LensBase
 	{
 		
-		private var _minX:Number;
-		private var _maxX:Number;
-		private var _minY:Number;
-		private var _maxY:Number;
+		private var _minX:Number = 0;
+		private var _maxX:Number = 0;
+		private var _minY:Number = 0;
+		private var _maxY:Number = 0;
 		
 		public function OrthographicOffCenterLens(minX:Number, maxX:Number, minY:Number, maxY:Number):void
 		{

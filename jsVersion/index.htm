@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Away3D</title>
+		<script src="away_min.js"></script>
+        <script src="main.js"></script>
+	</head>
+	<body>
+		<div id="myDiv"/>
+		<script type="text/javascript">
+            var away3d;
+			window.onload = function()
+			{
+				away3d = new Away3D();
+				away3d.stage.resize( 800, 600 );
+
+                var mainRotation = new MainRotation();
+
+			}
+		</script>
+	</body>
+</html>

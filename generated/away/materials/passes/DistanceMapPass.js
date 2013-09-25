@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,7 +14,7 @@ away.materials.passes.DistanceMapPass = function() {
 	this._alphaThreshold = 0;
 	away.materials.passes.MaterialPassBase.call(this, false);
 	this._fragmentData = [1, 255.0, 65025.0, 16581375.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0, 0.0, 0.0, 0, 0];
-	this._vertexData = away.utils.VectorNumber.init(4, 0);
+	this._vertexData = away.utils.VectorInit.Num(4, 0);
 	this._vertexData[3] = 1;
 	this._pNumUsedVertexConstants = 9;
 };
@@ -139,7 +139,7 @@ away.materials.passes.DistanceMapPass.getRuntimeDependencies = function(t) {
 	p.push('away.math.Matrix3DUtils');
 	p.push('away.display3D.Context3DProgramType');
 	p.push('away.display3D.Context3DTextureFormat');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:26 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:24 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -13,7 +13,7 @@ aglsl.assembler.RegMap._map;
 
 aglsl.assembler.RegMap.get_map = function() {
 	if (!aglsl.assembler.RegMap._map) {
-		aglsl.assembler.RegMap._map = [];
+		aglsl.assembler.RegMap._map = away.utils.VectorInit.StarVec(0, "");
 		aglsl.assembler.RegMap._map["va"] = new aglsl.assembler.Reg(0x00, "vertex attribute");
 		aglsl.assembler.RegMap._map["fc"] = new aglsl.assembler.Reg(0x01, "fragment constant");
 		aglsl.assembler.RegMap._map["vc"] = new aglsl.assembler.Reg(0x01, "vertex constant");
@@ -38,6 +38,7 @@ aglsl.assembler.RegMap.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('aglsl.assembler.Reg');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

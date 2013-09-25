@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -12,9 +18,9 @@ package away.materials.methods
 	public class FresnelSpecularMethod extends CompositeSpecularMethod
 	{
 		private var _dataReg:ShaderRegisterElement;
-		private var _incidentLight:Boolean;
+		private var _incidentLight:Boolean = false;
 		private var _fresnelPower:Number = 5;
-		private var _normalReflectance:Number// default value for skin = 028
+		private var _normalReflectance:Number = 028;// default value for skin
 		
 		/**		 * Creates a new FresnelSpecularMethod object.		 * @param basedOnSurface Defines whether the fresnel effect should be based on the view angle on the surface (if true), or on the angle between the light and the view.		 * @param baseSpecularMethod The specular method to which the fresnel equation. Defaults to BasicSpecularMethod.		 */
 		public function FresnelSpecularMethod(basedOnSurface:Boolean = true, baseSpecularMethod:BasicSpecularMethod = null):void

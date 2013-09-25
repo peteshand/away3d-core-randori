@@ -1,5 +1,10 @@
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.net {
 	import away.events.EventDispatcher;
@@ -288,15 +293,16 @@ package away.net {
             {
 
                 this._XHR = new XMLHttpRequest();
+				var that:URLLoader = this;
 
-                this._XHR.onloadstart = this.onLoadStart;                 // loadstart	        - When the request starts.
-                this._XHR.onprogress = this.onProgress;	                // progress	            - While loading and sending data.
-                this._XHR.onabort = this.onAbort;	                        // abort	            - When the request has been aborted, either by invoking the abort() method or navigating away from the page.
-                this._XHR.onerror = onLoadError;                     // error	            - When the request has failed.
-                this._XHR.onload = onLoadComplete;                   // load	                - When the request has successfully completed.
-                this._XHR.ontimeout	= this.onTimeOut;                     // timeout	            - When the author specified timeout has passed before the request could complete.
-                this._XHR.onloadend	= this.onLoadEnd;                     // loadend	            - When the request has completed, regardless of whether or not it was successful.
-                this._XHR.onreadystatechange = this.onReadyStateChange;   // onreadystatechange   - When XHR state changes
+                this._XHR.onloadstart = function(event):void{ that.onLoadStart(event)};                 // loadstart	        - When the request starts.
+                this._XHR.onprogress = function(event):void{ that.onProgress(event)};	                // progress	            - While loading and sending data.
+                this._XHR.onabort = function(event):void{ that.onAbort(event)};	                        // abort	            - When the request has been aborted, either by invoking the abort() method or navigating away from the page.
+                this._XHR.onerror = function(event):void{ that.onLoadError(event)};                     // error	            - When the request has failed.
+                this._XHR.onload = function(event):void{ that.onLoadComplete(event)};                   // load	                - When the request has successfully completed.
+                this._XHR.ontimeout	= function(event):void{ that.onTimeOut(event)};                     // timeout	            - When the author specified timeout has passed before the request could complete.
+                this._XHR.onloadend	= function(event):void{ that.onLoadEnd(event)};                     // loadend	            - When the request has completed, regardless of whether or not it was successful.
+                this._XHR.onreadystatechange = function(event):void{ that.onReadyStateChange(event)};   // onreadystatechange   - When XHR state changes
 
             }
 

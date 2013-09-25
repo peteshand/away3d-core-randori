@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.render
 {
@@ -18,9 +24,9 @@ package away.render
 	public class DepthRenderer extends RendererBase
 	{
 		private var _activeMaterial:MaterialBase;
-		private var _renderBlended:Boolean;
-		private var _distanceBased:Boolean;
-		private var _disableColor:Boolean;
+		private var _renderBlended:Boolean = false;
+		private var _distanceBased:Boolean = false;
+		private var _disableColor:Boolean = false;
 		
 		/**		 * Creates a new DepthRenderer object.		 * @param renderBlended Indicates whether semi-transparent objects should be rendered.		 * @param distanceBased Indicates whether the written depth value is distance-based or projected depth-based		 */
 		public function DepthRenderer(renderBlended:Boolean = false, distanceBased:Boolean = false):void

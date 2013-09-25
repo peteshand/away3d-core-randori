@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:13:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,7 +7,7 @@ if (typeof away.filters == "undefined")
 
 away.filters.Filter3DBase = function() {
 	this._textureHeight = 0;
-	this._requireDepthRender = null;
+	this._requireDepthRender = false;
 	this._tasks = null;
 	this._textureWidth = 0;
 	this._tasks = [];

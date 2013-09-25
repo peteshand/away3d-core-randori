@@ -1,7 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../_definitions.ts"/>
-
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.entities
 {
@@ -12,20 +15,20 @@ package away.entities
 	public class SubSet
 	{
 		public var vertices:Vector.<Number>;
-		public var numVertices:Number;
+		public var numVertices:Number = 0;
 		
 		public var indices:Vector.<Number>;
-		public var numIndices:Number;
+		public var numIndices:Number = 0;
 		
-		public var vertexBufferDirty:Boolean;
-		public var indexBufferDirty:Boolean;
+		public var vertexBufferDirty:Boolean = false;
+		public var indexBufferDirty:Boolean = false;
 		
 		public var vertexContext3D:Context3D;
 		public var indexContext3D:Context3D;
 		
 		public var vertexBuffer:VertexBuffer3D;
 		public var indexBuffer:IndexBuffer3D;
-		public var lineCount:Number;
+		public var lineCount:Number = 0;
 		
 		public function dispose():void
 		{

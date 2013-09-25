@@ -1,5 +1,11 @@
-///<reference path="../_definitions.ts"/>
-/** * @module away.base */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.base
 {
 	import away.library.assets.NamedAssetBase;
@@ -10,7 +16,8 @@ package away.base
     /**     *	 * Geometry is a collection of SubGeometries, each of which contain the actual geometrical data such as vertices,	 * normals, uvs, etc. It also contains a reference to an animation class, which defines how the geometry moves.	 * A Geometry object is assigned to a Mesh, a scene graph occurence of the geometry, which in turn assigns	 * the SubGeometries to its respective SubMesh objects.	 *	 *	 *	 * @see away3d.core.base.SubGeometry	 * @see away3d.scenegraph.Mesh     *     * @class away.base.Geometry	 */
 	public class Geometry extends NamedAssetBase implements IAsset
 	{
-        private var _subGeometries:Vector.<ISubGeometry>//Vector.<ISubGeometry>;//private var _subGeometries:Vector.<ISubGeometry>;		
+        private var _subGeometries:Vector.<ISubGeometry>;//Vector.<ISubGeometry>//private var _subGeometries:Vector.<ISubGeometry>
+		
 		override public function get assetType():String
 		{
 

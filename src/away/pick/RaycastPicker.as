@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.pick
 {
@@ -14,13 +20,14 @@ package away.pick
 
 	public class RaycastPicker implements IPicker
 	{
-		private var _findClosestCollision:Boolean;
+		private var _findClosestCollision:Boolean = false;
 		private var _raycastCollector:RaycastCollector = new RaycastCollector ();
 		private var _ignoredEntities:Array = new Array();
 		private var _onlyMouseEnabled:Boolean = true;
 		
-		private var _entities:Vector.<Entity>//Vector.<Entity>;		private var _numEntities:Number = 0;
-		private var _hasCollisions:Boolean;
+		private var _entities:Vector.<Entity>;//Vector.<Entity>
+		private var _numEntities:Number = 0;
+		private var _hasCollisions:Boolean = false;
 		
 		/**		 * @inheritDoc		 */
 		public function get onlyMouseEnabled():Boolean

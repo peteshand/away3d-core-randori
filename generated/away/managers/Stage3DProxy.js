@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,20 +16,20 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._renderTarget = null;
 	this._enterFrame = null;
 	this._exitFrame = null;
-	this._contextRequested = null;
+	this._contextRequested = false;
 	this._color = 0;
-	this._enableDepthAndStencil = null;
-	this._viewportDirty = null;
-	this._bufferClear = null;
+	this._enableDepthAndStencil = false;
+	this._viewportDirty = false;
+	this._bufferClear = false;
 	this._iContext3D = null;
-	this._backBufferDirty = null;
+	this._backBufferDirty = false;
 	this._scissorRect = null;
 	this._viewPort = null;
 	this._profile = null;
 	this._mouse3DManager = null;
 	this._backBufferHeight = 0;
 	this._backBufferWidth = 0;
-	this._usesSoftwareRendering = null;
+	this._usesSoftwareRendering = false;
 	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	away.events.EventDispatcher.call(this);

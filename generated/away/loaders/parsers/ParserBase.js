@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:46 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,12 +14,12 @@ away.loaders.parsers.ParserBase = function(format, loaderType) {
 	this._iFileName = null;
 	this._dependencies = null;
 	this._data = null;
-	this._parsingPaused = null;
+	this._parsingPaused = false;
 	this._dataFormat = null;
 	this._timer = null;
 	this._loaderType = away.loaders.parsers.ParserLoaderType.URL_LOADER;
-	this._parsingFailure = null;
-	this._parsingComplete = null;
+	this._parsingFailure = false;
+	this._parsingComplete = false;
 	loaderType = loaderType || null;
 	away.events.EventDispatcher.call(this);
 	if (loaderType) {

@@ -1,3 +1,10 @@
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.errors
 {
@@ -5,9 +12,9 @@ package away.errors
     public class Error
     {
 
-        private var _errorID:Number//Contains the reference number associated with the specific error message. = 0
-        private var _messsage:String//Contains the message associated with the Error object. = '';
-        private var _name:String// Contains the name of the Error object. = '';
+        private var _errorID:Number = 0;//Contains the reference number associated with the specific error message.
+        private var _messsage:String = '';//Contains the message associated with the Error object.
+        private var _name:String = '';// Contains the name of the Error object.
 
         public function Error(message:String = '', id:Number = 0, _name:String = ''):void
         {

@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.cameras.lenses
 {
@@ -8,18 +12,18 @@ package away.cameras.lenses
 	public class PerspectiveOffCenterLens extends LensBase
 	{
 		
-		private var _minAngleX:Number;
-		private var _minLengthX:Number;
-		private var _tanMinX:Number;
-		private var _maxAngleX:Number;
-		private var _maxLengthX:Number;
-		private var _tanMaxX:Number;
-		private var _minAngleY:Number;
-		private var _minLengthY:Number;
-		private var _tanMinY:Number;
-		private var _maxAngleY:Number;
-		private var _maxLengthY:Number;
-		private var _tanMaxY:Number;
+		private var _minAngleX:Number = 0;
+		private var _minLengthX:Number = 0;
+		private var _tanMinX:Number = 0;
+		private var _maxAngleX:Number = 0;
+		private var _maxLengthX:Number = 0;
+		private var _tanMaxX:Number = 0;
+		private var _minAngleY:Number = 0;
+		private var _minLengthY:Number = 0;
+		private var _tanMinY:Number = 0;
+		private var _maxAngleY:Number = 0;
+		private var _maxLengthY:Number = 0;
+		private var _tanMaxY:Number = 0;
 		
 		public function PerspectiveOffCenterLens(minAngleX:Number = -40, maxAngleX:Number = 40, minAngleY:Number = -40, maxAngleY:Number = 40):void
 		{

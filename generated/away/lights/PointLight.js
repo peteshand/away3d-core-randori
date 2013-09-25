@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:59 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:30 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -67,7 +67,7 @@ away.lights.PointLight.prototype.pGetDefaultBoundingVolume = function() {
 
 away.lights.PointLight.prototype.iGetObjectProjectionMatrix = function(renderable, target) {
 	target = target || null;
-	var raw = [];
+	var raw = away.utils.VectorInit.AnyClass(Number);
 	var bounds = renderable.get_sourceEntity().get_bounds();
 	var m = new away.geom.Matrix3D();
 	m.copyFrom(renderable.get_sceneTransform());
@@ -120,10 +120,12 @@ away.lights.PointLight.getRuntimeDependencies = function(t) {
 	p.push('away.lights.shadowmaps.CubeMapShadowMapper');
 	p.push('away.geom.Vector3D');
 	p.push('away.geom.Matrix3D');
+	p.push('Number');
 	p.push('*away.base.IRenderable');
 	p.push('away.bounds.BoundingVolumeBase');
 	p.push('away.partition.PointLightNode');
 	p.push('away.bounds.BoundingSphere');
+	p.push('away.utils.VectorInit');
 	p.push('away.containers.ObjectContainer3D');
 	return p;
 };

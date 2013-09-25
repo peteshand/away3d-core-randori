@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders
 {
@@ -120,12 +124,15 @@ package away.loaders
 	{
 		private var _context:AssetLoaderContext;
 		private var _token:AssetLoaderToken;
-		private var _uri:String;
+		private var _uri:String = null;
 		
-		private var _errorHandlers:Vector.<Function>//Vector.<Function>;		private var _parseErrorHandlers:Vector.<Function>//Vector.<Function>;		
-		private var _stack:Vector.<ResourceDependency>//Vector.<ResourceDependency>;		private var _baseDependency:ResourceDependency;
+		private var _errorHandlers:Vector.<Function>;//Vector.<Function>
+		private var _parseErrorHandlers:Vector.<Function>;//Vector.<Function>
+		
+		private var _stack:Vector.<ResourceDependency>;//Vector.<ResourceDependency>
+		private var _baseDependency:ResourceDependency;
 		private var _loadingDependency:ResourceDependency;
-		private var _namespace:String;
+		private var _namespace:String = null;
 		
 		/**		 * Returns the base dependency of the loader		 */
 		public function get baseDependency():ResourceDependency

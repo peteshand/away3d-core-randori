@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.geom
 {
@@ -8,14 +14,14 @@ package away.geom
     public class ColorTransform
     {
 
-        public var alphaMultiplier:Number;
-        public var alphaOffset:Number;
-        public var blueMultiplier:Number;
-        public var blueOffset:Number;
-        public var greenMultiplier:Number;
-        public var greenOffset:Number;
-        public var redMultiplier:Number;
-        public var redOffset:Number;
+        public var alphaMultiplier:Number = 0;
+        public var alphaOffset:Number = 0;
+        public var blueMultiplier:Number = 0;
+        public var blueOffset:Number = 0;
+        public var greenMultiplier:Number = 0;
+        public var greenOffset:Number = 0;
+        public var redMultiplier:Number = 0;
+        public var redOffset:Number = 0;
 
         public function ColorTransform(inRedMultiplier:Number = 1.0, inGreenMultiplier:Number = 1.0, inBlueMultiplier:Number = 1.0, inAlphaMultiplier:Number = 1.0, inRedOffset:Number = 0.0, inGreenOffset:Number = 0.0, inBlueOffset:Number = 0.0, inAlphaOffset:Number = 0.0):void
         {

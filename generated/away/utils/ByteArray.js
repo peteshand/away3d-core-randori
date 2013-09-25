@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 23:06:48 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -25,7 +25,7 @@ away.utils.ByteArray.prototype.setArrayBuffer = function(aBuffer) {
 	this.length = aBuffer.byteLength;
 	var inInt8AView = new Int8Array(aBuffer);
 	var localInt8View = new Int8Array(this.arraybytes, 0, this.length);
-	localInt8View.set(inInt8AView, -1);
+	localInt8View.set(inInt8AView, 0);
 	this.position = 0;
 };
 
@@ -116,7 +116,7 @@ away.utils.ByteArray.prototype.writeUnsignedShort = function(b) {
 away.utils.ByteArray.prototype.readUTFBytes = function(len) {
 	var value = "";
 	var max = this.position + len;
-	var data = new DataView(this.arraybytes, 0, 0);
+	var data = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
 	while (this.position < max) {
 		var c = data.getUint8(this.position++);
 		if (c < 0x80) {
@@ -138,21 +138,21 @@ away.utils.ByteArray.prototype.readUTFBytes = function(len) {
 };
 
 away.utils.ByteArray.prototype.readInt = function() {
-	var data = new DataView(this.arraybytes, 0, 0);
+	var data = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
 	var int = data.getInt32(this.position);
 	this.position += 4;
 	return int;
 };
 
 away.utils.ByteArray.prototype.readShort = function() {
-	var data = new DataView(this.arraybytes, 0, 0);
+	var data = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
 	var short = data.getInt16(this.position);
 	this.position += 2;
 	return short;
 };
 
 away.utils.ByteArray.prototype.readDouble = function() {
-	var data = new DataView(this.arraybytes, 0, 0);
+	var data = new DataView(this.arraybytes, 0, this.arraybytes.byteLength);
 	var double = data.getFloat64(this.position);
 	this.position += 8;
 	return double;
@@ -269,7 +269,9 @@ away.utils.ByteArray.className = "away.utils.ByteArray";
 
 away.utils.ByteArray.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('Object');
+	return p;
 };
 
 away.utils.ByteArray.getStaticDependencies = function(t) {

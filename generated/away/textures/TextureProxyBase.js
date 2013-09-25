@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,8 +13,8 @@ away.textures.TextureProxyBase = function() {
 	this._pWidth = 0;
 	this._pHeight = 0;
 	away.library.assets.NamedAssetBase.call(this, null);
-	this._textures = [null, null, null, null, null, null, null, null];
-	this._dirty = [null, null, null, null, null, null, null, null];
+	this._textures = away.utils.VectorInit.AnyClass(away.display3D.TextureBase, 8);
+	this._dirty = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 };
 
 away.textures.TextureProxyBase.prototype.get_hasMipMaps = function() {
@@ -99,7 +99,10 @@ away.textures.TextureProxyBase.className = "away.textures.TextureProxyBase";
 away.textures.TextureProxyBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.display3D.TextureBase');
 	p.push('away.errors.AbstractMethodError');
+	p.push('away.display3D.Context3D');
+	p.push('away.utils.VectorInit');
 	p.push('away.library.assets.AssetType');
 	return p;
 };

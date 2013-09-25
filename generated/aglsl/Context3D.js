@@ -1,10 +1,10 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:00 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:25 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
 
 aglsl.Context3D = function() {
-this.resources = [];
+this.resources = away.utils.VectorInit.StarVec(0, "");
 this.enableErrorChecking = false;
 this.driverInfo = "Call getter function instead";
 };
@@ -32,6 +32,7 @@ aglsl.Context3D.getStaticDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('aglsl.Sampler');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

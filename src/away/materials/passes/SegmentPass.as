@@ -1,8 +1,15 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.passes
 {
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	import away.geom.Matrix3D;
 	import away.base.IRenderable;
 	import away.managers.Stage3DProxy;
@@ -11,17 +18,23 @@ package away.materials.passes
 	import away.entities.SegmentSet;
 	import away.display3D.Context3DProgramType;
 
-	/**	 * SegmentPass is a material pass that draws wireframe segments.	 */
+	/**
+	 * SegmentPass is a material pass that draws wireframe segments.
+	 */
 	public class SegmentPass extends MaterialPassBase
 	{
 		public static var pONE_VECTOR:Vector.<Number> = new <Number>[1, 1, 1, 1];
 		public static var pFRONT_VECTOR:Vector.<Number> = new <Number>[0, 0, -1, 0];
 		
-		private var _constants:Vector.<Number> = VectorNumber.init(4);
+		private var _constants:Vector.<Number> = VectorInit.Num(4);
 		private var _calcMatrix:Matrix3D;
-		private var _thickness:Number;
+		private var _thickness:Number = 0;
 		
-		/**		 * Creates a new SegmentPass object.		 *		 * @param thickness the thickness of the segments to be drawn.		 */
+		/**
+		 * Creates a new SegmentPass object.
+		 *
+		 * @param thickness the thickness of the segments to be drawn.
+		 */
 		public function SegmentPass(thickness:Number):void
 		{
 
@@ -34,7 +47,9 @@ package away.materials.passes
 
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetVertexCode():String
 		{
 			return "m44 vt0, va0, vc8			\n" + // transform Q0 to eye space
@@ -98,13 +113,18 @@ package away.materials.passes
 				"mov v0, va3				\n";
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iGetFragmentCode(animationCode:String):String
 		{
 			return "mov oc, v0\n";
 		}
 		
-		/**		 * @inheritDoc		 * todo: keep maps in dictionary per renderable		 */
+		/**
+		 * @inheritDoc
+		 * todo: keep maps in dictionary per renderable
+		 */
 		override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
@@ -126,7 +146,9 @@ package away.materials.passes
 			}
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;
@@ -148,7 +170,9 @@ package away.materials.passes
 			context.setProgramConstantsFromMatrix(Context3DProgramType.VERTEX, 0, camera.lens.matrix, true);
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		public function pDeactivate(stage3DProxy:Stage3DProxy):void
 		{
 			var context:Context3D = stage3DProxy._iContext3D;

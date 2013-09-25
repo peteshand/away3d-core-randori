@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:18 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.primitives.CubeGeometry = function(width, height, depth, segmentsW, segment
 	this._segmentsH = 0;
 	this._width = 0;
 	this._height = 0;
-	this._tile6 = null;
+	this._tile6 = false;
 	this._segmentsW = 0;
 	width = width || 100;
 	height = height || 100;
@@ -110,10 +110,10 @@ away.primitives.CubeGeometry.prototype.pBuildGeometry = function(target) {
 	var skip = stride - 9;
 	if (numVerts == target.get_numVertices()) {
 		data = target.get_vertexData();
-		indices = target.get_indexData() ? target.get_indexData() : away.utils.VectorNumber.init((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
+		indices = target.get_indexData() ? target.get_indexData() : away.utils.VectorInit.Num((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
 	} else {
-		data = away.utils.VectorNumber.init(numVerts * stride, 0);
-		indices = away.utils.VectorNumber.init((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
+		data = away.utils.VectorInit.Num(numVerts * stride, 0);
+		indices = away.utils.VectorInit.Num((this._segmentsW * this._segmentsH + this._segmentsW * this._segmentsD + this._segmentsH * this._segmentsD) * 12, 0);
 		this.pInvalidateUVs();
 	}
 	vidx = target.get_vertexOffset();
@@ -272,7 +272,7 @@ away.primitives.CubeGeometry.prototype.pBuildUVs = function(target) {
 	var skip = stride - 2;
 	if (target.get_UVData() && numUvs == target.get_UVData().length)
 		data = target.get_UVData(); else {
-		data = away.utils.VectorNumber.init(numUvs, 0);
+		data = away.utils.VectorInit.Num(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	if (this._tile6) {
@@ -345,7 +345,7 @@ away.primitives.CubeGeometry.className = "away.primitives.CubeGeometry";
 away.primitives.CubeGeometry.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

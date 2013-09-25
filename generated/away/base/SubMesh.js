@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:43 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:26 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,7 +14,7 @@ away.base.SubMesh = function(subGeometry, parentMesh, material) {
 	this._iIndex = 0;
 	this._offsetV = 0;
 	this._offsetU = 0;
-	this._uvTransformDirty = null;
+	this._uvTransformDirty = false;
 	this._uvRotation = 0;
 	this._iMaterial = null;
 	material = material || null;

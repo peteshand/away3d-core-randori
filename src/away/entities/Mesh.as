@@ -1,4 +1,11 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.entities
 {
 	import away.base.IMaterialOwner;
@@ -31,7 +38,9 @@ package away.entities
 	/**	 * Mesh is an instance of a Geometry, augmenting it with a presence in the scene graph, a material, and an animation	 * state. It consists out of SubMeshes, which in turn correspond to SubGeometries. SubMeshes allow different parts	 * of the geometry to be assigned different materials.	 */
 	public class Mesh extends Entity implements IMaterialOwner
 	{
-		private var _subMeshes:Vector.<SubMesh>//:Vector.<SubMesh>;		private var _geometry:Geometry//Geometry;		private var _material:MaterialBase;
+		private var _subMeshes:Vector.<SubMesh>;//:Vector.<SubMesh>
+		private var _geometry:Geometry;//Geometry
+		private var _material:MaterialBase;
 		private var _animator:IAnimator;
 		private var _castsShadows:Boolean = true;
 		private var _shareAnimationGeometry:Boolean = true;

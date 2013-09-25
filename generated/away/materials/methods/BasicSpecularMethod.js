@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.materials.methods == "undefined")
 	away.materials.methods = {};
 
 away.materials.methods.BasicSpecularMethod = function() {
-	this._useTexture = null;
+	this._useTexture = false;
 	this._iSpecularG = 1;
 	this._shadowRegister = null;
 	this._specularDataRegister = null;
@@ -20,7 +20,7 @@ away.materials.methods.BasicSpecularMethod = function() {
 	this._specularTexData = null;
 	this._gloss = 50;
 	this._texture = null;
-	this._isFirstLight = null;
+	this._isFirstLight = false;
 	this._iSpecularR = 1;
 	away.materials.methods.LightingMethodBase.call(this);
 };

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,14 +8,14 @@ if (typeof away.entities == "undefined")
 away.entities.Entity = function() {
 	this._worldBoundsInvalid = true;
 	this._iPickingCollisionVO = null;
-	this._iStaticNode = null;
+	this._iStaticNode = false;
 	this._worldBounds = null;
 	this._pBounds = null;
-	this._showBounds = null;
-	this._boundsIsShown = null;
+	this._showBounds = false;
+	this._boundsIsShown = false;
 	this._pBoundsInvalid = true;
 	this._iPickingCollider = null;
-	this._shaderPickingDetails = null;
+	this._shaderPickingDetails = false;
 	this._partitionNode = null;
 	away.containers.ObjectContainer3D.call(this);
 	this._pBounds = this.pGetDefaultBoundingVolume();

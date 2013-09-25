@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.managers
 {
@@ -26,8 +32,8 @@ package away.managers
 		private var _renderToTextureRect:Rectangle;
 		private var _buffersInvalid:Boolean = true;
 		
-		private var _textureRatioX:Number;
-		private var _textureRatioY:Number;
+		private var _textureRatioX:Number = 0;
+		private var _textureRatioY:Number = 0;
 		
 		public function RTTBufferManager(se:SingletonEnforcer, stage3DProxy:Stage3DProxy):void
 		{

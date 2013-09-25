@@ -1,5 +1,10 @@
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.library.assets
 {
@@ -9,14 +14,15 @@ package away.library.assets
 
 	public class NamedAssetBase extends EventDispatcher
 	{
-		private var _originalName:String;
-		private var _namespace:String;
-		private var _name:String;
-		private var _id:String;
+		private var _originalName:String = null;
+		private var _namespace:String = null;
+		private var _name:String = null;
+		private var _id:String = null;
 		private var _full_path:Vector.<String>;
-        private var _assetType:String;
+        private var _assetType:String = null;
 
-		public static var DEFAULT_NAMESPACE:String = 'default';		
+		public static var DEFAULT_NAMESPACE:String = 'default';
+		
 		public function NamedAssetBase(name:String):void
 		{
             super();

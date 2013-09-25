@@ -1,5 +1,10 @@
-
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.base.data
 {
@@ -7,8 +12,8 @@ package away.base.data
     /**     * Texture coordinates value object.     */
     public class UV
     {
-        private var _u:Number;
-        private var _v:Number;
+        private var _u:Number = 0;
+        private var _v:Number = 0;
 
         /**         * Creates a new <code>UV</code> object.         *         * @param    u        [optional]    The horizontal coordinate of the texture value. Defaults to 0.         * @param    v        [optional]    The vertical coordinate of the texture value. Defaults to 0.         */
         public function UV(u:Number = 0, v:Number = 0):void

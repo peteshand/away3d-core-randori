@@ -1,11 +1,17 @@
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.display {
 	import away.geom.Rectangle;
 	import away.utils.ColorUtils;
 	import away.geom.Matrix;
 	import randori.webkit.html.HTMLCanvasElement;
-	import randori.webkit.html.canvas.CanvasRenderingContext2D;
+	import wrappers.CanvasRenderingContext2D;
 	import randori.webkit.html.ImageData;
 	import randori.webkit.page.Window;
 	import randori.webkit.html.HTMLImageElement;
@@ -18,7 +24,7 @@ package away.display {
         private var _context:CanvasRenderingContext2D;
         private var _imageData:ImageData;
         private var _rect:Rectangle;
-        private var _transparent:Boolean;
+        private var _transparent:Boolean = false;
         private var _alpha:Number = 1;
         private var _locked:Boolean = false;
 
@@ -81,7 +87,7 @@ package away.display {
             if ( this._imageData )
             {
 
-                this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                this._context.putImageData2( this._imageData, 0, 0); // at coords 0,0
                 this._imageData = null;
 
             }
@@ -112,7 +118,7 @@ package away.display {
             {
                 if (  this._imageData )
                 {
-                    this._context.putImageData( this._imageData, 0, 0, 0);
+                    this._context.putImageData2( this._imageData, 0, 0, 0);
                 }
 
                 this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
@@ -155,7 +161,7 @@ package away.display {
 
             if ( ! this._locked )
             {
-                this._context.putImageData( this._imageData, 0, 0, 0);
+                this._context.putImageData2( this._imageData, 0, 0, 0);
                 this._imageData = null;
             }
 
@@ -184,7 +190,7 @@ package away.display {
 
             if ( ! this._locked )
             {
-                this._context.putImageData( this._imageData, 0, 0, 0);
+                this._context.putImageData2( this._imageData, 0, 0, 0);
                 this._imageData = null;
             }
 
@@ -204,7 +210,7 @@ package away.display {
 
                 if (  this._imageData )
                 {
-                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData2( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
                 this._drawImage(img , sourceRect , destRect );
@@ -225,11 +231,13 @@ package away.display {
         {
             if ( img instanceof BitmapData )
             {
-                this._context.drawImage3(img.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+				var bmd:BitmapData = (img as BitmapData);
+                this._context.drawImage6(bmd.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
             else if ( img instanceof HTMLImageElement )
             {
-                this._context.drawImage3(img , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+				var image:HTMLImageElement = (img as HTMLImageElement);
+                this._context.drawImage3(image , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
         }
 
@@ -248,7 +256,7 @@ package away.display {
 
                 if (  this._imageData )
                 {
-                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData2( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
                 this._copyPixels(  bmpd , sourceRect , destRect );
@@ -269,11 +277,13 @@ package away.display {
 
             if ( bmpd instanceof BitmapData )
             {
-                this._context.drawImage3( bmpd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+				var bmd:BitmapData = (bmpd as BitmapData);
+                this._context.drawImage6( bmd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
             else if ( bmpd instanceof HTMLImageElement )
             {
-                this._context.drawImage3( bmpd , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+				var image:HTMLImageElement = (bmpd as HTMLImageElement);
+                this._context.drawImage3( image , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
 
         }
@@ -293,7 +303,7 @@ package away.display {
 
                 if (  this._imageData )
                 {
-                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData2( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
                 this._context.fillStyle = this.hexToRGBACSS( color );
@@ -329,7 +339,7 @@ package away.display {
 
                 if (  this._imageData )
                 {
-                    this._context.putImageData( this._imageData, 0, 0, 0); // at coords 0,0
+                    this._context.putImageData2( this._imageData, 0, 0, 0); // at coords 0,0
                 }
 
                 this._draw( source , matrix );
@@ -350,17 +360,19 @@ package away.display {
 
             if ( source instanceof BitmapData )
             {
+				var bmd:BitmapData = (source as BitmapData);
                 this._context.save();
                 this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                this._context.drawImage1(source.canvas, 0, 0)
+                this._context.drawImage4(bmd.canvas, 0, 0)
                 this._context.restore();
 
             }
             else if ( source instanceof HTMLImageElement )
             {
+				var image:HTMLImageElement = (source as HTMLImageElement);
                 this._context.save();
                 this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                this._context.drawImage1(source, 0, 0)
+                this._context.drawImage1(image, 0, 0)
                 this._context.restore();
             }
 
@@ -371,7 +383,7 @@ package away.display {
         /**         *         * @param {ImageData}         */
         public function set imageData(value:ImageData):void
         {
-            this._context.putImageData( value , 0 , 0, 0 );
+            this._context.putImageData2( value , 0 , 0, 0 );
         }
 
         /**         *         * @returns {ImageData}         */

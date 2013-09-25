@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.base.data
 {
@@ -6,10 +12,10 @@ package away.base.data
 	/**	 * Vertex value object.	 */
 	public class Vertex
 	{
-		private var _x:Number;
-		private var _y:Number;
-		private var _z:Number;
-		private var _index:Number;
+		private var _x:Number = 0;
+		private var _y:Number = 0;
+		private var _z:Number = 0;
+		private var _index:Number = 0;
 		
 		/**		 * Creates a new <code>Vertex</code> value object.		 *		 * @param    x            [optional]    The x value. Defaults to 0.		 * @param    y            [optional]    The y value. Defaults to 0.		 * @param    z            [optional]    The z value. Defaults to 0.		 * @param    index        [optional]    The index value. Defaults is NaN.		 */
 		public function Vertex(x:Number = 0, y:Number = 0, z:Number = 0, index:Number = 0):void

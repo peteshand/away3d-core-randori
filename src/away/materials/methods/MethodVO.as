@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -9,25 +15,28 @@ package away.materials.methods
 		public var fragmentData:Vector.<Number>;
 		
 		// public register indices
-		public var texturesIndex:Number;
-		public var secondaryTexturesIndex:Number// sometimes needed for composites		public var vertexConstantsIndex:Number;
-		public var secondaryVertexConstantsIndex:Number// sometimes needed for composites		public var fragmentConstantsIndex:Number;
-		public var secondaryFragmentConstantsIndex:Number// sometimes needed for composites		
-		public var useMipmapping:Boolean;
-		public var useSmoothTextures:Boolean;
-		public var repeatTextures:Boolean;
+		public var texturesIndex:Number = 0;
+		public var secondaryTexturesIndex:Number = 0;// sometimes needed for composites
+		public var vertexConstantsIndex:Number = 0;
+		public var secondaryVertexConstantsIndex:Number = 0;// sometimes needed for composites
+		public var fragmentConstantsIndex:Number = 0;
+		public var secondaryFragmentConstantsIndex:Number = 0;// sometimes needed for composites
+		
+		public var useMipmapping:Boolean = false;
+		public var useSmoothTextures:Boolean = false;
+		public var repeatTextures:Boolean = false;
 		
 		// internal stuff for the material to know before assembling code
-		public var needsProjection:Boolean;
-		public var needsView:Boolean;
-		public var needsNormals:Boolean;
-		public var needsTangents:Boolean;
-		public var needsUV:Boolean;
-		public var needsSecondaryUV:Boolean;
-		public var needsGlobalVertexPos:Boolean;
-		public var needsGlobalFragmentPos:Boolean;
+		public var needsProjection:Boolean = false;
+		public var needsView:Boolean = false;
+		public var needsNormals:Boolean = false;
+		public var needsTangents:Boolean = false;
+		public var needsUV:Boolean = false;
+		public var needsSecondaryUV:Boolean = false;
+		public var needsGlobalVertexPos:Boolean = false;
+		public var needsGlobalFragmentPos:Boolean = false;
 		
-		public var numLights:Number;
+		public var numLights:Number = 0;
 		public var useLightFallOff:Boolean = true;
 
 		/**		 * Creates a new MethodVO object.		 */

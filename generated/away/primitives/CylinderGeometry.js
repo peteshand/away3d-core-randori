@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:21:17 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.primitives.CylinderGeometry = function(topRadius, bottomRadius, height, seg
 	this._nextVertexIndex = 0;
 	this._currentIndex = 0;
 	this._pSegmentsH = 0;
-	this._yUp = null;
+	this._yUp = false;
 	this._stride = 0;
 	this._numVertices = 0;
 	this._height = 0;
@@ -17,11 +17,11 @@ away.primitives.CylinderGeometry = function(topRadius, bottomRadius, height, seg
 	this._rawIndices = null;
 	this._vertexOffset = 0;
 	this._currentTriangleIndex = 0;
-	this._surfaceClosed = null;
+	this._surfaceClosed = false;
 	this._topRadius = 0;
-	this._bottomClosed = null;
+	this._bottomClosed = false;
 	this._pBottomRadius = 0;
-	this._topClosed = null;
+	this._topClosed = false;
 	this._pSegmentsW = 0;
 	topRadius = topRadius || 50;
 	bottomRadius = bottomRadius || 50;
@@ -105,12 +105,12 @@ away.primitives.CylinderGeometry.prototype.pBuildGeometry = function(target) {
 		if (target.get_indexData()) {
 			this._rawIndices = target.get_indexData();
 		} else {
-			this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
+			this._rawIndices = away.utils.VectorInit.Num(numTriangles * 3, 0);
 		}
 	} else {
 		var numVertComponents = this._numVertices * this._stride;
-		this._rawData = away.utils.VectorNumber.init(numVertComponents, 0);
-		this._rawIndices = away.utils.VectorNumber.init(numTriangles * 3, 0);
+		this._rawData = away.utils.VectorInit.Num(numVertComponents, 0);
+		this._rawIndices = away.utils.VectorInit.Num(numTriangles * 3, 0);
 	}
 	var revolutionAngleDelta = 2 * 3.141592653589793 / this._pSegmentsW;
 	if (this._topClosed && this._topRadius > 0) {
@@ -247,7 +247,7 @@ away.primitives.CylinderGeometry.prototype.pBuildUVs = function(target) {
 	if (target.get_UVData() && numUvs == target.get_UVData().length) {
 		UVData = target.get_UVData();
 	} else {
-		UVData = away.utils.VectorNumber.init(numUvs, 0);
+		UVData = away.utils.VectorInit.Num(numUvs, 0);
 		this.pInvalidateGeometry();
 	}
 	var revolutionAngleDelta = 2 * 3.141592653589793 / this._pSegmentsW;
@@ -379,7 +379,7 @@ away.primitives.CylinderGeometry.className = "away.primitives.CylinderGeometry";
 away.primitives.CylinderGeometry.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

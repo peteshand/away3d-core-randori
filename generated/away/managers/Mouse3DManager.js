@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:54 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,7 +20,7 @@ away.managers.Mouse3DManager = function() {
 	this._mouseDoubleClick = new away.events.MouseEvent3D(away.events.MouseEvent3D.DOUBLE_CLICK);
 	this._collidingView = -1;
 	this._nullVector = new away.geom.Vector3D(0, 0, 0, 0);
-	this._forceMouseMove = null;
+	this._forceMouseMove = false;
 	this._mouseClick = new away.events.MouseEvent3D(away.events.MouseEvent3D.CLICK);
 	this._collidingDownObject = null;
 	this._mouseOut = new away.events.MouseEvent3D(away.events.MouseEvent3D.MOUSE_OUT);

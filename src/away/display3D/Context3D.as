@@ -1,9 +1,10 @@
 /**
  * ...
- * @author Gary Paluk - http://www.plugin.io
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
  */
-
-///<reference path="../_definitions.ts"/>
 
 package away.display3D
 {
@@ -19,10 +20,10 @@ package away.display3D
 	public class Context3D
 	{
 		
-		private var _drawing:Boolean;
-		private var _blendEnabled:Boolean;
-		private var _blendSourceFactor:Number;
-		private var _blendDestinationFactor:Number;
+		private var _drawing:Boolean = false;
+		private var _blendEnabled:Boolean = false;
+		private var _blendSourceFactor:Number = 0;
+		private var _blendDestinationFactor:Number = 0;
 		
 		private var _currentWrap:Number = 0;
 		private var _currentFilter:Number = 0;
@@ -107,7 +108,7 @@ package away.display3D
 		{
 			enableDepthAndStencil = enableDepthAndStencil || true;
 
-			if( enableDepthAndStencil )
+            if( enableDepthAndStencil )
 			{
 				_gl.enable( Number(WebGLRenderingContext.STENCIL_TEST) );
 				_gl.enable( Number(WebGLRenderingContext.DEPTH_TEST) );
@@ -130,14 +131,14 @@ package away.display3D
 		
 		public function createIndexBuffer(numIndices:Number):IndexBuffer3D
 		{
-			var indexBuffer:IndexBuffer3D = new IndexBuffer3D( this._gl, numIndices );
+            var indexBuffer:IndexBuffer3D = new IndexBuffer3D( this._gl, numIndices );
 			this._indexBufferList.push( indexBuffer );
 			return indexBuffer;
 		}
 		
 		public function createProgram():Program3D
 		{
-			var program:Program3D = new Program3D( this._gl );
+            var program:Program3D = new Program3D( this._gl );
 			this._programList.push( program );
 			return program;
 		}
@@ -145,8 +146,7 @@ package away.display3D
 		public function createTexture(width:Number, height:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):Texture
 		{
 			streamingLevels = streamingLevels || 0;
-
-			//TODO streaming
+           //TODO streaming
 			var texture: Texture = new Texture( this._gl, width, height );
 			this._textureList.push( texture );
 			return texture;
@@ -154,7 +154,7 @@ package away.display3D
 		
 		public function createVertexBuffer(numVertices:Number, data32PerVertex:Number):VertexBuffer3D
 		{
-			var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( this._gl, numVertices, data32PerVertex );
+            var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( this._gl, numVertices, data32PerVertex );
 			this._vertexBufferList.push( vertexBuffer );
 			return vertexBuffer;
 		}
@@ -419,8 +419,7 @@ package away.display3D
 		
 		public function setProgram(program3D:Program3D):void
 		{
-            Window.console.log('setProgram');
-			//TODO decide on construction/reference resposibilities
+            //TODO decide on construction/reference resposibilities
 			this._currentProgram = program3D;
 			program3D.focusProgram();
 		}
@@ -448,7 +447,7 @@ package away.display3D
 		{
 			transposedMatrix = transposedMatrix || false;
 
-			var locationName = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
+            var locationName = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
 			this.setGLSLProgramConstantsFromMatrix( locationName, matrix, transposedMatrix );
 		}
 		
@@ -456,8 +455,7 @@ package away.display3D
 		public function setProgramConstantsFromArray(programType:String, firstRegister:Number, data:Vector.<Number>, numRegisters:Number = -1):void
 		{
 			numRegisters = numRegisters || -1;
-
-			for( var i: Number = 0; i < numRegisters; ++i )
+            for( var i: Number = 0; i < numRegisters; ++i )
 			{
 				var currentIndex:Number = i * 4;
 				var locationName:String = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister + i ) + ( i + firstRegister );
@@ -472,12 +470,9 @@ package away.display3D
 		*/
 		
 		public function setGLSLProgramConstantsFromMatrix(locationName:String, matrix:Matrix3D, transposedMatrix:Boolean = false):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "matrix : " + matrix.rawData );
-			console.log( "transposedMatrix : " + transposedMatrix );
-			console.log( "================================================= \n" )*/			transposedMatrix = transposedMatrix || false;
+		{
+
+            transposedMatrix = transposedMatrix || false;
 
 
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
@@ -517,7 +512,9 @@ package away.display3D
 		
 		public function setGLSLTextureAt(locationName:String, texture:TextureBase, textureIndex:Number):void
 		{
-			
+			Window.console.log('locationName = ' + locationName);
+            Window.console.log(texture);
+            Window.console.log('textureIndex = ' + textureIndex);
 			if( !texture )
 			{
 				_gl.activeTexture( Number(WebGLRenderingContext.TEXTURE0) + (textureIndex));
@@ -557,7 +554,7 @@ package away.display3D
             }
 			
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
-			
+            Window.console.log(location);
 			if( texture.textureType == "texture2d" )
 			{
 				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), Texture(texture).glTexture );
@@ -682,7 +679,6 @@ package away.display3D
 			bufferOffset = bufferOffset || 0;
 			format = format || null;
 
-			
             //if ( buffer == null )return;
 			
 			var location:Number = (_gl.getAttribLocation(this._currentProgram.glProgram , locationName ) as Number);

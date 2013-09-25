@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -132,14 +132,31 @@ away.net.URLLoader.prototype.handleXmlHttpRequestException = function(error) {
 	away.net.URLLoader.prototype.initXHR = function() {
 		if (!this._XHR) {
 			this._XHR = new XMLHttpRequest();
-			this._XHR.onloadstart = this.onLoadStart;
-			this._XHR.onprogress = this.onProgress;
-			this._XHR.onabort = this.onAbort;
-			this._XHR.onerror = $createStaticDelegate(this, this.onLoadError);
-			this._XHR.onload = $createStaticDelegate(this, this.onLoadComplete);
-			this._XHR.ontimeout = this.onTimeOut;
-			this._XHR.onloadend = this.onLoadEnd;
-			this._XHR.onreadystatechange = this.onReadyStateChange;
+			var that = this;
+			this._XHR.onloadstart = function(event) {
+				that.onLoadStart(event);
+			};
+			this._XHR.onprogress = function(event) {
+				that.onProgress(event);
+			};
+			this._XHR.onabort = function(event) {
+				that.onAbort(event);
+			};
+			this._XHR.onerror = function(event) {
+				that.onLoadError(event);
+			};
+			this._XHR.onload = function(event) {
+				that.onLoadComplete(event);
+			};
+			this._XHR.ontimeout = function(event) {
+				that.onTimeOut(event);
+			};
+			this._XHR.onloadend = function(event) {
+				that.onLoadEnd(event);
+			};
+			this._XHR.onreadystatechange = function(event) {
+				that.onReadyStateChange(event);
+			};
 		}
 	};
 	

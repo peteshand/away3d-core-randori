@@ -1,5 +1,10 @@
-///<reference path="../../_definitions.ts"/>
-
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.library.naming
 {
@@ -7,7 +12,7 @@ package away.library.naming
 
 	public class NumSuffixConflictStrategy extends ConflictStrategyBase
 	{
-		private var _separator:String;
+		private var _separator:String = null;
 		private var _next_suffix:Object;
 		
 		public function NumSuffixConflictStrategy(separator:String = '.'):void

@@ -1,12 +1,9 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 21 20:00:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 23:06:53 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
 if (typeof away.managers == "undefined")
 	away.managers = {};
-
-away.managers.AGALProgram3DCacheSingletonEnforcer = function() {
-};
 
 away.managers.AGALProgram3DCacheSingletonEnforcer.className = "away.managers.AGALProgram3DCacheSingletonEnforcer";
 

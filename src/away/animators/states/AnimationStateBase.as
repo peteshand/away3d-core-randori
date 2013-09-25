@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.animators.states
 {
 	import away.animators.nodes.AnimationNodeBase;
@@ -12,8 +19,8 @@ package away.animators.states
 		private var _rootDelta:Vector3D = new Vector3D();
 		private var _positionDeltaDirty:Boolean = true;
 		
-		private var _time:Number;
-		private var _startTime:Number;
+		private var _time:Number = 0;
+		private var _startTime:Number = 0;
 		private var _animator:IAnimator;
 		
 		/**		 * Returns a 3d vector representing the translation delta of the animating entity for the current timestep of animation		 */

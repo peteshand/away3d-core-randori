@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:01 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 22:31:34 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,6 @@ if (typeof away.utils == "undefined")
 	away.utils = {};
 
 away.utils.PerspectiveMatrix3D = function(v) {
-	v = v || null;
 	away.geom.Matrix3D.call(this, v);
 };
 

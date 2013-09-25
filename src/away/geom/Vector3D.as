@@ -1,4 +1,11 @@
-/** * @author Gary Paluk * @created 6/29/13 * @module away.geom */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.geom {
 
     public class Vector3D {
@@ -7,16 +14,16 @@ package away.geom {
         public static var Y_AXIS:Vector3D = new Vector3D( 0 , 1 , 0 );
         public static var Z_AXIS:Vector3D = new Vector3D( 0 , 0 , 1 );
         /**         * The first element of a Vector3D object, such as the x coordinate of a point in the three-dimensional space.         */
-        public var x:Number;
+        public var x:Number = 0;
 
         /*         *The second element of a Vector3D object, such as the y coordinate of a point in the three-dimensional space.         */
-        public var y:Number;
+        public var y:Number = 0;
 
         /**         * The third element of a Vector3D object, such as the y coordinate of a point in the three-dimensional space.         */
-        public var z:Number;
+        public var z:Number = 0;
 
         /**         * The fourth element of a Vector3D object (in addition to the x, y, and z properties) can hold data such as         * the angle of rotation.         */
-        public var w:Number;
+        public var w:Number = 0;
 
         /**         * Creates an instance of a Vector3D object.         */
         public function Vector3D(x:Number = 0, y:Number = 0, z:Number = 0, w:Number = 0):void {

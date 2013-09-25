@@ -1,4 +1,10 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
@@ -8,9 +14,9 @@ package away.primitives
 	/**	 * A WirefameCube primitive mesh.	 */
 	public class WireframeCube extends WireframePrimitiveBase
 	{
-		private var _width:Number;
-		private var _height:Number;
-		private var _depth:Number;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _depth:Number = 0;
 		
 		/**		 * Creates a new WireframeCube object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param depth The size of the cube along its Z-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeCube(width:Number = 100, height:Number = 100, depth:Number = 100, color:Number = 0xFFFFFF, thickness:Number = 1):void

@@ -1,4 +1,11 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.primitives
 {
 	import away.geom.Vector3D;
@@ -7,12 +14,15 @@ package away.primitives
 	/**	 * A WireframePlane primitive mesh.	 */
 	public class WireframePlane extends WireframePrimitiveBase
 	{
-		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
-		private var _width:Number;
-		private var _height:Number;
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
-		private var _orientation:String;
+		public static var ORIENTATION_YZ:String = "yz";
+		public static var ORIENTATION_XY:String = "xy";
+		public static var ORIENTATION_XZ:String = "xz";
+		
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
+		private var _orientation:String = null;
 		
 		/**		 * Creates a new WireframePlane object.		 * @param width The size of the cube along its X-axis.		 * @param height The size of the cube along its Y-axis.		 * @param segmentsW The number of segments that make up the cube along the X-axis.		 * @param segmentsH The number of segments that make up the cube along the Y-axis.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 * @param orientation The orientaion in which the plane lies.		 */
 		public function WireframePlane(width:Number, height:Number, segmentsW:Number = 10, segmentsH:Number = 10, color:Number = 0xFFFFFF, thickness:Number = 1, orientation:String = "yz"):void

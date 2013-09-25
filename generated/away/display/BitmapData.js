@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:44 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ away.display.BitmapData = function(width, height, transparent, fillColor) {
 	this._context = null;
 	this._rect = null;
 	this._alpha = 1;
-	this._transparent = null;
+	this._transparent = false;
 	this._imageData = null;
 	this._imageCanvas = null;
 	transparent = transparent || true;
@@ -48,7 +48,7 @@ away.display.BitmapData.prototype.lock = function() {
 away.display.BitmapData.prototype.unlock = function() {
 	this._locked = false;
 	if (this._imageData) {
-		this._context.putImageData(this._imageData, 0, 0, 0);
+		this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		this._imageData = null;
 	}
 };
@@ -67,7 +67,7 @@ away.display.BitmapData.prototype.getPixel = function(x, y) {
 		a = this._imageData.data[index + 3];
 	} else {
 		if (this._imageData) {
-			this._context.putImageData(this._imageData, 0, 0, 0);
+			this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		}
 		this._imageData = this._context.getImageData(0, 0, this._rect.width, this._rect.height);
 		r = this._imageData.data[index + 0];
@@ -94,7 +94,7 @@ away.display.BitmapData.prototype.setPixel = function(x, y, color) {
 		this._imageData.data[index + 3] = 255;
 	}
 	if (!this._locked) {
-		this._context.putImageData(this._imageData, 0, 0, 0);
+		this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		this._imageData = null;
 	}
 };
@@ -112,7 +112,7 @@ away.display.BitmapData.prototype.setPixel32 = function(x, y, color) {
 		this._imageData.data[index + 3] = argb[0];
 	}
 	if (!this._locked) {
-		this._context.putImageData(this._imageData, 0, 0, 0);
+		this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		this._imageData = null;
 	}
 };
@@ -120,7 +120,7 @@ away.display.BitmapData.prototype.setPixel32 = function(x, y, color) {
 away.display.BitmapData.prototype.drawImage = function(img, sourceRect, destRect) {
 	if (this._locked) {
 		if (this._imageData) {
-			this._context.putImageData(this._imageData, 0, 0, 0);
+			this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		}
 		this._drawImage(img, sourceRect, destRect);
 		if (this._imageData) {
@@ -133,16 +133,18 @@ away.display.BitmapData.prototype.drawImage = function(img, sourceRect, destRect
 
 away.display.BitmapData.prototype._drawImage = function(img, sourceRect, destRect) {
 	if (img instanceof away.display.BitmapData) {
-		this._context.drawImage(img.canvas, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+		var bmd = img;
+		this._context.drawImage(bmd.get_canvas(), sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
 	} else if (img instanceof HTMLImageElement) {
-		this._context.drawImage(img, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+		var image = img;
+		this._context.drawImage(image, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
 	}
 };
 
 away.display.BitmapData.prototype.copyPixels = function(bmpd, sourceRect, destRect) {
 	if (this._locked) {
 		if (this._imageData) {
-			this._context.putImageData(this._imageData, 0, 0, 0);
+			this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		}
 		this._copyPixels(bmpd, sourceRect, destRect);
 		if (this._imageData) {
@@ -155,16 +157,18 @@ away.display.BitmapData.prototype.copyPixels = function(bmpd, sourceRect, destRe
 
 away.display.BitmapData.prototype._copyPixels = function(bmpd, sourceRect, destRect) {
 	if (bmpd instanceof away.display.BitmapData) {
-		this._context.drawImage(bmpd.canvas, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+		var bmd = bmpd;
+		this._context.drawImage(bmd.get_canvas(), sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
 	} else if (bmpd instanceof HTMLImageElement) {
-		this._context.drawImage(bmpd, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
+		var image = bmpd;
+		this._context.drawImage(image, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, destRect.x, destRect.y, destRect.width, destRect.height);
 	}
 };
 
 away.display.BitmapData.prototype.fillRect = function(rect, color) {
 	if (this._locked) {
 		if (this._imageData) {
-			this._context.putImageData(this._imageData, 0, 0, 0);
+			this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		}
 		this._context.fillStyle = this.hexToRGBACSS(color);
 		this._context.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -180,7 +184,7 @@ away.display.BitmapData.prototype.fillRect = function(rect, color) {
 away.display.BitmapData.prototype.draw = function(source, matrix) {
 	if (this._locked) {
 		if (this._imageData) {
-			this._context.putImageData(this._imageData, 0, 0, 0);
+			this._context.putImageData(this._imageData, 0, 0, 0, 0, 0, 0);
 		}
 		this._draw(source, matrix);
 		if (this._imageData) {
@@ -193,20 +197,22 @@ away.display.BitmapData.prototype.draw = function(source, matrix) {
 
 away.display.BitmapData.prototype._draw = function(source, matrix) {
 	if (source instanceof away.display.BitmapData) {
+		var bmd = source;
 		this._context.save();
 		this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-		this._context.drawImage(source.canvas, 0, 0);
+		this._context.drawImage(bmd.get_canvas(), 0, 0);
 		this._context.restore();
 	} else if (source instanceof HTMLImageElement) {
+		var image = source;
 		this._context.save();
 		this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-		this._context.drawImage(source, 0, 0);
+		this._context.drawImage(image, 0, 0);
 		this._context.restore();
 	}
 };
 
 away.display.BitmapData.prototype.set_imageData = function(value) {
-	this._context.putImageData(value, 0, 0, 0);
+	this._context.putImageData(value, 0, 0, 0, 0, 0, 0);
 };
 
 away.display.BitmapData.prototype.get_imageData = function() {
@@ -258,7 +264,6 @@ away.display.BitmapData.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Matrix');
-	p.push('Object');
 	p.push('away.geom.Rectangle');
 	p.push('away.utils.ColorUtils');
 	return p;

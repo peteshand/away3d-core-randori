@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials
 {
@@ -33,36 +37,41 @@ package away.materials
         public var extra:Object;
 
         /**         * A value that can be used by materials that only work with a given type of renderer. The renderer can test the         * classification to choose which render path to use. For example, a deferred material could set this value so         * that the deferred renderer knows not to take the forward rendering path.         *         * @private         */
-        public var _iClassification:String//Arcane
+        public var _iClassification:String = null;//Arcane
+
         /**         * An id for this material used to sort the renderables by material, which reduces render state changes across         * materials using the same Program3D.         *         * @private         */
-        public var _iUniqueId:Number//Arcane
+        public var _iUniqueId:Number = 0;//Arcane
+
         /**         * An id for this material used to sort the renderables by shader program, which reduces Program3D state changes.         *         * @private         */
-        public var _iRenderOrderId:Number//Arcane = 0
+        public var _iRenderOrderId:Number = 0;//Arcane
 
         /**         * The same as _renderOrderId, but applied to the depth shader passes.         *         * @private         */
-        public var _iDepthPassId:Number//Arcane
-        private var _bothSides:Boolean// update = false
+        public var _iDepthPassId:Number = 0;//Arcane
+
+        private var _bothSides:Boolean = false;// update
         private var _animationSet:IAnimationSet;
 
         /**         * A list of material owners, renderables or custom Entities.         */
 
 
-        private var _owners:Vector.<IMaterialOwner>//:Vector.<IMaterialOwner>;
-        private var _alphaPremultiplied:Boolean;
+        private var _owners:Vector.<IMaterialOwner>;//:Vector.<IMaterialOwner>
+
+        private var _alphaPremultiplied:Boolean = false;
 
         public var _pBlendMode:String = BlendMode.NORMAL;
 
         private var _numPasses:Number = 0;
-        private var _passes:Vector.<MaterialPassBase>//Vector.<MaterialPassBase>;
+        private var _passes:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>
+
         public var _pMipmap:Boolean = true;
         private var _smooth:Boolean = true;
-        private var _repeat:Boolean// Update = false
+        private var _repeat:Boolean = false;// Update
 
         public var _pDepthPass:DepthMapPass;
         public var _pDistancePass:DistanceMapPass;
         public var _pLightPicker:LightPickerBase;
 
-        private var _distanceBasedDepthRender:Boolean;
+        private var _distanceBasedDepthRender:Boolean = false;
         public var _pDepthCompareMode:String = Context3DCompareMode.LESS_EQUAL;
 
         /**         * Creates a new MaterialBase object.         */

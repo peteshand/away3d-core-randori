@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:27 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -13,7 +13,7 @@ aglsl.assembler.SamplerMap._map;
 
 aglsl.assembler.SamplerMap.get_map = function() {
 	if (!aglsl.assembler.SamplerMap._map) {
-		aglsl.assembler.SamplerMap._map = [];
+		aglsl.assembler.SamplerMap._map = away.utils.VectorInit.AnyClass(Object);
 		aglsl.assembler.SamplerMap._map["rgba"] = new aglsl.assembler.Sampler(8, 0xf, 0);
 		aglsl.assembler.SamplerMap._map["rg"] = new aglsl.assembler.Sampler(8, 0xf, 5);
 		aglsl.assembler.SamplerMap._map["r"] = new aglsl.assembler.Sampler(8, 0xf, 4);
@@ -45,6 +45,8 @@ aglsl.assembler.SamplerMap.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('aglsl.assembler.Sampler');
+	p.push('away.utils.VectorInit');
+	p.push('Object');
 	return p;
 };
 

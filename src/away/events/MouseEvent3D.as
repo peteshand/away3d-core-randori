@@ -1,5 +1,11 @@
-///<reference path="../_definitions.ts"/>
-/** * @module away.events */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.events
 {
 	import away.containers.View3D;
@@ -28,15 +34,20 @@ package away.events
 		public var _iParentEvent:MouseEvent3D;
 		
 		/**		 * Defines the value of the type property of a mouseOver3d event object.		 */
-		public static var MOUSE_OVER:String = "mouseOver3d";		
+		public static var MOUSE_OVER:String = "mouseOver3d";
+		
 		/**		 * Defines the value of the type property of a mouseOut3d event object.		 */
-		public static var MOUSE_OUT:String = "mouseOut3d";		
+		public static var MOUSE_OUT:String = "mouseOut3d";
+		
 		/**		 * Defines the value of the type property of a mouseUp3d event object.		 */
-		public static var MOUSE_UP:String = "mouseUp3d";		
+		public static var MOUSE_UP:String = "mouseUp3d";
+		
 		/**		 * Defines the value of the type property of a mouseDown3d event object.		 */
-		public static var MOUSE_DOWN:String = "mouseDown3d";		
+		public static var MOUSE_DOWN:String = "mouseDown3d";
+		
 		/**		 * Defines the value of the type property of a mouseMove3d event object.		 */
-		public static var MOUSE_MOVE:String = "mouseMove3d";		
+		public static var MOUSE_MOVE:String = "mouseMove3d";
+		
 		/**		 * Defines the value of the type property of a rollOver3d event object.		 */
 		//		public static ROLL_OVER : string = "rollOver3d";
 		
@@ -44,16 +55,19 @@ package away.events
 		//		public static ROLL_OUT : string = "rollOut3d";
 		
 		/**		 * Defines the value of the type property of a click3d event object.		 */
-		public static var CLICK:String = "click3d";		
+		public static var CLICK:String = "click3d";
+		
 		/**		 * Defines the value of the type property of a doubleClick3d event object.		 */
-		public static var DOUBLE_CLICK:String = "doubleClick3d";		
+		public static var DOUBLE_CLICK:String = "doubleClick3d";
+		
 		/**		 * Defines the value of the type property of a mouseWheel3d event object.		 */
-		public static var MOUSE_WHEEL:String = "mouseWheel3d";		
+		public static var MOUSE_WHEEL:String = "mouseWheel3d";
+		
 		/**		 * The horizontal coordinate at which the event occurred in view coordinates.		 */
-		public var screenX:Number;
+		public var screenX:Number = 0;
 		
 		/**		 * The vertical coordinate at which the event occurred in view coordinates.		 */
-		public var screenY:Number;
+		public var screenY:Number = 0;
 		
 		/**		 * The view object inside which the event took place.		 */
 		public var view:View3D;
@@ -71,10 +85,10 @@ package away.events
 		public var uv:Point;
 		
 		/**		 * The index of the face where the event took place.		 */
-		public var index:Number;
+		public var index:Number = 0;
 		
 		/**		 * The index of the subGeometry where the event took place.		 */
-		public var subGeometryIndex:Number;
+		public var subGeometryIndex:Number = 0;
 		
 		/**		 * The position in object space where the event took place		 */
 		public var localPosition:Vector3D;
@@ -83,16 +97,16 @@ package away.events
 		public var localNormal:Vector3D;
 		
 		/**		 * Indicates whether the Control key is active (true) or inactive (false).		 */
-		public var ctrlKey:Boolean;
+		public var ctrlKey:Boolean = false;
 		
 		/**		 * Indicates whether the Alt key is active (true) or inactive (false).		 */
-		public var altKey:Boolean;
+		public var altKey:Boolean = false;
 		
 		/**		 * Indicates whether the Shift key is active (true) or inactive (false).		 */
-		public var shiftKey:Boolean;
+		public var shiftKey:Boolean = false;
 		
 		/**		 * Indicates how many lines should be scrolled for each unit the user rotates the mouse wheel.		 */
-		public var delta:Number;
+		public var delta:Number = 0;
 		
 		/**		 * Create a new MouseEvent3D object.		 * @param type The type of the MouseEvent3D.		 */
 		public function MouseEvent3D(type:String):void

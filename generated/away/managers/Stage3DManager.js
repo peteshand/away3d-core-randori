@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:02 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:25 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,7 +15,7 @@ away.managers.Stage3DManager = function(stage, stage3DManagerSingletonEnforcer) 
 	}
 	this._stage = stage;
 	if (!away.managers.Stage3DManager._stageProxies) {
-		away.managers.Stage3DManager._stageProxies = [];
+		away.managers.Stage3DManager._stageProxies = away.utils.VectorInit.AnyClass(away.managers.Stage3DProxy, this._stage.stage3Ds.length);
 		away.managers.Stage3DManager._stageProxies[this._stage.stage3Ds.length - 1] = undefined;
 	}
 };
@@ -109,6 +109,7 @@ away.managers.Stage3DManager.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.managers.Stage3DManagerSingletonEnforcer');
 	p.push('away.managers.Stage3DManagerInstanceData');
+	p.push('away.utils.VectorInit');
 	p.push('away.managers.Stage3DProxy');
 	return p;
 };

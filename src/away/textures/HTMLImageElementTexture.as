@@ -1,6 +1,10 @@
-
-
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.textures
 {
@@ -18,7 +22,7 @@ package away.textures
 		private static var _mipMapUses:Array = new Array();
 		
 		private var _htmlImageElement:HTMLImageElement;
-        private var _generateMipmaps:Boolean;
+        private var _generateMipmaps:Boolean = false;
 		private var _mipMapHolder:BitmapData;
 		
 		public function HTMLImageElementTexture(htmlImageElement:HTMLImageElement, generateMipmaps:Boolean = true):void

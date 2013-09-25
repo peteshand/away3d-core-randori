@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Tue Sep 24 23:06:51 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,9 +7,9 @@ if (typeof away.events == "undefined")
 
 away.events.LoaderEvent = function(type, url, isDependency, errmsg) {
 	this._url = null;
-	this._isDependency = null;
+	this._isDependency = false;
 	this._message = null;
-	this._isDefaultPrevented = null;
+	this._isDefaultPrevented = false;
 	url = url || null;
 	isDependency = isDependency || false;
 	errmsg = errmsg || null;

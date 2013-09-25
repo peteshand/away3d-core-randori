@@ -1,20 +1,28 @@
-///<reference path="../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
-/** * @module away.events */
 package away.events
 {	
 	public class LoaderEvent extends Event
 	{
         /**         * Dispatched when loading of a asset failed.         * Such as wrong parser type, unsupported extensions, parsing errors, malformated or unsupported 3d file etc..         */
         public static var LOAD_ERROR:String = "loadError";
+
         /**         * Dispatched when a resource and all of its dependencies is retrieved.         */
         public static var RESOURCE_COMPLETE:String = "resourceComplete";
+
         /**         * Dispatched when a resource's dependency is retrieved and resolved.         */
         public static var DEPENDENCY_COMPLETE:String = "dependencyComplete";
-        private var _url:String;
-        private var _message:String;
-        private var _isDependency:Boolean;
-        private var _isDefaultPrevented:Boolean;
+
+        private var _url:String = null;
+        private var _message:String = null;
+        private var _isDependency:Boolean = false;
+        private var _isDefaultPrevented:Boolean = false;
 
         /**         * Create a new LoaderEvent object.         * @param type The event type.         * @param resource The loaded or parsed resource.         * @param url The url of the loaded resource.         */
         public function LoaderEvent(type:String, url:String = null, isDependency:Boolean = false, errmsg:String = null):void

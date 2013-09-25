@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -20,9 +26,9 @@ package away.materials.methods
 	/**	 * BasicDiffuseMethod provides the default shading method for Lambert (dot3) diffuse lighting.	 */
 	public class BasicDiffuseMethod extends LightingMethodBase
 	{
-		private var _useAmbientTexture:Boolean;
+		private var _useAmbientTexture:Boolean = false;
 		
-		private var _useTexture:Boolean;
+		private var _useTexture:Boolean = false;
 		public var pTotalLightColorReg:ShaderRegisterElement;
 		
 		// TODO: are these registers at all necessary to be members?
@@ -38,7 +44,7 @@ package away.materials.methods
 		private var _shadowRegister:ShaderRegisterElement;
 		
 		private var _alphaThreshold:Number = 0;
-		private var _isFirstLight:Boolean;
+		private var _isFirstLight:Boolean = false;
 		
 		/**		 * Creates a new BasicDiffuseMethod object.		 */
 		public function BasicDiffuseMethod():void

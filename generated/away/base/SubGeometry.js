@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,26 +6,26 @@ if (typeof away.base == "undefined")
 	away.base = {};
 
 away.base.SubGeometry = function() {
-	this._secondaryUvsInvalid = [null, null, null, null, null, null, null, null];
+	this._secondaryUvsInvalid = away.utils.VectorInit.Bool(8, false);
 	this._secondaryUvs = null;
-	this._secondaryUvBuffer = [null, null, null, null, null, null, null, null];
+	this._secondaryUvBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
 	this._numVertices = 0;
-	this._uvBuffer = [null, null, null, null, null, null, null, null];
-	this._normalsInvalid = [null, null, null, null, null, null, null, null];
-	this._vertexNormalBufferContext = [null, null, null, null, null, null, null, null];
+	this._uvBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
+	this._normalsInvalid = away.utils.VectorInit.Bool(8, false);
+	this._vertexNormalBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 	this._vertexTangents = null;
-	this._tangentsInvalid = [null, null, null, null, null, null, null, null];
-	this._uvsInvalid = [null, null, null, null, null, null, null, null];
-	this._vertexBuffer = [null, null, null, null, null, null, null, null];
-	this._vertexTangentBufferContext = [null, null, null, null, null, null, null, null];
-	this._uvBufferContext = [null, null, null, null, null, null, null, null];
-	this._vertexNormalBuffer = [null, null, null, null, null, null, null, null];
+	this._tangentsInvalid = away.utils.VectorInit.Bool(8, false);
+	this._uvsInvalid = away.utils.VectorInit.Bool(8, false);
+	this._vertexBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
+	this._vertexTangentBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._uvBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._vertexNormalBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
 	this._vertexNormals = null;
-	this._vertexTangentBuffer = [null, null, null, null, null, null, null, null];
-	this._secondaryUvBufferContext = [null, null, null, null, null, null, null, null];
+	this._vertexTangentBuffer = away.utils.VectorInit.AnyClass(away.display3D.VertexBuffer3D, 8);
+	this._secondaryUvBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
 	this._uvs = null;
-	this._vertexBufferContext = [null, null, null, null, null, null, null, null];
-	this._verticesInvalid = [null, null, null, null, null, null, null, null];
+	this._vertexBufferContext = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._verticesInvalid = away.utils.VectorInit.Bool(8, false);
 	away.base.SubGeometryBase.call(this);
 };
 
@@ -371,7 +371,11 @@ away.base.SubGeometry.getRuntimeDependencies = function(t) {
 
 away.base.SubGeometry.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.display3D.Context3D');
+	p.push('away.display3D.VertexBuffer3D');
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.base.SubGeometry.injectionPoints = function(t) {

@@ -1,6 +1,10 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
- 
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.display
 {
@@ -18,8 +22,8 @@ package away.display
 		private static var STAGE3D_MAX_QUANTITY:Number = 8;
 		public var stage3Ds:Vector.<Stage3D>;
 		
-		private var _stageHeight:Number;
-		private var _stageWidth:Number;
+		private var _stageHeight:Number = 0;
+		private var _stageWidth:Number = 0;
 		
 		public function Stage(width:Number = 640, height:Number = 480):void
 		{

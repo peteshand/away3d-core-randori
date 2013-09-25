@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:24 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,10 +8,10 @@ if (typeof away.loaders.misc == "undefined")
 	away.loaders.misc = {};
 
 away.loaders.misc.SingleFileLoader = function(materialMode) {
-	this._loadAsRawData = null;
+	this._loadAsRawData = false;
 	this._materialMode = 0;
 	this._req = null;
-	this._parsers = [];
+	this._parsers = away.utils.VectorInit.StarVec(0, "");
 	this._data = null;
 	this._fileName = null;
 	this._fileExtension = null;
@@ -22,7 +22,7 @@ away.loaders.misc.SingleFileLoader = function(materialMode) {
 	this._materialMode = materialMode;
 };
 
-away.loaders.misc.SingleFileLoader._parsers = [];
+away.loaders.misc.SingleFileLoader._parsers = away.utils.VectorInit.StarVec(0, "");
 
 away.loaders.misc.SingleFileLoader.enableParser = function(parser) {
 	if (away.loaders.misc.SingleFileLoader._parsers.indexOf(parser, 0) < 0) {
@@ -271,7 +271,9 @@ away.loaders.misc.SingleFileLoader.getRuntimeDependencies = function(t) {
 
 away.loaders.misc.SingleFileLoader.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.loaders.misc.SingleFileLoader.injectionPoints = function(t) {

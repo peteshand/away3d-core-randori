@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.passes
 {
@@ -10,6 +16,7 @@ package away.materials.passes
 	import away.display3D.Context3DCompareMode;
 	import away.display3D.Context3DBlendFactor;
 	import away.materials.lightpickers.LightPickerBase;
+	import away.utils.VectorInit;
 	import away.display3D.Context3DTriangleFace;
 	import away.display3D.TextureBase;
 	import away.geom.Rectangle;
@@ -22,6 +29,7 @@ package away.materials.passes
 	import away.errors.AbstractMethodError;
 	import away.display.BlendMode;
 	import away.errors.ArgumentError;
+	import away.utils.VectorInit;
 	//import away3d.animators.data.AnimationRegisterCache;
 	//import away3d.animators.IAnimationSet;
 	//import away3d.arcane;
@@ -54,17 +62,17 @@ package away.materials.passes
         public var _pMaterial:MaterialBase;
 		private var _animationSet:IAnimationSet;
 
-        public var _iProgram3Ds:Vector.<Program3D> = new Vector.<Program3D>( 8 );
-        public var _iProgram3Dids:Vector.<Number>//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1]); = new <Number>[-1, -1, -1, -1, -1, -1, -1, -1]
-		private var _context3Ds:Vector.<Context3D>//Vector.<Context3D> = new Vector.<Context3D>(8); = new Vector.<Context3D>( 8 )
+        public var _iProgram3Ds:Vector.<Program3D> = VectorInit.AnyClass(Program3D,  8 );
+        public var _iProgram3Dids:Vector.<Number> = new <Number>[-1, -1, -1, -1, -1, -1, -1, -1];//Vector.<int> = Vector.<int>([-1, -1, -1, -1, -1, -1, -1, -1])
+		private var _context3Ds:Vector.<Context3D> = VectorInit.AnyClass(Context3D,  8 );//Vector.<Context3D> = VectorInit.AnyClass(Context3D, 8)
 		
 		// agal props. these NEED to be set by subclasses!
 		// todo: can we perhaps figure these out manually by checking read operations in the bytecode, so other sources can be safely updated?
-        public var _pNumUsedStreams:Number;
-        public var _pNumUsedTextures:Number;
-        public var _pNumUsedVertexConstants:Number;
-        public var _pNumUsedFragmentConstants:Number;
-        public var _pNumUsedVaryings:Number;
+        public var _pNumUsedStreams:Number = 0;
+        public var _pNumUsedTextures:Number = 0;
+        public var _pNumUsedVertexConstants:Number = 0;
+        public var _pNumUsedFragmentConstants:Number = 0;
+        public var _pNumUsedVaryings:Number = 0;
 
         public var _pSmooth:Boolean = true;
         public var _pRepeat:Boolean = false;
@@ -76,36 +84,37 @@ package away.materials.passes
 
         public var _pEnableBlending:Boolean = false;
 		
-		public var _pBothSides:Boolean;
+		public var _pBothSides:Boolean = false;
 		
 		public var _pLightPicker:LightPickerBase;
 
         // TODO: AGAL conversion
-        public var _pAnimatableAttributes:Vector.<String> = new Vector.<String>();
+        public var _pAnimatableAttributes:Vector.<String> = VectorInit.Str();
 
         // TODO: AGAL conversion
-        public var _pAnimationTargetRegisters:Vector.<String> = new Vector.<String>();
+        public var _pAnimationTargetRegisters:Vector.<String> = VectorInit.Str();
 
         // TODO: AGAL conversion
-        public var _pShadedTarget:String = "ft0";		
+        public var _pShadedTarget:String = "ft0";
+		
 		// keep track of previously rendered usage for faster cleanup of old vertex buffer streams and textures
-		private static var _previousUsedStreams:Vector.<Number>//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]); = new <Number>[0, 0, 0, 0, 0, 0, 0, 0]
-		private static var _previousUsedTexs:Vector.<Number>//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0]); = new <Number>[0, 0, 0, 0, 0, 0, 0, 0]
+		private static var _previousUsedStreams:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0])
+		private static var _previousUsedTexs:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 0, 0, 0];//Vector.<int> = Vector.<int>([0, 0, 0, 0, 0, 0, 0, 0])
 		private var _defaultCulling:String = Context3DTriangleFace.BACK;
 		
-		private var _renderToTexture:Boolean;
+		private var _renderToTexture:Boolean = false;
 		
 		// render state mementos for render-to-texture passes
 		private var _oldTarget:TextureBase;
-		private var _oldSurface:Number;
-		private var _oldDepthStencil:Boolean;
+		private var _oldSurface:Number = 0;
+		private var _oldDepthStencil:Boolean = false;
 		private var _oldRect:Rectangle;
 
         public var _pAlphaPremultiplied:Boolean = false;
-        public var _pNeedFragmentAnimation:Boolean;
-        public var _pNeedUVAnimation:Boolean;
-        public var _pUVTarget:String;
-        public var _pUVSource:String;
+        public var _pNeedFragmentAnimation:Boolean = false;
+        public var _pNeedUVAnimation:Boolean = false;
+        public var _pUVTarget:String = null;
+        public var _pUVSource:String = null;
 		
 		private var _writeDepth:Boolean = true;
 		

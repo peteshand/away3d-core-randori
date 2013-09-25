@@ -15,7 +15,7 @@ package
 
         }
 
-        public function set(value:Int8Array, offset:Number = -1):void
+        public function set(value:Int8Array, offset:Number = 0):void
         {
 
         }

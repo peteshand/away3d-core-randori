@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,11 +11,11 @@ away.materials.passes.LightingPass = function(material) {
 	this._includeCasters = true;
 	this._pointLightsOffset = 0;
 	this._lightProbesOffset = 0;
-	this._inverseSceneMatrix = away.utils.VectorNumber.init(0, 0);
+	this._inverseSceneMatrix = away.utils.VectorInit.Num(0, 0);
 	this._directionalLightsOffset = 0;
 	this._lightVertexConstantIndex = 0;
 	this._maxLights = 3;
-	this._tangentSpace = null;
+	this._tangentSpace = false;
 	away.materials.passes.CompiledPass.call(this, material);
 };
 
@@ -314,7 +314,7 @@ away.materials.passes.LightingPass.getRuntimeDependencies = function(t) {
 away.materials.passes.LightingPass.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.compilation
 {
@@ -13,7 +19,11 @@ package away.materials.compilation
 		private var _vertexConstantsCache:RegisterPool;
 		private var _textureCache:RegisterPool;
 		private var _vertexAttributesCache:RegisterPool;
-		private var _vertexConstantOffset:Number//TODO: check if this should be initialised to 0		private var _vertexAttributesOffset:Number//TODO: check if this should be initialised to 0		private var _varyingsOffset:Number//TODO: check if this should be initialised to 0		private var _fragmentConstantOffset:Number//TODO: check if this should be initialised to 0		
+		private var _vertexConstantOffset:Number = 0;//TODO: check if this should be initialised to 0
+		private var _vertexAttributesOffset:Number = 0;//TODO: check if this should be initialised to 0
+		private var _varyingsOffset:Number = 0;//TODO: check if this should be initialised to 0
+		private var _fragmentConstantOffset:Number = 0;//TODO: check if this should be initialised to 0
+		
 		private var _fragmentOutputRegister:ShaderRegisterElement;
 		private var _vertexOutputRegister:ShaderRegisterElement;
 		private var _numUsedVertexConstants:Number = 0;
@@ -21,7 +31,7 @@ package away.materials.compilation
 		private var _numUsedStreams:Number = 0;
 		private var _numUsedTextures:Number = 0;
 		private var _numUsedVaryings:Number = 0;
-		private var _profile:String;
+		private var _profile:String = null;
 		
 		/**		 * Create a new ShaderRegisterCache object.		 *		 * @param profile The compatibility profile used by the renderer.		 */
 		public function ShaderRegisterCache(profile:String):void

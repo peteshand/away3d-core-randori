@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:39:34 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -36,7 +36,7 @@ examples.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 	this.stage.stage3Ds[0].removeEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	var stage3D = event.target;
 	this.context3D = stage3D.get_context3D();
-	this.texture = this.context3D.createTexture(512, 512, away.display3D.Context3DTextureFormat.BGRA, true, 0);
+	this.texture = this.context3D.createTexture(512, 512, away.display3D.Context3DTextureFormat.BGRA, false, 0);
 	this.texture.uploadFromHTMLImageElement(this.image, 0);
 	this.context3D.configureBackBuffer(800, 600, 0, true);
 	this.context3D.setColorMask(true, true, true, true);
@@ -55,6 +55,7 @@ examples.PlaneTest.prototype.onContext3DCreateHandler = function(event) {
 	var fProgram = "varying mediump vec2 vTextureCoord;\n" + "uniform sampler2D uSampler;\n" + "void main() {\n" + "\t\tgl_FragColor = texture2D(uSampler, vTextureCoord);\n" + "}\n";
 	this.program.upload(vProgram, fProgram);
 	this.context3D.setProgram(this.program);
+	console.log("-----------------------------------------------------------");
 	this.pMatrix = new away.utils.PerspectiveMatrix3D();
 	this.pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
 	this.mvMatrix = new away.geom.Matrix3D([]);
@@ -71,9 +72,10 @@ examples.PlaneTest.prototype.tick = function(dt) {
 	this.context3D.setGLSLProgramConstantsFromMatrix("pMatrix", this.pMatrix, true);
 	this.context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", this.mvMatrix, true);
 	this.context3D.setGLSLTextureAt("uSampler", this.texture, 0);
-	this.context3D.clear(1.0, 1.0, 0.0, 1, 1, 0, 17664);
+	this.context3D.clear(0.1, 0.2, 0.3, 1, 1, 0, 17664);
 	this.context3D.drawTriangles(this.iBuffer, 0, 2);
 	this.context3D.present();
+	this.requestAnimationFrameTimer.stop();
 };
 
 examples.PlaneTest.className = "examples.PlaneTest";

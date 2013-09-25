@@ -3,6 +3,7 @@ package examples
     import away.cameras.lenses.PerspectiveLens;
     import away.containers.Scene3D;
     import away.containers.View3D;
+    import away.display.BitmapData;
     import away.display.BlendMode;
     import away.entities.Mesh;
     import away.events.Event;
@@ -14,6 +15,7 @@ package examples
     import away.primitives.CubeGeometry;
     import away.primitives.PlaneGeometry;
     import away.primitives.TorusGeometry;
+    import away.textures.BitmapTexture;
     import away.textures.HTMLImageElementTexture;
     import away.utils.Debug;
     import away.utils.RequestAnimationFrame;
@@ -34,19 +36,38 @@ package examples
         public function CubeDemo()
         {
             Debug.THROW_ERRORS = false;
+            Debug.ENABLE_LOG = true;
 
             view = new View3D( );
-            view.backgroundColor = 0xEEAA00;
+            view.backgroundColor = 0xFF3399;
             view.camera.z = -1000;
-            view.camera.lens = new PerspectiveLens(120);
+            view.camera.lens = new PerspectiveLens(40);
 
             scene = view.scene;
 
-            geo = new CubeGeometry(200, 200, 200);
-            var colourMaterial:ColorMaterial = new ColorMaterial(0xFF00FF, 1);
-            colourMaterial.bothSides = true;
+            var urlRequest:URLRequest = new URLRequest( "assets/130909wall_big.png" );
+            var imgLoader:IMGLoader = new IMGLoader();
+            imgLoader.addEventListener( Event.COMPLETE, imageCompleteHandler, this );
+            imgLoader.load( urlRequest );
+        }
 
-            mesh = new Mesh(geo, colourMaterial);
+        private function imageCompleteHandler(e)
+        {
+            var imageLoader:IMGLoader = IMGLoader(e.target);
+            Window.console.log('Load complete');
+
+            var bmd:BitmapData = new BitmapData(256,256,true,0x66FF00FF);
+            var texture:BitmapTexture = new BitmapTexture(bmd, false);
+            //var texture:HTMLImageElementTexture = new HTMLImageElementTexture(imageLoader.image as HTMLImageElement);
+            var material:TextureMaterial = new TextureMaterial(texture);
+            //material.alpha = 0.4;
+            //var colourMaterial:ColorMaterial = new ColorMaterial(0x66FFFF, 1);
+            //colourMaterial.bothSides = true;
+
+            geo = new CubeGeometry(200, 200, 200);
+
+
+            mesh = new Mesh(geo, material);
             scene.addChild(mesh);
 
             resize();
@@ -62,7 +83,7 @@ package examples
             view.camera.lookAt(mesh.position);
             view.render();
 
-
+            raf.stop();
         }
 
         private function resize():void

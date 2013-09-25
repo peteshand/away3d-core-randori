@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:53 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -124,7 +124,7 @@ away.library.AssetLibrary.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'se', t:'away.library.AssetLibrary$AssetLibrarySingletonEnforcer'});
+			p.push({n:'se', t:'away.library.AssetLibrarySingletonEnforcer'});
 			break;
 		default:
 			p = [];

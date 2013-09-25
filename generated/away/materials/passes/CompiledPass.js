@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,19 +8,19 @@ if (typeof away.materials.passes == "undefined")
 	away.materials.passes = {};
 
 away.materials.passes.CompiledPass = function(material) {
-	this._iPassesDirty = null;
+	this._iPassesDirty = false;
 	this._forceSeparateMVP = false;
 	this._normalBufferIndex = 0;
 	this._pAmbientLightR = 0;
 	this._pCompiler = null;
 	this._pNumPointLights = 0;
 	this._pCameraPositionIndex = 0;
-	this._usingSpecularMethod = null;
-	this._usesNormals = null;
+	this._usingSpecularMethod = false;
+	this._usesNormals = false;
 	this._vertexCode = null;
 	this._pLightFragmentConstantIndex = 0;
 	this._uvBufferIndex = 0;
-	this._pVertexConstantData = away.utils.VectorNumber.init(0, 0);
+	this._pVertexConstantData = away.utils.VectorInit.Num(0, 0);
 	this._secondaryUVBufferIndex = 0;
 	this._tangentBufferIndex = 0;
 	this._pNumDirectionalLights = 0;
@@ -31,7 +31,7 @@ away.materials.passes.CompiledPass = function(material) {
 	this._pLightProbeDiffuseIndices = null;
 	this._pNumLightProbes = 0;
 	this._pDiffuseLightSources = 0x03;
-	this._pFragmentConstantData = away.utils.VectorNumber.init(0, 0);
+	this._pFragmentConstantData = away.utils.VectorInit.Num(0, 0);
 	this._pMethodSetup = null;
 	this._preserveAlpha = true;
 	this._animateUVs = false;
@@ -514,7 +514,7 @@ away.materials.passes.CompiledPass.getRuntimeDependencies = function(t) {
 away.materials.passes.CompiledPass.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

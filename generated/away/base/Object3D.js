@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:20:03 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:28 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,7 @@ away.base.Object3D = function() {
 	this._transformComponents = null;
 	this._pivotPoint = new away.geom.Vector3D(0, 0, 0, 0);
 	this.extra = null;
-	this._listenToScaleChanged = null;
+	this._listenToScaleChanged = false;
 	this._iController = null;
 	this._pPos = new away.geom.Vector3D(0, 0, 0, 0);
 	this._pScaleZ = 1;
@@ -31,15 +31,15 @@ away.base.Object3D = function() {
 	this._z = 0;
 	this._sca = new away.geom.Vector3D(0, 0, 0, 0);
 	this._rotationDirty = true;
-	this._listenToRotationChanged = null;
+	this._listenToRotationChanged = false;
 	this._scaleDirty = true;
 	this._positionDirty = true;
 	this._eulers = new away.geom.Vector3D(0, 0, 0, 0);
-	this._listenToPositionChanged = null;
+	this._listenToPositionChanged = false;
 	this._pivotZero = true;
 	this._flipY = new away.geom.Matrix3D();
 	away.library.assets.NamedAssetBase.call(this, null);
-	this._transformComponents = [null, null, null];
+	this._transformComponents = away.utils.VectorInit.AnyClass(away.geom.Vector3D, 3);
 	this._transformComponents[0] = this._pPos;
 	this._transformComponents[1] = this._rot;
 	this._transformComponents[2] = this._sca;
@@ -540,6 +540,7 @@ away.base.Object3D.getRuntimeDependencies = function(t) {
 	p.push('away.geom.Vector3D');
 	p.push('away.events.Object3DEvent');
 	p.push('away.math.Matrix3DUtils');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

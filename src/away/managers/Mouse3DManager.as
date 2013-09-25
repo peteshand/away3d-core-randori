@@ -1,6 +1,10 @@
-///<reference path="../_definitions.ts"/>
-
-// Reference note: http://www.w3schools.com/jsref/dom_obj_event.asp
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.managers
 {
@@ -39,8 +43,10 @@ package away.managers
 		private var _activeView:View3D;
 		private var _updateDirty:Boolean = true;
 		private var _nullVector:Vector3D = new Vector3D();
-		public static var _pCollidingObject:PickingCollisionVO//Protected		private static var _previousCollidingObject:PickingCollisionVO;
-		private static var _collidingViewObjects:Vector.<PickingCollisionVO>//Vector.<PickingCollisionVO>;		private static var _queuedEvents:Vector.<MouseEvent3D>//Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>(); = new Vector.<MouseEvent3D>()
+		public static var _pCollidingObject:PickingCollisionVO;//Protected
+		private static var _previousCollidingObject:PickingCollisionVO;
+		private static var _collidingViewObjects:Vector.<PickingCollisionVO>;//Vector.<PickingCollisionVO>
+		private static var _queuedEvents:Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>();//Vector.<MouseEvent3D> = new Vector.<MouseEvent3D>()
 
         // TODO: AS3 <> Conversion
 		//private _mouseMoveEvent:away.events.MouseEvent = new away.events.MouseEvent(away.events.MouseEvent.MOUSE_MOVE);
@@ -53,7 +59,7 @@ package away.managers
 		private static var _mouseOver:MouseEvent3D = new MouseEvent3D(MouseEvent3D.MOUSE_OVER);
 		private static var _mouseWheel:MouseEvent3D = new MouseEvent3D(MouseEvent3D.MOUSE_WHEEL);
 		private static var _mouseDoubleClick:MouseEvent3D = new MouseEvent3D(MouseEvent3D.DOUBLE_CLICK);
-		private var _forceMouseMove:Boolean;
+		private var _forceMouseMove:Boolean = false;
 		private var _mousePicker:IPicker = PickingType.RAYCAST_FIRST_ENCOUNTERED;
 		private var _childDepth:Number = 0;
 		private static var _previousCollidingView:Number = -1;

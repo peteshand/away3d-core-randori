@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:55 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,15 +9,15 @@ if (typeof away.materials.compilation == "undefined")
 
 away.materials.compilation.ShaderCompiler = function(profile) {
 	this._diffuseLightSources = 0;
-	this._pEnableLightFallOff = null;
+	this._pEnableLightFallOff = false;
 	this._combinedLightSources = 0;
 	this._UVTarget = null;
 	this._pNumPointLights = 0;
 	this._vertexConstantData = null;
 	this._pCameraPositionIndex = -1;
-	this._usingSpecularMethod = null;
+	this._usingSpecularMethod = false;
 	this._secondaryUVBufferIndex = -1;
-	this._mipmap = null;
+	this._mipmap = false;
 	this._pAnimationTargetRegisters = null;
 	this._pSceneNormalMatrixIndex = -1;
 	this._specularLightSources = 0;
@@ -25,17 +25,17 @@ away.materials.compilation.ShaderCompiler = function(profile) {
 	this._pNormalBufferIndex = -1;
 	this._pNumLightProbes = 0;
 	this._fragmentPostLightCode = null;
-	this._smooth = null;
+	this._smooth = false;
 	this._pMethodSetup = null;
 	this._preserveAlpha = true;
-	this._animateUVs = null;
+	this._animateUVs = false;
 	this._sceneMatrixIndex = -1;
 	this._uvTransformIndex = -1;
 	this._fragmentLightCode = null;
 	this._UVSource = null;
 	this._pVertexCode = "";
 	this._pNumLights = 0;
-	this._pAlphaPremultiplied = null;
+	this._pAlphaPremultiplied = false;
 	this._pLightFragmentConstantIndex = -1;
 	this._uvBufferIndex = -1;
 	this._pNumDirectionalLights = 0;
@@ -48,10 +48,10 @@ away.materials.compilation.ShaderCompiler = function(profile) {
 	this._fragmentConstantData = null;
 	this._pRegisterCache = null;
 	this._pNumProbeRegisters = 0;
-	this._needUVAnimation = null;
-	this._forceSeperateMVP = null;
+	this._needUVAnimation = false;
+	this._forceSeperateMVP = false;
 	this._pFragmentCode = "";
-	this._repeat = null;
+	this._repeat = false;
 	this._pLightProbeSpecularIndices = null;
 	this._pDependencyCounter = null;
 	this._pSharedRegisters = new away.materials.compilation.ShaderRegisterData();

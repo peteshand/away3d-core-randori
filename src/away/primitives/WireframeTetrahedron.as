@@ -1,4 +1,11 @@
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.primitives
 {
 	import away.geom.Vector3D;
@@ -10,10 +17,13 @@ package away.primitives
 	public class WireframeTetrahedron extends WireframePrimitiveBase
 	{
 		
-		public static var ORIENTATION_YZ:String = "yz";		public static var ORIENTATION_XY:String = "xy";		public static var ORIENTATION_XZ:String = "xz";		
-		private var _width:Number;
-		private var _height:Number;
-		private var _orientation:String;
+		public static var ORIENTATION_YZ:String = "yz";
+		public static var ORIENTATION_XY:String = "xy";
+		public static var ORIENTATION_XZ:String = "xz";
+		
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _orientation:String = null;
 		
 		/**		 * Creates a new WireframeTetrahedron object.		 * @param width The size of the tetrahedron buttom size.		 * @param height The size of the tetranhedron height.		 * @param color The color of the wireframe lines.		 * @param thickness The thickness of the wireframe lines.		 */
 		public function WireframeTetrahedron(width:Number, height:Number, color:Number = 0xffffff, thickness:Number = 1, orientation:String = "yz"):void

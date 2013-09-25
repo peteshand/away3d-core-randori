@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:47 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.pick == "undefined")
 	away.pick = {};
 
 away.pick.AS3PickingCollider = function(findClosestCollision) {
-	this._findClosestCollision = null;
+	this._findClosestCollision = false;
 	findClosestCollision = findClosestCollision || false;
 	away.pick.PickingColliderBase.call(this);
 	this._findClosestCollision = findClosestCollision;

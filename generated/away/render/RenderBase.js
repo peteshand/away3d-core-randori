@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:04 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.render == "undefined")
 	away.render = {};
 
 away.render.RenderBase = function(renderToTexture) {
-	this._snapshotRequired = null;
+	this._snapshotRequired = false;
 	this._pShareContext = false;
 	this._pBackgroundAlpha = 1;
 	this._pBackgroundB = 0;
@@ -20,7 +20,7 @@ away.render.RenderBase = function(renderToTexture) {
 	this._pAntiAlias = 0;
 	this._pRttViewProjectionMatrix = new away.geom.Matrix3D();
 	this._pViewHeight = 0;
-	this._pRenderToTexture = null;
+	this._pRenderToTexture = false;
 	this._pRenderableSorter = null;
 	this._pRenderTarget = null;
 	this._pViewWidth = 0;

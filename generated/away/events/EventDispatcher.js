@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:59 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,14 +6,14 @@ if (typeof away.events == "undefined")
 	away.events = {};
 
 away.events.EventDispatcher = function() {
-	this.listeners = [];
+	this.listeners = away.utils.VectorInit.AnyClass(Object);
 	this.lFncLength = 0;
 	
 };
 
 away.events.EventDispatcher.prototype.addEventListener = function(type, listener, target) {
 	if (this.listeners[type] === undefined) {
-		this.listeners[type] = [];
+		this.listeners[type] = away.utils.VectorInit.AnyClass(away.events.EventData);
 	}
 	if (this.getEventListenerIndex(type, $createStaticDelegate(this, listener), target) === -1) {
 		var d = new away.events.EventData();
@@ -80,12 +80,16 @@ away.events.EventDispatcher.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.events.EventData');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 
 away.events.EventDispatcher.getStaticDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('away.utils.VectorInit');
+	p.push('Object');
+	return p;
 };
 
 away.events.EventDispatcher.injectionPoints = function(t) {

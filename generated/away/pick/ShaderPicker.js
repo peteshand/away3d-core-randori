@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ away.pick.ShaderPicker = function() {
 	this._context = null;
 	this._triangleProgram3D = null;
 	this.MOUSE_SCISSOR_RECT = new away.geom.Rectangle(0, 0, 1, 1);
-	this._potentialFound = null;
+	this._potentialFound = false;
 	this._hitColor = 0;
 	this._id = null;
 	this._interactiveId = 0;
@@ -31,9 +31,9 @@ away.pick.ShaderPicker = function() {
 	this._projX = 0;
 	this._localHitPosition = new away.geom.Vector3D(0, 0, 0, 0);
 	this._boundOffsetScale = null;
-	this._id = away.utils.VectorNumber.init(4, 0);
-	this._viewportData = away.utils.VectorNumber.init(4, 0);
-	this._boundOffsetScale = away.utils.VectorNumber.init(8, 0);
+	this._id = away.utils.VectorInit.Num(4, 0);
+	this._viewportData = away.utils.VectorInit.Num(4, 0);
+	this._boundOffsetScale = away.utils.VectorInit.Num(8, 0);
 	this._boundOffsetScale[3] = 0;
 	this._boundOffsetScale[7] = 1;
 };
@@ -371,7 +371,7 @@ away.pick.ShaderPicker.getRuntimeDependencies = function(t) {
 	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.display3D.Context3DClearMask');
 	p.push('away.display.BitmapData');
-	p.push('away.utils.VectorNumber');
+	p.push('away.utils.VectorInit');
 	return p;
 };
 

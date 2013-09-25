@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
+
 package away.loaders.misc
 {
 	import away.events.EventDispatcher;
@@ -13,22 +20,23 @@ package away.loaders.misc
 	import away.events.LoaderEvent;
 	import away.events.ParserEvent;
 	import away.events.AssetEvent;
+	import away.utils.VectorInit;
 
 	/**	 * The SingleFileLoader is used to load a single file, as part of a resource.	 *	 * While SingleFileLoader can be used directly, e.g. to create a third-party asset 	 * management system, it's recommended to use any of the classes Loader3D, AssetLoader	 * and AssetLibrary instead in most cases.	 *	 * @see away3d.loading.Loader3D	 * @see away3d.loading.AssetLoader	 * @see away3d.loading.AssetLibrary	 */
 	public class SingleFileLoader extends EventDispatcher
 	{
 		private var _parser:ParserBase;
 		private var _req:URLRequest;
-		private var _fileExtension:String;
-		private var _fileName:String;
-		private var _loadAsRawData:Boolean;
-		private var _materialMode:Number;
+		private var _fileExtension:String = null;
+		private var _fileName:String = null;
+		private var _loadAsRawData:Boolean = false;
+		private var _materialMode:Number = 0;
 		private var _data:*;
 
         // Static
 
 		// Image parser only parser that is added by default, to save file size.
-        private static var _parsers:Vector.<*> = new Vector.<*>();
+        private static var _parsers:Vector.<*> = VectorInit.StarVec();
 
         public static function enableParser(parser:Object):void
         {

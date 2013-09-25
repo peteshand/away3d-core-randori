@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:28:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:29 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,7 @@ away.loaders.parsers.OBJParser = function(scale) {
 	this._vertices = null;
 	this._currentObject = null;
 	this._currentMaterialGroup = null;
-	this._startedParsing = null;
+	this._startedParsing = false;
 	this._textData = null;
 	this._scale = 0;
 	this._materialLoaded = null;
@@ -31,7 +31,7 @@ away.loaders.parsers.OBJParser = function(scale) {
 	this._meshes = null;
 	this._objectIndex = 0;
 	this._oldIndex = 0;
-	this._mtlLib = null;
+	this._mtlLib = false;
 	scale = scale || 1;
 	away.loaders.parsers.ParserBase.call(this, away.loaders.parsers.ParserDataFormat.PLAIN_TEXT);
 	this._scale = scale;
@@ -68,7 +68,7 @@ away.loaders.parsers.OBJParser.prototype._iResolveDependency = function(resource
 		}
 		asset = resourceDependency.get_assets()[0];
 		if (asset.get_assetType() == away.library.assets.AssetType.TEXTURE) {
-			var lm = new away.loaders.parsers.OBJParser$LoadedMaterial();
+			var lm = new away.loaders.parsers.LoadedMaterial();
 			lm.materialID = resourceDependency.get_id();
 			lm.texture = asset;
 			this._materialLoaded.push(lm);
@@ -84,7 +84,7 @@ away.loaders.parsers.OBJParser.prototype._iResolveDependencyFailure = function(r
 		this._mtlLib = false;
 		this._mtlLibLoaded = false;
 	} else {
-		var lm = new away.loaders.parsers.OBJParser$LoadedMaterial();
+		var lm = new away.loaders.parsers.LoadedMaterial();
 		lm.materialID = resourceDependency.get_id();
 		this._materialLoaded.push(lm);
 	}
@@ -106,7 +106,7 @@ away.loaders.parsers.OBJParser.prototype._pProceedParsing = function() {
 		this._startedParsing = true;
 		this._vertices = [];
 		this._vertexNormals = [];
-		this._materialIDs = [];
+		this._materialIDs = away.utils.VectorInit.Str(0, "");
 		this._materialLoaded = [];
 		this._meshes = [];
 		this._uvs = [];
@@ -230,10 +230,10 @@ away.loaders.parsers.OBJParser.prototype.translateMaterialGroup = function(mater
 	var numFaces = faces.length;
 	var numVerts;
 	var subs;
-	var vertices = away.utils.VectorNumber.init(0, 0);
-	var uvs = away.utils.VectorNumber.init(0, 0);
-	var normals = away.utils.VectorNumber.init(0, 0);
-	var indices = away.utils.VectorNumber.init(0, 0);
+	var vertices = away.utils.VectorInit.Num(0, 0);
+	var uvs = away.utils.VectorInit.Num(0, 0);
+	var normals = away.utils.VectorInit.Num(0, 0);
+	var indices = away.utils.VectorInit.Num(0, 0);
 	this._realIndices = [];
 	this._vertexIndex = 0;
 	var j;
@@ -294,7 +294,7 @@ away.loaders.parsers.OBJParser.prototype.translateVertexData = function(face, ve
 away.loaders.parsers.OBJParser.prototype.createObject = function(trunk) {
 	this._currentGroup = null;
 	this._currentMaterialGroup = null;
-	this._objects.push(this._currentObject = new away.loaders.parsers.OBJParser$ObjectGroup());
+	this._objects.push(this._currentObject = new away.loaders.parsers.ObjectGroup());
 	if (trunk)
 		this._currentObject.name = trunk[1];
 };
@@ -302,7 +302,7 @@ away.loaders.parsers.OBJParser.prototype.createObject = function(trunk) {
 away.loaders.parsers.OBJParser.prototype.createGroup = function(trunk) {
 	if (!this._currentObject)
 		this.createObject(null);
-	this._currentGroup = new away.loaders.parsers.OBJParser$Group();
+	this._currentGroup = new away.loaders.parsers.Group();
 	this._currentGroup.materialID = this._activeMaterialID;
 	if (trunk)
 		this._currentGroup.name = trunk[1];
@@ -311,7 +311,7 @@ away.loaders.parsers.OBJParser.prototype.createGroup = function(trunk) {
 };
 
 away.loaders.parsers.OBJParser.prototype.createMaterialGroup = function(trunk) {
-	this._currentMaterialGroup = new away.loaders.parsers.OBJParser$MaterialGroup();
+	this._currentMaterialGroup = new away.loaders.parsers.MaterialGroup();
 	if (trunk)
 		this._currentMaterialGroup.url = trunk[1];
 	this._currentGroup.materialGroups.push(this._currentMaterialGroup);
@@ -371,7 +371,7 @@ away.loaders.parsers.OBJParser.prototype.parseVertexNormal = function(trunk) {
 
 away.loaders.parsers.OBJParser.prototype.parseFace = function(trunk) {
 	var len = trunk.length;
-	var face = new away.loaders.parsers.OBJParser$FaceData();
+	var face = new away.loaders.parsers.FaceData();
 	if (!this._currentGroup) {
 		this.createGroup(null);
 	}
@@ -475,7 +475,7 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 				basicSpecularMethod = new away.materials.methods.BasicSpecularMethod();
 				basicSpecularMethod.set_specularColor(specularColor);
 				basicSpecularMethod.set_specular(specular);
-				var specularData = new away.loaders.parsers.OBJParser$SpecularData();
+				var specularData = new away.loaders.parsers.SpecularData();
 				specularData.alpha = alpha;
 				specularData.basicSpecularMethod = basicSpecularMethod;
 				specularData.materialID = this._lastMtlID;
@@ -485,7 +485,7 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 			}
 			this._pAddDependency(this._lastMtlID, new away.net.URLRequest(mapkd), false, null, false);
 		} else if (useColor && !isNaN(diffuseColor)) {
-			var lm = new away.loaders.parsers.OBJParser$LoadedMaterial();
+			var lm = new away.loaders.parsers.LoadedMaterial();
 			lm.materialID = this._lastMtlID;
 			if (alpha == 0)
 				console.log("Warning: an alpha value of 0 was found in mtl color tag (Tr or d) ref:" + this._lastMtlID + ", mesh(es) using it will be invisible!");
@@ -650,20 +650,26 @@ away.loaders.parsers.OBJParser.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.base.data.Vertex');
 	p.push('away.base.Geometry');
+	p.push('away.loaders.parsers.LoadedMaterial');
 	p.push('away.materials.TextureMaterial');
 	p.push('away.base.data.UV');
 	p.push('away.loaders.parsers.ParserDataFormat');
 	p.push('away.loaders.parsers.ParserBase');
+	p.push('away.loaders.parsers.Group');
 	p.push('away.materials.ColorMultiPassMaterial');
 	p.push('away.net.URLRequest');
 	p.push('away.utils.GeometryUtils');
 	p.push('away.loaders.misc.ResourceDependency');
+	p.push('away.loaders.parsers.ObjectGroup');
+	p.push('away.loaders.parsers.SpecularData');
 	p.push('away.entities.Mesh');
 	p.push('away.materials.methods.BasicSpecularMethod');
 	p.push('away.loaders.parsers.utils.ParserUtil');
+	p.push('away.loaders.parsers.FaceData');
+	p.push('away.utils.VectorInit');
 	p.push('away.materials.TextureMultiPassMaterial');
-	p.push('away.utils.VectorNumber');
 	p.push('away.materials.ColorMaterial');
+	p.push('away.loaders.parsers.MaterialGroup');
 	p.push('away.library.assets.AssetType');
 	p.push('away.materials.utils.DefaultMaterialManager');
 	return p;
@@ -695,44 +701,5 @@ away.loaders.parsers.OBJParser.injectionPoints = function(t) {
 			break;
 	}
 	return p;
-};
-
-away.loaders.parsers.OBJParser$ObjectGroup = function() {
-this.name = null;
-this.groups = [];
-};
-
-away.loaders.parsers.OBJParser$Group = function() {
-this.name = null;
-this.materialID = null;
-this.materialGroups = [];
-};
-
-away.loaders.parsers.OBJParser$MaterialGroup = function() {
-this.url = null;
-this.faces = [];
-};
-
-away.loaders.parsers.OBJParser$SpecularData = function() {
-this.materialID = null;
-this.basicSpecularMethod = null;
-this.ambientColor = 0xFFFFFF;
-this.alpha = 1;
-};
-
-away.loaders.parsers.OBJParser$LoadedMaterial = function() {
-this.cm = null;
-this.ambientColor = 0xFFFFFF;
-this.texture = null;
-this.alpha = 1;
-this.materialID = null;
-this.specularMethod = null;
-};
-
-away.loaders.parsers.OBJParser$FaceData = function() {
-this.vertexIndices = away.utils.VectorNumber.init(0, 0);
-this.uvIndices = away.utils.VectorNumber.init(0, 0);
-this.normalIndices = away.utils.VectorNumber.init(0, 0);
-this.indexIds = [];
 };
 

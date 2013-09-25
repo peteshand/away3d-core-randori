@@ -1,4 +1,11 @@
-///<reference path="../../_definitions.ts"/>
+
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.lightpickers
 {
@@ -7,7 +14,7 @@ package away.materials.lightpickers
 	import away.lights.DirectionalLight;
 	import away.lights.LightProbe;
 	import away.events.LightEvent;
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	import away.events.Event;
 	//import flash.events.Event;
 	
@@ -17,18 +24,28 @@ package away.materials.lightpickers
 	//import away3d.lights.LightProbe;
 	//import away3d.lights.PointLight;
 
-	/**	 * StaticLightPicker is a light picker that provides a static set of lights. The lights can be reassigned, but	 * if the configuration changes (number of directional lights, point lights, etc), a material recompilation may	 * occur.	 */
+	/**
+	 * StaticLightPicker is a light picker that provides a static set of lights. The lights can be reassigned, but
+	 * if the configuration changes (number of directional lights, point lights, etc), a material recompilation may
+	 * occur.
+	 */
 	public class StaticLightPicker extends LightPickerBase
 	{
-		private var _lights:Vector.<LightBase>// not typed in AS3 - should it be lightbase ?
-		/**		 * Creates a new StaticLightPicker object.		 * @param lights The lights to be used for shading.		 */
+		private var _lights:Vector.<LightBase>;// not typed in AS3 - should it be lightbase ?
+
+		/**
+		 * Creates a new StaticLightPicker object.
+		 * @param lights The lights to be used for shading.
+		 */
 		public function StaticLightPicker(lights):void
 		{
             super();
 			this.lights = lights;
 		}
 
-		/**		 * The lights used for shading.		 */
+		/**
+		 * The lights used for shading.
+		 */
 		public function get lights():Vector.<LightBase>
 		{
 			return this._lights;
@@ -96,14 +113,16 @@ package away.materials.lightpickers
 			this._pNumLightProbes = numLightProbes;
 			
 			// MUST HAVE MULTIPLE OF 4 ELEMENTS!
-			this._pLightProbeWeights = VectorNumber.init(Math.ceil(numLightProbes/4)*4 );
+			this._pLightProbeWeights = VectorInit.Num(Math.ceil(numLightProbes/4)*4 );
 			
 			// notify material lights have changed
 			this.dispatchEvent(new Event(Event.CHANGE));
 
 		}
 
-		/**		 * Remove configuration change listeners on the lights.		 */
+		/**
+		 * Remove configuration change listeners on the lights.
+		 */
 		private function clearListeners():void
 		{
 			var len:Number = this._lights.length;
@@ -111,7 +130,9 @@ package away.materials.lightpickers
 				this._lights[i].removeEventListener(LightEvent.CASTS_SHADOW_CHANGE, onCastShadowChange , this );
 		}
 
-		/**		 * Notifies the material of a configuration change.		 */
+		/**
+		 * Notifies the material of a configuration change.
+		 */
 		private function onCastShadowChange(event:LightEvent):void
 		{
 			// TODO: Assign to special caster collections, just append it to the lights in SinglePass
@@ -137,7 +158,9 @@ package away.materials.lightpickers
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
 
-		/**		 * Called when a directional light's shadow casting configuration changes.		 */
+		/**
+		 * Called when a directional light's shadow casting configuration changes.
+		 */
 		private function updateDirectionalCasting(light:DirectionalLight):void
 		{
 
@@ -164,7 +187,9 @@ package away.materials.lightpickers
 			}
 		}
 
-		/**		 * Called when a point light's shadow casting configuration changes.		 */
+		/**
+		 * Called when a point light's shadow casting configuration changes.
+		 */
 		private function updatePointCasting(light:PointLight):void
 		{
 

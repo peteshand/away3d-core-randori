@@ -1,9 +1,14 @@
-/** * ... * @author Gary Paluk - http://www.plugin.io */
-
-///<reference path="../../away/_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package aglsl.assembler
 {
+	import away.utils.VectorInit;
 	public class RegMap
 	{
         private static var _map:Vector.<*>;
@@ -11,7 +16,7 @@ package aglsl.assembler
         {
             if ( ! RegMap._map )
             {
-                RegMap._map = new Vector.<*>();
+                RegMap._map = VectorInit.StarVec();
                 RegMap._map['va'] =  new Reg( 0x00, "vertex attribute" );
                 RegMap._map['fc'] =  new Reg( 0x01, "fragment constant" );
                 RegMap._map['vc'] =  new Reg( 0x01, "vertex constant" )

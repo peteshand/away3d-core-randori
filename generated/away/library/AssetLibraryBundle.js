@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 12:31:05 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:00:53 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.library.AssetLibraryBundle = function(me) {
 	this._assetDictionary = null;
 	this._assets = null;
 	this._gcTimeoutIID = 0;
-	this._assetDictDirty = null;
+	this._assetDictDirty = false;
 	this._strategy = null;
 	this._loadingSessions = null;
 	away.events.EventDispatcher.call(this);

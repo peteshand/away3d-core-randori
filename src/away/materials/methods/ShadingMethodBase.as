@@ -1,4 +1,10 @@
-///<reference path="../../_definitions.ts"/>
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.materials.methods
 {
@@ -30,7 +36,9 @@ package away.materials.methods
 	/**	 * ShadingMethodBase provides an abstract base method for shading methods, used by compiled passes to compile	 * the final shading program.	 */
 	public class ShadingMethodBase extends NamedAssetBase
 	{
-		public var _sharedRegisters:ShaderRegisterData// should be protected		private var _passes:Vector.<MaterialPassBase>//Vector.<MaterialPassBase>;		
+		public var _sharedRegisters:ShaderRegisterData;// should be protected
+		private var _passes:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>
+		
 		/**		 * Create a new ShadingMethodBase object.		 * @param needsNormals Defines whether or not the method requires normals.		 * @param needsView Defines whether or not the method requires the view direction.		 */
 		public function ShadingMethodBase():void // needsNormals : boolean, needsView : boolean, needsGlobalPos : boolean		{
             super(null);

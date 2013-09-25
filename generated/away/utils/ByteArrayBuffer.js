@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sun Sep 22 11:19:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:27 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.utils == "undefined")
 away.utils.ByteArrayBuffer = function() {
 	this._bytes = null;
 	away.utils.ByteArrayBase.call(this);
-	this._bytes = [];
+	this._bytes = away.utils.VectorInit.AnyClass(Number);
 	this._mode = "Array";
 };
 
@@ -126,7 +126,10 @@ away.utils.ByteArrayBuffer.className = "away.utils.ByteArrayBuffer";
 
 away.utils.ByteArrayBuffer.getRuntimeDependencies = function(t) {
 	var p;
-	return [];
+	p = [];
+	p.push('Number');
+	p.push('away.utils.VectorInit');
+	return p;
 };
 
 away.utils.ByteArrayBuffer.getStaticDependencies = function(t) {

@@ -1,15 +1,18 @@
-/* * Author: mr.doob / https://github.com/mrdoob/eventdispatcher.js/ * TypeScript Conversion : Karim Beyrouti ( karim@kurst.co.uk ) */
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
-///<reference path="../_definitions.ts"/>
-
-/** * @module away.events */
 package away.events {
 
     /**     * Base class for dispatching events     *     * @class away.events.EventDispatcher     *     */
     public class EventDispatcher{
 
         private var listeners:Vector.<Object> = new Vector.<Object>();
-        private var lFncLength:Number;
+        private var lFncLength:Number = 0;
 
         /**         * Add an event listener         * @method addEventListener         * @param {String} Name of event to add a listener for         * @param {Function} Callback function         * @param {Object} Target object listener is added to         */
         public function addEventListener(type:String, listener:Function, target:Object):void {

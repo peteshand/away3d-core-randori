@@ -1,4 +1,10 @@
-///<reference path="../../../../src/away/_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.loaders.parsers
 {
@@ -16,7 +22,13 @@ package away.loaders.parsers
 	public class CubeTextureParser extends ParserBase
 	{
 
-        private static var posX:String = 'posX';        private static var negX:String = 'negX';        private static var posY:String = 'posY';        private static var negY:String = 'negY';        private static var posZ:String = 'posZ';        private static var negZ:String = 'negZ';
+        private static var posX:String = 'posX';
+        private static var negX:String = 'negX';
+        private static var posY:String = 'posY';
+        private static var negY:String = 'negY';
+        private static var posZ:String = 'posZ';
+        private static var negZ:String = 'negZ';
+
         private var STATE_PARSE_DATA:Number = 0;
         private var STATE_LOAD_IMAGES:Number = 1;
         private var STATE_COMPLETE:Number = 2;

@@ -1,19 +1,34 @@
 
-///<reference path="../_definitions.ts" />
+/**
+ * ...
+ * @author Away3D Team - http://away3d.com/team/ (Original Development)
+ * @author Karim Beyrouti - http://kurst.co.uk/ (ActionScript to TypeScript port)
+ * @author Gary Paluk - http://www.plugin.io/ (ActionScript to TypeScript port)
+ * @author Pete Shand - http://www.peteshand.net/ (TypeScript to Randori port)
+ */
 
 package away.primitives
 {
-	import away.utils.VectorNumber;
+	import away.utils.VectorInit;
 	import away.geom.Vector3D;
 
-	/**	 * A WireframeSphere primitive mesh	 */
+	/**
+	 * A WireframeSphere primitive mesh
+	 */
 	public class WireframeSphere extends WireframePrimitiveBase
 	{
-		private var _segmentsW:Number;
-		private var _segmentsH:Number;
-		private var _radius:Number;
+		private var _segmentsW:Number = 0;
+		private var _segmentsH:Number = 0;
+		private var _radius:Number = 0;
 		
-		/**		 * Creates a new WireframeSphere object.		 * @param radius The radius of the sphere.		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.		 * @param segmentsH Defines the number of vertical segments that make up the sphere.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
+		/**
+		 * Creates a new WireframeSphere object.
+		 * @param radius The radius of the sphere.
+		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.
+		 * @param segmentsH Defines the number of vertical segments that make up the sphere.
+		 * @param color The colour of the wireframe lines
+		 * @param thickness The thickness of the wireframe lines
+		 */
 		public function WireframeSphere(radius:Number = 50, segmentsW:Number = 16, segmentsH:Number = 12, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
 			radius = radius || 50;
@@ -29,10 +44,12 @@ package away.primitives
             this._segmentsH = segmentsH;
 		}
 		
-		/**		 * @inheritDoc		 */
+		/**
+		 * @inheritDoc
+		 */
 		override public function pBuildGeometry():void
 		{
-			var vertices:Vector.<Number> = VectorNumber.init();
+			var vertices:Vector.<Number> = VectorInit.Num();
 			var v0:Vector3D = new Vector3D();
 			var v1:Vector3D = new Vector3D();
 			var i:Number, j:Number;
