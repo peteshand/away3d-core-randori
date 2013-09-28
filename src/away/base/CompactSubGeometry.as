@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -16,9 +15,7 @@ package away.base
 	import away.geom.Matrix3D;
 	import away.utils.VectorInit;
 	import away.utils.VectorInit;
-    /**
-     * @class away.base.Geometry
-     */
+    /**     * @class away.base.Geometry     */
 	public class CompactSubGeometry extends SubGeometryBase implements ISubGeometry
 	{
 		public var _pVertexDataInvalid:Vector.<Boolean> = VectorInit.Bool( 8 );//VectorInit.Bool(8, true)
@@ -45,14 +42,7 @@ package away.base
 			return this._pNumVertices;
 		}
 		
-		/**
-		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:
-		 * 0 - 2: vertex position X, Y, Z
-		 * 3 - 5: normal X, Y, Z
-		 * 6 - 8: tangent X, Y, Z
-		 * 9 - 10: U V
-		 * 11 - 12: Secondary U V
-		 */
+		/**		 * Updates the vertex data. All vertex properties are contained in a single Vector, and the order is as follows:		 * 0 - 2: vertex position X, Y, Z		 * 3 - 5: normal X, Y, Z		 * 6 - 8: tangent X, Y, Z		 * 9 - 10: U V		 * 11 - 12: Secondary U V		 */
 		public function updateData(data:Vector.<Number>):void
 		{
 			if (this._autoDeriveVertexNormals)
@@ -468,15 +458,7 @@ package away.base
             return this.stripBuffer(9, 2);
         }
 		
-		/**
-		 * Isolate and returns a Vector.Number of a specific buffer type
-		 *
-		 * - stripBuffer(0, 3), return only the vertices
-		 * - stripBuffer(3, 3): return only the normals
-		 * - stripBuffer(6, 3): return only the tangents
-		 * - stripBuffer(9, 2): return only the uv's
-		 * - stripBuffer(11, 2): return only the secondary uv's
-		 */
+		/**		 * Isolate and returns a Vector.Number of a specific buffer type		 *		 * - stripBuffer(0, 3), return only the vertices		 * - stripBuffer(3, 3): return only the normals		 * - stripBuffer(6, 3): return only the tangents		 * - stripBuffer(9, 2): return only the uv's		 * - stripBuffer(11, 2): return only the secondary uv's		 */
 		public function stripBuffer(offset:Number, numEntries:Number):Vector.<Number>
 		{
 			var data:Vector.<Number> = VectorInit.Num( this._pNumVertices*numEntries );// Vector.<Number>(_pNumVertices*numEntries);

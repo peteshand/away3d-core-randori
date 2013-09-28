@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -32,10 +31,7 @@ package away.materials.passes
 	import away.display3D.Context3DProgramType;
 	import away.materials.LightSources;
 
-    /**
-     * CompiledPass forms an abstract base class for the default compiled pass materials provided by Away3D,
-     * using material methods to define their appearance.
-     */
+    /**     * CompiledPass forms an abstract base class for the default compiled pass materials provided by Away3D,     * using material methods to define their appearance.     */
     public class CompiledPass extends MaterialPassBase
     {
         public var _iPasses:Vector.<MaterialPassBase>;//Vector.<MaterialPassBase>
@@ -85,10 +81,7 @@ package away.materials.passes
 
         private var _forceSeparateMVP:Boolean = false;
 
-        /**
-         * Creates a new CompiledPass object.
-         * @param material The material to which this pass belongs.
-         */
+        /**         * Creates a new CompiledPass object.         * @param material The material to which this pass belongs.         */
             public function CompiledPass(material:MaterialBase):void
         {
 
@@ -100,10 +93,7 @@ package away.materials.passes
             this.init();
         }
 
-        /**
-         * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and
-         * compatibility for constrained mode.
-         */
+        /**         * Whether or not to use fallOff and radius properties for lights. This can be used to improve performance and         * compatibility for constrained mode.         */
         public function get enableLightFallOff():Boolean
         {
             return this._enableLightFallOff;
@@ -122,11 +112,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * Indicates whether the screen projection should be calculated by forcing a separate scene matrix and
-         * view-projection matrix. This is used to prevent rounding errors when using multiple passes with different
-         * projection code.
-         */
+        /**         * Indicates whether the screen projection should be calculated by forcing a separate scene matrix and         * view-projection matrix. This is used to prevent rounding errors when using multiple passes with different         * projection code.         */
         public function get forceSeparateMVP():Boolean
         {
             return this._forceSeparateMVP;
@@ -137,44 +123,32 @@ package away.materials.passes
             this._forceSeparateMVP = value;
         }
 
-        /**
-         * The amount of point lights that need to be supported.
-         */
+        /**         * The amount of point lights that need to be supported.         */
         public function get iNumPointLights():Number
         {
             return this._pNumPointLights;
         }
 
-        /**
-         * The amount of directional lights that need to be supported.
-         */
+        /**         * The amount of directional lights that need to be supported.         */
         public function get iNumDirectionalLights():Number
         {
             return this._pNumDirectionalLights;
         }
 
-        /**
-         * The amount of light probes that need to be supported.
-         */
+        /**         * The amount of light probes that need to be supported.         */
         public function get iNumLightProbes():Number
         {
             return this._pNumLightProbes;
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iUpdateProgram(stage3DProxy:Stage3DProxy):void
         {
             this.reset(stage3DProxy.profile);
             super.iUpdateProgram(stage3DProxy);
         }
 
-        /**
-         * Resets the compilation state.
-         *
-         * @param profile The compatibility profile used by the renderer.
-         */
+        /**         * Resets the compilation state.         *         * @param profile The compatibility profile used by the renderer.         */
         private function reset(profile:String):void
         {
             this.iInitCompiler( profile);
@@ -185,9 +159,7 @@ package away.materials.passes
             this.pCleanUp();//this.cleanUp();
         }
 
-        /**
-         * Updates the amount of used register indices.
-         */
+        /**         * Updates the amount of used register indices.         */
         private function updateUsedOffsets():void
         {
             this._pNumUsedVertexConstants= this._pCompiler.numUsedVertexConstants;
@@ -198,9 +170,7 @@ package away.materials.passes
             this._pNumUsedFragmentConstants = this._pCompiler.numUsedFragmentConstants;
         }
 
-        /**
-         * Initializes the unchanging constant data for this material.
-         */
+        /**         * Initializes the unchanging constant data for this material.         */
         private function initConstantData():void
         {
 
@@ -226,10 +196,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * Initializes the compiler for this pass.
-         * @param profile The compatibility profile used by the renderer.
-         */
+        /**         * Initializes the compiler for this pass.         * @param profile The compatibility profile used by the renderer.         */
         public function iInitCompiler(profile:String):void
         {
             this._pCompiler = this.pCreateCompiler(profile);
@@ -249,18 +216,13 @@ package away.materials.passes
             this._pCompiler.compile();
         }
 
-        /**
-         * Factory method to create a concrete compiler object for this pass.
-         * @param profile The compatibility profile used by the renderer.
-         */
+        /**         * Factory method to create a concrete compiler object for this pass.         * @param profile The compatibility profile used by the renderer.         */
         public function pCreateCompiler(profile:String):ShaderCompiler
         {
             throw new AbstractMethodError();
         }
 
-        /**
-         * Copies the shader's properties from the compiler.
-         */
+        /**         * Copies the shader's properties from the compiler.         */
         public function pUpdateShaderProperties():void
         {
             this._pAnimatableAttributes = this._pCompiler.animatableAttributes;
@@ -279,9 +241,7 @@ package away.materials.passes
             this.updateUsedOffsets();
         }
 
-        /**
-         * Updates the indices for various registers.
-         */
+        /**         * Updates the indices for various registers.         */
         public function pUpdateRegisterIndices():void
         {
             this._uvBufferIndex = this._pCompiler.uvBufferIndex;
@@ -299,9 +259,7 @@ package away.materials.passes
             this._pLightProbeSpecularIndices = this._pCompiler.lightProbeSpecularIndices;
         }
 
-        /**
-         * Indicates whether the output alpha value should remain unchanged compared to the material's original alpha.
-         */
+        /**         * Indicates whether the output alpha value should remain unchanged compared to the material's original alpha.         */
         public function get preserveAlpha():Boolean
         {
             return this._preserveAlpha;
@@ -321,9 +279,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * Indicate whether UV coordinates need to be animated using the renderable's transformUV matrix.
-         */
+        /**         * Indicate whether UV coordinates need to be animated using the renderable's transformUV matrix.         */
         public function get animateUVs():Boolean
         {
             return this._animateUVs;
@@ -342,9 +298,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function set mipmap(value:Boolean):void
         {
             if (this._pMipmap == value)
@@ -353,10 +307,7 @@ package away.materials.passes
             super.setMipMap( value ); //super.mipmap = value;
         }
 
-        /**
-         * The normal map to modulate the direction of the surface for each texel. The default normal method expects
-         * tangent-space normal maps, but others could expect object-space maps.
-         */
+        /**         * The normal map to modulate the direction of the surface for each texel. The default normal method expects         * tangent-space normal maps, but others could expect object-space maps.         */
         public function get normalMap():Texture2DBase
         {
             return this._pMethodSetup._iNormalMethod.normalMap;
@@ -368,9 +319,7 @@ package away.materials.passes
             this._pMethodSetup._iNormalMethod.normalMap = value;
         }
 
-        /**
-         * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.
-         */
+        /**         * The method used to generate the per-pixel normals. Defaults to BasicNormalMethod.         */
 
         public function get normalMethod():BasicNormalMethod
         {
@@ -382,9 +331,7 @@ package away.materials.passes
             this._pMethodSetup.normalMethod = value;
         }
 
-        /**
-         * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.
-         */
+        /**         * The method that provides the ambient lighting contribution. Defaults to BasicAmbientMethod.         */
 
         public function get ambientMethod():BasicAmbientMethod
         {
@@ -396,9 +343,7 @@ package away.materials.passes
             this._pMethodSetup.ambientMethod = value;
         }
 
-        /**
-         * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.
-         */
+        /**         * The method used to render shadows cast on this surface, or null if no shadows are to be rendered. Defaults to null.         */
 
         public function get shadowMethod():ShadowMapMethodBase
         {
@@ -410,9 +355,7 @@ package away.materials.passes
             this._pMethodSetup.shadowMethod = value;
         }
 
-        /**
-         * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.
-         */
+        /**         * The method that provides the diffuse lighting contribution. Defaults to BasicDiffuseMethod.         */
         public function get diffuseMethod():BasicDiffuseMethod
         {
             return this._pMethodSetup.diffuseMethod;
@@ -423,9 +366,7 @@ package away.materials.passes
             this._pMethodSetup.diffuseMethod = value;
         }
 
-        /**
-         * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.
-         */
+        /**         * The method that provides the specular lighting contribution. Defaults to BasicSpecularMethod.         */
 
         public function get specularMethod():BasicSpecularMethod
         {
@@ -437,9 +378,7 @@ package away.materials.passes
             this._pMethodSetup.specularMethod = value;
         }
 
-        /**
-         * Initializes the pass.
-         */
+        /**         * Initializes the pass.         */
         private function init():void
         {
             this._pMethodSetup = new ShaderMethodSetup();
@@ -447,9 +386,7 @@ package away.materials.passes
             this._pMethodSetup.addEventListener(ShadingMethodEvent.SHADER_INVALIDATED, onShaderInvalidated , this );
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function dispose():void
         {
             super.dispose();
@@ -458,9 +395,7 @@ package away.materials.passes
             this._pMethodSetup = null;
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iInvalidateShaderProgram(updateMaterial:Boolean = true):void
         {
 			updateMaterial = updateMaterial || true;
@@ -495,9 +430,7 @@ package away.materials.passes
             super.iInvalidateShaderProgram(updateMaterial);
         }
 
-        /**
-         * Adds any possible passes needed by the used methods.
-         */
+        /**         * Adds any possible passes needed by the used methods.         */
         public function pAddPassesFromMethods():void
         {
 
@@ -518,13 +451,8 @@ package away.materials.passes
 
         }
 
-        /**
-         * Adds internal passes to the material.
-         *
-         * @param passes The passes to add.
-         */
-        public function pAddPasses(passes:Vector.<MaterialPassBase>):void //Vector.<MaterialPassBase>)
-        {
+        /**         * Adds internal passes to the material.         *         * @param passes The passes to add.         */
+        public function pAddPasses(passes:Vector.<MaterialPassBase>):void //Vector.<MaterialPassBase>)        {
             if (!passes)
             {
 
@@ -546,9 +474,7 @@ package away.materials.passes
             }
         }
 
-        /**
-         * Initializes the default UV transformation matrix.
-         */
+        /**         * Initializes the default UV transformation matrix.         */
         public function pInitUVTransformData():void
         {
             this._pVertexConstantData[this._uvTransformIndex] = 1;
@@ -561,9 +487,7 @@ package away.materials.passes
             this._pVertexConstantData[this._uvTransformIndex + 7] = 0;
         }
 
-        /**
-         * Initializes commonly required constant values.
-         */
+        /**         * Initializes commonly required constant values.         */
         public function pInitCommonsData():void
         {
             this._pFragmentConstantData[this._commonsDataIndex] = .5;
@@ -572,9 +496,7 @@ package away.materials.passes
             this._pFragmentConstantData[this._commonsDataIndex + 3] = 1;
         }
 
-        /**
-         * Cleans up the after compiling.
-         */
+        /**         * Cleans up the after compiling.         */
         public function pCleanUp():void
         {
             this._pCompiler.dispose();
@@ -582,9 +504,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * Updates method constants if they have changed.
-         */
+        /**         * Updates method constants if they have changed.         */
         public function pUpdateMethodConstants():void
         {
             if (this._pMethodSetup._iNormalMethod)
@@ -604,41 +524,31 @@ package away.materials.passes
 
         }
 
-        /**
-         * Updates constant data render state used by the lights. This method is optional for subclasses to implement.
-         */
+        /**         * Updates constant data render state used by the lights. This method is optional for subclasses to implement.         */
         public function pUpdateLightConstants():void
         {
             // up to subclasses to optionally implement
         }
 
-        /**
-         * Updates constant data render state used by the light probes. This method is optional for subclasses to implement.
-         */
+        /**         * Updates constant data render state used by the light probes. This method is optional for subclasses to implement.         */
         public function pUpdateProbes(stage3DProxy:Stage3DProxy):void
         {
 
         }
 
-        /**
-         * Called when any method's shader code is invalidated.
-         */
+        /**         * Called when any method's shader code is invalidated.         */
         private function onShaderInvalidated(event:ShadingMethodEvent):void
         {
             this.iInvalidateShaderProgram();//invalidateShaderProgram();
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iGetVertexCode():String
         {
             return this._vertexCode;
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iGetFragmentCode(animatorCode:String):String
         {
             //TODO: AGAL <> GLSL conversion
@@ -648,9 +558,7 @@ package away.materials.passes
 
         // RENDER LOOP
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iActivate(stage3DProxy:Stage3DProxy, camera:Camera3D):void
         {
             super.iActivate(stage3DProxy, camera);
@@ -682,9 +590,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iRender(renderable:IRenderable, stage3DProxy:Stage3DProxy, camera:Camera3D, viewProjection:Matrix3D):void
         {
             var i:Number;
@@ -827,25 +733,19 @@ package away.materials.passes
             context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.numTriangles);
         }
 
-        /**
-         * Indicates whether the shader uses any light probes.
-         */
+        /**         * Indicates whether the shader uses any light probes.         */
         public function pUsesProbes():Boolean
         {
             return this._pNumLightProbes > 0 && (( this._pDiffuseLightSources | this._pSpecularLightSources) & LightSources.PROBES) != 0;
         }
 
-        /**
-         * Indicates whether the shader uses any lights.
-         */
+        /**         * Indicates whether the shader uses any lights.         */
         public function pUsesLights():Boolean
         {
             return ( this._pNumPointLights > 0 || this._pNumDirectionalLights > 0) && ((this._pDiffuseLightSources | this._pSpecularLightSources) & LightSources.LIGHTS) != 0;
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function iDeactivate(stage3DProxy:Stage3DProxy):void
         {
             super.iDeactivate(stage3DProxy);
@@ -877,12 +777,7 @@ package away.materials.passes
 
         }
 
-        /**
-         * Define which light source types to use for specular reflections. This allows choosing between regular lights
-         * and/or light probes for specular reflections.
-         *
-         * @see away3d.materials.LightSources
-         */
+        /**         * Define which light source types to use for specular reflections. This allows choosing between regular lights         * and/or light probes for specular reflections.         *         * @see away3d.materials.LightSources         */
         public function get specularLightSources():Number
         {
             return this._pSpecularLightSources;
@@ -893,12 +788,7 @@ package away.materials.passes
             this._pSpecularLightSources = value;
         }
 
-        /**
-         * Define which light source types to use for diffuse reflections. This allows choosing between regular lights
-         * and/or light probes for diffuse reflections.
-         *
-         * @see away3d.materials.LightSources
-         */
+        /**         * Define which light source types to use for diffuse reflections. This allows choosing between regular lights         * and/or light probes for diffuse reflections.         *         * @see away3d.materials.LightSources         */
         public function get diffuseLightSources():Number
         {
             return this._pDiffuseLightSources;

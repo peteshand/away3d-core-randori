@@ -1,21 +1,20 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
 
-examples.AWDSuzanne = function() {
+examples.AWDSuzanne = function(_index) {
 	this.lastTiltAngle = 0;
 	this.hoverControl = null;
 	this.lastPanAngle = 0;
 	this.lightPicker = null;
-	this.lastMouseY = 0;
 	this.token = null;
+	this.lastMouseY = 0;
 	this.lastMouseX = 0;
-	this.timer = null;
 	this.suzane = null;
-	this.view = null;
 	this.light = null;
 	this.move = false;
+	examples.BaseExample.call(this, _index);
 	away.utils.Debug.LOG_PI_ERRORS = true;
 	away.utils.Debug.THROW_ERRORS = false;
 	away.library.AssetLibrary.enableParser(away.loaders.parsers.AWDParser);
@@ -24,21 +23,18 @@ examples.AWDSuzanne = function() {
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
 	this.view = new away.containers.View3D(null, null, null, false, "baseline");
 	this.view.set_backgroundColor(0x666666);
-	this.timer = new away.utils.RequestAnimationFrame($createStaticDelegate(this, this.render), this);
-	var that = this;
-	window.onresize = function() {
-		that.resize();
-	};
 };
 
 examples.AWDSuzanne.prototype.resize = function() {
-	this.view.set_y(0);
-	this.view.set_x(0);
-	this.view.set_width(window.innerWidth);
-	this.view.set_height(window.innerHeight);
+	if (this.view) {
+		this.view.set_y(0);
+		this.view.set_x(0);
+		this.view.set_width(window.innerWidth);
+		this.view.set_height(window.innerHeight);
+	}
 };
 
-examples.AWDSuzanne.prototype.render = function(dt) {
+examples.AWDSuzanne.prototype.tick = function(dt) {
 	if (this.suzane) {
 		this.suzane.set_rotationY(this.suzane.get_rotationY() + 1);
 	}
@@ -67,14 +63,8 @@ examples.AWDSuzanne.prototype.onResourceComplete = function(e) {
 				var mesh = asset;
 				mesh.scale(400);
 				this.suzane = mesh;
-				var bmd = new away.display.BitmapData(256, 256, true, 0x66FF0000);
-				var texture = new away.textures.BitmapTexture(bmd, false);
-				var material = new away.materials.TextureMaterial(texture, true, false, false);
-				material.set_alpha(0.2);
-				this.suzane.set_material(material);
 				this.suzane.set_y(-100);
 				this.view.get_scene().addChild(mesh);
-				this.timer.start();
 				this.resize();
 				break;
 			case away.library.assets.AssetType.GEOMETRY:
@@ -85,24 +75,22 @@ examples.AWDSuzanne.prototype.onResourceComplete = function(e) {
 	}
 };
 
+$inherit(examples.AWDSuzanne, examples.BaseExample);
+
 examples.AWDSuzanne.className = "examples.AWDSuzanne";
 
 examples.AWDSuzanne.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.utils.Debug');
+	p.push('away.net.URLRequest');
 	p.push('away.library.AssetLibrary');
-	p.push('away.materials.TextureMaterial');
+	p.push('away.utils.Debug');
 	p.push('away.containers.View3D');
+	p.push('*away.library.assets.IAsset');
 	p.push('away.events.LoaderEvent');
 	p.push('away.events.AssetEvent');
-	p.push('away.loaders.parsers.AWDParser');
-	p.push('away.net.URLRequest');
-	p.push('away.utils.RequestAnimationFrame');
-	p.push('away.textures.BitmapTexture');
-	p.push('*away.library.assets.IAsset');
-	p.push('away.display.BitmapData');
 	p.push('away.library.assets.AssetType');
+	p.push('away.loaders.parsers.AWDParser');
 	return p;
 };
 
@@ -112,5 +100,25 @@ examples.AWDSuzanne.getStaticDependencies = function(t) {
 };
 
 examples.AWDSuzanne.injectionPoints = function(t) {
-	return [];
+	var p;
+	switch (t) {
+		case 0:
+			p = [];
+			p.push({n:'_index', t:'int'});
+			break;
+		case 1:
+			p = examples.BaseExample.injectionPoints(t);
+			break;
+		case 2:
+			p = examples.BaseExample.injectionPoints(t);
+			break;
+		case 3:
+			p = examples.BaseExample.injectionPoints(t);
+			break;
+		default:
+			p = [];
+			break;
+	}
+	return p;
 };
+

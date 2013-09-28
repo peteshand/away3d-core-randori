@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -15,15 +14,7 @@ package away.base
 	import away.utils.VectorInit;
 	import away.utils.VectorInit;
 
-    /**
-     *
-	 * SkinnedSubGeometry provides a SubGeometry extension that contains data needed to skin vertices. In particular,
-	 * it provides joint indices and weights.
-	 * Important! Joint indices need to be pre-multiplied by 3, since they index the matrix array (and each matrix has 3 float4 elements)
-     *
-     * @class away.base.SkinnedSubGeometry
-     *
-	 */
+    /**     *	 * SkinnedSubGeometry provides a SubGeometry extension that contains data needed to skin vertices. In particular,	 * it provides joint indices and weights.	 * Important! Joint indices need to be pre-multiplied by 3, since they index the matrix array (and each matrix has 3 float4 elements)     *     * @class away.base.SkinnedSubGeometry     *	 */
 	public class SkinnedSubGeometry extends CompactSubGeometry
 	{
 		private var _bufferFormat:String = null;
@@ -42,10 +33,7 @@ package away.base
 		private var _condensedIndexLookUp:Vector.<Number>;/*uint*/// used for linking condensed indices to the real ones
 		private var _numCondensedJoints:Number = 0;
 		
-		/**
-		 * Creates a new SkinnedSubGeometry object.
-		 * @param jointsPerVertex The amount of joints that can be assigned per vertex.
-		 */
+		/**		 * Creates a new SkinnedSubGeometry object.		 * @param jointsPerVertex The amount of joints that can be assigned per vertex.		 */
 		public function SkinnedSubGeometry(jointsPerVertex:Number):void
 		{
 			super();
@@ -54,24 +42,18 @@ package away.base
             this._bufferFormat = "float" + this._jointsPerVertex;
 		}
 		
-		/**
-		 * If indices have been condensed, this will contain the original index for each condensed index.
-		 */
+		/**		 * If indices have been condensed, this will contain the original index for each condensed index.		 */
 		public function get condensedIndexLookUp():Vector.<Number> /*uint*/		{
 			return this._condensedIndexLookUp;
 		}
 		
-		/**
-		 * The amount of joints used when joint indices have been condensed.
-		 */
+		/**		 * The amount of joints used when joint indices have been condensed.		 */
 		public function get numCondensedJoints():Number
 		{
 			return this._numCondensedJoints;
 		}
 		
-		/**
-		 * The animated vertex positions when set explicitly if the skinning transformations couldn't be performed on GPU.
-		 */
+		/**		 * The animated vertex positions when set explicitly if the skinning transformations couldn't be performed on GPU.		 */
 		public function get animatedData():Vector.<Number>
 		{
 			return this._animatedData ||this._vertexData.concat();
@@ -83,11 +65,7 @@ package away.base
             this.pInvalidateBuffers( this._pVertexDataInvalid );
 		}
 		
-		/**
-		 * Assigns the attribute stream for joint weights
-		 * @param index The attribute stream index for the vertex shader
-		 * @param stage3DProxy The Stage3DProxy to assign the stream to
-		 */
+		/**		 * Assigns the attribute stream for joint weights		 * @param index The attribute stream index for the vertex shader		 * @param stage3DProxy The Stage3DProxy to assign the stream to		 */
 		public function activateJointWeightsBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -104,11 +82,7 @@ package away.base
 			context.setVertexBufferAt(index, this._jointWeightsBuffer[contextIndex], 0, this._bufferFormat);
 		}
 		
-		/**
-		 * Assigns the attribute stream for joint indices
-		 * @param index The attribute stream index for the vertex shader
-		 * @param stage3DProxy The Stage3DProxy to assign the stream to
-		 */
+		/**		 * Assigns the attribute stream for joint indices		 * @param index The attribute stream index for the vertex shader		 * @param stage3DProxy The Stage3DProxy to assign the stream to		 */
 		public function activateJointIndexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -140,10 +114,7 @@ package away.base
             }
 		}
 		
-		/**
-		 * Clones the current object.
-		 * @return An exact duplicate of the current object.
-		 */
+		/**		 * Clones the current object.		 * @return An exact duplicate of the current object.		 */
 		override public function clone():ISubGeometry
 		{
 			var clone:SkinnedSubGeometry = new SkinnedSubGeometry(this._jointsPerVertex);
@@ -161,9 +132,7 @@ package away.base
 			return clone;
 		}
 		
-		/**
-		 * Cleans up any resources used by this object.
-		 */
+		/**		 * Cleans up any resources used by this object.		 */
 		override public function dispose():void
 		{
 			super.dispose();
@@ -171,8 +140,7 @@ package away.base
             this.pDisposeVertexBuffers(this._jointIndexBuffer);
 		}
 		
-		/**
-		 */
+		/**		 */
 		public function iCondenseIndexData():void
 		{
 			var len:Number = this._jointIndexData.length;
@@ -200,9 +168,7 @@ package away.base
             this.pInvalidateBuffers(this._jointIndicesInvalid);
 		}
 		
-		/**
-		 * The raw joint weights data.
-		 */
+		/**		 * The raw joint weights data.		 */
 		public function get iJointWeightsData():Vector.<Number>
 		{
 			return this._jointWeightsData;
@@ -219,9 +185,7 @@ package away.base
             this.pInvalidateBuffers(this._jointWeightsInvalid);
 		}
 		
-		/**
-		 * The raw joint index data.
-		 */
+		/**		 * The raw joint index data.		 */
 		public function get iJointIndexData():Vector.<Number>
 		{
 			return this._jointIndexData;

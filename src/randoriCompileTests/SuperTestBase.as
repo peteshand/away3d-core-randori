@@ -1,4 +1,4 @@
-package test
+package randoriCompileTests
 {
     public class SuperTestBase
     {

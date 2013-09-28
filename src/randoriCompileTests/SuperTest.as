@@ -1,10 +1,10 @@
-package test
+package randoriCompileTests
 {
-    public class VectorTest extends VectorTestBase
+    public class SuperTest extends SuperTestBase
     {
         public var _vec:Vector.<Object> = new Vector.<Object>();
 
-        public function VectorTest()
+        public function SuperTest()
         {
             super(false);
         }

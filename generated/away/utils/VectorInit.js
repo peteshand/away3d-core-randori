@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:25 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -37,9 +37,9 @@ away.utils.VectorInit.VecNum = function(length, defaultValue, v) {
 	length = length || 0;
 	defaultValue = defaultValue || 0;
 	if (!v)
-		v = [];
+		v = length;
 	for (var g = 0; g < length; ++g)
-		v.push(away.utils.VectorInit.Num(0, 0));
+		v[g].push(away.utils.VectorInit.Num(0, 0));
 	return v;
 };
 

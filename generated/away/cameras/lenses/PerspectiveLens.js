@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:36 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -64,7 +64,7 @@ away.cameras.lenses.PerspectiveLens.prototype.clone = function() {
 };
 
 away.cameras.lenses.PerspectiveLens.prototype.pUpdateMatrix = function() {
-	var raw = away.utils.VectorInit.AnyClass(Number);
+	var raw = [];
 	this._yMax = this._pNear * this._focalLengthInv;
 	this._xMax = this._yMax * this._pAspectRatio;
 	var left, right, top, bottom;
@@ -153,8 +153,6 @@ away.cameras.lenses.PerspectiveLens.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.geom.Vector3D');
-	p.push('Number');
-	p.push('away.utils.VectorInit');
 	return p;
 };
 

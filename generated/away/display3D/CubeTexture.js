@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:27 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.display3D.CubeTexture = function(gl, size) {
 	away.display3D.TextureBase.call(this, gl);
 	this._size = size;
 	this.textureType = "textureCube";
-	this._textures = away.utils.VectorInit.AnyClass(WebGLTexture);
+	this._textures = [];
 	for (var i = 0; i < 6; ++i) {
 		this._textures[i] = this._gl.createTexture();
 	}
@@ -115,7 +115,6 @@ away.display3D.CubeTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.display.BitmapData');
-	p.push('away.utils.VectorInit');
 	return p;
 };
 

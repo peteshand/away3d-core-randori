@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -14,24 +13,16 @@ package away.math
 	import away.geom.Vector3D;
 	//import flash.geom.*;
 	
-	/**
-	 * away3d.math.Matrix3DUtils provides additional Matrix3D math functions.
-	 */
+	/**	 * away3d.math.Matrix3DUtils provides additional Matrix3D math functions.	 */
 	public class Matrix3DUtils
 	{
-		/**
-		 * A reference to a Vector to be used as a temporary raw data container, to prevent object creation.
-		 */
+		/**		 * A reference to a Vector to be used as a temporary raw data container, to prevent object creation.		 */
         public static var RAW_DATA_CONTAINER:Vector.<Number> = VectorInit.Num(16);
 		//public static RAW_DATA_CONTAINER:number[] = new Vector.<Number>(16);
 		
 		public static var CALCULATION_MATRIX:Matrix3D = new Matrix3D();
 		
-		/**
-		 * Fills the 3d matrix object with values representing the transformation made by the given quaternion.
-		 *
-		 * @param    quarternion    The quarterion object to convert.
-		 */
+		/**		 * Fills the 3d matrix object with values representing the transformation made by the given quaternion.		 *		 * @param    quarternion    The quarterion object to convert.		 */
 		public static function quaternion2matrix(quarternion:Quaternion, m:Matrix3D = null):Matrix3D
 		{
 			m = m || null;
@@ -79,12 +70,7 @@ package away.math
 				return new Matrix3D(raw);
 		}
 		
-		/**
-		 * Returns a normalised <code>Vector3D</code> object representing the forward vector of the given matrix.
-		 * @param    m        The Matrix3D object to use to get the forward vector
-		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.
-		 * @return            The forward vector
-		 */
+		/**		 * Returns a normalised <code>Vector3D</code> object representing the forward vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the forward vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The forward vector		 */
 		public static function getForward(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
 			v = v || null;
@@ -103,12 +89,7 @@ package away.math
 			return v;
 		}
 		
-		/**
-		 * Returns a normalised <code>Vector3D</code> object representing the up vector of the given matrix.
-		 * @param    m        The Matrix3D object to use to get the up vector
-		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.
-		 * @return            The up vector
-		 */
+		/**		 * Returns a normalised <code>Vector3D</code> object representing the up vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the up vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The up vector		 */
 		public static function getUp(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
 			v = v || null;
@@ -128,12 +109,7 @@ package away.math
 			return v;
 		}
 		
-		/**
-		 * Returns a normalised <code>Vector3D</code> object representing the right vector of the given matrix.
-		 * @param    m        The Matrix3D object to use to get the right vector
-		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.
-		 * @return            The right vector
-		 */
+		/**		 * Returns a normalised <code>Vector3D</code> object representing the right vector of the given matrix.		 * @param    m        The Matrix3D object to use to get the right vector		 * @param    v        [optional] A vector holder to prevent make new Vector3D instance if already exists. Default is null.		 * @return            The right vector		 */
 		public static function getRight(m:Matrix3D, v:Vector3D = null):Vector3D
 		{
 			v = v || null;
@@ -152,9 +128,7 @@ package away.math
 			return v;
 		}
 		
-		/**
-		 * Returns a boolean value representing whether there is any significant difference between the two given 3d matrices.
-		 */
+		/**		 * Returns a boolean value representing whether there is any significant difference between the two given 3d matrices.		 */
 		public static function compare(m1:Matrix3D, m2:Matrix3D):Boolean
 		{
 			var r1:Vector.<Number> = Matrix3DUtils.RAW_DATA_CONTAINER;

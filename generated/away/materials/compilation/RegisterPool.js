@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 08:08:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -94,7 +94,7 @@ away.materials.compilation.RegisterPool.prototype.initRegisters = function(regNa
 	var hash = away.materials.compilation.RegisterPool._initPool(regName, regCount);
 	this._vectorRegisters = away.materials.compilation.RegisterPool._regPool[hash];
 	this._registerComponents = away.materials.compilation.RegisterPool._regCompsPool[hash];
-	this._usedVectorCount = away.utils.VectorInit.Num(regCount, 0);
+	this._usedVectorCount = regCount;
 	this._usedSingleCount = away.utils.VectorInit.VecNum(4, 0);
 	this._usedSingleCount[0] = away.utils.VectorInit.Num(regCount, 0);
 	this._usedSingleCount[1] = away.utils.VectorInit.Num(regCount, 0);

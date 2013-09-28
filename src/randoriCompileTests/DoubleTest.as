@@ -1,4 +1,4 @@
-package test
+package randoriCompileTests
 {
 import randori.webkit.page.Window;
 

@@ -34,7 +34,9 @@ package away.textures
 			this.pSetSize(posX.width, posX.height);
 		}
 		
-		/**		 * The texture on the cube's right face.		 */
+		/**
+		 * The texture on the cube's right face.
+		 */
 		public function get positiveX():HTMLImageElement
 		{
 			return this._bitmapDatas[0];
@@ -48,7 +50,9 @@ package away.textures
 			this._bitmapDatas[0] = value;
 		}
 		
-		/**		 * The texture on the cube's left face.		 */
+		/**
+		 * The texture on the cube's left face.
+		 */
 		public function get negativeX():HTMLImageElement
 		{
 			return this._bitmapDatas[1];
@@ -62,7 +66,9 @@ package away.textures
             this._bitmapDatas[1] = value;
 		}
 		
-		/**		 * The texture on the cube's top face.		 */
+		/**
+		 * The texture on the cube's top face.
+		 */
 		public function get positiveY():HTMLImageElement
 		{
 			return this._bitmapDatas[2];
@@ -76,7 +82,9 @@ package away.textures
             this._bitmapDatas[2] = value;
 		}
 		
-		/**		 * The texture on the cube's bottom face.		 */
+		/**
+		 * The texture on the cube's bottom face.
+		 */
 		public function get negativeY():HTMLImageElement
 		{
 			return this._bitmapDatas[3];
@@ -90,7 +98,9 @@ package away.textures
             this._bitmapDatas[3] = value;
 		}
 		
-		/**		 * The texture on the cube's far face.		 */
+		/**
+		 * The texture on the cube's far face.
+		 */
 		public function get positiveZ():HTMLImageElement
 		{
 			return this._bitmapDatas[4];
@@ -104,7 +114,9 @@ package away.textures
             this._bitmapDatas[4] = value;
 		}
 		
-		/**		 * The texture on the cube's near face.		 */
+		/**
+		 * The texture on the cube's near face.
+		 */
 		public function get negativeZ():HTMLImageElement
 		{
 			return this._bitmapDatas[5];

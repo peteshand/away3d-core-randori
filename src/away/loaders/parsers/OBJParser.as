@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -31,9 +30,7 @@ package away.loaders.parsers
 	import away.materials.ColorMultiPassMaterial;
 	import randori.webkit.page.Window;
 
-	/**
-	 * OBJParser provides a parser for the OBJ data type.
-	 */
+	/**	 * OBJParser provides a parser for the OBJ data type.	 */
 	public class OBJParser extends ParserBase
 	{
 		private var _textData:String = null;
@@ -61,11 +58,7 @@ package away.loaders.parsers
 		private var _mtlLibLoaded:Boolean = true;
 		private var _activeMaterialID:String = "";
 		
-		/**
-		 * Creates a new OBJParser object.
-		 * @param uri The url or id of the data or file to be parsed.
-		 * @param extra The holder for extra contextual data that the parser might need.
-		 */
+		/**		 * Creates a new OBJParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
 		public function OBJParser(scale:Number = 1):void
 		{
 			scale = scale || 1;
@@ -74,31 +67,20 @@ package away.loaders.parsers
 			this._scale = scale;
 		}
 		
-		/**
-		 * Scaling factor applied directly to vertices data
-		 * @param value The scaling factor.
-		 */
+		/**		 * Scaling factor applied directly to vertices data		 * @param value The scaling factor.		 */
 		public function set scale(value:Number):void
 		{
 			this._scale = value;
 		}
 		
-		/**
-		 * Indicates whether or not a given file extension is supported by the parser.
-		 * @param extension The file extension of a potential file to be parsed.
-		 * @return Whether or not the given file type is supported.
-		 */
+		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
 			return extension == "obj";
 		}
 		
-		/**
-		 * Tests whether a data block can be parsed by the parser.
-		 * @param data The data block to potentially be parsed.
-		 * @return Whether or not the given data is supported.
-		 */
+		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
 		public static function supportsData(data:*):Boolean
 		{
 			var content:String = ParserUtil.toString(data);
@@ -114,9 +96,7 @@ package away.loaders.parsers
 			return hasV && hasF;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _iResolveDependency(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == 'mtl')
@@ -153,9 +133,7 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
 		{
 			if (resourceDependency.id == "mtl")
@@ -174,9 +152,7 @@ package away.loaders.parsers
 				this.applyMaterial(lm);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function _pProceedParsing():Boolean
 		{
 			var line:String;
@@ -251,9 +227,7 @@ package away.loaders.parsers
 			return ParserBase.MORE_TO_PARSE;
 		}
 		
-		/**
-		 * Parses a single line in the OBJ file.
-		 */
+		/**		 * Parses a single line in the OBJ file.		 */
 		private function parseLine(trunk):void
 		{
 			switch (trunk[0])
@@ -321,9 +295,7 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**
-		 * Converts the parsed data into an Away3D scenegraph structure
-		 */
+		/**		 * Converts the parsed data into an Away3D scenegraph structure		 */
 		private function translate():void
 		{
 			for (var objIndex:Number = 0; objIndex < this._objects.length; ++objIndex)
@@ -399,11 +371,7 @@ package away.loaders.parsers
 			}
 		}
 		
-		/**
-		 * Translates an obj's material group to a subgeometry.
-		 * @param materialGroup The material group data to convert.
-		 * @param geometry The Geometry to contain the converted SubGeometry.
-		 */
+		/**		 * Translates an obj's material group to a subgeometry.		 * @param materialGroup The material group data to convert.		 * @param geometry The Geometry to contain the converted SubGeometry.		 */
 		private function translateMaterialGroup(materialGroup:MaterialGroup, geometry:Geometry):void
 		{
 			var faces:Vector.<FaceData> = materialGroup.faces;
@@ -496,10 +464,7 @@ package away.loaders.parsers
 			indices.push(index);
 		}
 		
-		/**
-		 * Creates a new object group.
-		 * @param trunk The data block containing the object tag and its parameters
-		 */
+		/**		 * Creates a new object group.		 * @param trunk The data block containing the object tag and its parameters		 */
 		private function createObject(trunk):void
 		{
 			this._currentGroup = null;
@@ -510,10 +475,7 @@ package away.loaders.parsers
                 this._currentObject.name = trunk[1];
 		}
 		
-		/**
-		 * Creates a new group.
-		 * @param trunk The data block containing the group tag and its parameters
-		 */
+		/**		 * Creates a new group.		 * @param trunk The data block containing the group tag and its parameters		 */
 		private function createGroup(trunk):void
 		{
 			if (!this._currentObject)
@@ -529,10 +491,7 @@ package away.loaders.parsers
             this.createMaterialGroup(null);
 		}
 		
-		/**
-		 * Creates a new material group.
-		 * @param trunk The data block containing the material tag and its parameters
-		 */
+		/**		 * Creates a new material group.		 * @param trunk The data block containing the material tag and its parameters		 */
 		private function createMaterialGroup(trunk):void
 		{
             this._currentMaterialGroup = new MaterialGroup();
@@ -541,10 +500,7 @@ package away.loaders.parsers
             this._currentGroup.materialGroups.push(this._currentMaterialGroup);
 		}
 		
-		/**
-		 * Reads the next vertex coordinates.
-		 * @param trunk The data block containing the vertex tag and its parameters
-		 */
+		/**		 * Reads the next vertex coordinates.		 * @param trunk The data block containing the vertex tag and its parameters		 */
 		private function parseVertex(trunk):void
 		{
 			//for the very rare cases of other delimiters/charcodes seen in some obj files
@@ -579,10 +535,7 @@ package away.loaders.parsers
 
 		}
 		
-		/**
-		 * Reads the next uv coordinates.
-		 * @param trunk The data block containing the uv tag and its parameters
-		 */
+		/**		 * Reads the next uv coordinates.		 * @param trunk The data block containing the uv tag and its parameters		 */
 		private function parseUV(trunk):void
 		{
             if (trunk.length > 3)
@@ -605,10 +558,7 @@ package away.loaders.parsers
 
 		}
 		
-		/**
-		 * Reads the next vertex normal coordinates.
-		 * @param trunk The data block containing the vertex normal tag and its parameters
-		 */
+		/**		 * Reads the next vertex normal coordinates.		 * @param trunk The data block containing the vertex normal tag and its parameters		 */
 		private function parseVertexNormal(trunk):void
 		{
 			if (trunk.length > 4) {
@@ -628,10 +578,7 @@ package away.loaders.parsers
             }
 		}
 		
-		/**
-		 * Reads the next face's indices.
-		 * @param trunk The data block containing the face tag and its parameters
-		 */
+		/**		 * Reads the next face's indices.		 * @param trunk The data block containing the face tag and its parameters		 */
 		private function parseFace(trunk):void
 		{
 			var len:Number = trunk.length;
@@ -666,9 +613,7 @@ package away.loaders.parsers
 			this._currentMaterialGroup.faces.push(face);
 		}
 		
-		/**
-		 * This is a hack around negative face coords
-		 */
+		/**		 * This is a hack around negative face coords		 */
 		private function parseIndex(index:Number, length:Number):Number
 		{
 			if (index < 0)

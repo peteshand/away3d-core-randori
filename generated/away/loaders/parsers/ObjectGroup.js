@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ if (typeof away.loaders.parsers == "undefined")
 
 away.loaders.parsers.ObjectGroup = function() {
 this.name = null;
-this.groups = away.utils.VectorInit.AnyClass(away.loaders.parsers.Group);
+this.groups = [];
 };
 
 away.loaders.parsers.ObjectGroup.className = "away.loaders.parsers.ObjectGroup";
@@ -21,10 +21,7 @@ away.loaders.parsers.ObjectGroup.getRuntimeDependencies = function(t) {
 
 away.loaders.parsers.ObjectGroup.getStaticDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('away.loaders.parsers.Group');
-	p.push('away.utils.VectorInit');
-	return p;
+	return [];
 };
 
 away.loaders.parsers.ObjectGroup.injectionPoints = function(t) {

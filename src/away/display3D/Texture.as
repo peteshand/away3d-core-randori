@@ -12,9 +12,7 @@ package away.display3D
 	import randori.webkit.html.canvas.WebGLTexture;
 	import randori.webkit.html.canvas.WebGLRenderingContext;
 	import randori.webkit.html.HTMLImageElement;
-import randori.webkit.page.Window;
-
-public class Texture extends TextureBase
+	public class Texture extends TextureBase
 	{
 		private var _width:Number = 0;
 		private var _height:Number = 0;
@@ -50,11 +48,8 @@ public class Texture extends TextureBase
 		public function uploadFromHTMLImageElement(image:HTMLImageElement, miplevel:Number = 0):void
 		{
 			miplevel = miplevel || 0;
-            Window.console.log(_glTexture);
-            Window.console.log('miplevel = ' + miplevel);
-            Window.console.log(image);
 
-            _gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), _glTexture );
+			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), _glTexture );
 			_gl.texImage2D3( Number(WebGLRenderingContext.TEXTURE_2D), miplevel, Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.RGBA), Number(WebGLRenderingContext.UNSIGNED_BYTE), image );
 			_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
 		}

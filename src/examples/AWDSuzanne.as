@@ -31,11 +31,9 @@ import randori.webkit.page.Window;
      * Time: 7:52 AM
      * To change this template use File | Settings | File Templates.
      */
-    public class AWDSuzanne
+    public class AWDSuzanne extends BaseExample
     {
-        private var view           : View3D;
         private var token          : AssetLoaderToken;
-        private var timer          : RequestAnimationFrame;
         private var suzane         : Mesh;
         private var light          : DirectionalLight;
         private var lightPicker    : StaticLightPicker;
@@ -47,8 +45,10 @@ import randori.webkit.page.Window;
         private var lastMouseX     : Number;
         private var lastMouseY     : Number;
         
-        public function AWDSuzanne()
+        public function AWDSuzanne(_index:int)
         {
+            super(_index);
+
             Debug.LOG_PI_ERRORS = true;
             Debug.THROW_ERRORS = false;
 
@@ -60,7 +60,6 @@ import randori.webkit.page.Window;
 
             view = new View3D();
             view.backgroundColor = 0x666666;
-            timer = new RequestAnimationFrame( render, this );
 
             /*light                  = new DirectionalLight();
             light.color            = 0x683019;//683019;
@@ -75,26 +74,20 @@ import randori.webkit.page.Window;
 
             lightPicker           = new StaticLightPicker( [light] );
             */
-            var that:AWDSuzanne = this;
-            window.onresize = function():void
-            {
-                that.resize();
+        }
+
+        override protected function resize():void
+        {
+            if (view){
+                view.y         = 0;
+                view.x         = 0;
+                view.width     = window.innerWidth;
+                view.height    = window.innerHeight;
             }
-
         }
 
-        private function resize( )
+        override protected function tick(dt:Number):void
         {
-            view.y         = 0;
-            view.x         = 0;
-            view.width     = window.innerWidth;
-            view.height    = window.innerHeight;
-        }
-
-        private function render( dt : Number ) //animate based on dt for firefox
-        {
-
-
             if ( suzane )
             {
                 suzane.rotationY += 1;
@@ -104,9 +97,7 @@ import randori.webkit.page.Window;
 
             if ( hoverControl  )
             {
-
                 hoverControl.update(false);
-
             }
 
         }
@@ -144,16 +135,14 @@ import randori.webkit.page.Window;
                     suzane = mesh;
                     //suzane.material.lightPicker = lightPicker;
 
-                    var bmd:BitmapData = new BitmapData(256, 256, true, 0x66FF0000);
-                    var texture:BitmapTexture = new BitmapTexture(bmd, false);
-                    var material:TextureMaterial = new TextureMaterial(texture, true, false, false);
-                    material.alpha = 0.2;
-                    suzane.material = material;//new ColorMaterial(0xFF0000, 0.2)
+                    //var bmd:BitmapData = new BitmapData(256, 256, true, 0x66FF0000);
+                    //var texture:BitmapTexture = new BitmapTexture(bmd, false);
+                    //var material:TextureMaterial = new TextureMaterial(texture, true, false, false);
+                    //material.alpha = 0.2;
+                    //suzane.material = material;//new ColorMaterial(0xFF0000, 0.2)
                     suzane.y = -100;
 
                     view.scene.addChild( mesh );
-                    timer.start();
-
 
                     resize();
 

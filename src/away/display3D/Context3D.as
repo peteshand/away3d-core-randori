@@ -108,7 +108,7 @@ package away.display3D
 		{
 			enableDepthAndStencil = enableDepthAndStencil || true;
 
-            if( enableDepthAndStencil )
+			if( enableDepthAndStencil )
 			{
 				_gl.enable( Number(WebGLRenderingContext.STENCIL_TEST) );
 				_gl.enable( Number(WebGLRenderingContext.DEPTH_TEST) );
@@ -131,14 +131,14 @@ package away.display3D
 		
 		public function createIndexBuffer(numIndices:Number):IndexBuffer3D
 		{
-            var indexBuffer:IndexBuffer3D = new IndexBuffer3D( this._gl, numIndices );
+			var indexBuffer:IndexBuffer3D = new IndexBuffer3D( this._gl, numIndices );
 			this._indexBufferList.push( indexBuffer );
 			return indexBuffer;
 		}
 		
 		public function createProgram():Program3D
 		{
-            var program:Program3D = new Program3D( this._gl );
+			var program:Program3D = new Program3D( this._gl );
 			this._programList.push( program );
 			return program;
 		}
@@ -146,7 +146,8 @@ package away.display3D
 		public function createTexture(width:Number, height:Number, format:String, optimizeForRenderToTexture:Boolean, streamingLevels:Number = 0):Texture
 		{
 			streamingLevels = streamingLevels || 0;
-           //TODO streaming
+
+			//TODO streaming
 			var texture: Texture = new Texture( this._gl, width, height );
 			this._textureList.push( texture );
 			return texture;
@@ -154,7 +155,7 @@ package away.display3D
 		
 		public function createVertexBuffer(numVertices:Number, data32PerVertex:Number):VertexBuffer3D
 		{
-            var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( this._gl, numVertices, data32PerVertex );
+			var vertexBuffer:VertexBuffer3D = new VertexBuffer3D( this._gl, numVertices, data32PerVertex );
 			this._vertexBufferList.push( vertexBuffer );
 			return vertexBuffer;
 		}
@@ -197,30 +198,7 @@ package away.display3D
 		{
 			// TODO drawToBitmapData( destination:away.display.BitmapData )
 			
-			/*
-			rttFramebuffer = gl.createFramebuffer();
-			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
-			rttFramebuffer.width = 512;
-			rttFramebuffer.height = 512;
-			
-			rttTexture = gl.createTexture();
-			gl.bindTexture(gl.TEXTURE_2D, rttTexture);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-			gl.generateMipmap(gl.TEXTURE_2D);
-			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-			
-			var renderbuffer = gl.createRenderbuffer();
-			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
-			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);
-
-			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
-			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);
-			
-			gl.bindTexture(gl.TEXTURE_2D, null);
-			gl.bindRenderbuffer(gl.RENDERBUFFER, null);
-			gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-			*/
+			/*			rttFramebuffer = gl.createFramebuffer();			gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);			rttFramebuffer.width = 512;			rttFramebuffer.height = 512;						rttTexture = gl.createTexture();			gl.bindTexture(gl.TEXTURE_2D, rttTexture);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);			gl.generateMipmap(gl.TEXTURE_2D);			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);						var renderbuffer = gl.createRenderbuffer();			gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);			gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);			gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);			gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);						gl.bindTexture(gl.TEXTURE_2D, null);			gl.bindRenderbuffer(gl.RENDERBUFFER, null);			gl.bindFramebuffer(gl.FRAMEBUFFER, null);			*/
 			
 			throw new PartialImplementationError();
 		}
@@ -231,12 +209,7 @@ package away.display3D
 			numTriangles = numTriangles || -1;
 
 			// this.setCulling( Context3DTriangleFace.FRONT );
-            /*
-			console.log( "======= drawTriangles ======= " )
-			console.log( indexBuffer );
-			console.log( "firstIndex   >>>>> " + firstIndex );
-			console.log( "numTriangles >>>>> " + numTriangles );
-			*/
+            /*			console.log( "======= drawTriangles ======= " )			console.log( indexBuffer );			console.log( "firstIndex   >>>>> " + firstIndex );			console.log( "numTriangles >>>>> " + numTriangles );			*/
 			if ( !this._drawing ) 
 			{
 				throw "Need to clear before drawing if the buffer has not been cleared since the last present() call.";
@@ -419,7 +392,7 @@ package away.display3D
 		
 		public function setProgram(program3D:Program3D):void
 		{
-            //TODO decide on construction/reference resposibilities
+			//TODO decide on construction/reference resposibilities
 			this._currentProgram = program3D;
 			program3D.focusProgram();
 		}
@@ -439,15 +412,13 @@ package away.display3D
 			}
 		}
 		
-		/*
-		public setProgramConstantsFromByteArray
-		*/
+		/*		public setProgramConstantsFromByteArray		*/
 		
 		public function setProgramConstantsFromMatrix(programType:String, firstRegister:Number, matrix:Matrix3D, transposedMatrix:Boolean = false):void
 		{
 			transposedMatrix = transposedMatrix || false;
 
-            var locationName = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
+			var locationName = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister );
 			this.setGLSLProgramConstantsFromMatrix( locationName, matrix, transposedMatrix );
 		}
 		
@@ -455,7 +426,8 @@ package away.display3D
 		public function setProgramConstantsFromArray(programType:String, firstRegister:Number, data:Vector.<Number>, numRegisters:Number = -1):void
 		{
 			numRegisters = numRegisters || -1;
-            for( var i: Number = 0; i < numRegisters; ++i )
+
+			for( var i: Number = 0; i < numRegisters; ++i )
 			{
 				var currentIndex:Number = i * 4;
 				var locationName:String = this.getUniformLocationNameFromAgalRegisterIndex( programType, firstRegister + i ) + ( i + firstRegister );
@@ -464,15 +436,10 @@ package away.display3D
 			}
 		}
 		
-		/*
-		public setGLSLProgramConstantsFromByteArray
-		
-		*/
+		/*		public setGLSLProgramConstantsFromByteArray				*/
 		
 		public function setGLSLProgramConstantsFromMatrix(locationName:String, matrix:Matrix3D, transposedMatrix:Boolean = false):void 
-		{
-
-            transposedMatrix = transposedMatrix || false;
+		{/*			console.log( "======= setGLSLProgramConstantsFromMatrix ======= " )			console.log( "locationName : " + locationName );			console.log( "matrix : " + matrix.rawData );			console.log( "transposedMatrix : " + transposedMatrix );			console.log( "================================================= \n" )*/			transposedMatrix = transposedMatrix || false;
 
 
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
@@ -480,12 +447,7 @@ package away.display3D
 		}
 		
 		public function setGLSLProgramConstantsFromArray(locationName:String, data:Vector.<Number>, startIndex:Number = 0):void 
-		{/*
-			console.log( "======= setGLSLProgramConstantsFromArray ======= " )
-			console.log( "locationName : " + locationName );
-			console.log( "data : " + data );
-			console.log( "startIndex : " + startIndex );
-			console.log( "================================================ \n" )*/			startIndex = startIndex || 0;
+		{/*			console.log( "======= setGLSLProgramConstantsFromArray ======= " )			console.log( "locationName : " + locationName );			console.log( "data : " + data );			console.log( "startIndex : " + startIndex );			console.log( "================================================ \n" )*/			startIndex = startIndex || 0;
 
 
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
@@ -512,9 +474,7 @@ package away.display3D
 		
 		public function setGLSLTextureAt(locationName:String, texture:TextureBase, textureIndex:Number):void
 		{
-			Window.console.log('locationName = ' + locationName);
-            Window.console.log(texture);
-            Window.console.log('textureIndex = ' + textureIndex);
+			
 			if( !texture )
 			{
 				_gl.activeTexture( Number(WebGLRenderingContext.TEXTURE0) + (textureIndex));
@@ -554,7 +514,7 @@ package away.display3D
             }
 			
 			var location:WebGLUniformLocation = _gl.getUniformLocation( this._currentProgram.glProgram, locationName );
-            Window.console.log(location);
+			
 			if( texture.textureType == "texture2d" )
 			{
 				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), Texture(texture).glTexture );
@@ -575,7 +535,7 @@ package away.display3D
 					_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_2D), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
 				}
 				
-				_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_2D), null );
+				//this._gl.bindTexture( this._gl.TEXTURE_2D, null ); results in black texture
 			}
 			else if( texture.textureType == "textureCube" )
 			{
@@ -602,7 +562,7 @@ package away.display3D
 						_gl.texParameteri( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), Number(WebGLRenderingContext.TEXTURE_MAG_FILTER), samplerState.filter );
 					}
 					
-					_gl.bindTexture( Number(WebGLRenderingContext.TEXTURE_CUBE_MAP), null );
+					//this._gl.bindTexture( this._gl.TEXTURE_CUBE_MAP, null ); results in black texture
 				}
 			}
 			
@@ -679,6 +639,7 @@ package away.display3D
 			bufferOffset = bufferOffset || 0;
 			format = format || null;
 
+			
             //if ( buffer == null )return;
 			
 			var location:Number = (_gl.getAttribLocation(this._currentProgram.glProgram , locationName ) as Number);

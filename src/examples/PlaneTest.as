@@ -22,9 +22,9 @@ package examples
     import randori.webkit.html.HTMLImageElement;
 import randori.webkit.page.Window;
 
-public class PlaneTest
+    public class PlaneTest extends BaseExample
     {
-        private var stage:Stage = new Stage();
+        private var stage:Stage;
         private var stage3D:Stage3D;
         private var context3D:Context3D;
 
@@ -39,14 +39,20 @@ public class PlaneTest
         private var image:HTMLImageElement;
         private var texture:Texture;
 
-        private var requestAnimationFrameTimer:RequestAnimationFrame;
-
         private var vertices:Vector.<Number>;
         private var uvCoords:Vector.<Number>;
         private var indices:Vector.<Number>;
 
-        public function PlaneTest()
+        private var ready:Boolean = false;
+
+        public function PlaneTest(_index:int)
         {
+            stage = new Stage(window.innerWidth, window.innerHeight);
+
+            super(_index);
+
+
+
             urlRequest = new URLRequest(imageURL);
             imgLoader = new IMGLoader();
             imgLoader.addEventListener(Event.COMPLETE, imageCompleteHandler, this);
@@ -58,20 +64,19 @@ public class PlaneTest
             image = imgLoader.image;
             stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreateHandler, this);
             stage.stage3Ds[0].requestContext();
-
         }
 
         private function onContext3DCreateHandler(event:Stage3DEvent):void
         {
             stage.stage3Ds[0].removeEventListener(Event.CONTEXT3D_CREATE, onContext3DCreateHandler, this);
 
-            var stage3D:Stage3D = Stage3D(event.target);
+            stage3D = Stage3D(event.target);
             context3D = stage3D.context3D;
 
             texture = context3D.createTexture(512, 512, Context3DTextureFormat.BGRA, false);
             texture.uploadFromHTMLImageElement(image);
 
-            context3D.configureBackBuffer(800, 600, 0, true);
+            context3D.configureBackBuffer(window.innerWidth, window.innerHeight, 0, true);
             context3D.setColorMask(true, true, true, true);
 
 
@@ -110,7 +115,7 @@ public class PlaneTest
             Window.console.log('-----------------------------------------------------------')
 
             pMatrix = new PerspectiveMatrix3D();
-            pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
+            pMatrix.perspectiveFieldOfViewLH(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
             mvMatrix = new Matrix3D(new <Number>[]);
             mvMatrix.appendTranslation(0, 0, 4);
@@ -118,26 +123,44 @@ public class PlaneTest
             context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, Context3DVertexBufferFormat.FLOAT_3);
             context3D.setGLSLVertexBufferAt("aTextureCoord", tCoordBuffer, 0, Context3DVertexBufferFormat.FLOAT_2);
 
-            requestAnimationFrameTimer = new RequestAnimationFrame(tick, this);
-            requestAnimationFrameTimer.start();
-            Window.console.log('start');
-
+            ready = true;
         }
 
-        private function tick(dt:Number):void
+        override protected function tick(dt:Number):void
         {
-            //mvMatrix.appendRotation(dt * 0.1, new Vector3D(0, 1, 0));
-            context3D.setProgram(program);
-            context3D.setGLSLProgramConstantsFromMatrix("pMatrix", pMatrix, true);
-            context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", mvMatrix, true);
+            if (ready){
+                mvMatrix.appendRotation(dt * 0.1, new Vector3D(0, 1, 0));
+                context3D.setProgram(program);
+                context3D.setGLSLProgramConstantsFromMatrix("pMatrix", pMatrix, true);
+                context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", mvMatrix, true);
 
-            context3D.setGLSLTextureAt("uSampler", this.texture, 0);
+                context3D.setGLSLTextureAt("uSampler", this.texture, 0);
 
-            context3D.clear(0.1, 0.2, 0.3, 1);
-            context3D.drawTriangles(iBuffer, 0, 2);
-            context3D.present();
+                context3D.clear(0.1, 0.2, 0.3, 1);
+                context3D.drawTriangles(iBuffer, 0, 2);
+                context3D.present();
+            }
+        }
 
-            requestAnimationFrameTimer.stop();
+        //override protected function resize():void
+        //{
+            /*if (context3D) {
+                stage.resize(window.innerWidth, window.innerHeight);
+                context3D.configureBackBuffer(window.innerWidth, window.innerHeight, 0, true);
+                pMatrix.perspectiveFieldOfViewLH(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            } */
+        //}
+
+        override public function Show():void
+        {
+            super.Show();
+            if (stage3D) stage3D.canvas.style.setProperty('visibility', 'visible');
+        }
+
+        override public function Hide():void
+        {
+            super.Hide();
+            if (stage3D) stage3D.canvas.style.setProperty('visibility', 'hidden');
         }
     }
 }

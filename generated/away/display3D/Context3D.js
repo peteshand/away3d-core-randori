@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 20:35:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -354,9 +354,6 @@ away.display3D.Context3D.prototype.setTextureAt = function(sampler, texture) {
 };
 
 away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, texture, textureIndex) {
-	console.log("locationName = " + locationName);
-	console.log(texture);
-	console.log("textureIndex = " + textureIndex);
 	if (!texture) {
 		this._gl.activeTexture(33984 + textureIndex);
 		this._gl.bindTexture(3553, null);
@@ -392,7 +389,6 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 			throw "Texture " + textureIndex + " is out of bounds.";
 	}
 	var location = this._gl.getUniformLocation(this._currentProgram.get_glProgram(), locationName);
-	console.log(location);
 	if (texture.textureType == "texture2d") {
 		this._gl.bindTexture(3553, texture.get_glTexture());
 		this._gl.uniform1i(location, textureIndex);
@@ -406,7 +402,6 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 			this._gl.texParameteri(3553, 10241, samplerState.filter);
 			this._gl.texParameteri(3553, 10240, samplerState.filter);
 		}
-		this._gl.bindTexture(3553, null);
 	} else if (texture.textureType == "textureCube") {
 		for (var i = 0; i < 6; ++i) {
 			this._gl.bindTexture(34067, texture.glTextureAt(i));
@@ -421,7 +416,6 @@ away.display3D.Context3D.prototype.setGLSLTextureAt = function(locationName, tex
 				this._gl.texParameteri(34067, 10241, samplerState.filter);
 				this._gl.texParameteri(34067, 10240, samplerState.filter);
 			}
-			this._gl.bindTexture(34067, null);
 		}
 	}
 };

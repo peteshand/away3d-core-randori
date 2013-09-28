@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -31,9 +30,7 @@ package away.loaders.parsers
 	import away.materials.ColorMultiPassMaterial;
 	import randori.webkit.page.Window;
 
-	/**
-	 * OBJParser provides a parser for the OBJ data type.
-	 */
+	/**	 * OBJParser provides a parser for the OBJ data type.	 */
 	public class FaceData
 	{
 		public var vertexIndices:Vector.<Number> = VectorInit.Num();/*uint*/

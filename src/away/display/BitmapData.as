@@ -16,7 +16,9 @@ package away.display {
 	import randori.webkit.page.Window;
 	import randori.webkit.html.HTMLImageElement;
 
-    /**     *     */
+    /**
+     *
+     */
     public class BitmapData
     {
 
@@ -29,7 +31,13 @@ package away.display {
         private var _locked:Boolean = false;
 
 
-        /**         *         * @param width         * @param height         * @param transparent         * @param fillColor         */
+        /**
+         *
+         * @param width
+         * @param height
+         * @param transparent
+         * @param fillColor
+         */
         public function BitmapData(width:Number, height:Number, transparent:Boolean = true, fillColor:Number = -1):void
         {
 			transparent = transparent || true;
@@ -61,7 +69,9 @@ package away.display {
 
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function dispose():void
         {
             this._context = null;
@@ -72,14 +82,18 @@ package away.display {
             this._locked = null;
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function lock():void
         {
             this._locked    = true;
             this._imageData = this._context.getImageData(0,0,this._rect.width,this._rect.height);
         }
 
-        /**         *         */
+        /**
+         *
+         */
         public function unlock():void
         {
             this._locked = false;
@@ -87,13 +101,18 @@ package away.display {
             if ( this._imageData )
             {
 
-                this._context.putImageData2( this._imageData, 0, 0); // at coords 0,0
+                this._context.putImageData2( this._imageData, 0, 0, 0); // at coords 0,0
                 this._imageData = null;
 
             }
         }
 
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function getPixel(x, y):Number
         {
 
@@ -138,7 +157,12 @@ package away.display {
             return (a << 24) | (r << 16) | (g << 8) | b;
 
         }
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function setPixel(x, y, color:Number):void
         {
 
@@ -167,7 +191,12 @@ package away.display {
 
         }
 
-        /**         *         * @param x         * @param y         * @param color         */
+        /**
+         *
+         * @param x
+         * @param y
+         * @param color
+         */
         public function setPixel32(x, y, color:Number):void
         {
 
@@ -196,7 +225,13 @@ package away.display {
 
         }
 
-        /**         * Copy an HTMLImageElement or BitmapData object         *         * @param img {BitmapData} / {HTMLImageElement}         * @param sourceRect - source rectange to copy from         * @param destRect - destinatoin rectange to copy to         */
+        /**
+         * Copy an HTMLImageElement or BitmapData object
+         *
+         * @param img {BitmapData} / {HTMLImageElement}
+         * @param sourceRect - source rectange to copy from
+         * @param destRect - destinatoin rectange to copy to
+         */
         public function drawImage(img:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
@@ -231,17 +266,20 @@ package away.display {
         {
             if ( img instanceof BitmapData )
             {
-				var bmd:BitmapData = (img as BitmapData);
-                this._context.drawImage6(bmd.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+                this._context.drawImage3(img.canvas , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
             else if ( img instanceof HTMLImageElement )
             {
-				var image:HTMLImageElement = (img as HTMLImageElement);
-                this._context.drawImage3(image , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
+                this._context.drawImage3(img , sourceRect.x ,sourceRect.y,sourceRect.width,sourceRect.height,destRect.x,destRect.y,destRect.width,destRect.height );
             }
         }
 
-        /**         *         * @param bmpd         * @param sourceRect         * @param destRect         */
+        /**
+         *
+         * @param bmpd
+         * @param sourceRect
+         * @param destRect
+         */
         public function copyPixels(bmpd:*, sourceRect:Rectangle, destRect:Rectangle):void
         {
 
@@ -277,18 +315,20 @@ package away.display {
 
             if ( bmpd instanceof BitmapData )
             {
-				var bmd:BitmapData = (bmpd as BitmapData);
-                this._context.drawImage6( bmd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+                this._context.drawImage3( bmpd.canvas , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
             else if ( bmpd instanceof HTMLImageElement )
             {
-				var image:HTMLImageElement = (bmpd as HTMLImageElement);
-                this._context.drawImage3( image , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
+                this._context.drawImage3( bmpd , sourceRect.x , sourceRect.y , sourceRect.width , sourceRect.height , destRect.x , destRect.y , destRect.width , destRect.height );
             }
 
         }
 
-        /**         *         * @param rect         * @param color         */
+        /**
+         *
+         * @param rect
+         * @param color
+         */
         public function fillRect(rect:Rectangle, color:Number):void
         {
 
@@ -324,7 +364,11 @@ package away.display {
 
         }
 
-        /**         *         * @param source         * @param matrix         */
+        /**
+         *
+         * @param source
+         * @param matrix
+         */
         public function draw(source:*, matrix:Matrix):void
         {
 
@@ -360,19 +404,17 @@ package away.display {
 
             if ( source instanceof BitmapData )
             {
-				var bmd:BitmapData = (source as BitmapData);
                 this._context.save();
                 this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                this._context.drawImage4(bmd.canvas, 0, 0)
+                this._context.drawImage4(source.canvas, 0, 0)
                 this._context.restore();
 
             }
             else if ( source instanceof HTMLImageElement )
             {
-				var image:HTMLImageElement = (source as HTMLImageElement);
                 this._context.save();
                 this._context.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-                this._context.drawImage1(image, 0, 0)
+                this._context.drawImage1(source, 0, 0)
                 this._context.restore();
             }
 
@@ -380,57 +422,84 @@ package away.display {
 
         // Get / Set
 
-        /**         *         * @param {ImageData}         */
+        /**
+         *
+         * @param {ImageData}
+         */
         public function set imageData(value:ImageData):void
         {
             this._context.putImageData2( value , 0 , 0, 0 );
         }
 
-        /**         *         * @returns {ImageData}         */
+        /**
+         *
+         * @returns {ImageData}
+         */
         public function get imageData():ImageData
         {
             return this._context.getImageData(0,0,this._rect.width,this._rect.height)
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get width():Number
         {
             return (this._imageCanvas.width as Number);
         }
 
-        /**         *         * @param {number}         */
+        /**
+         *
+         * @param {number}
+         */
         public function set width(value:Number):void
         {
             this._rect.width = value;
             this._imageCanvas.width = value;
         }
 
-        /**         *         * @returns {number}         */
+        /**
+         *
+         * @returns {number}
+         */
         public function get height():Number
         {
             return (this._imageCanvas.height as Number);
         }
 
-        /**         *         * @param {number}         */
+        /**
+         *
+         * @param {number}
+         */
         public function set height(value:Number):void
         {
             this._rect.height = value;
             this._imageCanvas.height = value;
         }
 
-        /**         *         * @param {away.geom.Rectangle}         */
+        /**
+         *
+         * @param {away.geom.Rectangle}
+         */
         public function get rect():Rectangle
         {
             return this._rect;
         }
 
-        /**         *         * @returns {HTMLCanvasElement}         */
+        /**
+         *
+         * @returns {HTMLCanvasElement}
+         */
         public function get canvas():HTMLCanvasElement
         {
             return this._imageCanvas;
         }
 
-        /**         *         * @returns {HTMLCanvasElement}         */
+        /**
+         *
+         * @returns {HTMLCanvasElement}
+         */
         public function get context():CanvasRenderingContext2D
         {
             return this._context;
@@ -438,7 +507,9 @@ package away.display {
 
         // Private
 
-        /**         * convert decimal value to Hex         */
+        /**
+         * convert decimal value to Hex
+         */
         private function hexToRGBACSS(d:Number):String
         {
 

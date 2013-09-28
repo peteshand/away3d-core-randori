@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -12,23 +11,14 @@ package away.primitives
 	import away.utils.VectorInit;
 	import away.geom.Vector3D;
 
-	/**
-	 * A WireframeSphere primitive mesh
-	 */
+	/**	 * A WireframeSphere primitive mesh	 */
 	public class WireframeSphere extends WireframePrimitiveBase
 	{
 		private var _segmentsW:Number = 0;
 		private var _segmentsH:Number = 0;
 		private var _radius:Number = 0;
 		
-		/**
-		 * Creates a new WireframeSphere object.
-		 * @param radius The radius of the sphere.
-		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.
-		 * @param segmentsH Defines the number of vertical segments that make up the sphere.
-		 * @param color The colour of the wireframe lines
-		 * @param thickness The thickness of the wireframe lines
-		 */
+		/**		 * Creates a new WireframeSphere object.		 * @param radius The radius of the sphere.		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.		 * @param segmentsH Defines the number of vertical segments that make up the sphere.		 * @param color The colour of the wireframe lines		 * @param thickness The thickness of the wireframe lines		 */
 		public function WireframeSphere(radius:Number = 50, segmentsW:Number = 16, segmentsH:Number = 12, color:Number = 0xFFFFFF, thickness:Number = 1):void
 		{
 			radius = radius || 50;
@@ -44,9 +34,7 @@ package away.primitives
             this._segmentsH = segmentsH;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry():void
 		{
 			var vertices:Vector.<Number> = VectorInit.Num();

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Wed Sep 25 00:03:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -89,7 +89,7 @@ away.cameras.lenses.PerspectiveOffCenterLens.prototype.clone = function() {
 };
 
 away.cameras.lenses.PerspectiveOffCenterLens.prototype.pUpdateMatrix = function() {
-	var raw = away.utils.VectorInit.AnyClass(Number);
+	var raw = [];
 	this._minLengthX = this._pNear * this._tanMinX;
 	this._maxLengthX = this._pNear * this._tanMaxX;
 	this._minLengthY = this._pNear * this._tanMinY;
@@ -162,8 +162,6 @@ away.cameras.lenses.PerspectiveOffCenterLens.getRuntimeDependencies = function(t
 	var p;
 	p = [];
 	p.push('away.geom.Vector3D');
-	p.push('Number');
-	p.push('away.utils.VectorInit');
 	return p;
 };
 

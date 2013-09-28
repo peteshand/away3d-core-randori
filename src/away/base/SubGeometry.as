@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -25,17 +24,7 @@ package away.base
 	
 	//use namespace arcane;
 	
-    /**
-	 * The SubGeometry class is a collections of geometric data that describes a triangle mesh. It is owned by a
-	 * Geometry instance, and wrapped by a SubMesh in the scene graph.
-	 * Several SubGeometries are grouped so they can be rendered with different materials, but still represent a single
-	 * object.
-	 *
-	 * @see away3d.core.base.Geometry
-	 * @see away3d.core.base.SubMesh
-     *
-     * @class away.base.SubGeometry
-	 */
+    /**	 * The SubGeometry class is a collections of geometric data that describes a triangle mesh. It is owned by a	 * Geometry instance, and wrapped by a SubMesh in the scene graph.	 * Several SubGeometries are grouped so they can be rendered with different materials, but still represent a single	 * object.	 *	 * @see away3d.core.base.Geometry	 * @see away3d.core.base.SubMesh     *     * @class away.base.SubGeometry	 */
 	public class SubGeometry extends SubGeometryBase implements ISubGeometry
 	{
 		// raw data:
@@ -66,25 +55,19 @@ package away.base
 		
 		private var _numVertices:Number = 0;
 		
-		/**
-		 * Creates a new SubGeometry object.
-		 */
+		/**		 * Creates a new SubGeometry object.		 */
 		public function SubGeometry():void
 		{
             super();
 		}
 		
-		/**
-		 * The total amount of vertices in the SubGeometry.
-		 */
+		/**		 * The total amount of vertices in the SubGeometry.		 */
 		public function get numVertices():Number
 		{
 			return this._numVertices;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateVertexBuffer(index:Number, stage3DProxy:Stage3DProxy):void
 		{
 			var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -107,9 +90,7 @@ package away.base
 			context.setVertexBufferAt(index, this._vertexBuffer[contextIndex], 0, Context3DVertexBufferFormat.FLOAT_3);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
         {
             var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -137,9 +118,7 @@ package away.base
 			context.setVertexBufferAt(index, this._uvBuffer[contextIndex], 0, Context3DVertexBufferFormat.FLOAT_2);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		public function activateSecondaryUVBuffer(index:Number, stage3DProxy:Stage3DProxy):void
         {
             var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -161,11 +140,7 @@ package away.base
 			context.setVertexBufferAt(index, this._secondaryUvBuffer[contextIndex], 0, Context3DVertexBufferFormat.FLOAT_2);
 		}
 		
-		/**
-		 * Retrieves the VertexBuffer3D object that contains vertex normals.
-		 * @param context The Context3D for which we request the buffer
-		 * @return The VertexBuffer3D object that contains vertex normals.
-		 */
+		/**		 * Retrieves the VertexBuffer3D object that contains vertex normals.		 * @param context The Context3D for which we request the buffer		 * @return The VertexBuffer3D object that contains vertex normals.		 */
 		public function activateVertexNormalBuffer(index:Number, stage3DProxy:Stage3DProxy):void
         {
             var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -192,11 +167,7 @@ package away.base
 			context.setVertexBufferAt(index, this._vertexNormalBuffer[contextIndex], 0, Context3DVertexBufferFormat.FLOAT_3);
 		}
 		
-		/**
-		 * Retrieves the VertexBuffer3D object that contains vertex tangents.
-		 * @param context The Context3D for which we request the buffer
-		 * @return The VertexBuffer3D object that contains vertex tangents.
-		 */
+		/**		 * Retrieves the VertexBuffer3D object that contains vertex tangents.		 * @param context The Context3D for which we request the buffer		 * @return The VertexBuffer3D object that contains vertex tangents.		 */
 		public function activateVertexTangentBuffer(index:Number, stage3DProxy:Stage3DProxy):void
         {
             var contextIndex:Number = stage3DProxy._iStage3DIndex;
@@ -231,10 +202,7 @@ package away.base
             this.pInvalidateBuffers(this._tangentsInvalid);
 		}
 		
-		/**
-		 * Clones the current object
-		 * @return An exact duplicate of the current object.
-		 */
+		/**		 * Clones the current object		 * @return An exact duplicate of the current object.		 */
 		public function clone():ISubGeometry
 		{
 			var clone:SubGeometry = new SubGeometry();
@@ -260,18 +228,14 @@ package away.base
 			return clone;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function scale(scale:Number):void
 		{
 			super.scale(scale);
             this.pInvalidateBuffers( this._verticesInvalid );
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function scaleUV(scaleU:Number = 1, scaleV:Number = 1):void
 		{
 			scaleU = scaleU || 1;
@@ -281,9 +245,7 @@ package away.base
 			this.pInvalidateBuffers(this._uvsInvalid);
 		}
 		
-		/**
-		 * Clears all resources used by the SubGeometry object.
-		 */
+		/**		 * Clears all resources used by the SubGeometry object.		 */
 		override public function dispose():void
 		{
 			super.dispose();
@@ -314,9 +276,7 @@ package away.base
             this.pDisposeVertexBuffers(this._vertexTangentBuffer);
 		}
 		
-		/**
-		 * The raw vertex position data.
-		 */
+		/**		 * The raw vertex position data.		 */
 		override public function get vertexData():Vector.<Number>
 		{
 			return this._vertexData;
@@ -327,10 +287,7 @@ package away.base
 			return this._vertexData;
 		}
 		
-		/**
-		 * Updates the vertex data of the SubGeometry.
-		 * @param vertices The new vertex data to upload.
-		 */
+		/**		 * Updates the vertex data of the SubGeometry.		 * @param vertices The new vertex data to upload.		 */
 		public function updateVertexData(vertices:Vector.<Number>):void
 		{
 			if (this._autoDeriveVertexNormals)
@@ -357,9 +314,7 @@ package away.base
 			this.pInvalidateBounds();//invalidateBounds();
 		}
 		
-		/**
-		 * The raw texture coordinate data.
-		 */
+		/**		 * The raw texture coordinate data.		 */
 		override public function get UVData():Vector.<Number>
 		{
 			if (this._uvsDirty && this._autoGenerateUVs)
@@ -375,10 +330,7 @@ package away.base
 			return this._secondaryUvs;
 		}
 		
-		/**
-		 * Updates the uv coordinates of the SubGeometry.
-		 * @param uvs The uv coordinates to upload.
-		 */
+		/**		 * Updates the uv coordinates of the SubGeometry.		 * @param uvs The uv coordinates to upload.		 */
 		public function updateUVData(uvs:Vector.<Number>):void
 		{
 			// normals don't get dirty from this
@@ -398,9 +350,7 @@ package away.base
             this.pInvalidateBuffers( this._secondaryUvsInvalid );
 		}
 		
-		/**
-		 * The raw vertex normal data.
-		 */
+		/**		 * The raw vertex normal data.		 */
 		override public function get vertexNormalData():Vector.<Number>
 		{
 			if ( this._autoDeriveVertexNormals && this._vertexNormalsDirty)
@@ -411,11 +361,7 @@ package away.base
 			return this._vertexNormals;
 		}
 		
-		/**
-		 * Updates the vertex normals of the SubGeometry. When updating the vertex normals like this,
-		 * autoDeriveVertexNormals will be set to false and vertex normals will no longer be calculated automatically.
-		 * @param vertexNormals The vertex normals to upload.
-		 */
+		/**		 * Updates the vertex normals of the SubGeometry. When updating the vertex normals like this,		 * autoDeriveVertexNormals will be set to false and vertex normals will no longer be calculated automatically.		 * @param vertexNormals The vertex normals to upload.		 */
 		public function updateVertexNormalData(vertexNormals:Vector.<Number>):void
 		{
 			this._vertexNormalsDirty = false;
@@ -424,11 +370,7 @@ package away.base
 			this.pInvalidateBuffers( this._normalsInvalid );
 		}
 		
-		/**
-		 * The raw vertex tangent data.
-		 *
-		 * @private
-		 */
+		/**		 * The raw vertex tangent data.		 *		 * @private		 */
 		override public function get vertexTangentData():Vector.<Number>
 		{
 			if (this._autoDeriveVertexTangents && this._vertexTangentsDirty)
@@ -439,11 +381,7 @@ package away.base
 			return this._vertexTangents;
 		}
 		
-		/**
-		 * Updates the vertex tangents of the SubGeometry. When updating the vertex tangents like this,
-		 * autoDeriveVertexTangents will be set to false and vertex tangents will no longer be calculated automatically.
-		 * @param vertexTangents The vertex tangents to upload.
-		 */
+		/**		 * Updates the vertex tangents of the SubGeometry. When updating the vertex tangents like this,		 * autoDeriveVertexTangents will be set to false and vertex tangents will no longer be calculated automatically.		 * @param vertexTangents The vertex tangents to upload.		 */
 		public function updateVertexTangentData(vertexTangents:Vector.<Number>):void
 		{
 			this._vertexTangentsDirty = false;

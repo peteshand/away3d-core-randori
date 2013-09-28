@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -14,9 +13,7 @@ package away.primitives
 	//import away3d.arcane;
 	//import away3d.core.base.CompactSubGeometry;
 
-	/**
-	 * A UV Sphere primitive mesh.
-	 */
+	/**	 * A UV Sphere primitive mesh.	 */
 	public class SphereGeometry extends PrimitiveBase
 	{
 		private var _radius:Number = 0;
@@ -24,13 +21,7 @@ package away.primitives
 		private var _segmentsH:Number = 0;
 		private var _yUp:Boolean = false;
 		
-		/**
-		 * Creates a new Sphere object.
-		 * @param radius The radius of the sphere.
-		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.
-		 * @param segmentsH Defines the number of vertical segments that make up the sphere.
-		 * @param yUp Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Creates a new Sphere object.		 * @param radius The radius of the sphere.		 * @param segmentsW Defines the number of horizontal segments that make up the sphere.		 * @param segmentsH Defines the number of vertical segments that make up the sphere.		 * @param yUp Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function SphereGeometry(radius:Number = 50, segmentsW:Number = 16, segmentsH:Number = 12, yUp:Boolean = true):void
 		{
 			radius = radius || 50;
@@ -46,9 +37,7 @@ package away.primitives
             this._yUp = yUp;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildGeometry(target:CompactSubGeometry):void
 		{
 			var vertices:Vector.<Number>;
@@ -199,9 +188,7 @@ package away.primitives
 			target.updateIndexData(indices);
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
+		/**		 * @inheritDoc		 */
 		override public function pBuildUVs(target:CompactSubGeometry):void
 		{
 			var i:Number, j:Number;
@@ -231,9 +218,7 @@ package away.primitives
 			target.updateData(data);
 		}
 		
-		/**
-		 * The radius of the sphere.
-		 */
+		/**		 * The radius of the sphere.		 */
 		public function get radius():Number
 		{
 			return this._radius;
@@ -245,9 +230,7 @@ package away.primitives
             this.pInvalidateGeometry();
 		}
 		
-		/**
-		 * Defines the number of horizontal segments that make up the sphere. Defaults to 16.
-		 */
+		/**		 * Defines the number of horizontal segments that make up the sphere. Defaults to 16.		 */
 		public function get segmentsW():Number
 		{
 			return this._segmentsW;
@@ -260,9 +243,7 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines the number of vertical segments that make up the sphere. Defaults to 12.
-		 */
+		/**		 * Defines the number of vertical segments that make up the sphere. Defaults to 12.		 */
 		public function get segmentsH():Number
 		{
 			return this._segmentsH;
@@ -275,9 +256,7 @@ package away.primitives
             this.pInvalidateUVs();
 		}
 		
-		/**
-		 * Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).
-		 */
+		/**		 * Defines whether the sphere poles should lay on the Y-axis (true) or on the Z-axis (false).		 */
 		public function get yUp():Boolean
 		{
 			return this._yUp;

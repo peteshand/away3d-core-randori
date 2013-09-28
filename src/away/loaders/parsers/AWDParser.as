@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -64,9 +63,7 @@ package away.loaders.parsers
 	import away.display.BitmapData;
 	import randori.webkit.page.Window;
 
-	/**
-	 * AWDParser provides a parser for the AWD data type.
-	 */
+	/**	 * AWDParser provides a parser for the AWD data type.	 */
 	public class AWDParser extends ParserBase
 	{
 		//set to "true" to have some traces in the Console
@@ -122,11 +119,7 @@ package away.loaders.parsers
 		private var blendModeDic:Vector.<String>;
 		private var _depthSizeDic:Vector.<Number>;
 		
-		/**
-		 * Creates a new AWDParser object.
-		 * @param uri The url or id of the data or file to be parsed.
-		 * @param extra The holder for extra contextual data that the parser might need.
-		 */
+		/**		 * Creates a new AWDParser object.		 * @param uri The url or id of the data or file to be parsed.		 * @param extra The holder for extra contextual data that the parser might need.		 */
 		public function AWDParser():void
 		{
 			super( ParserDataFormat.BINARY );
@@ -161,30 +154,20 @@ package away.loaders.parsers
             this._version = VectorInit.Num();//[]; // will contain 2 int (major-version, minor-version) for awd-version-check
 		}
 		
-		/**
-		 * Indicates whether or not a given file extension is supported by the parser.
-		 * @param extension The file extension of a potential file to be parsed.
-		 * @return Whether or not the given file type is supported.
-		 */
+		/**		 * Indicates whether or not a given file extension is supported by the parser.		 * @param extension The file extension of a potential file to be parsed.		 * @return Whether or not the given file type is supported.		 */
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
 			return extension == "awd";
 		}
 		
-		/**
-		 * Tests whether a data block can be parsed by the parser.
-		 * @param data The data block to potentially be parsed.
-		 * @return Whether or not the given data is supported.
-		 */
+		/**		 * Tests whether a data block can be parsed by the parser.		 * @param data The data block to potentially be parsed.		 * @return Whether or not the given data is supported.		 */
 		public static function supportsData(data:*):Boolean
 		{
 			return (ParserUtil.toString(data, 3) == 'AWD');
 		}
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function _iResolveDependency(resourceDependency:ResourceDependency):void
         {
             // this function will be called when Dependency has finished loading.
@@ -270,20 +253,14 @@ package away.loaders.parsers
             }
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function _iResolveDependencyFailure(resourceDependency:ResourceDependency):void
         {
             //not used - if a dependcy fails, the awaiting Texture or CubeTexture will never be finalized, and the default-bitmaps will be used.
             // this means, that if one Bitmap of a CubeTexture fails, the CubeTexture will have the DefaultTexture applied for all six Bitmaps.
         }
 
-        /**
-         * Resolve a dependency name
-         *
-         * @param resourceDependency The dependency to be resolved.
-         */
+        /**         * Resolve a dependency name         *         * @param resourceDependency The dependency to be resolved.         */
         override public function _iResolveDependencyName(resourceDependency:ResourceDependency, asset:IAsset):String
         {
             var oldName:String = asset.name;
@@ -304,9 +281,7 @@ package away.loaders.parsers
 
         }
 
-        /**
-         * @inheritDoc
-         */
+        /**         * @inheritDoc         */
         override public function _pProceedParsing():Boolean
         {
 
@@ -345,22 +320,7 @@ package away.loaders.parsers
                     // Compressed AWD Formats not yet supported
                     //----------------------------------------------------------------------------
 
-                    /*
-                    case AWDParser.DEFLATE:
-
-                        this._body = new away.utils.ByteArray();
-                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());
-                        this._body.uncompress();
-
-                        break;
-                    case AWDParser.LZMA:
-
-                        this._body = new away.utils.ByteArray();
-                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());
-                        this._body.uncompress(COMPRESSIONMODE_LZMA);
-
-                        break;
-                    //*/
+                    /*                    case AWDParser.DEFLATE:                        this._body = new away.utils.ByteArray();                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());                        this._body.uncompress();                        break;                    case AWDParser.LZMA:                        this._body = new away.utils.ByteArray();                        this._byteData.readBytes(this._body, 0, this._byteData.getBytesAvailable());                        this._body.uncompress(COMPRESSIONMODE_LZMA);                        break;                    //*/
 
                 }
 
@@ -499,16 +459,7 @@ package away.loaders.parsers
             {
                 this._pDieWithError( 'Compressed AWD formats not yet supported');
 
-                /*
-                 if (blockCompressionLZMA)
-                 {
-                 this._newBlockBytes.uncompress(AWDParser.COMPRESSIONMODE_LZMA);
-                 }
-                 else
-                 {
-                 this._newBlockBytes.uncompress();
-                 }
-                 */
+                /*                 if (blockCompressionLZMA)                 {                 this._newBlockBytes.uncompress(AWDParser.COMPRESSIONMODE_LZMA);                 }                 else                 {                 this._newBlockBytes.uncompress();                 }                 */
 
             }
 

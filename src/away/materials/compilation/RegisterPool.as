@@ -1,4 +1,3 @@
-
 /**
  * ...
  * @author Away3D Team - http://away3d.com/team/ (Original Development)
@@ -12,14 +11,7 @@ package away.materials.compilation
 	import away.utils.VectorInit;
 	//import flash.utils.Dictionary;
 	
-	/**
-	 * RegisterPool is used by the shader compilation process to keep track of which registers of a certain type are
-	 * currently used and should not be allowed to be written to. Either entire registers can be requested and locked,
-	 * or single components (x, y, z, w) of a single register.
-	 * It is used by ShaderRegisterCache to track usages of individual register types.
-	 *
-	 * @see away3d.materials.compilation.ShaderRegisterCache
-	 */
+	/**	 * RegisterPool is used by the shader compilation process to keep track of which registers of a certain type are	 * currently used and should not be allowed to be written to. Either entire registers can be requested and locked,	 * or single components (x, y, z, w) of a single register.	 * It is used by ShaderRegisterCache to track usages of individual register types.	 *	 * @see away3d.materials.compilation.ShaderRegisterCache	 */
 	public class RegisterPool
 	{
 		private static var _regPool:Object = new Object();//= new Dictionary()
@@ -35,12 +27,7 @@ package away.materials.compilation
 		
 		private var _persistent:Boolean = false;
 		
-		/**
-		 * Creates a new RegisterPool object.
-		 * @param regName The base name of the register type ("ft" for fragment temporaries, "vc" for vertex constants, etc)
-		 * @param regCount The amount of available registers of this type.
-		 * @param persistent Whether or not registers, once reserved, can be freed again. For example, temporaries are not persistent, but constants are.
-		 */
+		/**		 * Creates a new RegisterPool object.		 * @param regName The base name of the register type ("ft" for fragment temporaries, "vc" for vertex constants, etc)		 * @param regCount The amount of available registers of this type.		 * @param persistent Whether or not registers, once reserved, can be freed again. For example, temporaries are not persistent, but constants are.		 */
 		public function RegisterPool(regName:String, regCount:Number, persistent:Boolean = true):void
 		{
 			persistent = persistent || true;
@@ -51,9 +38,7 @@ package away.materials.compilation
             this.initRegisters(regName, regCount);
 		}
 		
-		/**
-		 * Retrieve an entire vector register that's still available.
-		 */
+		/**		 * Retrieve an entire vector register that's still available.		 */
 		public function requestFreeVectorReg():ShaderRegisterElement
 		{
 			for (var i:Number = 0; i < this._regCount; ++i)
@@ -72,9 +57,7 @@ package away.materials.compilation
 			throw new Error("Register overflow!");
 		}
 		
-		/**
-		 * Retrieve a single vector component that's still available.
-		 */
+		/**		 * Retrieve a single vector component that's still available.		 */
 		public function requestFreeRegComponent():ShaderRegisterElement
 		{
 
@@ -110,12 +93,7 @@ package away.materials.compilation
 			throw new Error("Register overflow!");
 		}
 		
-		/**
-		 * Marks a register as used, so it cannot be retrieved. The register won't be able to be used until removeUsage
-		 * has been called usageCount times again.
-		 * @param register The register to mark as used.
-		 * @param usageCount The amount of usages to add.
-		 */
+		/**		 * Marks a register as used, so it cannot be retrieved. The register won't be able to be used until removeUsage		 * has been called usageCount times again.		 * @param register The register to mark as used.		 * @param usageCount The amount of usages to add.		 */
 		public function addUsage(register:ShaderRegisterElement, usageCount:Number):void
 		{
 			if (register._component > -1)
@@ -133,10 +111,7 @@ package away.materials.compilation
 
 		}
 		
-		/**
-		 * Removes a usage from a register. When usages reach 0, the register is freed again.
-		 * @param register The register for which to remove a usage.
-		 */
+		/**		 * Removes a usage from a register. When usages reach 0, the register is freed again.		 * @param register The register for which to remove a usage.		 */
 		public function removeUsage(register:ShaderRegisterElement):void
 		{
 			if (register._component > -1)
@@ -163,9 +138,7 @@ package away.materials.compilation
 			}
 		}
 
-		/**
-		 * Disposes any resources used by the current RegisterPool object.
-		 */
+		/**		 * Disposes any resources used by the current RegisterPool object.		 */
 		public function dispose():void
 		{
 			this._vectorRegisters = null;
@@ -174,9 +147,7 @@ package away.materials.compilation
             this._usedVectorCount = null;
 		}
 		
-		/**
-		 * Indicates whether or not any registers are in use.
-		 */
+		/**		 * Indicates whether or not any registers are in use.		 */
 		public function hasRegisteredRegs():Boolean
 		{
 			for (var i:Number = 0; i < this._regCount; ++i)
@@ -190,9 +161,7 @@ package away.materials.compilation
 			return false;
 		}
 		
-		/**
-		 * Initializes all registers.
-		 */
+		/**		 * Initializes all registers.		 */
 		private function initRegisters(regName:String, regCount:Number):void
 		{
 			
@@ -201,13 +170,13 @@ package away.materials.compilation
 			this._vectorRegisters = RegisterPool._regPool[hash];
 			this._registerComponents = RegisterPool._regCompsPool[hash];
 			
-			this._usedVectorCount = VectorInit.Num(regCount);
+			this._usedVectorCount = Vector.<Number>(regCount);
 
             this._usedSingleCount = VectorInit.VecNum(4);
-			this._usedSingleCount[0] = VectorInit.Num(regCount);
-            this._usedSingleCount[1] = VectorInit.Num(regCount);
-            this._usedSingleCount[2] = VectorInit.Num(regCount);
-            this._usedSingleCount[3] = VectorInit.Num(regCount);
+			this._usedSingleCount[0] = VectorInit.Num(regCount );
+            this._usedSingleCount[1] = VectorInit.Num(regCount );
+            this._usedSingleCount[2] = VectorInit.Num(regCount );
+            this._usedSingleCount[3] = VectorInit.Num(regCount );
 
             //console.log( 'this._usedVectorCount: ' , this._usedVectorCount );
             //console.log( 'this._usedSingleCount: ' , this._usedSingleCount );
@@ -257,9 +226,7 @@ package away.materials.compilation
 		}
 
 
-		/**
-		 * Check if the temp register is either used for single or vector use
-		 */
+		/**		 * Check if the temp register is either used for single or vector use		 */
 		private function isRegisterUsed(index:Number):Boolean
 		{
 			if (this._usedVectorCount[index] > 0)

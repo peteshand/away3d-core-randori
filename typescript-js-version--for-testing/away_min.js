@@ -1254,6 +1254,8 @@ var away;
 
                 var texture = new away.display3D.Texture(width, height);
                 this._textureList.push(texture);
+                console.log("this._textureList");
+                console.log(this._textureList);
                 return texture;
             };
 
@@ -1521,6 +1523,7 @@ var away;
                 this._canvas = canvas;
             }
             Stage3D.prototype.requestContext = function () {
+                console.log('requestContext');
                 try  {
                     this._context3D = new away.display3D.Context3D(this._canvas);
                 } catch (e) {
@@ -1837,6 +1840,8 @@ var away;
                 this.method = away.net.URLRequestMethod.GET;
                 this.async = true;
                 this._url = url;
+
+                console.log(this._url);
             }
             Object.defineProperty(URLRequest.prototype, "url", {
                 get: function () {
