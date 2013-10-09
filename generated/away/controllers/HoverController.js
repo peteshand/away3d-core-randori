@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:40 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -25,17 +25,16 @@ away.controllers.HoverController = function(targetObject, lookAtObject, panAngle
 	distance = distance || 1000;
 	minTiltAngle = minTiltAngle || -90;
 	maxTiltAngle = maxTiltAngle || 90;
-	minPanAngle = minPanAngle || NaN;
-	maxPanAngle = maxPanAngle || NaN;
+	minPanAngle = minPanAngle || null;
+	maxPanAngle = maxPanAngle || null;
 	steps = steps || 8;
 	yFactor = yFactor || 2;
-	wrapPanAngle = wrapPanAngle || false;
 	away.controllers.LookAtController.call(this, targetObject, lookAtObject);
 	this.set_distance(distance);
 	this.set_panAngle(panAngle);
 	this.set_tiltAngle(tiltAngle);
-	this.set_minPanAngle(minPanAngle || -Infinity);
-	this.set_maxPanAngle(maxPanAngle || Infinity);
+	this.set_minPanAngle((minPanAngle != null) ? minPanAngle : -Infinity);
+	this.set_maxPanAngle((maxPanAngle != null) ? maxPanAngle : Infinity);
 	this.set_minTiltAngle(minTiltAngle);
 	this.set_maxTiltAngle(maxTiltAngle);
 	this.set_steps(steps);
@@ -159,7 +158,6 @@ away.controllers.HoverController.prototype.set_wrapPanAngle = function(val) {
 };
 
 away.controllers.HoverController.prototype.update = function(interpolate) {
-	interpolate = interpolate || true;
 	if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle) {
 		this.pNotifyUpdate();
 		if (this._wrapPanAngle) {
@@ -188,9 +186,9 @@ away.controllers.HoverController.prototype.update = function(interpolate) {
 		}
 	}
 	var pos = this.get_lookAtObject() ? this.get_lookAtObject().get_position() : this.get_lookAtPosition() ? this.get_lookAtPosition() : this._pOrigin;
-	this.get_targetObject().set_x(pos.x + this.get_distance() * Math.sin(this._iCurrentPanAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
-	this.get_targetObject().set_z(pos.z + this.get_distance() * Math.cos(this._iCurrentPanAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
-	this.get_targetObject().set_y(pos.y + this.get_distance() * Math.sin(this._iCurrentTiltAngle * away.math.MathConsts.DEGREES_TO_RADIANS) * this.get_yFactor());
+	this.get_targetObject().set_x(pos.x + this.get_distance() * Math.sin(this._iCurrentPanAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS));
+	this.get_targetObject().set_z(pos.z + this.get_distance() * Math.cos(this._iCurrentPanAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS) * Math.cos(this._iCurrentTiltAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS));
+	this.get_targetObject().set_y(pos.y + this.get_distance() * Math.sin(this._iCurrentTiltAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS) * this.get_yFactor());
 	away.controllers.LookAtController.prototype.update.call(thistrue);
 };
 
@@ -201,7 +199,7 @@ away.controllers.HoverController.className = "away.controllers.HoverController";
 away.controllers.HoverController.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.math.MathConsts');
+	p.push('away.core.math.MathConsts');
 	return p;
 };
 

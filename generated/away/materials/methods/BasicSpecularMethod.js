@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -199,7 +199,7 @@ away.materials.methods.BasicSpecularMethod.prototype.iActivate = function(vo, st
 	if (vo.numLights == 0)
 		return;
 	if (this._useTexture) {
-		stage3DProxy._iContext3D.setSamplerStateAt(vo.texturesIndex, vo.repeatTextures ? away.display3D.Context3DWrapMode.REPEAT : away.display3D.Context3DWrapMode.CLAMP, vo.useSmoothTextures ? away.display3D.Context3DTextureFilter.LINEAR : away.display3D.Context3DTextureFilter.NEAREST, vo.useMipmapping ? away.display3D.Context3DMipFilter.MIPLINEAR : away.display3D.Context3DMipFilter.MIPNONE);
+		stage3DProxy._iContext3D.setSamplerStateAt(vo.texturesIndex, vo.repeatTextures ? away.core.display3D.Context3DWrapMode.REPEAT : away.core.display3D.Context3DWrapMode.CLAMP, vo.useSmoothTextures ? away.core.display3D.Context3DTextureFilter.LINEAR : away.core.display3D.Context3DTextureFilter.NEAREST, vo.useMipmapping ? away.core.display3D.Context3DMipFilter.MIPLINEAR : away.core.display3D.Context3DMipFilter.MIPNONE);
 		stage3DProxy._iContext3D.setTextureAt(vo.texturesIndex, this._texture.getTextureForStage3D(stage3DProxy));
 	}
 	var index = vo.fragmentConstantsIndex;
@@ -231,9 +231,9 @@ away.materials.methods.BasicSpecularMethod.className = "away.materials.methods.B
 away.materials.methods.BasicSpecularMethod.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DMipFilter');
-	p.push('away.display3D.Context3DWrapMode');
-	p.push('away.display3D.Context3DTextureFilter');
+	p.push('away.core.display3D.Context3DTextureFilter');
+	p.push('away.core.display3D.Context3DMipFilter');
+	p.push('away.core.display3D.Context3DWrapMode');
 	p.push('away.materials.methods.MethodVO');
 	return p;
 };

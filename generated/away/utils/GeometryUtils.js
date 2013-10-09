@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -135,10 +135,10 @@ away.utils.GeometryUtils.constructSubGeometry = function(verts, indices, uvs, no
 	var sub;
 	if (weights && jointIndices) {
 		away.utils.Debug.throwPIR("GeometryUtils", "constructSubGeometry", "Dependency: SkinnedSubGeometry");
-		sub = new away.base.SkinnedSubGeometry(weights.length / (verts.length / 3));
+		sub = new away.core.base.SkinnedSubGeometry(weights.length / (verts.length / 3));
 		var ssg = sub;
 	} else {
-		sub = new away.base.CompactSubGeometry();
+		sub = new away.core.base.CompactSubGeometry();
 	}
 	sub.updateIndexData(indices);
 	sub.fromVectors(verts, uvs, normals, tangents);
@@ -200,9 +200,9 @@ away.utils.GeometryUtils.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.utils.Debug');
-	p.push('away.base.SkinnedSubGeometry');
+	p.push('away.core.base.CompactSubGeometry');
+	p.push('away.core.base.SkinnedSubGeometry');
 	p.push('away.utils.VectorInit');
-	p.push('away.base.CompactSubGeometry');
 	return p;
 };
 

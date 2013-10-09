@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:48 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,7 +13,7 @@ away.containers.Scene3D = function() {
 	this._iSceneGraphRoot = new away.containers.ObjectContainer3D();
 	this._iSceneGraphRoot.set_scene(this);
 	this._iSceneGraphRoot._iIsRoot = true;
-	this._iSceneGraphRoot.set_partition(new away.partition.Partition3D(new away.partition.NodeBase()));
+	this._iSceneGraphRoot.set_partition(new away.core.partition.Partition3D(new away.core.partition.NodeBase()));
 };
 
 away.containers.Scene3D.prototype.traversePartitions = function(traverser) {
@@ -93,8 +93,8 @@ away.containers.Scene3D.className = "away.containers.Scene3D";
 away.containers.Scene3D.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.partition.NodeBase');
-	p.push('away.partition.Partition3D');
+	p.push('away.core.partition.NodeBase');
+	p.push('away.core.partition.Partition3D');
 	p.push('away.events.Scene3DEvent');
 	p.push('away.containers.ObjectContainer3D');
 	return p;

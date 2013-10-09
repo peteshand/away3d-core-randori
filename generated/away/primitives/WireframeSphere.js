@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -22,8 +22,8 @@ away.primitives.WireframeSphere = function(radius, segmentsW, segmentsH, color, 
 
 away.primitives.WireframeSphere.prototype.pBuildGeometry = function() {
 	var vertices = away.utils.VectorInit.Num(0, 0);
-	var v0 = new away.geom.Vector3D(0, 0, 0, 0);
-	var v1 = new away.geom.Vector3D(0, 0, 0, 0);
+	var v0 = new away.core.geom.Vector3D(0, 0, 0, 0);
+	var v1 = new away.core.geom.Vector3D(0, 0, 0, 0);
 	var i, j;
 	var numVerts = 0;
 	var index = 0;
@@ -90,7 +90,7 @@ away.primitives.WireframeSphere.className = "away.primitives.WireframeSphere";
 away.primitives.WireframeSphere.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.utils.VectorInit');
 	return p;
 };

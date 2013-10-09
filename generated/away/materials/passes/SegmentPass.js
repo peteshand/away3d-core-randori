@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:53 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,9 +10,9 @@ if (typeof away.materials.passes == "undefined")
 away.materials.passes.SegmentPass = function(thickness) {
 	this._thickness = 0;
 	this._calcMatrix = null;
-	this._constants = away.utils.VectorInit.Num(4, 0);
+	this._constants = [0, 0, 0, 0];
 	away.materials.passes.MaterialPassBase.call(this, false);
-	this._calcMatrix = new away.geom.Matrix3D();
+	this._calcMatrix = new away.core.geom.Matrix3D();
 	this._thickness = thickness;
 	this._constants[1] = 1 / 255;
 };
@@ -38,7 +38,7 @@ away.materials.passes.SegmentPass.prototype.iRender = function(renderable, stage
 	if (ss.get_hasData()) {
 		for (var i = 0; i < subSetCount; ++i) {
 			renderable.activateVertexBuffer(i, stage3DProxy);
-			context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 8, this._calcMatrix, true);
+			context.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 8, this._calcMatrix, true);
 			context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.get_numTriangles());
 		}
 	}
@@ -52,10 +52,10 @@ away.materials.passes.SegmentPass.prototype.iActivate = function(stage3DProxy, c
 	else
 		this._constants[0] = this._thickness / Math.min(stage3DProxy.get_width(), stage3DProxy.get_height());
 	this._constants[2] = camera.get_lens().get_near();
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 5, away.materials.passes.SegmentPass.pONE_VECTOR, -1);
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 6, away.materials.passes.SegmentPass.pFRONT_VECTOR, -1);
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 7, this._constants, -1);
-	context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 0, camera.get_lens().get_matrix(), true);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 5, away.materials.passes.SegmentPass.pONE_VECTOR, 1);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 6, away.materials.passes.SegmentPass.pFRONT_VECTOR, 1);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 7, this._constants, 1);
+	context.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 0, camera.get_lens().get_matrix(), true);
 };
 
 away.materials.passes.SegmentPass.prototype.pDeactivate = function(stage3DProxy) {
@@ -74,12 +74,12 @@ away.materials.passes.SegmentPass.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.passes.SegmentPass');
-	p.push('away.geom.Matrix3D');
-	p.push('*away.base.IRenderable');
-	p.push('away.display3D.Context3DProgramType');
-	p.push('away.geom.Rectangle');
+	p.push('*away.core.base.IRenderable');
+	p.push('away.core.geom.Matrix3D');
 	p.push('away.cameras.Camera3D');
 	p.push('away.entities.Entity');
+	p.push('away.core.display3D.Context3DProgramType');
+	p.push('away.core.geom.Rectangle');
 	p.push('away.cameras.lenses.LensBase');
 	p.push('away.managers.Stage3DProxy');
 	return p;
@@ -87,9 +87,7 @@ away.materials.passes.SegmentPass.getRuntimeDependencies = function(t) {
 
 away.materials.passes.SegmentPass.getStaticDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('away.utils.VectorInit');
-	return p;
+	return [];
 };
 
 away.materials.passes.SegmentPass.injectionPoints = function(t) {

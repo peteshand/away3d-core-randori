@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,6 @@ away.textures.HTMLImageElementTexture = function(htmlImageElement, generateMipma
 	this._htmlImageElement = null;
 	this._mipMaps = [];
 	this._mipMapUses = [];
-	generateMipmaps = generateMipmaps || true;
 	away.textures.Texture2DBase.call(this);
 	this._htmlImageElement = htmlImageElement;
 	this._generateMipmaps = generateMipmaps;
@@ -30,7 +29,7 @@ away.textures.HTMLImageElementTexture.prototype.set_htmlImageElement = function(
 		return;
 	}
 	if (!away.utils.TextureUtils.isHTMLImageElementValid(value)) {
-		throw new away.errors.Error("Invalid bitmapData: Width and height must be power of 2 and cannot exceed 2048", 0, "");
+		throw new away.errors.away.errors.Error("Invalid bitmapData: Width and height must be power of 2 and cannot exceed 2048", 0, "");
 	}
 	this.invalidateContent();
 	this.pSetSize(value.width, value.height);
@@ -63,8 +62,8 @@ away.textures.HTMLImageElementTexture.prototype.getMipMapHolder = function() {
 		away.textures.HTMLImageElementTexture._mipMapUses[newW] = [];
 	}
 	if (!away.textures.HTMLImageElementTexture._mipMaps[newW][newH]) {
-		this._mipMapHolder = new away.display.BitmapData(newW, newH, true, -1);
-		away.textures.HTMLImageElementTexture._mipMaps[newW][newH] = new away.display.BitmapData(newW, newH, true, -1);
+		away.textures.HTMLImageElementTexture._mipMaps[newW][newH] = new away.core.display.BitmapData(newW, newH, true, -1);
+		this._mipMapHolder = away.textures.HTMLImageElementTexture._mipMaps[newW][newH];
 		away.textures.HTMLImageElementTexture._mipMapUses[newW][newH] = 1;
 	} else {
 		away.textures.HTMLImageElementTexture._mipMapUses[newW][newH] = away.textures.HTMLImageElementTexture._mipMapUses[newW][newH] + 1;
@@ -96,7 +95,7 @@ away.textures.HTMLImageElementTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.utils.MipmapGenerator');
-	p.push('away.display.BitmapData');
+	p.push('away.core.display.BitmapData');
 	p.push('away.utils.TextureUtils');
 	return p;
 };

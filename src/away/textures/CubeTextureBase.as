@@ -8,9 +8,9 @@
 
 package away.textures
 {
-	import away.display3D.Context3D;
-	import away.display3D.TextureBase;
-	import away.display3D.Context3DTextureFormat;
+	import away.core.display3D.Context3D;
+	import away.core.display3D.TextureBase;
+	import away.core.display3D.Context3DTextureFormat;
 	public class CubeTextureBase extends TextureProxyBase
 	{
 		public function CubeTextureBase():void

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -18,13 +18,13 @@ examples.PhongTorus = function() {
 	if (!document) {
 		throw "The Window.document root object must be avaiable";
 	}
-	this.stage = new away.display.Stage(800, 600);
+	this.stage = new away.core.display.Stage(800, 600);
 	this.loadResources();
 };
 
 examples.PhongTorus.prototype.loadResources = function() {
-	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
-	var imgLoader = new away.net.IMGLoader("");
+	var urlRequest = new away.core.net.URLRequest("assets\/130909wall_big.png");
+	var imgLoader = new away.core.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
@@ -61,19 +61,19 @@ examples.PhongTorus.prototype.onContext3DCreateHandler = function(e) {
 	this.context3D.setProgram(this.program);
 	this.pMatrix = new away.utils.PerspectiveMatrix3D();
 	this.pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
-	this.mvMatrix = new away.geom.Matrix3D();
+	this.mvMatrix = new away.core.geom.Matrix3D();
 	this.mvMatrix.appendTranslation(0, 0, 7);
 	this.normalMatrix = this.mvMatrix.clone();
 	this.normalMatrix.invert();
 	this.normalMatrix.transpose();
-	this.context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-	this.context3D.setGLSLVertexBufferAt("aVertexNormal", vBuffer, 3, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	this.context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	this.context3D.setGLSLVertexBufferAt("aVertexNormal", vBuffer, 3, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
 	this.requestAnimationFrameTimer = new away.utils.RequestAnimationFrame($createStaticDelegate(this, this.tick), this);
 	this.requestAnimationFrameTimer.start();
 };
 
 examples.PhongTorus.prototype.tick = function(dt) {
-	this.mvMatrix.appendRotation(dt * 0.05, new away.geom.Vector3D(0, 1, 0, 0));
+	this.mvMatrix.appendRotation(dt * 0.05, new away.core.geom.Vector3D(0, 1, 0, 0));
 	this.context3D.setProgram(this.program);
 	this.context3D.setGLSLProgramConstantsFromMatrix("uNormalMatrix", this.normalMatrix, true);
 	this.context3D.setGLSLProgramConstantsFromMatrix("uMVMatrix", this.mvMatrix, true);
@@ -89,15 +89,15 @@ examples.PhongTorus.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.utils.RequestAnimationFrame');
-	p.push('away.net.URLRequest');
-	p.push('away.geom.Vector3D');
+	p.push('away.core.display3D.Context3DVertexBufferFormat');
+	p.push('away.core.display.Stage');
 	p.push('away.events.Event');
-	p.push('away.display3D.Context3DVertexBufferFormat');
 	p.push('away.utils.PerspectiveMatrix3D');
-	p.push('away.geom.Matrix3D');
-	p.push('away.net.IMGLoader');
+	p.push('away.core.net.URLRequest');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.core.geom.Matrix3D');
 	p.push('away.primitives.TorusGeometry');
-	p.push('away.display.Stage');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 

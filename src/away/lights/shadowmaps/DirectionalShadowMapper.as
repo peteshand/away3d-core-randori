@@ -9,14 +9,14 @@
 package away.lights.shadowmaps
 {
 	import away.cameras.Camera3D;
-	import away.geom.Matrix3D;
+	import away.core.geom.Matrix3D;
 	import away.cameras.lenses.FreeMatrixLens;
-	import away.math.Plane3D;
-	import away.display3D.TextureBase;
+	import away.core.math.Plane3D;
+	import away.core.display3D.TextureBase;
 	import away.containers.Scene3D;
-	import away.render.DepthRenderer;
+	import away.core.render.DepthRenderer;
 	import away.lights.DirectionalLight;
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	public class DirectionalShadowMapper extends ShadowMapperBase
 	{
 		
@@ -144,12 +144,10 @@ package away.lights.shadowmaps
 			this._pMatrix.prepend( viewCamera.sceneTransform );
 			this._pMatrix.transformVectors( corners, this._pLocalFrustum );
 			
-			minX = this._pLocalFrustum[0];
-			maxX = this._pLocalFrustum[0];
-
-			minY = this._pLocalFrustum[1];
-			maxY = this._pLocalFrustum[1];
-
+			maxX =  this._pLocalFrustum[0];
+			minX = maxX
+			maxY =  this._pLocalFrustum[1];
+			minY = maxY
 			this._pMaxZ = this._pLocalFrustum[2];
 			
 			i = 3;
@@ -203,16 +201,15 @@ package away.lights.shadowmaps
 			raw[13] = -(maxY + minY)*h;
 			raw[14] = -this._pMinZ*d;
 			raw[15] = 1;
-			raw[1] = 0;
-			raw[2] = 0;
-			raw[3] = 0;
-			raw[4] = 0;
-			raw[6] = 0;
-			raw[7] = 0;
-			raw[8] = 0;
-			raw[9] = 0;
-			raw[11] = 0;
-
+			raw[11] =  0;
+			raw[9] = raw[11]
+			raw[8] = raw[9]
+			raw[7] = raw[8]
+			raw[6] = raw[7]
+			raw[4] = raw[6]
+			raw[3] = raw[4]
+			raw[2] = raw[3]
+			raw[1] = raw[2]
 			
 			matrix.copyRawDataFrom(raw);
 		}

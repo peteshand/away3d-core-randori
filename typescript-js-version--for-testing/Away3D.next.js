@@ -26327,7 +26327,7 @@ var away;
                 if (this._pNumVertices == 0) {
                     throw new Error("Bad data: geometry can't have zero triangles");
                 }
-
+                window.console.log('this._vertexData = ' + this._vertexData);
                 this.pInvalidateBuffers(this._pVertexDataInvalid);
                 this.pInvalidateBounds();
             };
@@ -32085,7 +32085,6 @@ var away;
                         }
                     }
                 }
-
                 target.updateData(data);
                 target.updateIndexData(indices);
             };
@@ -32125,7 +32124,6 @@ var away;
                         }
                     }
                 }
-
                 target.updateData(data);
             };
             return PlaneGeometry;
@@ -39057,7 +39055,7 @@ var away;
                 _super.call(this);
 
                 this.texture = texture;
-
+                console.log(texture);
                 this.smooth = smooth;
                 this.repeat = repeat;
                 this.mipmap = mipmap;
@@ -39405,53 +39403,42 @@ var away;
                     var numCastingDirectionalLights = 0;
                     var numLightProbes = 0;
                     var light;
-
                     if (this._lights)
                         this.clearListeners();
-
                     this._lights = value;
                     this._pAllPickedLights = value;
-                    this._pPointLights = new Array();
-                    this._pCastingPointLights = new Array();
-                    this._pDirectionalLights = new Array();
-                    this._pCastingDirectionalLights = new Array();
-                    this._pLightProbes = new Array();
-
+                    this._pPointLights = [];
+                    this._pCastingPointLights = [];
+                    this._pDirectionalLights = [];
+                    this._pCastingDirectionalLights = [];
+                    this._pLightProbes = [];
                     var len = value.length;
-
                     for (var i = 0; i < len; ++i) {
                         light = value[i];
                         light.addEventListener(away.events.LightEvent.CASTS_SHADOW_CHANGE, this.onCastShadowChange, this);
-
                         if (light instanceof away.lights.PointLight) {
-                            if (light.castsShadows)
+                            if (light.castsShadow)
                                 this._pCastingPointLights[numCastingPointLights++] = light;
-else
+                            else
                                 this._pPointLights[numPointLights++] = light;
                         } else if (light instanceof away.lights.DirectionalLight) {
                             if (light.castsShadows)
                                 this._pCastingDirectionalLights[numCastingDirectionalLights++] = light;
-else
+                            else
                                 this._pDirectionalLights[numDirectionalLights++] = light;
                         } else if (light instanceof away.lights.LightProbe) {
                             this._pLightProbes[numLightProbes++] = light;
                         }
                     }
-
                     if (this._pNumDirectionalLights == numDirectionalLights && this._pNumPointLights == numPointLights && this._pNumLightProbes == numLightProbes && this._pNumCastingPointLights == numCastingPointLights && this._pNumCastingDirectionalLights == numCastingDirectionalLights) {
                         return;
                     }
-
                     this._pNumDirectionalLights = numDirectionalLights;
                     this._pNumCastingDirectionalLights = numCastingDirectionalLights;
                     this._pNumPointLights = numPointLights;
                     this._pNumCastingPointLights = numCastingPointLights;
                     this._pNumLightProbes = numLightProbes;
-
-                    // MUST HAVE MULTIPLE OF 4 ELEMENTS!
-                    this._pLightProbeWeights = new Array(Math.ceil(numLightProbes / 4) * 4);
-
-                    // notify material lights have changed
+                    this._pLightProbeWeights = new Array(Math.ceil(numLightProbes / 4) * 4, 0);
                     this.dispatchEvent(new away.events.Event(away.events.Event.CHANGE));
                 },
                 enumerable: true,
@@ -39492,18 +39479,15 @@ else
             */
             StaticLightPicker.prototype.updateDirectionalCasting = function (light) {
                 var dl = light;
-
-                if (light.castsShadows) {
+                if (light.get_castsShadows()) {
                     --this._pNumDirectionalLights;
                     ++this._pNumCastingDirectionalLights;
-
-                    this._pDirectionalLights.splice(this._pDirectionalLights.indexOf(dl), 1);
+                    this._pDirectionalLights.splice(this._pDirectionalLights.indexOf(dl, 0), 1);
                     this._pCastingDirectionalLights.push(light);
                 } else {
                     ++this._pNumDirectionalLights;
                     --this._pNumCastingDirectionalLights;
-
-                    this._pCastingDirectionalLights.splice(this._pCastingDirectionalLights.indexOf(dl), 1);
+                    this._pCastingDirectionalLights.splice(this._pCastingDirectionalLights.indexOf(dl, 0), 1);
                     this._pDirectionalLights.push(light);
                 }
             };
@@ -39513,17 +39497,15 @@ else
             */
             StaticLightPicker.prototype.updatePointCasting = function (light) {
                 var pl = light;
-
-                if (light.castsShadows) {
+                if (light.get_castsShadows()) {
                     --this._pNumPointLights;
                     ++this._pNumCastingPointLights;
-                    this._pPointLights.splice(this._pPointLights.indexOf(pl), 1);
+                    this._pPointLights.splice(this._pPointLights.indexOf(pl, 0), 1);
                     this._pCastingPointLights.push(light);
                 } else {
                     ++this._pNumPointLights;
                     --this._pNumCastingPointLights;
-
-                    this._pCastingPointLights.splice(this._pCastingPointLights.indexOf(pl), 1);
+                    this._pCastingPointLights.splice(this._pCastingPointLights.indexOf(pl, 0), 1);
                     this._pPointLights.push(light);
                 }
             };

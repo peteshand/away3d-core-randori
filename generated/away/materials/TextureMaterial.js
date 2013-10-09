@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -7,9 +7,6 @@ if (typeof away.materials == "undefined")
 
 away.materials.TextureMaterial = function(texture, smooth, repeat, mipmap) {
 	texture = texture || null;
-	smooth = smooth || true;
-	repeat = repeat || false;
-	mipmap = mipmap || false;
 	away.materials.SinglePassMaterialBase.call(this);
 	this.set_texture(texture);
 	this.set_smooth(smooth);
@@ -35,11 +32,11 @@ away.materials.TextureMaterial.prototype.set_alpha = function(value) {
 	else if (value < 0)
 		value = 0;
 	if (this.get_colorTransform() == null) {
-		this.set_colorTransform(new away.geom.ColorTransform(1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0));
+		this.set_colorTransform(new away.core.geom.ColorTransform(1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0));
 	}
 	this.get_colorTransform().alphaMultiplier = value;
 	this._pScreenPass.set_preserveAlpha(this.getRequiresBlending());
-	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && this.getRequiresBlending() ? away.display.BlendMode.LAYER : this.getBlendMode());
+	this._pScreenPass.setBlendMode(this.getBlendMode() == away.core.display.BlendMode.NORMAL && this.getRequiresBlending() ? away.core.display.BlendMode.LAYER : this.getBlendMode());
 };
 
 away.materials.TextureMaterial.prototype.get_texture = function() {
@@ -66,8 +63,8 @@ away.materials.TextureMaterial.className = "away.materials.TextureMaterial";
 away.materials.TextureMaterial.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.ColorTransform');
-	p.push('away.display.BlendMode');
+	p.push('away.core.display.BlendMode');
+	p.push('away.core.geom.ColorTransform');
 	return p;
 };
 

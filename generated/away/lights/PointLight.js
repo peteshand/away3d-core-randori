@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,7 +18,7 @@ away.lights.PointLight.prototype.pCreateShadowMapper = function() {
 };
 
 away.lights.PointLight.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.PointLightNode(this);
+	return new away.core.partition.PointLightNode(this);
 };
 
 away.lights.PointLight.prototype.get_radius = function() {
@@ -57,7 +57,7 @@ away.lights.PointLight.prototype.set_fallOff = function(value) {
 };
 
 away.lights.PointLight.prototype.pUpdateBounds = function() {
-	this._pBounds.fromSphere(new away.geom.Vector3D(0, 0, 0, 0), this._pFallOff);
+	this._pBounds.fromSphere(new away.core.geom.Vector3D(0, 0, 0, 0), this._pFallOff);
 	this._pBoundsInvalid = false;
 };
 
@@ -69,7 +69,7 @@ away.lights.PointLight.prototype.iGetObjectProjectionMatrix = function(renderabl
 	target = target || null;
 	var raw = [];
 	var bounds = renderable.get_sourceEntity().get_bounds();
-	var m = new away.geom.Matrix3D();
+	var m = new away.core.geom.Matrix3D();
 	m.copyFrom(renderable.get_sceneTransform());
 	m.append(this._pParent.get_inverseSceneTransform());
 	this.lookAt(m.get_position());
@@ -86,24 +86,24 @@ away.lights.PointLight.prototype.iGetObjectProjectionMatrix = function(renderabl
 	var zMax;
 	zMin = z - d;
 	zMax = z + d;
-	raw[5] = zMin / d;
 	raw[0] = zMin / d;
+	raw[5] = raw[0];
 	raw[10] = zMax / (zMax - zMin);
 	raw[11] = 1;
-	raw[1] = 0;
-	raw[2] = 0;
-	raw[3] = 0;
-	raw[4] = 0;
-	raw[6] = 0;
-	raw[7] = 0;
-	raw[8] = 0;
-	raw[9] = 0;
-	raw[12] = 0;
-	raw[13] = 0;
 	raw[15] = 0;
+	raw[13] = raw[15];
+	raw[12] = raw[13];
+	raw[9] = raw[12];
+	raw[8] = raw[9];
+	raw[7] = raw[8];
+	raw[6] = raw[7];
+	raw[4] = raw[6];
+	raw[3] = raw[4];
+	raw[2] = raw[3];
+	raw[1] = raw[2];
 	raw[14] = -zMin * raw[10];
 	if (!target) {
-		target = new away.geom.Matrix3D();
+		target = new away.core.geom.Matrix3D();
 	}
 	target.copyRawDataFrom(raw, 0, false);
 	target.prepend(m);
@@ -118,12 +118,12 @@ away.lights.PointLight.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.lights.shadowmaps.CubeMapShadowMapper');
-	p.push('away.geom.Vector3D');
-	p.push('away.geom.Matrix3D');
-	p.push('*away.base.IRenderable');
+	p.push('away.core.geom.Vector3D');
+	p.push('*away.core.base.IRenderable');
+	p.push('away.core.geom.Matrix3D');
 	p.push('away.bounds.BoundingVolumeBase');
-	p.push('away.partition.PointLightNode');
 	p.push('away.bounds.BoundingSphere');
+	p.push('away.core.partition.PointLightNode');
 	p.push('away.containers.ObjectContainer3D');
 	return p;
 };

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,6 @@ away.filters.tasks.Filter3DTaskBase = function(requireDepthRender) {
 	this._scaledTextureWidth = -1;
 	this._mainInputTexture = null;
 	this._target = null;
-	requireDepthRender = requireDepthRender || false;
 	this._requireDepthRender = requireDepthRender;
 };
 
@@ -98,8 +97,8 @@ away.filters.tasks.Filter3DTaskBase.prototype.pUpdateProgram3D = function(stage)
 	this._program3D = stage._iContext3D.createProgram();
 	var vertCompiler = new aglsl.AGLSLCompiler();
 	var fragCompiler = new aglsl.AGLSLCompiler();
-	var vertString = vertCompiler.compile(away.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode());
-	var fragString = fragCompiler.compile(away.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode());
+	var vertString = vertCompiler.compile(away.core.display3D.Context3DProgramType.VERTEX, this.pGetVertexCode());
+	var fragString = fragCompiler.compile(away.core.display3D.Context3DProgramType.FRAGMENT, this.pGetFragmentCode());
 	this._program3D.upload(vertString, fragString);
 	this._program3DInvalid = false;
 };
@@ -117,7 +116,7 @@ away.filters.tasks.Filter3DTaskBase.prototype.pUpdateTextures = function(stage) 
 	if (this._mainInputTexture) {
 		this._mainInputTexture.dispose();
 	}
-	this._mainInputTexture = stage._iContext3D.createTexture(this._scaledTextureWidth, this._scaledTextureHeight, away.display3D.Context3DTextureFormat.BGRA, true, 0);
+	this._mainInputTexture = stage._iContext3D.createTexture(this._scaledTextureWidth, this._scaledTextureHeight, away.core.display3D.Context3DTextureFormat.BGRA, true, 0);
 	this._textureDimensionsInvalid = false;
 };
 
@@ -143,10 +142,10 @@ away.filters.tasks.Filter3DTaskBase.className = "away.filters.tasks.Filter3DTask
 away.filters.tasks.Filter3DTaskBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.display3D.Context3DTextureFormat');
 	p.push('away.errors.AbstractMethodError');
-	p.push('away.display3D.Context3DProgramType');
 	p.push('aglsl.AGLSLCompiler');
-	p.push('away.display3D.Context3DTextureFormat');
+	p.push('away.core.display3D.Context3DProgramType');
 	return p;
 };
 

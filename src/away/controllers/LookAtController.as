@@ -8,7 +8,7 @@
 
 package away.controllers
 {
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	import away.containers.ObjectContainer3D;
 	import away.entities.Entity;
 	import away.events.Object3DEvent;
@@ -85,8 +85,6 @@ package away.controllers
 		//@override
 		override public function update(interpolate:Boolean = true):void
 		{
-			interpolate = interpolate || true;
-
 			interpolate = interpolate; // prevents unused warning
 			
 			if( this._pTargetObject )

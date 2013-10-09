@@ -8,7 +8,7 @@
 
 package away.utils
 {
-	import away.geom.Matrix3D;
+	import away.core.geom.Matrix3D;
 	public class PerspectiveMatrix3D extends Matrix3D
 	{
 		public function PerspectiveMatrix3D(v:Vector.<Number> = null):void

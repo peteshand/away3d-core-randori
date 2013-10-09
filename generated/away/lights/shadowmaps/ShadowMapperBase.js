@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,7 @@ away.lights.shadowmaps.ShadowMapperBase = function() {
 };
 
 away.lights.shadowmaps.ShadowMapperBase.prototype.pCreateCasterCollector = function() {
-	return new away.traverse.ShadowCasterCollector();
+	return new away.core.traverse.ShadowCasterCollector();
 };
 
 away.lights.shadowmaps.ShadowMapperBase.prototype.get_autoUpdateShadows = function() {
@@ -116,9 +116,9 @@ away.lights.shadowmaps.ShadowMapperBase.className = "away.lights.shadowmaps.Shad
 away.lights.shadowmaps.ShadowMapperBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.traverse.EntityCollector');
 	p.push('away.textures.RenderTexture');
-	p.push('away.traverse.ShadowCasterCollector');
+	p.push('away.core.traverse.ShadowCasterCollector');
+	p.push('away.core.traverse.EntityCollector');
 	p.push('away.errors.AbstractMethodError');
 	return p;
 };

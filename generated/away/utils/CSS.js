@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:33 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -54,7 +54,6 @@ away.utils.CSS.setCanvasAlpha = function(canvas, alpha) {
 };
 
 away.utils.CSS.setCanvasPosition = function(canvas, x, y, absolute) {
-	absolute = absolute || false;
 	if (absolute) {
 		canvas.style.position = "absolute";
 	} else {

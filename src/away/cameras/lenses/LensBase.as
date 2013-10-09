@@ -9,9 +9,9 @@
 package away.cameras.lenses
 {
 	import away.events.EventDispatcher;
-	import away.geom.Matrix3D;
-	import away.geom.Rectangle;
-	import away.geom.Vector3D;
+	import away.core.geom.Matrix3D;
+	import away.core.geom.Rectangle;
+	import away.core.geom.Vector3D;
 	import away.errors.AbstractMethodError;
 	import away.events.LensEvent;
 	public class LensBase extends EventDispatcher

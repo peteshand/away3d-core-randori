@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:53 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,7 @@ away.utils.RequestAnimationFrame = function(callback, callbackContext) {
 	this._currentTime = 0;
 	this._prevTime = 0;
 	this._callbackContext = null;
-	this._argsArray = away.utils.VectorInit.StarVec(0, "");
+	this._argsArray = [];
 	this._rafUpdateFunction = null;
 	this._callback = null;
 	this.setCallback($createStaticDelegate(this, callback), callbackContext);
@@ -70,9 +70,7 @@ away.utils.RequestAnimationFrame.getRuntimeDependencies = function(t) {
 
 away.utils.RequestAnimationFrame.getStaticDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('away.utils.VectorInit');
-	return p;
+	return [];
 };
 
 away.utils.RequestAnimationFrame.injectionPoints = function(t) {

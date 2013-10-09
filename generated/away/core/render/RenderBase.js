@@ -1,0 +1,249 @@
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
+
+if (typeof away == "undefined")
+	var away = {};
+if (typeof away.core == "undefined")
+	away.core = {};
+if (typeof away.core.render == "undefined")
+	away.core.render = {};
+
+away.core.render.RenderBase = function(renderToTexture) {
+	this._snapshotRequired = false;
+	this._pShareContext = false;
+	this._pBackgroundAlpha = 1;
+	this._pBackgroundB = 0;
+	this._pBackgroundG = 0;
+	this._pStage3DProxy = null;
+	this._clearOnRender = true;
+	this._pTextureRatioY = 1;
+	this._pBackgroundR = 0;
+	this._snapshotBitmapData = null;
+	this._pTextureRatioX = 1;
+	this._pAntiAlias = 0;
+	this._pRttViewProjectionMatrix = new away.core.geom.Matrix3D();
+	this._pViewHeight = 0;
+	this._pRenderToTexture = false;
+	this._pRenderableSorter = null;
+	this._pRenderTarget = null;
+	this._pViewWidth = 0;
+	this._pContext = null;
+	this._pRenderTargetSurface = 0;
+	this._background = null;
+	this._pRenderableSorter = new away.core.sort.RenderableMergeSort();
+	this._pRenderToTexture = renderToTexture;
+};
+
+away.core.render.RenderBase.prototype.iCreateEntityCollector = function() {
+	return new away.core.traverse.EntityCollector();
+};
+
+away.core.render.RenderBase.prototype.get_iViewWidth = function() {
+	return this._pViewWidth;
+};
+
+away.core.render.RenderBase.prototype.set_iViewWidth = function(value) {
+	this._pViewWidth = value;
+};
+
+away.core.render.RenderBase.prototype.get_iViewHeight = function() {
+	return this._pViewHeight;
+};
+
+away.core.render.RenderBase.prototype.set_iViewHeight = function(value) {
+	this._pViewHeight = value;
+};
+
+away.core.render.RenderBase.prototype.get_iRenderToTexture = function() {
+	return this._pRenderToTexture;
+};
+
+away.core.render.RenderBase.prototype.get_renderableSorter = function() {
+	return this._pRenderableSorter;
+};
+
+away.core.render.RenderBase.prototype.set_renderableSorter = function(value) {
+	this._pRenderableSorter = value;
+};
+
+away.core.render.RenderBase.prototype.get_iClearOnRender = function() {
+	return this._clearOnRender;
+};
+
+away.core.render.RenderBase.prototype.set_iClearOnRender = function(value) {
+	this._clearOnRender = value;
+};
+
+away.core.render.RenderBase.prototype.get_iBackgroundR = function() {
+	return this._pBackgroundR;
+};
+
+away.core.render.RenderBase.prototype.set_iBackgroundR = function(value) {
+	this._pBackgroundR = value;
+};
+
+away.core.render.RenderBase.prototype.get_iBackgroundG = function() {
+	return this._pBackgroundG;
+};
+
+away.core.render.RenderBase.prototype.set_iBackgroundG = function(value) {
+	this._pBackgroundG = value;
+};
+
+away.core.render.RenderBase.prototype.get_iBackgroundB = function() {
+	return this._pBackgroundB;
+};
+
+away.core.render.RenderBase.prototype.set_iBackgroundB = function(value) {
+	this._pBackgroundB = value;
+};
+
+away.core.render.RenderBase.prototype.get_iStage3DProxy = function() {
+	return this._pStage3DProxy;
+};
+
+away.core.render.RenderBase.prototype.set_iStage3DProxy = function(value) {
+	if (value == this._pStage3DProxy) {
+		return;
+	}
+	if (!value) {
+		if (this._pStage3DProxy) {
+			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+			this._pStage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+		}
+		this._pStage3DProxy = null;
+		this._pContext = null;
+		return;
+	}
+	this._pStage3DProxy = value;
+	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, this.onContextUpdate), this);
+	if (value.get_context3D()) {
+		this._pContext = value.get_context3D();
+	}
+};
+
+away.core.render.RenderBase.prototype.get_iShareContext = function() {
+	return this._pShareContext;
+};
+
+away.core.render.RenderBase.prototype.set_iShareContext = function(value) {
+	this._pShareContext = value;
+};
+
+away.core.render.RenderBase.prototype.iDispose = function() {
+	this._pStage3DProxy = null;
+};
+
+away.core.render.RenderBase.prototype.iRender = function(entityCollector, target, scissorRect, surfaceSelector) {
+	target = target || null;
+	scissorRect = scissorRect || null;
+	surfaceSelector = surfaceSelector || 0;
+	if (!this._pStage3DProxy || !this._pContext) {
+		return;
+	}
+	this._pRttViewProjectionMatrix.copyFrom(entityCollector.get_camera().get_viewProjection());
+	this._pRttViewProjectionMatrix.appendScale(this._pTextureRatioX, this._pTextureRatioY, 1);
+	this.pExecuteRender(entityCollector, target, scissorRect, surfaceSelector);
+	for (var i = 0; i < 8; ++i) {
+		this._pContext.setVertexBufferAt(i, null, 0);
+		this._pContext.setTextureAt(i, null);
+	}
+};
+
+away.core.render.RenderBase.prototype.pExecuteRender = function(entityCollector, target, scissorRect, surfaceSelector) {
+	target = target || null;
+	scissorRect = scissorRect || null;
+	surfaceSelector = surfaceSelector || 0;
+	this._pRenderTarget = target;
+	this._pRenderTargetSurface = surfaceSelector;
+	if (this._pRenderableSorter) {
+		this._pRenderableSorter.sort(entityCollector);
+	}
+	if (this._pRenderToTexture) {
+		this.pExecuteRenderToTexturePass(entityCollector);
+	}
+	this._pStage3DProxy.setRenderTarget(target, true, surfaceSelector);
+	if ((target || !this._pShareContext) && this._clearOnRender) {
+		this._pContext.clear(this._pBackgroundR, this._pBackgroundG, this._pBackgroundB, this._pBackgroundAlpha, 1, 0, 17664);
+	}
+	this._pContext.setDepthTest(false, away.core.display3D.Context3DCompareMode.ALWAYS);
+	this._pStage3DProxy.set_scissorRect(scissorRect);
+	this.pDraw(entityCollector, target);
+	this._pContext.setDepthTest(false, away.core.display3D.Context3DCompareMode.LESS_EQUAL);
+	if (!this._pShareContext) {
+		if (this._snapshotRequired && this._snapshotBitmapData) {
+			this._pContext.drawToBitmapData(this._snapshotBitmapData);
+			this._snapshotRequired = false;
+		}
+	}
+	this._pStage3DProxy.set_scissorRect(null);
+};
+
+away.core.render.RenderBase.prototype.queueSnapshot = function(bmd) {
+	this._snapshotRequired = true;
+	this._snapshotBitmapData = bmd;
+};
+
+away.core.render.RenderBase.prototype.pExecuteRenderToTexturePass = function(entityCollector) {
+	throw new away.errors.AbstractMethodError(null, 0);
+};
+
+away.core.render.RenderBase.prototype.pDraw = function(entityCollector, target) {
+	throw new away.errors.AbstractMethodError(null, 0);
+};
+
+away.core.render.RenderBase.prototype.onContextUpdate = function(event) {
+	this._pContext = this._pStage3DProxy.get_context3D();
+};
+
+away.core.render.RenderBase.prototype.get_iBackgroundAlpha = function() {
+	return this._pBackgroundAlpha;
+};
+
+away.core.render.RenderBase.prototype.set_iBackgroundAlpha = function(value) {
+	this._pBackgroundAlpha = value;
+};
+
+away.core.render.RenderBase.prototype.get_iBackground = function() {
+	return this._background;
+};
+
+away.core.render.RenderBase.prototype.get_antiAlias = function() {
+	return this._pAntiAlias;
+};
+
+away.core.render.RenderBase.className = "away.core.render.RenderBase";
+
+away.core.render.RenderBase.getRuntimeDependencies = function(t) {
+	var p;
+	p = [];
+	p.push('away.events.Stage3DEvent');
+	p.push('away.core.traverse.EntityCollector');
+	p.push('away.errors.AbstractMethodError');
+	p.push('away.core.sort.RenderableMergeSort');
+	p.push('away.cameras.Camera3D');
+	p.push('away.core.display3D.Context3DCompareMode');
+	return p;
+};
+
+away.core.render.RenderBase.getStaticDependencies = function(t) {
+	var p;
+	p = [];
+	p.push('away.core.geom.Matrix3D');
+	return p;
+};
+
+away.core.render.RenderBase.injectionPoints = function(t) {
+	var p;
+	switch (t) {
+		case 0:
+			p = [];
+			p.push({n:'renderToTexture', t:'Boolean'});
+			break;
+		default:
+			p = [];
+			break;
+	}
+	return p;
+};
+

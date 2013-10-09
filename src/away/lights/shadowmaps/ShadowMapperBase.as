@@ -8,16 +8,16 @@
 
 package away.lights.shadowmaps
 {
-	import away.traverse.ShadowCasterCollector;
+	import away.core.traverse.ShadowCasterCollector;
 	import away.textures.TextureProxyBase;
 	import away.lights.LightBase;
 	import away.textures.RenderTexture;
 	import away.managers.Stage3DProxy;
-	import away.traverse.EntityCollector;
-	import away.render.DepthRenderer;
+	import away.core.traverse.EntityCollector;
+	import away.core.render.DepthRenderer;
 	import away.cameras.Camera3D;
 	import away.errors.AbstractMethodError;
-	import away.display3D.TextureBase;
+	import away.core.display3D.TextureBase;
 	import away.containers.Scene3D;
 	public class ShadowMapperBase
 	{

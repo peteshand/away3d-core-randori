@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,11 +15,11 @@ away.managers.Mouse3DManager = function() {
 	this._mouseMove = new away.events.MouseEvent3D(away.events.MouseEvent3D.MOUSE_MOVE);
 	this._previousCollidingObject = null;
 	this._activeView = null;
-	this._mousePicker = away.pick.PickingType.RAYCAST_FIRST_ENCOUNTERED;
+	this._mousePicker = away.core.pick.PickingType.RAYCAST_FIRST_ENCOUNTERED;
 	this._queuedEvents = [];
 	this._mouseDoubleClick = new away.events.MouseEvent3D(away.events.MouseEvent3D.DOUBLE_CLICK);
 	this._collidingView = -1;
-	this._nullVector = new away.geom.Vector3D(0, 0, 0, 0);
+	this._nullVector = new away.core.geom.Vector3D(0, 0, 0, 0);
 	this._forceMouseMove = false;
 	this._mouseClick = new away.events.MouseEvent3D(away.events.MouseEvent3D.CLICK);
 	this._collidingDownObject = null;
@@ -187,9 +187,9 @@ away.managers.Mouse3DManager.getRuntimeDependencies = function(t) {
 away.managers.Mouse3DManager.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
-	p.push('away.pick.PickingType');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.events.MouseEvent3D');
+	p.push('away.core.pick.PickingType');
 	return p;
 };
 

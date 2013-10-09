@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -18,7 +18,7 @@ examples.AGALTorus = function() {
 	if (!document) {
 		throw "The Window.document root object must be avaiable";
 	}
-	this.stage = new away.display.Stage(800, 600);
+	this.stage = new away.core.display.Stage(800, 600);
 	this.stage.stage3Ds[0].addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	this.stage.stage3Ds[0].requestContext(true);
 };
@@ -29,7 +29,7 @@ examples.AGALTorus.prototype.onContext3DCreateHandler = function(e) {
 	this.context3D = stage3D.get_context3D();
 	this.context3D.configureBackBuffer(800, 600, 0, true);
 	this.context3D.setColorMask(true, true, true, true);
-	this.geometry = new away.base.Geometry();
+	this.geometry = new away.core.base.Geometry();
 	var torus = new away.primitives.TorusGeometry(1, 0.5, 32, 16, false);
 	torus.iValidate();
 	var geo = torus.get_subGeometries()[0];
@@ -48,8 +48,8 @@ examples.AGALTorus.prototype.onContext3DCreateHandler = function(e) {
 	var fProgram = "mov oc, v0 \n";
 	var vertCompiler = new aglsl.AGLSLCompiler();
 	var fragCompiler = new aglsl.AGLSLCompiler();
-	var compVProgram = vertCompiler.compile(away.display3D.Context3DProgramType.VERTEX, vProgram);
-	var compFProgram = fragCompiler.compile(away.display3D.Context3DProgramType.FRAGMENT, fProgram);
+	var compVProgram = vertCompiler.compile(away.core.display3D.Context3DProgramType.VERTEX, vProgram);
+	var compFProgram = fragCompiler.compile(away.core.display3D.Context3DProgramType.FRAGMENT, fProgram);
 	console.log("=== compVProgram ===");
 	console.log(compVProgram);
 	console.log("\n");
@@ -59,14 +59,14 @@ examples.AGALTorus.prototype.onContext3DCreateHandler = function(e) {
 	this.context3D.setProgram(this.program);
 	this.matrix = new away.utils.PerspectiveMatrix3D();
 	this.matrix.perspectiveFieldOfViewLH(85, 800 / 600, 0.1, 1000);
-	this.context3D.setVertexBufferAt(0, this.vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-	this.context3D.setVertexBufferAt(1, this.vBuffer, 6, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	this.context3D.setVertexBufferAt(0, this.vBuffer, 0, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	this.context3D.setVertexBufferAt(1, this.vBuffer, 6, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
 	this.tick(0);
 };
 
 examples.AGALTorus.prototype.tick = function(dt) {
 	this.context3D.setProgram(this.program);
-	this.context3D.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 0, this.matrix, true);
+	this.context3D.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 0, this.matrix, true);
 	this.context3D.clear(0.16, 0.16, 0.16, 1, 1, 0, 17664);
 	this.context3D.drawTriangles(this.iBuffer, 0, this.iBuffer.get_numIndices() / 3);
 	this.context3D.present();
@@ -77,16 +77,16 @@ examples.AGALTorus.className = "examples.AGALTorus";
 examples.AGALTorus.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.display3D.Context3DVertexBufferFormat');
+	p.push('away.core.display.Stage');
 	p.push('away.events.Event');
-	p.push('away.display3D.Context3DVertexBufferFormat');
-	p.push('away.display.Stage3D');
 	p.push('away.utils.PerspectiveMatrix3D');
-	p.push('away.base.Geometry');
-	p.push('away.display3D.Context3DProgramType');
+	p.push('away.core.display.Stage3D');
 	p.push('aglsl.AGLSLCompiler');
 	p.push('away.primitives.TorusGeometry');
 	p.push('Object');
-	p.push('away.display.Stage');
+	p.push('away.core.display3D.Context3DProgramType');
+	p.push('away.core.base.Geometry');
 	return p;
 };
 

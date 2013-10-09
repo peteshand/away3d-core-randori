@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:53 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,7 +15,6 @@ away.primitives.CapsuleGeometry = function(radius, height, segmentsW, segmentsH,
 	height = height || 100;
 	segmentsW = segmentsW || 16;
 	segmentsH = segmentsH || 15;
-	yUp = yUp || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._radius = radius;
 	this._height = height;

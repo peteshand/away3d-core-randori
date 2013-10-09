@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -20,16 +20,19 @@ examples.CubeDemo = function(_index) {
 	this.view.set_width(800);
 	this.view.set_height(500);
 	this.scene = this.view.get_scene();
-	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
-	var imgLoader = new away.net.IMGLoader("");
+	var urlRequest = new away.core.net.URLRequest("assets\/130909wall_big.png");
+	var imgLoader = new away.core.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
 
 examples.CubeDemo.prototype.imageCompleteHandler = function(e) {
 	var imageLoader = e.target;
-	var texture = new away.textures.HTMLImageElementTexture(imageLoader.get_image(), true);
+	var htmlImageElement = imageLoader.get_image();
+	var texture = new away.textures.HTMLImageElementTexture(htmlImageElement, false);
 	var material = new away.materials.TextureMaterial(texture, true, false, false);
+	window.console.log(texture);
+	window.console.log(material);
 	this.geo = new away.primitives.CubeGeometry(200, 200, 200, 1, 1, 1, true);
 	this.mesh = new away.entities.Mesh(this.geo, material);
 	this.scene.addChild(this.mesh);
@@ -63,15 +66,15 @@ examples.CubeDemo.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.primitives.CubeGeometry');
-	p.push('away.net.URLRequest');
 	p.push('away.cameras.lenses.PerspectiveLens');
 	p.push('away.events.Event');
+	p.push('away.core.net.URLRequest');
 	p.push('away.entities.Mesh');
 	p.push('away.materials.TextureMaterial');
-	p.push('away.net.IMGLoader');
 	p.push('away.containers.View3D');
 	p.push('Object');
 	p.push('away.textures.HTMLImageElementTexture');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 

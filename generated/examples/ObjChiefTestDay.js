@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -31,7 +31,7 @@ examples.ObjChiefTestDay = function() {
 	this.raf.start();
 	this.light = new away.lights.DirectionalLight(0, -1, 1);
 	this.light.set_color(0xc1582d);
-	this.light.set_direction(new away.geom.Vector3D(1, 0, 0, 0));
+	this.light.set_direction(new away.core.geom.Vector3D(1, 0, 0, 0));
 	this.light.set_ambient(0.4);
 	this.light.set_ambientColor(0x85b2cd);
 	this.light.set_diffuse(2.8);
@@ -40,16 +40,16 @@ examples.ObjChiefTestDay = function() {
 	this.spartan.set_y(0);
 	this.view.get_scene().addChild(this.light);
 	away.library.AssetLibrary.enableParser(away.loaders.parsers.OBJParser);
-	this.token = away.library.AssetLibrary.load(new away.net.URLRequest("assets\/Halo_3_SPARTAN4.obj"));
+	this.token = away.library.AssetLibrary.load(new away.core.net.URLRequest("assets\/Halo_3_SPARTAN4.obj"));
 	this.token.addEventListener(away.events.LoaderEvent.RESOURCE_COMPLETE, $createStaticDelegate(this, this.onResourceComplete), this);
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
-	this.token = away.library.AssetLibrary.load(new away.net.URLRequest("assets\/terrain.obj"));
+	this.token = away.library.AssetLibrary.load(new away.core.net.URLRequest("assets\/terrain.obj"));
 	this.token.addEventListener(away.events.LoaderEvent.RESOURCE_COMPLETE, $createStaticDelegate(this, this.onResourceComplete), this);
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
-	this.token = away.library.AssetLibrary.load(new away.net.URLRequest("assets\/masterchief_base.png"));
+	this.token = away.library.AssetLibrary.load(new away.core.net.URLRequest("assets\/masterchief_base.png"));
 	this.token.addEventListener(away.events.LoaderEvent.RESOURCE_COMPLETE, $createStaticDelegate(this, this.onResourceComplete), this);
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
-	this.token = away.library.AssetLibrary.load(new away.net.URLRequest("assets\/stone_tx.jpg"));
+	this.token = away.library.AssetLibrary.load(new away.core.net.URLRequest("assets\/stone_tx.jpg"));
 	this.token.addEventListener(away.events.LoaderEvent.RESOURCE_COMPLETE, $createStaticDelegate(this, this.onResourceComplete), this);
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
 	window.onresize = this.resize();
@@ -137,15 +137,15 @@ examples.ObjChiefTestDay.getRuntimeDependencies = function(t) {
 	p.push('away.utils.Debug');
 	p.push('away.library.AssetLibrary');
 	p.push('away.lights.DirectionalLight');
+	p.push('away.core.net.URLRequest');
 	p.push('away.materials.TextureMaterial');
 	p.push('away.containers.View3D');
 	p.push('away.loaders.parsers.OBJParser');
 	p.push('away.events.LoaderEvent');
 	p.push('away.events.AssetEvent');
 	p.push('away.utils.RequestAnimationFrame');
-	p.push('away.net.URLRequest');
-	p.push('away.geom.Vector3D');
 	p.push('away.materials.lightpickers.StaticLightPicker');
+	p.push('away.core.geom.Vector3D');
 	p.push('*away.library.assets.IAsset');
 	p.push('away.library.assets.AssetType');
 	return p;

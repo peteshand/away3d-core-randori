@@ -12,7 +12,7 @@ package aglsl
 	{
 		private static var _agal2glsllut:Vector.<OpLUT>;
 		
-		public static function get agal2glsllut():Vector.<OpLUT>
+		public static function agal2glsllut():Vector.<OpLUT>
 		{
 			if (!Mapping._agal2glsllut) { 
 				Mapping._agal2glsllut = new <OpLUT>[

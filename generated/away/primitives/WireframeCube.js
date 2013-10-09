@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -50,8 +50,8 @@ away.primitives.WireframeCube.prototype.set_depth = function(value) {
 };
 
 away.primitives.WireframeCube.prototype.pBuildGeometry = function() {
-	var v0 = new away.geom.Vector3D(0, 0, 0, 0);
-	var v1 = new away.geom.Vector3D(0, 0, 0, 0);
+	var v0 = new away.core.geom.Vector3D(0, 0, 0, 0);
+	var v1 = new away.core.geom.Vector3D(0, 0, 0, 0);
 	var hw = this._width * .5;
 	var hh = this._height * .5;
 	var hd = this._depth * .5;
@@ -112,7 +112,7 @@ away.primitives.WireframeCube.className = "away.primitives.WireframeCube";
 away.primitives.WireframeCube.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

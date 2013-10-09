@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,25 +8,24 @@ if (typeof away.materials.utils == "undefined")
 	away.materials.utils = {};
 
 away.materials.utils.MipmapGenerator = function() {
-	this._matrix = new away.geom.Matrix(1, 0, 0, 1, 0, 0);
-	this._rect = new away.geom.Rectangle(0, 0, 0, 0);
+	this._matrix = new away.core.geom.Matrix(1, 0, 0, 1, 0, 0);
+	this._rect = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._source = null;
 	
 };
 
-away.materials.utils.MipmapGenerator._matrix = new away.geom.Matrix(1, 0, 0, 1, 0, 0);
+away.materials.utils.MipmapGenerator._matrix = new away.core.geom.Matrix(1, 0, 0, 1, 0, 0);
 
-away.materials.utils.MipmapGenerator._rect = new away.geom.Rectangle(0, 0, 0, 0);
+away.materials.utils.MipmapGenerator._rect = new away.core.geom.Rectangle(0, 0, 0, 0);
 
 away.materials.utils.MipmapGenerator._source;
 
 away.materials.utils.MipmapGenerator.generateHTMLImageElementMipMaps = function(source, target, mipmap, alpha, side) {
 	mipmap = mipmap || null;
-	alpha = alpha || false;
 	side = side || -1;
 	away.materials.utils.MipmapGenerator._rect.width = source.width;
 	away.materials.utils.MipmapGenerator._rect.height = source.height;
-	away.materials.utils.MipmapGenerator._source = new away.display.BitmapData(source.width, source.height, alpha, -1);
+	away.materials.utils.MipmapGenerator._source = new away.core.display.BitmapData(source.width, source.height, alpha, -1);
 	away.materials.utils.MipmapGenerator._source.drawImage(source, away.materials.utils.MipmapGenerator._rect, away.materials.utils.MipmapGenerator._rect);
 	away.materials.utils.MipmapGenerator.generateMipMaps(away.materials.utils.MipmapGenerator._source, target, mipmap, false, -1);
 	away.materials.utils.MipmapGenerator._source.dispose();
@@ -35,14 +34,13 @@ away.materials.utils.MipmapGenerator.generateHTMLImageElementMipMaps = function(
 
 away.materials.utils.MipmapGenerator.generateMipMaps = function(source, target, mipmap, alpha, side) {
 	mipmap = mipmap || null;
-	alpha = alpha || false;
 	side = side || -1;
 	var w = source.get_width();
 	var h = source.get_height();
 	var regen = mipmap != null;
 	var i;
 	if (!mipmap) {
-		mipmap = new away.display.BitmapData(w, h, alpha, -1);
+		mipmap = new away.core.display.BitmapData(w, h, alpha, -1);
 	}
 	away.materials.utils.MipmapGenerator._rect.width = w;
 	away.materials.utils.MipmapGenerator._rect.height = h;
@@ -56,7 +54,7 @@ away.materials.utils.MipmapGenerator.generateMipMaps = function(source, target, 
 		mipmap.set_width(away.materials.utils.MipmapGenerator._rect.width);
 		mipmap.set_height(away.materials.utils.MipmapGenerator._rect.height);
 		mipmap.copyPixels(source, source.get_rect(), away.materials.utils.MipmapGenerator._rect);
-		if (target instanceof away.display3D.Texture) {
+		if (target instanceof away.core.display3D.Texture) {
 			tx = target;
 			tx.uploadFromBitmapData(mipmap, i++);
 		} else {
@@ -79,16 +77,16 @@ away.materials.utils.MipmapGenerator.getRuntimeDependencies = function(t) {
 	p = [];
 	p.push('away.utils.Debug');
 	p.push('away.materials.utils.MipmapGenerator');
-	p.push('away.display3D.Texture');
-	p.push('away.display.BitmapData');
+	p.push('away.core.display3D.Texture');
+	p.push('away.core.display.BitmapData');
 	return p;
 };
 
 away.materials.utils.MipmapGenerator.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Rectangle');
-	p.push('away.geom.Matrix');
+	p.push('away.core.geom.Matrix');
+	p.push('away.core.geom.Rectangle');
 	return p;
 };
 

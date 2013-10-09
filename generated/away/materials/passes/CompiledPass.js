@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -258,7 +258,6 @@ away.materials.passes.CompiledPass.prototype.dispose = function() {
 };
 
 away.materials.passes.CompiledPass.prototype.iInvalidateShaderProgram = function(updateMaterial) {
-	updateMaterial = updateMaterial || true;
 	var oldPasses = this._iPasses;
 	this._iPasses = [];
 	if (this._pMethodSetup) {
@@ -400,9 +399,9 @@ away.materials.passes.CompiledPass.prototype.iRender = function(renderable, stag
 			this._pVertexConstantData[this._uvTransformIndex + 7] = 0;
 		}
 	}
-	this._pAmbientLightR = 0;
-	this._pAmbientLightG = 0;
 	this._pAmbientLightB = 0;
+	this._pAmbientLightG = this._pAmbientLightB;
+	this._pAmbientLightR = this._pAmbientLightG;
 	if (this.pUsesLights()) {
 		this.pUpdateLightConstants();
 	}
@@ -413,7 +412,7 @@ away.materials.passes.CompiledPass.prototype.iRender = function(renderable, stag
 		renderable.getRenderSceneTransform(camera).copyRawDataTo(this._pVertexConstantData, this._sceneMatrixIndex, true);
 		viewProjection.copyRawDataTo(this._pVertexConstantData, 0, true);
 	} else {
-		var matrix3D = away.math.Matrix3DUtils.CALCULATION_MATRIX;
+		var matrix3D = away.core.math.Matrix3DUtils.CALCULATION_MATRIX;
 		matrix3D.copyFrom(renderable.getRenderSceneTransform(camera));
 		matrix3D.append(viewProjection);
 		matrix3D.copyRawDataTo(this._pVertexConstantData, 0, true);
@@ -442,8 +441,8 @@ away.materials.passes.CompiledPass.prototype.iRender = function(renderable, stag
 		var aset = methods[i];
 		aset.method.iSetRenderState(aset.data, renderable, stage3DProxy, camera);
 	}
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 0, this._pVertexConstantData, this._pNumUsedVertexConstants);
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.FRAGMENT, 0, this._pFragmentConstantData, this._pNumUsedFragmentConstants);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 0, this._pVertexConstantData, this._pNumUsedVertexConstants);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.FRAGMENT, 0, this._pFragmentConstantData, this._pNumUsedFragmentConstants);
 	renderable.activateVertexBuffer(0, stage3DProxy);
 	context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.get_numTriangles());
 };
@@ -495,16 +494,16 @@ away.materials.passes.CompiledPass.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.methods.BasicDiffuseMethod');
-	p.push('*away.base.IRenderable');
 	p.push('away.errors.AbstractMethodError');
-	p.push('away.math.Matrix3DUtils');
-	p.push('away.display3D.Context3DProgramType');
 	p.push('away.managers.Stage3DProxy');
 	p.push('away.materials.methods.MethodVOSet');
+	p.push('*away.core.base.IRenderable');
 	p.push('away.materials.methods.BasicSpecularMethod');
 	p.push('away.events.ShadingMethodEvent');
 	p.push('away.materials.methods.BasicNormalMethod');
 	p.push('away.materials.methods.BasicAmbientMethod');
+	p.push('away.core.display3D.Context3DProgramType');
+	p.push('away.core.math.Matrix3DUtils');
 	p.push('away.materials.methods.ShadowMapMethodBase');
 	p.push('away.materials.LightSources');
 	p.push('away.materials.methods.ShaderMethodSetup');

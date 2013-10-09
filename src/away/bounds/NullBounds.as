@@ -9,11 +9,11 @@
 package away.bounds
 {
 	import away.primitives.WireframePrimitiveBase;
-	import away.math.Plane3D;
-	import away.base.Geometry;
-	import away.geom.Vector3D;
-	import away.math.PlaneClassification;
-	import away.geom.Matrix3D;
+	import away.core.math.Plane3D;
+	import away.core.base.Geometry;
+	import away.core.geom.Vector3D;
+	import away.core.math.PlaneClassification;
+	import away.core.geom.Matrix3D;
 	public class NullBounds extends BoundingVolumeBase
 	{
 		
@@ -22,20 +22,17 @@ package away.bounds
 		
 		public function NullBounds(alwaysIn:Boolean = true, renderable:WireframePrimitiveBase = null):void
 		{
-			alwaysIn = alwaysIn || true;
 			renderable = renderable || null;
 
 			super();
 			this._alwaysIn = alwaysIn;
 			this._renderable = renderable;
-			this._pMax.x = Number.POSITIVE_INFINITY;
-			this._pMax.y = Number.POSITIVE_INFINITY;
-			this._pMax.z = Number.POSITIVE_INFINITY;
-
-			this._pMin.x = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
-			this._pMin.y = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
-			this._pMin.z = this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
-
+			this._pMax.z =  Number.POSITIVE_INFINITY;
+			this._pMax.y = this._pMax.z
+			this._pMax.x = this._pMax.y
+			this._pMin.z =  this._alwaysIn ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			this._pMin.y = this._pMin.z
+			this._pMin.x = this._pMin.y
 		}
 		
 		//@override

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -16,7 +16,7 @@ examples.RotatingTorus = function() {
 	if (!document) {
 		throw "The document root object must be avaiable";
 	}
-	this._stage = new away.display.Stage(800, 600);
+	this._stage = new away.core.display.Stage(800, 600);
 	this.loadResources();
 };
 
@@ -25,8 +25,8 @@ examples.RotatingTorus.prototype.get_stage = function() {
 };
 
 examples.RotatingTorus.prototype.loadResources = function() {
-	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
-	var imgLoader = new away.net.IMGLoader("");
+	var urlRequest = new away.core.net.URLRequest("assets\/130909wall_big.png");
+	var imgLoader = new away.core.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
@@ -42,8 +42,8 @@ examples.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
 	this._stage.stage3Ds[0].removeEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DCreateHandler), this);
 	var stage3D = e.target;
 	this._context3D = stage3D.get_context3D();
-	this._texture = this._context3D.createTexture(512, 512, away.display3D.Context3DTextureFormat.BGRA, true, 0);
-	var bitmapData = new away.display.BitmapData(512, 512, true, 0x02C3D4);
+	this._texture = this._context3D.createTexture(512, 512, away.core.display3D.Context3DTextureFormat.BGRA, true, 0);
+	var bitmapData = new away.core.display.BitmapData(512, 512, true, 0x02C3D4);
 	this._texture.uploadFromBitmapData(bitmapData, 0);
 	this._context3D.configureBackBuffer(800, 600, 0, true);
 	this._context3D.setColorMask(true, true, true, true);
@@ -65,17 +65,17 @@ examples.RotatingTorus.prototype.onContext3DCreateHandler = function(e) {
 	this._context3D.setProgram(this._program);
 	this._pMatrix = new away.utils.PerspectiveMatrix3D();
 	this._pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
-	this._mvMatrix = new away.geom.Matrix3D([]);
+	this._mvMatrix = new away.core.geom.Matrix3D([]);
 	this._mvMatrix.appendTranslation(0, 0, 5);
-	this._context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-	this._context3D.setGLSLVertexBufferAt("aTextureCoord", vBuffer, 9, away.display3D.Context3DVertexBufferFormat.FLOAT_2);
+	this._context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	this._context3D.setGLSLVertexBufferAt("aTextureCoord", vBuffer, 9, away.core.display3D.Context3DVertexBufferFormat.FLOAT_2);
 	this._requestAnimationFrameTimer = new away.utils.RequestAnimationFrame($createStaticDelegate(this, this.tick), this);
 	this._requestAnimationFrameTimer.start();
 };
 
 examples.RotatingTorus.prototype.tick = function(dt) {
 	console.log("tick");
-	this._mvMatrix.appendRotation(dt * 0.1, new away.geom.Vector3D(0, 1, 0, 0));
+	this._mvMatrix.appendRotation(dt * 0.1, new away.core.geom.Vector3D(0, 1, 0, 0));
 	this._context3D.setProgram(this._program);
 	this._context3D.setGLSLProgramConstantsFromMatrix("pMatrix", this._pMatrix, true);
 	this._context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", this._mvMatrix, true);
@@ -90,19 +90,19 @@ examples.RotatingTorus.className = "examples.RotatingTorus";
 examples.RotatingTorus.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.IMGLoader');
+	p.push('away.core.net.URLRequest');
+	p.push('away.core.display3D.Context3DTextureFormat');
 	p.push('Object');
 	p.push('away.primitives.TorusGeometry');
-	p.push('away.display.Stage');
-	p.push('away.net.URLRequest');
+	p.push('away.core.net.IMGLoader');
+	p.push('away.core.display.BitmapData');
+	p.push('away.core.display.Stage');
+	p.push('away.core.display3D.Context3DVertexBufferFormat');
 	p.push('away.utils.RequestAnimationFrame');
-	p.push('away.geom.Vector3D');
 	p.push('away.events.Event');
-	p.push('away.display3D.Context3DVertexBufferFormat');
 	p.push('away.utils.PerspectiveMatrix3D');
-	p.push('away.geom.Matrix3D');
-	p.push('away.display3D.Context3DTextureFormat');
-	p.push('away.display.BitmapData');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.core.geom.Matrix3D');
 	return p;
 };
 

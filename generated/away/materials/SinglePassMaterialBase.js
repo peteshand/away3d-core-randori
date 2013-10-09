@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,7 +32,7 @@ away.materials.SinglePassMaterialBase.prototype.set_alphaThreshold = function(va
 
 away.materials.SinglePassMaterialBase.prototype.set_blendMode = function(value) {
 	away.materials.MaterialBase.prototype.setBlendMode.call(this,value);
-	this._pScreenPass.setBlendMode((this._pBlendMode == away.display.BlendMode.NORMAL) && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this._pBlendMode);
+	this._pScreenPass.setBlendMode((this._pBlendMode == away.core.display.BlendMode.NORMAL) && this.get_requiresBlending() ? away.core.display.BlendMode.LAYER : this._pBlendMode);
 };
 
 away.materials.SinglePassMaterialBase.prototype.set_depthCompareMode = function(value) {
@@ -41,7 +41,6 @@ away.materials.SinglePassMaterialBase.prototype.set_depthCompareMode = function(
 };
 
 away.materials.SinglePassMaterialBase.prototype.iActivateForDepth = function(stage3DProxy, camera, distanceBased) {
-	distanceBased = distanceBased || false;
 	if (distanceBased) {
 		this._pDistancePass.set_alphaMask(this._pScreenPass.get_diffuseMethod().get_texture());
 	} else {
@@ -73,9 +72,9 @@ away.materials.SinglePassMaterialBase.prototype.get_requiresBlending = function(
 away.materials.SinglePassMaterialBase.prototype.getRequiresBlending = function() {
 	var ct = this._pScreenPass.get_colorTransform();
 	if (ct) {
-		return (this._pBlendMode != away.display.BlendMode.NORMAL) || this._alphaBlending || (ct.alphaMultiplier < 1);
+		return (this._pBlendMode != away.core.display.BlendMode.NORMAL) || this._alphaBlending || (ct.alphaMultiplier < 1);
 	}
-	return (this._pBlendMode != away.display.BlendMode.NORMAL) || this._alphaBlending;
+	return (this._pBlendMode != away.core.display.BlendMode.NORMAL) || this._alphaBlending;
 };
 
 away.materials.SinglePassMaterialBase.prototype.get_colorTransform = function() {
@@ -176,7 +175,7 @@ away.materials.SinglePassMaterialBase.prototype.set_specularMap = function(value
 	if (this._pScreenPass.get_specularMethod()) {
 		this._pScreenPass.get_specularMethod().set_texture(value);
 	} else {
-		throw new away.errors.Error("No specular method was set to assign the specularGlossMap to", 0, "");
+		throw new away.errors.away.errors.Error("No specular method was set to assign the specularGlossMap to", 0, "");
 	}
 };
 
@@ -228,7 +227,7 @@ away.materials.SinglePassMaterialBase.prototype.get_alphaBlending = function() {
 
 away.materials.SinglePassMaterialBase.prototype.set_alphaBlending = function(value) {
 	this._alphaBlending = value;
-	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this.getBlendMode());
+	this._pScreenPass.setBlendMode(this.getBlendMode() == away.core.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.core.display.BlendMode.LAYER : this.getBlendMode());
 	this._pScreenPass.set_preserveAlpha(this.get_requiresBlending());
 };
 
@@ -258,7 +257,7 @@ away.materials.SinglePassMaterialBase.className = "away.materials.SinglePassMate
 away.materials.SinglePassMaterialBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display.BlendMode');
+	p.push('away.core.display.BlendMode');
 	p.push('away.materials.passes.SuperShaderPass');
 	return p;
 };

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -50,7 +50,6 @@ away.entities.SegmentSet.prototype.addSegment = function(segment) {
 };
 
 away.entities.SegmentSet.prototype.removeSegmentByIndex = function(index, dispose) {
-	dispose = dispose || false;
 	var segRef;
 	if (index >= this._indexSegments) {
 		return;
@@ -102,7 +101,6 @@ away.entities.SegmentSet.prototype.removeSegmentByIndex = function(index, dispos
 };
 
 away.entities.SegmentSet.prototype.removeSegment = function(segment, dispose) {
-	dispose = dispose || false;
 	if (segment.get_iIndex() == -1) {
 		return;
 	}
@@ -236,10 +234,10 @@ away.entities.SegmentSet.prototype.activateVertexBuffer = function(index, stage3
 		subSet.vertexContext3D = stage3DProxy.get_context3D();
 	}
 	var context3d = stage3DProxy._iContext3D;
-	context3d.setVertexBufferAt(0, vertexBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-	context3d.setVertexBufferAt(1, vertexBuffer, 3, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-	context3d.setVertexBufferAt(2, vertexBuffer, 6, away.display3D.Context3DVertexBufferFormat.FLOAT_1);
-	context3d.setVertexBufferAt(3, vertexBuffer, 7, away.display3D.Context3DVertexBufferFormat.FLOAT_4);
+	context3d.setVertexBufferAt(0, vertexBuffer, 0, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	context3d.setVertexBufferAt(1, vertexBuffer, 3, away.core.display3D.Context3DVertexBufferFormat.FLOAT_3);
+	context3d.setVertexBufferAt(2, vertexBuffer, 6, away.core.display3D.Context3DVertexBufferFormat.FLOAT_1);
+	context3d.setVertexBufferAt(3, vertexBuffer, 7, away.core.display3D.Context3DVertexBufferFormat.FLOAT_4);
 };
 
 away.entities.SegmentSet.prototype.activateUVBuffer = function(index, stage3DProxy) {
@@ -348,7 +346,7 @@ away.entities.SegmentSet.prototype.pUpdateBounds = function() {
 };
 
 away.entities.SegmentSet.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.RenderableNode(this);
+	return new away.core.partition.RenderableNode(this);
 };
 
 away.entities.SegmentSet.prototype.get_numTriangles = function() {
@@ -447,11 +445,11 @@ away.entities.SegmentSet.className = "away.entities.SegmentSet";
 away.entities.SegmentSet.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DVertexBufferFormat');
+	p.push('away.core.display3D.Context3DVertexBufferFormat');
+	p.push('away.core.partition.RenderableNode');
 	p.push('away.bounds.BoundingSphere');
 	p.push('away.entities.SubSet');
 	p.push('away.entities.SegRef');
-	p.push('away.partition.RenderableNode');
 	p.push('away.materials.SegmentMaterial');
 	p.push('away.library.assets.AssetType');
 	return p;

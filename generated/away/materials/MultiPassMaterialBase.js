@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -54,7 +54,6 @@ away.materials.MultiPassMaterialBase.prototype.set_blendMode = function(value) {
 };
 
 away.materials.MultiPassMaterialBase.prototype.iActivateForDepth = function(stage3DProxy, camera, distanceBased) {
-	distanceBased = distanceBased || false;
 	if (distanceBased) {
 		this._pDistancePass.set_alphaMask(this._diffuseMethod.get_texture());
 	} else {
@@ -304,14 +303,14 @@ away.materials.MultiPassMaterialBase.prototype.addChildPassesFor = function(pass
 
 away.materials.MultiPassMaterialBase.prototype.iActivatePass = function(index, stage3DProxy, camera) {
 	if (index == 0) {
-		stage3DProxy._iContext3D.setBlendFactors(away.display3D.Context3DBlendFactor.ONE, away.display3D.Context3DBlendFactor.ZERO);
+		stage3DProxy._iContext3D.setBlendFactors(away.core.display3D.Context3DBlendFactor.ONE, away.core.display3D.Context3DBlendFactor.ZERO);
 	}
 	away.materials.MaterialBase.prototype.iActivatePass.call(this,index, stage3DProxy, camera);
 };
 
 away.materials.MultiPassMaterialBase.prototype.iDeactivate = function(stage3DProxy) {
 	away.materials.MaterialBase.prototype.iDeactivate.call(this,stage3DProxy);
-	stage3DProxy._iContext3D.setBlendFactors(away.display3D.Context3DBlendFactor.ONE, away.display3D.Context3DBlendFactor.ZERO);
+	stage3DProxy._iContext3D.setBlendFactors(away.core.display3D.Context3DBlendFactor.ONE, away.core.display3D.Context3DBlendFactor.ZERO);
 };
 
 away.materials.MultiPassMaterialBase.prototype.pUpdateScreenPasses = function() {
@@ -340,7 +339,7 @@ away.materials.MultiPassMaterialBase.prototype.initPasses = function() {
 away.materials.MultiPassMaterialBase.prototype.setBlendAndCompareModes = function() {
 	var forceSeparateMVP = (this._casterLightPass || this._pEffectsPass);
 	if (this._casterLightPass) {
-		this._casterLightPass.setBlendMode(away.display.BlendMode.NORMAL);
+		this._casterLightPass.setBlendMode(away.core.display.BlendMode.NORMAL);
 		this._casterLightPass.set_depthCompareMode(this._pDepthCompareMode);
 		this._casterLightPass.set_forceSeparateMVP(forceSeparateMVP);
 	}
@@ -348,28 +347,28 @@ away.materials.MultiPassMaterialBase.prototype.setBlendAndCompareModes = functio
 		var firstAdditiveIndex = 0;
 		if (!this._casterLightPass) {
 			this._nonCasterLightPasses[0].forceSeparateMVP = forceSeparateMVP;
-			this._nonCasterLightPasses[0].setBlendMode(away.display.BlendMode.NORMAL);
+			this._nonCasterLightPasses[0].setBlendMode(away.core.display.BlendMode.NORMAL);
 			this._nonCasterLightPasses[0].depthCompareMode = this._pDepthCompareMode;
 			firstAdditiveIndex = 1;
 		}
 		for (var i = firstAdditiveIndex; i < this._nonCasterLightPasses.length; ++i) {
 			this._nonCasterLightPasses[i].forceSeparateMVP = forceSeparateMVP;
-			this._nonCasterLightPasses[i].setBlendMode(away.display.BlendMode.ADD);
-			this._nonCasterLightPasses[i].depthCompareMode = away.display3D.Context3DCompareMode.LESS_EQUAL;
+			this._nonCasterLightPasses[i].setBlendMode(away.core.display.BlendMode.ADD);
+			this._nonCasterLightPasses[i].depthCompareMode = away.core.display3D.Context3DCompareMode.LESS_EQUAL;
 		}
 	}
 	if (this._casterLightPass || this._nonCasterLightPasses) {
 		if (this._pEffectsPass) {
 			this._pEffectsPass.set_iIgnoreLights(true);
-			this._pEffectsPass.set_depthCompareMode(away.display3D.Context3DCompareMode.LESS_EQUAL);
-			this._pEffectsPass.setBlendMode(away.display.BlendMode.LAYER);
+			this._pEffectsPass.set_depthCompareMode(away.core.display3D.Context3DCompareMode.LESS_EQUAL);
+			this._pEffectsPass.setBlendMode(away.core.display.BlendMode.LAYER);
 			this._pEffectsPass.set_forceSeparateMVP(forceSeparateMVP);
 		}
 	} else if (this._pEffectsPass) {
 		this._pEffectsPass.set_iIgnoreLights(false);
 		this._pEffectsPass.set_depthCompareMode(this._pDepthCompareMode);
 		this.get_depthCompareMode();
-		this._pEffectsPass.setBlendMode(away.display.BlendMode.NORMAL);
+		this._pEffectsPass.setBlendMode(away.core.display.BlendMode.NORMAL);
 		this._pEffectsPass.set_forceSeparateMVP(false);
 	}
 };
@@ -503,13 +502,13 @@ away.materials.MultiPassMaterialBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.methods.BasicDiffuseMethod');
+	p.push('away.core.display3D.Context3DBlendFactor');
 	p.push('away.events.Event');
-	p.push('away.display3D.Context3DBlendFactor');
 	p.push('away.materials.passes.LightingPass');
 	p.push('away.materials.lightpickers.StaticLightPicker');
+	p.push('away.core.display.BlendMode');
 	p.push('away.materials.passes.ShadowCasterPass');
-	p.push('away.display.BlendMode');
-	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.core.display3D.Context3DCompareMode');
 	p.push('away.materials.passes.SuperShaderPass');
 	return p;
 };

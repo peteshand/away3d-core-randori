@@ -12,10 +12,10 @@ package away.lights
 	import away.lights.shadowmaps.ShadowMapperBase;
 	import away.events.LightEvent;
 	import away.errors.AbstractMethodError;
-	import away.base.IRenderable;
-	import away.geom.Matrix3D;
-	import away.partition.EntityNode;
-	import away.partition.LightNode;
+	import away.core.base.IRenderable;
+	import away.core.geom.Matrix3D;
+	import away.core.partition.EntityNode;
+	import away.core.partition.LightNode;
 	import away.library.assets.AssetType;
 	public class LightBase extends Entity
 	{

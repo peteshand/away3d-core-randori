@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:31 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -43,7 +43,7 @@ away.entities.Entity.prototype.set_staticNode = function(value) {
 
 away.entities.Entity.prototype.get_pickingCollisionVO = function() {
 	if (!this._iPickingCollisionVO) {
-		this._iPickingCollisionVO = new away.pick.PickingCollisionVO(this);
+		this._iPickingCollisionVO = new away.core.pick.PickingCollisionVO(this);
 	}
 	return this._iPickingCollisionVO;
 };
@@ -196,7 +196,7 @@ away.entities.Entity.prototype.isIntersectingRay = function(rayPosition, rayDire
 	var localRayPosition = this.get_inverseSceneTransform().transformVector(rayPosition);
 	var localRayDirection = this.get_inverseSceneTransform().deltaTransformVector(rayDirection);
 	if (!this._iPickingCollisionVO.localNormal) {
-		this._iPickingCollisionVO.localNormal = new away.geom.Vector3D(0, 0, 0, 0);
+		this._iPickingCollisionVO.localNormal = new away.core.geom.Vector3D(0, 0, 0, 0);
 	}
 	var rayEntryDistance = this._pBounds.rayIntersection(localRayPosition, localRayDirection, this._iPickingCollisionVO.localNormal);
 	if (rayEntryDistance < 0) {
@@ -296,9 +296,9 @@ away.entities.Entity.className = "away.entities.Entity";
 away.entities.Entity.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.pick.PickingCollisionVO');
 	p.push('away.bounds.AxisAlignedBoundingBox');
-	p.push('away.pick.PickingCollisionVO');
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.errors.AbstractMethodError');
 	p.push('away.bounds.BoundingVolumeBase');
 	p.push('away.library.assets.AssetType');

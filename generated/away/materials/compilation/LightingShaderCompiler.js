@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:53 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -51,13 +51,13 @@ away.materials.compilation.LightingShaderCompiler.prototype.get_tangentSpace = f
 
 away.materials.compilation.LightingShaderCompiler.prototype.pInitLightData = function() {
 	away.materials.compilation.ShaderCompiler.prototype.pInitLightData.call(this);
-	this._pointLightVertexConstants = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumPointLights);
-	this._pointLightFragmentConstants = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumPointLights * 2);
+	this._pointLightVertexConstants = away.utils.VectorInit.AnyClass(this._pNumPointLights);
+	this._pointLightFragmentConstants = away.utils.VectorInit.AnyClass(this._pNumPointLights * 2);
 	if (this.get_tangentSpace()) {
-		this._dirLightVertexConstants = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumDirectionalLights);
-		this._dirLightFragmentConstants = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumDirectionalLights * 2);
+		this._dirLightVertexConstants = away.utils.VectorInit.AnyClass(this._pNumDirectionalLights);
+		this._dirLightFragmentConstants = away.utils.VectorInit.AnyClass(this._pNumDirectionalLights * 2);
 	} else {
-		this._dirLightFragmentConstants = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, this._pNumDirectionalLights * 3);
+		this._dirLightFragmentConstants = away.utils.VectorInit.AnyClass(this._pNumDirectionalLights * 3);
 	}
 };
 
@@ -79,7 +79,7 @@ away.materials.compilation.LightingShaderCompiler.prototype.pCompileNormalCode =
 	if (this.get_tangentSpace()) {
 		this.compileTangentSpaceNormalMapCode();
 	} else {
-		var normalMatrix = away.utils.VectorInit.AnyClass(away.materials.compilation.ShaderRegisterElement, 3);
+		var normalMatrix = away.utils.VectorInit.AnyClass(3);
 		normalMatrix[0] = this._pRegisterCache.getFreeVertexConstant();
 		normalMatrix[1] = this._pRegisterCache.getFreeVertexConstant();
 		normalMatrix[2] = this._pRegisterCache.getFreeVertexConstant();
@@ -341,7 +341,6 @@ away.materials.compilation.LightingShaderCompiler.getRuntimeDependencies = funct
 	p = [];
 	p.push('away.materials.compilation.ShaderRegisterData');
 	p.push('away.materials.compilation.MethodDependencyCounter');
-	p.push('away.materials.compilation.ShaderRegisterElement');
 	p.push('away.utils.VectorInit');
 	p.push('away.materials.methods.ShaderMethodSetup');
 	return p;

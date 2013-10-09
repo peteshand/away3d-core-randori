@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -24,10 +24,10 @@ away.materials.ColorMaterial.prototype.set_alpha = function(value) {
 	} else if (value < 0) {
 		value = 0;
 	}
-	this._pScreenPass.get_diffuseMethod().set_diffuseAlpha(value);
 	this._diffuseAlpha = value;
+	this._pScreenPass.get_diffuseMethod().set_diffuseAlpha(this._diffuseAlpha);
 	this._pScreenPass.set_preserveAlpha(this.get_requiresBlending());
-	this._pScreenPass.setBlendMode(this.getBlendMode() == away.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.display.BlendMode.LAYER : this.getBlendMode());
+	this._pScreenPass.setBlendMode(this.getBlendMode() == away.core.display.BlendMode.NORMAL && this.get_requiresBlending() ? away.core.display.BlendMode.LAYER : this.getBlendMode());
 };
 
 away.materials.ColorMaterial.prototype.get_color = function() {
@@ -49,7 +49,7 @@ away.materials.ColorMaterial.className = "away.materials.ColorMaterial";
 away.materials.ColorMaterial.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display.BlendMode');
+	p.push('away.core.display.BlendMode');
 	return p;
 };
 

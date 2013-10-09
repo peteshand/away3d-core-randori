@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:49 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -75,13 +75,13 @@ away.cameras.lenses.ObliqueNearPlaneLens.prototype.pUpdateMatrix = function() {
 	var cw = -this._plane.d + .05;
 	var signX = cx >= 0 ? 1 : -1;
 	var signY = cy >= 0 ? 1 : -1;
-	var p = new away.geom.Vector3D(signX, signY, 1, 1);
+	var p = new away.core.geom.Vector3D(signX, signY, 1, 1);
 	var inverse = this._pMatrix.clone();
 	inverse.invert();
 	var q = inverse.transformVector(p);
 	this._pMatrix.copyRowTo(3, p);
 	var a = (q.x * p.x + q.y * p.y + q.z * p.z + q.w * p.w) / (cx * q.x + cy * q.y + cz * q.z + cw * q.w);
-	this._pMatrix.copyRowFrom(2, new away.geom.Vector3D(cx * a, cy * a, cz * a, cw * a));
+	this._pMatrix.copyRowFrom(2, new away.core.geom.Vector3D(cx * a, cy * a, cz * a, cw * a));
 };
 
 $inherit(away.cameras.lenses.ObliqueNearPlaneLens, away.cameras.lenses.LensBase);
@@ -91,7 +91,7 @@ away.cameras.lenses.ObliqueNearPlaneLens.className = "away.cameras.lenses.Obliqu
 away.cameras.lenses.ObliqueNearPlaneLens.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.events.LensEvent');
 	p.push('away.cameras.lenses.LensBase');
 	return p;
@@ -108,7 +108,7 @@ away.cameras.lenses.ObliqueNearPlaneLens.injectionPoints = function(t) {
 		case 0:
 			p = [];
 			p.push({n:'baseLens', t:'away.cameras.lenses.LensBase'});
-			p.push({n:'plane', t:'away.math.Plane3D'});
+			p.push({n:'plane', t:'away.core.math.Plane3D'});
 			break;
 		case 1:
 			p = away.cameras.lenses.LensBase.injectionPoints(t);

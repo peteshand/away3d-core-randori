@@ -8,15 +8,15 @@
 
 package away.lights
 {
-	import away.geom.Vector3D;
-	import away.partition.EntityNode;
-	import away.partition.DirectionalLightNode;
+	import away.core.geom.Vector3D;
+	import away.core.partition.EntityNode;
+	import away.core.partition.DirectionalLightNode;
 	import away.bounds.BoundingVolumeBase;
 	import away.bounds.NullBounds;
 	import away.lights.shadowmaps.ShadowMapperBase;
 	import away.lights.shadowmaps.DirectionalShadowMapper;
-	import away.base.IRenderable;
-	import away.geom.Matrix3D;
+	import away.core.base.IRenderable;
+	import away.core.geom.Matrix3D;
 	public class DirectionalLight extends LightBase
 	{
 		
@@ -145,16 +145,15 @@ package away.lights
 			raw[12] = -(xMax + xMin)*invXRange;
 			raw[13] = -(yMax + yMin)*invYRange;
 			raw[14] = -zMin*invZRange;
-			raw[1] = 0;
-			raw[2] = 0;
-			raw[3] = 0;
-			raw[4] = 0;
-			raw[6] = 0;
-			raw[7] = 0;
-			raw[8] = 0;
-			raw[9] = 0;
-			raw[11] = 0;
-
+			raw[11] =  0;
+			raw[9] = raw[11]
+			raw[8] = raw[9]
+			raw[7] = raw[8]
+			raw[6] = raw[7]
+			raw[4] = raw[6]
+			raw[3] = raw[4]
+			raw[2] = raw[3]
+			raw[1] = raw[2]
 			raw[15] = 1;
 			
 			if( !target )

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -75,7 +75,7 @@ away.materials.passes.DistanceMapPass.prototype.iGetFragmentCode = function(anim
 	if (this._alphaThreshold > 0) {
 		var format;
 		switch (this._alphaMask.get_format()) {
-			case away.display3D.Context3DTextureFormat.COMPRESSED:
+			case away.core.display3D.Context3DTextureFormat.COMPRESSED:
 				format = "dxt1,";
 				break;
 			case "compressedAlpha":
@@ -98,15 +98,15 @@ away.materials.passes.DistanceMapPass.prototype.iRender = function(renderable, s
 	this._vertexData[2] = pos.z;
 	this._vertexData[3] = 1;
 	var sceneTransform = renderable.getRenderSceneTransform(camera);
-	context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 5, sceneTransform, true);
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 9, this._vertexData, 1);
+	context.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 5, sceneTransform, true);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 9, this._vertexData, 1);
 	if (this._alphaThreshold > 0) {
 		renderable.activateUVBuffer(1, stage3DProxy);
 	}
-	var matrix = away.math.Matrix3DUtils.CALCULATION_MATRIX;
+	var matrix = away.core.math.Matrix3DUtils.CALCULATION_MATRIX;
 	matrix.copyFrom(sceneTransform);
 	matrix.append(viewProjection);
-	context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 0, matrix, true);
+	context.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 0, matrix, true);
 	renderable.activateVertexBuffer(0, stage3DProxy);
 	context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.get_numTriangles());
 };
@@ -122,9 +122,9 @@ away.materials.passes.DistanceMapPass.prototype.iActivate = function(stage3DProx
 	this._fragmentData[3] = 16581375.0 * f;
 	if (this._alphaThreshold > 0) {
 		context.setTextureAt(0, this._alphaMask.getTextureForStage3D(stage3DProxy));
-		context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.FRAGMENT, 0, this._fragmentData, 3);
+		context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.FRAGMENT, 0, this._fragmentData, 3);
 	} else {
-		context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.FRAGMENT, 0, this._fragmentData, 2);
+		context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.FRAGMENT, 0, this._fragmentData, 2);
 	}
 };
 
@@ -135,10 +135,10 @@ away.materials.passes.DistanceMapPass.className = "away.materials.passes.Distanc
 away.materials.passes.DistanceMapPass.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('*away.base.IRenderable');
-	p.push('away.math.Matrix3DUtils');
-	p.push('away.display3D.Context3DProgramType');
-	p.push('away.display3D.Context3DTextureFormat');
+	p.push('away.core.display3D.Context3DTextureFormat');
+	p.push('*away.core.base.IRenderable');
+	p.push('away.core.display3D.Context3DProgramType');
+	p.push('away.core.math.Matrix3DUtils');
 	p.push('away.utils.VectorInit');
 	return p;
 };

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.textures.BitmapCubeTexture = function(posX, negX, posY, negY, posZ, negZ) {
 	this._bitmapDatas = null;
 	this._useMipMaps = false;
 	away.textures.CubeTextureBase.call(this);
-	this._bitmapDatas = away.utils.VectorInit.AnyClass(away.display.BitmapData, 6);
+	this._bitmapDatas = away.utils.VectorInit.AnyClass(6);
 	this.testSize(this._bitmapDatas[0] = posX);
 	this.testSize(this._bitmapDatas[1] = negX);
 	this.testSize(this._bitmapDatas[2] = posY);
@@ -109,9 +109,9 @@ away.textures.BitmapCubeTexture.className = "away.textures.BitmapCubeTexture";
 away.textures.BitmapCubeTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display.BitmapData');
 	p.push('away.utils.VectorInit');
 	p.push('away.utils.TextureUtils');
+	p.push('away.core.display.BitmapData');
 	return p;
 };
 
@@ -125,12 +125,12 @@ away.textures.BitmapCubeTexture.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'posX', t:'away.display.BitmapData'});
-			p.push({n:'negX', t:'away.display.BitmapData'});
-			p.push({n:'posY', t:'away.display.BitmapData'});
-			p.push({n:'negY', t:'away.display.BitmapData'});
-			p.push({n:'posZ', t:'away.display.BitmapData'});
-			p.push({n:'negZ', t:'away.display.BitmapData'});
+			p.push({n:'posX', t:'away.core.display.BitmapData'});
+			p.push({n:'negX', t:'away.core.display.BitmapData'});
+			p.push({n:'posY', t:'away.core.display.BitmapData'});
+			p.push({n:'negY', t:'away.core.display.BitmapData'});
+			p.push({n:'posZ', t:'away.core.display.BitmapData'});
+			p.push({n:'negZ', t:'away.core.display.BitmapData'});
 			break;
 		case 1:
 			p = away.textures.CubeTextureBase.injectionPoints(t);

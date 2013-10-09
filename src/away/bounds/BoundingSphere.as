@@ -8,12 +8,12 @@
 
 package away.bounds
 {
-	import away.math.Plane3D;
-	import away.geom.Vector3D;
+	import away.core.math.Plane3D;
+	import away.core.geom.Vector3D;
 	import away.primitives.WireframePrimitiveBase;
 	import away.primitives.WireframeSphere;
-	import away.math.PlaneClassification;
-	import away.geom.Matrix3D;
+	import away.core.math.PlaneClassification;
+	import away.core.geom.Matrix3D;
 	public class BoundingSphere extends BoundingVolumeBase
 	{
 		
@@ -35,10 +35,9 @@ package away.bounds
 		override public function nullify():void
 		{
 			super.nullify();
-			this._centerX = 0;
-			this._centerY = 0;
-			this._centerZ = 0;
-
+			this._centerZ =  0;
+			this._centerY = this._centerZ
+			this._centerX = this._centerY
 			this._radius = 0;
 		}
 		

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,7 +15,7 @@ away.managers.Stage3DManager = function(stage, stage3DManagerSingletonEnforcer) 
 	}
 	this._stage = stage;
 	if (!away.managers.Stage3DManager._stageProxies) {
-		away.managers.Stage3DManager._stageProxies = away.utils.VectorInit.AnyClass(away.managers.Stage3DProxy, this._stage.stage3Ds.length);
+		away.managers.Stage3DManager._stageProxies = away.utils.VectorInit.AnyClass(this._stage.stage3Ds.length);
 		away.managers.Stage3DManager._stageProxies[this._stage.stage3Ds.length - 1] = undefined;
 	}
 };
@@ -54,7 +54,6 @@ away.managers.Stage3DManager.getStage3DManagerByStageRef = function(stage) {
 };
 
 away.managers.Stage3DManager.prototype.getStage3DProxy = function(index, forceSoftware, profile) {
-	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	if (!away.managers.Stage3DManager._stageProxies[index]) {
 		away.managers.Stage3DManager._numStageProxies++;
@@ -69,7 +68,6 @@ away.managers.Stage3DManager.prototype.iRemoveStage3DProxy = function(stage3DPro
 };
 
 away.managers.Stage3DManager.prototype.getFreeStage3DProxy = function(forceSoftware, profile) {
-	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	var i = 0;
 	var len = away.managers.Stage3DManager._stageProxies.length;
@@ -124,7 +122,7 @@ away.managers.Stage3DManager.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'stage', t:'away.display.Stage'});
+			p.push({n:'stage', t:'away.core.display.Stage'});
 			p.push({n:'stage3DManagerSingletonEnforcer', t:'away.managers.Stage3DManagerSingletonEnforcer'});
 			break;
 		default:

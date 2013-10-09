@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:23 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,6 @@ if (typeof away.primitives == "undefined")
 away.primitives.RegularPolygonGeometry = function(radius, sides, yUp) {
 	radius = radius || 100;
 	sides = sides || 16;
-	yUp = yUp || true;
 	away.primitives.CylinderGeometry.call(this, radius, 0, 0, sides, 1, true, false, false, yUp);
 };
 

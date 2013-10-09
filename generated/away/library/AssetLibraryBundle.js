@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -47,7 +47,7 @@ away.library.AssetLibraryBundle.prototype.get_conflictStrategy = function() {
 
 away.library.AssetLibraryBundle.prototype.set_conflictStrategy = function(val) {
 	if (!val) {
-		throw new away.errors.Error("namingStrategy must not be null. To ignore naming, use AssetLibrary.IGNORE", 0, "");
+		throw new away.errors.away.errors.Error("namingStrategy must not be null. To ignore naming, use AssetLibrary.IGNORE", 0, "");
 	}
 	this._strategy = val.create();
 };
@@ -117,7 +117,6 @@ away.library.AssetLibraryBundle.prototype.addAsset = function(asset) {
 };
 
 away.library.AssetLibraryBundle.prototype.removeAsset = function(asset, dispose) {
-	dispose = dispose || true;
 	var idx;
 	this.removeAssetFromDict(asset, true);
 	asset.removeEventListener(away.events.AssetEvent.ASSET_RENAME, $createStaticDelegate(this, this.onAssetRename), this);
@@ -133,7 +132,6 @@ away.library.AssetLibraryBundle.prototype.removeAsset = function(asset, dispose)
 
 away.library.AssetLibraryBundle.prototype.removeAssetByName = function(name, ns, dispose) {
 	ns = ns || null;
-	dispose = dispose || true;
 	var asset = this.getAsset(name, ns);
 	if (asset) {
 		this.removeAsset(asset, dispose);
@@ -142,7 +140,6 @@ away.library.AssetLibraryBundle.prototype.removeAssetByName = function(name, ns,
 };
 
 away.library.AssetLibraryBundle.prototype.removeAllAssets = function(dispose) {
-	dispose = dispose || true;
 	if (dispose) {
 		var asset;
 		for (var c = 0; c < this._assets.length; c++) {
@@ -156,7 +153,6 @@ away.library.AssetLibraryBundle.prototype.removeAllAssets = function(dispose) {
 
 away.library.AssetLibraryBundle.prototype.removeNamespaceAssets = function(ns, dispose) {
 	ns = ns || null;
-	dispose = dispose || true;
 	var idx = 0;
 	var asset;
 	var old_assets;
@@ -182,7 +178,6 @@ away.library.AssetLibraryBundle.prototype.removeNamespaceAssets = function(ns, d
 };
 
 away.library.AssetLibraryBundle.prototype.removeAssetFromDict = function(asset, autoRemoveEmptyNamespace) {
-	autoRemoveEmptyNamespace = autoRemoveEmptyNamespace || true;
 	if (this._assetDictDirty) {
 		this.rehashAssetDict();
 	}

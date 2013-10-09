@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -64,25 +64,25 @@ away.primitives.WireframeTetrahedron.prototype.pBuildGeometry = function() {
 	var hw = this._width * 0.5;
 	switch (this._orientation) {
 		case away.primitives.WireframeTetrahedron.ORIENTATION_XY:
-			bv0 = new away.geom.Vector3D(-hw, hw, 0, 0);
-			bv1 = new away.geom.Vector3D(hw, hw, 0, 0);
-			bv2 = new away.geom.Vector3D(hw, -hw, 0, 0);
-			bv3 = new away.geom.Vector3D(-hw, -hw, 0, 0);
-			top = new away.geom.Vector3D(0, 0, this._height, 0);
+			bv0 = new away.core.geom.Vector3D(-hw, hw, 0, 0);
+			bv1 = new away.core.geom.Vector3D(hw, hw, 0, 0);
+			bv2 = new away.core.geom.Vector3D(hw, -hw, 0, 0);
+			bv3 = new away.core.geom.Vector3D(-hw, -hw, 0, 0);
+			top = new away.core.geom.Vector3D(0, 0, this._height, 0);
 			break;
 		case away.primitives.WireframeTetrahedron.ORIENTATION_XZ:
-			bv0 = new away.geom.Vector3D(-hw, 0, hw, 0);
-			bv1 = new away.geom.Vector3D(hw, 0, hw, 0);
-			bv2 = new away.geom.Vector3D(hw, 0, -hw, 0);
-			bv3 = new away.geom.Vector3D(-hw, 0, -hw, 0);
-			top = new away.geom.Vector3D(0, this._height, 0, 0);
+			bv0 = new away.core.geom.Vector3D(-hw, 0, hw, 0);
+			bv1 = new away.core.geom.Vector3D(hw, 0, hw, 0);
+			bv2 = new away.core.geom.Vector3D(hw, 0, -hw, 0);
+			bv3 = new away.core.geom.Vector3D(-hw, 0, -hw, 0);
+			top = new away.core.geom.Vector3D(0, this._height, 0, 0);
 			break;
 		case away.primitives.WireframeTetrahedron.ORIENTATION_YZ:
-			bv0 = new away.geom.Vector3D(0, -hw, hw, 0);
-			bv1 = new away.geom.Vector3D(0, hw, hw, 0);
-			bv2 = new away.geom.Vector3D(0, hw, -hw, 0);
-			bv3 = new away.geom.Vector3D(0, -hw, -hw, 0);
-			top = new away.geom.Vector3D(this._height, 0, 0, 0);
+			bv0 = new away.core.geom.Vector3D(0, -hw, hw, 0);
+			bv1 = new away.core.geom.Vector3D(0, hw, hw, 0);
+			bv2 = new away.core.geom.Vector3D(0, hw, -hw, 0);
+			bv3 = new away.core.geom.Vector3D(0, -hw, -hw, 0);
+			top = new away.core.geom.Vector3D(this._height, 0, 0, 0);
 			break;
 	}
 	this.pUpdateOrAddSegment(0, bv0, bv1);
@@ -102,7 +102,7 @@ away.primitives.WireframeTetrahedron.className = "away.primitives.WireframeTetra
 away.primitives.WireframeTetrahedron.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

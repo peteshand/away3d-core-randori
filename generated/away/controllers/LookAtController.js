@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.controllers == "undefined")
 	away.controllers = {};
 
 away.controllers.LookAtController = function(targetObject, lookAtObject) {
-	this._pOrigin = new away.geom.Vector3D(0.0, 0.0, 0.0, 0);
+	this._pOrigin = new away.core.geom.Vector3D(0.0, 0.0, 0.0, 0);
 	this._pLookAtObject = null;
 	this._pLookAtPosition = null;
 	targetObject = targetObject || null;
@@ -15,7 +15,7 @@ away.controllers.LookAtController = function(targetObject, lookAtObject) {
 	if (lookAtObject) {
 		this.set_lookAtObject(lookAtObject);
 	} else {
-		this.set_lookAtPosition(new away.geom.Vector3D(0, 0, 0, 0));
+		this.set_lookAtPosition(new away.core.geom.Vector3D(0, 0, 0, 0));
 	}
 };
 
@@ -54,7 +54,6 @@ away.controllers.LookAtController.prototype.set_lookAtObject = function(val) {
 };
 
 away.controllers.LookAtController.prototype.update = function(interpolate) {
-	interpolate = interpolate || true;
 	interpolate = interpolate;
 	if (this._pTargetObject) {
 		if (this._pLookAtPosition) {
@@ -76,15 +75,15 @@ away.controllers.LookAtController.className = "away.controllers.LookAtController
 away.controllers.LookAtController.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
 	p.push('away.events.Object3DEvent');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 
 away.controllers.LookAtController.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

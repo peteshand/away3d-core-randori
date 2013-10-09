@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -55,7 +55,6 @@ away.controllers.ControllerBase.prototype.set_autoUpdate = function(val) {
 };
 
 away.controllers.ControllerBase.prototype.update = function(interpolate) {
-	interpolate = interpolate || true;
 	throw new away.errors.AbstractMethodError(null, 0);
 };
 

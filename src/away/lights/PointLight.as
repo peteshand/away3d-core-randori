@@ -10,13 +10,13 @@ package away.lights
 {
 	import away.lights.shadowmaps.ShadowMapperBase;
 	import away.lights.shadowmaps.CubeMapShadowMapper;
-	import away.partition.EntityNode;
-	import away.partition.PointLightNode;
-	import away.geom.Vector3D;
+	import away.core.partition.EntityNode;
+	import away.core.partition.PointLightNode;
+	import away.core.geom.Vector3D;
 	import away.bounds.BoundingVolumeBase;
 	import away.bounds.BoundingSphere;
-	import away.base.IRenderable;
-	import away.geom.Matrix3D;
+	import away.core.base.IRenderable;
+	import away.core.geom.Matrix3D;
 	public class PointLight extends LightBase
 	{
 		
@@ -125,23 +125,21 @@ package away.lights
 			zMin = z - d;
 			zMax = z + d;
 			
-			raw[5] = zMin/d;
-			raw[0] = zMin/d;
-
+			raw[0] =  zMin/d;
+			raw[5] = raw[0]
 			raw[10] = zMax/(zMax - zMin);
 			raw[11] = 1;
-			raw[1] = 0;
-			raw[2] = 0;
-			raw[3] = 0;
-			raw[4] = 0;
-			raw[6] = 0;
-			raw[7] = 0;
-			raw[8] = 0;
-			raw[9] = 0;
-			raw[12] = 0;
-			raw[13] = 0;
-			raw[15] = 0;
-
+			raw[15] =  0;
+			raw[13] = raw[15]
+			raw[12] = raw[13]
+			raw[9] = raw[12]
+			raw[8] = raw[9]
+			raw[7] = raw[8]
+			raw[6] = raw[7]
+			raw[4] = raw[6]
+			raw[3] = raw[4]
+			raw[2] = raw[3]
+			raw[1] = raw[2]
 			raw[14] = -zMin*raw[10];
 			
 			if(!target)

@@ -8,25 +8,25 @@
 
 package away.entities
 {
-	import away.base.IRenderable;
+	import away.core.base.IRenderable;
 	import away.materials.MaterialBase;
 	import away.animators.IAnimator;
 	import away.materials.SegmentMaterial;
 	import away.primitives.data.Segment;
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	import away.managers.Stage3DProxy;
-	import away.display3D.IndexBuffer3D;
-	import away.display3D.VertexBuffer3D;
-	import away.display3D.Context3D;
-	import away.display3D.Context3DVertexBufferFormat;
+	import away.core.display3D.IndexBuffer3D;
+	import away.core.display3D.VertexBuffer3D;
+	import away.core.display3D.Context3D;
+	import away.core.display3D.Context3DVertexBufferFormat;
 	import away.bounds.BoundingVolumeBase;
 	import away.bounds.BoundingSphere;
-	import away.partition.EntityNode;
-	import away.partition.RenderableNode;
-	import away.geom.Matrix;
+	import away.core.partition.EntityNode;
+	import away.core.partition.RenderableNode;
+	import away.core.geom.Matrix;
 	import away.library.assets.AssetType;
 	import away.cameras.Camera3D;
-	import away.geom.Matrix3D;
+	import away.core.geom.Matrix3D;
 	
 	public class SegmentSet extends Entity implements IRenderable
 	{
@@ -94,8 +94,6 @@ package away.entities
 		
 		public function removeSegmentByIndex(index:Number, dispose:Boolean = false):void
 		{
-			dispose = dispose || false;
-
 			var segRef:SegRef;
 			if (index >= this._indexSegments)
 			{
@@ -170,8 +168,6 @@ package away.entities
 		
 		public function removeSegment(segment:Segment, dispose:Boolean = false):void
 		{
-			dispose = dispose || false;
-
 			if( segment.iIndex == -1 )
 			{
 				return;

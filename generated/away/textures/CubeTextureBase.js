@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -14,7 +14,7 @@ away.textures.CubeTextureBase.prototype.get_size = function() {
 };
 
 away.textures.CubeTextureBase.prototype.pCreateTexture = function(context) {
-	return context.createCubeTexture(this.get_width(), away.display3D.Context3DTextureFormat.BGRA, false, 0);
+	return context.createCubeTexture(this.get_width(), away.core.display3D.Context3DTextureFormat.BGRA, false, 0);
 };
 
 $inherit(away.textures.CubeTextureBase, away.textures.TextureProxyBase);
@@ -24,7 +24,7 @@ away.textures.CubeTextureBase.className = "away.textures.CubeTextureBase";
 away.textures.CubeTextureBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DTextureFormat');
+	p.push('away.core.display3D.Context3DTextureFormat');
 	return p;
 };
 

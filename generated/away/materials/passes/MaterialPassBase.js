@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.materials.passes == "undefined")
 	away.materials.passes = {};
 
 away.materials.passes.MaterialPassBase = function(renderToTexture) {
-	this._iProgram3Ds = away.utils.VectorInit.AnyClass(away.display3D.Program3D, 8);
+	this._iProgram3Ds = new Array(8);
 	this._pSmooth = true;
 	this._pMaterial = null;
 	this._pRepeat = false;
@@ -20,9 +20,9 @@ away.materials.passes.MaterialPassBase = function(renderToTexture) {
 	this._pUVTarget = null;
 	this._pNumUsedVaryings = 0;
 	this._pLightPicker = null;
-	this._pAnimationTargetRegisters = away.utils.VectorInit.Str(0, "");
+	this._pAnimationTargetRegisters = new Array();
 	this._oldSurface = 0;
-	this._pAnimatableAttributes = away.utils.VectorInit.Str(0, "");
+	this._pAnimatableAttributes = new Array();
 	this._pNumUsedFragmentConstants = 0;
 	this._previousUsedTexs = [0, 0, 0, 0, 0, 0, 0, 0];
 	this._blendFactorDest = away.display3D.Context3DBlendFactor.ZERO;
@@ -32,7 +32,7 @@ away.materials.passes.MaterialPassBase = function(renderToTexture) {
 	this._defaultCulling = away.display3D.Context3DTriangleFace.BACK;
 	this._pNeedFragmentAnimation = false;
 	this._pNumUsedTextures = 0;
-	this._context3Ds = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._context3Ds = new Array(8);
 	this._pUVSource = null;
 	this._blendFactorSource = away.display3D.Context3DBlendFactor.ONE;
 	this._writeDepth = true;
@@ -181,7 +181,7 @@ away.materials.passes.MaterialPassBase.prototype.get_needUVAnimation = function(
 };
 
 away.materials.passes.MaterialPassBase.prototype.iUpdateAnimationState = function(renderable, stage3DProxy, camera) {
-	renderable.get_animator().setRenderState(stage3DProxy, renderable, this._pNumUsedVertexConstants, this._pNumUsedStreams, camera);
+	renderable.animator.setRenderState(stage3DProxy, renderable, this._pNumUsedVertexConstants, this._pNumUsedStreams, camera);
 };
 
 away.materials.passes.MaterialPassBase.prototype.iRender = function(renderable, stage3DProxy, camera, viewProjection) {
@@ -224,7 +224,7 @@ away.materials.passes.MaterialPassBase.prototype.setBlendMode = function(value) 
 			this._pEnableBlending = true;
 			break;
 		default:
-			throw new away.errors.ArgumentError("Unsupported blend mode!", 0);
+			throw new away.errors.away.errors.ArgumentError("Unsupported blend mode!", 0);
 	}
 };
 
@@ -249,16 +249,16 @@ away.materials.passes.MaterialPassBase.prototype.iActivate = function(stage3DPro
 	for (i = this._pNumUsedTextures; i < prevUsed; ++i) {
 		context.setTextureAt(i, null);
 	}
-	if (this._animationSet && !this._animationSet.get_usesCPU()) {
+	if (this._animationSet && !this._animationSet.usesCPU) {
 		this._animationSet.activate(stage3DProxy, this);
 	}
 	context.setProgram(this._iProgram3Ds[contextIndex]);
 	context.setCulling(this._pBothSides ? away.display3D.Context3DTriangleFace.NONE : this._defaultCulling);
 	if (this._renderToTexture) {
-		this._oldTarget = stage3DProxy.get_renderTarget();
-		this._oldSurface = stage3DProxy.get_renderSurfaceSelector();
-		this._oldDepthStencil = stage3DProxy.get_enableDepthAndStencil();
-		this._oldRect = stage3DProxy.get_scissorRect();
+		this._oldTarget = stage3DProxy.renderTarget;
+		this._oldSurface = stage3DProxy.renderSurfaceSelector;
+		this._oldDepthStencil = stage3DProxy.enableDepthAndStencil;
+		this._oldRect = stage3DProxy.scissorRect;
 	}
 };
 
@@ -266,18 +266,17 @@ away.materials.passes.MaterialPassBase.prototype.iDeactivate = function(stage3DP
 	var index = stage3DProxy._iStage3DIndex;
 	away.materials.passes.MaterialPassBase._previousUsedStreams[index] = this._pNumUsedStreams;
 	away.materials.passes.MaterialPassBase._previousUsedTexs[index] = this._pNumUsedTextures;
-	if (this._animationSet && !this._animationSet.get_usesCPU()) {
+	if (this._animationSet && !this._animationSet.usesCPU) {
 		this._animationSet.deactivate(stage3DProxy, this);
 	}
 	if (this._renderToTexture) {
 		stage3DProxy.setRenderTarget(this._oldTarget, this._oldDepthStencil, this._oldSurface);
-		stage3DProxy.set_scissorRect(this._oldRect);
+		stage3DProxy.scissorRect = this._oldRect;
 	}
 	stage3DProxy._iContext3D.setDepthTest(true, away.display3D.Context3DCompareMode.LESS_EQUAL);
 };
 
 away.materials.passes.MaterialPassBase.prototype.iInvalidateShaderProgram = function(updateMaterial) {
-	updateMaterial = updateMaterial || true;
 	for (var i = 0; i < 8; ++i) {
 		this._iProgram3Ds[i] = null;
 	}
@@ -291,10 +290,10 @@ away.materials.passes.MaterialPassBase.prototype.iUpdateProgram = function(stage
 	var UVAnimatorCode = "";
 	var fragmentAnimatorCode = "";
 	var vertexCode = this.iGetVertexCode();
-	if (this._animationSet && !this._animationSet.get_usesCPU()) {
-		animatorCode = this._animationSet.getAGALVertexCode(this, this._pAnimatableAttributes, this._pAnimationTargetRegisters, stage3DProxy.get_profile());
+	if (this._animationSet && !this._animationSet.usesCPU) {
+		animatorCode = this._animationSet.getAGALVertexCode(this, this._pAnimatableAttributes, this._pAnimationTargetRegisters, stage3DProxy.profile);
 		if (this._pNeedFragmentAnimation) {
-			fragmentAnimatorCode = this._animationSet.getAGALFragmentCode(this, this._pShadedTarget, stage3DProxy.get_profile());
+			fragmentAnimatorCode = this._animationSet.getAGALFragmentCode(this, this._pShadedTarget, stage3DProxy.profile());
 		}
 		if (this._pNeedUVAnimation) {
 			UVAnimatorCode = this._animationSet.getAGALUVCode(this, this._pUVSource, this._pUVTarget);
@@ -352,26 +351,24 @@ away.materials.passes.MaterialPassBase.className = "away.materials.passes.Materi
 away.materials.passes.MaterialPassBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.events.Event');
 	p.push('away.display3D.Context3DBlendFactor');
-	p.push('away.display3D.Context3DTriangleFace');
-	p.push('away.errors.AbstractMethodError');
+	p.push('away.events.Event');
 	p.push('away.display.BlendMode');
+	p.push('away.errors.AbstractMethodError');
 	p.push('away.managers.AGALProgram3DCache');
 	p.push('away.display3D.Context3DCompareMode');
 	p.push('away.managers.Stage3DProxy');
+	p.push('away.display3D.Context3DTriangleFace');
 	return p;
 };
 
 away.materials.passes.MaterialPassBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Program3D');
 	p.push('away.display3D.Context3DBlendFactor');
-	p.push('away.display3D.Context3DTriangleFace');
-	p.push('away.display3D.Context3D');
-	p.push('away.display3D.Context3DCompareMode');
 	p.push('away.utils.VectorInit');
+	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.display3D.Context3DTriangleFace');
 	return p;
 };
 

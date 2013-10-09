@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:43 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,8 +11,8 @@ away.bounds.BoundingVolumeBase = function() {
 	this._pMax = null;
 	this._pMin = null;
 	this._pAabbPoints = [];
-	this._pMin = new away.geom.Vector3D(0, 0, 0, 0);
-	this._pMax = new away.geom.Vector3D(0, 0, 0, 0);
+	this._pMin = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._pMax = new away.core.geom.Vector3D(0, 0, 0, 0);
 };
 
 away.bounds.BoundingVolumeBase.prototype.get_max = function() {
@@ -39,12 +39,12 @@ away.bounds.BoundingVolumeBase.prototype.get_boundingRenderable = function() {
 };
 
 away.bounds.BoundingVolumeBase.prototype.nullify = function() {
-	this._pMin.x = 0;
-	this._pMin.y = 0;
 	this._pMin.z = 0;
-	this._pMax.x = 0;
-	this._pMax.y = 0;
+	this._pMin.y = this._pMin.z;
+	this._pMin.x = this._pMin.y;
 	this._pMax.z = 0;
+	this._pMax.y = this._pMax.z;
+	this._pMax.x = this._pMax.y;
 	this._pAabbPointsDirty = true;
 	if (this._pBoundingRenderable) {
 		this.pUpdateBoundingRenderable();
@@ -68,12 +68,12 @@ away.bounds.BoundingVolumeBase.prototype.fromVertices = function(vertices) {
 		return;
 	}
 	var v;
-	minX = vertices[i++];
 	maxX = vertices[i++];
-	minY = vertices[i++];
+	minX = maxX;
 	maxY = vertices[i++];
-	minZ = vertices[i++];
+	minY = maxY;
 	maxZ = vertices[i++];
+	minZ = maxZ;
 	while (i < len) {
 		v = vertices[i++];
 		if (v < minX)
@@ -101,12 +101,12 @@ away.bounds.BoundingVolumeBase.prototype.fromGeometry = function(geometry) {
 	var maxX, maxY, maxZ;
 	if (numSubGeoms > 0) {
 		var j = 0;
-		minX = Infinity;
-		minY = Infinity;
 		minZ = Infinity;
-		maxX = -Infinity;
-		maxY = -Infinity;
+		minY = minZ;
+		minX = minY;
 		maxZ = -Infinity;
+		maxY = maxZ;
+		maxX = maxY;
 		while (j < numSubGeoms) {
 			var subGeom = subGeoms[j++];
 			var vertices = subGeom.get_vertexData();
@@ -239,7 +239,7 @@ away.bounds.BoundingVolumeBase.className = "away.bounds.BoundingVolumeBase";
 away.bounds.BoundingVolumeBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.errors.AbstractMethodError');
 	return p;
 };

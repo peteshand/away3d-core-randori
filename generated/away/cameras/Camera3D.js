@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.cameras.Camera3D = function(lens) {
 	this._frustumPlanesDirty = true;
 	this._viewProjectionDirty = true;
 	this._lens = null;
-	this._viewProjection = new away.geom.Matrix3D();
+	this._viewProjection = new away.core.geom.Matrix3D();
 	this._frustumPlanes = null;
 	lens = lens || null;
 	away.entities.Entity.call(this);
@@ -17,7 +17,7 @@ away.cameras.Camera3D = function(lens) {
 	this._lens.addEventListener(away.events.LensEvent.MATRIX_CHANGED, $createStaticDelegate(this, this.onLensMatrixChanged), this);
 	this._frustumPlanes = [];
 	for (var i = 0; i < 6; ++i) {
-		this._frustumPlanes[i] = new away.math.Plane3D(0, 0, 0, 0);
+		this._frustumPlanes[i] = new away.core.math.Plane3D(0, 0, 0, 0);
 	}
 	this.set_z(-1000);
 };
@@ -138,7 +138,7 @@ away.cameras.Camera3D.prototype.pUpdateBounds = function() {
 };
 
 away.cameras.Camera3D.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.CameraNode(this);
+	return new away.core.partition.CameraNode(this);
 };
 
 away.cameras.Camera3D.prototype.get_lens = function() {
@@ -186,13 +186,13 @@ away.cameras.Camera3D.className = "away.cameras.Camera3D";
 away.cameras.Camera3D.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.partition.CameraNode');
-	p.push('away.math.Plane3D');
 	p.push('away.events.CameraEvent');
 	p.push('away.bounds.NullBounds');
 	p.push('away.cameras.lenses.PerspectiveLens');
 	p.push('away.events.LensEvent');
+	p.push('away.core.math.Plane3D');
 	p.push('away.utils.VectorInit');
+	p.push('away.core.partition.CameraNode');
 	p.push('away.cameras.lenses.LensBase');
 	p.push('away.library.assets.AssetType');
 	return p;
@@ -201,7 +201,7 @@ away.cameras.Camera3D.getRuntimeDependencies = function(t) {
 away.cameras.Camera3D.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Matrix3D');
+	p.push('away.core.geom.Matrix3D');
 	return p;
 };
 

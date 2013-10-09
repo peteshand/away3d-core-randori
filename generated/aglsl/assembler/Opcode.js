@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -9,9 +9,9 @@ aglsl.assembler.Opcode = function(dest, aformat, asize, bformat, bsize, opcode, 
 	this.a = null;
 	this.b = null;
 	this.flags = null;
-	this.a = new aglsl.assembler.FS();
-	this.b = new aglsl.assembler.FS();
-	this.flags = new aglsl.assembler.Flags();
+	this.a = new aglsl.assembler.aglsl.assembler.FS();
+	this.b = new aglsl.assembler.aglsl.assembler.FS();
+	this.flags = new aglsl.assembler.aglsl.assembler.Flags();
 	this.dest = dest;
 	this.a.format = aformat;
 	this.a.size = asize;
@@ -28,10 +28,7 @@ aglsl.assembler.Opcode.className = "aglsl.assembler.Opcode";
 
 aglsl.assembler.Opcode.getRuntimeDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('aglsl.assembler.FS');
-	p.push('aglsl.assembler.Flags');
-	return p;
+	return [];
 };
 
 aglsl.assembler.Opcode.getStaticDependencies = function(t) {

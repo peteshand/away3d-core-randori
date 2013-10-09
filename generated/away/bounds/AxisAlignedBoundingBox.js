@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:43 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -17,12 +17,12 @@ away.bounds.AxisAlignedBoundingBox = function() {
 
 away.bounds.AxisAlignedBoundingBox.prototype.nullify = function() {
 	away.bounds.BoundingVolumeBase.prototype.nullify.call(this);
-	this._centerX = 0;
-	this._centerY = 0;
 	this._centerZ = 0;
-	this._halfExtentsX = 0;
-	this._halfExtentsY = 0;
+	this._centerY = this._centerZ;
+	this._centerX = this._centerY;
 	this._halfExtentsZ = 0;
+	this._halfExtentsY = this._halfExtentsZ;
+	this._halfExtentsX = this._halfExtentsY;
 };
 
 away.bounds.AxisAlignedBoundingBox.prototype.isInFrustum = function(planes, numPlanes) {
@@ -173,7 +173,7 @@ away.bounds.AxisAlignedBoundingBox.prototype.closestPointToPoint = function(poin
 	target = target || null;
 	var p;
 	if (target == null) {
-		target = new away.geom.Vector3D(0, 0, 0, 0);
+		target = new away.core.geom.Vector3D(0, 0, 0, 0);
 	}
 	p = point.x;
 	if (p < this._pMin.x)
@@ -221,7 +221,7 @@ away.bounds.AxisAlignedBoundingBox.prototype.classifyToPlane = function(plane) {
 	if (c < 0)
 		c = -c;
 	var boundOffset = a * this._halfExtentsX + b * this._halfExtentsY + c * this._halfExtentsZ;
-	return centerDistance > boundOffset ? away.math.PlaneClassification.FRONT : centerDistance < -boundOffset ? away.math.PlaneClassification.BACK : away.math.PlaneClassification.INTERSECT;
+	return centerDistance > boundOffset ? away.core.math.PlaneClassification.FRONT : centerDistance < -boundOffset ? away.core.math.PlaneClassification.BACK : away.core.math.PlaneClassification.INTERSECT;
 };
 
 away.bounds.AxisAlignedBoundingBox.prototype.transformFrom = function(bounds, matrix) {
@@ -229,7 +229,7 @@ away.bounds.AxisAlignedBoundingBox.prototype.transformFrom = function(bounds, ma
 	var cx = aabb._centerX;
 	var cy = aabb._centerY;
 	var cz = aabb._centerZ;
-	var raw = away.math.Matrix3DUtils.RAW_DATA_CONTAINER;
+	var raw = away.core.math.Matrix3DUtils.RAW_DATA_CONTAINER;
 	matrix.copyRawDataTo(raw, 0, false);
 	var m11 = raw[0], m12 = raw[4], m13 = raw[8], m14 = raw[12];
 	var m21 = raw[1], m22 = raw[5], m23 = raw[9], m24 = raw[13];
@@ -276,10 +276,10 @@ away.bounds.AxisAlignedBoundingBox.className = "away.bounds.AxisAlignedBoundingB
 away.bounds.AxisAlignedBoundingBox.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
 	p.push('away.primitives.WireframeCube');
-	p.push('away.math.PlaneClassification');
-	p.push('away.math.Matrix3DUtils');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.core.math.Matrix3DUtils');
+	p.push('away.core.math.PlaneClassification');
 	return p;
 };
 

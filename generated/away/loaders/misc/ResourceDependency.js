@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -18,8 +18,6 @@ away.loaders.misc.ResourceDependency = function(id, req, data, parentParser, ret
 	this._iLoader = null;
 	this._assets = null;
 	this._retrieveAsRawData = false;
-	retrieveAsRawData = retrieveAsRawData || false;
-	suppressAssetEvents = suppressAssetEvents || false;
 	this._id = id;
 	this._req = req;
 	this._parentParser = parentParser;
@@ -100,7 +98,7 @@ away.loaders.misc.ResourceDependency.injectionPoints = function(t) {
 		case 0:
 			p = [];
 			p.push({n:'id', t:'String'});
-			p.push({n:'req', t:'away.net.URLRequest'});
+			p.push({n:'req', t:'away.core.net.URLRequest'});
 			p.push({n:'data', t:'Object'});
 			p.push({n:'parentParser', t:'away.loaders.parsers.ParserBase'});
 			p.push({n:'retrieveAsRawData', t:'Boolean'});

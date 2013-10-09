@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -69,7 +69,7 @@ aglsl.assembler.AGALMiniAssembler.prototype.processLine = function(line, linenr)
 			if (this.cur.name == "comment") {
 				return;
 			}
-			var op = aglsl.assembler.OpcodeMap.get_map()[tokens[0]];
+			var op = aglsl.assembler.OpcodeMap.map()[tokens[0]];
 			if (!op) {
 				throw "Bad opcode " + tokens[0] + " " + linenr + ": " + line;
 			}
@@ -143,9 +143,9 @@ aglsl.assembler.AGALMiniAssembler.prototype.emitZeroQword = function(pr) {
 
 aglsl.assembler.AGALMiniAssembler.prototype.emitDest = function(pr, token, opdest) {
 	var reg = token.match(/([fov]?[tpocidavs])(\d*)(\.[xyzw]{1,4})?/i);
-	if (!aglsl.assembler.RegMap.get_map()[reg[1]])
+	if (!aglsl.assembler.RegMap.map()[reg[1]])
 		return false;
-	var em = {num:reg[2] ? reg[2] : 0, code:aglsl.assembler.RegMap.get_map()[reg[1]].code, mask:this.stringToMask(reg[3])};
+	var em = {num:reg[2] ? reg[2] : 0, code:aglsl.assembler.RegMap.map()[reg[1]].code, mask:this.stringToMask(reg[3])};
 	pr.data.writeUnsignedShort(em.num);
 	pr.data.writeUnsignedByte(em.mask);
 	pr.data.writeUnsignedByte(em.code);
@@ -208,7 +208,7 @@ aglsl.assembler.AGALMiniAssembler.prototype.emitSampler = function(pr, token, op
 	var samplerbits = 0x5;
 	var sampleroptset = 0;
 	for (var i = 0; i < opts.length; i++) {
-		var o = aglsl.assembler.SamplerMap.get_map()[opts[i].toLowerCase()];
+		var o = aglsl.assembler.SamplerMap.map()[opts[i].toLowerCase()];
 		if (o) {
 			if (((sampleroptset >> o.shift) & o.mask) != 0) {
 				console.log("Warning, duplicate sampler option");
@@ -228,11 +228,11 @@ aglsl.assembler.AGALMiniAssembler.prototype.emitSource = function(pr, token, ops
 	var indexed = token.match(/vc\[(v[tcai])(\d+)\.([xyzw])([\+\-]\d+)?\](\.[xyzw]{1,4})?/i);
 	var reg;
 	if (indexed) {
-		if (!aglsl.assembler.RegMap.get_map()[indexed[1]]) {
+		if (!aglsl.assembler.RegMap.map()[indexed[1]]) {
 			return false;
 		}
 		var selindex = {x:0, y:1, z:2, w:3};
-		var em = {num:indexed[2] | 0, code:aglsl.assembler.RegMap.get_map()[indexed[1]].code, swizzle:this.stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4] | 0};
+		var em = {num:indexed[2] | 0, code:aglsl.assembler.RegMap.map()[indexed[1]].code, swizzle:this.stringToSwizzle(indexed[5]), select:selindex[indexed[3]], offset:indexed[4] | 0};
 		pr.data.writeUnsignedShort(em.num);
 		pr.data.writeByte(em.offset);
 		pr.data.writeUnsignedByte(em.swizzle);
@@ -242,10 +242,10 @@ aglsl.assembler.AGALMiniAssembler.prototype.emitSource = function(pr, token, ops
 		pr.data.writeUnsignedByte(1 << 7);
 	} else {
 		reg = token.match(/([fov]?[tpocidavs])(\d*)(\.[xyzw]{1,4})?/i);
-		if (!aglsl.assembler.RegMap.get_map()[reg[1]]) {
+		if (!aglsl.assembler.RegMap.map()[reg[1]]) {
 			return false;
 		}
-		var em = {num:reg[2] | 0, code:aglsl.assembler.RegMap.get_map()[reg[1]].code, swizzle:this.stringToSwizzle(reg[3])};
+		var em = {num:reg[2] | 0, code:aglsl.assembler.RegMap.map()[reg[1]].code, swizzle:this.stringToSwizzle(reg[3])};
 		pr.data.writeUnsignedShort(em.num);
 		pr.data.writeUnsignedByte(0);
 		pr.data.writeUnsignedByte(em.swizzle);

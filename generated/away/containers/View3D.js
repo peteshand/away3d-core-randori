@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -13,12 +13,12 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	this._pStage3DProxy = null;
 	this._pDepthRender = null;
 	this._forceSoftware = false;
-	this._localPos = new away.geom.Point(0, 0);
+	this._localPos = new away.core.geom.Point(0, 0);
 	this._aspectRatio = 0;
 	this._antiAlias = 0;
 	this._time = 0;
 	this.sStage = null;
-	this._globalPos = new away.geom.Point(0, 0);
+	this._globalPos = new away.core.geom.Point(0, 0);
 	this._backgroundColor = 0x000000;
 	this._width = 0;
 	this._addedToStage = false;
@@ -43,21 +43,20 @@ away.containers.View3D = function(scene, camera, renderer, forceSoftware, profil
 	scene = scene || null;
 	camera = camera || null;
 	renderer = renderer || null;
-	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	if (away.containers.View3D.sStage == null) {
-		away.containers.View3D.sStage = new away.display.Stage(640, 480);
+		away.containers.View3D.sStage = new away.core.display.Stage(640, 480);
 	}
 	this._profile = profile;
 	this._pScene = scene || new away.containers.Scene3D();
 	this._pScene.addEventListener(away.events.Scene3DEvent.PARTITION_CHANGED, $createStaticDelegate(this, this.onScenePartitionChanged), this);
 	this._pCamera = camera || new away.cameras.Camera3D();
-	this._pRenderer = renderer || new away.render.DefaultRenderer();
-	this._depthRenderer = new away.render.DepthRenderer(false, false);
+	this._pRenderer = renderer || new away.core.render.DefaultRenderer();
+	this._depthRenderer = new away.core.render.DepthRenderer(false, false);
 	this._forceSoftware = forceSoftware;
 	this._pEntityCollector = this._pRenderer.iCreateEntityCollector();
 	this._pEntityCollector.set_camera(this._pCamera);
-	this._pScissorRect = new away.geom.Rectangle(0, 0, 0, 0);
+	this._pScissorRect = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._pCamera.addEventListener(away.events.CameraEvent.LENS_CHANGED, $createStaticDelegate(this, this.onLensChanged), this);
 	this._pCamera.set_partition(this._pScene.get_partition());
 	this.stage = away.containers.View3D.sStage;
@@ -82,8 +81,8 @@ away.containers.View3D.prototype.set_stage3DProxy = function(stage3DProxy) {
 	}
 	this._pStage3DProxy = stage3DProxy;
 	this._pStage3DProxy.addEventListener(away.events.Stage3DEvent.VIEWPORT_UPDATED, $createStaticDelegate(this, this.onViewportUpdated), this);
-	this._pRenderer.set_iStage3DProxy(this._pStage3DProxy);
 	this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy);
+	this._pRenderer.set_iStage3DProxy(this._depthRenderer.get_iStage3DProxy());
 	this._globalPosDirty = true;
 	this._pBackBufferInvalid = true;
 };
@@ -107,7 +106,7 @@ away.containers.View3D.prototype.set_filters3d = function(value) {
 		this._pFilter3DRenderer.dispose();
 		this._pFilter3DRenderer = null;
 	} else if (!this._pFilter3DRenderer && value) {
-		this._pFilter3DRenderer = new away.render.Filter3DRenderer(this._pStage3DProxy);
+		this._pFilter3DRenderer = new away.core.render.Filter3DRenderer(this._pStage3DProxy);
 		this._pFilter3DRenderer.set_filters(value);
 	}
 	if (this._pFilter3DRenderer) {
@@ -245,16 +244,16 @@ away.containers.View3D.prototype.set_height = function(value) {
 away.containers.View3D.prototype.set_x = function(value) {
 	if (this.get_x() == value)
 		return;
-	this._globalPos.x = value;
 	this._localPos.x = value;
+	this._globalPos.x = this._localPos.x;
 	this._globalPosDirty = true;
 };
 
 away.containers.View3D.prototype.set_y = function(value) {
 	if (this.get_y() == value)
 		return;
-	this._globalPos.y = value;
 	this._localPos.y = value;
+	this._globalPos.y = this._localPos.y;
 	this._globalPosDirty = true;
 };
 
@@ -428,7 +427,7 @@ away.containers.View3D.prototype.initDepthTexture = function(context) {
 	if (this._pDepthRender) {
 		this._pDepthRender.dispose();
 	}
-	this._pDepthRender = context.createTexture(this._pRttBufferManager.get_textureWidth(), this._pRttBufferManager.get_textureHeight(), away.display3D.Context3DTextureFormat.BGRA, true, 0);
+	this._pDepthRender = context.createTexture(this._pRttBufferManager.get_textureWidth(), this._pRttBufferManager.get_textureHeight(), away.core.display3D.Context3DTextureFormat.BGRA, true, 0);
 };
 
 away.containers.View3D.prototype.dispose = function() {
@@ -485,8 +484,8 @@ away.containers.View3D.prototype.onAddedToStage = function() {
 	}
 	this._globalPosDirty = true;
 	this._pRttBufferManager = away.managers.RTTBufferManager.getInstance(this._pStage3DProxy);
-	this._pRenderer.set_iStage3DProxy(this._pStage3DProxy);
 	this._depthRenderer.set_iStage3DProxy(this._pStage3DProxy);
+	this._pRenderer.set_iStage3DProxy(this._depthRenderer.get_iStage3DProxy());
 	if (this._width == 0) {
 		this.set_width(this.stage.get_stageWidth());
 	} else {
@@ -519,27 +518,27 @@ away.containers.View3D.className = "away.containers.View3D";
 away.containers.View3D.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.render.Filter3DRenderer');
+	p.push('away.core.display.Stage');
 	p.push('away.events.Stage3DEvent');
+	p.push('away.events.CameraEvent');
+	p.push('away.core.render.DefaultRenderer');
 	p.push('away.managers.Stage3DManager');
-	p.push('away.render.DefaultRenderer');
 	p.push('away.containers.Scene3D');
-	p.push('away.render.DepthRenderer');
+	p.push('away.core.display3D.Context3DTextureFormat');
 	p.push('away.cameras.Camera3D');
-	p.push('away.display.Stage');
+	p.push('away.core.render.DepthRenderer');
 	p.push('away.managers.RTTBufferManager');
+	p.push('away.core.geom.Rectangle');
 	p.push('away.events.Scene3DEvent');
 	p.push('away.managers.Stage3DProxy');
-	p.push('away.events.CameraEvent');
-	p.push('away.render.Filter3DRenderer');
-	p.push('away.geom.Rectangle');
-	p.push('away.display3D.Context3DTextureFormat');
 	return p;
 };
 
 away.containers.View3D.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Point');
+	p.push('away.core.geom.Point');
 	return p;
 };
 
@@ -550,7 +549,7 @@ away.containers.View3D.injectionPoints = function(t) {
 			p = [];
 			p.push({n:'scene', t:'away.containers.Scene3D'});
 			p.push({n:'camera', t:'away.cameras.Camera3D'});
-			p.push({n:'renderer', t:'away.render.RendererBase'});
+			p.push({n:'renderer', t:'away.core.render.RendererBase'});
 			p.push({n:'forceSoftware', t:'Boolean'});
 			p.push({n:'profile', t:'String'});
 			break;

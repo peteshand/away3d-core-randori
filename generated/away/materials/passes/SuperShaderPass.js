@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -43,8 +43,8 @@ away.materials.passes.SuperShaderPass.prototype.set_colorTransform = function(va
 		if (this._pMethodSetup._iColorTransformMethod) {
 			this.set_colorTransformMethod(null);
 		}
-		this.set_colorTransformMethod(null);
 		this._pMethodSetup._iColorTransformMethod = null;
+		this.set_colorTransformMethod(this._pMethodSetup._iColorTransformMethod);
 	}
 };
 

@@ -9,12 +9,12 @@
 package away.lights
 {
 	import away.textures.CubeTextureBase;
-	import away.partition.EntityNode;
-	import away.partition.LightProbeNode;
+	import away.core.partition.EntityNode;
+	import away.core.partition.LightProbeNode;
 	import away.bounds.BoundingVolumeBase;
 	import away.bounds.NullBounds;
-	import away.base.IRenderable;
-	import away.geom.Matrix3D;
+	import away.core.base.IRenderable;
+	import away.core.geom.Matrix3D;
 	import away.errors.Error;
 	public class LightProbe extends LightBase
 	{

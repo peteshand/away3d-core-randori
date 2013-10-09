@@ -27344,7 +27344,8 @@ var away;
                         }
                     }
                 }
-
+                window.console.log("data = " + data);
+                window.console.log("indices = " + indices);
                 target.updateData(data);
                 target.updateIndexData(indices);
             };

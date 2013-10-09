@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:48 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -37,7 +37,7 @@ away.loaders.misc.SingleFileURLLoader.prototype.set_dataFormat = function(value)
 
 away.loaders.misc.SingleFileURLLoader.prototype.initLoader = function() {
 	if (!this._loader) {
-		this._loader = new away.net.URLLoader();
+		this._loader = new away.core.net.URLLoader();
 		this._loader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.onLoadComplete), this);
 		this._loader.addEventListener(away.events.IOErrorEvent.IO_ERROR, $createStaticDelegate(this, this.onLoadError), this);
 	}
@@ -67,7 +67,7 @@ away.loaders.misc.SingleFileURLLoader.className = "away.loaders.misc.SingleFileU
 away.loaders.misc.SingleFileURLLoader.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLLoader');
+	p.push('away.core.net.URLLoader');
 	p.push('away.events.Event');
 	p.push('away.events.IOErrorEvent');
 	return p;

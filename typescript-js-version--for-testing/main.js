@@ -7,117 +7,96 @@
 
 
 MainRotation = function() {
-    this._stage = new away.display.Stage(640, 480);
+    this.geo = null;
+    this.canvas = null;
+    this.cameraAxis = null;
+    this.image = null;
+    this.scene = null;
+    this.raf = null;
+    this.ready = false;
+    this.mesh = null;
 
-    this.loadResources();
-};
+    this.requestAnimationFrame = null;
+    this.index = 0;
+    this.view = null;
+    this.index = 0;
+    this.requestAnimationFrame = new away.utils.RequestAnimationFrame(this.tick, this);
+    var that = this;
+    onresize = function() {
+        that.resize();
+    };
+    this.resize();
 
-MainRotation.prototype.loadResources = function() {
+    this.view = new away.containers.View3D(null, null, null, false, "baseline");
+    this.view.backgroundColor = 0xFF3399;
+    this.view.camera.z = -1000;
+    this.view.camera.lens = new away.cameras.PerspectiveLens(40);
+    this.view.width = 800;
+    this.view.height = 500;
+    this.scene = this.view.scene;
     var urlRequest = new away.net.URLRequest("130909wall_big.png");
-    var imgLoader = new away.net.IMGLoader();
+    var imgLoader = new away.net.IMGLoader("");
     imgLoader.addEventListener(away.events.Event.COMPLETE, this.imageCompleteHandler, this);
     imgLoader.load(urlRequest);
 };
 
-MainRotation.prototype.imageCompleteHandler = function(event) {
-    var imageLoader = event.target;
-    this._image = imageLoader.image;
+MainRotation.prototype.imageCompleteHandler = function(e) {
+    var imageLoader = e.target;
+    var htmlImageElement = imageLoader.image;
+    var texture = new away.textures.HTMLImageElementTexture(htmlImageElement, false);
+    var material = new away.materials.ColorMaterial(0xFFFFFF);
 
-    this._stage.stage3Ds[0].addEventListener(away.events.Event.CONTEXT3D_CREATE, this.onContext3DCreateHandler, this);
-    this._stage.stage3Ds[0].requestContext();
-};
+    this.light = new away.lights.DirectionalLight(0, -1, 1);
 
-MainRotation.prototype.onContext3DCreateHandler = function(event) {
-    this._stage.stage3Ds[0].removeEventListener(away.events.Event.CONTEXT3D_CREATE, this.onContext3DCreateHandler, this);
+    this.light.color = 0x683019;
+    this.light.direction = new away.geom.Vector3D(0, -1, 1, 0);
+    this.light.ambient = 0.3;
+    this.light.ambientColor = 0xFFFFFF;
+    this.light.diffuse = 2.8;
+    this.light.specular = 1.8;
+    this.view.scene.addChild(this.light);
+    this.lightPicker = new away.materials.StaticLightPicker([this.light]);
+    material.lightPicker = this.lightPicker;
 
-    var stage3D = event.target;
-    this._context3D = stage3D.context3D;
+    window.console.log(this.light);
 
-    this._texture = this._context3D.createTexture(512, 512, away.display3D.Context3DTextureFormat.BGRA, true);
-    this._texture.uploadFromHTMLImageElement(this._image);
+    this.geo = new away.primitives.PlaneGeometry(200, 200, 1, 1, false, false);
+    this.mesh = new away.entities.Mesh(this.geo, material);
+    this.scene.addChild(this.mesh);
+    this.resize();
+    this.ready = true;
 
-    this._context3D.configureBackBuffer(800, 600, 0, true);
-    this._context3D.setColorMask(true, true, true, true);
-
-    var vertices = [
-        -1.0,
-        -1.0,
-        0.0,
-        1.0,
-        -1.0,
-        0.0,
-        1.0,
-        1.0,
-        0.0,
-        -1.0,
-        1.0,
-        0.0
-    ];
-
-    var uvCoords = [
-        0,
-        0,
-        1,
-        0,
-        1,
-        1,
-        0,
-        1
-    ];
-
-    var indices = [
-        0,
-        1,
-        2,
-        0,
-        2,
-        3
-    ];
-
-    var vBuffer = this._context3D.createVertexBuffer(4, 3);
-    vBuffer.uploadFromArray(vertices, 0, 4);
-
-    var tCoordBuffer = this._context3D.createVertexBuffer(4, 2);
-    tCoordBuffer.uploadFromArray(uvCoords, 0, 4);
-
-    this._iBuffer = this._context3D.createIndexBuffer(6);
-    this._iBuffer.uploadFromArray(indices, 0, 6);
-
-    this._program = this._context3D.createProgram();
-
-    var vProgram = "uniform mat4 mvMatrix;\n" + "uniform mat4 pMatrix;\n" + "attribute vec2 aTextureCoord;\n" + "attribute vec3 aVertexPosition;\n" + "varying vec2 vTextureCoord;\n" + "void main() {\n" + "		gl_Position = pMatrix * mvMatrix * vec4(aVertexPosition, 1.0);\n" + "		vTextureCoord = aTextureCoord;\n" + "}\n";
-
-    var fProgram = "varying mediump vec2 vTextureCoord;\n" + "uniform sampler2D uSampler;\n" + "void main() {\n" + "		gl_FragColor = texture2D(uSampler, vTextureCoord);\n" + "}\n";
-
-    this._program.upload(vProgram, fProgram);
-    this._context3D.setProgram(this._program);
-    console.log('-----------------------------------------------------------');
-    this._pMatrix = new away.utils.PerspectiveMatrix3D();
-    this._pMatrix.perspectiveFieldOfViewLH(45, 800 / 600, 0.1, 1000);
-
-    this._mvMatrix = new away.geom.Matrix3D();
-    this._mvMatrix.appendTranslation(0, 0, 4);
-
-    this._context3D.setGLSLVertexBufferAt("aVertexPosition", vBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_3);
-    this._context3D.setGLSLVertexBufferAt("aTextureCoord", tCoordBuffer, 0, away.display3D.Context3DVertexBufferFormat.FLOAT_2);
-
-    this._requestAnimationFrameTimer = new away.utils.RequestAnimationFrame(this.tick, this);
-    this._requestAnimationFrameTimer.start();
+    this.Show();
 };
 
 MainRotation.prototype.tick = function(dt) {
-    //this._mvMatrix.appendRotation(dt * 0.1, new away.geom.Vector3D(0, 1, 0));
-    this._context3D.setProgram(this._program);
-    this._context3D.setGLSLProgramConstantsFromMatrix("pMatrix", this._pMatrix, true);
-    this._context3D.setGLSLProgramConstantsFromMatrix("mvMatrix", this._mvMatrix, true);
+    if (this.ready) {
+        //this.mesh.rotationX = this.mesh.rotationX + 0.4;
+        this.mesh.rotationY = this.mesh.rotationY + 0.4;
+        this.view.camera.lookAt(this.mesh.position);
+        this.view.render();
+    }
+};
 
-    this._context3D.setGLSLTextureAt("uSampler", this._texture, 0);
+MainRotation.prototype.resize = function() {
+    if (this.view) {
+        this.view.y = 0;
+        this.view.x = 0;
+        this.view.width = window.innerWidth;
+        this.view.height = window.innerHeight;
+    }
+};
 
-    this._context3D.clear(0.1, 0.2, 0.3, 1);
-    this._context3D.drawTriangles(this._iBuffer, 0, 2);
-    this._context3D.present();
+MainRotation.prototype.Show = function() {
+    if (this.view)
+        this.view.canvas.style.setProperty("visibility", "visible");
+    this.requestAnimationFrame.start();
+};
 
-    this._requestAnimationFrameTimer.stop();
+MainRotation.prototype.Hide = function() {
+    if (this.view)
+        this.view.canvas.style.setProperty("visibility", "hidden");
+    this.requestAnimationFrame.stop();
 };
 
 MainRotation.className = "MainRotation";

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -46,7 +46,7 @@ away.materials.utils.DefaultMaterialManager.createDefaultTexture = function() {
 };
 
 away.materials.utils.DefaultMaterialManager.createCheckeredBitmapData = function() {
-	var b = new away.display.BitmapData(8, 8, false, 0x000000);
+	var b = new away.core.display.BitmapData(8, 8, false, 0x000000);
 	var i, j;
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
@@ -72,7 +72,7 @@ away.materials.utils.DefaultMaterialManager.getRuntimeDependencies = function(t)
 	p = [];
 	p.push('away.textures.BitmapTexture');
 	p.push('away.materials.TextureMaterial');
-	p.push('away.display.BitmapData');
+	p.push('away.core.display.BitmapData');
 	p.push('away.materials.utils.DefaultMaterialManager');
 	return p;
 };

@@ -8,9 +8,9 @@
 
 package away.entities
 {
-	import away.display3D.Context3D;
-	import away.display3D.VertexBuffer3D;
-	import away.display3D.IndexBuffer3D;
+	import away.core.display3D.Context3D;
+	import away.core.display3D.VertexBuffer3D;
+	import away.core.display3D.IndexBuffer3D;
 	
 	public class SubSet
 	{

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.textures.HTMLImageElementCubeTexture = function(posX, negX, posY, negY, pos
 	this._bitmapDatas = null;
 	this._useMipMaps = false;
 	away.textures.CubeTextureBase.call(this);
-	this._bitmapDatas = away.utils.VectorInit.AnyClass(HTMLImageElement, 6);
+	this._bitmapDatas = away.utils.VectorInit.AnyClass(6);
 	this.testSize(this._bitmapDatas[0] = posX);
 	this.testSize(this._bitmapDatas[1] = negX);
 	this.testSize(this._bitmapDatas[2] = posY);

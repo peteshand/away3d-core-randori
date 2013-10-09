@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,7 +16,7 @@ away.utils.Timer = function(delay, repeatCount) {
 	this._delay = delay;
 	this._repeatCount = repeatCount;
 	if (isNaN(delay) || delay < 0) {
-		throw new away.errors.Error("Delay is negative or not a number", 0, "");
+		throw new away.errors.away.errors.Error("Delay is negative or not a number", 0, "");
 	}
 };
 

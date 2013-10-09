@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -20,9 +20,9 @@ away.entities.Sprite3D = function(material, width, height) {
 	this.set_material(material);
 	this._width = width;
 	this._height = height;
-	this._spriteMatrix = new away.geom.Matrix3D();
+	this._spriteMatrix = new away.core.geom.Matrix3D();
 	if (!away.entities.Sprite3D._geometry) {
-		away.entities.Sprite3D._geometry = new away.base.SubGeometry();
+		away.entities.Sprite3D._geometry = new away.core.base.SubGeometry();
 		away.entities.Sprite3D._geometry.updateVertexData([-.5, .5, .0, .5, .5, .0, .5, -.5, .0, -.5, -.5, .0]);
 		away.entities.Sprite3D._geometry.updateUVData([.0, .0, 1.0, .0, 1.0, 1.0, .0, 1.0]);
 		away.entities.Sprite3D._geometry.updateIndexData([0, 1, 2, 0, 2, 3]);
@@ -36,8 +36,8 @@ away.entities.Sprite3D._geometry;
 away.entities.Sprite3D.prototype.set_pickingCollider = function(value) {
 	away.entities.Entity.prototype.setPickingCollider.call(this,value);
 	if (value) {
-		this._pickingSubMesh = new away.base.SubMesh(away.entities.Sprite3D._geometry, null);
-		this._pickingTransform = new away.geom.Matrix3D();
+		this._pickingSubMesh = new away.core.base.SubMesh(away.entities.Sprite3D._geometry, null);
+		this._pickingTransform = new away.core.geom.Matrix3D();
 	}
 };
 
@@ -127,7 +127,7 @@ away.entities.Sprite3D.prototype.pUpdateBounds = function() {
 };
 
 away.entities.Sprite3D.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.RenderableNode(this);
+	return new away.core.partition.RenderableNode(this);
 };
 
 away.entities.Sprite3D.prototype.pUpdateTransform = function() {
@@ -183,7 +183,7 @@ away.entities.Sprite3D.prototype.iCollidesBefore = function(shortestCollisionDis
 	findClosest = findClosest;
 	var viewTransform = this._camera.get_inverseSceneTransform().clone();
 	viewTransform.transpose();
-	var rawViewTransform = away.math.Matrix3DUtils.RAW_DATA_CONTAINER;
+	var rawViewTransform = away.core.math.Matrix3DUtils.RAW_DATA_CONTAINER;
 	viewTransform.copyRawDataTo(rawViewTransform, 0, false);
 	rawViewTransform[3] = 0;
 	rawViewTransform[7] = 0;
@@ -221,15 +221,15 @@ away.entities.Sprite3D.className = "away.entities.Sprite3D";
 away.entities.Sprite3D.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.base.SubGeometry');
-	p.push('away.pick.PickingCollisionVO');
+	p.push('away.core.pick.PickingCollisionVO');
 	p.push('away.bounds.AxisAlignedBoundingBox');
-	p.push('away.geom.Vector3D');
-	p.push('away.geom.Matrix3D');
-	p.push('away.math.Matrix3DUtils');
-	p.push('away.base.SubMesh');
+	p.push('away.core.base.SubGeometry');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.core.partition.RenderableNode');
+	p.push('away.core.geom.Matrix3D');
+	p.push('away.core.math.Matrix3DUtils');
 	p.push('away.entities.Sprite3D');
-	p.push('away.partition.RenderableNode');
+	p.push('away.core.base.SubMesh');
 	return p;
 };
 

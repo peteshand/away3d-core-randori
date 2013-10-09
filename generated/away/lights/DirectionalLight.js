@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:43 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,20 +6,11 @@ if (typeof away.lights == "undefined")
 	away.lights = {};
 
 away.lights.DirectionalLight = function(xDir, yDir, zDir) {
-	this._tmpLookAt = null;
-	this._direction = null;
-	this._projAABBPoints = null;
-	this._sceneDirection = null;
-	xDir = xDir || 0;
-	yDir = yDir || -1;
-	zDir = zDir || 1;
-	away.lights.LightBase.call(this);
-	this.set_direction(new away.geom.Vector3D(xDir, yDir, zDir, 0));
-	this._sceneDirection = new away.geom.Vector3D(0, 0, 0, 0);
+
 };
 
 away.lights.DirectionalLight.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.DirectionalLightNode(this);
+	return new away.core.partition.DirectionalLightNode(this);
 };
 
 away.lights.DirectionalLight.prototype.get_sceneDirection = function() {
@@ -36,7 +27,7 @@ away.lights.DirectionalLight.prototype.get_direction = function() {
 away.lights.DirectionalLight.prototype.set_direction = function(value) {
 	this._direction = value;
 	if (!this._tmpLookAt) {
-		this._tmpLookAt = new away.geom.Vector3D(0, 0, 0, 0);
+		this._tmpLookAt = new away.core.geom.Vector3D(0, 0, 0, 0);
 	}
 	this._tmpLookAt.x = this.get_x() + this._direction.x;
 	this._tmpLookAt.y = this.get_y() + this._direction.y;
@@ -65,7 +56,7 @@ away.lights.DirectionalLight.prototype.iGetObjectProjectionMatrix = function(ren
 	target = target || null;
 	var raw = [];
 	var bounds = renderable.get_sourceEntity().get_bounds();
-	var m = new away.geom.Matrix3D();
+	var m = new away.core.geom.Matrix3D();
 	m.copyFrom(renderable.get_sceneTransform());
 	m.append(this.get_inverseSceneTransform());
 	if (!this._projAABBPoints) {
@@ -102,18 +93,18 @@ away.lights.DirectionalLight.prototype.iGetObjectProjectionMatrix = function(ren
 	raw[12] = -(xMax + xMin) * invXRange;
 	raw[13] = -(yMax + yMin) * invYRange;
 	raw[14] = -zMin * invZRange;
-	raw[1] = 0;
-	raw[2] = 0;
-	raw[3] = 0;
-	raw[4] = 0;
-	raw[6] = 0;
-	raw[7] = 0;
-	raw[8] = 0;
-	raw[9] = 0;
 	raw[11] = 0;
+	raw[9] = raw[11];
+	raw[8] = raw[9];
+	raw[7] = raw[8];
+	raw[6] = raw[7];
+	raw[4] = raw[6];
+	raw[3] = raw[4];
+	raw[2] = raw[3];
+	raw[1] = raw[2];
 	raw[15] = 1;
 	if (!target) {
-		target = new away.geom.Matrix3D();
+		target = new away.core.geom.Matrix3D();
 	}
 	target.copyRawDataFrom(raw, 0, false);
 	target.prepend(m);
@@ -128,12 +119,12 @@ away.lights.DirectionalLight.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.bounds.NullBounds');
-	p.push('away.geom.Vector3D');
-	p.push('away.geom.Matrix3D');
-	p.push('*away.base.IRenderable');
+	p.push('away.core.geom.Vector3D');
+	p.push('*away.core.base.IRenderable');
+	p.push('away.core.geom.Matrix3D');
 	p.push('away.bounds.BoundingVolumeBase');
+	p.push('away.core.partition.DirectionalLightNode');
 	p.push('away.lights.shadowmaps.DirectionalShadowMapper');
-	p.push('away.partition.DirectionalLightNode');
 	return p;
 };
 

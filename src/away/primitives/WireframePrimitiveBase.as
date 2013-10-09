@@ -11,7 +11,7 @@ package away.primitives
 	import away.entities.SegmentSet;
 	import away.bounds.BoundingVolumeBase;
 	import away.errors.AbstractMethodError;
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	import away.primitives.data.Segment;
 	public class WireframePrimitiveBase extends SegmentSet
 	{
@@ -31,9 +31,8 @@ package away.primitives
 			}
 			this._color = color;
 			this._thickness = thickness;
-			this.mouseEnabled = false;
-			this.mouseChildren = false;
-
+			this.mouseChildren =  false;
+			this.mouseEnabled = this.mouseChildren
 		}
 		
 		public function get color():Number
@@ -47,9 +46,8 @@ package away.primitives
 			
 			for( var segRef in this._pSegments )
 			{
-				segRef.segment.startColor = value;
-				segRef.segment.endColor = value;
-
+				segRef.segment.endColor =  value;
+				segRef.segment.startColor = segRef.segment.endColor
 			}
 		}
 		
@@ -64,9 +62,8 @@ package away.primitives
 			
 			for( var segRef in this._pSegments)
 			{
-				segRef.segment.thickness = value;
-				segRef.segment.thickness = value;
-
+				segRef.segment.thickness =  value;
+				segRef.segment.thickness = segRef.segment.thickness
 			}
 		}
 		

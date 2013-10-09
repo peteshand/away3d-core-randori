@@ -8,7 +8,7 @@
 
 package away.events
 {
-	import away.base.Object3D;
+	import away.core.base.Object3D;
 	public class Object3DEvent extends Event
 	{
 		public static var VISIBLITY_UPDATED:String = "visiblityUpdated";

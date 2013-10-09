@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -31,7 +31,7 @@ away.materials.passes.SkyBoxPass.prototype.iGetVertexCode = function() {
 away.materials.passes.SkyBoxPass.prototype.iGetFragmentCode = function(animationCode) {
 	var format;
 	switch (this._cubeTexture.get_format()) {
-		case away.display3D.Context3DTextureFormat.COMPRESSED:
+		case away.core.display3D.Context3DTextureFormat.COMPRESSED:
 			format = "dxt1,";
 			break;
 		case "compressedAlpha":
@@ -53,11 +53,11 @@ away.materials.passes.SkyBoxPass.prototype.iRender = function(renderable, stage3
 	this._vertexData[0] = pos.x;
 	this._vertexData[1] = pos.y;
 	this._vertexData[2] = pos.z;
-	this._vertexData[4] = camera.get_lens().get_far() / Math.sqrt(3);
-	this._vertexData[5] = camera.get_lens().get_far() / Math.sqrt(3);
 	this._vertexData[6] = camera.get_lens().get_far() / Math.sqrt(3);
-	context.setProgramConstantsFromMatrix(away.display3D.Context3DProgramType.VERTEX, 0, viewProjection, true);
-	context.setProgramConstantsFromArray(away.display3D.Context3DProgramType.VERTEX, 4, this._vertexData, 2);
+	this._vertexData[5] = this._vertexData[6];
+	this._vertexData[4] = this._vertexData[5];
+	context.setProgramConstantsFromMatrix(away.core.display3D.Context3DProgramType.VERTEX, 0, viewProjection, true);
+	context.setProgramConstantsFromArray(away.core.display3D.Context3DProgramType.VERTEX, 4, this._vertexData, 2);
 	renderable.activateVertexBuffer(0, stage3DProxy);
 	context.drawTriangles(renderable.getIndexBuffer(stage3DProxy), 0, renderable.get_numTriangles());
 };
@@ -65,7 +65,7 @@ away.materials.passes.SkyBoxPass.prototype.iRender = function(renderable, stage3
 away.materials.passes.SkyBoxPass.prototype.iActivate = function(stage3DProxy, camera) {
 	away.materials.passes.MaterialPassBase.prototype.iActivate.call(this,stage3DProxy, camera);
 	var context = stage3DProxy._iContext3D;
-	context.setDepthTest(false, away.display3D.Context3DCompareMode.LESS);
+	context.setDepthTest(false, away.core.display3D.Context3DCompareMode.LESS);
 	context.setTextureAt(0, this._cubeTexture.getTextureForStage3D(stage3DProxy));
 };
 
@@ -76,10 +76,10 @@ away.materials.passes.SkyBoxPass.className = "away.materials.passes.SkyBoxPass";
 away.materials.passes.SkyBoxPass.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('*away.base.IRenderable');
-	p.push('away.display3D.Context3DProgramType');
-	p.push('away.display3D.Context3DTextureFormat');
-	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.core.display3D.Context3DTextureFormat');
+	p.push('*away.core.base.IRenderable');
+	p.push('away.core.display3D.Context3DProgramType');
+	p.push('away.core.display3D.Context3DCompareMode');
 	return p;
 };
 

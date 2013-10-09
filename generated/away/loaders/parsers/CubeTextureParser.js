@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -76,8 +76,8 @@ away.loaders.parsers.CubeTextureParser.prototype.parseJson = function() {
 				rec = data[c];
 				var uri = rec.image;
 				var id = rec.id;
-				rq = new away.net.URLRequest(uri);
-				var imgLoader = new away.net.IMGLoader("");
+				rq = new away.core.net.URLRequest(uri);
+				var imgLoader = new away.core.net.IMGLoader("");
 				imgLoader.set_name(rec.id);
 				imgLoader.load(rq);
 				imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.onIMGLoadComplete), this);
@@ -149,14 +149,14 @@ away.loaders.parsers.CubeTextureParser.className = "away.loaders.parsers.CubeTex
 away.loaders.parsers.CubeTextureParser.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.loaders.parsers.ParserLoaderType');
 	p.push('away.loaders.parsers.CubeTextureParser');
 	p.push('away.events.Event');
 	p.push('away.textures.HTMLImageElementCubeTexture');
-	p.push('away.net.IMGLoader');
+	p.push('away.core.net.URLRequest');
 	p.push('away.loaders.parsers.ParserDataFormat');
 	p.push('away.loaders.parsers.ParserBase');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 

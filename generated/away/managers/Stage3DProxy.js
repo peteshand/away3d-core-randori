@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -30,7 +30,6 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._backBufferHeight = 0;
 	this._backBufferWidth = 0;
 	this._usesSoftwareRendering = false;
-	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	away.events.EventDispatcher.call(this);
 	this._iStage3DIndex = stage3DIndex;
@@ -39,7 +38,7 @@ away.managers.Stage3DProxy = function(stage3DIndex, stage3D, stage3DManager, for
 	this._stage3D.set_y(0);
 	this._stage3D.set_visible(true);
 	this._stage3DManager = stage3DManager;
-	this._viewPort = new away.geom.Rectangle(0, 0, 0, 0);
+	this._viewPort = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._enableDepthAndStencil = true;
 	this._stage3D.addEventListener(away.events.Event.CONTEXT3D_CREATE, $createStaticDelegate(this, this.onContext3DUpdate), this);
 	this.requestContext(forceSoftware, this.get_profile());
@@ -83,10 +82,10 @@ away.managers.Stage3DProxy.prototype.dispose = function() {
 away.managers.Stage3DProxy.prototype.configureBackBuffer = function(backBufferWidth, backBufferHeight, antiAlias, enableDepthAndStencil) {
 	var oldWidth = this._backBufferWidth;
 	var oldHeight = this._backBufferHeight;
-	this._backBufferWidth = backBufferWidth;
 	this._viewPort.width = backBufferWidth;
-	this._backBufferHeight = backBufferHeight;
+	this._backBufferWidth = this._viewPort.width;
 	this._viewPort.height = backBufferHeight;
+	this._backBufferHeight = this._viewPort.height;
 	if (oldWidth != this._backBufferWidth || oldHeight != this._backBufferHeight)
 		this.notifyViewportUpdated();
 	this._antiAlias = antiAlias;
@@ -115,7 +114,6 @@ away.managers.Stage3DProxy.prototype.get_renderSurfaceSelector = function() {
 };
 
 away.managers.Stage3DProxy.prototype.setRenderTarget = function(target, enableDepthAndStencil, surfaceSelector) {
-	enableDepthAndStencil = enableDepthAndStencil || false;
 	surfaceSelector = surfaceSelector || 0;
 	if (this._renderTarget === target && surfaceSelector == this._renderSurfaceSelector && this._enableDepthAndStencil == enableDepthAndStencil) {
 		return;
@@ -186,8 +184,8 @@ away.managers.Stage3DProxy.prototype.get_x = function() {
 away.managers.Stage3DProxy.prototype.set_x = function(value) {
 	if (this._viewPort.x == value)
 		return;
-	this._stage3D.set_x(value);
 	this._viewPort.x = value;
+	this._stage3D.set_x(this._viewPort.x);
 	this.notifyViewportUpdated();
 };
 
@@ -198,8 +196,8 @@ away.managers.Stage3DProxy.prototype.get_y = function() {
 away.managers.Stage3DProxy.prototype.set_y = function(value) {
 	if (this._viewPort.y == value)
 		return;
-	this._stage3D.set_y(value);
 	this._viewPort.y = value;
+	this._stage3D.set_y(this._viewPort.y);
 	this.notifyViewportUpdated();
 };
 
@@ -214,9 +212,9 @@ away.managers.Stage3DProxy.prototype.get_width = function() {
 away.managers.Stage3DProxy.prototype.set_width = function(width) {
 	if (this._viewPort.width == width)
 		return;
-	this._stage3D.set_width(width);
-	this._backBufferWidth = width;
 	this._viewPort.width = width;
+	this._backBufferWidth = this._viewPort.width;
+	this._stage3D.set_width(this._backBufferWidth);
 	this._backBufferDirty = true;
 	this.notifyViewportUpdated();
 };
@@ -228,9 +226,9 @@ away.managers.Stage3DProxy.prototype.get_height = function() {
 away.managers.Stage3DProxy.prototype.set_height = function(height) {
 	if (this._viewPort.height == height)
 		return;
-	this._stage3D.set_height(height);
-	this._backBufferHeight = height;
 	this._viewPort.height = height;
+	this._backBufferHeight = this._viewPort.height;
+	this._stage3D.set_height(this._backBufferHeight);
 	this._backBufferDirty = true;
 	this.notifyViewportUpdated();
 };
@@ -303,7 +301,6 @@ away.managers.Stage3DProxy.prototype.onContext3DUpdate = function(event) {
 };
 
 away.managers.Stage3DProxy.prototype.requestContext = function(forceSoftware, profile) {
-	forceSoftware = forceSoftware || false;
 	profile = profile || "baseline";
 	if (this._usesSoftwareRendering != null) {
 		this._usesSoftwareRendering = forceSoftware;
@@ -333,7 +330,7 @@ away.managers.Stage3DProxy.prototype.clearDepthBuffer = function() {
 	if (!this._iContext3D) {
 		return;
 	}
-	this._iContext3D.clear(0, 0, 0, 1, 1, 0, away.display3D.Context3DClearMask.DEPTH);
+	this._iContext3D.clear(0, 0, 0, 1, 1, 0, away.core.display3D.Context3DClearMask.DEPTH);
 };
 
 $inherit(away.managers.Stage3DProxy, away.events.EventDispatcher);
@@ -346,8 +343,8 @@ away.managers.Stage3DProxy.getRuntimeDependencies = function(t) {
 	p.push('away.utils.Debug');
 	p.push('away.events.Stage3DEvent');
 	p.push('away.events.Event');
-	p.push('away.display3D.Context3DClearMask');
-	p.push('away.geom.Rectangle');
+	p.push('away.core.geom.Rectangle');
+	p.push('away.core.display3D.Context3DClearMask');
 	return p;
 };
 
@@ -362,7 +359,7 @@ away.managers.Stage3DProxy.injectionPoints = function(t) {
 		case 0:
 			p = [];
 			p.push({n:'stage3DIndex', t:'Number'});
-			p.push({n:'stage3D', t:'away.display.Stage3D'});
+			p.push({n:'stage3D', t:'away.core.display.Stage3D'});
 			p.push({n:'stage3DManager', t:'away.managers.Stage3DManager'});
 			p.push({n:'forceSoftware', t:'Boolean'});
 			p.push({n:'profile', t:'String'});

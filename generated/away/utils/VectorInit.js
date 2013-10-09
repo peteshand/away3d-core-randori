@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -27,7 +27,6 @@ away.utils.VectorInit.Str = function(length, defaultValue, v) {
 
 away.utils.VectorInit.Bool = function(length, defaultValue, v) {
 	length = length || 0;
-	defaultValue = defaultValue || false;
 	if (!v)
 		v = [];
 	return away.utils.VectorInit.Pop(v, defaultValue, length);
@@ -37,9 +36,9 @@ away.utils.VectorInit.VecNum = function(length, defaultValue, v) {
 	length = length || 0;
 	defaultValue = defaultValue || 0;
 	if (!v)
-		v = length;
+		v = [];
 	for (var g = 0; g < length; ++g)
-		v[g].push(away.utils.VectorInit.Num(0, 0));
+		v.push(away.utils.VectorInit.Num(0, 0));
 	return v;
 };
 
@@ -52,7 +51,7 @@ away.utils.VectorInit.StarVec = function(length, defaultValue) {
 	return initVec;
 };
 
-away.utils.VectorInit.AnyClass = function(_class, length) {
+away.utils.VectorInit.AnyClass = function(length) {
 	length = length || 0;
 	var v = [];
 	for (var g = 0; g < length; ++g)

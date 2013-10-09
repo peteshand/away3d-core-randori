@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,8 +16,6 @@ away.primitives.PlaneGeometry = function(width, height, segmentsW, segmentsH, yU
 	height = height || 100;
 	segmentsW = segmentsW || 1;
 	segmentsH = segmentsH || 1;
-	yUp = yUp || true;
-	doubleSided = doubleSided || false;
 	away.primitives.PrimitiveBase.call(this);
 	this._segmentsW = segmentsW;
 	this._segmentsH = segmentsH;

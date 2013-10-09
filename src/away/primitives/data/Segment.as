@@ -9,7 +9,7 @@
 package away.primitives.data
 {
 	import away.entities.SegmentSet;
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	public class Segment
 	{
 		public var _pSegmentsBase:SegmentSet;

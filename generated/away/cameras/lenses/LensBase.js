@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,16 +10,16 @@ if (typeof away.cameras.lenses == "undefined")
 away.cameras.lenses.LensBase = function() {
 	this._pAspectRatio = 1;
 	this._pMatrixInvalid = true;
-	this._pViewPort = new away.geom.Rectangle(0, 0, 0, 0);
+	this._pViewPort = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._pFar = 3000;
-	this._pScissorRect = new away.geom.Rectangle(0, 0, 0, 0);
+	this._pScissorRect = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._pMatrix = null;
 	this._pNear = 20;
 	this._unprojection = null;
 	this._unprojectionInvalid = true;
 	this._pFrustumCorners = [];
 	away.events.EventDispatcher.call(this);
-	this._pMatrix = new away.geom.Matrix3D();
+	this._pMatrix = new away.core.geom.Matrix3D();
 };
 
 away.cameras.lenses.LensBase.prototype.get_frustumCorners = function() {
@@ -78,7 +78,7 @@ away.cameras.lenses.LensBase.prototype.project = function(point3d) {
 away.cameras.lenses.LensBase.prototype.get_unprojectionMatrix = function() {
 	if (this._unprojectionInvalid) {
 		if (!this._unprojection) {
-			this._unprojection = new away.geom.Matrix3D();
+			this._unprojection = new away.core.geom.Matrix3D();
 		}
 		this._unprojection.copyFrom(this.get_matrix());
 		this._unprojection.invert();
@@ -140,8 +140,8 @@ away.cameras.lenses.LensBase.className = "away.cameras.lenses.LensBase";
 away.cameras.lenses.LensBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Matrix3D');
 	p.push('away.errors.AbstractMethodError');
+	p.push('away.core.geom.Matrix3D');
 	p.push('away.events.LensEvent');
 	return p;
 };
@@ -149,7 +149,7 @@ away.cameras.lenses.LensBase.getRuntimeDependencies = function(t) {
 away.cameras.lenses.LensBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Rectangle');
+	p.push('away.core.geom.Rectangle');
 	return p;
 };
 

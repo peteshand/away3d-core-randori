@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,7 +23,7 @@ away.managers.RTTBufferManager = function(se, stage3DProxy) {
 	if (!se) {
 		throw new Error("No cheating the multiton!", 0);
 	}
-	this._renderToTextureRect = new away.geom.Rectangle(0, 0, 0, 0);
+	this._renderToTextureRect = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this._stage3DProxy = stage3DProxy;
 };
 
@@ -187,10 +187,10 @@ away.managers.RTTBufferManager.prototype.updateRTTBuffers = function() {
 		this._indexBuffer = context.createIndexBuffer(6);
 		this._indexBuffer.uploadFromArray([2, 1, 0, 3, 2, 0], 0, 6);
 	}
-	this._textureRatioX = Math.min(this._viewWidth / this._textureWidth, 1);
 	x = Math.min(this._viewWidth / this._textureWidth, 1);
-	this._textureRatioY = Math.min(this._viewHeight / this._textureHeight, 1);
+	this._textureRatioX = x;
 	y = Math.min(this._viewHeight / this._textureHeight, 1);
+	this._textureRatioY = y;
 	var u1 = (1 - x) * .5;
 	var u2 = (x + 1) * .5;
 	var v1 = (y + 1) * .5;
@@ -212,7 +212,7 @@ away.managers.RTTBufferManager.getRuntimeDependencies = function(t) {
 	p.push('away.managers.RTTBufferManagerVO');
 	p.push('away.events.Event');
 	p.push('away.managers.SingletonEnforcer');
-	p.push('away.geom.Rectangle');
+	p.push('away.core.geom.Rectangle');
 	p.push('away.utils.TextureUtils');
 	return p;
 };

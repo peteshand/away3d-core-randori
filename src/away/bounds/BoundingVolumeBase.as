@@ -8,13 +8,13 @@
 
 package away.bounds
 {
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	import away.primitives.WireframePrimitiveBase;
-	import away.base.Geometry;
-	import away.base.ISubGeometry;
-	import away.math.Plane3D;
+	import away.core.base.Geometry;
+	import away.core.base.ISubGeometry;
+	import away.core.math.Plane3D;
 	import away.errors.AbstractMethodError;
-	import away.geom.Matrix3D;
+	import away.core.geom.Matrix3D;
 	public class BoundingVolumeBase
 	{
 		
@@ -61,14 +61,12 @@ package away.bounds
 		
 		public function nullify():void
 		{
-			this._pMin.x = 0;
-			this._pMin.y = 0;
-			this._pMin.z = 0;
-
-			this._pMax.x = 0;
-			this._pMax.y = 0;
-			this._pMax.z = 0;
-
+			this._pMin.z =  0;
+			this._pMin.y = this._pMin.z
+			this._pMin.x = this._pMin.y
+			this._pMax.z =  0;
+			this._pMax.y = this._pMax.z
+			this._pMax.x = this._pMax.y
 			this._pAabbPointsDirty = true;
 			
 			if( this._pBoundingRenderable )
@@ -101,15 +99,12 @@ package away.bounds
 			
 			var v:Number;
 			
-			minX = vertices[i++];
-			maxX = vertices[i++];
-
-			minY = vertices[i++];
-			maxY = vertices[i++];
-
-			minZ = vertices[i++];
-			maxZ = vertices[i++];
-
+			maxX =  vertices[i++];
+			minX = maxX
+			maxY =  vertices[i++];
+			minY = maxY
+			maxZ =  vertices[i++];
+			minZ = maxZ
 			
 			while( i < len )
 			{
@@ -146,14 +141,12 @@ package away.bounds
 
 				var j:Number = 0;
 
-				minX = Number.POSITIVE_INFINITY;
-				minY = Number.POSITIVE_INFINITY;
-				minZ = Number.POSITIVE_INFINITY;
-
-				maxX = Number.NEGATIVE_INFINITY;
-				maxY = Number.NEGATIVE_INFINITY;
-				maxZ = Number.NEGATIVE_INFINITY;
-
+				minZ =  Number.POSITIVE_INFINITY;
+				minY = minZ
+				minX = minY
+				maxZ =  Number.NEGATIVE_INFINITY;
+				maxY = maxZ
+				maxX = maxY
 				
 				while (j < numSubGeoms)
                 {

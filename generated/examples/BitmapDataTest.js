@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -11,14 +11,14 @@ examples.BitmapDataTest = function() {
 	var canvas = document.createElement("canvas");
 	var transparent = true;
 	var initcolour = 0xff00ffff;
-	this.urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
-	this.imgLoader = new away.net.IMGLoader("");
+	this.urlRequest = new away.core.net.URLRequest("assets\/130909wall_big.png");
+	this.imgLoader = new away.core.net.IMGLoader("");
 	this.imgLoader.load(this.urlRequest);
 	this.imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imgLoaded), this);
 	this.imgLoader.addEventListener(away.events.IOErrorEvent.IO_ERROR, $createStaticDelegate(this, this.imgLoadedError), this);
-	this.bitmapData = new away.display.BitmapData(256, 256, transparent, initcolour);
+	this.bitmapData = new away.core.display.BitmapData(256, 256, transparent, initcolour);
 	document.body.appendChild(this.bitmapData.get_canvas());
-	this.bitmapDataB = new away.display.BitmapData(256, 256, transparent, initcolour);
+	this.bitmapDataB = new away.core.display.BitmapData(256, 256, transparent, initcolour);
 	this.bitmapDataB.get_canvas().style.position = "absolute";
 	this.bitmapDataB.get_canvas().style.left = "540px";
 	document.body.appendChild(this.bitmapDataB.get_canvas());
@@ -43,7 +43,7 @@ examples.BitmapDataTest.prototype.onMouseDown = function(e) {
 			this.bitmapDataB.lock();
 			this.bitmapData.set_width(256);
 			this.bitmapData.set_height(256);
-			var rect = new away.geom.Rectangle(0, 0, this.imgLoader.get_width(), this.imgLoader.get_height());
+			var rect = new away.core.geom.Rectangle(0, 0, this.imgLoader.get_width(), this.imgLoader.get_height());
 			this.bitmapData.drawImage(this.imgLoader.get_image(), rect, rect);
 			rect.width = rect.width * 2;
 			rect.height = rect.height * 2;
@@ -75,7 +75,7 @@ examples.BitmapDataTest.prototype.onMouseDown = function(e) {
 		targetRect.height = targetRect.height / 2;
 		this.bitmapDataB.copyPixels(this.bitmapData, this.bitmapDataB.get_rect(), targetRect);
 	}
-	var m = new away.geom.Matrix(.5, .08, .08, .5, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2);
+	var m = new away.core.geom.Matrix(.5, .08, .08, .5, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2);
 	this.bitmapData.draw(this.bitmapData, m);
 	this.bitmapData.setPixel32(0, 0, 0xccff0000);
 	this.bitmapData.setPixel32(1, 0, 0xcc00ff00);
@@ -91,8 +91,8 @@ examples.BitmapDataTest.prototype.imgLoadedError = function(e) {
 };
 
 examples.BitmapDataTest.prototype.imgLoaded = function(e) {
-	this.bitmapData.drawImage(this.imgLoader.get_image(), new away.geom.Rectangle(0, 0, this.imgLoader.get_width(), this.imgLoader.get_height()), new away.geom.Rectangle(0, 0, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2));
-	var m = new away.geom.Matrix(.5, .08, .08, .5, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2);
+	this.bitmapData.drawImage(this.imgLoader.get_image(), new away.core.geom.Rectangle(0, 0, this.imgLoader.get_width(), this.imgLoader.get_height()), new away.core.geom.Rectangle(0, 0, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2));
+	var m = new away.core.geom.Matrix(.5, .08, .08, .5, this.imgLoader.get_width() / 2, this.imgLoader.get_height() / 2);
 	this.bitmapData.draw(this.bitmapData, m);
 };
 
@@ -101,14 +101,14 @@ examples.BitmapDataTest.className = "examples.BitmapDataTest";
 examples.BitmapDataTest.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
+	p.push('away.core.geom.Matrix');
 	p.push('away.events.Event');
-	p.push('away.net.IMGLoader');
-	p.push('away.geom.Matrix');
-	p.push('away.geom.Rectangle');
-	p.push('away.display.BitmapData');
+	p.push('away.core.net.URLRequest');
 	p.push('away.utils.ColorUtils');
+	p.push('away.core.geom.Rectangle');
+	p.push('away.core.display.BitmapData');
 	p.push('away.events.IOErrorEvent');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 

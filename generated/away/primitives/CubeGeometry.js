@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:53 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,7 +19,6 @@ away.primitives.CubeGeometry = function(width, height, depth, segmentsW, segment
 	segmentsW = segmentsW || 1;
 	segmentsH = segmentsH || 1;
 	segmentsD = segmentsD || 1;
-	tile6 = tile6 || true;
 	away.primitives.PrimitiveBase.call(this);
 	this._width = width;
 	this._height = height;
@@ -276,15 +275,15 @@ away.primitives.CubeGeometry.prototype.pBuildUVs = function(target) {
 		this.pInvalidateGeometry();
 	}
 	if (this._tile6) {
-		u_tile_dim = 1 / 3;
 		u_tile_step = 1 / 3;
-		v_tile_dim = 1 / 2;
+		u_tile_dim = u_tile_step;
 		v_tile_step = 1 / 2;
+		v_tile_dim = v_tile_step;
 	} else {
-		u_tile_dim = 1;
 		v_tile_dim = 1;
-		u_tile_step = 0;
+		u_tile_dim = v_tile_dim;
 		v_tile_step = 0;
+		u_tile_step = v_tile_step;
 	}
 	uidx = target.get_UVOffset();
 	tl0u = 1 * u_tile_step;

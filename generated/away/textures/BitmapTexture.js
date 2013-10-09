@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,7 +11,6 @@ away.textures.BitmapTexture = function(bitmapData, generateMipmaps) {
 	this._bitmapData = null;
 	this._generateMipmaps = false;
 	this._mipMapUses = [];
-	generateMipmaps = generateMipmaps || true;
 	away.textures.Texture2DBase.call(this);
 	this.set_bitmapData(bitmapData);
 	this._generateMipmaps = generateMipmaps;
@@ -64,8 +63,8 @@ away.textures.BitmapTexture.prototype.getMipMapHolder = function() {
 		away.textures.BitmapTexture._mipMapUses[newW] = [];
 	}
 	if (!away.textures.BitmapTexture._mipMaps[newW][newH]) {
-		this._mipMapHolder = new away.display.BitmapData(newW, newH, true, -1);
-		away.textures.BitmapTexture._mipMaps[newW][newH] = new away.display.BitmapData(newW, newH, true, -1);
+		away.textures.BitmapTexture._mipMaps[newW][newH] = new away.core.display.BitmapData(newW, newH, true, -1);
+		this._mipMapHolder = away.textures.BitmapTexture._mipMaps[newW][newH];
 		away.textures.BitmapTexture._mipMapUses[newW][newH] = 1;
 	} else {
 		away.textures.BitmapTexture._mipMapUses[newW][newH] = away.textures.BitmapTexture._mipMapUses[newW][newH] + 1;
@@ -97,7 +96,7 @@ away.textures.BitmapTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.utils.MipmapGenerator');
-	p.push('away.display.BitmapData');
+	p.push('away.core.display.BitmapData');
 	p.push('away.utils.TextureUtils');
 	return p;
 };
@@ -112,7 +111,7 @@ away.textures.BitmapTexture.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'bitmapData', t:'away.display.BitmapData'});
+			p.push({n:'bitmapData', t:'away.core.display.BitmapData'});
 			p.push({n:'generateMipmaps', t:'Boolean'});
 			break;
 		case 1:

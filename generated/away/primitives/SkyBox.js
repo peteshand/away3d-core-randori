@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,14 +6,14 @@ if (typeof away.primitives == "undefined")
 	away.primitives = {};
 
 away.primitives.SkyBox = function(cubeMap) {
-	this._uvTransform = new away.geom.Matrix(1, 0, 0, 1, 0, 0);
+	this._uvTransform = new away.core.geom.Matrix(1, 0, 0, 1, 0, 0);
 	this._animator = null;
 	this._geometry = null;
 	this._material = null;
 	away.entities.Entity.call(this);
 	this._material = new away.materials.SkyBoxMaterial(cubeMap);
 	this._material.iAddOwner(this);
-	this._geometry = new away.base.SubGeometry();
+	this._geometry = new away.core.base.SubGeometry();
 	this.buildGeometry(this._geometry);
 };
 
@@ -69,7 +69,7 @@ away.primitives.SkyBox.prototype.pInvalidateBounds = function() {
 };
 
 away.primitives.SkyBox.prototype.pCreateEntityPartitionNode = function() {
-	var node = new away.partition.SkyBoxNode(this);
+	var node = new away.core.partition.SkyBoxNode(this);
 	return node;
 };
 
@@ -143,11 +143,11 @@ away.primitives.SkyBox.className = "away.primitives.SkyBox";
 away.primitives.SkyBox.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.base.SubGeometry');
+	p.push('away.core.base.SubGeometry');
 	p.push('away.materials.SkyBoxMaterial');
 	p.push('away.bounds.NullBounds');
 	p.push('away.errors.AbstractMethodError');
-	p.push('away.partition.SkyBoxNode');
+	p.push('away.core.partition.SkyBoxNode');
 	p.push('away.library.assets.AssetType');
 	return p;
 };
@@ -155,7 +155,7 @@ away.primitives.SkyBox.getRuntimeDependencies = function(t) {
 away.primitives.SkyBox.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Matrix');
+	p.push('away.core.geom.Matrix');
 	return p;
 };
 

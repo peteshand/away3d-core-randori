@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:50 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.utils == "undefined")
 	away.utils = {};
 
 away.utils.PerspectiveMatrix3D = function(v) {
-	away.geom.Matrix3D.call(this, v);
+	away.core.geom.Matrix3D.call(this, v);
 };
 
 away.utils.PerspectiveMatrix3D.prototype.perspectiveFieldOfViewLH = function(fieldOfViewY, aspectRatio, zNear, zFar) {
@@ -15,7 +15,7 @@ away.utils.PerspectiveMatrix3D.prototype.perspectiveFieldOfViewLH = function(fie
 	this.copyRawDataFrom([xScale, 0.0, 0.0, 0.0, 0.0, yScale, 0.0, 0.0, 0.0, 0.0, zFar / (zFar - zNear), 1.0, 0.0, 0.0, (zNear * zFar) / (zNear - zFar), 0.0], 0, false);
 };
 
-$inherit(away.utils.PerspectiveMatrix3D, away.geom.Matrix3D);
+$inherit(away.utils.PerspectiveMatrix3D, away.core.geom.Matrix3D);
 
 away.utils.PerspectiveMatrix3D.className = "away.utils.PerspectiveMatrix3D";
 
@@ -37,13 +37,13 @@ away.utils.PerspectiveMatrix3D.injectionPoints = function(t) {
 			p.push({n:'v', t:'Array'});
 			break;
 		case 1:
-			p = away.geom.Matrix3D.injectionPoints(t);
+			p = away.core.geom.Matrix3D.injectionPoints(t);
 			break;
 		case 2:
-			p = away.geom.Matrix3D.injectionPoints(t);
+			p = away.core.geom.Matrix3D.injectionPoints(t);
 			break;
 		case 3:
-			p = away.geom.Matrix3D.injectionPoints(t);
+			p = away.core.geom.Matrix3D.injectionPoints(t);
 			break;
 		default:
 			p = [];

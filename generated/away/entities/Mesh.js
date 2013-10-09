@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:58 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -16,7 +16,7 @@ away.entities.Mesh = function(geometry, material) {
 	away.entities.Entity.call(this);
 	this._subMeshes = [];
 	if (geometry == null) {
-		this.set_geometry(new away.base.Geometry());
+		this.set_geometry(new away.core.base.Geometry());
 	} else {
 		this.set_geometry(geometry);
 	}
@@ -154,7 +154,6 @@ away.entities.Mesh.prototype.clone = function() {
 		obj = this.getChildAt(i).clone();
 		clone.addChild(obj);
 	}
-	away.utils.Debug.throwPIR("away.entities.Mesh", "away.entities.Mesh", "Missing Dependency: IAnimator");
 	return clone;
 };
 
@@ -164,7 +163,7 @@ away.entities.Mesh.prototype.pUpdateBounds = function() {
 };
 
 away.entities.Mesh.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.MeshNode(this);
+	return new away.core.partition.MeshNode(this);
 };
 
 away.entities.Mesh.prototype.onSubGeometryAdded = function(event) {
@@ -191,7 +190,7 @@ away.entities.Mesh.prototype.onSubGeometryRemoved = function(event) {
 };
 
 away.entities.Mesh.prototype.addSubMesh = function(subGeometry) {
-	var subMesh = new away.base.SubMesh(subGeometry, this, null);
+	var subMesh = new away.core.base.SubMesh(subGeometry, this, null);
 	var len = this._subMeshes.length;
 	subMesh._iIndex = len;
 	this._subMeshes[len] = subMesh;
@@ -226,13 +225,13 @@ away.entities.Mesh.className = "away.entities.Mesh";
 away.entities.Mesh.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.pick.PickingCollisionVO');
 	p.push('away.utils.Debug');
-	p.push('away.pick.PickingCollisionVO');
-	p.push('away.base.Geometry');
-	p.push('away.base.SubMesh');
+	p.push('away.core.partition.MeshNode');
 	p.push('away.events.GeometryEvent');
-	p.push('away.partition.MeshNode');
+	p.push('away.core.base.SubMesh');
 	p.push('away.library.assets.AssetType');
+	p.push('away.core.base.Geometry');
 	p.push('away.materials.utils.DefaultMaterialManager');
 	return p;
 };
@@ -247,7 +246,7 @@ away.entities.Mesh.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'geometry', t:'away.base.Geometry'});
+			p.push({n:'geometry', t:'away.core.base.Geometry'});
 			p.push({n:'material', t:'away.materials.MaterialBase'});
 			break;
 		case 1:

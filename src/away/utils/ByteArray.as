@@ -8,6 +8,13 @@
 
 package away.utils
 {
+	import wrappers.ArrayBuffer;
+	import wrappers.Int8Array;
+	import wrappers.Uint8Array;
+	import wrappers.Uint16Array;
+	import wrappers.DataView;
+	import wrappers.Uint32Array;
+	import wrappers.Float32Array;
 	public class ByteArray extends ByteArrayBase
 	{
 		

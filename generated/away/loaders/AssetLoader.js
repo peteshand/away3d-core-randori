@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -83,7 +83,7 @@ away.loaders.AssetLoader.prototype.retrieveNext = function(parser) {
 		}
 		this.retrieveNext(parser);
 	} else {
-		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.RESOURCE_COMPLETE, this._uri, false));
+		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.RESOURCE_COMPLETE, this._uri, this._baseDependency.get_assets(), false));
 	}
 };
 
@@ -103,7 +103,7 @@ away.loaders.AssetLoader.prototype.retrieveDependency = function(dependency, par
 	}
 	if (data) {
 		if (this._loadingDependency.get_retrieveAsRawData()) {
-			this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, this._loadingDependency.get_request().get_url(), true));
+			this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, this._loadingDependency.get_request().get_url(), this._baseDependency.get_assets(), true));
 			this._loadingDependency._iSetData(data);
 			this._loadingDependency.resolve();
 			this.retrieveNext();
@@ -178,7 +178,7 @@ away.loaders.AssetLoader.prototype.onRetrievalFailed = function(event) {
 	var isDependency = (this._loadingDependency != this._baseDependency);
 	var loader = event.target;
 	this.removeEventListeners(loader);
-	event = new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this._uri, isDependency, event.get_message());
+	event = new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this._uri, this._baseDependency.get_assets(), isDependency, event.get_message());
 	this.dispatchEvent(event);
 	handled = true;
 	var i, len = this._errorHandlers.length;
@@ -195,7 +195,7 @@ away.loaders.AssetLoader.prototype.onRetrievalFailed = function(event) {
 			return;
 		}
 	} else {
-		throw new away.errors.Error(event.get_message(), 0, "");
+		throw new away.errors.away.errors.Error(event.get_message(), 0, "");
 	}
 };
 
@@ -216,7 +216,7 @@ away.loaders.AssetLoader.prototype.onParserError = function(event) {
 		this.dispose();
 		return;
 	} else {
-		throw new away.errors.Error(event.get_message(), 0, "");
+		throw new away.errors.away.errors.Error(event.get_message(), 0, "");
 	}
 };
 
@@ -245,7 +245,7 @@ away.loaders.AssetLoader.prototype.onRetrievalComplete = function(event) {
 	var loader = event.target;
 	this._loadingDependency._iSetData(loader.get_data());
 	this._loadingDependency._iSuccess = true;
-	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, event.get_url(), false));
+	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, event.get_url(), this._baseDependency.get_assets(), false));
 	this.removeEventListeners(loader);
 	if (loader.get_dependencies().length && (!this._context || this._context.get_includeDependencies())) {
 		this.retrieveLoaderDependencies(loader);
@@ -336,9 +336,9 @@ away.loaders.AssetLoader.className = "away.loaders.AssetLoader";
 away.loaders.AssetLoader.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.loaders.misc.AssetLoaderContext');
 	p.push('away.loaders.misc.ResourceDependency');
+	p.push('away.core.net.URLRequest');
 	p.push('*away.library.assets.IAsset');
 	p.push('away.events.ParserEvent');
 	p.push('away.events.LoaderEvent');

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,15 +6,15 @@ if (typeof away.textures == "undefined")
 	away.textures = {};
 
 away.textures.TextureProxyBase = function() {
-	this._format = away.display3D.Context3DTextureFormat.BGRA;
+	this._format = away.core.display3D.Context3DTextureFormat.BGRA;
 	this._hasMipmaps = true;
 	this._textures = null;
 	this._dirty = null;
 	this._pWidth = 0;
 	this._pHeight = 0;
 	away.library.assets.NamedAssetBase.call(this, null);
-	this._textures = away.utils.VectorInit.AnyClass(away.display3D.TextureBase, 8);
-	this._dirty = away.utils.VectorInit.AnyClass(away.display3D.Context3D, 8);
+	this._textures = away.utils.VectorInit.AnyClass(8);
+	this._dirty = away.utils.VectorInit.AnyClass(8);
 };
 
 away.textures.TextureProxyBase.prototype.get_hasMipMaps = function() {
@@ -42,8 +42,8 @@ away.textures.TextureProxyBase.prototype.getTextureForStage3D = function(stage3D
 	var tex = this._textures[contextIndex];
 	var context = stage3DProxy._iContext3D;
 	if (!tex || this._dirty[contextIndex] != context) {
-		this._textures[contextIndex] = this.pCreateTexture(context);
 		tex = this.pCreateTexture(context);
+		this._textures[contextIndex] = tex;
 		this._dirty[contextIndex] = context;
 		this.pUploadContent(tex);
 	}
@@ -99,9 +99,7 @@ away.textures.TextureProxyBase.className = "away.textures.TextureProxyBase";
 away.textures.TextureProxyBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.TextureBase');
 	p.push('away.errors.AbstractMethodError');
-	p.push('away.display3D.Context3D');
 	p.push('away.utils.VectorInit');
 	p.push('away.library.assets.AssetType');
 	return p;
@@ -110,7 +108,7 @@ away.textures.TextureProxyBase.getRuntimeDependencies = function(t) {
 away.textures.TextureProxyBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DTextureFormat');
+	p.push('away.core.display3D.Context3DTextureFormat');
 	return p;
 };
 

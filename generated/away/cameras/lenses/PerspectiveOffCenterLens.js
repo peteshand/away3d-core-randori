@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -72,7 +72,7 @@ away.cameras.lenses.PerspectiveOffCenterLens.prototype.set_maxAngleY = function(
 };
 
 away.cameras.lenses.PerspectiveOffCenterLens.prototype.unproject = function(nX, nY, sZ) {
-	var v = new away.geom.Vector3D(nX, -nY, sZ, 1.0);
+	var v = new away.core.geom.Vector3D(nX, -nY, sZ, 1.0);
 	v.x *= sZ;
 	v.y *= sZ;
 	v = this.get_unprojectionMatrix().transformVector(v);
@@ -112,45 +112,45 @@ away.cameras.lenses.PerspectiveOffCenterLens.prototype.pUpdateMatrix = function(
 	raw[9] = (bottom + top) / (bottom - top);
 	raw[10] = (this._pFar + this._pNear) / (this._pFar - this._pNear);
 	raw[11] = 1;
-	raw[1] = 0;
-	raw[2] = 0;
-	raw[3] = 0;
-	raw[4] = 0;
-	raw[6] = 0;
-	raw[7] = 0;
-	raw[12] = 0;
-	raw[13] = 0;
 	raw[15] = 0;
+	raw[13] = raw[15];
+	raw[12] = raw[13];
+	raw[7] = raw[12];
+	raw[6] = raw[7];
+	raw[4] = raw[6];
+	raw[3] = raw[4];
+	raw[2] = raw[3];
+	raw[1] = raw[2];
 	raw[14] = -2 * this._pFar * this._pNear / (this._pFar - this._pNear);
 	this._pMatrix.copyRawDataFrom(raw, 0, false);
 	this._minLengthX = this._pFar * this._tanMinX;
 	this._maxLengthX = this._pFar * this._tanMaxX;
 	this._minLengthY = this._pFar * this._tanMinY;
 	this._maxLengthY = this._pFar * this._tanMaxY;
-	this._pFrustumCorners[0] = left;
 	this._pFrustumCorners[9] = left;
-	this._pFrustumCorners[3] = right;
+	this._pFrustumCorners[0] = this._pFrustumCorners[9];
 	this._pFrustumCorners[6] = right;
-	this._pFrustumCorners[1] = top;
+	this._pFrustumCorners[3] = this._pFrustumCorners[6];
 	this._pFrustumCorners[4] = top;
-	this._pFrustumCorners[7] = bottom;
+	this._pFrustumCorners[1] = this._pFrustumCorners[4];
 	this._pFrustumCorners[10] = bottom;
-	this._pFrustumCorners[12] = this._minLengthX;
+	this._pFrustumCorners[7] = this._pFrustumCorners[10];
 	this._pFrustumCorners[21] = this._minLengthX;
-	this._pFrustumCorners[15] = this._maxLengthX;
+	this._pFrustumCorners[12] = this._pFrustumCorners[21];
 	this._pFrustumCorners[18] = this._maxLengthX;
-	this._pFrustumCorners[13] = this._minLengthY;
+	this._pFrustumCorners[15] = this._pFrustumCorners[18];
 	this._pFrustumCorners[16] = this._minLengthY;
-	this._pFrustumCorners[19] = this._maxLengthY;
+	this._pFrustumCorners[13] = this._pFrustumCorners[16];
 	this._pFrustumCorners[22] = this._maxLengthY;
-	this._pFrustumCorners[2] = this._pNear;
-	this._pFrustumCorners[5] = this._pNear;
-	this._pFrustumCorners[8] = this._pNear;
+	this._pFrustumCorners[19] = this._pFrustumCorners[22];
 	this._pFrustumCorners[11] = this._pNear;
-	this._pFrustumCorners[14] = this._pFar;
-	this._pFrustumCorners[17] = this._pFar;
-	this._pFrustumCorners[20] = this._pFar;
+	this._pFrustumCorners[8] = this._pFrustumCorners[11];
+	this._pFrustumCorners[5] = this._pFrustumCorners[8];
+	this._pFrustumCorners[2] = this._pFrustumCorners[5];
 	this._pFrustumCorners[23] = this._pFar;
+	this._pFrustumCorners[20] = this._pFrustumCorners[23];
+	this._pFrustumCorners[17] = this._pFrustumCorners[20];
+	this._pFrustumCorners[14] = this._pFrustumCorners[17];
 	this._pMatrixInvalid = false;
 };
 
@@ -161,7 +161,7 @@ away.cameras.lenses.PerspectiveOffCenterLens.className = "away.cameras.lenses.Pe
 away.cameras.lenses.PerspectiveOffCenterLens.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

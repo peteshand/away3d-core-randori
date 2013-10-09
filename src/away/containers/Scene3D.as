@@ -9,9 +9,9 @@
 package away.containers
 {
 	import away.events.EventDispatcher;
-	import away.partition.Partition3D;
-	import away.partition.NodeBase;
-	import away.traverse.PartitionTraverser;
+	import away.core.partition.Partition3D;
+	import away.core.partition.NodeBase;
+	import away.core.traverse.PartitionTraverser;
 	import away.events.Scene3DEvent;
 	import away.entities.Entity;
 	public class Scene3D extends EventDispatcher

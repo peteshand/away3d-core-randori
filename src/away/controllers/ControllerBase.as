@@ -84,8 +84,6 @@ package away.controllers
 		
 		public function update(interpolate:Boolean = true):void
 		{
-			interpolate = interpolate || true;
-
 			throw new AbstractMethodError();
 		}
 	}

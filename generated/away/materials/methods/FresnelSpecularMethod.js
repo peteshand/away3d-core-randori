@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -12,7 +12,6 @@ away.materials.methods.FresnelSpecularMethod = function(basedOnSurface, baseSpec
 	this._fresnelPower = 5;
 	this._incidentLight = false;
 	this._dataReg = null;
-	basedOnSurface = basedOnSurface || true;
 	baseSpecularMethod = baseSpecularMethod || null;
 	away.materials.methods.CompositeSpecularMethod.call(this);
 	this.initCompositeSpecularMethod(this, $createStaticDelegate(this, this.modulateSpecular), baseSpecularMethod);

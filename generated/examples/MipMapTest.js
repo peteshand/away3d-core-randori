@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -6,13 +6,13 @@ if (typeof examples == "undefined")
 examples.MipMapTest = function() {
 	this.w = 0;
 	this.mipLoader = null;
-	this._rect = new away.geom.Rectangle(0, 0, 0, 0);
+	this._rect = new away.core.geom.Rectangle(0, 0, 0, 0);
 	this.sourceBitmap = null;
 	this.h = 0;
 	this.mipMap = null;
-	this._matrix = new away.geom.Matrix(1, 0, 0, 1, 0, 0);
-	var mipUrlRequest = new away.net.URLRequest("assets\/1024x1024.png");
-	this.mipLoader = new away.net.IMGLoader("");
+	this._matrix = new away.core.geom.Matrix(1, 0, 0, 1, 0, 0);
+	var mipUrlRequest = new away.core.net.URLRequest("assets\/1024x1024.png");
+	this.mipLoader = new away.core.net.IMGLoader("");
 	this.mipLoader.load(mipUrlRequest);
 	this.mipLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.mipImgLoaded), this);
 	var that = this;
@@ -24,12 +24,12 @@ examples.MipMapTest = function() {
 examples.MipMapTest.prototype.mipImgLoaded = function(e) {
 	alert("Each click will generate a level of MipMap");
 	var loader = e.target;
-	this.sourceBitmap = new away.display.BitmapData(1024, 1024, true, 0xff0000);
+	this.sourceBitmap = new away.core.display.BitmapData(1024, 1024, true, 0xff0000);
 	this.sourceBitmap.drawImage(loader.get_image(), this.sourceBitmap.get_rect(), this.sourceBitmap.get_rect());
 	this.sourceBitmap.get_canvas().style.position = "absolute";
 	this.sourceBitmap.get_canvas().style.left = "0px";
 	this.sourceBitmap.get_canvas().style.top = "1030px";
-	this.mipMap = new away.display.BitmapData(1024, 1024, true, 0xff0000);
+	this.mipMap = new away.core.display.BitmapData(1024, 1024, true, 0xff0000);
 	this.mipMap.get_canvas().style.position = "absolute";
 	this.mipMap.get_canvas().style.left = "0px";
 	this.mipMap.get_canvas().style.top = "0px";
@@ -56,7 +56,7 @@ examples.MipMapTest.prototype.generateMipMap = function(source, mipmap, alpha, s
 		this._matrix.d = this._rect.height / source.get_height();
 		mipmap.set_width(this.w);
 		mipmap.set_height(this.h);
-		mipmap.copyPixels(source, source.get_rect(), new away.geom.Rectangle(0, 0, this.w, this.h));
+		mipmap.copyPixels(source, source.get_rect(), new away.core.geom.Rectangle(0, 0, this.w, this.h));
 		this.w >>= 1;
 		this.h >>= 1;
 		this._rect.width = this.w > 1 ? this.w : 1;
@@ -71,20 +71,20 @@ examples.MipMapTest.className = "examples.MipMapTest";
 examples.MipMapTest.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.events.Event');
-	p.push('away.net.IMGLoader');
-	p.push('away.geom.Rectangle');
-	p.push('away.display.BitmapData');
+	p.push('away.core.net.URLRequest');
+	p.push('away.core.geom.Rectangle');
 	p.push('away.utils.TextureUtils');
+	p.push('away.core.display.BitmapData');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 
 examples.MipMapTest.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Matrix');
-	p.push('away.geom.Rectangle');
+	p.push('away.core.geom.Matrix');
+	p.push('away.core.geom.Rectangle');
 	return p;
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,8 +32,8 @@ away.primitives.LineSegment.injectionPoints = function(t) {
 	switch (t) {
 		case 0:
 			p = [];
-			p.push({n:'v0', t:'away.geom.Vector3D'});
-			p.push({n:'v1', t:'away.geom.Vector3D'});
+			p.push({n:'v0', t:'away.core.geom.Vector3D'});
+			p.push({n:'v1', t:'away.core.geom.Vector3D'});
 			p.push({n:'color0', t:'Number'});
 			p.push({n:'color1', t:'Number'});
 			p.push({n:'thickness', t:'Number'});

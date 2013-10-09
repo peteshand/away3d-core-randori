@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:19 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.controllers == "undefined")
 away.controllers.SpringController = function(targetObject, lookAtObject, stiffness, mass, damping) {
 	this._velocity = null;
 	this._desiredPosition = null;
-	this.positionOffset = new away.geom.Vector3D(0, 500, -1000, 0);
+	this.positionOffset = new away.core.geom.Vector3D(0, 500, -1000, 0);
 	this._force = null;
 	this._dv = null;
 	this._stretch = null;
@@ -22,16 +22,15 @@ away.controllers.SpringController = function(targetObject, lookAtObject, stiffne
 	this.stiffness = stiffness;
 	this.damping = damping;
 	this.mass = mass;
-	this._velocity = new away.geom.Vector3D(0, 0, 0, 0);
-	this._dv = new away.geom.Vector3D(0, 0, 0, 0);
-	this._stretch = new away.geom.Vector3D(0, 0, 0, 0);
-	this._force = new away.geom.Vector3D(0, 0, 0, 0);
-	this._acceleration = new away.geom.Vector3D(0, 0, 0, 0);
-	this._desiredPosition = new away.geom.Vector3D(0, 0, 0, 0);
+	this._velocity = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._dv = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._stretch = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._force = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._acceleration = new away.core.geom.Vector3D(0, 0, 0, 0);
+	this._desiredPosition = new away.core.geom.Vector3D(0, 0, 0, 0);
 };
 
 away.controllers.SpringController.prototype.update = function(interpolate) {
-	interpolate = interpolate || true;
 	interpolate = interpolate;
 	var offs;
 	if (!this._pLookAtObject || !this._pTargetObject)
@@ -67,14 +66,14 @@ away.controllers.SpringController.className = "away.controllers.SpringController
 away.controllers.SpringController.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 
 away.controllers.SpringController.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

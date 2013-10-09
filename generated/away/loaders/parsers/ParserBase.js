@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -209,7 +209,7 @@ away.loaders.parsers.ParserBase.prototype._pFinalizeAsset = function(asset, name
 			type_event = away.events.AssetEvent.SHADOWMAPMETHOD_COMPLETE;
 			break;
 		default:
-			throw new away.errors.Error("Unhandled asset type " + asset.get_assetType() + ". Report as bug!", 0, "");
+			throw new away.errors.away.errors.Error("Unhandled asset type " + asset.get_assetType() + ". Report as bug!", 0, "");
 			break;
 	}
 	if (!asset.get_name())
@@ -234,9 +234,7 @@ away.loaders.parsers.ParserBase.prototype._pDieWithError = function(message) {
 };
 
 away.loaders.parsers.ParserBase.prototype._pAddDependency = function(id, req, retrieveAsRawData, data, suppressErrorEvents) {
-	retrieveAsRawData = retrieveAsRawData || false;
 	data = data || null;
-	suppressErrorEvents = suppressErrorEvents || false;
 	this._dependencies.push(new away.loaders.misc.ResourceDependency(id, req, data, this, retrieveAsRawData, suppressErrorEvents));
 };
 

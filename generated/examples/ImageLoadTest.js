@@ -1,11 +1,11 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:30 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
 
 examples.ImageLoadTest = function() {
-	var urlRequest = new away.net.URLRequest("assets\/130909wall_big.png");
-	var imgLoader = new away.net.IMGLoader("");
+	var urlRequest = new away.core.net.URLRequest("assets\/130909wall_big.png");
+	var imgLoader = new away.core.net.IMGLoader("");
 	imgLoader.addEventListener(away.events.Event.COMPLETE, $createStaticDelegate(this, this.imageCompleteHandler), this);
 	imgLoader.load(urlRequest);
 };
@@ -20,10 +20,10 @@ examples.ImageLoadTest.className = "examples.ImageLoadTest";
 examples.ImageLoadTest.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.events.Event');
-	p.push('away.net.IMGLoader');
+	p.push('away.core.net.URLRequest');
 	p.push('Object');
+	p.push('away.core.net.IMGLoader');
 	return p;
 };
 

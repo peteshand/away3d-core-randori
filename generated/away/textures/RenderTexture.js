@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -32,13 +32,13 @@ away.textures.RenderTexture.prototype.set_height = function(value) {
 };
 
 away.textures.RenderTexture.prototype.pUploadContent = function(texture) {
-	var bmp = new away.display.BitmapData(this.get_width(), this.get_height(), false, 0xff0000);
+	var bmp = new away.core.display.BitmapData(this.get_width(), this.get_height(), false, 0xff0000);
 	away.materials.utils.MipmapGenerator.generateMipMaps(bmp, texture, null, false, -1);
 	bmp.dispose();
 };
 
 away.textures.RenderTexture.prototype.pCreateTexture = function(context) {
-	return context.createTexture(this.get_width(), this.get_height(), away.display3D.Context3DTextureFormat.BGRA, true, 0);
+	return context.createTexture(this.get_width(), this.get_height(), away.core.display3D.Context3DTextureFormat.BGRA, true, 0);
 };
 
 $inherit(away.textures.RenderTexture, away.textures.Texture2DBase);
@@ -49,8 +49,8 @@ away.textures.RenderTexture.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.materials.utils.MipmapGenerator');
-	p.push('away.display3D.Context3DTextureFormat');
-	p.push('away.display.BitmapData');
+	p.push('away.core.display3D.Context3DTextureFormat');
+	p.push('away.core.display.BitmapData');
 	p.push('away.utils.TextureUtils');
 	return p;
 };

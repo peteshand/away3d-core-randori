@@ -8,10 +8,10 @@
 
 package away.cameras.lenses
 {
-	import away.math.Plane3D;
+	import away.core.math.Plane3D;
 	import away.events.LensEvent;
-	import away.geom.Vector3D;
-	import away.geom.Matrix3D;
+	import away.core.geom.Vector3D;
+	import away.core.geom.Matrix3D;
 	public class ObliqueNearPlaneLens extends LensBase
 	{
 		

@@ -1,20 +1,21 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:28 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
 if (typeof away.events == "undefined")
 	away.events = {};
 
-away.events.LoaderEvent = function(type, url, isDependency, errmsg) {
+away.events.LoaderEvent = function(type, url, assets, isDependency, errmsg) {
+	this._assets = null;
 	this._url = null;
 	this._isDependency = false;
 	this._message = null;
 	this._isDefaultPrevented = false;
 	url = url || null;
-	isDependency = isDependency || false;
 	errmsg = errmsg || null;
 	away.events.Event.call(this, type);
 	this._url = url;
+	this._assets = assets;
 	this._message = errmsg;
 	this._isDependency = isDependency;
 };
@@ -29,6 +30,10 @@ away.events.LoaderEvent.prototype.get_url = function() {
 	return this._url;
 };
 
+away.events.LoaderEvent.prototype.get_assets = function() {
+	return this._assets;
+};
+
 away.events.LoaderEvent.prototype.get_message = function() {
 	return this._message;
 };
@@ -38,7 +43,7 @@ away.events.LoaderEvent.prototype.get_isDependency = function() {
 };
 
 away.events.LoaderEvent.prototype.clone = function() {
-	return new away.events.LoaderEvent(this.type, this._url, this._isDependency, this._message);
+	return new away.events.LoaderEvent(this.type, this._url, this._assets, this._isDependency, this._message);
 };
 
 $inherit(away.events.LoaderEvent, away.events.Event);
@@ -62,6 +67,7 @@ away.events.LoaderEvent.injectionPoints = function(t) {
 			p = [];
 			p.push({n:'type', t:'String'});
 			p.push({n:'url', t:'String'});
+			p.push({n:'assets', t:'Array'});
 			p.push({n:'isDependency', t:'Boolean'});
 			p.push({n:'errmsg', t:'String'});
 			break;

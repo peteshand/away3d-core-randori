@@ -9,7 +9,7 @@
 package away.primitives
 {
 	import away.primitives.data.Segment;
-	import away.geom.Vector3D;
+	import away.core.geom.Vector3D;
 	public class LineSegment extends Segment
 	{
 		public var TYPE:String = "line";

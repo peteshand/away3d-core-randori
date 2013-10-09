@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -190,7 +190,7 @@ away.loaders.parsers.OBJParser.prototype.translate = function() {
 		var sm;
 		var bmMaterial;
 		for (var g = 0; g < numGroups; ++g) {
-			geometry = new away.base.Geometry();
+			geometry = new away.core.base.Geometry();
 			materialGroups = groups[g].materialGroups;
 			numMaterialGroups = materialGroups.length;
 			for (m = 0; m < numMaterialGroups; ++m)
@@ -330,12 +330,12 @@ away.loaders.parsers.OBJParser.prototype.parseVertex = function(trunk) {
 		v1 = nTrunk[0];
 		v2 = nTrunk[1];
 		v3 = -nTrunk[2];
-		this._vertices.push(new away.base.data.Vertex(v1, v2, v3, 0));
+		this._vertices.push(new away.core.base.data.Vertex(v1, v2, v3, 0));
 	} else {
 		v1 = parseFloat(trunk[1]);
 		v2 = parseFloat(trunk[2]);
 		v3 = -parseFloat(trunk[3]);
-		this._vertices.push(new away.base.data.Vertex(v1, v2, v3, 0));
+		this._vertices.push(new away.core.base.data.Vertex(v1, v2, v3, 0));
 	}
 };
 
@@ -348,9 +348,9 @@ away.loaders.parsers.OBJParser.prototype.parseUV = function(trunk) {
 			if (!isNaN(val))
 				nTrunk.push(val);
 		}
-		this._uvs.push(new away.base.data.UV(nTrunk[0], 1 - nTrunk[1]));
+		this._uvs.push(new away.core.base.data.UV(nTrunk[0], 1 - nTrunk[1]));
 	} else {
-		this._uvs.push(new away.base.data.UV(parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
+		this._uvs.push(new away.core.base.data.UV(parseFloat(trunk[1]), 1 - parseFloat(trunk[2])));
 	}
 };
 
@@ -363,9 +363,9 @@ away.loaders.parsers.OBJParser.prototype.parseVertexNormal = function(trunk) {
 			if (!isNaN(val))
 				nTrunk.push(val);
 		}
-		this._vertexNormals.push(new away.base.data.Vertex(nTrunk[0], nTrunk[1], -nTrunk[2], 0));
+		this._vertexNormals.push(new away.core.base.data.Vertex(nTrunk[0], nTrunk[1], -nTrunk[2], 0));
 	} else {
-		this._vertexNormals.push(new away.base.data.Vertex(parseFloat(trunk[1]), parseFloat(trunk[2]), -parseFloat(trunk[3]), 0));
+		this._vertexNormals.push(new away.core.base.data.Vertex(parseFloat(trunk[1]), parseFloat(trunk[2]), -parseFloat(trunk[3]), 0));
 	}
 };
 
@@ -416,9 +416,9 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 		lines = materialDefinitions[i].split("\r").join("").split("\n");
 		if (lines.length == 1)
 			lines = materialDefinitions[i].split(String.fromCharCode(13));
-		diffuseColor = 0xFFFFFF;
-		ambientColor = 0xFFFFFF;
 		specularColor = 0xFFFFFF;
+		ambientColor = specularColor;
+		diffuseColor = ambientColor;
 		specular = 0;
 		useSpecular = false;
 		useColor = false;
@@ -483,7 +483,7 @@ away.loaders.parsers.OBJParser.prototype.parseMtl = function(data) {
 					this._materialSpecularData = [];
 				this._materialSpecularData.push(specularData);
 			}
-			this._pAddDependency(this._lastMtlID, new away.net.URLRequest(mapkd), false, null, false);
+			this._pAddDependency(this._lastMtlID, new away.core.net.URLRequest(mapkd), false, null, false);
 		} else if (useColor && !isNaN(diffuseColor)) {
 			var lm = new away.loaders.parsers.LoadedMaterial();
 			lm.materialID = this._lastMtlID;
@@ -562,7 +562,7 @@ away.loaders.parsers.OBJParser.prototype.parseMapKdString = function(trunk) {
 };
 
 away.loaders.parsers.OBJParser.prototype.loadMtl = function(mtlurl) {
-	this._pAddDependency("mtl", new away.net.URLRequest(mtlurl), true, null, false);
+	this._pAddDependency("mtl", new away.core.net.URLRequest(mtlurl), true, null, false);
 	this._pPauseAndRetrieveDependencies();
 };
 
@@ -648,22 +648,21 @@ away.loaders.parsers.OBJParser.className = "away.loaders.parsers.OBJParser";
 away.loaders.parsers.OBJParser.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.base.data.Vertex');
-	p.push('away.base.Geometry');
+	p.push('away.core.net.URLRequest');
 	p.push('away.loaders.parsers.LoadedMaterial');
 	p.push('away.materials.TextureMaterial');
-	p.push('away.base.data.UV');
 	p.push('away.loaders.parsers.ParserDataFormat');
 	p.push('away.loaders.parsers.ParserBase');
 	p.push('away.loaders.parsers.Group');
 	p.push('away.materials.ColorMultiPassMaterial');
-	p.push('away.net.URLRequest');
 	p.push('away.utils.GeometryUtils');
 	p.push('away.loaders.misc.ResourceDependency');
 	p.push('away.loaders.parsers.ObjectGroup');
 	p.push('away.loaders.parsers.SpecularData');
+	p.push('away.core.base.data.UV');
 	p.push('away.entities.Mesh');
 	p.push('away.materials.methods.BasicSpecularMethod');
+	p.push('away.core.base.data.Vertex');
 	p.push('away.loaders.parsers.utils.ParserUtil');
 	p.push('away.loaders.parsers.FaceData');
 	p.push('away.utils.VectorInit');
@@ -671,6 +670,7 @@ away.loaders.parsers.OBJParser.getRuntimeDependencies = function(t) {
 	p.push('away.materials.ColorMaterial');
 	p.push('away.loaders.parsers.MaterialGroup');
 	p.push('away.library.assets.AssetType');
+	p.push('away.core.base.Geometry');
 	p.push('away.materials.utils.DefaultMaterialManager');
 	return p;
 };

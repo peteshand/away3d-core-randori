@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:43 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -41,7 +41,7 @@ away.lights.LightBase.prototype.set_castsShadows = function(value) {
 		if (this._shadowMapper == null) {
 			this._shadowMapper = this.pCreateShadowMapper();
 		}
-		this._shadowMapper.set_light(this);
+		this._shadowMapper.light = this;
 	} else {
 		this._shadowMapper.dispose();
 		this._shadowMapper = null;
@@ -125,7 +125,7 @@ away.lights.LightBase.prototype.iGetObjectProjectionMatrix = function(renderable
 };
 
 away.lights.LightBase.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.LightNode(this);
+	return new away.core.partition.LightNode(this);
 };
 
 away.lights.LightBase.prototype.get_assetType = function() {
@@ -150,7 +150,7 @@ away.lights.LightBase.prototype.get_shadowMapper = function() {
 
 away.lights.LightBase.prototype.set_shadowMapper = function(value) {
 	this._shadowMapper = value;
-	this._shadowMapper.set_light(this);
+	this._shadowMapper.light = this;
 };
 
 $inherit(away.lights.LightBase, away.entities.Entity);
@@ -160,7 +160,7 @@ away.lights.LightBase.className = "away.lights.LightBase";
 away.lights.LightBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.partition.LightNode');
+	p.push('away.core.partition.LightNode');
 	p.push('away.errors.AbstractMethodError');
 	p.push('away.events.LightEvent');
 	p.push('away.library.assets.AssetType');

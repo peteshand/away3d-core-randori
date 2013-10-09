@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -11,18 +11,20 @@ away.loaders.misc.SingleFileLoader = function(materialMode) {
 	this._loadAsRawData = false;
 	this._materialMode = 0;
 	this._req = null;
-	this._parsers = away.utils.VectorInit.StarVec(0, "");
+	this._parsers = [];
 	this._data = null;
 	this._fileName = null;
+	this._assets = null;
 	this._fileExtension = null;
 	this._parser = null;
 	materialMode = materialMode || 0;
 	away.events.EventDispatcher.call(this);
 	away.loaders.misc.SingleFileLoader._parsers.push(away.loaders.parsers.ImageParser);
 	this._materialMode = materialMode;
+	this._assets = [];
 };
 
-away.loaders.misc.SingleFileLoader._parsers = away.utils.VectorInit.StarVec(0, "");
+away.loaders.misc.SingleFileLoader._parsers = [];
 
 away.loaders.misc.SingleFileLoader.enableParser = function(parser) {
 	if (away.loaders.misc.SingleFileLoader._parsers.indexOf(parser, 0) < 0) {
@@ -51,14 +53,13 @@ away.loaders.misc.SingleFileLoader.prototype.get_loadAsRawData = function() {
 
 away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser, loadAsRawData) {
 	parser = parser || null;
-	loadAsRawData = loadAsRawData || false;
 	var dataFormat;
 	var loaderType = away.loaders.parsers.ParserLoaderType.URL_LOADER;
 	this._loadAsRawData = loadAsRawData;
 	this._req = urlRequest;
 	this.decomposeFilename(this._req.get_url());
 	if (this._loadAsRawData) {
-		dataFormat = away.net.URLLoaderDataFormat.BINARY;
+		dataFormat = away.core.net.URLLoaderDataFormat.BINARY;
 	} else {
 		if (parser) {
 			this._parser = parser;
@@ -69,10 +70,10 @@ away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser,
 		if (this._parser) {
 			switch (this._parser.get_dataFormat()) {
 				case away.loaders.parsers.ParserDataFormat.BINARY:
-					dataFormat = away.net.URLLoaderDataFormat.ARRAY_BUFFER;
+					dataFormat = away.core.net.URLLoaderDataFormat.ARRAY_BUFFER;
 					break;
 				case away.loaders.parsers.ParserDataFormat.PLAIN_TEXT:
-					dataFormat = away.net.URLLoaderDataFormat.TEXT;
+					dataFormat = away.core.net.URLLoaderDataFormat.TEXT;
 					break;
 			}
 			switch (this._parser.get_loaderType()) {
@@ -84,7 +85,7 @@ away.loaders.misc.SingleFileLoader.prototype.load = function(urlRequest, parser,
 					break;
 			}
 		} else {
-			dataFormat = away.net.URLLoaderDataFormat.BINARY;
+			dataFormat = away.core.net.URLLoaderDataFormat.BINARY;
 		}
 	}
 	var loader = this.getLoader(loaderType);
@@ -163,7 +164,7 @@ away.loaders.misc.SingleFileLoader.prototype.removeListeners = function(urlLoade
 away.loaders.misc.SingleFileLoader.prototype.handleUrlLoaderError = function(event) {
 	var urlLoader = event.target;
 	this.removeListeners(urlLoader);
-	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this._req.get_url(), true));
+	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this.get_url(), this._assets, false));
 };
 
 away.loaders.misc.SingleFileLoader.prototype.handleUrlLoaderComplete = function(event) {
@@ -171,7 +172,7 @@ away.loaders.misc.SingleFileLoader.prototype.handleUrlLoaderComplete = function(
 	this.removeListeners(urlLoader);
 	this._data = urlLoader.get_data();
 	if (this._loadAsRawData) {
-		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, null, false));
+		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, this.get_url(), this._assets, false));
 	} else {
 		this.parse(this._data);
 	}
@@ -206,7 +207,7 @@ away.loaders.misc.SingleFileLoader.prototype.parse = function(data) {
 		this._parser.parseAsync(data, 30);
 	} else {
 		var msg = "No parser defined. To enable all parsers for auto-detection, use Parsers.enableAllBundled()";
-		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, "", true, msg));
+		this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.LOAD_ERROR, this.get_url(), this._assets, true, msg));
 	}
 };
 
@@ -219,6 +220,8 @@ away.loaders.misc.SingleFileLoader.prototype.onReadyForDependencies = function(e
 };
 
 away.loaders.misc.SingleFileLoader.prototype.onAssetComplete = function(event) {
+	if (event.type == away.events.AssetEvent.ASSET_COMPLETE)
+		this._assets.push(event.get_asset());
 	this.dispatchEvent(event.clone());
 };
 
@@ -227,7 +230,7 @@ away.loaders.misc.SingleFileLoader.prototype.onTextureSizeError = function(event
 };
 
 away.loaders.misc.SingleFileLoader.prototype.onParseComplete = function(event) {
-	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, this.get_url(), false));
+	this.dispatchEvent(new away.events.LoaderEvent(away.events.LoaderEvent.DEPENDENCY_COMPLETE, this.get_url(), this._assets, false));
 	this._parser.removeEventListener(away.events.ParserEvent.READY_FOR_DEPENDENCIES, $createStaticDelegate(this, this.onReadyForDependencies), this);
 	this._parser.removeEventListener(away.events.ParserEvent.PARSE_COMPLETE, $createStaticDelegate(this, this.onParseComplete), this);
 	this._parser.removeEventListener(away.events.ParserEvent.PARSE_ERROR, $createStaticDelegate(this, this.onParseError), this);
@@ -254,26 +257,24 @@ away.loaders.misc.SingleFileLoader.className = "away.loaders.misc.SingleFileLoad
 away.loaders.misc.SingleFileLoader.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.loaders.misc.SingleFileImageLoader');
 	p.push('away.loaders.parsers.ParserLoaderType');
 	p.push('away.events.Event');
 	p.push('away.loaders.misc.SingleFileURLLoader');
-	p.push('away.net.URLLoaderDataFormat');
+	p.push('away.core.net.URLRequest');
 	p.push('away.events.ParserEvent');
 	p.push('away.events.LoaderEvent');
 	p.push('away.loaders.parsers.ParserDataFormat');
 	p.push('away.loaders.parsers.ImageParser');
 	p.push('away.events.AssetEvent');
+	p.push('away.core.net.URLLoaderDataFormat');
 	p.push('away.events.IOErrorEvent');
 	return p;
 };
 
 away.loaders.misc.SingleFileLoader.getStaticDependencies = function(t) {
 	var p;
-	p = [];
-	p.push('away.utils.VectorInit');
-	return p;
+	return [];
 };
 
 away.loaders.misc.SingleFileLoader.injectionPoints = function(t) {

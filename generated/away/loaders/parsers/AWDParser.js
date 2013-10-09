@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -38,22 +38,22 @@ away.loaders.parsers.AWDParser = function() {
 	this._blocks[0] = new away.loaders.parsers.AWDBlock();
 	this._blocks[0].data = null;
 	this.blendModeDic = away.utils.VectorInit.Str(0, "");
-	this.blendModeDic.push(away.display.BlendMode.NORMAL);
-	this.blendModeDic.push(away.display.BlendMode.ADD);
-	this.blendModeDic.push(away.display.BlendMode.ALPHA);
-	this.blendModeDic.push(away.display.BlendMode.DARKEN);
-	this.blendModeDic.push(away.display.BlendMode.DIFFERENCE);
-	this.blendModeDic.push(away.display.BlendMode.ERASE);
-	this.blendModeDic.push(away.display.BlendMode.HARDLIGHT);
-	this.blendModeDic.push(away.display.BlendMode.INVERT);
-	this.blendModeDic.push(away.display.BlendMode.LAYER);
-	this.blendModeDic.push(away.display.BlendMode.LIGHTEN);
-	this.blendModeDic.push(away.display.BlendMode.MULTIPLY);
-	this.blendModeDic.push(away.display.BlendMode.NORMAL);
-	this.blendModeDic.push(away.display.BlendMode.OVERLAY);
-	this.blendModeDic.push(away.display.BlendMode.SCREEN);
-	this.blendModeDic.push(away.display.BlendMode.SHADER);
-	this.blendModeDic.push(away.display.BlendMode.OVERLAY);
+	this.blendModeDic.push(away.core.display.BlendMode.NORMAL);
+	this.blendModeDic.push(away.core.display.BlendMode.ADD);
+	this.blendModeDic.push(away.core.display.BlendMode.ALPHA);
+	this.blendModeDic.push(away.core.display.BlendMode.DARKEN);
+	this.blendModeDic.push(away.core.display.BlendMode.DIFFERENCE);
+	this.blendModeDic.push(away.core.display.BlendMode.ERASE);
+	this.blendModeDic.push(away.core.display.BlendMode.HARDLIGHT);
+	this.blendModeDic.push(away.core.display.BlendMode.INVERT);
+	this.blendModeDic.push(away.core.display.BlendMode.LAYER);
+	this.blendModeDic.push(away.core.display.BlendMode.LIGHTEN);
+	this.blendModeDic.push(away.core.display.BlendMode.MULTIPLY);
+	this.blendModeDic.push(away.core.display.BlendMode.NORMAL);
+	this.blendModeDic.push(away.core.display.BlendMode.OVERLAY);
+	this.blendModeDic.push(away.core.display.BlendMode.SCREEN);
+	this.blendModeDic.push(away.core.display.BlendMode.SHADER);
+	this.blendModeDic.push(away.core.display.BlendMode.OVERLAY);
 	this._depthSizeDic = away.utils.VectorInit.Num(0, 0);
 	this._depthSizeDic.push(256);
 	this._depthSizeDic.push(512);
@@ -408,7 +408,7 @@ away.loaders.parsers.AWDParser.prototype.parseNextBlock = function() {
 };
 
 away.loaders.parsers.AWDParser.prototype.parseTriangleGeometrieBlock = function(blockID) {
-	var geom = new away.base.Geometry();
+	var geom = new away.core.base.Geometry();
 	var name = this.parseVarStr();
 	var num_subs = this._newBlockBytes.readUnsignedShort();
 	var props = this.parseProperties({1:this._geoNrType, 2:this._geoNrType});
@@ -538,7 +538,7 @@ away.loaders.parsers.AWDParser.prototype.parsePrimitves = function(blockID) {
 			geom = new away.primitives.TorusGeometry(props.get(101, 50), props.get(102, 50), props.get(301, 16), props.get(302, 8), props.get(701, true));
 			break;
 		default:
-			geom = new away.base.Geometry();
+			geom = new away.core.base.Geometry();
 			console.log("ERROR: UNSUPPORTED PRIMITIVE_TYPE");
 			break;
 	}
@@ -579,7 +579,7 @@ away.loaders.parsers.AWDParser.prototype.parseContainer = function(blockID) {
 	}
 	if ((this._version[0] == 2) && (this._version[1] == 1)) {
 		var props = this.parseProperties({1:this._matrixNrType, 2:this._matrixNrType, 3:this._matrixNrType, 4:away.loaders.parsers.AWDParser.UINT8});
-		ctr.set_pivotPoint(new away.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
+		ctr.set_pivotPoint(new away.core.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
 	} else {
 		this.parseProperties(null);
 	}
@@ -606,7 +606,7 @@ away.loaders.parsers.AWDParser.prototype.parseMeshInstance = function(blockID) {
 		geom = returnedArrayGeometry[1];
 	} else {
 		this._blocks[blockID].addError("Could not find a Geometry for this Mesh. A empty Geometry is created!");
-		geom = new away.base.Geometry();
+		geom = new away.core.base.Geometry();
 	}
 	this._blocks[blockID].geoID = data_id;
 	var materials = [];
@@ -646,7 +646,7 @@ away.loaders.parsers.AWDParser.prototype.parseMeshInstance = function(blockID) {
 	}
 	if ((this._version[0] == 2) && (this._version[1] == 1)) {
 		var props = this.parseProperties({1:this._matrixNrType, 2:this._matrixNrType, 3:this._matrixNrType, 4:away.loaders.parsers.AWDParser.UINT8, 5:away.loaders.parsers.AWDParser.BOOL});
-		mesh.set_pivotPoint(new away.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
+		mesh.set_pivotPoint(new away.core.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
 		mesh.set_castsShadows(props.get(5, true));
 	} else {
 		this.parseProperties(null);
@@ -760,7 +760,7 @@ away.loaders.parsers.AWDParser.prototype.parseCamera = function(blockID) {
 	}
 	camera.set_name(name);
 	props = this.parseProperties({1:this._matrixNrType, 2:this._matrixNrType, 3:this._matrixNrType, 4:away.loaders.parsers.AWDParser.UINT8});
-	camera.set_pivotPoint(new away.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
+	camera.set_pivotPoint(new away.core.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
 	camera.extra = this.parseUserAttributes();
 	this._pFinalizeAsset(camera, name);
 	this._blocks[blockID].data = camera;
@@ -1050,13 +1050,13 @@ away.loaders.parsers.AWDParser.prototype.parseTexture = function(blockID) {
 		data_len = this._newBlockBytes.readUnsignedInt();
 		var url;
 		url = this._newBlockBytes.readUTFBytes(data_len);
-		this._pAddDependency(this._cur_block_id.toString(10), new away.net.URLRequest(url), false, null, true);
+		this._pAddDependency(this._cur_block_id.toString(10), new away.core.net.URLRequest(url), false, null, true);
 	} else {
 		data_len = this._newBlockBytes.readUnsignedInt();
 		var data;
 		data = new away.utils.ByteArray();
 		this._newBlockBytes.readBytes(data, 0, data_len);
-		this._pAddDependency(this._cur_block_id.toString(10), null, false, data, true);
+		this._pAddDependency(this._cur_block_id.toString(10), null, false, away.loaders.parsers.utils.ParserUtil.byteArrayToImage(data), true);
 	}
 	this.parseProperties(null);
 	this._blocks[blockID].extras = this.parseUserAttributes();
@@ -1083,7 +1083,7 @@ away.loaders.parsers.AWDParser.prototype.parseCubeTexture = function(blockID) {
 			data_len = this._newBlockBytes.readUnsignedInt();
 			var url;
 			url = this._newBlockBytes.readUTFBytes(data_len);
-			this._pAddDependency(this._cur_block_id.toString(10) + "#" + i, new away.net.URLRequest(url), false, null, true);
+			this._pAddDependency(this._cur_block_id.toString(10) + "#" + i, new away.core.net.URLRequest(url), false, null, true);
 		} else {
 			data_len = this._newBlockBytes.readUnsignedInt();
 			var data;
@@ -1169,7 +1169,7 @@ away.loaders.parsers.AWDParser.prototype.parseCommand = function(blockID) {
 	}
 	if (targetObject) {
 		props = this.parseProperties({1:this._matrixNrType, 2:this._matrixNrType, 3:this._matrixNrType, 4:away.loaders.parsers.AWDParser.UINT8});
-		targetObject.set_pivotPoint(new away.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
+		targetObject.set_pivotPoint(new away.core.geom.Vector3D(props.get(1, 0), props.get(2, 0), props.get(3, 0), 0));
 		targetObject.extra = this.parseUserAttributes();
 	}
 	this._blocks[blockID].data = targetObject;
@@ -1526,14 +1526,13 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.readNumber = function(precision) {
-			precision = precision || false;
 			if (precision)
 				return this._newBlockBytes.readDouble();
 			return this._newBlockBytes.readFloat();
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix3D = function() {
-			return new away.geom.Matrix3D(this.parseMatrix43RawData());
+			return new away.core.geom.Matrix3D(this.parseMatrix43RawData());
 		};
 		
 		away.loaders.parsers.AWDParser.prototype.parseMatrix32RawData = function() {
@@ -1589,28 +1588,27 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p = [];
 			p.push('away.lights.LightBase');
 			p.push('away.textures.HTMLImageElementCubeTexture');
+			p.push('away.core.net.URLRequest');
 			p.push('away.lights.DirectionalLight');
-			p.push('away.base.Geometry');
 			p.push('away.materials.TextureMaterial');
 			p.push('away.primitives.ConeGeometry');
 			p.push('away.cameras.Camera3D');
 			p.push('away.loaders.parsers.AWDBlock');
 			p.push('away.textures.HTMLImageElementTexture');
 			p.push('away.materials.ColorMultiPassMaterial');
-			p.push('away.net.URLRequest');
 			p.push('away.primitives.CubeGeometry');
 			p.push('away.utils.GeometryUtils');
 			p.push('away.cameras.lenses.PerspectiveLens');
 			p.push('away.cameras.lenses.OrthographicOffCenterLens');
-			p.push('away.geom.Matrix3D');
 			p.push('away.materials.lightpickers.StaticLightPicker');
 			p.push('away.cameras.lenses.OrthographicLens');
 			p.push('away.primitives.CylinderGeometry');
+			p.push('away.core.geom.Matrix3D');
 			p.push('away.loaders.parsers.utils.ParserUtil');
-			p.push('away.display.BlendMode');
 			p.push('away.materials.TextureMultiPassMaterial');
 			p.push('away.lights.shadowmaps.DirectionalShadowMapper');
 			p.push('away.utils.VectorInit');
+			p.push('away.core.base.Geometry');
 			p.push('away.library.assets.AssetType');
 			p.push('away.lights.shadowmaps.CubeMapShadowMapper');
 			p.push('away.primitives.SphereGeometry');
@@ -1625,8 +1623,9 @@ away.loaders.parsers.AWDParser.prototype.parseShadowMethodList = function(light,
 			p.push('away.primitives.PlaneGeometry');
 			p.push('away.textures.BitmapCubeTexture');
 			p.push('away.loaders.misc.ResourceDependency');
-			p.push('away.geom.Vector3D');
 			p.push('away.loaders.parsers.AWDProperties');
+			p.push('away.core.display.BlendMode');
+			p.push('away.core.geom.Vector3D');
 			p.push('away.entities.Mesh');
 			p.push('away.loaders.parsers.bitFlags');
 			p.push('away.materials.ColorMaterial');

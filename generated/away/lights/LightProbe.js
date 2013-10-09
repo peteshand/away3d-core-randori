@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,7 +15,7 @@ away.lights.LightProbe = function(diffuseMap, specularMap) {
 };
 
 away.lights.LightProbe.prototype.pCreateEntityPartitionNode = function() {
-	return new away.partition.LightProbeNode(this);
+	return new away.core.partition.LightProbeNode(this);
 };
 
 away.lights.LightProbe.prototype.get_diffuseMap = function() {
@@ -46,7 +46,7 @@ away.lights.LightProbe.prototype.iGetObjectProjectionMatrix = function(renderabl
 	target = target || null;
 	renderable = renderable;
 	target = target;
-	throw new away.errors.Error("Object projection matrices are not supported for LightProbe objects!", 0, "");
+	throw new away.errors.away.errors.Error("Object projection matrices are not supported for LightProbe objects!", 0, "");
 	return null;
 };
 
@@ -58,7 +58,7 @@ away.lights.LightProbe.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.bounds.NullBounds');
-	p.push('away.partition.LightProbeNode');
+	p.push('away.core.partition.LightProbeNode');
 	return p;
 };
 

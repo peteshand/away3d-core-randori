@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -19,9 +19,9 @@ away.bounds.BoundingSphere.prototype.get_radius = function() {
 
 away.bounds.BoundingSphere.prototype.nullify = function() {
 	away.bounds.BoundingVolumeBase.prototype.nullify.call(this);
-	this._centerX = 0;
-	this._centerY = 0;
 	this._centerZ = 0;
+	this._centerY = this._centerZ;
+	this._centerX = this._centerY;
 	this._radius = 0;
 };
 
@@ -75,7 +75,7 @@ away.bounds.BoundingSphere.prototype.fromExtremes = function(minX, minY, minZ, m
 
 away.bounds.BoundingSphere.prototype.clone = function() {
 	var clone = new away.bounds.BoundingSphere();
-	clone.fromSphere(new away.geom.Vector3D(this._centerX, this._centerY, this._centerZ, 0), this._radius);
+	clone.fromSphere(new away.core.geom.Vector3D(this._centerX, this._centerY, this._centerZ, 0), this._radius);
 	return clone;
 };
 
@@ -144,7 +144,7 @@ away.bounds.BoundingSphere.prototype.classifyToPlane = function(plane) {
 		c = -c;
 	}
 	var rr = (a + b + c) * this._radius;
-	return dd > rr ? away.math.PlaneClassification.FRONT : dd < -rr ? away.math.PlaneClassification.BACK : away.math.PlaneClassification.INTERSECT;
+	return dd > rr ? away.core.math.PlaneClassification.FRONT : dd < -rr ? away.core.math.PlaneClassification.BACK : away.core.math.PlaneClassification.INTERSECT;
 };
 
 away.bounds.BoundingSphere.prototype.transformFrom = function(bounds, matrix) {
@@ -198,9 +198,9 @@ away.bounds.BoundingSphere.className = "away.bounds.BoundingSphere";
 away.bounds.BoundingSphere.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
-	p.push('away.math.PlaneClassification');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.primitives.WireframeSphere');
+	p.push('away.core.math.PlaneClassification');
 	return p;
 };
 

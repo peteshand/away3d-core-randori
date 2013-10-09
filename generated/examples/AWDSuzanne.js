@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:59:20 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -18,7 +18,7 @@ examples.AWDSuzanne = function(_index) {
 	away.utils.Debug.LOG_PI_ERRORS = true;
 	away.utils.Debug.THROW_ERRORS = false;
 	away.library.AssetLibrary.enableParser(away.loaders.parsers.AWDParser);
-	this.token = away.library.AssetLibrary.load(new away.net.URLRequest("assets\/suzanne.awd"));
+	this.token = away.library.AssetLibrary.load(new away.core.net.URLRequest("assets\/suzanne.awd"));
 	this.token.addEventListener(away.events.LoaderEvent.RESOURCE_COMPLETE, $createStaticDelegate(this, this.onResourceComplete), this);
 	this.token.addEventListener(away.events.AssetEvent.ASSET_COMPLETE, $createStaticDelegate(this, this.onAssetComplete), this);
 	this.view = new away.containers.View3D(null, null, null, false, "baseline");
@@ -35,10 +35,11 @@ examples.AWDSuzanne.prototype.resize = function() {
 };
 
 examples.AWDSuzanne.prototype.tick = function(dt) {
+	console.log("tick");
 	if (this.suzane) {
 		this.suzane.set_rotationY(this.suzane.get_rotationY() + 1);
+		this.view.render();
 	}
-	this.view.render();
 	if (this.hoverControl) {
 		this.hoverControl.update(false);
 	}
@@ -73,6 +74,7 @@ examples.AWDSuzanne.prototype.onResourceComplete = function(e) {
 				break;
 		}
 	}
+	this.resize();
 };
 
 $inherit(examples.AWDSuzanne, examples.BaseExample);
@@ -82,9 +84,9 @@ examples.AWDSuzanne.className = "examples.AWDSuzanne";
 examples.AWDSuzanne.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.net.URLRequest');
 	p.push('away.library.AssetLibrary');
 	p.push('away.utils.Debug');
+	p.push('away.core.net.URLRequest');
 	p.push('away.containers.View3D');
 	p.push('*away.library.assets.IAsset');
 	p.push('away.events.LoaderEvent');

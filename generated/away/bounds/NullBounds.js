@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:44 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,17 +8,16 @@ if (typeof away.bounds == "undefined")
 away.bounds.NullBounds = function(alwaysIn, renderable) {
 	this._alwaysIn = false;
 	this._renderable = null;
-	alwaysIn = alwaysIn || true;
 	renderable = renderable || null;
 	away.bounds.BoundingVolumeBase.call(this);
 	this._alwaysIn = alwaysIn;
 	this._renderable = renderable;
-	this._pMax.x = Infinity;
-	this._pMax.y = Infinity;
 	this._pMax.z = Infinity;
-	this._pMin.x = this._alwaysIn ? -Infinity : Infinity;
-	this._pMin.y = this._alwaysIn ? -Infinity : Infinity;
+	this._pMax.y = this._pMax.z;
+	this._pMax.x = this._pMax.y;
 	this._pMin.z = this._alwaysIn ? -Infinity : Infinity;
+	this._pMin.y = this._pMin.z;
+	this._pMin.x = this._pMin.y;
 };
 
 away.bounds.NullBounds.prototype.clone = function() {
@@ -46,7 +45,7 @@ away.bounds.NullBounds.prototype.fromExtremes = function(minX, minY, minZ, maxX,
 
 away.bounds.NullBounds.prototype.classifyToPlane = function(plane) {
 	plane = plane;
-	return away.math.PlaneClassification.INTERSECT;
+	return away.core.math.PlaneClassification.INTERSECT;
 };
 
 away.bounds.NullBounds.prototype.transformFrom = function(bounds, matrix) {
@@ -62,7 +61,7 @@ away.bounds.NullBounds.className = "away.bounds.NullBounds";
 away.bounds.NullBounds.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.math.PlaneClassification');
+	p.push('away.core.math.PlaneClassification');
 	return p;
 };
 

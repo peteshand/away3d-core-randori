@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:52 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -36,9 +36,9 @@ away.primitives.WireframeCylinder.prototype.pBuildGeometry = function() {
 	var revolutionAngleDelta = away.primitives.WireframeCylinder.TWO_PI / this._segmentsW;
 	var nextVertexIndex = 0;
 	var x, y, z;
-	var lastLayer = away.utils.VectorInit.AnyClass(__AS3__.vec.Vector.<away.geom.Vector3D>, this._segmentsH + 1);
+	var lastLayer = away.utils.VectorInit.AnyClass(this._segmentsH + 1);
 	for (j = 0; j <= this._segmentsH; ++j) {
-		lastLayer[j] = away.utils.VectorInit.AnyClass(away.geom.Vector3D, this._segmentsW + 1);
+		lastLayer[j] = away.utils.VectorInit.AnyClass(this._segmentsW + 1);
 		radius = this._topRadius - ((j / this._segmentsH) * (this._topRadius - this._bottomRadius));
 		z = -(this._height / 2) + (j / this._segmentsH * this._height);
 		var previousV = null;
@@ -48,12 +48,12 @@ away.primitives.WireframeCylinder.prototype.pBuildGeometry = function() {
 			y = radius * Math.sin(revolutionAngle);
 			var vertex;
 			if (previousV) {
-				vertex = new away.geom.Vector3D(x, -z, y, 0);
+				vertex = new away.core.geom.Vector3D(x, -z, y, 0);
 				this.pUpdateOrAddSegment(nextVertexIndex++, vertex, previousV);
 				previousV = vertex;
 			}
 			else
-				previousV = new away.geom.Vector3D(x, -z, y, 0);
+				previousV = new away.core.geom.Vector3D(x, -z, y, 0);
 			if (j > 0) {
 				this.pUpdateOrAddSegment(nextVertexIndex++, vertex, lastLayer[j - 1][i]);
 			}
@@ -98,7 +98,7 @@ away.primitives.WireframeCylinder.className = "away.primitives.WireframeCylinder
 away.primitives.WireframeCylinder.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	p.push('away.utils.VectorInit');
 	return p;
 };

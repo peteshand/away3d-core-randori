@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:32 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -11,7 +11,7 @@ this._map = null;
 
 aglsl.assembler.OpcodeMap._map;
 
-aglsl.assembler.OpcodeMap.get_map = function() {
+aglsl.assembler.OpcodeMap.map = function() {
 	if (!aglsl.assembler.OpcodeMap._map) {
 		aglsl.assembler.OpcodeMap._map = [];
 		aglsl.assembler.OpcodeMap._map["mov"] = new aglsl.assembler.Opcode("vector", "vector", 4, "none", 0, 0x00, true, null, null, null);

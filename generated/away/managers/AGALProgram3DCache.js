@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:51 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -30,13 +30,13 @@ away.managers.AGALProgram3DCache._currentId = 0;
 away.managers.AGALProgram3DCache.getInstance = function(stage3DProxy) {
 	var index = stage3DProxy._iStage3DIndex;
 	if (away.managers.AGALProgram3DCache._instances == null) {
-		away.managers.AGALProgram3DCache._instances = [null, null, null, null, null, null, null, null];
+		away.managers.AGALProgram3DCache._instances = away.utils.VectorInit.AnyClass(8);
 	}
 	if (!away.managers.AGALProgram3DCache._instances[index]) {
 		away.managers.AGALProgram3DCache._instances[index] = new away.managers.AGALProgram3DCache(stage3DProxy, new away.managers.AGALProgram3DCacheSingletonEnforcer());
-		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+		stage3DProxy.addEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
 	}
 	return away.managers.AGALProgram3DCache._instances[index];
 };
@@ -53,9 +53,9 @@ away.managers.AGALProgram3DCache.onContext3DDisposed = function(event) {
 	var index = stage3DProxy._iStage3DIndex;
 	away.managers.AGALProgram3DCache._instances[index].dispose();
 	away.managers.AGALProgram3DCache._instances[index] = null;
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
-	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(this, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_DISPOSED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_CREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
+	stage3DProxy.removeEventListener(away.events.Stage3DEvent.CONTEXT3D_RECREATED, $createStaticDelegate(away.managers.AGALProgram3DCache, away.managers.AGALProgram3DCache.onContext3DDisposed), away.managers.AGALProgram3DCache);
 };
 
 away.managers.AGALProgram3DCache.prototype.dispose = function() {
@@ -79,8 +79,8 @@ away.managers.AGALProgram3DCache.prototype.setProgram3D = function(pass, vertexC
 		program = this._stage3DProxy._iContext3D.createProgram();
 		var vertCompiler = new aglsl.AGLSLCompiler();
 		var fragCompiler = new aglsl.AGLSLCompiler();
-		var vertString = vertCompiler.compile(away.display3D.Context3DProgramType.VERTEX, vertexCode);
-		var fragString = fragCompiler.compile(away.display3D.Context3DProgramType.FRAGMENT, fragmentCode);
+		var vertString = vertCompiler.compile(away.core.display3D.Context3DProgramType.VERTEX, vertexCode);
+		var fragString = fragCompiler.compile(away.core.display3D.Context3DProgramType.FRAGMENT, fragmentCode);
 		console.log("===GLSL=========================================================");
 		console.log("vertString");
 		console.log(vertString);
@@ -130,9 +130,10 @@ away.managers.AGALProgram3DCache.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
 	p.push('away.events.Stage3DEvent');
-	p.push('away.display3D.Context3DProgramType');
 	p.push('aglsl.AGLSLCompiler');
+	p.push('away.core.display3D.Context3DProgramType');
 	p.push('away.managers.AGALProgram3DCache');
+	p.push('away.utils.VectorInit');
 	p.push('away.managers.AGALProgram3DCacheSingletonEnforcer');
 	return p;
 };

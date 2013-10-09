@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:55 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -9,7 +9,7 @@ away.materials.MaterialBase = function() {
 	this._distanceBasedDepthRender = false;
 	this._iClassification = null;
 	this._animationSet = null;
-	this._pBlendMode = away.display.BlendMode.NORMAL;
+	this._pBlendMode = away.core.display.BlendMode.NORMAL;
 	this._pMipmap = true;
 	this._alphaPremultiplied = false;
 	this._pDistancePass = null;
@@ -20,7 +20,7 @@ away.materials.MaterialBase = function() {
 	this._iUniqueId = 0;
 	this._numPasses = 0;
 	this._owners = null;
-	this._pDepthCompareMode = away.display3D.Context3DCompareMode.LESS_EQUAL;
+	this._pDepthCompareMode = away.core.display3D.Context3DCompareMode.LESS_EQUAL;
 	this._smooth = true;
 	this._iDepthPassId = 0;
 	this._repeat = false;
@@ -167,7 +167,7 @@ away.materials.MaterialBase.prototype.get_requiresBlending = function() {
 };
 
 away.materials.MaterialBase.prototype.getRequiresBlending = function() {
-	return this._pBlendMode != away.display.BlendMode.NORMAL;
+	return this._pBlendMode != away.core.display.BlendMode.NORMAL;
 };
 
 away.materials.MaterialBase.prototype.get_uniqueId = function() {
@@ -183,7 +183,6 @@ away.materials.MaterialBase.prototype.iHasDepthAlphaThreshold = function() {
 };
 
 away.materials.MaterialBase.prototype.iActivateForDepth = function(stage3DProxy, camera, distanceBased) {
-	distanceBased = distanceBased || false;
 	this._distanceBasedDepthRender = distanceBased;
 	if (distanceBased) {
 		this._pDistancePass.iActivate(stage3DProxy, camera);
@@ -388,10 +387,10 @@ away.materials.MaterialBase.className = "away.materials.MaterialBase";
 away.materials.MaterialBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.traverse.EntityCollector');
 	p.push('away.materials.passes.DistanceMapPass');
+	p.push('away.core.traverse.EntityCollector');
 	p.push('away.events.Event');
-	p.push('away.display.BlendMode');
+	p.push('away.core.display.BlendMode');
 	p.push('away.materials.passes.DepthMapPass');
 	p.push('away.library.assets.AssetType');
 	return p;
@@ -400,8 +399,8 @@ away.materials.MaterialBase.getRuntimeDependencies = function(t) {
 away.materials.MaterialBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display.BlendMode');
-	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.core.display.BlendMode');
+	p.push('away.core.display3D.Context3DCompareMode');
 	return p;
 };
 

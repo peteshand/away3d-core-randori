@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:56 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -46,7 +46,7 @@ away.events.GeometryEvent.injectionPoints = function(t) {
 		case 0:
 			p = [];
 			p.push({n:'type', t:'String'});
-			p.push({n:'subGeometry', t:'away.base.ISubGeometry'});
+			p.push({n:'subGeometry', t:'away.core.base.ISubGeometry'});
 			break;
 		case 1:
 			p = away.events.Event.injectionPoints(t);

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:57 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,7 @@ if (typeof away.containers == "undefined")
 	away.containers = {};
 
 away.containers.ObjectContainer3D = function() {
-	this._pSceneTransform = new away.geom.Matrix3D();
+	this._pSceneTransform = new away.core.geom.Matrix3D();
 	this._listenToSceneTransformChanged = false;
 	this._pIgnoreTransform = false;
 	this._inverseSceneTransformDirty = true;
@@ -14,13 +14,13 @@ away.containers.ObjectContainer3D = function() {
 	this._iIsRoot = false;
 	this._iAncestorsAllowMouseEnabled = false;
 	this._pExplicitPartition = null;
-	this._inverseSceneTransform = new away.geom.Matrix3D();
+	this._inverseSceneTransform = new away.core.geom.Matrix3D();
 	this._pSceneTransformDirty = true;
 	this._implicitVisibility = true;
 	this._listenToSceneChanged = false;
 	this._explicitVisibility = true;
 	this._pScene = null;
-	this._scenePosition = new away.geom.Vector3D(0, 0, 0, 0);
+	this._scenePosition = new away.core.geom.Vector3D(0, 0, 0, 0);
 	this._oldScene = null;
 	this._sceneTransformChanged = null;
 	this._scenePositionDirty = true;
@@ -29,7 +29,7 @@ away.containers.ObjectContainer3D = function() {
 	this._mouseChildren = true;
 	this._pMouseEnabled = false;
 	this._pImplicitPartition = null;
-	away.base.Object3D.call(this);
+	away.core.base.Object3D.call(this);
 };
 
 away.containers.ObjectContainer3D.prototype.getIgnoreTransform = function() {
@@ -135,7 +135,7 @@ away.containers.ObjectContainer3D.prototype.set_mouseEnabled = function(value) {
 };
 
 away.containers.ObjectContainer3D.prototype.iInvalidateTransform = function() {
-	away.base.Object3D.prototype.iInvalidateTransform.call(this);
+	away.core.base.Object3D.prototype.iInvalidateTransform.call(this);
 	this.notifySceneTransformChange();
 };
 
@@ -344,7 +344,7 @@ away.containers.ObjectContainer3D.prototype.contains = function(child) {
 
 away.containers.ObjectContainer3D.prototype.addChild = function(child) {
 	if (child == null) {
-		throw new away.errors.Error("Parameter child cannot be null.", 0, "");
+		throw new away.errors.away.errors.Error("Parameter child cannot be null.", 0, "");
 	}
 	if (child._pParent) {
 		child._pParent.removeChild(child);
@@ -369,11 +369,11 @@ away.containers.ObjectContainer3D.prototype.addChildren = function(childarray) {
 
 away.containers.ObjectContainer3D.prototype.removeChild = function(child) {
 	if (child == null) {
-		throw new away.errors.Error("Parameter child cannot be null", 0, "");
+		throw new away.errors.away.errors.Error("Parameter child cannot be null", 0, "");
 	}
 	var childIndex = this._children.indexOf(child, 0);
 	if (childIndex == -1) {
-		throw new away.errors.Error("Parameter is not a child of the caller", 0, "");
+		throw new away.errors.away.errors.Error("Parameter is not a child of the caller", 0, "");
 	}
 	this.removeChildInternal(childIndex, child);
 };
@@ -401,12 +401,12 @@ away.containers.ObjectContainer3D.prototype.get_numChildren = function() {
 
 away.containers.ObjectContainer3D.prototype.lookAt = function(target, upAxis) {
 	upAxis = upAxis || null;
-	away.base.Object3D.prototype.lookAt.call(this,target, upAxis);
+	away.core.base.Object3D.prototype.lookAt.call(this,target, upAxis);
 	this.notifySceneTransformChange();
 };
 
 away.containers.ObjectContainer3D.prototype.translateLocal = function(axis, distance) {
-	away.base.Object3D.prototype.translateLocal.call(this,axis, distance);
+	away.core.base.Object3D.prototype.translateLocal.call(this,axis, distance);
 	this.notifySceneTransformChange();
 };
 
@@ -428,7 +428,7 @@ away.containers.ObjectContainer3D.prototype.clone = function() {
 	clone.set_pivotPoint(this.get_pivotPoint());
 	clone.set_transform(this.get_transform());
 	clone.set_partition(this.get_partition());
-	clone.set_name($createStaticDelegate(this, this.get_name));
+	clone.set_name(this.get_name());
 	var len = this._children.length;
 	for (var i = 0; i < len; ++i) {
 		clone.addChild(this._children[i].clone());
@@ -437,7 +437,7 @@ away.containers.ObjectContainer3D.prototype.clone = function() {
 };
 
 away.containers.ObjectContainer3D.prototype.rotate = function(axis, angle) {
-	away.base.Object3D.prototype.rotate.call(this,axis, angle);
+	away.core.base.Object3D.prototype.rotate.call(this,axis, angle);
 	this.notifySceneTransformChange();
 };
 
@@ -449,7 +449,7 @@ away.containers.ObjectContainer3D.prototype.updateImplicitVisibility = function(
 	}
 };
 
-$inherit(away.containers.ObjectContainer3D, away.base.Object3D);
+$inherit(away.containers.ObjectContainer3D, away.core.base.Object3D);
 
 away.containers.ObjectContainer3D.className = "away.containers.ObjectContainer3D";
 
@@ -465,8 +465,8 @@ away.containers.ObjectContainer3D.getRuntimeDependencies = function(t) {
 away.containers.ObjectContainer3D.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
-	p.push('away.geom.Matrix3D');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.core.geom.Matrix3D');
 	return p;
 };
 
@@ -474,13 +474,13 @@ away.containers.ObjectContainer3D.injectionPoints = function(t) {
 	var p;
 	switch (t) {
 		case 1:
-			p = away.base.Object3D.injectionPoints(t);
+			p = away.core.base.Object3D.injectionPoints(t);
 			break;
 		case 2:
-			p = away.base.Object3D.injectionPoints(t);
+			p = away.core.base.Object3D.injectionPoints(t);
 			break;
 		case 3:
-			p = away.base.Object3D.injectionPoints(t);
+			p = away.core.base.Object3D.injectionPoints(t);
 			break;
 		default:
 			p = [];

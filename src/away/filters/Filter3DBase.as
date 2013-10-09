@@ -10,7 +10,7 @@ package away.filters
 {
 	import away.filters.tasks.Filter3DTaskBase;
 	import away.managers.Stage3DProxy;
-	import away.display3D.Texture;
+	import away.core.display3D.Texture;
 	import away.cameras.Camera3D;
 
 	public class Filter3DBase

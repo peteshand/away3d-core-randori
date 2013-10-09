@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:45 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -23,7 +23,6 @@ away.controllers.FirstPersonController = function(targetObject, panAngle, tiltAn
 	minTiltAngle = minTiltAngle || -90;
 	maxTiltAngle = maxTiltAngle || 90;
 	steps = steps || 8;
-	wrapPanAngle = wrapPanAngle || false;
 	away.controllers.ControllerBase.call(this, targetObject);
 	this.set_panAngle(panAngle);
 	this.set_tiltAngle(tiltAngle);
@@ -104,7 +103,6 @@ away.controllers.FirstPersonController.prototype.set_wrapPanAngle = function(val
 };
 
 away.controllers.FirstPersonController.prototype.update = function(interpolate) {
-	interpolate = interpolate || true;
 	if (this._tiltAngle != this._iCurrentTiltAngle || this._panAngle != this._iCurrentPanAngle) {
 		this.pNotifyUpdate();
 		if (this._wrapPanAngle) {
@@ -137,8 +135,8 @@ away.controllers.FirstPersonController.prototype.update = function(interpolate) 
 	if (this._walkIncrement) {
 		if (this.fly)
 			this.get_targetObject().moveForward(this._walkIncrement); else {
-			this.get_targetObject().set_x(this.get_targetObject().get_x() + this._walkIncrement * Math.sin(this._panAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
-			this.get_targetObject().set_z(this.get_targetObject().get_z() + this._walkIncrement * Math.cos(this._panAngle * away.math.MathConsts.DEGREES_TO_RADIANS));
+			this.get_targetObject().set_x(this.get_targetObject().get_x() + this._walkIncrement * Math.sin(this._panAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS));
+			this.get_targetObject().set_z(this.get_targetObject().get_z() + this._walkIncrement * Math.cos(this._panAngle * away.core.math.MathConsts.DEGREES_TO_RADIANS));
 		}
 		this._walkIncrement = 0;
 	}
@@ -169,7 +167,7 @@ away.controllers.FirstPersonController.className = "away.controllers.FirstPerson
 away.controllers.FirstPersonController.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.math.MathConsts');
+	p.push('away.core.math.MathConsts');
 	return p;
 };
 

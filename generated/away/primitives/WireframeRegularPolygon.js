@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -53,8 +53,8 @@ away.primitives.WireframeRegularPolygon.prototype.set_sides = function(value) {
 };
 
 away.primitives.WireframeRegularPolygon.prototype.pBuildGeometry = function() {
-	var v0 = new away.geom.Vector3D(0, 0, 0, 0);
-	var v1 = new away.geom.Vector3D(0, 0, 0, 0);
+	var v0 = new away.core.geom.Vector3D(0, 0, 0, 0);
+	var v1 = new away.core.geom.Vector3D(0, 0, 0, 0);
 	var index = 0;
 	var s;
 	if (this._orientation == away.primitives.WireframeRegularPolygon.ORIENTATION_XY) {
@@ -97,7 +97,7 @@ away.primitives.WireframeRegularPolygon.className = "away.primitives.WireframeRe
 away.primitives.WireframeRegularPolygon.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

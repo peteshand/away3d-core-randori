@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -80,8 +80,8 @@ away.primitives.WireframePlane.prototype.set_segmentsH = function(value) {
 };
 
 away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
-	var v0 = new away.geom.Vector3D(0, 0, 0, 0);
-	var v1 = new away.geom.Vector3D(0, 0, 0, 0);
+	var v0 = new away.core.geom.Vector3D(0, 0, 0, 0);
+	var v1 = new away.core.geom.Vector3D(0, 0, 0, 0);
 	var hw = this._width * .5;
 	var hh = this._height * .5;
 	var index = 0;
@@ -92,15 +92,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.y = -hh;
 		v1.z = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.x = (ws / this._segmentsW - .5) * this._width;
 			v1.x = (ws / this._segmentsW - .5) * this._width;
+			v0.x = v1.x;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.x = -hw;
 		v1.x = hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.y = (hs / this._segmentsH - .5) * this._height;
 			v1.y = (hs / this._segmentsH - .5) * this._height;
+			v0.y = v1.y;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	} else if (this._orientation == away.primitives.WireframePlane.ORIENTATION_XZ) {
@@ -109,15 +109,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.z = -hh;
 		v1.y = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.x = (ws / this._segmentsW - .5) * this._width;
 			v1.x = (ws / this._segmentsW - .5) * this._width;
+			v0.x = v1.x;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.x = -hw;
 		v1.x = hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.z = (hs / this._segmentsH - .5) * this._height;
 			v1.z = (hs / this._segmentsH - .5) * this._height;
+			v0.z = v1.z;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	} else if (this._orientation == away.primitives.WireframePlane.ORIENTATION_YZ) {
@@ -126,15 +126,15 @@ away.primitives.WireframePlane.prototype.pBuildGeometry = function() {
 		v1.y = -hh;
 		v1.x = 0;
 		for (ws = 0; ws <= this._segmentsW; ++ws) {
-			v0.z = (ws / this._segmentsW - .5) * this._width;
 			v1.z = (ws / this._segmentsW - .5) * this._width;
+			v0.z = v1.z;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 		v0.z = hw;
 		v1.z = -hw;
 		for (hs = 0; hs <= this._segmentsH; ++hs) {
-			v0.y = (hs / this._segmentsH - .5) * this._height;
 			v1.y = (hs / this._segmentsH - .5) * this._height;
+			v0.y = v1.y;
 			this.pUpdateOrAddSegment(index++, v0, v1);
 		}
 	}
@@ -147,7 +147,7 @@ away.primitives.WireframePlane.className = "away.primitives.WireframePlane";
 away.primitives.WireframePlane.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

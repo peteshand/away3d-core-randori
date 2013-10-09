@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:40 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -10,7 +10,7 @@ if (typeof away.animators.states == "undefined")
 away.animators.states.AnimationStateBase = function(animator, animationNode) {
 	this._positionDeltaDirty = true;
 	this._startTime = 0;
-	this._rootDelta = new away.geom.Vector3D(0, 0, 0, 0);
+	this._rootDelta = new away.core.geom.Vector3D(0, 0, 0, 0);
 	this._time = 0;
 	this._animationNode = null;
 	this._animator = null;
@@ -58,7 +58,7 @@ away.animators.states.AnimationStateBase.getRuntimeDependencies = function(t) {
 away.animators.states.AnimationStateBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

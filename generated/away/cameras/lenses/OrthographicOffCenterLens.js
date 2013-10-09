@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:34 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -56,7 +56,7 @@ away.cameras.lenses.OrthographicOffCenterLens.prototype.set_maxY = function(valu
 };
 
 away.cameras.lenses.OrthographicOffCenterLens.prototype.unproject = function(nX, nY, sZ) {
-	var v = new away.geom.Vector3D(nX, -nY, sZ, 1.0);
+	var v = new away.core.geom.Vector3D(nX, -nY, sZ, 1.0);
 	v = this.get_unprojectionMatrix().transformVector(v);
 	v.z = sZ;
 	return v;
@@ -82,40 +82,40 @@ away.cameras.lenses.OrthographicOffCenterLens.prototype.pUpdateMatrix = function
 	raw[13] = -(this._maxY + this._minY) * h;
 	raw[14] = -this._pNear * d;
 	raw[15] = 1;
-	raw[1] = 0;
-	raw[2] = 0;
-	raw[3] = 0;
-	raw[4] = 0;
-	raw[6] = 0;
-	raw[7] = 0;
-	raw[8] = 0;
-	raw[9] = 0;
 	raw[11] = 0;
+	raw[9] = raw[11];
+	raw[8] = raw[9];
+	raw[7] = raw[8];
+	raw[6] = raw[7];
+	raw[4] = raw[6];
+	raw[3] = raw[4];
+	raw[2] = raw[3];
+	raw[1] = raw[2];
 	this._pMatrix.copyRawDataFrom(raw, 0, false);
-	this._pFrustumCorners[0] = this._minX;
-	this._pFrustumCorners[9] = this._minX;
-	this._pFrustumCorners[12] = this._minX;
 	this._pFrustumCorners[21] = this._minX;
-	this._pFrustumCorners[3] = this._maxX;
-	this._pFrustumCorners[6] = this._maxX;
-	this._pFrustumCorners[15] = this._maxX;
+	this._pFrustumCorners[12] = this._pFrustumCorners[21];
+	this._pFrustumCorners[9] = this._pFrustumCorners[12];
+	this._pFrustumCorners[0] = this._pFrustumCorners[9];
 	this._pFrustumCorners[18] = this._maxX;
-	this._pFrustumCorners[1] = this._minY;
-	this._pFrustumCorners[4] = this._minY;
-	this._pFrustumCorners[13] = this._minY;
+	this._pFrustumCorners[15] = this._pFrustumCorners[18];
+	this._pFrustumCorners[6] = this._pFrustumCorners[15];
+	this._pFrustumCorners[3] = this._pFrustumCorners[6];
 	this._pFrustumCorners[16] = this._minY;
-	this._pFrustumCorners[7] = this._maxY;
-	this._pFrustumCorners[10] = this._maxY;
-	this._pFrustumCorners[19] = this._maxY;
+	this._pFrustumCorners[13] = this._pFrustumCorners[16];
+	this._pFrustumCorners[4] = this._pFrustumCorners[13];
+	this._pFrustumCorners[1] = this._pFrustumCorners[4];
 	this._pFrustumCorners[22] = this._maxY;
-	this._pFrustumCorners[2] = this._pNear;
-	this._pFrustumCorners[5] = this._pNear;
-	this._pFrustumCorners[8] = this._pNear;
+	this._pFrustumCorners[19] = this._pFrustumCorners[22];
+	this._pFrustumCorners[10] = this._pFrustumCorners[19];
+	this._pFrustumCorners[7] = this._pFrustumCorners[10];
 	this._pFrustumCorners[11] = this._pNear;
-	this._pFrustumCorners[14] = this._pFar;
-	this._pFrustumCorners[17] = this._pFar;
-	this._pFrustumCorners[20] = this._pFar;
+	this._pFrustumCorners[8] = this._pFrustumCorners[11];
+	this._pFrustumCorners[5] = this._pFrustumCorners[8];
+	this._pFrustumCorners[2] = this._pFrustumCorners[5];
 	this._pFrustumCorners[23] = this._pFar;
+	this._pFrustumCorners[20] = this._pFrustumCorners[23];
+	this._pFrustumCorners[17] = this._pFrustumCorners[20];
+	this._pFrustumCorners[14] = this._pFrustumCorners[17];
 	this._pMatrixInvalid = false;
 };
 
@@ -126,7 +126,7 @@ away.cameras.lenses.OrthographicOffCenterLens.className = "away.cameras.lenses.O
 away.cameras.lenses.OrthographicOffCenterLens.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.geom.Vector3D');
+	p.push('away.core.geom.Vector3D');
 	return p;
 };
 

@@ -68,8 +68,6 @@ package away.utils
 		
 		public static function setCanvasPosition(canvas:HTMLCanvasElement, x:Number, y:Number, absolute:Boolean = false):void
 		{
-			absolute = absolute || false;
-
 			if( absolute )
 			{
 				canvas.style.position = "absolute";

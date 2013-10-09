@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.6.2 on Sat Sep 28 11:54:54 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -92,7 +92,7 @@ away.materials.methods.ShadingMethodBase.prototype.pGetTexCubeSampleCode = funct
 
 away.materials.methods.ShadingMethodBase.prototype.getFormatStringForTexture = function(texture) {
 	switch (texture.get_format()) {
-		case away.display3D.Context3DTextureFormat.COMPRESSED:
+		case away.core.display3D.Context3DTextureFormat.COMPRESSED:
 			return "dxt1,";
 			break;
 		case "compressedAlpha":
@@ -117,8 +117,8 @@ away.materials.methods.ShadingMethodBase.className = "away.materials.methods.Sha
 away.materials.methods.ShadingMethodBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
+	p.push('away.core.display3D.Context3DTextureFormat');
 	p.push('away.events.ShadingMethodEvent');
-	p.push('away.display3D.Context3DTextureFormat');
 	p.push('away.materials.methods.MethodVO');
 	return p;
 };
