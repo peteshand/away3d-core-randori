@@ -45,7 +45,7 @@
     <file path="$PROJECT_DIR$/src/away/utils/ByteArrayBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
     <file path="$PROJECT_DIR$/src/away/library/assets/AssetType.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
     <file path="$PROJECT_DIR$/src/away/library/assets/IAsset.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
-    <file path="/README.md" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381505286596" ignored="false" />
+    <file path="/README.md" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381505389735" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +132,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="46" selection-start="547" selection-end="547" vertical-scroll-proportion="0.47125256">
+            <state line="27" column="0" selection-start="549" selection-end="549" vertical-scroll-proportion="0.47125256">
               <folding />
             </state>
           </provider>
@@ -714,7 +714,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="46" selection-start="547" selection-end="547" vertical-scroll-proportion="0.47125256">
+        <state line="27" column="0" selection-start="549" selection-end="549" vertical-scroll-proportion="0.47125256">
           <folding />
         </state>
       </provider>

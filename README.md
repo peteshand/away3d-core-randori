@@ -2,6 +2,7 @@ away3d-core-randori
 ===================
 
 Randori version of Away3d.
+
 Compiles from Actionscript3 to Javascript
 
 Breif Setup Instructions
@@ -22,6 +23,7 @@ Breif Setup Instructions
 
 8, You should be good to go.
 
-
+===================
 Known Issues:
-Issue with lights
+
+lights currently not working
