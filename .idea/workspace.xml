@@ -45,6 +45,7 @@
     <file path="$PROJECT_DIR$/src/away/utils/ByteArrayBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
     <file path="$PROJECT_DIR$/src/away/library/assets/AssetType.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
     <file path="$PROJECT_DIR$/src/away/library/assets/IAsset.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="/README.md" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381505286596" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,10 +120,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Parsers.as" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Parsers.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.14476386">
+            <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="46" selection-start="547" selection-end="547" vertical-scroll-proportion="0.47125256">
               <folding />
             </state>
           </provider>
@@ -194,7 +204,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/examples/BitmapDataTest.as" />
         <option value="$PROJECT_DIR$/src/examples/BitmapTextureTest.as" />
         <option value="$PROJECT_DIR$/src/examples/CubeDemo.as" />
         <option value="$PROJECT_DIR$/src/examples/ImageLoadTest.as" />
@@ -210,6 +219,7 @@
         <option value="$PROJECT_DIR$/src/away/core/display3D/Context3D.as" />
         <option value="$PROJECT_DIR$/src/aglsl/assembler/RegMap.as" />
         <option value="$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -605,13 +615,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/examples/CubeDemo.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/examples/ImageLoadTest.as">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
@@ -704,7 +707,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.14476386">
+        <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="46" selection-start="547" selection-end="547" vertical-scroll-proportion="0.47125256">
           <folding />
         </state>
       </provider>

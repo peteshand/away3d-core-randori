@@ -21,3 +21,7 @@ Breif Setup Instructions
 7, Install the "randori compiler" plugin.
 
 8, You should be good to go.
+
+
+Known Issues:
+Issue with lights
