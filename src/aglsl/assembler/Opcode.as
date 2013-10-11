@@ -12,16 +12,16 @@ package aglsl.assembler
 	{
 		
 		public var dest:String = null;
-		public var a:aglsl.assembler.FS;
-		public var b:aglsl.assembler.FS;
+		public var a:FS;
+		public var b:FS;
 		public var opcode:Number = 0;
-		public var flags:aglsl.assembler.Flags;
+		public var flags:Flags;
 		
 		public function Opcode(dest:String, aformat:String, asize:Number, bformat:String, bsize:Number, opcode:Number, simple:Boolean, horizontal:Boolean, fragonly:Boolean, matrix:Boolean):void
 		{
-			this.a = new aglsl.assembler.FS();
-			this.b = new aglsl.assembler.FS();
-			this.flags = new aglsl.assembler.Flags();
+			this.a = new FS();
+			this.b = new FS();
+			this.flags = new Flags();
 			
 			this.dest = dest;
 			this.a.format = aformat;

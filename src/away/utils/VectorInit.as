@@ -65,6 +65,15 @@ package away.utils
 			return v;
         }
 		
+		public static function VecArray(length:Number = 0):*
+        {
+			length = length || 0;
+
+			var v:Vector.<*> = new Vector.<*>();
+			for (var g:Number = 0; g < length; ++g) v.push(new Array());
+			return v;
+        }
+		
 		private static function Pop(v:*, defaultValue:*, length:Number = 0):*
         {
 			length = length || 0;

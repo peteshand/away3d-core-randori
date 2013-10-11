@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:39 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:05 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -6,7 +6,16 @@ if (typeof away.lights == "undefined")
 	away.lights = {};
 
 away.lights.DirectionalLight = function(xDir, yDir, zDir) {
-
+	this._tmpLookAt = null;
+	this._direction = null;
+	this._projAABBPoints = null;
+	this._sceneDirection = null;
+	xDir = xDir || 0;
+	yDir = yDir || -1;
+	zDir = zDir || 1;
+	away.lights.LightBase.call(this);
+	this.set_direction(new away.core.geom.Vector3D(xDir, yDir, zDir, 0));
+	this._sceneDirection = new away.core.geom.Vector3D(0, 0, 0, 0);
 };
 
 away.lights.DirectionalLight.prototype.pCreateEntityPartitionNode = function() {

@@ -93,7 +93,7 @@ package aglsl
 			
 			for ( var i:Number = 0; i < desc.tokens.length; i++ )
 			{
-				var lutentry = Mapping.agal2glsllut[desc.tokens[i].opcode];
+				var lutentry = Mapping.agal2glsllut()[desc.tokens[i].opcode];
 				if ( !lutentry )
 				{
 					throw "Opcode not valid or not implemented yet: " /*+token.opcode;*/

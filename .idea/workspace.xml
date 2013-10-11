@@ -5,9 +5,9 @@
     <ignored path="AwayGL-randori.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Main.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380712501554" ignored="false" />
-    <file path="/Context3D.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381311005847" ignored="false" />
+    <file path="/Context3D.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504283358" ignored="false" />
     <file path="/MaterialPassBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380625283820" ignored="false" />
-    <file path="/a.dummy" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381315967549" ignored="false" />
+    <file path="/a.dummy" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381406442665" ignored="false" />
     <file path="$PROJECT_DIR$/generated/away/managers/AGALProgram3DCache.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380629114736" ignored="false" />
     <file path="/AGALProgram3DCache.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380629164897" ignored="false" />
     <file path="/AGALTokenizer.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380630397508" ignored="false" />
@@ -21,35 +21,30 @@
     <file path="/main.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381311479365" ignored="false" />
     <file path="/PrimitiveBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380718631034" ignored="false" />
     <file path="/CompactSubGeometry.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380718976584" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/net/URLRequest.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/base/IRenderable.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/utils/RequestAnimationFrame.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/animators/IAnimator.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/geom/ColorTransform.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/managers/AGALProgram3DCache.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/passes/DistanceMapPass.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/library/assets/AssetType.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/passes/LightingPass.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/passes/ShadowCasterPass.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/passes/DepthMapPass.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/methods/ShaderMethodSetup.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/methods/ColorTransformMethod.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/methods/BasicSpecularMethod.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/methods/BasicNormalMethod.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/display/BlendMode.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/materials/methods/BasicDiffuseMethod.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801065270" ignored="false" />
     <file path="/Description.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801321659" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/base/CompactSubGeometry.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/base/SkinnedSubGeometry.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/base/SubGeometry.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/loaders/parsers/AWDParser.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801692476" ignored="false" />
     <file path="/RegMap.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380801779168" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/core/base/SubGeometryBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380802225206" ignored="false" />
     <file path="/AGLSLParser.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1380803119774" ignored="false" />
     <file path="/AGALMiniAssembler.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381309987987" ignored="false" />
-    <file path="$PROJECT_DIR$/src/away/utils/ByteArray.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381310985105" ignored="false" />
     <file path="$PROJECT_DIR$/generated/examples/ViewPlane.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381315576194" ignored="false" />
     <file path="/Away3D.next.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381315259204" ignored="false" />
+    <file path="$PROJECT_DIR$/generated/aglsl/AGALTokenizer.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381407348828" ignored="false" />
+    <file path="$PROJECT_DIR$/generated/aglsl/AGLSLParser.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381407348828" ignored="false" />
+    <file path="/Object3D.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381409474218" ignored="false" />
+    <file path="$PROJECT_DIR$/generated/away/containers/ObjectContainer3D.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381407767713" ignored="false" />
+    <file path="$PROJECT_DIR$/generated/away/core/base/Object3D.js" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381407767713" ignored="false" />
+    <file path="/Parsers.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381503741480" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/controllers/ControllerBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504024756" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/loaders/parsers/utils/ParserUtil.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/core/geom/Matrix3D.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/entities/Mesh.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/events/Object3DEvent.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504024757" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/containers/ObjectContainer3D.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/loaders/misc/ResourceDependency.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/loaders/misc/SingleFileLoader.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/utils/ByteArray.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262890" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/utils/ByteArrayBase.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/library/assets/AssetType.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
+    <file path="$PROJECT_DIR$/src/away/library/assets/IAsset.as" changelist="f2de93be-4160-4068-b5cc-1beca83cff37" time="1381504262891" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +62,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -104,6 +98,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -113,66 +108,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AWDSuzanne.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/examples/AWDSuzanne.as">
+      <file leaf-file-name="Object3D.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/core/base/Object3D.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="70" selection-start="3049" selection-end="3049" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewPlane.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/examples/ViewPlane.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="27" selection-start="2792" selection-end="2801" vertical-scroll-proportion="-13.96">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DirectionalLight.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/away/lights/DirectionalLight.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="35" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#352#383#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DirectionalLightNode.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/away/core/partition/DirectionalLightNode.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="22" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultRenderer.as" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/away/core/render/DefaultRenderer.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="12" selection-start="3174" selection-end="3174" vertical-scroll-proportion="-4.2608695">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SuperShaderCompiler.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/away/materials/compilation/SuperShaderCompiler.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="57" selection-start="989" selection-end="989" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SuperShaderCompiler.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generated/away/materials/compilation/SuperShaderCompiler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="51" selection-start="19039" selection-end="19039" vertical-scroll-proportion="-86.7">
+            <state line="855" column="29" selection-start="21402" selection-end="21407" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -180,22 +119,67 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Away3D.next.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/typescript-js-version--for-testing/Away3D.next.js">
+      <file leaf-file-name="Parsers.as" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41338" column="53" selection-start="1663014" selection-end="1663019" vertical-scroll-proportion="0.08">
+            <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.14476386">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/typescript-js-version--for-testing/main.js">
+      <file leaf-file-name="CubeTextureBase.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/textures/CubeTextureBase.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="28" selection-start="1658" selection-end="1658" vertical-scroll-proportion="0.0">
+            <state line="29" column="44" selection-start="896" selection-end="913" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Context3D.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/core/display3D/Context3D.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="121" column="68" selection-start="3815" selection-end="3815" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegMap.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/aglsl/assembler/RegMap.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="43" selection-start="622" selection-end="622" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Max3DSParser.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Max3DSParser.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="481" column="40" selection-start="14396" selection-end="14396" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParserBase.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/ParserBase.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="37" selection-start="589" selection-end="615" vertical-scroll-proportion="-6.12">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sprite3D.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/away/entities/Sprite3D.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="194" column="17" selection-start="5881" selection-end="5881" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -210,22 +194,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/aglsl/assembler/SamplerMap.as" />
-        <option value="$PROJECT_DIR$/src/aglsl/assembler/RegMap.as" />
-        <option value="$PROJECT_DIR$/src/aglsl/assembler/OpcodeMap.as" />
-        <option value="$PROJECT_DIR$/src/aglsl/assembler/AGALMiniAssembler.as" />
-        <option value="$PROJECT_DIR$/src/aglsl/AGLSLCompiler.as" />
-        <option value="$PROJECT_DIR$/src/away/core/display3D/Context3D.as" />
-        <option value="$PROJECT_DIR$/src/examples/AWDSuzanneLights.as" />
-        <option value="$PROJECT_DIR$/src/Main.as" />
-        <option value="$PROJECT_DIR$/src/examples/AWDSuzanne.as" />
-        <option value="$PROJECT_DIR$/generated/away/lights/DirectionalLight.js" />
-        <option value="$PROJECT_DIR$/generated/away/lights/LightBase.js" />
-        <option value="$PROJECT_DIR$/typescript-js-version--for-testing/main.js" />
-        <option value="$PROJECT_DIR$/generated/away/materials/passes/MaterialPassBase.js" />
-        <option value="$PROJECT_DIR$/typescript-js-version--for-testing/Away3D.next.js" />
-        <option value="$PROJECT_DIR$/generated/away/materials/compilation/SuperShaderCompiler.js" />
+        <option value="$PROJECT_DIR$/src/examples/BitmapDataTest.as" />
+        <option value="$PROJECT_DIR$/src/examples/BitmapTextureTest.as" />
+        <option value="$PROJECT_DIR$/src/examples/CubeDemo.as" />
+        <option value="$PROJECT_DIR$/src/examples/ImageLoadTest.as" />
+        <option value="$PROJECT_DIR$/src/examples/MipMapTest.as" />
+        <option value="$PROJECT_DIR$/src/examples/ObjChiefTestDay.as" />
+        <option value="$PROJECT_DIR$/src/examples/PhongTorus.as" />
+        <option value="$PROJECT_DIR$/src/examples/PlaneTest.as" />
+        <option value="$PROJECT_DIR$/src/examples/RotatingTorus.as" />
         <option value="$PROJECT_DIR$/src/examples/ViewPlane.as" />
+        <option value="$PROJECT_DIR$/src/away/core/base/Object3D.as" />
+        <option value="$PROJECT_DIR$/src/away/loaders/parsers/Max3DSParser.as" />
+        <option value="$PROJECT_DIR$/src/away/loaders/parsers/ParserBase.as" />
+        <option value="$PROJECT_DIR$/src/away/core/display3D/Context3D.as" />
+        <option value="$PROJECT_DIR$/src/aglsl/assembler/RegMap.as" />
+        <option value="$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as" />
       </list>
     </option>
   </component>
@@ -290,39 +274,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="typescript-js-version--for-testing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -362,7 +314,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lights" />
+              <option name="myItemId" value="loaders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -376,39 +328,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="away" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -416,105 +336,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="materials" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
+              <option name="myItemId" value="loaders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="away" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="materials" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compilation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="away" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AwayGL-randori" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generated" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="away" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="display3D" />
+              <option name="myItemId" value="parsers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="preferences.pluginManager" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -532,6 +385,14 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="#randori.plugin.runner.RandoriRunnerConfigurationType" factoryName="Randori Runner">
       <option name="name" value="Randori Application" />
       <option name="saveOutputToFile" value="false" />
@@ -543,12 +404,17 @@
       <module name="" />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -577,19 +443,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -659,13 +512,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="0" width="1900" height="1160" extended-state="0" />
-    <editor active="false" />
+    <frame x="10" y="0" width="1900" height="1160" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -680,10 +532,11 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24972796" sideWeight="0.67" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24972796" sideWeight="0.67" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24972796" sideWeight="0.67" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -752,132 +605,196 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generated/away/lights/LightBase.js">
+    <entry file="file://$PROJECT_DIR$/src/examples/CubeDemo.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="36" selection-start="4014" selection-end="4075" vertical-scroll-proportion="-23.8">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/typescript-js-version--for-testing/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="28" selection-start="1658" selection-end="1658" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/materials/ColorMaterial.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="17" selection-start="526" selection-end="526" vertical-scroll-proportion="0.0">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/materials/passes/MaterialPassBase.as">
+    <entry file="file://$PROJECT_DIR$/src/examples/ImageLoadTest.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="45" selection-start="2361" selection-end="2361" vertical-scroll-proportion="0.0">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/MipMapTest.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/ObjChiefTestDay.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generated/away/materials/passes/MaterialPassBase.js">
+    <entry file="file://$PROJECT_DIR$/src/examples/PhongTorus.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="312" column="109" selection-start="10231" selection-end="11437" vertical-scroll-proportion="-13.26">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/materials/MaterialBase.as">
+    <entry file="file://$PROJECT_DIR$/src/examples/PlaneTest.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="52" selection-start="3919" selection-end="3935" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/materials/SinglePassMaterialBase.as">
+    <entry file="file://$PROJECT_DIR$/src/examples/RotatingTorus.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="508" column="32" selection-start="13508" selection-end="13522" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generated/away/materials/lightpickers/StaticLightPicker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="6" selection-start="3926" selection-end="4332" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generated/away/core/display3D/Context3D.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.4034908">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/materials/compilation/SuperShaderCompiler.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="57" selection-start="989" selection-end="989" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/typescript-js-version--for-testing/Away3D.next.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41338" column="53" selection-start="1663014" selection-end="1663019" vertical-scroll-proportion="0.08">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generated/away/materials/compilation/SuperShaderCompiler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="51" selection-start="19039" selection-end="19039" vertical-scroll-proportion="-86.7">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/examples/ViewPlane.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="27" selection-start="2792" selection-end="2801" vertical-scroll-proportion="-13.96">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/away/entities/Sprite3D.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="194" column="17" selection-start="5881" selection-end="5881" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/lights/DirectionalLight.as">
+    <entry file="file://$PROJECT_DIR$/src/away/core/base/Object3D.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="35" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0">
+        <state line="855" column="29" selection-start="21402" selection-end="21407" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#352#383#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/core/partition/DirectionalLightNode.as">
+    <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/ParserBase.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="22" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0">
+        <state line="15" column="37" selection-start="589" selection-end="615" vertical-scroll-proportion="-6.12">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/away/core/render/DefaultRenderer.as">
+    <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Max3DSParser.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="12" selection-start="3174" selection-end="3174" vertical-scroll-proportion="-4.2608695">
+        <state line="481" column="40" selection-start="14396" selection-end="14396" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/away/textures/CubeTextureBase.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="44" selection-start="896" selection-end="913" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/away/core/display3D/Context3D.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="68" selection-start="3815" selection-end="3815" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/aglsl/assembler/RegMap.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="43" selection-start="622" selection-end="622" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/away/loaders/parsers/Parsers.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="162" selection-start="875" selection-end="875" vertical-scroll-proportion="0.14476386">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>Randori SDK 0.3.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>AwayGL-randori</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
 

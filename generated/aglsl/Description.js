@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:01 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -9,8 +9,8 @@ this.samplers = [];
 this.hasmatrix = false;
 this.hasindirect = false;
 this.header = new aglsl.Header();
-this.regwrite = away.utils.VectorInit.AnyClass(7);
-this.regread = away.utils.VectorInit.AnyClass(7);
+this.regwrite = away.utils.VectorInit.VecArray(7);
+this.regread = away.utils.VectorInit.VecArray(7);
 this.writedepth = false;
 };
 

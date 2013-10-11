@@ -11,8 +11,8 @@ package aglsl
 	import away.utils.VectorInit;
 	public class Description
 	{
-		public var regread:Vector.<*> = VectorInit.AnyClass(7);
-        public var regwrite:Vector.<*> = VectorInit.AnyClass(7);
+		public var regread:Vector.<*> = VectorInit.VecArray(7);
+        public var regwrite:Vector.<*> = VectorInit.VecArray(7);
         public var hasindirect:Boolean = false;
         public var writedepth:Boolean = false;
         public var hasmatrix:Boolean = false;

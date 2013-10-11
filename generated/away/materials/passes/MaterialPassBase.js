@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:01 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -8,7 +8,7 @@ if (typeof away.materials.passes == "undefined")
 	away.materials.passes = {};
 
 away.materials.passes.MaterialPassBase = function(renderToTexture) {
-	this._iProgram3Ds = new Array(8);
+	this._iProgram3Ds = away.utils.VectorInit.AnyClass(8);
 	this._pSmooth = true;
 	this._pMaterial = null;
 	this._pRepeat = false;
@@ -20,25 +20,25 @@ away.materials.passes.MaterialPassBase = function(renderToTexture) {
 	this._pUVTarget = null;
 	this._pNumUsedVaryings = 0;
 	this._pLightPicker = null;
-	this._pAnimationTargetRegisters = new Array();
+	this._pAnimationTargetRegisters = away.utils.VectorInit.Str(0, "");
 	this._oldSurface = 0;
-	this._pAnimatableAttributes = new Array();
+	this._pAnimatableAttributes = away.utils.VectorInit.Str(0, "");
 	this._pNumUsedFragmentConstants = 0;
 	this._previousUsedTexs = [0, 0, 0, 0, 0, 0, 0, 0];
-	this._blendFactorDest = away.display3D.Context3DBlendFactor.ZERO;
+	this._blendFactorDest = away.core.display3D.Context3DBlendFactor.ZERO;
 	this._pNeedUVAnimation = false;
 	this._previousUsedStreams = [0, 0, 0, 0, 0, 0, 0, 0];
 	this._pNumUsedStreams = 0;
-	this._defaultCulling = away.display3D.Context3DTriangleFace.BACK;
+	this._defaultCulling = away.core.display3D.Context3DTriangleFace.BACK;
 	this._pNeedFragmentAnimation = false;
 	this._pNumUsedTextures = 0;
-	this._context3Ds = new Array(8);
+	this._context3Ds = away.utils.VectorInit.AnyClass(8);
 	this._pUVSource = null;
-	this._blendFactorSource = away.display3D.Context3DBlendFactor.ONE;
+	this._blendFactorSource = away.core.display3D.Context3DBlendFactor.ONE;
 	this._writeDepth = true;
 	this._pNumUsedVertexConstants = 0;
 	this._renderToTexture = false;
-	this._depthCompareMode = away.display3D.Context3DCompareMode.LESS_EQUAL;
+	this._depthCompareMode = away.core.display3D.Context3DCompareMode.LESS_EQUAL;
 	this._oldDepthStencil = false;
 	this._pShadedTarget = "ft0";
 	this._oldTarget = null;
@@ -181,7 +181,7 @@ away.materials.passes.MaterialPassBase.prototype.get_needUVAnimation = function(
 };
 
 away.materials.passes.MaterialPassBase.prototype.iUpdateAnimationState = function(renderable, stage3DProxy, camera) {
-	renderable.animator.setRenderState(stage3DProxy, renderable, this._pNumUsedVertexConstants, this._pNumUsedStreams, camera);
+	renderable.get_animator().setRenderState(stage3DProxy, renderable, this._pNumUsedVertexConstants, this._pNumUsedStreams, camera);
 };
 
 away.materials.passes.MaterialPassBase.prototype.iRender = function(renderable, stage3DProxy, camera, viewProjection) {
@@ -198,29 +198,29 @@ away.materials.passes.MaterialPassBase.prototype.iGetFragmentCode = function(fra
 
 away.materials.passes.MaterialPassBase.prototype.setBlendMode = function(value) {
 	switch (value) {
-		case away.display.BlendMode.NORMAL:
-			this._blendFactorSource = away.display3D.Context3DBlendFactor.ONE;
-			this._blendFactorDest = away.display3D.Context3DBlendFactor.ZERO;
+		case away.core.display.BlendMode.NORMAL:
+			this._blendFactorSource = away.core.display3D.Context3DBlendFactor.ONE;
+			this._blendFactorDest = away.core.display3D.Context3DBlendFactor.ZERO;
 			this._pEnableBlending = false;
 			break;
-		case away.display.BlendMode.LAYER:
-			this._blendFactorSource = away.display3D.Context3DBlendFactor.SOURCE_ALPHA;
-			this._blendFactorDest = away.display3D.Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA;
+		case away.core.display.BlendMode.LAYER:
+			this._blendFactorSource = away.core.display3D.Context3DBlendFactor.SOURCE_ALPHA;
+			this._blendFactorDest = away.core.display3D.Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA;
 			this._pEnableBlending = true;
 			break;
-		case away.display.BlendMode.MULTIPLY:
-			this._blendFactorSource = away.display3D.Context3DBlendFactor.ZERO;
-			this._blendFactorDest = away.display3D.Context3DBlendFactor.SOURCE_COLOR;
+		case away.core.display.BlendMode.MULTIPLY:
+			this._blendFactorSource = away.core.display3D.Context3DBlendFactor.ZERO;
+			this._blendFactorDest = away.core.display3D.Context3DBlendFactor.SOURCE_COLOR;
 			this._pEnableBlending = true;
 			break;
-		case away.display.BlendMode.ADD:
-			this._blendFactorSource = away.display3D.Context3DBlendFactor.SOURCE_ALPHA;
-			this._blendFactorDest = away.display3D.Context3DBlendFactor.ONE;
+		case away.core.display.BlendMode.ADD:
+			this._blendFactorSource = away.core.display3D.Context3DBlendFactor.SOURCE_ALPHA;
+			this._blendFactorDest = away.core.display3D.Context3DBlendFactor.ONE;
 			this._pEnableBlending = true;
 			break;
-		case away.display.BlendMode.ALPHA:
-			this._blendFactorSource = away.display3D.Context3DBlendFactor.ZERO;
-			this._blendFactorDest = away.display3D.Context3DBlendFactor.SOURCE_ALPHA;
+		case away.core.display.BlendMode.ALPHA:
+			this._blendFactorSource = away.core.display3D.Context3DBlendFactor.ZERO;
+			this._blendFactorDest = away.core.display3D.Context3DBlendFactor.SOURCE_ALPHA;
 			this._pEnableBlending = true;
 			break;
 		default:
@@ -249,16 +249,16 @@ away.materials.passes.MaterialPassBase.prototype.iActivate = function(stage3DPro
 	for (i = this._pNumUsedTextures; i < prevUsed; ++i) {
 		context.setTextureAt(i, null);
 	}
-	if (this._animationSet && !this._animationSet.usesCPU) {
+	if (this._animationSet && !this._animationSet.get_usesCPU()) {
 		this._animationSet.activate(stage3DProxy, this);
 	}
 	context.setProgram(this._iProgram3Ds[contextIndex]);
-	context.setCulling(this._pBothSides ? away.display3D.Context3DTriangleFace.NONE : this._defaultCulling);
+	context.setCulling(this._pBothSides ? away.core.display3D.Context3DTriangleFace.NONE : this._defaultCulling);
 	if (this._renderToTexture) {
-		this._oldTarget = stage3DProxy.renderTarget;
-		this._oldSurface = stage3DProxy.renderSurfaceSelector;
-		this._oldDepthStencil = stage3DProxy.enableDepthAndStencil;
-		this._oldRect = stage3DProxy.scissorRect;
+		this._oldTarget = stage3DProxy.get_renderTarget();
+		this._oldSurface = stage3DProxy.get_renderSurfaceSelector();
+		this._oldDepthStencil = stage3DProxy.get_enableDepthAndStencil();
+		this._oldRect = stage3DProxy.get_scissorRect();
 	}
 };
 
@@ -266,14 +266,14 @@ away.materials.passes.MaterialPassBase.prototype.iDeactivate = function(stage3DP
 	var index = stage3DProxy._iStage3DIndex;
 	away.materials.passes.MaterialPassBase._previousUsedStreams[index] = this._pNumUsedStreams;
 	away.materials.passes.MaterialPassBase._previousUsedTexs[index] = this._pNumUsedTextures;
-	if (this._animationSet && !this._animationSet.usesCPU) {
+	if (this._animationSet && !this._animationSet.get_usesCPU()) {
 		this._animationSet.deactivate(stage3DProxy, this);
 	}
 	if (this._renderToTexture) {
 		stage3DProxy.setRenderTarget(this._oldTarget, this._oldDepthStencil, this._oldSurface);
-		stage3DProxy.scissorRect = this._oldRect;
+		stage3DProxy.set_scissorRect(this._oldRect);
 	}
-	stage3DProxy._iContext3D.setDepthTest(true, away.display3D.Context3DCompareMode.LESS_EQUAL);
+	stage3DProxy._iContext3D.setDepthTest(true, away.core.display3D.Context3DCompareMode.LESS_EQUAL);
 };
 
 away.materials.passes.MaterialPassBase.prototype.iInvalidateShaderProgram = function(updateMaterial) {
@@ -290,10 +290,10 @@ away.materials.passes.MaterialPassBase.prototype.iUpdateProgram = function(stage
 	var UVAnimatorCode = "";
 	var fragmentAnimatorCode = "";
 	var vertexCode = this.iGetVertexCode();
-	if (this._animationSet && !this._animationSet.usesCPU) {
-		animatorCode = this._animationSet.getAGALVertexCode(this, this._pAnimatableAttributes, this._pAnimationTargetRegisters, stage3DProxy.profile);
+	if (this._animationSet && !this._animationSet.get_usesCPU()) {
+		animatorCode = this._animationSet.getAGALVertexCode(this, this._pAnimatableAttributes, this._pAnimationTargetRegisters, stage3DProxy.get_profile());
 		if (this._pNeedFragmentAnimation) {
-			fragmentAnimatorCode = this._animationSet.getAGALFragmentCode(this, this._pShadedTarget, stage3DProxy.profile());
+			fragmentAnimatorCode = this._animationSet.getAGALFragmentCode(this, this._pShadedTarget, stage3DProxy.get_profile());
 		}
 		if (this._pNeedUVAnimation) {
 			UVAnimatorCode = this._animationSet.getAGALUVCode(this, this._pUVSource, this._pUVTarget);
@@ -351,24 +351,24 @@ away.materials.passes.MaterialPassBase.className = "away.materials.passes.Materi
 away.materials.passes.MaterialPassBase.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DBlendFactor');
+	p.push('away.core.display3D.Context3DBlendFactor');
 	p.push('away.events.Event');
-	p.push('away.display.BlendMode');
+	p.push('away.core.display.BlendMode');
 	p.push('away.errors.AbstractMethodError');
 	p.push('away.managers.AGALProgram3DCache');
-	p.push('away.display3D.Context3DCompareMode');
+	p.push('away.core.display3D.Context3DCompareMode');
 	p.push('away.managers.Stage3DProxy');
-	p.push('away.display3D.Context3DTriangleFace');
+	p.push('away.core.display3D.Context3DTriangleFace');
 	return p;
 };
 
 away.materials.passes.MaterialPassBase.getStaticDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.display3D.Context3DBlendFactor');
+	p.push('away.core.display3D.Context3DBlendFactor');
 	p.push('away.utils.VectorInit');
-	p.push('away.display3D.Context3DCompareMode');
-	p.push('away.display3D.Context3DTriangleFace');
+	p.push('away.core.display3D.Context3DCompareMode');
+	p.push('away.core.display3D.Context3DTriangleFace');
 	return p;
 };
 

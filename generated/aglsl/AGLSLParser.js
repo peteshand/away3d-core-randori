@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:41 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:08 EST 2013 */
 
 if (typeof aglsl == "undefined")
 	var aglsl = {};
@@ -53,7 +53,7 @@ aglsl.AGLSLParser.prototype.parse = function(desc) {
 	}
 	body += "void main() {\n";
 	for (var i = 0; i < desc.tokens.length; i++) {
-		var lutentry = aglsl.Mapping.agal2glsllut[desc.tokens[i].opcode];
+		var lutentry = aglsl.Mapping.agal2glsllut()[desc.tokens[i].opcode];
 		if (!lutentry) {
 			throw "Opcode not valid or not implemented yet: ";
 		}

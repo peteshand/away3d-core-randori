@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 21:45:47 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:06 EST 2013 */
 
 if (typeof examples == "undefined")
 	var examples = {};
@@ -33,9 +33,10 @@ examples.ViewPlane.prototype.imageCompleteHandler = function(e) {
 	var htmlImageElement = imageLoader.get_image();
 	var texture = new away.textures.HTMLImageElementTexture(htmlImageElement, false);
 	var material = new away.materials.ColorMaterial(0xFFFFFF, 1);
-	this.light = new away.lights.PointLight();
+	this.light = new away.lights.DirectionalLight(0, -1, 1);
 	this.light.set_color(0x683019);
-	this.light.set_ambient(0.3);
+	this.light.set_direction(new away.core.geom.Vector3D(0, -1, 1, 0));
+	this.light.set_ambient(0.1);
 	this.light.set_ambientColor(0xFFFFFF);
 	this.light.set_diffuse(2.8);
 	this.light.set_specular(1.8);
@@ -74,18 +75,19 @@ examples.ViewPlane.className = "examples.ViewPlane";
 examples.ViewPlane.getRuntimeDependencies = function(t) {
 	var p;
 	p = [];
-	p.push('away.cameras.lenses.PerspectiveLens');
-	p.push('away.events.Event');
-	p.push('away.lights.PointLight');
 	p.push('away.core.net.URLRequest');
-	p.push('away.entities.Mesh');
-	p.push('away.materials.lightpickers.StaticLightPicker');
+	p.push('away.lights.DirectionalLight');
 	p.push('away.containers.View3D');
 	p.push('Object');
 	p.push('away.textures.HTMLImageElementTexture');
-	p.push('away.materials.ColorMaterial');
 	p.push('away.primitives.PlaneGeometry');
 	p.push('away.core.net.IMGLoader');
+	p.push('away.cameras.lenses.PerspectiveLens');
+	p.push('away.events.Event');
+	p.push('away.entities.Mesh');
+	p.push('away.core.geom.Vector3D');
+	p.push('away.materials.lightpickers.StaticLightPicker');
+	p.push('away.materials.ColorMaterial');
 	return p;
 };
 

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:38 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:03 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -56,6 +56,14 @@ away.utils.VectorInit.AnyClass = function(length) {
 	var v = [];
 	for (var g = 0; g < length; ++g)
 		v.push(null);
+	return v;
+};
+
+away.utils.VectorInit.VecArray = function(length) {
+	length = length || 0;
+	var v = [];
+	for (var g = 0; g < length; ++g)
+		v.push([]);
 	return v;
 };
 

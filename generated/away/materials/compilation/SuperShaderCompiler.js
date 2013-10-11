@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:42 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:09 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -15,8 +15,8 @@ away.materials.compilation.SuperShaderCompiler = function(profile) {
 
 away.materials.compilation.SuperShaderCompiler.prototype.pInitLightData = function() {
 	away.materials.compilation.ShaderCompiler.prototype.pInitLightData.call(this);
-	this._pointLightRegisters = new Array(this._pNumPointLights * 3);
-	this._dirLightRegisters = new Array(this._pNumDirectionalLights * 3);
+	this._pointLightRegisters = away.utils.VectorInit.AnyClass(this._pNumPointLights * 3);
+	this._dirLightRegisters = away.utils.VectorInit.AnyClass(this._pNumDirectionalLights * 3);
 };
 
 away.materials.compilation.SuperShaderCompiler.prototype.pCalculateDependencies = function() {
@@ -25,7 +25,7 @@ away.materials.compilation.SuperShaderCompiler.prototype.pCalculateDependencies 
 };
 
 away.materials.compilation.SuperShaderCompiler.prototype.pCompileNormalCode = function() {
-	var normalMatrix = new Array(3);
+	var normalMatrix = away.utils.VectorInit.AnyClass(3);
 	this._pSharedRegisters.normalFragment = this._pRegisterCache.getFreeFragmentVectorTemp();
 	this._pRegisterCache.addFragmentTempUsages(this._pSharedRegisters.normalFragment, this._pDependencyCounter.get_normalDependencies());
 	if (this._pMethodSetup._iNormalMethod.get_iHasOutput() && !this._pMethodSetup._iNormalMethod.get_iTangentSpace()) {
@@ -264,10 +264,10 @@ away.materials.compilation.SuperShaderCompiler.prototype.compileLightProbeCode =
 		return;
 	}
 	if (addDiff) {
-		this._pLightProbeDiffuseIndices = new Array();
+		this._pLightProbeDiffuseIndices = away.utils.VectorInit.Num(0, 0);
 	}
 	if (addSpec) {
-		this._pLightProbeSpecularIndices = new Array();
+		this._pLightProbeSpecularIndices = away.utils.VectorInit.Num(0, 0);
 	}
 	for (i = 0; i < this._pNumProbeRegisters; ++i) {
 		weightRegisters[i] = this._pRegisterCache.getFreeFragmentConstant();

@@ -1,4 +1,4 @@
-/** Compiled by the Randori compiler v0.2.5.2 on Wed Oct 09 20:30:37 EST 2013 */
+/** Compiled by the Randori compiler v0.2.5.2 on Sat Oct 12 02:16:02 EST 2013 */
 
 if (typeof away == "undefined")
 	var away = {};
@@ -41,7 +41,7 @@ away.lights.LightBase.prototype.set_castsShadows = function(value) {
 		if (this._shadowMapper == null) {
 			this._shadowMapper = this.pCreateShadowMapper();
 		}
-		this._shadowMapper.light = this;
+		this._shadowMapper.set_light(this);
 	} else {
 		this._shadowMapper.dispose();
 		this._shadowMapper = null;
@@ -150,7 +150,7 @@ away.lights.LightBase.prototype.get_shadowMapper = function() {
 
 away.lights.LightBase.prototype.set_shadowMapper = function(value) {
 	this._shadowMapper = value;
-	this._shadowMapper.light = this;
+	this._shadowMapper.set_light(this);
 };
 
 $inherit(away.lights.LightBase, away.entities.Entity);
